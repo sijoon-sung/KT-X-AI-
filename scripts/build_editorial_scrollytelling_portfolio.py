@@ -1,4 +1,118 @@
-<!DOCTYPE html>
+"""
+The Pudding / NYT The Upshot / Bloomberg Graphics Style
+Editorial Scrollytelling Web Portfolio Generator for Tashu AI Project
+Author: 성시준
+"""
+import os
+import sys
+import json
+from pathlib import Path
+import pandas as pd
+import numpy as np
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+ROOT = Path("C:/Users/sijoo/Documents/tashu")
+
+# 1. Load Station Data
+stations_df = pd.read_parquet(ROOT / "data/processed/stations.parquet")
+# Filter valid stations with lat/lon
+valid_stations = stations_df.dropna(subset=['lat', 'lon']).copy()
+top_stations = valid_stations.head(80).to_dict('records')
+top_stations_json = []
+for s in top_stations:
+    top_stations_json.append({
+        'id': str(s['station_id']),
+        'name': str(s['name']),
+        'gu': str(s.get('gu', '')),
+        'dong': str(s.get('dong', '')),
+        'lat': float(s['lat']),
+        'lon': float(s['lon']),
+        'cap': int(s.get('capacity', 10) if not pd.isna(s.get('capacity')) else 10)
+    })
+
+# 2. Load Top Flows
+with open(ROOT / "outputs/top_flows.json", 'r', encoding='utf-8') as f:
+    raw_flows = json.load(f)
+
+flows_clean = []
+for fl in raw_flows[:12]:
+    flows_clean.append({
+        'src_id': fl['src_id'],
+        'src_name': fl['src_name'],
+        'src_lat': float(fl['src_lat']),
+        'src_lon': float(fl['src_lon']),
+        'dst_id': fl['dst_id'],
+        'dst_name': fl['dst_name'],
+        'dst_lat': float(fl['dst_lat']),
+        'dst_lon': float(fl['dst_lon']),
+        'trips': int(fl['trips'])
+    })
+
+# 3. Load EDA Summary
+with open(ROOT / "outputs/eda_analysis_summary.json", 'r', encoding='utf-8') as f:
+    eda_summary = json.load(f)
+
+# 4. Generate SVG 24h M-Curve
+hours = list(range(24))
+weekday_vals = [eda_summary['weekday_hourly'][str(h)] for h in hours]
+max_v = max(weekday_vals) # 627,088
+mcurve_svg = '<svg viewBox="0 0 380 90" width="100%" height="90" style="overflow:visible; display:block;">\\n'
+for h in hours:
+    val = weekday_vals[h]
+    bar_h = int((val / max_v) * 58)
+    x = h * 15 + 10
+    y = 66 - bar_h
+    is_peak = (h == 8 or h == 18)
+    color = "#f43f5e" if h == 18 else ("#38bdf8" if h == 8 else "#334155")
+    mcurve_svg += f'<rect x="{x}" y="{y}" width="11" height="{bar_h}" rx="2" fill="{color}" opacity="{0.95 if is_peak else 0.65}">'
+    mcurve_svg += f'<title>{h}시: {val:,}건</title></rect>\\n'
+    if h in [0, 8, 12, 18, 23]:
+        lbl_col = "#f43f5e" if h == 18 else ("#38bdf8" if h == 8 else "#64748b")
+        mcurve_svg += f'<text x="{x+5.5}" y="80" fill="{lbl_col}" font-size="9" text-anchor="middle" font-family="monospace">{h:02d}</text>\\n'
+mcurve_svg += '</svg>'
+
+# 5. Load Tram Synergy Summary
+with open(ROOT / "outputs/final_model/tram_synergy_summary.json", 'r', encoding='utf-8') as f:
+    tram_summary = json.load(f)
+
+# Define Tram Line 2 38.8km Loop Waypoints in Daejeon
+tram_loop_coords = [
+    [36.3212, 127.4042], # 서대전역
+    [36.3235, 127.4190], # 보문산 / 부사동
+    [36.3291, 127.4428], # 대동역 (1호선 환승)
+    [36.3402, 127.4485], # 자양 / 우송대
+    [36.3516, 127.4371], # 복합터미널 / 용전
+    [36.3625, 127.4208], # 오정동 / 한남대
+    [36.3615, 127.3872], # 둔산 정부청사 (1호선 환승)
+    [36.3742, 127.3820], # 엑스포과학공원 / 신세계
+    [36.3755, 127.3685], # 카이스트 본원
+    [36.3680, 127.3520], # 유성구청 / 어은동
+    [36.3538, 127.3415], # 충남대 / 유성온천역 (1호선 환승)
+    [36.3410, 127.3425], # 상대동 / 도안대로
+    [36.3320, 127.3460], # 원신흥동
+    [36.3150, 127.3420], # 관저동 / 건양대병원
+    [36.3120, 127.3650], # 정림동
+    [36.3155, 127.3780], # 도마네거리 / 배재대
+    [36.3185, 127.3950], # 유천동
+    [36.3212, 127.4042]  # 서대전역 복귀 순환
+]
+
+# Dispatch Real Data (Top Pickups and Dropoffs)
+dispatch_pickups = [
+    {"name": "노은3동 행정복지센터", "lat": 36.3812, "lon": 127.3185, "stock": 148, "amt": 141, "desc": "주거단지 야간 누적 잉여 재고 회수"},
+    {"name": "송림마을 5단지", "lat": 36.3895, "lon": 127.3230, "stock": 109, "amt": 75, "desc": "외곽 아파트 단지 반납 포화분 수거"}
+]
+
+dispatch_dropoffs = [
+    {"name": "갈마동 성원빌라 앞", "lat": 36.3512, "lon": 127.3712, "stock": 0, "amt": 11, "zero_cnt": 5, "desc": "18시 퇴근 즉시 품절 위험 1위 거점"},
+    {"name": "유성온천역 6번출구", "lat": 36.3535, "lon": 127.3408, "stock": 1, "amt": 16, "zero_cnt": 2, "desc": "지하철 환승 퇴근 인파 라스트마일 공급"},
+    {"name": "소제동 우송중학교 입구", "lat": 36.3325, "lon": 127.4385, "stock": 0, "amt": 10, "zero_cnt": 3, "desc": "동구 학생·직장인 하교 퇴근길 긴급 투하"},
+    {"name": "도마동 정철어학원", "lat": 36.3158, "lon": 127.3792, "stock": 0, "amt": 10, "zero_cnt": 4, "desc": "서남부 주거 밀집지 0대 결품 방어"},
+    {"name": "용문동 둔산더샵 1단지", "lat": 36.3425, "lon": 127.3920, "stock": 0, "amt": 9, "zero_cnt": 4, "desc": "지하철 용문역 연계 통행량 폭증 완충"}
+]
+
+html_template = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +129,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
-        :root {
+        :root {{
             --bg-page: #0b0f19;
             --bg-card: rgba(17, 24, 39, 0.85);
             --bg-card-active: rgba(24, 34, 53, 0.95);
@@ -31,17 +145,17 @@
             --accent-amber: #f59e0b;
             --accent-indigo: #818cf8;
             --font-mono: "JetBrains Mono", Consolas, Menlo, monospace;
-        }
+        }}
 
-        * {
+        * {{
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             word-break: keep-all;
             overflow-wrap: break-word;
-        }
+        }}
 
-        body {
+        body {{
             background-color: var(--bg-page);
             color: var(--text-body);
             font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -49,9 +163,9 @@
             font-size: 15px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-        }
+        }}
 
-        body::before {
+        body::before {{
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -59,24 +173,24 @@
             background-size: 24px 24px;
             pointer-events: none;
             z-index: 9999;
-        }
+        }}
 
-        a { color: var(--accent-cyan); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        a {{ color: var(--accent-cyan); text-decoration: none; }}
+        a:hover {{ text-decoration: underline; }}
 
-        .container {
+        .container {{
             max-width: 1320px;
             margin: 0 auto;
             padding: 0 24px;
-        }
+        }}
 
         /* Publication Header (The Pudding Style) */
-        header.pub-header {
+        header.pub-header {{
             padding: 70px 0 40px;
             border-bottom: 1px solid var(--border-subtle);
             background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(11, 15, 25, 0) 100%);
-        }
-        .kicker {
+        }}
+        .kicker {{
             font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.15em;
@@ -84,8 +198,8 @@
             color: var(--accent-cyan);
             margin-bottom: 16px;
             display: inline-block;
-        }
-        .headline {
+        }}
+        .headline {{
             font-size: 44px;
             font-weight: 800;
             color: var(--text-heading);
@@ -93,16 +207,16 @@
             letter-spacing: -0.03em;
             margin-bottom: 18px;
             max-width: 980px;
-        }
-        .dek {
+        }}
+        .dek {{
             font-size: 19px;
             font-weight: 400;
             color: #94a3b8;
             line-height: 1.6;
             max-width: 900px;
             margin-bottom: 32px;
-        }
-        .byline-block {
+        }}
+        .byline-block {{
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -111,9 +225,9 @@
             color: var(--text-muted);
             padding-top: 20px;
             border-top: 1px solid var(--border-subtle);
-        }
-        .byline-block strong { color: var(--text-heading); }
-        .badge-git {
+        }}
+        .byline-block strong {{ color: var(--text-heading); }}
+        .badge-git {{
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -124,77 +238,77 @@
             color: var(--accent-cyan);
             font-weight: 600;
             font-size: 12px;
-        }
+        }}
 
         /* Bloomberg Style Tabular Metric Strip */
-        .metric-strip {
+        .metric-strip {{
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             border-bottom: 1px solid var(--border-subtle);
             background: rgba(15, 23, 42, 0.4);
-        }
-        .metric-cell {
+        }}
+        .metric-cell {{
             padding: 20px;
             border-right: 1px solid var(--border-subtle);
-        }
-        .metric-cell:last-child { border-right: none; }
-        .metric-label {
+        }}
+        .metric-cell:last-child {{ border-right: none; }}
+        .metric-label {{
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
             margin-bottom: 6px;
-        }
-        .metric-val {
+        }}
+        .metric-val {{
             font-family: var(--font-mono);
             font-size: 22px;
             font-weight: 700;
             color: var(--text-heading);
             letter-spacing: -0.02em;
-        }
-        .metric-sub {
+        }}
+        .metric-sub {{
             font-size: 11px;
             color: var(--text-muted);
             margin-top: 4px;
-        }
+        }}
 
-        @media (max-width: 1024px) {
-            .metric-strip { grid-template-columns: repeat(3, 1fr); }
-            .headline { font-size: 32px; }
-            .dek { font-size: 16px; }
-        }
-        @media (max-width: 640px) {
-            .metric-strip { grid-template-columns: 1fr 1fr; }
-        }
+        @media (max-width: 1024px) {{
+            .metric-strip {{ grid-template-columns: repeat(3, 1fr); }}
+            .headline {{ font-size: 32px; }}
+            .dek {{ font-size: 16px; }}
+        }}
+        @media (max-width: 640px) {{
+            .metric-strip {{ grid-template-columns: 1fr 1fr; }}
+        }}
 
         /* Scrollytelling Two-Column Engine (Scrollama Pattern) */
-        #scrolly {
+        #scrolly {{
             position: relative;
             display: flex;
             gap: 36px;
             margin-top: 40px;
             margin-bottom: 80px;
-        }
+        }}
 
         /* Left Column: Narrative Steps */
-        article.scroll-steps {
+        article.scroll-steps {{
             flex: 0 0 460px;
             max-width: 460px;
             position: relative;
             z-index: 20;
             padding: 30px 0 200px;
-        }
+        }}
 
-        .step {
+        .step {{
             min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             margin-bottom: 50px;
-        }
+        }}
 
-        .step-card {
+        .step-card {{
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
@@ -202,16 +316,16 @@
             backdrop-filter: blur(12px);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+        }}
 
-        .step.is-active .step-card {
+        .step.is-active .step-card {{
             border-color: var(--accent-cyan);
             background: var(--bg-card-active);
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.3);
             transform: translateY(-2px);
-        }
+        }}
 
-        .step-tag {
+        .step-tag {{
             font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 700;
@@ -219,35 +333,35 @@
             color: var(--accent-cyan);
             margin-bottom: 8px;
             display: block;
-        }
+        }}
 
-        .step-title {
+        .step-title {{
             font-size: 20px;
             font-weight: 800;
             color: var(--text-heading);
             line-height: 1.35;
             margin-bottom: 14px;
-        }
+        }}
 
-        .step-prose {
+        .step-prose {{
             font-size: 14px;
             color: var(--text-body);
             line-height: 1.8;
             margin-bottom: 16px;
-        }
+        }}
 
-        .stat-callout {
+        .stat-callout {{
             background: rgba(15, 23, 42, 0.8);
             border-left: 3px solid var(--accent-cyan);
             border-radius: 0 6px 6px 0;
             padding: 12px 14px;
             margin: 14px 0;
             font-size: 13px;
-        }
-        .stat-callout strong { color: var(--text-heading); }
+        }}
+        .stat-callout strong {{ color: var(--text-heading); }}
 
         /* Right Column: Sticky Graphic & GIS Map */
-        figure.sticky-visual {
+        figure.sticky-visual {{
             flex: 1;
             position: sticky;
             top: 24px;
@@ -260,10 +374,10 @@
             flex-direction: column;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
             z-index: 10;
-        }
+        }}
 
         /* Sticky Visual Header */
-        .vis-header {
+        .vis-header {{
             padding: 14px 20px;
             background: rgba(11, 17, 30, 0.95);
             border-bottom: 1px solid var(--border-subtle);
@@ -272,15 +386,15 @@
             align-items: center;
             font-size: 12px;
             z-index: 500;
-        }
-        .vis-title {
+        }}
+        .vis-title {{
             font-weight: 700;
             color: var(--text-heading);
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .vis-status-badge {
+        }}
+        .vis-status-badge {{
             font-family: var(--font-mono);
             font-size: 11px;
             padding: 3px 8px;
@@ -288,18 +402,18 @@
             background: rgba(56, 189, 248, 0.15);
             color: var(--accent-cyan);
             font-weight: 600;
-        }
+        }}
 
         /* Leaflet Map Canvas */
-        #map {
+        #map {{
             width: 100%;
             height: 100%;
             background: #0b0f19;
             z-index: 1;
-        }
+        }}
 
         /* Dynamic Overlay Panel inside Map (for Charts/Sliders) */
-        .map-overlay-layer {
+        .map-overlay-layer {{
             position: absolute;
             top: 65px;
             right: 18px;
@@ -312,19 +426,19 @@
             z-index: 400;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
-        }
+        }}
 
-        .map-overlay-title {
+        .map-overlay-title {{
             font-size: 12px;
             font-weight: 700;
             color: var(--text-heading);
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
-        }
+        }}
 
         /* Minimal Legend */
-        .vis-legend {
+        .vis-legend {{
             padding: 10px 20px;
             background: rgba(11, 17, 30, 0.95);
             border-top: 1px solid var(--border-subtle);
@@ -335,54 +449,54 @@
             color: var(--text-muted);
             z-index: 500;
             flex-wrap: wrap;
-        }
-        .legend-item {
+        }}
+        .legend-item {{
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-        .legend-dot {
+        }}
+        .legend-dot {{
             width: 8px;
             height: 8px;
             border-radius: 50%;
             display: inline-block;
-        }
+        }}
 
         /* Deep-Dive Analysis Section (Post-Scrolly) */
-        section.editorial-section {
+        section.editorial-section {{
             margin: 60px 0;
             padding-top: 40px;
             border-top: 1px solid var(--border-subtle);
-        }
-        .section-hed {
+        }}
+        .section-hed {{
             font-size: 26px;
             font-weight: 800;
             color: var(--text-heading);
             margin-bottom: 12px;
             letter-spacing: -0.02em;
-        }
-        .section-lead {
+        }}
+        .section-lead {{
             font-size: 16px;
             color: #94a3b8;
             max-width: 850px;
             margin-bottom: 30px;
-        }
+        }}
 
         /* Authentic Tables */
-        .table-wrap {
+        .table-wrap {{
             overflow-x: auto;
             border: 1px solid var(--border-subtle);
             border-radius: 10px;
             background: rgba(15, 23, 42, 0.6);
             margin: 24px 0;
-        }
-        table.nyt-table {
+        }}
+        table.nyt-table {{
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
             text-align: left;
-        }
-        table.nyt-table th {
+        }}
+        table.nyt-table th {{
             background: rgba(30, 41, 59, 0.6);
             color: var(--text-muted);
             font-weight: 600;
@@ -392,55 +506,55 @@
             padding: 12px 16px;
             border-bottom: 1px solid var(--border-subtle);
             white-space: nowrap;
-        }
-        table.nyt-table td {
+        }}
+        table.nyt-table td {{
             padding: 12px 16px;
             border-bottom: 1px solid var(--border-subtle);
             color: var(--text-body);
             white-space: nowrap;
-        }
-        table.nyt-table tr:hover td {
+        }}
+        table.nyt-table tr:hover td {{
             background: rgba(56, 189, 248, 0.06);
             color: var(--text-heading);
-        }
-        table.nyt-table .num {
+        }}
+        table.nyt-table .num {{
             font-family: var(--font-mono);
             text-align: right;
-        }
+        }}
 
         /* Interactive Loss Function Slider Widget */
-        .interactive-widget {
+        .interactive-widget {{
             background: #0f172a;
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 24px;
             margin: 30px 0;
-        }
+        }}
 
         /* Mobile Adjustments */
-        @media (max-width: 900px) {
-            #scrolly {
+        @media (max-width: 900px) {{
+            #scrolly {{
                 flex-direction: column;
-            }
-            article.scroll-steps {
+            }}
+            article.scroll-steps {{
                 flex: none;
                 max-width: 100%;
                 padding: 10px 0;
-            }
-            figure.sticky-visual {
+            }}
+            figure.sticky-visual {{
                 position: relative;
                 top: 0;
                 height: 520px;
                 order: -1;
-            }
-            .step {
+            }}
+            .step {{
                 min-height: auto;
                 margin-bottom: 30px;
-            }
-            .map-overlay-layer {
+            }}
+            .map-overlay-layer {{
                 display: none;
-            }
-        }
+            }}
+        }}
     </style>
 </head>
 <body>
@@ -540,7 +654,7 @@
                                 <span>평일 24시간 통행 분포 (M-Curve)</span>
                                 <span style="color:var(--accent-rose); font-weight:700;">18시 피크: 62.7만 건</span>
                             </div>
-                            <svg viewBox="0 0 380 90" width="100%" height="90" style="overflow:visible; display:block;">\n<rect x="10" y="55" width="11" height="11" rx="2" fill="#334155" opacity="0.65"><title>0시: 120,888건</title></rect>\n<text x="15.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">00</text>\n<rect x="25" y="60" width="11" height="6" rx="2" fill="#334155" opacity="0.65"><title>1시: 70,051건</title></rect>\n<rect x="40" y="63" width="11" height="3" rx="2" fill="#334155" opacity="0.65"><title>2시: 42,652건</title></rect>\n<rect x="55" y="64" width="11" height="2" rx="2" fill="#334155" opacity="0.65"><title>3시: 27,615건</title></rect>\n<rect x="70" y="64" width="11" height="2" rx="2" fill="#334155" opacity="0.65"><title>4시: 27,681건</title></rect>\n<rect x="85" y="60" width="11" height="6" rx="2" fill="#334155" opacity="0.65"><title>5시: 70,727건</title></rect>\n<rect x="100" y="54" width="11" height="12" rx="2" fill="#334155" opacity="0.65"><title>6시: 130,541건</title></rect>\n<rect x="115" y="40" width="11" height="26" rx="2" fill="#334155" opacity="0.65"><title>7시: 285,595건</title></rect>\n<rect x="130" y="30" width="11" height="36" rx="2" fill="#38bdf8" opacity="0.95"><title>8시: 393,736건</title></rect>\n<text x="135.5" y="80" fill="#38bdf8" font-size="9" text-anchor="middle" font-family="monospace">08</text>\n<rect x="145" y="44" width="11" height="22" rx="2" fill="#334155" opacity="0.65"><title>9시: 240,046건</title></rect>\n<rect x="160" y="46" width="11" height="20" rx="2" fill="#334155" opacity="0.65"><title>10시: 224,037건</title></rect>\n<rect x="175" y="41" width="11" height="25" rx="2" fill="#334155" opacity="0.65"><title>11시: 275,644건</title></rect>\n<rect x="190" y="38" width="11" height="28" rx="2" fill="#334155" opacity="0.65"><title>12시: 312,809건</title></rect>\n<text x="195.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">12</text>\n<rect x="205" y="39" width="11" height="27" rx="2" fill="#334155" opacity="0.65"><title>13시: 296,865건</title></rect>\n<rect x="220" y="37" width="11" height="29" rx="2" fill="#334155" opacity="0.65"><title>14시: 316,105건</title></rect>\n<rect x="235" y="33" width="11" height="33" rx="2" fill="#334155" opacity="0.65"><title>15시: 366,882건</title></rect>\n<rect x="250" y="25" width="11" height="41" rx="2" fill="#334155" opacity="0.65"><title>16시: 451,986건</title></rect>\n<rect x="265" y="14" width="11" height="52" rx="2" fill="#334155" opacity="0.65"><title>17시: 567,166건</title></rect>\n<rect x="280" y="8" width="11" height="58" rx="2" fill="#f43f5e" opacity="0.95"><title>18시: 627,088건</title></rect>\n<text x="285.5" y="80" fill="#f43f5e" font-size="9" text-anchor="middle" font-family="monospace">18</text>\n<rect x="295" y="24" width="11" height="42" rx="2" fill="#334155" opacity="0.65"><title>19시: 455,980건</title></rect>\n<rect x="310" y="28" width="11" height="38" rx="2" fill="#334155" opacity="0.65"><title>20시: 416,133건</title></rect>\n<rect x="325" y="30" width="11" height="36" rx="2" fill="#334155" opacity="0.65"><title>21시: 390,479건</title></rect>\n<rect x="340" y="38" width="11" height="28" rx="2" fill="#334155" opacity="0.65"><title>22시: 312,592건</title></rect>\n<rect x="355" y="44" width="11" height="22" rx="2" fill="#334155" opacity="0.65"><title>23시: 241,605건</title></rect>\n<text x="360.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">23</text>\n</svg>
+                            {mcurve_svg}
                         </div>
 
                         <div class="stat-callout" style="border-left-color: var(--accent-rose); margin-top:14px;">
@@ -867,15 +981,15 @@
                 <span class="step-tag">MATHEMATICAL FORMULATION</span>
                 <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:12px;">비대칭 분위수 손실(Quantile 85% Pinball Loss) 수식 정의</h3>
                 <p style="font-size:14px; color:var(--text-body); line-height:1.8; margin-bottom:16px;">
-                    실제 수요 $y$와 예측 수요 $\hat{y}$ 사이의 오차 $e = y - \hat{y}$에 대해, 타슈의 결품 방지 목적함수는 다음과 같이 정의됩니다:
+                    실제 수요 $y$와 예측 수요 $\hat{{y}}$ 사이의 오차 $e = y - \hat{{y}}$에 대해, 타슈의 결품 방지 목적함수는 다음과 같이 정의됩니다:
                 </p>
                 <div style="background:#090d16; padding:16px; border-radius:8px; font-family:var(--font-mono); font-size:14px; color:var(--accent-cyan); margin-bottom:14px;">
-                    L_{0.85}(y, \hat{y}) = \max \Big( 0.85 \cdot (y - \hat{y}), \quad (0.85 - 1) \cdot (y - \hat{y}) \Big)
+                    L_{{0.85}}(y, \hat{{y}}) = \max \Big( 0.85 \cdot (y - \hat{{y}}), \quad (0.85 - 1) \cdot (y - \hat{{y}}) \Big)
                 </div>
                 <p style="font-size:13px; color:var(--text-muted); line-height:1.7;">
-                    $ullet$ <strong>과소 예측 ($y > \hat{y}$, 결품 발생):</strong> 벌점 가중치 $q = 0.85$<br>
-                    $ullet$ <strong>과대 예측 ($y < \hat{y}$, 단순 잉여):</strong> 벌점 가중치 $1 - q = 0.15$<br>
-                    $ullet$ <strong>비대칭 패널티 비율:</strong> $rac{0.85}{0.15} pprox \mathbf{5.67배}$<br>
+                    $\bullet$ <strong>과소 예측 ($y > \hat{{y}}$, 결품 발생):</strong> 벌점 가중치 $q = 0.85$<br>
+                    $\bullet$ <strong>과대 예측 ($y < \hat{{y}}$, 단순 잉여):</strong> 벌점 가중치 $1 - q = 0.15$<br>
+                    $\bullet$ <strong>비대칭 패널티 비율:</strong> $\frac{{0.85}}{{0.15}} \approx \mathbf{{5.67배}}$<br>
                     따라서 모델은 동일한 크기의 오차라도 "자전거가 모자라 시민이 헛걸음하는 상황"을 5.67배 더 엄격하게 회피하도록 학습되어 자연스러운 안전 재고(+3.6대)를 형성합니다.
                 </p>
             </div>
@@ -889,11 +1003,11 @@
     <!-- Embedded Scrollytelling & GIS Engine -->
     <script>
         // Data injected from Python pipeline
-        const topStationsData = [{"id": "ST0000", "name": "두드림", "gu": "유성구", "dong": "지족동", "lat": 36.37321853637695, "lon": 127.31674194335938, "cap": 10}, {"id": "ST0001", "name": "타슈관제센터 정비대기", "gu": "유성구", "dong": "외삼동", "lat": 36.40660858154297, "lon": 127.30645751953125, "cap": 10}, {"id": "ST0003", "name": "탄방동 한사랑병원", "gu": "서구", "dong": "탄방동", "lat": 36.348445892333984, "lon": 127.39005279541016, "cap": 10}, {"id": "ST0004", "name": "탄방동_한가람아파트(2동)", "gu": "서구", "dong": "탄방동", "lat": 36.348201751708984, "lon": 127.39041137695312, "cap": 10}, {"id": "ST0005", "name": "둔산동 목련아파트(103동)", "gu": "서구", "dong": "둔산동", "lat": 36.35003662109375, "lon": 127.3904037475586, "cap": 10}, {"id": "ST0006", "name": "둔산동 크로바아파트(103동)", "gu": "서구", "dong": "둔산동", "lat": 36.352481842041016, "lon": 127.39038848876953, "cap": 10}, {"id": "ST0007", "name": "둔산동 한마루아파트 5동", "gu": "서구", "dong": "둔산동", "lat": 36.35458755493164, "lon": 127.39046478271484, "cap": 10}, {"id": "ST0008", "name": "둔산동 농협 둔산중앙지점", "gu": "서구", "dong": "둔산동", "lat": 36.358917236328125, "lon": 127.39004516601562, "cap": 10}, {"id": "ST0010", "name": "둔산동 샤크존", "gu": "서구", "dong": "둔산동", "lat": 36.348854064941406, "lon": 127.38643646240234, "cap": 10}, {"id": "ST0011", "name": "탄방동 공무원연금공단 대전지부", "gu": "서구", "dong": "탄방동", "lat": 36.34702682495117, "lon": 127.38692474365234, "cap": 10}, {"id": "ST0012", "name": "둔산동 시청역 8번출구", "gu": "서구", "dong": "둔산동", "lat": 36.350582122802734, "lon": 127.3869400024414, "cap": 10}, {"id": "ST0013", "name": "둔산동 세이브존", "gu": "서구", "dong": "둔산동", "lat": 36.35195541381836, "lon": 127.39541625976562, "cap": 10}, {"id": "ST0014", "name": "둔산동 가람아파트 상가", "gu": "서구", "dong": "둔산동", "lat": 36.35587692260742, "lon": 127.39830780029297, "cap": 10}, {"id": "ST0015", "name": "둔산동 수정타운아파트(1동)", "gu": "서구", "dong": "둔산동", "lat": 36.358280181884766, "lon": 127.39542388916016, "cap": 10}, {"id": "ST0016", "name": "둔산동 문정어린이공원", "gu": "서구", "dong": "둔산동", "lat": 36.34998321533203, "lon": 127.39912414550781, "cap": 10}, {"id": "ST0017", "name": "월평동 한아름아파트(108동)", "gu": "서구", "dong": "월평동", "lat": 36.363319396972656, "lon": 127.37448120117188, "cap": 10}, {"id": "ST0018", "name": "월평동 다모아아파트 육교밑(111동)", "gu": "서구", "dong": "월평동", "lat": 36.36308670043945, "lon": 127.36675262451172, "cap": 10}, {"id": "ST0019", "name": "월평동 은평공원 테니스장 입구", "gu": "서구", "dong": "월평동", "lat": 36.35866928100586, "lon": 127.3636474609375, "cap": 10}, {"id": "ST0020", "name": "만년동 기업은행", "gu": "서구", "dong": "만년동", "lat": 36.36857986450195, "lon": 127.37997436523438, "cap": 10}, {"id": "ST0021", "name": "둔산동 선사유적지 건너편(정부청사)", "gu": "서구", "dong": "둔산동", "lat": 36.361061096191406, "lon": 127.37968444824219, "cap": 10}, {"id": "ST0022", "name": "봉명동 유성한가족 요양병원 소공원", "gu": "유성구", "dong": "봉명동", "lat": 36.355079650878906, "lon": 127.35021209716797, "cap": 10}, {"id": "ST0023", "name": "덕명동 한밭대학교 남문", "gu": "유성구", "dong": "덕명동", "lat": 36.34754180908203, "lon": 127.30135345458984, "cap": 10}, {"id": "ST0024", "name": "덕명동 화산어린이공원", "gu": "유성구", "dong": "덕명동", "lat": 36.34912109375, "lon": 127.2987289428711, "cap": 10}, {"id": "ST0025", "name": "둔산동 큰마을네거리", "gu": "서구", "dong": "둔산동", "lat": 36.34870910644531, "lon": 127.37713623046875, "cap": 10}, {"id": "ST0026", "name": "미호동 넷제로 공판장", "gu": "대덕구", "dong": "미호동", "lat": 36.466407775878906, "lon": 127.46830749511719, "cap": 10}, {"id": "ST0027", "name": "신탄진동 과선교 버스정류장", "gu": "대덕구", "dong": "신탄진동", "lat": 36.442447662353516, "lon": 127.42960357666016, "cap": 10}, {"id": "ST0029", "name": "오정동 한일방전", "gu": "대덕구", "dong": "오정동", "lat": 36.352176666259766, "lon": 127.41398620605469, "cap": 10}, {"id": "ST0030", "name": "삼성동 동구 보건지소", "gu": "동구", "dong": "삼성동", "lat": 36.342620849609375, "lon": 127.42042541503906, "cap": 10}, {"id": "ST0031", "name": "도룡동 우성아파트", "gu": "유성구", "dong": "도룡동", "lat": 36.388465881347656, "lon": 127.38147735595703, "cap": 10}, {"id": "ST0032", "name": "관저동 관저더샵(109동)", "gu": "서구", "dong": "관저동", "lat": 36.29356384277344, "lon": 127.32833862304688, "cap": 10}, {"id": "ST0033", "name": "사정동 송원칼국수", "gu": "중구", "dong": "사정동", "lat": 36.295833587646484, "lon": 127.38939666748047, "cap": 10}, {"id": "ST0034", "name": "안영동 농협하나로마트", "gu": "중구", "dong": "안영동", "lat": 36.28828430175781, "lon": 127.3793716430664, "cap": 5}, {"id": "ST0035", "name": "문화동 다이소", "gu": "중구", "dong": "문화동", "lat": 36.315528869628906, "lon": 127.40823364257812, "cap": 10}, {"id": "ST0036", "name": "문화동 홈플러스", "gu": "중구", "dong": "문화동", "lat": 36.320762634277344, "lon": 127.40711975097656, "cap": 10}, {"id": "ST0037", "name": "문화동 서대전 KT", "gu": "중구", "dong": "문화동", "lat": 36.321224212646484, "lon": 127.41375732421875, "cap": 10}, {"id": "ST0038", "name": "문화동 서대전공원 야외공연장 뒤편", "gu": "중구", "dong": "문화동", "lat": 36.320465087890625, "lon": 127.41068267822266, "cap": 10}, {"id": "ST0039", "name": "유천동 문화초네거리", "gu": "중구", "dong": "유천동", "lat": 36.31309509277344, "lon": 127.39946746826172, "cap": 10}, {"id": "ST0040", "name": "산성동 머티네거리", "gu": "중구", "dong": "산성동", "lat": 36.30921936035156, "lon": 127.38802337646484, "cap": 10}, {"id": "ST0041", "name": "대사동 대전중앙교회", "gu": "중구", "dong": "대사동", "lat": 36.318199157714844, "lon": 127.41686248779297, "cap": 10}, {"id": "ST0042", "name": "오류동 하나은행", "gu": "중구", "dong": "오류동", "lat": 36.32643508911133, "lon": 127.40736389160156, "cap": 10}, {"id": "ST0043", "name": "대흥동 중구청(중구청역 1번출구)", "gu": "중구", "dong": "대흥동", "lat": 36.32551956176758, "lon": 127.42074584960938, "cap": 10}, {"id": "ST0045", "name": "대사동 민제한의원", "gu": "중구", "dong": "대사동", "lat": 36.31776428222656, "lon": 127.42559051513672, "cap": 10}, {"id": "ST0046", "name": "대사동 보문산 공영주차장", "gu": "중구", "dong": "대사동", "lat": 36.31196212768555, "lon": 127.42053985595703, "cap": 10}, {"id": "ST0047", "name": "부사동 청란여고 방면 부사오거리 정류장", "gu": "중구", "dong": "부사동", "lat": 36.3133544921875, "lon": 127.43407440185547, "cap": 5}, {"id": "ST0048", "name": "대성동 대전남부여성가족원", "gu": "동구", "dong": "대성동", "lat": 36.30228042602539, "lon": 127.45978546142578, "cap": 10}, {"id": "ST0049", "name": "가오동 가오31호어린이공원", "gu": "동구", "dong": "가오동", "lat": 36.307579040527344, "lon": 127.45499420166016, "cap": 10}, {"id": "ST0050", "name": "선화동 선화참좋은아파트(유안타증권)", "gu": "중구", "dong": "선화동", "lat": 36.33173370361328, "lon": 127.42235565185547, "cap": 10}, {"id": "ST0051", "name": "목동 한사랑아파트 109동", "gu": "중구", "dong": "목동", "lat": 36.333187103271484, "lon": 127.41223907470703, "cap": 10}, {"id": "ST0052", "name": "신흥동 신흥마을 102동", "gu": "동구", "dong": "신흥동", "lat": 36.32121276855469, "lon": 127.44470977783203, "cap": 10}, {"id": "ST0053", "name": "판암동 판암역 4번출구", "gu": "동구", "dong": "판암동", "lat": 36.3175048828125, "lon": 127.45984649658203, "cap": 10}, {"id": "ST0054", "name": "용운동 대전대 후문", "gu": "동구", "dong": "용운동", "lat": 36.335166931152344, "lon": 127.45646667480469, "cap": 10}, {"id": "ST0055", "name": "대동 대동역 4번출구", "gu": "동구", "dong": "대동", "lat": 36.32963943481445, "lon": 127.44232940673828, "cap": 10}, {"id": "ST0056", "name": "대동 이스트시티(103동) 화병원 건너편", "gu": "동구", "dong": "대동", "lat": 36.32806396484375, "lon": 127.4394302368164, "cap": 10}, {"id": "ST0057", "name": "천동 천동초등학교", "gu": "동구", "dong": "천동", "lat": 36.31675338745117, "lon": 127.44401550292969, "cap": 10}, {"id": "ST0058", "name": "천동 위드힐아파트 상가", "gu": "동구", "dong": "천동", "lat": 36.31643295288086, "lon": 127.44388580322266, "cap": 5}, {"id": "ST0059", "name": "천동 휴먼시아 입구(201동)", "gu": "동구", "dong": "천동", "lat": 36.316444396972656, "lon": 127.44799041748047, "cap": 10}, {"id": "ST0060", "name": "효동 현대아파트 건너편(103동)", "gu": "동구", "dong": "효동", "lat": 36.318477630615234, "lon": 127.4426040649414, "cap": 10}, {"id": "ST0062", "name": "홍도동 새마을금고 본점 건너편", "gu": "동구", "dong": "홍도동", "lat": 36.34676742553711, "lon": 127.42501831054688, "cap": 10}, {"id": "ST0063", "name": "홍도동 새마을금고 홍도지점", "gu": "동구", "dong": "홍도동", "lat": 36.34645462036133, "lon": 127.43047332763672, "cap": 10}, {"id": "ST0064", "name": "삼성동 한밭자이 정류장(104동)", "gu": "동구", "dong": "삼성동", "lat": 36.34104919433594, "lon": 127.42523193359375, "cap": 10}, {"id": "ST0065", "name": "정동 대전역(대한통운 건너편)", "gu": "동구", "dong": "정동", "lat": 36.33232879638672, "lon": 127.43197631835938, "cap": 10}, {"id": "ST0066", "name": "삼성동 삼성네거리(KT&G 동대전지사)", "gu": "동구", "dong": "삼성동", "lat": 36.33637237548828, "lon": 127.43017578125, "cap": 10}, {"id": "ST0067", "name": "삼성동 솔브릿지 국제대학", "gu": "동구", "dong": "삼성동", "lat": 36.33919143676758, "lon": 127.43318176269531, "cap": 10}, {"id": "ST0068", "name": "비래동 가양비래공원네거리(명석고등학교)", "gu": "대덕구", "dong": "비래동", "lat": 36.353363037109375, "lon": 127.45403289794922, "cap": 10}, {"id": "ST0069", "name": "용전동 대전복합버스터미널", "gu": "동구", "dong": "용전동", "lat": 36.34868621826172, "lon": 127.4348373413086, "cap": 10}, {"id": "ST0071", "name": "용전동 천주교회", "gu": "동구", "dong": "용전동", "lat": 36.34934616088867, "lon": 127.43234252929688, "cap": 10}, {"id": "ST0072", "name": "용전동 한국통신 용전지점", "gu": "동구", "dong": "용전동", "lat": 36.35285186767578, "lon": 127.43228149414062, "cap": 10}, {"id": "ST0073", "name": "용전동 한전 대전세종충남지역본부 건너편", "gu": "동구", "dong": "용전동", "lat": 36.35734176635742, "lon": 127.43421173095703, "cap": 10}, {"id": "ST0074", "name": "용전동 롯데하이마트 용전점", "gu": "동구", "dong": "용전동", "lat": 36.35529327392578, "lon": 127.43663787841797, "cap": 10}, {"id": "ST0075", "name": "용전동 홈플러스 용전점", "gu": "동구", "dong": "용전동", "lat": 36.354061126708984, "lon": 127.43794250488281, "cap": 10}, {"id": "ST0076", "name": "용전동 용전네거리 몽벨", "gu": "동구", "dong": "용전동", "lat": 36.358516693115234, "lon": 127.43242645263672, "cap": 5}, {"id": "ST0077", "name": "용전동 동대전새마을금고 용전지점", "gu": "동구", "dong": "용전동", "lat": 36.35372543334961, "lon": 127.43276977539062, "cap": 10}, {"id": "ST0078", "name": "삼성동 솔랑마을 아파트 상가", "gu": "동구", "dong": "삼성동", "lat": 36.342777252197266, "lon": 127.42359161376953, "cap": 10}, {"id": "ST0079", "name": "오정동 한남육교 아래", "gu": "대덕구", "dong": "오정동", "lat": 36.35076141357422, "lon": 127.41920471191406, "cap": 10}, {"id": "ST0080", "name": "오정동 한남대학교 정문", "gu": "대덕구", "dong": "오정동", "lat": 36.35150909423828, "lon": 127.42138671875, "cap": 10}, {"id": "ST0081", "name": "오정동 한남대학교 사회과학대학", "gu": "대덕구", "dong": "오정동", "lat": 36.35151672363281, "lon": 127.42272186279297, "cap": 10}, {"id": "ST0082", "name": "소제동 대전역 동광장 휠타이어", "gu": "동구", "dong": "소제동", "lat": 36.333744049072266, "lon": 127.43942260742188, "cap": 10}, {"id": "ST0083", "name": "대동 대동역 1번출구", "gu": "동구", "dong": "대동", "lat": 36.32915115356445, "lon": 127.44292449951172, "cap": 10}, {"id": "ST0084", "name": "판암동 신흥역 3번출구", "gu": "동구", "dong": "판암동", "lat": 36.32011032104492, "lon": 127.44832611083984, "cap": 10}, {"id": "ST0086", "name": "덕명동 유성숲오투그란데 3차(501동)", "gu": "유성구", "dong": "덕명동", "lat": 36.34608840942383, "lon": 127.30111694335938, "cap": 10}];
-        const topFlowsData = [{"src_id": "ST1058", "src_name": "어은동 카이스트 학사식당", "src_lat": 36.37349, "src_lon": 127.35951, "dst_id": "ST0375", "dst_name": "구성동 카이스트 창의학습관", "dst_lat": 36.3706, "dst_lon": 127.36298, "trips": 7205}, {"src_id": "ST0375", "src_name": "구성동 카이스트 창의학습관", "src_lat": 36.3706, "src_lon": 127.36298, "dst_id": "ST1058", "dst_name": "어은동 카이스트 학사식당", "dst_lat": 36.37349, "dst_lon": 127.35951, "trips": 6104}, {"src_id": "ST1058", "src_name": "어은동 카이스트 학사식당", "src_lat": 36.37349, "src_lon": 127.35951, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5725}, {"src_id": "ST0375", "src_name": "구성동 카이스트 창의학습관", "src_lat": 36.3706, "src_lon": 127.36298, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5675}, {"src_id": "ST1341", "src_name": "구성동 카이스트 정보전자동 (1410)", "src_lat": 36.36816, "src_lon": 127.36461, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5153}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST1341", "dst_name": "구성동 카이스트 정보전자동 (1410)", "dst_lat": 36.36816, "dst_lon": 127.36461, "trips": 5145}, {"src_id": "ST1026", "src_name": "만년동 한밭수목원(서원)", "src_lat": 36.3692, "src_lon": 127.3876, "dst_id": "ST1027", "dst_name": "만년동 한밭수목원(동원)", "dst_lat": 36.36924, "dst_lon": 127.38846, "trips": 5136}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST0375", "dst_name": "구성동 카이스트 창의학습관", "dst_lat": 36.3706, "dst_lon": 127.36298, "trips": 5132}, {"src_id": "ST1032", "src_name": "둔산동 정부청사역 4번출구", "src_lat": 36.35798, "src_lon": 127.38203, "dst_id": "ST1033", "dst_name": "둔산동 정부청사 입구(남문)", "dst_lat": 36.35968, "dst_lon": 127.38532, "trips": 4964}, {"src_id": "ST1027", "src_name": "만년동 한밭수목원(동원)", "src_lat": 36.36924, "src_lon": 127.38846, "dst_id": "ST1026", "dst_name": "만년동 한밭수목원(서원)", "dst_lat": 36.3692, "dst_lon": 127.3876, "trips": 4918}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST1058", "dst_name": "어은동 카이스트 학사식당", "dst_lat": 36.37349, "dst_lon": 127.35951, "trips": 4858}, {"src_id": "ST1172", "src_name": "월평동 다모아아파트 상가", "src_lat": 36.36276, "src_lon": 127.3679, "dst_id": "ST1056", "dst_name": "월평동 백합네거리", "dst_lat": 36.36235, "dst_lon": 127.37636, "trips": 4647}];
-        const tramLoopCoords = [[36.3212, 127.4042], [36.3235, 127.419], [36.3291, 127.4428], [36.3402, 127.4485], [36.3516, 127.4371], [36.3625, 127.4208], [36.3615, 127.3872], [36.3742, 127.382], [36.3755, 127.3685], [36.368, 127.352], [36.3538, 127.3415], [36.341, 127.3425], [36.332, 127.346], [36.315, 127.342], [36.312, 127.365], [36.3155, 127.378], [36.3185, 127.395], [36.3212, 127.4042]];
-        const dispatchPickups = [{"name": "노은3동 행정복지센터", "lat": 36.3812, "lon": 127.3185, "stock": 148, "amt": 141, "desc": "주거단지 야간 누적 잉여 재고 회수"}, {"name": "송림마을 5단지", "lat": 36.3895, "lon": 127.323, "stock": 109, "amt": 75, "desc": "외곽 아파트 단지 반납 포화분 수거"}];
-        const dispatchDropoffs = [{"name": "갈마동 성원빌라 앞", "lat": 36.3512, "lon": 127.3712, "stock": 0, "amt": 11, "zero_cnt": 5, "desc": "18시 퇴근 즉시 품절 위험 1위 거점"}, {"name": "유성온천역 6번출구", "lat": 36.3535, "lon": 127.3408, "stock": 1, "amt": 16, "zero_cnt": 2, "desc": "지하철 환승 퇴근 인파 라스트마일 공급"}, {"name": "소제동 우송중학교 입구", "lat": 36.3325, "lon": 127.4385, "stock": 0, "amt": 10, "zero_cnt": 3, "desc": "동구 학생·직장인 하교 퇴근길 긴급 투하"}, {"name": "도마동 정철어학원", "lat": 36.3158, "lon": 127.3792, "stock": 0, "amt": 10, "zero_cnt": 4, "desc": "서남부 주거 밀집지 0대 결품 방어"}, {"name": "용문동 둔산더샵 1단지", "lat": 36.3425, "lon": 127.392, "stock": 0, "amt": 9, "zero_cnt": 4, "desc": "지하철 용문역 연계 통행량 폭증 완충"}];
+        const topStationsData = {json.dumps(top_stations_json, ensure_ascii=False)};
+        const topFlowsData = {json.dumps(flows_clean, ensure_ascii=False)};
+        const tramLoopCoords = {json.dumps(tram_loop_coords)};
+        const dispatchPickups = {json.dumps(dispatch_pickups, ensure_ascii=False)};
+        const dispatchDropoffs = {json.dumps(dispatch_dropoffs, ensure_ascii=False)};
 
         let map = null;
         let flowLayerGroup = null;
@@ -902,7 +1016,7 @@
         let dispatchLayerGroup = null;
 
         // Interactive Quantile Loss Simulator
-        function updateQLossSim(qVal) {
+        function updateQLossSim(qVal) {{
             const valEl = document.getElementById('qValDisplay');
             const ratioEl = document.getElementById('qRatioDisplay');
             const bufEl = document.getElementById('qBufferDisplay');
@@ -914,33 +1028,33 @@
             const buffer = ((qVal - 0.5) / 0.35 * 3.6).toFixed(1);
             const sign = buffer > 0 ? '+' : '';
             bufEl.innerText = sign + buffer + ' 대';
-        }
+        }}
 
         // Initialize Leaflet Map
-        function initLeafletMap() {
+        function initLeafletMap() {{
             const mapContainer = document.getElementById('map');
             if (!mapContainer) return;
 
-            if (typeof L === 'undefined') {
+            if (typeof L === 'undefined') {{
                 console.warn('Leaflet is loading...');
                 setTimeout(initLeafletMap, 150);
                 return;
-            }
+            }}
 
             // Center of Daejeon
-            map = L.map('map', {
+            map = L.map('map', {{
                 center: [36.3504, 127.3845],
                 zoom: 12.5,
                 zoomControl: false,
                 attributionControl: false
-            });
+            }});
 
             // High-Resolution Carto Dark Matter Tiles
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
                 subdomains: 'abcd',
                 maxZoom: 19,
                 opacity: 0.92
-            }).addTo(map);
+            }}).addTo(map);
 
             // Layer Groups
             flowLayerGroup = L.layerGroup().addTo(map);
@@ -949,54 +1063,54 @@
             dispatchLayerGroup = L.layerGroup().addTo(map);
 
             // Populate Base Station Markers with Click Listener
-            topStationsData.forEach(st => {
-                const marker = L.circleMarker([st.lat, st.lon], {
+            topStationsData.forEach(st => {{
+                const marker = L.circleMarker([st.lat, st.lon], {{
                     radius: 3.5,
                     fillColor: '#38bdf8',
                     fillOpacity: 0.6,
                     color: '#ffffff',
                     weight: 0.8
-                });
+                }});
                 
-                marker.on('click', () => {
+                marker.on('click', () => {{
                     const titleEl = document.getElementById('overlayTitle');
                     const valEl = document.getElementById('overlayValue');
                     const contentEl = document.getElementById('overlayContent');
                     if (titleEl) titleEl.innerText = st.name;
                     if (valEl) valEl.innerText = st.cap + '대 거치대';
-                    if (contentEl) contentEl.innerHTML = `위치: ${st.gu} ${st.dong}<br>실측 데이터: 1개년 전수 분석 거점<br>좌표: ${st.lat.toFixed(4)}° N, ${st.lon.toFixed(4)}° E`;
-                });
+                    if (contentEl) contentEl.innerHTML = `위치: ${{st.gu}} ${{st.dong}}<br>실측 데이터: 1개년 전수 분석 거점<br>좌표: ${{st.lat.toFixed(4)}}° N, ${{st.lon.toFixed(4)}}° E`;
+                }});
 
                 stationLayerGroup.addLayer(marker);
-            });
+            }});
 
             // Draw Initial Top OD Flow Arcs
             renderFlowArcs();
-        }
+        }}
 
-        function renderFlowArcs() {
+        function renderFlowArcs() {{
             if (!flowLayerGroup) return;
             flowLayerGroup.clearLayers();
-            topFlowsData.forEach((fl, idx) => {
+            topFlowsData.forEach((fl, idx) => {{
                 const latlngs = [
                     [fl.src_lat, fl.src_lon],
                     [fl.dst_lat, fl.dst_lon]
                 ];
-                const poly = L.polyline(latlngs, {
+                const poly = L.polyline(latlngs, {{
                     color: idx < 3 ? '#38bdf8' : '#818cf8',
                     weight: Math.max(2.5, (fl.trips / 7205) * 5.5),
                     opacity: 0.85,
                     dashArray: '8, 6'
-                });
-                poly.bindPopup(`<strong>회랑 #${idx + 1}</strong><br>출발: ${fl.src_name}<br>도착: ${fl.dst_name}<br>연간 통행량: <strong>${fl.trips.toLocaleString()}건</strong>`);
+                }});
+                poly.bindPopup(`<strong>회랑 #${{idx + 1}}</strong><br>출발: ${{fl.src_name}}<br>도착: ${{fl.dst_name}}<br>연간 통행량: <strong>${{fl.trips.toLocaleString()}}건</strong>`);
                 flowLayerGroup.addLayer(poly);
-            });
-        }
+            }});
+        }}
 
         // Scrollytelling Step Handlers
-        function onEnterStep(stepNumber) {
+        function onEnterStep(stepNumber) {{
             document.querySelectorAll('.step').forEach(s => s.classList.remove('is-active'));
-            const activeStepEl = document.querySelector(`.step[data-step="${stepNumber}"]`);
+            const activeStepEl = document.querySelector(`.step[data-step="${{stepNumber}}"]`);
             if (activeStepEl) activeStepEl.classList.add('is-active');
 
             const titleEl = document.getElementById('visHeaderTitle');
@@ -1007,159 +1121,186 @@
 
             if (!map) return;
 
-            if (stepNumber === 1) {
+            if (stepNumber === 1) {{
                 if (titleEl) titleEl.innerText = "대전시 전역 10대 핵심 생활권 이동 회랑";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 01 : 9.11M OD FLOWS";
                 if (overlayTitle) overlayTitle.innerText = "연간 총 분석 통행량";
                 if (overlayVal) overlayVal.innerText = "9,116,462 건";
                 if (overlayContent) overlayContent.innerHTML = "대전시 전역의 911만 건 이동 중 51.2%가 1km 이내 초단거리 보행 대체 통행으로 확인되었습니다.";
 
-                map.flyTo([36.358, 127.380], 12.5, { duration: 1.2 });
+                map.flyTo([36.358, 127.380], 12.5, {{ duration: 1.2 }});
                 renderFlowArcs();
                 tramLayerGroup.clearLayers();
                 dispatchLayerGroup.clearLayers();
 
-            } else if (stepNumber === 2) {
+            }} else if (stepNumber === 2) {{
                 if (titleEl) titleEl.innerText = "18:00 퇴근 피크 둔산·유성 쏠림 및 결품 현장";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 02 : 18:00 STOCKOUT";
                 if (overlayTitle) overlayTitle.innerText = "18시 퇴근 통행량";
                 if (overlayVal) overlayVal.innerText = "627,088 건 (1.59배)";
                 if (overlayContent) overlayContent.innerHTML = "퇴근길 단방향 쏠림으로 둔산·유성 중심 대여소의 38%가 0대 완전 품절로 전락했습니다.";
 
-                map.flyTo([36.356, 127.378], 14, { duration: 1.2 });
+                map.flyTo([36.356, 127.378], 14, {{ duration: 1.2 }});
                 
                 // Highlight deficit stations in red
                 stationLayerGroup.clearLayers();
-                topStationsData.forEach(st => {
+                topStationsData.forEach(st => {{
                     const isDeficit = st.dong.includes('둔산') || st.dong.includes('봉명') || st.dong.includes('갈마');
-                    const marker = L.circleMarker([st.lat, st.lon], {
+                    const marker = L.circleMarker([st.lat, st.lon], {{
                         radius: isDeficit ? 6.5 : 3.5,
                         fillColor: isDeficit ? '#f43f5e' : '#38bdf8',
                         fillOpacity: isDeficit ? 0.95 : 0.4,
                         color: isDeficit ? '#ffffff' : '#38bdf8',
                         weight: isDeficit ? 2 : 0.8
-                    });
-                    if (isDeficit) {
-                        marker.bindPopup(`<strong>🚨 ${st.name}</strong><br>18:00 상태: <strong>재고 0대 품절 위험!</strong><br>결품 차단 우선 배차 대상`);
-                    }
+                    }});
+                    if (isDeficit) {{
+                        marker.bindPopup(`<strong>🚨 ${{st.name}}</strong><br>18:00 상태: <strong>재고 0대 품절 위험!</strong><br>결품 차단 우선 배차 대상`);
+                    }}
                     stationLayerGroup.addLayer(marker);
-                });
+                }});
 
-            } else if (stepNumber === 3) {
+            }} else if (stepNumber === 3) {{
                 if (titleEl) titleEl.innerText = "비대칭 손실(Q85) vs 기존 평균(MSE) 오차 분석";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 03 : ASYMMETRIC LOSS";
                 if (overlayTitle) overlayTitle.innerText = "안전 재고 방어율";
                 if (overlayVal) overlayVal.innerText = "+3.6대 완충";
                 if (overlayContent) overlayContent.innerHTML = "MSE는 결품과 잉여에 동일 벌점을 부과해 품절을 방치하지만, Q85는 5.67배 높은 벌점으로 안전 재고를 선제 확보합니다.";
 
-            } else if (stepNumber === 4) {
+            }} else if (stepNumber === 4) {{
                 if (titleEl) titleEl.innerText = "300m 생활권 Super-Station 공간 군집화";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 04 : 460 SUPER-STATIONS";
                 if (overlayTitle) overlayTitle.innerText = "예측 결정계수 R²";
                 if (overlayVal) overlayVal.innerText = "0.72 ➔ 0.88 향상";
                 if (overlayContent) overlayContent.innerHTML = "보행 3분 반경 내 대여소를 460개 생활권 슈퍼스테이션으로 집약하여 포아송 희소성을 근본적으로 제거했습니다.";
 
-                map.flyTo([36.360, 127.365], 13.5, { duration: 1.2 });
+                map.flyTo([36.360, 127.365], 13.5, {{ duration: 1.2 }});
 
-            } else if (stepNumber === 5) {
+            }} else if (stepNumber === 5) {{
                 if (titleEl) titleEl.innerText = "트럭 10대 물리 제약 실전 배차 (골든타임 48.5분)";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 05 : 10 TRUCKS VRP";
                 if (overlayTitle) overlayTitle.innerText = "배차 소요 시간";
                 if (overlayVal) overlayVal.innerText = "48.5 분 / 176대";
                 if (overlayContent) overlayContent.innerHTML = "외곽 잉여 거점(노은3동, 하기동)에서 자전거를 수거하여 갈마동·유성온천역 등 0대 결품 거점에 집중 투하 완료했습니다.";
 
-                map.flyTo([36.353, 127.365], 13, { duration: 1.2 });
+                map.flyTo([36.353, 127.365], 13, {{ duration: 1.2 }});
                 dispatchLayerGroup.clearLayers();
 
                 // Draw Pickup Pins (Green)
-                dispatchPickups.forEach(p => {
-                    const m = L.circleMarker([p.lat, p.lon], {
+                dispatchPickups.forEach(p => {{
+                    const m = L.circleMarker([p.lat, p.lon], {{
                         radius: 8,
                         fillColor: '#10b981',
                         fillOpacity: 1,
                         color: '#ffffff',
                         weight: 2
-                    }).bindPopup(`<strong>[잉여 회수] ${p.name}</strong><br>현재 재고: ${p.stock}대<br>트럭 적재 회수: <strong>-${p.amt}대</strong><br>${p.desc}`);
+                    }}).bindPopup(`<strong>[잉여 회수] ${{p.name}}</strong><br>현재 재고: ${{p.stock}}대<br>트럭 적재 회수: <strong>-${{p.amt}}대</strong><br>${{p.desc}}`);
                     dispatchLayerGroup.addLayer(m);
-                });
+                }});
 
                 // Draw Dropoff Pins (Red/Cyan)
-                dispatchDropoffs.forEach(d => {
-                    const m = L.circleMarker([d.lat, d.lon], {
+                dispatchDropoffs.forEach(d => {{
+                    const m = L.circleMarker([d.lat, d.lon], {{
                         radius: 8,
                         fillColor: '#f43f5e',
                         fillOpacity: 1,
                         color: '#ffffff',
                         weight: 2
-                    }).bindPopup(`<strong>[긴급 공급] ${d.name}</strong><br>배차 전 재고: <strong>${d.stock}대 (0대 품절)</strong><br>트럭 투하 공급: <strong>+${d.amt}대</strong><br>${d.desc}`);
+                    }}).bindPopup(`<strong>[긴급 공급] ${{d.name}}</strong><br>배차 전 재고: <strong>${{d.stock}}대 (0대 품절)</strong><br>트럭 투하 공급: <strong>+${{d.amt}}대</strong><br>${{d.desc}}`);
                     dispatchLayerGroup.addLayer(m);
 
                     const line = L.polyline([
                         [dispatchPickups[0].lat, dispatchPickups[0].lon],
                         [d.lat, d.lon]
-                    ], {
+                    ], {{
                         color: '#f59e0b',
                         weight: 2,
                         dashArray: '4, 8',
                         opacity: 0.7
-                    });
+                    }});
                     dispatchLayerGroup.addLayer(line);
-                });
+                }});
 
-            } else if (stepNumber === 6) {
+            }} else if (stepNumber === 6) {{
                 if (titleEl) titleEl.innerText = "2028 대전 도시철도 2호선 트램 38.8km 순환선 연계";
                 if (badgeEl) badgeEl.innerText = "CHAPTER 06 : TRAM LINE 2";
                 if (overlayTitle) overlayTitle.innerText = "트램 연계 통행량";
                 if (overlayVal) overlayVal.innerText = "연 231만 건 (42.4%)";
                 if (overlayContent) overlayContent.innerHTML = "38.8km 트램 2호선 순환선 권역 내 357개 타슈 대여소가 결합되어 완벽한 라스트마일 환승 생태계를 구축합니다.";
 
-                map.flyTo([36.345, 127.385], 12.2, { duration: 1.2 });
+                map.flyTo([36.345, 127.385], 12.2, {{ duration: 1.2 }});
                 tramLayerGroup.clearLayers();
 
                 // Draw Tram 2 Loop
-                const tramPolyline = L.polyline(tramLoopCoords, {
+                const tramPolyline = L.polyline(tramLoopCoords, {{
                     color: '#f59e0b',
                     weight: 4.5,
                     opacity: 0.9,
                     dashArray: '10, 6'
-                }).bindPopup("<strong>대전 도시철도 2호선 트램 (38.8km 순환선)</strong><br>45개 정거장 무가선 수소 트램<br>타슈 연계 대여소: 357개소 (42.4% 통행 분담)");
+                }}).bindPopup("<strong>대전 도시철도 2호선 트램 (38.8km 순환선)</strong><br>45개 정거장 무가선 수소 트램<br>타슈 연계 대여소: 357개소 (42.4% 통행 분담)");
                 tramLayerGroup.addLayer(tramPolyline);
-            }
-        }
+            }}
+        }}
 
         // Setup Scrollama-style IntersectionObserver
-        function setupScrollObserver() {
+        function setupScrollObserver() {{
             const steps = document.querySelectorAll('.step');
-            const observerOptions = {
+            const observerOptions = {{
                 root: null,
                 rootMargin: '0px 0px -45% 0px',
                 threshold: 0.1
-            };
+            }};
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+            const observer = new IntersectionObserver((entries) => {{
+                entries.forEach(entry => {{
+                    if (entry.isIntersecting) {{
                         const stepNum = parseInt(entry.target.getAttribute('data-step'));
                         if (stepNum) onEnterStep(stepNum);
-                    }
-                });
-            }, observerOptions);
+                    }}
+                }});
+            }}, observerOptions);
 
             steps.forEach(step => observer.observe(step));
-        }
+        }}
 
         // Bootstrap on DOM Ready
-        function bootstrap() {
+        function bootstrap() {{
             initLeafletMap();
             setupScrollObserver();
             onEnterStep(1);
-        }
+        }}
 
-        if (document.readyState === 'loading') {
+        if (document.readyState === 'loading') {{
             document.addEventListener('DOMContentLoaded', bootstrap);
-        } else {
+        }} else {{
             bootstrap();
-        }
+        }}
     </script>
 </body>
 </html>
+"""
+
+# Targets
+dest_root = ROOT / "index.html"
+dest_docs = ROOT / "docs/index.html"
+dest_desktop = Path("C:/Users/sijoo/OneDrive/바탕 화면/타슈_재배치_최적화_최종결과패키지/00_타슈_AI_프로젝트_종합_웹포트폴리오.html")
+dest_brain = Path("C:/Users/sijoo/.gemini/antigravity/brain/69b779d9-e00f-4cbb-87f9-bef0e1d1ae7c/tashu_project_portfolio.html")
+
+os.makedirs(ROOT / "docs", exist_ok=True)
+
+with open(dest_root, "w", encoding="utf-8") as f:
+    f.write(html_template)
+print(f"Generated: {dest_root}")
+
+with open(dest_docs, "w", encoding="utf-8") as f:
+    f.write(html_template)
+print(f"Generated: {dest_docs}")
+
+with open(dest_desktop, "w", encoding="utf-8") as f:
+    f.write(html_template)
+print(f"Generated: {dest_desktop}")
+
+with open(dest_brain, "w", encoding="utf-8") as f:
+    f.write(html_template)
+print(f"Generated: {dest_brain}")
+
+print("Successfully compiled editorial scrollytelling web portfolio!")
