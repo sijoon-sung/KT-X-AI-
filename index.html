@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,39 +20,65 @@
             --danger: #f87171;
             --indigo: #818cf8;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif;
             background-color: var(--bg-body);
             color: var(--text-body);
             line-height: 1.6;
             font-size: 14px;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
-        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
         
-        /* Floating Header */
+        /* Responsive Top Navigation (Never Wraps or Breaks Words) */
         header {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(8, 13, 26, 0.92);
+            background: rgba(8, 13, 26, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 12px 0;
-            transition: all 0.3s;
+            padding: 10px 0;
         }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
-        .nav-title { font-size: 15px; font-weight: 700; color: var(--text-title); display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 10px; font-size: 12px; font-weight: 600; }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+        }
+        .nav-title {
+            font-size: 14px; font-weight: 800; color: var(--text-title);
+            white-space: nowrap; letter-spacing: -0.3px;
+        }
+        .nav-scroll-wrap {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            display: flex;
+            align-items: center;
+        }
+        .nav-scroll-wrap::-webkit-scrollbar { display: none; }
+        .nav-links {
+            display: flex; gap: 6px; font-size: 12px; font-weight: 600; flex-shrink: 0;
+        }
         .nav-links a {
-            color: var(--text-muted); text-decoration: none; padding: 6px 12px;
-            border-radius: 6px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-muted); text-decoration: none; padding: 6px 10px;
+            border-radius: 6px; white-space: nowrap; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-title); background: var(--bg-surface); }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary); background: rgba(56, 189, 248, 0.12);
+        }
         
         /* Section Titles */
         .section-header { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
         .section-tag { font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
-        .section-title { font-size: 22px; font-weight: 800; color: var(--text-title); margin-top: 4px; }
+        .section-title { font-size: 22px; font-weight: 800; color: var(--text-title); margin-top: 4px; line-height: 1.3; }
         .section-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
         
         /* Cards & Grid */
@@ -71,16 +97,22 @@
         .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-        @media (max-width: 900px) {
+        @media (max-width: 860px) {
             .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .card { padding: 18px; }
+            .section-title { font-size: 19px; }
         }
 
         /* KPI Banner */
-        .kpi-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: transform 0.2s; }
+        .kpi-box {
+            background: var(--bg-surface); border: 1px solid var(--border);
+            border-radius: 10px; padding: 16px; min-width: 0;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
         .kpi-box:hover { transform: translateY(-2px); }
-        .kpi-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .kpi-val { font-size: 26px; font-weight: 800; color: var(--text-title); font-family: monospace; margin: 4px 0; }
-        .kpi-sub { font-size: 11px; color: var(--text-muted); }
+        .kpi-label { font-size: 12px; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+        .kpi-val { font-size: 24px; font-weight: 800; color: var(--text-title); font-family: monospace; margin: 4px 0; white-space: nowrap; }
+        .kpi-sub { font-size: 11px; color: var(--text-muted); white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 
         /* Interactive Terms / Tooltips */
         .term-tip {
@@ -102,34 +134,34 @@
             border-radius: 6px;
             font-size: 11px;
             white-space: nowrap;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
             border: 1px solid var(--border);
             z-index: 1000;
             pointer-events: none;
-            opacity: 1;
-            transition: opacity 0.2s;
         }
 
         /* Tables & Interactive Rows */
-        table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
-        table.data-table th { padding: 10px 12px; background: var(--bg-surface); color: var(--text-muted); font-weight: 600; font-size: 12px; border-bottom: 1px solid var(--border); }
-        table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 600px; }
+        table.data-table th { padding: 10px 12px; background: var(--bg-surface); color: var(--text-muted); font-weight: 600; font-size: 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; transition: background 0.2s; }
         table.data-table tr.hoverable-row { cursor: pointer; }
         table.data-table tr.hoverable-row:hover td { background: rgba(56, 189, 248, 0.12); color: var(--text-title); }
 
         /* Controls */
         .ctrl-btn {
-            padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700;
+            padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 700;
             background: var(--bg-surface); color: var(--text-title); border: 1px solid var(--border);
-            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ctrl-btn:hover { background: #334155; border-color: var(--primary); transform: translateY(-1px); }
+        .ctrl-btn:hover { background: #334155; border-color: var(--primary); }
         .ctrl-btn.playing { background: rgba(56, 189, 248, 0.2); color: var(--primary); border-color: var(--primary); }
 
         .tab-btn {
-            padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+            padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border);
-            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer; white-space: nowrap; transition: all 0.2s;
         }
         .tab-btn:hover { color: var(--text-title); }
         .tab-btn.active {
@@ -138,7 +170,7 @@
 
         .slider-bar {
             width: 100%; -webkit-appearance: none; height: 6px; border-radius: 3px;
-            background: #1e293b; outline: none; margin: 10px 0;
+            background: #1e293b; outline: none; margin: 10px 0; cursor: pointer;
         }
         .slider-bar::-webkit-slider-thumb {
             -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
@@ -165,18 +197,17 @@
             font-size: 13px;
         }
         .badge {
-            display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;
+            display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap;
         }
         .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.3); }
         .badge-green { background: rgba(52, 211, 153, 0.15); color: var(--success); border: 1px solid rgba(52, 211, 153, 0.3); }
         .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.3); }
         .badge-red { background: rgba(248, 113, 113, 0.15); color: var(--danger); border: 1px solid rgba(248, 113, 113, 0.3); }
 
-        /* Pulse glow */
         .pulse-indicator {
             width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
             box-shadow: 0 0 8px var(--primary); display: inline-block;
-            animation: pulseGlow 1.8s infinite;
+            animation: pulseGlow 1.8s infinite; flex-shrink: 0;
         }
         @keyframes pulseGlow {
             0% { opacity: 0.4; transform: scale(0.9); }
@@ -187,26 +218,29 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header id="siteHeader">
+    <!-- Header Navigation (Guaranteed No Text Truncation / Overflow) -->
+    <header>
         <div class="container nav-inner">
-            <div class="nav-title">
+            <div class="nav-brand">
                 <span class="pulse-indicator"></span>
-                <span>KT-X-AI | 대전 공영자전거 '타슈' AI 재배치 최적화</span>
-                <span class="badge badge-blue">Branch: 성시준</span>
+                <span class="nav-title">KT-X-AI 타슈 AI 재배치</span>
+                <span class="badge badge-blue">성시준</span>
             </div>
-            <nav class="nav-links">
-                <a href="#sec-eda" class="active">1. 데이터 분석 결과 (애니메이션)</a>
-                <a href="#sec-problem">2. 문제 정의 및 선행연구 한계</a>
-                <a href="#sec-method">3. 제안 모델 및 AI 알고리즘</a>
-                <a href="#sec-sim">4. 예측 vs 실제 수요 시뮬레이션</a>
-                <a href="#sec-result">5. 현장 실증 결과</a>
-                <a href="#sec-synergy">6. 도시 인프라 연계</a>
-            </nav>
+            
+            <div class="nav-scroll-wrap">
+                <nav class="nav-links">
+                    <a href="#sec-eda" class="active">1. 데이터 분석 (시뮬레이터)</a>
+                    <a href="#sec-problem">2. 문제 & 한계</a>
+                    <a href="#sec-method">3. AI 알고리즘</a>
+                    <a href="#sec-sim">4. 예측 vs 실제 시뮬레이션</a>
+                    <a href="#sec-result">5. 실증 배차</a>
+                    <a href="#sec-synergy">6. 도시 인프라</a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top:28px; padding-bottom:60px;">
+    <main class="container" style="padding-top:24px; padding-bottom:60px;">
 
         <!-- Project Overview Summary Box -->
         <div class="card" style="border-left: 4px solid var(--primary); background: #0e1526;">
@@ -248,92 +282,93 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 1. DATA ANALYSIS RESULTS (ANIMATED / INTERACTIVE) -->
+        <!-- 1. DATA ANALYSIS RESULTS (CONTINUOUS TIMELINE ANIMATION) -->
         <!-- ========================================== -->
         <section id="sec-eda">
             <div class="section-header">
                 <span class="section-tag">Section 01</span>
-                <h2 class="section-title">1. 데이터 분석 결과 (통행 Flow 동적 애니메이션 시뮬레이션)</h2>
+                <h2 class="section-title">1. 데이터 분석 결과 (24시간 통행 Flow 연속 애니메이션)</h2>
                 <p class="section-desc">
-                    Kepler.gl / Deck.gl TripsLayer 기반 이동 입자 시뮬레이터와 24시간 도시 리듬, 이동 거리·시간 분포, 기상 요인 정량 분석
+                    Kepler.gl / Deck.gl TripsLayer 기반 부드러운 분(Minute) 단위 연속 시계열 이동 시뮬레이터
                 </p>
             </div>
 
-            <!-- 1-1. Animated 24h Flow Map Simulator -->
+            <!-- 1-1. Continuous Animated 24h Flow Map Simulator -->
             <div class="card card-glow">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
                     <div>
                         <div style="display:flex; align-items:center; gap:8px;">
-                            <span class="badge badge-blue">REAL-TIME FLOW PLAYBACK</span>
+                            <span class="badge badge-blue">CONTINUOUS 24H FLOW</span>
                             <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">
-                                1-1. 대전시 24시간 통행 Flow 동적 입자(Particle) 애니메이션 시뮬레이터
+                                1-1. 대전시 24시간 자전거 이동 Flow 동적 입자(Particle) 시뮬레이터
                             </h3>
                         </div>
                         <p style="font-size:12px; color:var(--text-muted); margin-top:3px;">
-                            시간대별 통행 밀도에 따라 실제 자전거 이동 입자 속도와 빈도가 동적으로 변화하는 모빌리티 시뮬레이션
+                            1시간 단위 끊김 없는 실시간 분(Minute) 연속 보간 렌더링 (재생 버튼으로 하루 전체 흐름 확인 가능)
                         </p>
                     </div>
 
                     <div style="display:flex; align-items:center; gap:8px;">
                         <button class="ctrl-btn" id="flowPlayBtn" onclick="toggleFlowPlay()">
-                            <span id="flowPlayIcon">▶</span> <span id="flowPlayText">24시간 통행 재생</span>
+                            <span id="flowPlayIcon">▶</span> <span id="flowPlayText">연속 재생</span>
                         </button>
-                        <button class="ctrl-btn" onclick="resetFlowPlay()">⏮ 리셋</button>
+                        <button class="ctrl-btn" onclick="resetFlowPlay()">⏮ 00:00</button>
                         <button class="ctrl-btn" id="flowSpeedBtn" onclick="toggleFlowSpeed()">배속: 1x</button>
                     </div>
                 </div>
 
                 <div class="grid-4" style="margin-bottom:14px;">
                     <div class="kpi-box" style="background:#070c18;">
-                        <div class="kpi-label">시뮬레이션 시간대</div>
-                        <div class="kpi-val" id="flowHourText" style="color:var(--primary); font-size:22px;">18:00 (퇴근 피크)</div>
-                        <div class="kpi-sub" id="flowPeriodBrief">하루 중 최대 이동량 쏟아지는 시점</div>
+                        <div class="kpi-label">시뮬레이션 실시간 시각</div>
+                        <div class="kpi-val" id="flowClockDisplay" style="color:var(--primary); font-size:24px;">17:45</div>
+                        <div class="kpi-sub" id="flowPeriodBrief">퇴근 피크 통행 집중 시간대</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18;">
-                        <div class="kpi-label">순간 시간당 통행량</div>
-                        <div class="kpi-val" id="flowVolumeVal" style="color:#ffffff; font-size:22px;">627,088 건</div>
-                        <div class="kpi-sub">연간 평일 18시 총 통행량</div>
+                        <div class="kpi-label">실시간 추정 통행량</div>
+                        <div class="kpi-val" id="flowVolumeVal" style="color:#ffffff; font-size:24px;">612,400 건</div>
+                        <div class="kpi-sub">연속 시계열 보간 값</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18;">
                         <div class="kpi-label">활성 이동 회랑 (Corridors)</div>
-                        <div class="kpi-val" id="flowCorridorCount" style="color:var(--warning); font-size:22px;">10 개 핵심 축</div>
-                        <div class="kpi-sub">대학가 셔틀 / 지하철 환승 집중</div>
+                        <div class="kpi-val" id="flowCorridorCount" style="color:var(--warning); font-size:24px;">10 개 핵심 축</div>
+                        <div class="kpi-sub">대학가 셔틀 / 지하철 환승</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18;">
                         <div class="kpi-label">도시 네트워크 상태</div>
-                        <div class="kpi-val" id="flowNetworkStatus" style="color:var(--danger); font-size:22px;">결품 주의보</div>
+                        <div class="kpi-val" id="flowNetworkStatus" style="color:var(--danger); font-size:24px;">결품 주의보</div>
                         <div class="kpi-sub">둔산/유성 거점 재고 소진 임박</div>
                     </div>
                 </div>
 
+                <!-- Continuous Minute-by-Minute Time Slider (0.00 ~ 23.99) -->
                 <div style="margin-bottom:12px;">
                     <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-family:monospace;">
                         <span>00:00 (심야)</span>
-                        <span>08:00 (출근 피크 39.4만)</span>
+                        <span>08:00 (출근 피크)</span>
                         <span>12:00 (점심 셔틀)</span>
-                        <span style="color:var(--danger); font-weight:bold;">18:00 (퇴근 피크 62.7만)</span>
-                        <span>23:00 (야간 귀가)</span>
+                        <span style="color:var(--danger); font-weight:bold;">18:00 (퇴근 피크)</span>
+                        <span>23:59</span>
                     </div>
-                    <input type="range" min="0" max="23" value="18" class="slider-bar" id="flowSlider" oninput="setFlowHour(parseInt(this.value))">
+                    <input type="range" min="0" max="1439" value="1065" class="slider-bar" id="flowMinuteSlider" oninput="onSlideMinute(parseInt(this.value))">
                 </div>
 
-                <!-- Canvas Map -->
+                <!-- Canvas Visualizer -->
                 <div class="canvas-container">
                     <canvas id="flowCanvas" class="flow-canvas" width="800" height="440"></canvas>
                 </div>
 
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px; color:var(--text-muted); flex-wrap:wrap; gap:8px;">
-                    <div style="display:flex; gap:16px;">
-                        <span style="color:var(--primary); font-weight:bold;">● 캠퍼스 셔틀 입자 (Cyan)</span>
-                        <span style="color:var(--success); font-weight:bold;">● 지하철 환승 입자 (Mint)</span>
-                        <span style="color:var(--warning); font-weight:bold;">● 수목원·하천 레저 (Amber)</span>
-                        <span style="color:var(--danger); font-weight:bold;">● 출퇴근 대형 간선 (Rose)</span>
+                    <div style="display:flex; gap:14px;">
+                        <span style="color:var(--primary); font-weight:bold;">● 캠퍼스 셔틀 (Cyan)</span>
+                        <span style="color:var(--success); font-weight:bold;">● 지하철 환승 (Mint)</span>
+                        <span style="color:var(--warning); font-weight:bold;">● 수목원 여가 (Amber)</span>
+                        <span style="color:var(--danger); font-weight:bold;">● 출퇴근 간선 (Rose)</span>
                     </div>
-                    <span>* 표의 행에 마우스를 올리면 지도 위 해당 회랑이 강조됩니다.</span>
+                    <span>* 하단 표의 행을 마우스로 올리시면 해당 회랑이 지도 위에 굵은 광선으로 강조됩니다.</span>
                 </div>
             </div>
 
-            <!-- 1-2. Hourly Pattern Chart -->
+            <!-- 1-2. Hourly Pattern Chart (Continuously Synced Cursor) -->
             <div class="card">
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px;">
                     <div>
@@ -347,17 +382,17 @@
                     <div style="display:flex; gap:16px; font-size:12px;">
                         <span style="display:flex; align-items:center; gap:6px;">
                             <span style="display:inline-block; width:12px; height:12px; background:var(--primary); border-radius:2px;"></span>
-                            <span style="color:var(--text-title); font-weight:600;">평일 통행량 (바 차트)</span>
+                            <span style="color:var(--text-title); font-weight:600;">평일 (바 차트)</span>
                         </span>
                         <span style="display:flex; align-items:center; gap:6px;">
                             <span style="display:inline-block; width:12px; height:3px; background:var(--success);"></span>
-                            <span style="color:var(--text-title); font-weight:600;">주말 통행량 (추세선)</span>
+                            <span style="color:var(--text-title); font-weight:600;">주말 (추세선)</span>
                         </span>
                     </div>
                 </div>
 
                 <div style="width:100%; overflow-x:auto;">
-                    <svg viewBox="0 0 940 240" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
+                    <svg id="edaSvg" viewBox="0 0 940 240" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
                         <line x1="60" y1="205.0" x2="920" y2="205.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
 <text x="52" y="209.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
 <line x1="60" y1="176.53846153846155" x2="920" y2="176.53846153846155" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
@@ -374,59 +409,58 @@
 <text x="52" y="38.230769230769226" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">60만</text>
 
                         <path d="M 60.0,187.9 L 97.4,194.1 L 134.8,197.9 L 172.2,200.3 L 209.6,201.3 L 247.0,198.9 L 284.3,196.4 L 321.7,191.6 L 359.1,183.7 L 396.5,179.5 L 433.9,175.3 L 471.3,171.8 L 508.7,166.1 L 546.1,162.9 L 583.5,160.2 L 620.9,157.2 L 658.3,153.8 L 695.7,150.0 L 733.0,153.9 L 770.4,159.8 L 807.8,161.6 L 845.2,164.9 L 882.6,173.6 L 920.0,179.5" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-dasharray="5 3"/>
-                        <rect id="edaBar_0" x="53.0" y="170.6" width="14" height="34.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(0)"><title>0시 평일: 120,888건 (클릭하여 시뮬레이터 이동)</title></rect>
+                        <rect id="edaBar_0" x="53.0" y="170.6" width="14" height="34.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(0)"><title>0시 평일: 120,888건</title></rect>
 <text x="60.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
-<rect id="edaBar_1" x="90.4" y="185.1" width="14" height="19.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(1)"><title>1시 평일: 70,051건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_1" x="90.4" y="185.1" width="14" height="19.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(1)"><title>1시 평일: 70,051건</title></rect>
 <text x="97.4" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
-<rect id="edaBar_2" x="127.8" y="192.9" width="14" height="12.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(2)"><title>2시 평일: 42,652건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_2" x="127.8" y="192.9" width="14" height="12.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(2)"><title>2시 평일: 42,652건</title></rect>
 <text x="134.8" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
-<rect id="edaBar_3" x="165.2" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(3)"><title>3시 평일: 27,615건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_3" x="165.2" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(3)"><title>3시 평일: 27,615건</title></rect>
 <text x="172.2" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
-<rect id="edaBar_4" x="202.6" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(4)"><title>4시 평일: 27,681건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_4" x="202.6" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(4)"><title>4시 평일: 27,681건</title></rect>
 <text x="209.6" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
-<rect id="edaBar_5" x="240.0" y="184.9" width="14" height="20.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(5)"><title>5시 평일: 70,727건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_5" x="240.0" y="184.9" width="14" height="20.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(5)"><title>5시 평일: 70,727건</title></rect>
 <text x="247.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
-<rect id="edaBar_6" x="277.3" y="167.8" width="14" height="37.2" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(6)"><title>6시 평일: 130,541건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_6" x="277.3" y="167.8" width="14" height="37.2" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(6)"><title>6시 평일: 130,541건</title></rect>
 <text x="284.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
-<rect id="edaBar_7" x="314.7" y="123.7" width="14" height="81.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(7)"><title>7시 평일: 285,595건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_7" x="314.7" y="123.7" width="14" height="81.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(7)"><title>7시 평일: 285,595건</title></rect>
 <text x="321.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
-<rect id="edaBar_8" x="352.1" y="92.9" width="14" height="112.1" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(8)"><title>8시 평일: 393,736건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_8" x="352.1" y="92.9" width="14" height="112.1" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(8)"><title>8시 평일: 393,736건</title></rect>
 <text x="359.1" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
-<rect id="edaBar_9" x="389.5" y="136.7" width="14" height="68.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(9)"><title>9시 평일: 240,046건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_9" x="389.5" y="136.7" width="14" height="68.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(9)"><title>9시 평일: 240,046건</title></rect>
 <text x="396.5" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
-<rect id="edaBar_10" x="426.9" y="141.2" width="14" height="63.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(10)"><title>10시 평일: 224,037건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_10" x="426.9" y="141.2" width="14" height="63.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(10)"><title>10시 평일: 224,037건</title></rect>
 <text x="433.9" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
-<rect id="edaBar_11" x="464.3" y="126.5" width="14" height="78.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(11)"><title>11시 평일: 275,644건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_11" x="464.3" y="126.5" width="14" height="78.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(11)"><title>11시 평일: 275,644건</title></rect>
 <text x="471.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
-<rect id="edaBar_12" x="501.7" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(12)"><title>12시 평일: 312,809건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_12" x="501.7" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(12)"><title>12시 평일: 312,809건</title></rect>
 <text x="508.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
-<rect id="edaBar_13" x="539.1" y="120.5" width="14" height="84.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(13)"><title>13시 평일: 296,865건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_13" x="539.1" y="120.5" width="14" height="84.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(13)"><title>13시 평일: 296,865건</title></rect>
 <text x="546.1" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
-<rect id="edaBar_14" x="576.5" y="115.0" width="14" height="90.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(14)"><title>14시 평일: 316,105건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_14" x="576.5" y="115.0" width="14" height="90.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(14)"><title>14시 평일: 316,105건</title></rect>
 <text x="583.5" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
-<rect id="edaBar_15" x="613.9" y="100.6" width="14" height="104.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(15)"><title>15시 평일: 366,882건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_15" x="613.9" y="100.6" width="14" height="104.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(15)"><title>15시 평일: 366,882건</title></rect>
 <text x="620.9" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
-<rect id="edaBar_16" x="651.3" y="76.4" width="14" height="128.6" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(16)"><title>16시 평일: 451,986건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_16" x="651.3" y="76.4" width="14" height="128.6" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(16)"><title>16시 평일: 451,986건</title></rect>
 <text x="658.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
-<rect id="edaBar_17" x="688.7" y="43.6" width="14" height="161.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(17)"><title>17시 평일: 567,166건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_17" x="688.7" y="43.6" width="14" height="161.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(17)"><title>17시 평일: 567,166건</title></rect>
 <text x="695.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
-<rect id="edaBar_18" x="726.0" y="26.5" width="14" height="178.5" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(18)"><title>18시 평일: 627,088건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_18" x="726.0" y="26.5" width="14" height="178.5" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(18)"><title>18시 평일: 627,088건</title></rect>
 <text x="733.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
-<rect id="edaBar_19" x="763.4" y="75.2" width="14" height="129.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(19)"><title>19시 평일: 455,980건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_19" x="763.4" y="75.2" width="14" height="129.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(19)"><title>19시 평일: 455,980건</title></rect>
 <text x="770.4" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
-<rect id="edaBar_20" x="800.8" y="86.6" width="14" height="118.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(20)"><title>20시 평일: 416,133건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_20" x="800.8" y="86.6" width="14" height="118.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(20)"><title>20시 평일: 416,133건</title></rect>
 <text x="807.8" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
-<rect id="edaBar_21" x="838.2" y="93.9" width="14" height="111.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(21)"><title>21시 평일: 390,479건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_21" x="838.2" y="93.9" width="14" height="111.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(21)"><title>21시 평일: 390,479건</title></rect>
 <text x="845.2" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
-<rect id="edaBar_22" x="875.6" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(22)"><title>22시 평일: 312,592건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_22" x="875.6" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(22)"><title>22시 평일: 312,592건</title></rect>
 <text x="882.6" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
-<rect id="edaBar_23" x="913.0" y="136.2" width="14" height="68.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(23)"><title>23시 평일: 241,605건 (클릭하여 시뮬레이터 이동)</title></rect>
+<rect id="edaBar_23" x="913.0" y="136.2" width="14" height="68.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:opacity 0.2s;" onclick="jumpFlowHour(23)"><title>23시 평일: 241,605건</title></rect>
 <text x="920.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
 
-                        <circle cx="359.1304347826087" cy="92.93667692307692" r="4" fill="#fff" stroke="#0284c7" stroke-width="2"/>
-                        <text x="359.1304347826087" y="82.93667692307692" fill="var(--text-title)" font-size="11" font-weight="700" text-anchor="middle">출근 08시 (39.4만)</text>
-                        <circle cx="733.0434782608696" cy="26.52110769230771" r="4" fill="#fff" stroke="var(--danger)" stroke-width="2"/>
-                        <text x="733.0434782608696" y="16.52110769230771" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">퇴근 18시 (62.7만)</text>
+                        <!-- Continuous Moving Playhead on EDA Chart -->
+                        <line id="edaPlayhead" x1="723.695652173913" y1="20" x2="723.695652173913" y2="205" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2"/>
+                        <circle id="edaPlayheadDot" cx="723.695652173913" cy="30.701538461538462" r="4" fill="#facc15"/>
                     </svg>
                 </div>
 
@@ -474,7 +508,7 @@
                         강수량 1mm 돌파 시 통행량 70.9% 급감 (버튼 클릭 시 상단 입자 흐름 동적 감소)
                     </p>
 
-                    <div style="display:flex; gap:6px; margin-bottom:12px;">
+                    <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
                         <button class="tab-btn active" onclick="setWeatherRain(0, this)">비 안 옴 (0mm)</button>
                         <button class="tab-btn" onclick="setWeatherRain(1, this)">이슬비 (0~1mm)</button>
                         <button class="tab-btn" onclick="setWeatherRain(2, this)">일반 비 (1~3mm)</button>
@@ -571,98 +605,100 @@
                     </div>
                 </div>
 
-                <!-- Interactive O-D Table (Hovering highlights route on Canvas) -->
+                <!-- Interactive O-D Table -->
                 <div style="margin-top:16px;">
                     <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">
                         대전시 최상위 O-D 통행 회랑 Top 8 (표 위에 마우스를 올리면 지도 위 회랑이 즉시 강조됩니다)
                     </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>순위</th>
-                                <th>출발 대여소</th>
-                                <th>도착 대여소</th>
-                                <th style="text-align:right;">연간 통행량</th>
-                                <th style="text-align:right;">평균 거리</th>
-                                <th style="text-align:right;">소요 시간</th>
-                                <th>통행 유형</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_dine', 'kaist_edu')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--primary);">1</td>
-                                <td>어은동 카이스트 학사식당</td>
-                                <td>구성동 카이스트 창의학습관</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">7,205 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.46 km</td>
-                                <td style="text-align:right; font-family:monospace;">6.8 분</td>
-                                <td>캠퍼스 셔틀</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_dine')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--primary);">2</td>
-                                <td>구성동 카이스트 창의학습관</td>
-                                <td>어은동 카이스트 학사식당</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">6,104 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.49 km</td>
-                                <td style="text-align:right; font-family:monospace;">8.7 분</td>
-                                <td>캠퍼스 셔틀</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_gate')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--primary);">3</td>
-                                <td>구성동 카이스트 창의학습관</td>
-                                <td>구성동 카이스트 쪽문(원룸촌)</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,675 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.62 km</td>
-                                <td style="text-align:right; font-family:monospace;">8.9 분</td>
-                                <td>기숙사 통학</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('gungdong', 'cnu')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--primary);">4</td>
-                                <td>궁동 로데오거리 남측</td>
-                                <td>충남대학교 정문</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,145 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.58 km</td>
-                                <td style="text-align:right; font-family:monospace;">6.5 분</td>
-                                <td>대학 상권 연결</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_w', 'arboretum_e')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--warning);">5</td>
-                                <td>만년동 한밭수목원(서원)</td>
-                                <td>만년동 한밭수목원(동원)</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,136 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.65 km</td>
-                                <td style="text-align:right; font-family:monospace; color:var(--warning);">30.0 분</td>
-                                <td>공원 여가</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('dunsan_gov_st', 'dunsan_gov')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--success);">6</td>
-                                <td>둔산동 정부청사역 4번출구</td>
-                                <td>둔산동 정부청사 입구(남문)</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">4,964 건</td>
-                                <td style="text-align:right; font-family:monospace;">0.38 km</td>
-                                <td style="text-align:right; font-family:monospace; color:var(--success);">3.1 분</td>
-                                <td>지하철 환승</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_e', 'expo_bridge')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--warning);">7</td>
-                                <td>한밭수목원 동원</td>
-                                <td>엑스포다리 / 스마트시티</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">4,012 건</td>
-                                <td style="text-align:right; font-family:monospace;">1.45 km</td>
-                                <td style="text-align:right; font-family:monospace; color:var(--warning);">25.4 분</td>
-                                <td>수변 횡단 레저</td>
-                            </tr>
-                            <tr class="hoverable-row" onmouseenter="highlightCorridor('noeun', 'yuseong_spa')" onmouseleave="highlightCorridor(null, null)">
-                                <td style="font-weight:bold; color:var(--danger);">8</td>
-                                <td>노은역 3번출구 (잉여 주거지)</td>
-                                <td>유성온천역 7번출구 (결품 도심)</td>
-                                <td style="text-align:right; font-family:monospace; font-weight:bold;">3,842 건</td>
-                                <td style="text-align:right; font-family:monospace;">6.80 km</td>
-                                <td style="text-align:right; font-family:monospace;">46.2 분</td>
-                                <td>출퇴근 & 트럭 배차축</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>순위</th>
+                                    <th>출발 대여소</th>
+                                    <th>도착 대여소</th>
+                                    <th style="text-align:right;">연간 통행량</th>
+                                    <th style="text-align:right;">평균 거리</th>
+                                    <th style="text-align:right;">소요 시간</th>
+                                    <th>통행 유형</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_dine', 'kaist_edu')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--primary);">1</td>
+                                    <td>어은동 카이스트 학사식당</td>
+                                    <td>구성동 카이스트 창의학습관</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">7,205 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.46 km</td>
+                                    <td style="text-align:right; font-family:monospace;">6.8 분</td>
+                                    <td>캠퍼스 셔틀</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_dine')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--primary);">2</td>
+                                    <td>구성동 카이스트 창의학습관</td>
+                                    <td>어은동 카이스트 학사식당</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">6,104 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.49 km</td>
+                                    <td style="text-align:right; font-family:monospace;">8.7 분</td>
+                                    <td>캠퍼스 셔틀</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_gate')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--primary);">3</td>
+                                    <td>구성동 카이스트 창의학습관</td>
+                                    <td>구성동 카이스트 쪽문(원룸촌)</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">5,675 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.62 km</td>
+                                    <td style="text-align:right; font-family:monospace;">8.9 분</td>
+                                    <td>기숙사 통학</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('gungdong', 'cnu')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--primary);">4</td>
+                                    <td>궁동 로데오거리 남측</td>
+                                    <td>충남대학교 정문</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">5,145 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.58 km</td>
+                                    <td style="text-align:right; font-family:monospace;">6.5 분</td>
+                                    <td>대학 상권 연결</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_w', 'arboretum_e')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--warning);">5</td>
+                                    <td>만년동 한밭수목원(서원)</td>
+                                    <td>만년동 한밭수목원(동원)</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">5,136 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.65 km</td>
+                                    <td style="text-align:right; font-family:monospace; color:var(--warning);">30.0 분</td>
+                                    <td>공원 여가</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('dunsan_gov_st', 'dunsan_gov')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--success);">6</td>
+                                    <td>둔산동 정부청사역 4번출구</td>
+                                    <td>둔산동 정부청사 입구(남문)</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">4,964 건</td>
+                                    <td style="text-align:right; font-family:monospace;">0.38 km</td>
+                                    <td style="text-align:right; font-family:monospace; color:var(--success);">3.1 분</td>
+                                    <td>지하철 환승</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_e', 'expo_bridge')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--warning);">7</td>
+                                    <td>한밭수목원 동원</td>
+                                    <td>엑스포다리 / 스마트시티</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">4,012 건</td>
+                                    <td style="text-align:right; font-family:monospace;">1.45 km</td>
+                                    <td style="text-align:right; font-family:monospace; color:var(--warning);">25.4 분</td>
+                                    <td>수변 횡단 레저</td>
+                                </tr>
+                                <tr class="hoverable-row" onmouseenter="highlightCorridor('noeun', 'yuseong_spa')" onmouseleave="highlightCorridor(null, null)">
+                                    <td style="font-weight:bold; color:var(--danger);">8</td>
+                                    <td>노은역 3번출구 (잉여 주거지)</td>
+                                    <td>유성온천역 7번출구 (결품 도심)</td>
+                                    <td style="text-align:right; font-family:monospace; font-weight:bold;">3,842 건</td>
+                                    <td style="text-align:right; font-family:monospace;">6.80 km</td>
+                                    <td style="text-align:right; font-family:monospace;">46.2 분</td>
+                                    <td>출퇴근 & 트럭 배차축</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -762,14 +798,14 @@
         </section>
 
         <!-- ============================================================== -->
-        <!-- 4. ALGORITHM SIMULATION: ACTUAL VS PREDICTED DIFFERENCE -->
+        <!-- 4. ALGORITHM SIMULATION: CONTINUOUS TIME PLAYBACK -->
         <!-- ============================================================== -->
         <section id="sec-sim" style="margin-top:40px;">
             <div class="section-header">
                 <span class="section-tag">Section 04</span>
-                <h2 class="section-title">4. 알고리즘 예측치 vs 실제 수요량 차이(오차) 검증 및 시뮬레이션</h2>
+                <h2 class="section-title">4. 알고리즘 예측치 vs 실제 수요량 차이(오차) 연속 시뮬레이션</h2>
                 <p class="section-desc">
-                    기존 MSE 모델의 과소예측(결품 발생 영역)과 제안 Q85 모델의 안전 재고 방어 버퍼를 시간대별 시계열 차이와 동적 시뮬레이터로 정량 검증
+                    기존 MSE 모델의 과소예측(결품 발생 영역)과 제안 Q85 모델의 안전 재고 방어 버퍼를 분(Minute) 단위 연속 시계열로 정량 검증
                 </p>
             </div>
 
@@ -777,7 +813,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
                     <div>
                         <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">
-                            4-1. 24시간 수요량 vs 예측치 시계열 차이(Gap) 비교 및 동적 시뮬레이터
+                            4-1. 24시간 수요량 vs 예측치 연속 시계열 차이(Gap) 동적 시뮬레이터
                         </h3>
                         <p style="font-size:12px; color:var(--text-muted);">
                             시간의 흐름에 따라 실제 수요(흰색), 기존 MSE 예측(붉은 점선), 제안 Q85 예측(청록 실선)의 차이와 결품 여부를 실시간 추적
@@ -785,34 +821,34 @@
                     </div>
 
                     <div style="display:flex; align-items:center; gap:8px;">
-                        <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">
-                            <span id="playIcon">▶</span> <span id="playText">시뮬레이션 재생</span>
+                        <button class="ctrl-btn" id="simPlayBtn" onclick="toggleSimPlay()">
+                            <span id="simPlayIcon">▶</span> <span id="simPlayText">연속 재생</span>
                         </button>
-                        <button class="ctrl-btn" onclick="resetSim()">⏮ 리셋</button>
-                        <button class="ctrl-btn" id="speedBtn" onclick="toggleSpeed()">배속: 1x</button>
+                        <button class="ctrl-btn" onclick="resetSimPlay()">⏮ 00:00</button>
+                        <button class="ctrl-btn" id="simSpeedBtn" onclick="toggleSimSpeed()">배속: 1x</button>
                     </div>
                 </div>
 
                 <div class="grid-4" style="margin-bottom:16px;">
                     <div class="kpi-box" style="background:#070c18;">
-                        <div class="kpi-label">시뮬레이션 시각</div>
-                        <div class="kpi-val" id="simHourDisplay" style="color:var(--text-title); font-size:22px;">18:00 (퇴근 피크)</div>
+                        <div class="kpi-label">시뮬레이션 실시간 시각</div>
+                        <div class="kpi-val" id="simHourDisplay" style="color:var(--text-title); font-size:24px;">17:45</div>
                         <div class="kpi-sub" id="simStatusSub">퇴근길 대여 수요 집중 시간대</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18;">
                         <div class="kpi-label">실제 시민 대여 수요량</div>
-                        <div class="kpi-val" id="simActualVal" style="color:#ffffff; font-size:22px;">2,304 대</div>
-                        <div class="kpi-sub">대전시 전역 1시간 실측 통행</div>
+                        <div class="kpi-val" id="simActualVal" style="color:#ffffff; font-size:24px;">2,250 대</div>
+                        <div class="kpi-sub">연속 시계열 보간 수요</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18; border-color:rgba(248, 113, 113, 0.4);">
                         <div class="kpi-label">기존 MSE 예측치 및 오차(차이)</div>
-                        <div class="kpi-val" id="simMseVal" style="color:var(--danger); font-size:22px;">1,797 대 <span style="font-size:14px;">(-507대)</span></div>
-                        <div class="kpi-sub" id="simMseGapSub" style="color:var(--danger); font-weight:bold;">🚨 507대 결품 발생! (품절)</div>
+                        <div class="kpi-val" id="simMseVal" style="color:var(--danger); font-size:24px;">1,755 대 <span style="font-size:14px;">(-495대)</span></div>
+                        <div class="kpi-sub" id="simMseGapSub" style="color:var(--danger); font-weight:bold;">🚨 495대 결품 발생! (품절)</div>
                     </div>
                     <div class="kpi-box" style="background:#070c18; border-color:rgba(56, 189, 248, 0.4);">
                         <div class="kpi-label">제안 Q85 예측치 및 안전 버퍼</div>
-                        <div class="kpi-val" id="simQ85Val" style="color:var(--primary); font-size:22px;">2,580 대 <span style="font-size:14px;">(+276대)</span></div>
-                        <div class="kpi-sub" id="simQ85GapSub" style="color:var(--success); font-weight:bold;">✓ 276대 안전 재고 확보 (방어)</div>
+                        <div class="kpi-val" id="simQ85Val" style="color:var(--primary); font-size:24px;">2,519 대 <span style="font-size:14px;">(+269대)</span></div>
+                        <div class="kpi-sub" id="simQ85GapSub" style="color:var(--success); font-weight:bold;">✓ 269대 안전 재고 확보 (방어)</div>
                     </div>
                 </div>
 
@@ -823,9 +859,9 @@
                         <span>08:00 (출근 피크)</span>
                         <span>12:00 (점심)</span>
                         <span style="color:var(--danger); font-weight:bold;">18:00 (퇴근 피크)</span>
-                        <span>23:00</span>
+                        <span>23:59</span>
                     </div>
-                    <input type="range" min="0" max="23" value="18" class="slider-bar" id="simSlider" oninput="setSimHour(parseInt(this.value))">
+                    <input type="range" min="0" max="1439" value="1065" class="slider-bar" id="simMinuteSlider" oninput="onSlideSimMinute(parseInt(this.value))">
                 </div>
 
                 <div style="width:100%; overflow-x:auto;">
@@ -875,10 +911,10 @@
 <text x="882.6" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
 <text x="920.0" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
 
-                        <line id="simCursorLine" x1="733.0434782608696" y1="20" x2="733.0434782608696" y2="245" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2"/>
-                        <circle id="simCursorAct" cx="733.0434782608696" cy="59.85714285714286" r="5" fill="#ffffff" stroke="#000" stroke-width="2"/>
-                        <circle id="simCursorMse" cx="733.0434782608696" cy="100.59821428571428" r="4" fill="var(--danger)"/>
-                        <circle id="simCursorQ85" cx="733.0434782608696" cy="37.678571428571445" r="4" fill="var(--primary)"/>
+                        <line id="simCursorLine" x1="723.695652173913" y1="20" x2="723.695652173913" y2="245" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2"/>
+                        <circle id="simCursorAct" cx="723.695652173913" cy="64.19642857142856" r="5" fill="#ffffff" stroke="#000" stroke-width="2"/>
+                        <circle id="simCursorMse" cx="723.695652173913" cy="103.97321428571428" r="4" fill="var(--danger)"/>
+                        <circle id="simCursorQ85" cx="723.695652173913" cy="42.58035714285714" r="4" fill="var(--primary)"/>
                     </svg>
                 </div>
             </div>
@@ -894,66 +930,68 @@
                     </p>
                 </div>
 
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>거점명 (대여소)</th>
-                            <th style="text-align:right;">잔여 재고</th>
-                            <th style="text-align:right;">실제 수요량</th>
-                            <th style="text-align:right; color:var(--danger);">MSE 예측치 (차이)</th>
-                            <th style="text-align:center;">MSE 결품 결과</th>
-                            <th style="text-align:right; color:var(--primary);">Q85 예측치 (차이)</th>
-                            <th style="text-align:center;">Q85 방어 결과</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--text-title);">둔산동 정부청사역 4번출구</td>
-                            <td style="text-align:right; font-family:monospace;">14 대</td>
-                            <td style="text-align:right; font-family:monospace; font-weight:bold;">42 대</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--danger);">24 대 <span style="font-size:11px;">(-18대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-red">18명 품절 피해</span></td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">46 대 <span style="font-size:11px;">(+4대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--text-title);">유성온천역 7번출구</td>
-                            <td style="text-align:right; font-family:monospace;">8 대</td>
-                            <td style="text-align:right; font-family:monospace; font-weight:bold;">36 대</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--danger);">20 대 <span style="font-size:11px;">(-16대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-red">16명 품절 피해</span></td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">40 대 <span style="font-size:11px;">(+4대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-green">94.4% 결품 차단</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--text-title);">월평역 1번출구</td>
-                            <td style="text-align:right; font-family:monospace;">6 대</td>
-                            <td style="text-align:right; font-family:monospace; font-weight:bold;">31 대</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--danger);">18 대 <span style="font-size:11px;">(-13대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-red">13명 품절 피해</span></td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">34 대 <span style="font-size:11px;">(+3대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--text-title);">시청역 8번출구</td>
-                            <td style="text-align:right; font-family:monospace;">10 대</td>
-                            <td style="text-align:right; font-family:monospace; font-weight:bold;">28 대</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--danger);">19 대 <span style="font-size:11px;">(-9대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-red">9명 품절 피해</span></td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">31 대 <span style="font-size:11px;">(+3대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--text-title);">도룡동 대전신세계 스마트시티</td>
-                            <td style="text-align:right; font-family:monospace;">12 대</td>
-                            <td style="text-align:right; font-family:monospace; font-weight:bold;">26 대</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--danger);">17 대 <span style="font-size:11px;">(-9대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-red">9명 품절 피해</span></td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">29 대 <span style="font-size:11px;">(+3대)</span></td>
-                            <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>거점명 (대여소)</th>
+                                <th style="text-align:right;">잔여 재고</th>
+                                <th style="text-align:right;">실제 수요량</th>
+                                <th style="text-align:right; color:var(--danger);">MSE 예측치 (차이)</th>
+                                <th style="text-align:center;">MSE 결품 결과</th>
+                                <th style="text-align:right; color:var(--primary);">Q85 예측치 (차이)</th>
+                                <th style="text-align:center;">Q85 방어 결과</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:bold; color:var(--text-title);">둔산동 정부청사역 4번출구</td>
+                                <td style="text-align:right; font-family:monospace;">14 대</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">42 대</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--danger);">24 대 <span style="font-size:11px;">(-18대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-red">18명 품절 피해</span></td>
+                                <td style="text-align:right; font-family:monospace; color:var(--primary);">46 대 <span style="font-size:11px;">(+4대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; color:var(--text-title);">유성온천역 7번출구</td>
+                                <td style="text-align:right; font-family:monospace;">8 대</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">36 대</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--danger);">20 대 <span style="font-size:11px;">(-16대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-red">16명 품절 피해</span></td>
+                                <td style="text-align:right; font-family:monospace; color:var(--primary);">40 대 <span style="font-size:11px;">(+4대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-green">94.4% 결품 차단</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; color:var(--text-title);">월평역 1번출구</td>
+                                <td style="text-align:right; font-family:monospace;">6 대</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">31 대</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--danger);">18 대 <span style="font-size:11px;">(-13대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-red">13명 품절 피해</span></td>
+                                <td style="text-align:right; font-family:monospace; color:var(--primary);">34 대 <span style="font-size:11px;">(+3대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; color:var(--text-title);">시청역 8번출구</td>
+                                <td style="text-align:right; font-family:monospace;">10 대</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">28 대</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--danger);">19 대 <span style="font-size:11px;">(-9대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-red">9명 품절 피해</span></td>
+                                <td style="text-align:right; font-family:monospace; color:var(--primary);">31 대 <span style="font-size:11px;">(+3대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold; color:var(--text-title);">도룡동 대전신세계 스마트시티</td>
+                                <td style="text-align:right; font-family:monospace;">12 대</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">26 대</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--danger);">17 대 <span style="font-size:11px;">(-9대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-red">9명 품절 피해</span></td>
+                                <td style="text-align:right; font-family:monospace; color:var(--primary);">29 대 <span style="font-size:11px;">(+3대)</span></td>
+                                <td style="text-align:center;"><span class="badge badge-green">결품 0건 완벽 방어</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -1056,15 +1094,14 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE SCRIPTS -->
+    <!-- JAVASCRIPT: CONTINUOUS TIME INTERPOLATION & INSTANT LAUNCH ENGINE -->
     <script>
-        // ==========================================
-        // 1. CANVAS PARTICLE FLOW ANIMATION (SECTION 1-1)
-        // With Bidirectional Table Hover & Zone Selection
-        // ==========================================
-        const canvas = document.getElementById('flowCanvas');
-        const ctx = canvas.getContext('2d');
+        const weekdayHourly = [120888, 70051, 42652, 27615, 27681, 70727, 130541, 285595, 393736, 240046, 224037, 275644, 312809, 296865, 316105, 366882, 451986, 567166, 627088, 455980, 416133, 390479, 312592, 241605];
+        const actualHourly = [419, 229, 123, 106, 126, 291, 519, 1098, 1400, 711, 670, 864, 956, 817, 933, 1168, 1564, 2088, 2304, 1749, 1661, 1570, 1298, 819];
+        const mseHourly = [489, 322, 228, 213, 231, 376, 577, 1086, 1352, 746, 710, 880, 961, 839, 941, 1148, 1496, 1628, 1797, 1364, 1582, 1502, 1262, 841];
+        const q85Hourly = [658, 441, 320, 301, 324, 512, 772, 1432, 1776, 991, 944, 1165, 1270, 1111, 1244, 1512, 1963, 2338, 2580, 1958, 2074, 1970, 1660, 1114];
 
+        // Hubs for Canvas
         const hubs = {
             kaist_dine: { name: '카이스트 학사식당', x: 290, y: 190, color: '#38bdf8' },
             kaist_edu: { name: '카이스트 창의학습관', x: 330, y: 210, color: '#38bdf8' },
@@ -1083,21 +1120,22 @@
         };
 
         const corridors = [
-            { from: 'kaist_dine', to: 'kaist_edu', color: '#38bdf8', weight: 1.0, zone: 'campus' },
-            { from: 'kaist_edu', to: 'kaist_dine', color: '#38bdf8', weight: 0.9, zone: 'campus' },
-            { from: 'kaist_edu', to: 'kaist_gate', color: '#38bdf8', weight: 0.85, zone: 'campus' },
-            { from: 'kaist_gate', to: 'gungdong', color: '#38bdf8', weight: 0.75, zone: 'campus' },
-            { from: 'gungdong', to: 'cnu', color: '#38bdf8', weight: 0.8, zone: 'campus' },
-            { from: 'gungdong', to: 'yuseong_spa', color: '#34d399', weight: 0.85, zone: 'metro' },
-            { from: 'noeun', to: 'yuseong_spa', color: '#f87171', weight: 0.7, zone: 'metro' },
-            { from: 'dunsan_gov_st', to: 'dunsan_gov', color: '#34d399', weight: 0.95, zone: 'metro' },
-            { from: 'dunsan_gov', to: 'dunsan_gov_st', color: '#34d399', weight: 0.95, zone: 'metro' },
-            { from: 'dunsan_gov_st', to: 'city_hall', color: '#34d399', weight: 0.75, zone: 'metro' },
-            { from: 'arboretum_w', to: 'arboretum_e', color: '#fbbf24', weight: 0.8, zone: 'leisure' },
-            { from: 'arboretum_e', to: 'expo_bridge', color: '#fbbf24', weight: 0.7, zone: 'leisure' },
-            { from: 'city_hall', to: 'daejeon_st', color: '#818cf8', weight: 0.6, zone: 'metro' }
+            { from: 'kaist_dine', to: 'kaist_edu', color: '#38bdf8', zone: 'campus' },
+            { from: 'kaist_edu', to: 'kaist_dine', color: '#38bdf8', zone: 'campus' },
+            { from: 'kaist_edu', to: 'kaist_gate', color: '#38bdf8', zone: 'campus' },
+            { from: 'kaist_gate', to: 'gungdong', color: '#38bdf8', zone: 'campus' },
+            { from: 'gungdong', to: 'cnu', color: '#38bdf8', zone: 'campus' },
+            { from: 'gungdong', to: 'yuseong_spa', color: '#34d399', zone: 'metro' },
+            { from: 'noeun', to: 'yuseong_spa', color: '#f87171', zone: 'metro' },
+            { from: 'dunsan_gov_st', to: 'dunsan_gov', color: '#34d399', zone: 'metro' },
+            { from: 'dunsan_gov', to: 'dunsan_gov_st', color: '#34d399', zone: 'metro' },
+            { from: 'dunsan_gov_st', to: 'city_hall', color: '#34d399', zone: 'metro' },
+            { from: 'arboretum_w', to: 'arboretum_e', color: '#fbbf24', zone: 'leisure' },
+            { from: 'arboretum_e', to: 'expo_bridge', color: '#fbbf24', zone: 'leisure' },
+            { from: 'city_hall', to: 'daejeon_st', color: '#818cf8', zone: 'metro' }
         ];
 
+        // Particles
         const particles = [];
         const MAX_PARTICLES = 160;
         let weatherReduction = 1.0;
@@ -1114,12 +1152,69 @@
             });
         }
 
-        let flowCurrentHour = 18;
+        // Continuous Timeline State (0.0 to 24.0 in hours)
+        let flowTime = 17.75; // 17:45 default
         let isFlowPlaying = true;
-        let flowInterval = null;
-        let flowSpeedMs = 1200;
+        let flowSpeedMult = 1.0; // 1x = 1 hour per 3 seconds
 
-        function drawFlowCanvas() {
+        let simTime = 17.75; // 17:45 default
+        let isSimPlaying = false;
+        let simSpeedMult = 1.0;
+
+        let lastTimestamp = 0;
+
+        // Linear interpolation helper
+        function lerp(a, b, t) {
+            return a + (b - a) * t;
+        }
+
+        function getInterpolatedVal(arr, time) {
+            const h = Math.floor(time) % 24;
+            const nextH = (h + 1) % 24;
+            const frac = time - Math.floor(time);
+            return lerp(arr[h], arr[nextH], frac);
+        }
+
+        // Format float hours to HH:MM
+        function formatTime(time) {
+            const totalMins = Math.floor((time % 24) * 60);
+            const h = Math.floor(totalMins / 60);
+            const m = totalMins % 60;
+            return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+        }
+
+        // Main Continuous Animation Loop (Runs at 60 FPS smoothly)
+        function animationMasterLoop(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const deltaMs = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            const deltaSeconds = Math.min(deltaMs / 1000.0, 0.1);
+
+            // 1. Advance Continuous Flow Time (Section 1)
+            if (isFlowPlaying) {
+                // Advance time: 1x = 0.33 hours per second (approx 1 day in ~72s)
+                flowTime = (flowTime + deltaSeconds * 0.35 * flowSpeedMult) % 24.0;
+                updateFlowUI(flowTime);
+            }
+
+            // 2. Advance Continuous Simulation Time (Section 4)
+            if (isSimPlaying) {
+                simTime = (simTime + deltaSeconds * 0.35 * simSpeedMult) % 24.0;
+                updateSimUI(simTime);
+            }
+
+            // 3. Render Canvas Particle Flow
+            renderCanvasFrame(flowTime);
+
+            requestAnimationFrame(animationMasterLoop);
+        }
+
+        function renderCanvasFrame(time) {
+            const canvas = document.getElementById('flowCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
             ctx.fillStyle = 'rgba(6, 9, 19, 0.28)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -1133,7 +1228,7 @@
             ctx.quadraticCurveTo(510, 230, 620, 370);
             ctx.stroke();
 
-            // Subway Line 1
+            // Subway 1
             ctx.strokeStyle = 'rgba(52, 211, 153, 0.25)';
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -1144,7 +1239,7 @@
             ctx.lineTo(670, 360);
             ctx.stroke();
 
-            // Tram Line 2 Loop
+            // Tram 2 Loop
             ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
             ctx.lineWidth = 2;
             ctx.setLineDash([6, 6]);
@@ -1168,11 +1263,17 @@
                 ctx.stroke();
             });
 
+            // Smooth continuous hour factor
             let hourFactor = 0.3;
-            if (flowCurrentHour >= 7 && flowCurrentHour <= 9) hourFactor = 0.9;
-            else if (flowCurrentHour >= 17 && flowCurrentHour <= 19) hourFactor = 1.2;
-            else if (flowCurrentHour >= 10 && flowCurrentHour <= 16) hourFactor = 0.65;
-            else if (flowCurrentHour >= 20 && flowCurrentHour <= 22) hourFactor = 0.55;
+            if (time >= 7.0 && time <= 9.5) {
+                hourFactor = 0.8 + 0.3 * Math.sin((time - 7.0) / 2.5 * Math.PI);
+            } else if (time >= 16.5 && time <= 19.5) {
+                hourFactor = 0.9 + 0.45 * Math.sin((time - 16.5) / 3.0 * Math.PI);
+            } else if (time >= 10.0 && time <= 16.5) {
+                hourFactor = 0.65;
+            } else if (time >= 20.0 && time <= 22.5) {
+                hourFactor = 0.55;
+            }
 
             const activeParticleCount = Math.floor(MAX_PARTICLES * hourFactor * weatherReduction);
 
@@ -1210,8 +1311,107 @@
                 ctx.font = '10px -apple-system, sans-serif';
                 ctx.fillText(h.name, h.x + 8, h.y + 3);
             }
+        }
 
-            requestAnimationFrame(drawFlowCanvas);
+        function updateFlowUI(time) {
+            const clockStr = formatTime(time);
+            document.getElementById('flowClockDisplay').innerText = clockStr;
+            document.getElementById('flowMinuteSlider').value = Math.floor(time * 60);
+
+            // Interpolated trip volume
+            const interpTrips = Math.round(getInterpolatedVal(weekdayHourly, time));
+            document.getElementById('flowVolumeVal').innerText = interpTrips.toLocaleString() + ' 건';
+
+            // Status narrative
+            let periodBrief = '통상적 주간 생활 통행 구간';
+            let netStatus = '정상 순환';
+            let statusColor = 'var(--success)';
+
+            if (time >= 7.5 && time <= 9.0) {
+                periodBrief = '오전 출근 피크! 지하철역 라스트마일 쇄도';
+                netStatus = '출근 쏠림 집중';
+                statusColor = 'var(--primary)';
+            } else if (time >= 17.0 && time <= 19.0) {
+                periodBrief = '오후 18시 퇴근 대피크! 통행량 최대 분출';
+                netStatus = '결품 위험 경보 (품절 임박)';
+                statusColor = 'var(--danger)';
+            } else if (time >= 16.0 && time <= 20.0) {
+                periodBrief = '퇴근길 통행 급증 구간 (대여소 재고 급감)';
+                netStatus = '수급 불균형 주의';
+                statusColor = 'var(--warning)';
+            } else if (time < 6.0) {
+                periodBrief = '심야 한적한 통행 유지';
+                netStatus = '심야 잔여 운행';
+                statusColor = 'var(--text-muted)';
+            }
+
+            document.getElementById('flowPeriodBrief').innerText = periodBrief;
+            document.getElementById('flowNetworkStatus').innerText = netStatus;
+            document.getElementById('flowNetworkStatus').style.color = statusColor;
+
+            // Move EDA Playhead Line continuously
+            const x = 60 + (time / 23.0) * 860;
+            const y = 20 + 185 - (interpTrips / 650000) * 185;
+            const line = document.getElementById('edaPlayhead');
+            const dot = document.getElementById('edaPlayheadDot');
+            if (line && dot) {
+                line.setAttribute('x1', x);
+                line.setAttribute('x2', x);
+                dot.setAttribute('cx', x);
+                dot.setAttribute('cy', Math.max(20, y));
+            }
+
+            // Highlight corresponding bar
+            const curH = Math.floor(time);
+            for (let i = 0; i < 24; i++) {
+                const el = document.getElementById('edaBar_' + i);
+                if (el) {
+                    el.setAttribute('opacity', i === curH ? '1.0' : '0.35');
+                    el.setAttribute('stroke', i === curH ? '#ffffff' : 'none');
+                    el.setAttribute('stroke-width', i === curH ? '2' : '0');
+                }
+            }
+        }
+
+        function onSlideMinute(minVal) {
+            flowTime = minVal / 60.0;
+            updateFlowUI(flowTime);
+        }
+
+        function jumpFlowHour(h) {
+            flowTime = h * 1.0;
+            updateFlowUI(flowTime);
+        }
+
+        function toggleFlowPlay() {
+            isFlowPlaying = !isFlowPlaying;
+            document.getElementById('flowPlayText').innerText = isFlowPlaying ? '일시정지' : '연속 재생';
+            document.getElementById('flowPlayIcon').innerText = isFlowPlaying ? '⏸' : '▶';
+            document.getElementById('flowPlayBtn').classList.toggle('playing', isFlowPlaying);
+        }
+
+        function resetFlowPlay() {
+            flowTime = 0.0;
+            updateFlowUI(flowTime);
+        }
+
+        function toggleFlowSpeed() {
+            if (flowSpeedMult === 1.0) {
+                flowSpeedMult = 2.0;
+                document.getElementById('flowSpeedBtn').innerText = '배속: 2x';
+            } else {
+                flowSpeedMult = 1.0;
+                document.getElementById('flowSpeedBtn').innerText = '배속: 1x';
+            }
+        }
+
+        function setWeatherRain(idx, btn) {
+            btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (idx === 0) weatherReduction = 1.0;
+            else if (idx === 1) weatherReduction = 0.69;
+            else if (idx === 2) weatherReduction = 0.29;
+            else weatherReduction = 0.17;
         }
 
         function highlightCorridor(from, to) {
@@ -1226,138 +1426,20 @@
             activeZone = (activeZone === zoneName) ? null : zoneName;
         }
 
-        function setFlowHour(h) {
-            flowCurrentHour = h;
-            document.getElementById('flowSlider').value = h;
-            
-            const trips = [120888, 70051, 42652, 27615, 27681, 70727, 130541, 285595, 393736, 240046, 224037, 275644, 312809, 296865, 316105, 366882, 451986, 567166, 627088, 455980, 416133, 390479, 312592, 241605][h];
-            let periodBrief = '통상적 주간 생활 통행 구간';
-            let netStatus = '정상 순환';
-            let statusColor = 'var(--success)';
-
-            if (h === 8) {
-                periodBrief = '오전 08시 출근 피크! 지하철역 라스트마일 쇄도';
-                netStatus = '출근 쏠림 집중';
-                statusColor = 'var(--primary)';
-            } else if (h === 18) {
-                periodBrief = '오후 18시 퇴근 대피크! 62.7만 건 최대 분출';
-                netStatus = '결품 위험 경보 (품절 임박)';
-                statusColor = 'var(--danger)';
-            } else if (h === 17 || h === 19) {
-                periodBrief = '퇴근길 통행 급증 구간 (대여소 재고 급감)';
-                netStatus = '수급 불균형 주의';
-                statusColor = 'var(--warning)';
-            } else if (h < 6) {
-                periodBrief = '심야 한적한 통행 유지';
-                netStatus = '심야 잔여 운행';
-                statusColor = 'var(--text-muted)';
-            }
-
-            let hourTitle = h < 12 ? '오전 ' + h + '시' : (h === 12 ? '정오' : '오후 ' + (h-12) + '시');
-            if (h === 8) hourTitle += ' (출근 피크)';
-            if (h === 18) hourTitle += ' (퇴근 피크)';
-
-            document.getElementById('flowHourText').innerText = h + ':00 (' + hourTitle + ')';
-            document.getElementById('flowVolumeVal').innerText = trips.toLocaleString() + ' 건';
-            document.getElementById('flowPeriodBrief').innerText = periodBrief;
-            document.getElementById('flowNetworkStatus').innerText = netStatus;
-            document.getElementById('flowNetworkStatus').style.color = statusColor;
-
-            for (let i = 0; i < 24; i++) {
-                const el = document.getElementById('edaBar_' + i);
-                if (el) {
-                    el.setAttribute('opacity', i === h ? '1.0' : '0.35');
-                    el.setAttribute('stroke', i === h ? '#ffffff' : 'none');
-                    el.setAttribute('stroke-width', i === h ? '2' : '0');
-                }
-            }
-        }
-
-        function toggleFlowPlay() {
-            if (isFlowPlaying) {
-                pauseFlowPlay();
-            } else {
-                startFlowPlay();
-            }
-        }
-
-        function startFlowPlay() {
-            isFlowPlaying = true;
-            document.getElementById('flowPlayText').innerText = '일시정지';
-            document.getElementById('flowPlayIcon').innerText = '⏸';
-            document.getElementById('flowPlayBtn').classList.add('playing');
-
-            flowInterval = setInterval(() => {
-                flowCurrentHour = (flowCurrentHour + 1) % 24;
-                setFlowHour(flowCurrentHour);
-            }, flowSpeedMs);
-        }
-
-        function pauseFlowPlay() {
-            isFlowPlaying = false;
-            document.getElementById('flowPlayText').innerText = '24시간 통행 재생';
-            document.getElementById('flowPlayIcon').innerText = '▶';
-            document.getElementById('flowPlayBtn').classList.remove('playing');
-            if (flowInterval) clearInterval(flowInterval);
-        }
-
-        function resetFlowPlay() {
-            pauseFlowPlay();
-            setFlowHour(0);
-        }
-
-        function toggleFlowSpeed() {
-            if (flowSpeedMs === 1200) {
-                flowSpeedMs = 600;
-                document.getElementById('flowSpeedBtn').innerText = '배속: 2x';
-            } else {
-                flowSpeedMs = 1200;
-                document.getElementById('flowSpeedBtn').innerText = '배속: 1x';
-            }
-            if (isFlowPlaying) {
-                clearInterval(flowInterval);
-                flowInterval = setInterval(() => {
-                    flowCurrentHour = (flowCurrentHour + 1) % 24;
-                    setFlowHour(flowCurrentHour);
-                }, flowSpeedMs);
-            }
-        }
-
-        function setWeatherRain(idx, btn) {
-            btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if (idx === 0) weatherReduction = 1.0;
-            else if (idx === 1) weatherReduction = 0.69;
-            else if (idx === 2) weatherReduction = 0.29;
-            else weatherReduction = 0.17;
-        }
-
         // ==========================================
-        // 2. ALGORITHM SIMULATION (SECTION 04)
+        // 2. SIMULATION (SECTION 04) CONTINUOUS TIME
         // ==========================================
-        const simData = [{"h": 0, "actual": 419, "mse": 489, "q85": 658}, {"h": 1, "actual": 229, "mse": 322, "q85": 441}, {"h": 2, "actual": 123, "mse": 228, "q85": 320}, {"h": 3, "actual": 106, "mse": 213, "q85": 301}, {"h": 4, "actual": 126, "mse": 231, "q85": 324}, {"h": 5, "actual": 291, "mse": 376, "q85": 512}, {"h": 6, "actual": 519, "mse": 577, "q85": 772}, {"h": 7, "actual": 1098, "mse": 1086, "q85": 1432}, {"h": 8, "actual": 1400, "mse": 1352, "q85": 1776}, {"h": 9, "actual": 711, "mse": 746, "q85": 991}, {"h": 10, "actual": 670, "mse": 710, "q85": 944}, {"h": 11, "actual": 864, "mse": 880, "q85": 1165}, {"h": 12, "actual": 956, "mse": 961, "q85": 1270}, {"h": 13, "actual": 817, "mse": 839, "q85": 1111}, {"h": 14, "actual": 933, "mse": 941, "q85": 1244}, {"h": 15, "actual": 1168, "mse": 1148, "q85": 1512}, {"h": 16, "actual": 1564, "mse": 1496, "q85": 1963}, {"h": 17, "actual": 2088, "mse": 1628, "q85": 2338}, {"h": 18, "actual": 2304, "mse": 1797, "q85": 2580}, {"h": 19, "actual": 1749, "mse": 1364, "q85": 1958}, {"h": 20, "actual": 1661, "mse": 1582, "q85": 2074}, {"h": 21, "actual": 1570, "mse": 1502, "q85": 1970}, {"h": 22, "actual": 1298, "mse": 1262, "q85": 1660}, {"h": 23, "actual": 819, "mse": 841, "q85": 1114}];
+        function updateSimUI(time) {
+            const clockStr = formatTime(time);
+            document.getElementById('simHourDisplay').innerText = clockStr;
+            document.getElementById('simMinuteSlider').value = Math.floor(time * 60);
 
-        let currentSimHour = 18;
-        let isPlaying = false;
-        let simInterval = null;
-        let simSpeed = 1000;
-
-        function setSimHour(h) {
-            currentSimHour = h;
-            document.getElementById('simSlider').value = h;
-            
-            const item = simData[h];
-            const act = item.actual;
-            const mse = item.mse;
-            const q85 = item.q85;
+            const act = Math.round(getInterpolatedVal(actualHourly, time));
+            const mse = Math.round(getInterpolatedVal(mseHourly, time));
+            const q85 = Math.round(getInterpolatedVal(q85Hourly, time));
             const diffMse = mse - act;
             const diffQ85 = q85 - act;
 
-            let periodText = h < 12 ? '오전 ' + h + '시' : (h === 12 ? '정오' : '오후 ' + (h-12) + '시');
-            if (h === 8) periodText += ' (출근 피크)';
-            if (h === 18) periodText += ' (퇴근 피크)';
-            
-            document.getElementById('simHourDisplay').innerText = h + ':00 (' + periodText + ')';
             document.getElementById('simActualVal').innerText = act.toLocaleString() + ' 대';
             
             const mseGapFormatted = (diffMse > 0 ? '+' : '') + diffMse.toLocaleString() + ' 대';
@@ -1378,7 +1460,7 @@
                 document.getElementById('simQ85GapSub').style.color = 'var(--success)';
             }
 
-            const x = 60 + (h / 23.0) * 860;
+            const x = 60 + (time / 23.0) * 860;
             const yAct = 20 + 225 - (act / 2800) * 225;
             const yMse = 20 + 225 - (mse / 2800) * 225;
             const yQ85 = 20 + 225 - (q85 / 2800) * 225;
@@ -1393,83 +1475,45 @@
             document.getElementById('simCursorQ85').setAttribute('cy', yQ85);
         }
 
-        function togglePlay() {
-            if (isPlaying) {
-                pauseSim();
+        function onSlideSimMinute(minVal) {
+            simTime = minVal / 60.0;
+            updateSimUI(simTime);
+        }
+
+        function toggleSimPlay() {
+            isSimPlaying = !isSimPlaying;
+            document.getElementById('simPlayText').innerText = isSimPlaying ? '일시정지' : '연속 재생';
+            document.getElementById('simPlayIcon').innerText = isSimPlaying ? '⏸' : '▶';
+            document.getElementById('simPlayBtn').classList.toggle('playing', isSimPlaying);
+        }
+
+        function resetSimPlay() {
+            simTime = 0.0;
+            updateSimUI(simTime);
+        }
+
+        function toggleSimSpeed() {
+            if (simSpeedMult === 1.0) {
+                simSpeedMult = 2.0;
+                document.getElementById('simSpeedBtn').innerText = '배속: 2x';
             } else {
-                startSim();
+                simSpeedMult = 1.0;
+                document.getElementById('simSpeedBtn').innerText = '배속: 1x';
             }
         }
 
-        function startSim() {
-            isPlaying = true;
-            document.getElementById('playText').innerText = '일시정지';
-            document.getElementById('playIcon').innerText = '⏸';
-            document.getElementById('playBtn').classList.add('playing');
-
-            simInterval = setInterval(() => {
-                currentSimHour = (currentSimHour + 1) % 24;
-                setSimHour(currentSimHour);
-            }, simSpeed);
+        // Direct Execution Engine (Zero delay, immune to iframe DOMContentLoaded timing)
+        function startAllEngines() {
+            updateFlowUI(flowTime);
+            updateSimUI(simTime);
+            requestAnimationFrame(animationMasterLoop);
         }
 
-        function pauseSim() {
-            isPlaying = false;
-            document.getElementById('playText').innerText = '시뮬레이션 재생';
-            document.getElementById('playIcon').innerText = '▶';
-            document.getElementById('playBtn').classList.remove('playing');
-            if (simInterval) clearInterval(simInterval);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startAllEngines);
+        } else {
+            startAllEngines();
         }
-
-        function resetSim() {
-            pauseSim();
-            setSimHour(6);
-        }
-
-        function toggleSpeed() {
-            if (simSpeed === 1000) {
-                simSpeed = 500;
-                document.getElementById('speedBtn').innerText = '배속: 2x';
-            } else {
-                simSpeed = 1000;
-                document.getElementById('speedBtn').innerText = '배속: 1x';
-            }
-            if (isPlaying) {
-                clearInterval(simInterval);
-                simInterval = setInterval(() => {
-                    currentSimHour = (currentSimHour + 1) % 24;
-                    setSimHour(currentSimHour);
-                }, simSpeed);
-            }
-        }
-
-        // Window Scrollspy for Navbar
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            let current = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 120;
-                if (window.pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            requestAnimationFrame(drawFlowCanvas);
-            setFlowHour(18);
-            startFlowPlay();
-            setSimHour(18);
-        });
     </script>
 </body>
 </html>
