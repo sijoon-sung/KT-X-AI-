@@ -5,31 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>911만 건의 궤적: 대전 타슈는 왜 18시에 멈추는가? | KT-X-AI</title>
     
-    <!-- Editorial Typography: Pretendard & JetBrains Mono -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Editorial Typography: Newsreader (NYT Serif) + Pretendard (Korean Sans) + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <!-- Leaflet GIS Mapping CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
         :root {
-            --bg-page: #0b0f19;
-            --bg-card: rgba(17, 24, 39, 0.85);
-            --bg-card-active: rgba(24, 34, 53, 0.95);
-            --bg-surface: #1e293b;
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-active: #38bdf8;
-            --text-heading: #f8fafc;
-            --text-body: #cbd5e1;
-            --text-muted: #8492a6;
-            --accent-cyan: #38bdf8;
-            --accent-emerald: #10b981;
-            --accent-rose: #f43f5e;
-            --accent-amber: #f59e0b;
-            --accent-indigo: #818cf8;
+            --bg-page: #f8f9fa;
+            --bg-card: #ffffff;
+            --bg-card-active: #ffffff;
+            --bg-surface: #f1f5f9;
+            --border-subtle: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --border-active: #2563eb;
+            --text-heading: #111827;
+            --text-body: #374151;
+            --text-muted: #64748b;
+            --accent-blue: #2563eb;
+            --accent-emerald: #059669;
+            --accent-rose: #e11d48;
+            --accent-amber: #d97706;
+            --accent-indigo: #4f46e5;
+            --font-serif: "Newsreader", Georgia, serif;
+            --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
             --font-mono: "JetBrains Mono", Consolas, Menlo, monospace;
         }
 
@@ -44,24 +47,14 @@
         body {
             background-color: var(--bg-page);
             color: var(--text-body);
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            font-family: var(--font-sans);
             line-height: 1.75;
             font-size: 15px;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-            background-size: 24px 24px;
-            pointer-events: none;
-            z-index: 9999;
-        }
-
-        a { color: var(--accent-cyan); text-decoration: none; }
+        a { color: var(--accent-blue); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
         .container {
@@ -70,37 +63,39 @@
             padding: 0 24px;
         }
 
-        /* Publication Header (The Pudding Style) */
+        /* Publication Header (The New York Times / The Pudding Style) */
         header.pub-header {
-            padding: 70px 0 40px;
-            border-bottom: 1px solid var(--border-subtle);
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(11, 15, 25, 0) 100%);
+            padding: 60px 0 36px;
+            border-bottom: 2px solid var(--text-heading);
+            background: #ffffff;
         }
         .kicker {
-            font-size: 12px;
+            font-family: var(--font-mono);
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: var(--accent-cyan);
-            margin-bottom: 16px;
+            color: var(--accent-amber);
+            margin-bottom: 14px;
             display: inline-block;
         }
         .headline {
-            font-size: 44px;
-            font-weight: 800;
+            font-family: var(--font-serif);
+            font-size: 46px;
+            font-weight: 700;
             color: var(--text-heading);
-            line-height: 1.2;
-            letter-spacing: -0.03em;
-            margin-bottom: 18px;
+            line-height: 1.22;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
             max-width: 980px;
         }
         .dek {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 400;
-            color: #94a3b8;
-            line-height: 1.6;
+            color: var(--text-muted);
+            line-height: 1.65;
             max-width: 900px;
-            margin-bottom: 32px;
+            margin-bottom: 26px;
         }
         .byline-block {
             display: flex;
@@ -109,7 +104,7 @@
             gap: 24px;
             font-size: 13px;
             color: var(--text-muted);
-            padding-top: 20px;
+            padding-top: 18px;
             border-top: 1px solid var(--border-subtle);
         }
         .byline-block strong { color: var(--text-heading); }
@@ -117,30 +112,31 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 10px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 3px 10px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
             border-radius: 6px;
-            color: var(--accent-cyan);
+            color: var(--accent-blue);
             font-weight: 600;
             font-size: 12px;
         }
 
-        /* Bloomberg Style Tabular Metric Strip */
+        /* Bloomberg Style Tabular Metric Strip (Light Paper Edition) */
         .metric-strip {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             border-bottom: 1px solid var(--border-subtle);
-            background: rgba(15, 23, 42, 0.4);
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
         }
         .metric-cell {
-            padding: 20px;
+            padding: 18px 20px;
             border-right: 1px solid var(--border-subtle);
         }
         .metric-cell:last-child { border-right: none; }
         .metric-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
@@ -149,7 +145,7 @@
         .metric-val {
             font-family: var(--font-mono);
             font-size: 22px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--text-heading);
             letter-spacing: -0.02em;
         }
@@ -161,7 +157,7 @@
 
         @media (max-width: 1024px) {
             .metric-strip { grid-template-columns: repeat(3, 1fr); }
-            .headline { font-size: 32px; }
+            .headline { font-size: 34px; }
             .dek { font-size: 16px; }
         }
         @media (max-width: 640px) {
@@ -183,7 +179,7 @@
             max-width: 460px;
             position: relative;
             z-index: 20;
-            padding: 30px 0 200px;
+            padding: 20px 0 200px;
         }
 
         .step {
@@ -199,15 +195,13 @@
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 30px;
-            backdrop-filter: blur(12px);
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
         }
 
         .step.is-active .step-card {
-            border-color: var(--accent-cyan);
-            background: var(--bg-card-active);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(56, 189, 248, 0.3);
+            border-color: var(--accent-blue);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.12), 0 0 0 1px var(--accent-blue);
             transform: translateY(-2px);
         }
 
@@ -216,13 +210,13 @@
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.1em;
-            color: var(--accent-cyan);
+            color: var(--accent-blue);
             margin-bottom: 8px;
             display: block;
         }
 
         .step-title {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 800;
             color: var(--text-heading);
             line-height: 1.35;
@@ -230,19 +224,20 @@
         }
 
         .step-prose {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-body);
             line-height: 1.8;
             margin-bottom: 16px;
         }
 
         .stat-callout {
-            background: rgba(15, 23, 42, 0.8);
-            border-left: 3px solid var(--accent-cyan);
+            background: var(--bg-surface);
+            border-left: 3px solid var(--accent-blue);
             border-radius: 0 6px 6px 0;
             padding: 12px 14px;
             margin: 14px 0;
             font-size: 13px;
+            color: var(--text-body);
         }
         .stat-callout strong { color: var(--text-heading); }
 
@@ -252,20 +247,20 @@
             position: sticky;
             top: 24px;
             height: calc(100vh - 48px);
-            background: #080c16;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
             z-index: 10;
         }
 
         /* Sticky Visual Header */
         .vis-header {
             padding: 14px 20px;
-            background: rgba(11, 17, 30, 0.95);
+            background: #ffffff;
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             justify-content: space-between;
@@ -285,32 +280,33 @@
             font-size: 11px;
             padding: 3px 8px;
             border-radius: 4px;
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent-cyan);
+            background: #eff6ff;
+            color: var(--accent-blue);
             font-weight: 600;
+            border: 1px solid #bfdbfe;
         }
 
         /* Leaflet Map Canvas */
         #map {
             width: 100%;
             height: 100%;
-            background: #0b0f19;
+            background: #f8fafc;
             z-index: 1;
         }
 
-        /* Dynamic Overlay Panel inside Map (for Charts/Sliders) */
+        /* Dynamic Overlay Panel inside Map (Light Mode Style) */
         .map-overlay-layer {
             position: absolute;
             top: 65px;
             right: 18px;
             width: 320px;
-            background: rgba(15, 23, 42, 0.92);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border-subtle);
             border-radius: 10px;
             padding: 16px;
             z-index: 400;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
 
@@ -323,10 +319,10 @@
             justify-content: space-between;
         }
 
-        /* Minimal Legend */
+        /* Minimal Legend (Light Mode Style) */
         .vis-legend {
             padding: 10px 20px;
-            background: rgba(11, 17, 30, 0.95);
+            background: #ffffff;
             border-top: 1px solid var(--border-subtle);
             display: flex;
             gap: 18px;
@@ -352,29 +348,31 @@
         section.editorial-section {
             margin: 60px 0;
             padding-top: 40px;
-            border-top: 1px solid var(--border-subtle);
+            border-top: 2px solid var(--border-subtle);
         }
         .section-hed {
-            font-size: 26px;
-            font-weight: 800;
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
             color: var(--text-heading);
             margin-bottom: 12px;
             letter-spacing: -0.02em;
         }
         .section-lead {
             font-size: 16px;
-            color: #94a3b8;
+            color: var(--text-muted);
             max-width: 850px;
             margin-bottom: 30px;
         }
 
-        /* Authentic Tables */
+        /* Authentic Tables (Light Editorial Style) */
         .table-wrap {
             overflow-x: auto;
             border: 1px solid var(--border-subtle);
             border-radius: 10px;
-            background: rgba(15, 23, 42, 0.6);
+            background: #ffffff;
             margin: 24px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
         table.nyt-table {
             width: 100%;
@@ -383,14 +381,14 @@
             text-align: left;
         }
         table.nyt-table th {
-            background: rgba(30, 41, 59, 0.6);
+            background: var(--bg-surface);
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             padding: 12px 16px;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-strong);
             white-space: nowrap;
         }
         table.nyt-table td {
@@ -400,21 +398,23 @@
             white-space: nowrap;
         }
         table.nyt-table tr:hover td {
-            background: rgba(56, 189, 248, 0.06);
+            background: #f8fafc;
             color: var(--text-heading);
         }
         table.nyt-table .num {
             font-family: var(--font-mono);
             text-align: right;
+            font-weight: 600;
         }
 
         /* Interactive Loss Function Slider Widget */
         .interactive-widget {
-            background: #0f172a;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 24px;
             margin: 30px 0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
         }
 
         /* Mobile Adjustments */
@@ -466,7 +466,7 @@
     <div class="metric-strip">
         <div class="metric-cell">
             <div class="metric-label">전수 분석 통행량</div>
-            <div class="metric-val" style="color:var(--accent-cyan);">9,116,462</div>
+            <div class="metric-val" style="color:var(--accent-blue);">9,116,462</div>
             <div class="metric-sub">1개년 1,200개 대여소 전수</div>
         </div>
         <div class="metric-cell">
@@ -481,7 +481,7 @@
         </div>
         <div class="metric-cell">
             <div class="metric-label">피크 결품 방어율</div>
-            <div class="metric-val" style="color:var(--accent-cyan);">-65.0%</div>
+            <div class="metric-val" style="color:var(--accent-blue);">-65.0%</div>
             <div class="metric-sub">결품률 38.0% ➔ 13.3% 급감</div>
         </div>
         <div class="metric-cell">
@@ -517,7 +517,7 @@
                             전체 통행의 51.2%가 1km 이내 초단거리(보행 대체)이며, 평균 주행 시간은 11분에 불과합니다. 특히 카이스트 학내 셔틀과 충남대-유성온천역 환승 축, 둔산 행정타운 연결로 등 상위 10개 핵심 회랑이 도시의 혈관 역할을 수행하고 있습니다.
                         </p>
                         <div class="stat-callout">
-                            <strong>데이터 발견:</strong> 1위 회랑(카이스트 본원 ↔ 창의학습관) 연간 7,205건 통행 집중. 우측 지도에 대전 전역의 실제 위경도 기반 상위 10대 이동 회랑이 황금빛 궤적으로 표출됩니다.
+                            <strong>데이터 발견:</strong> 1위 회랑(카이스트 본원 ↔ 창의학습관) 연간 7,205건 통행 집중. 우측 지도에 대전 전역의 실제 위경도 기반 상위 10대 이동 회랑이 푸른 궤적으로 표출됩니다.
                         </div>
                     </div>
                 </div>
@@ -534,13 +534,13 @@
                             문제는 이 쇄도가 '단방향'이라는 점입니다. 둔산동 오피스 빌딩과 유성구 연구단지에서 지하철역 및 주거지로 쏟아져 나오면서, 핵심 거점 대여소의 38.0%가 18시를 기점으로 <strong>재고 0대(Deficit)</strong> 상태로 전락하여 시민들이 발길을 돌려야 했습니다.
                         </p>
                         
-                        <!-- Embedded 24h M-Curve Mini Chart -->
-                        <div style="margin-top:16px; padding:14px; background:#070b14; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <!-- Embedded 24h M-Curve Mini Chart (Light Mode) -->
+                        <div style="margin-top:16px; padding:14px; background:#f8fafc; border-radius:8px; border:1px solid var(--border-subtle);">
                             <div style="font-size:11px; color:var(--text-muted); margin-bottom:8px; display:flex; justify-content:space-between;">
                                 <span>평일 24시간 통행 분포 (M-Curve)</span>
                                 <span style="color:var(--accent-rose); font-weight:700;">18시 피크: 62.7만 건</span>
                             </div>
-                            <svg viewBox="0 0 380 90" width="100%" height="90" style="overflow:visible; display:block;">\n<rect x="10" y="55" width="11" height="11" rx="2" fill="#334155" opacity="0.65"><title>0시: 120,888건</title></rect>\n<text x="15.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">00</text>\n<rect x="25" y="60" width="11" height="6" rx="2" fill="#334155" opacity="0.65"><title>1시: 70,051건</title></rect>\n<rect x="40" y="63" width="11" height="3" rx="2" fill="#334155" opacity="0.65"><title>2시: 42,652건</title></rect>\n<rect x="55" y="64" width="11" height="2" rx="2" fill="#334155" opacity="0.65"><title>3시: 27,615건</title></rect>\n<rect x="70" y="64" width="11" height="2" rx="2" fill="#334155" opacity="0.65"><title>4시: 27,681건</title></rect>\n<rect x="85" y="60" width="11" height="6" rx="2" fill="#334155" opacity="0.65"><title>5시: 70,727건</title></rect>\n<rect x="100" y="54" width="11" height="12" rx="2" fill="#334155" opacity="0.65"><title>6시: 130,541건</title></rect>\n<rect x="115" y="40" width="11" height="26" rx="2" fill="#334155" opacity="0.65"><title>7시: 285,595건</title></rect>\n<rect x="130" y="30" width="11" height="36" rx="2" fill="#38bdf8" opacity="0.95"><title>8시: 393,736건</title></rect>\n<text x="135.5" y="80" fill="#38bdf8" font-size="9" text-anchor="middle" font-family="monospace">08</text>\n<rect x="145" y="44" width="11" height="22" rx="2" fill="#334155" opacity="0.65"><title>9시: 240,046건</title></rect>\n<rect x="160" y="46" width="11" height="20" rx="2" fill="#334155" opacity="0.65"><title>10시: 224,037건</title></rect>\n<rect x="175" y="41" width="11" height="25" rx="2" fill="#334155" opacity="0.65"><title>11시: 275,644건</title></rect>\n<rect x="190" y="38" width="11" height="28" rx="2" fill="#334155" opacity="0.65"><title>12시: 312,809건</title></rect>\n<text x="195.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">12</text>\n<rect x="205" y="39" width="11" height="27" rx="2" fill="#334155" opacity="0.65"><title>13시: 296,865건</title></rect>\n<rect x="220" y="37" width="11" height="29" rx="2" fill="#334155" opacity="0.65"><title>14시: 316,105건</title></rect>\n<rect x="235" y="33" width="11" height="33" rx="2" fill="#334155" opacity="0.65"><title>15시: 366,882건</title></rect>\n<rect x="250" y="25" width="11" height="41" rx="2" fill="#334155" opacity="0.65"><title>16시: 451,986건</title></rect>\n<rect x="265" y="14" width="11" height="52" rx="2" fill="#334155" opacity="0.65"><title>17시: 567,166건</title></rect>\n<rect x="280" y="8" width="11" height="58" rx="2" fill="#f43f5e" opacity="0.95"><title>18시: 627,088건</title></rect>\n<text x="285.5" y="80" fill="#f43f5e" font-size="9" text-anchor="middle" font-family="monospace">18</text>\n<rect x="295" y="24" width="11" height="42" rx="2" fill="#334155" opacity="0.65"><title>19시: 455,980건</title></rect>\n<rect x="310" y="28" width="11" height="38" rx="2" fill="#334155" opacity="0.65"><title>20시: 416,133건</title></rect>\n<rect x="325" y="30" width="11" height="36" rx="2" fill="#334155" opacity="0.65"><title>21시: 390,479건</title></rect>\n<rect x="340" y="38" width="11" height="28" rx="2" fill="#334155" opacity="0.65"><title>22시: 312,592건</title></rect>\n<rect x="355" y="44" width="11" height="22" rx="2" fill="#334155" opacity="0.65"><title>23시: 241,605건</title></rect>\n<text x="360.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace">23</text>\n</svg>
+                            <svg viewBox="0 0 380 90" width="100%" height="90" style="overflow:visible; display:block;">\n<rect x="10" y="55" width="11" height="11" rx="2" fill="#cbd5e1"><title>0시: 120,888건</title></rect>\n<text x="15.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">00</text>\n<rect x="25" y="60" width="11" height="6" rx="2" fill="#cbd5e1"><title>1시: 70,051건</title></rect>\n<rect x="40" y="63" width="11" height="3" rx="2" fill="#cbd5e1"><title>2시: 42,652건</title></rect>\n<rect x="55" y="64" width="11" height="2" rx="2" fill="#cbd5e1"><title>3시: 27,615건</title></rect>\n<rect x="70" y="64" width="11" height="2" rx="2" fill="#cbd5e1"><title>4시: 27,681건</title></rect>\n<rect x="85" y="60" width="11" height="6" rx="2" fill="#cbd5e1"><title>5시: 70,727건</title></rect>\n<rect x="100" y="54" width="11" height="12" rx="2" fill="#cbd5e1"><title>6시: 130,541건</title></rect>\n<rect x="115" y="40" width="11" height="26" rx="2" fill="#cbd5e1"><title>7시: 285,595건</title></rect>\n<rect x="130" y="30" width="11" height="36" rx="2" fill="#2563eb"><title>8시: 393,736건</title></rect>\n<text x="135.5" y="80" fill="#2563eb" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">08</text>\n<rect x="145" y="44" width="11" height="22" rx="2" fill="#cbd5e1"><title>9시: 240,046건</title></rect>\n<rect x="160" y="46" width="11" height="20" rx="2" fill="#cbd5e1"><title>10시: 224,037건</title></rect>\n<rect x="175" y="41" width="11" height="25" rx="2" fill="#cbd5e1"><title>11시: 275,644건</title></rect>\n<rect x="190" y="38" width="11" height="28" rx="2" fill="#cbd5e1"><title>12시: 312,809건</title></rect>\n<text x="195.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">12</text>\n<rect x="205" y="39" width="11" height="27" rx="2" fill="#cbd5e1"><title>13시: 296,865건</title></rect>\n<rect x="220" y="37" width="11" height="29" rx="2" fill="#cbd5e1"><title>14시: 316,105건</title></rect>\n<rect x="235" y="33" width="11" height="33" rx="2" fill="#cbd5e1"><title>15시: 366,882건</title></rect>\n<rect x="250" y="25" width="11" height="41" rx="2" fill="#cbd5e1"><title>16시: 451,986건</title></rect>\n<rect x="265" y="14" width="11" height="52" rx="2" fill="#cbd5e1"><title>17시: 567,166건</title></rect>\n<rect x="280" y="8" width="11" height="58" rx="2" fill="#e11d48"><title>18시: 627,088건</title></rect>\n<text x="285.5" y="80" fill="#e11d48" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">18</text>\n<rect x="295" y="24" width="11" height="42" rx="2" fill="#cbd5e1"><title>19시: 455,980건</title></rect>\n<rect x="310" y="28" width="11" height="38" rx="2" fill="#cbd5e1"><title>20시: 416,133건</title></rect>\n<rect x="325" y="30" width="11" height="36" rx="2" fill="#cbd5e1"><title>21시: 390,479건</title></rect>\n<rect x="340" y="38" width="11" height="28" rx="2" fill="#cbd5e1"><title>22시: 312,592건</title></rect>\n<rect x="355" y="44" width="11" height="22" rx="2" fill="#cbd5e1"><title>23시: 241,605건</title></rect>\n<text x="360.5" y="80" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">23</text>\n</svg>
                         </div>
 
                         <div class="stat-callout" style="border-left-color: var(--accent-rose); margin-top:14px;">
@@ -561,26 +561,26 @@
                             실제 수요가 10대일 때 4대를 예측해 <strong>6대가 부족한 것(시민의 헛걸음)</strong>과, 16대를 예측해 6대가 남는 것(단순 유휴)에 동일한 페널티를 부과하기 때문입니다.
                         </p>
 
-                        <!-- Interactive Quantile Loss Simulator -->
-                        <div style="margin:16px 0; padding:16px; background:#070b14; border-radius:8px; border:1px solid var(--border-subtle);">
+                        <!-- Interactive Quantile Loss Simulator (Light Mode) -->
+                        <div style="margin:16px 0; padding:16px; background:#f8fafc; border-radius:8px; border:1px solid var(--border-subtle);">
                             <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
-                                <span style="color:var(--text-muted);">분위수 목표치 (Quantile q):</span>
-                                <strong id="qValDisplay" style="color:var(--accent-cyan); font-family:var(--font-mono); font-size:13px;">0.85</strong>
+                                <span style="color:var(--text-muted); font-weight:600;">분위수 목표치 (Quantile q):</span>
+                                <strong id="qValDisplay" style="color:var(--accent-blue); font-family:var(--font-mono); font-size:14px;">0.85</strong>
                             </div>
-                            <input type="range" id="qSlider" min="0.50" max="0.95" step="0.05" value="0.85" style="width:100%; accent-color:var(--accent-cyan); cursor:pointer;" oninput="updateQLossSim(parseFloat(this.value))">
+                            <input type="range" id="qSlider" min="0.50" max="0.95" step="0.05" value="0.85" style="width:100%; accent-color:var(--accent-blue); cursor:pointer;" oninput="updateQLossSim(parseFloat(this.value))">
                             <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); font-family:var(--font-mono); margin-top:4px;">
                                 <span>0.50 (대칭 MSE)</span>
-                                <span style="color:var(--accent-cyan); font-weight:700;">0.85 (최적 모델)</span>
+                                <span style="color:var(--accent-blue); font-weight:700;">0.85 (최적 모델)</span>
                                 <span>0.95 (보수적)</span>
                             </div>
                             <div style="margin-top:12px; font-size:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                                <div style="background:#0f172a; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                    <div style="color:var(--text-muted); font-size:10px;">결품 벌점 배수</div>
-                                    <div id="qRatioDisplay" style="color:var(--accent-amber); font-weight:700; font-family:var(--font-mono); font-size:14px;">5.67 배</div>
+                                <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                                    <div style="color:var(--text-muted); font-size:10px; font-weight:600;">결품 벌점 배수</div>
+                                    <div id="qRatioDisplay" style="color:var(--accent-amber); font-weight:800; font-family:var(--font-mono); font-size:15px;">5.67 배</div>
                                 </div>
-                                <div style="background:#0f172a; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                    <div style="color:var(--text-muted); font-size:10px;">확보 안전 재고</div>
-                                    <div id="qBufferDisplay" style="color:var(--accent-emerald); font-weight:700; font-family:var(--font-mono); font-size:14px;">+3.6 대</div>
+                                <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                                    <div style="color:var(--text-muted); font-size:10px; font-weight:600;">확보 안전 재고</div>
+                                    <div id="qBufferDisplay" style="color:var(--accent-emerald); font-weight:800; font-family:var(--font-mono); font-size:15px;">+3.6 대</div>
                                 </div>
                             </div>
                         </div>
@@ -588,7 +588,7 @@
                         <p class="step-prose">
                             본 연구팀은 결품 오차에 5.67배 높은 비대칭 벌점을 부과하는 <strong>Quantile 85% 비대칭 손실(Pinball Loss)</strong> 모델을 도입하여, 피크 시간대 안전 재고(+3.6대)를 선제적으로 확보하도록 유도했습니다.
                         </p>
-                        <div class="stat-callout" style="border-left-color: var(--accent-cyan);">
+                        <div class="stat-callout" style="border-left-color: var(--accent-blue);">
                             <strong>알고리즘 혁신:</strong> 상단 슬라이더를 조작해 목표 분위수에 따른 결품 벌점 가중치와 안전 재고의 동적 변화를 확인해 보세요.
                         </div>
                     </div>
@@ -640,7 +640,7 @@
                             트램 영향권 500m 이내에 속한 타슈 대여소는 총 357개소로, 연간 환산 <strong>231만 건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다. 트램이 대량 간선 수송을 담당하고, 타슈가 골목과 주거지를 잇는 라스트마일 피더(Feeder)로 결합할 때 대전은 진정한 녹색 모빌리티 도시로 완성됩니다.
                         </p>
                         <div class="stat-callout" style="border-left-color: var(--accent-indigo);">
-                            <strong>미래 비전:</strong> 우측 지도에 대전시를 순환하는 38.8km 트램 2호선 궤도가 황금색 순환선으로 펼쳐지며, 357개 연계 타슈 스테이션과의 환승 네트워크를 조망합니다.
+                            <strong>미래 비전:</strong> 우측 지도에 대전시를 순환하는 38.8km 트램 2호선 궤도가 뚜렷한 주황색 순환선으로 펼쳐지며, 357개 연계 타슈 스테이션과의 환승 네트워크를 조망합니다.
                         </div>
                     </div>
                 </div>
@@ -651,34 +651,34 @@
             <figure class="sticky-visual">
                 <div class="vis-header">
                     <div class="vis-title">
-                        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--accent-cyan);"></span>
+                        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--accent-blue);"></span>
                         <span id="visHeaderTitle">대전광역시 GIS 실시간 통행 네트워크</span>
                     </div>
                     <div class="vis-status-badge" id="visStatusBadge">CHAPTER 01 : ALL CORRIDORS</div>
                 </div>
 
-                <!-- Leaflet Real City Map -->
+                <!-- Leaflet Real City Map (Carto Positron Light Tiles) -->
                 <div id="map"></div>
 
                 <!-- Dynamic Floating Control / Visualization Overlay -->
                 <div class="map-overlay-layer" id="mapOverlayLayer">
                     <div class="map-overlay-title">
                         <span id="overlayTitle">실시간 인터랙티브 메트릭</span>
-                        <span style="color:var(--accent-cyan); font-family:var(--font-mono);" id="overlayValue">62.7만 건</span>
+                        <span style="color:var(--accent-blue); font-family:var(--font-mono);" id="overlayValue">62.7만 건</span>
                     </div>
                     <div id="overlayContent" style="font-size:12px; color:var(--text-muted); line-height:1.6;">
                         마우스나 터치로 지도를 확대·축소하고 정류장 마커를 클릭하여 실측 통행 이력 상세를 확인하실 수 있습니다.
                     </div>
-                    <div style="margin-top:12px; padding-top:10px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono);">
+                    <div style="margin-top:12px; padding-top:10px; border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono); color:var(--text-muted);">
                         <span>LAT: 36.3504° N</span>
                         <span>LON: 127.3845° E</span>
                     </div>
                 </div>
 
-                <!-- Bottom Legend -->
+                <!-- Bottom Legend (Light Mode Style) -->
                 <div class="vis-legend" id="visLegend">
                     <div class="legend-item">
-                        <span class="legend-dot" style="background:var(--accent-cyan);"></span>
+                        <span class="legend-dot" style="background:var(--accent-blue);"></span>
                         <span>핵심 이동 회랑 (Top OD)</span>
                     </div>
                     <div class="legend-item">
@@ -724,7 +724,7 @@
                             <td>1위</td>
                             <td><strong>카이스트 학사식당</strong></td>
                             <td><strong>카이스트 창의학습관</strong></td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">7,205 건</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">7,205 건</td>
                             <td class="num">0.46 km</td>
                             <td class="num">6.8 분</td>
                             <td>대학 캠퍼스 내부 초단거리 강의 이동</td>
@@ -733,7 +733,7 @@
                             <td>2위</td>
                             <td><strong>카이스트 창의학습관</strong></td>
                             <td><strong>카이스트 학사식당</strong></td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">6,104 건</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">6,104 건</td>
                             <td class="num">0.49 km</td>
                             <td class="num">8.7 분</td>
                             <td>점심·저녁 식사 이동 역방향 셔틀</td>
@@ -831,7 +831,7 @@
                             <td><strong>갈마동 성원빌라 앞</strong></td>
                             <td>서구 갈마동</td>
                             <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">+11 대 투하</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">+11 대 투하</td>
                             <td>인근 5개 대여소 0대 품절 비상 해소</td>
                         </tr>
                         <tr>
@@ -839,7 +839,7 @@
                             <td><strong>유성온천역 6번출구</strong></td>
                             <td>유성구 봉명동</td>
                             <td class="num" style="color:var(--accent-rose); font-weight:700;">1 대 (소진임박)</td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">+16 대 투하</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">+16 대 투하</td>
                             <td>퇴근길 쏟아지는 지하철 환승 시민 결품 차단</td>
                         </tr>
                         <tr>
@@ -847,7 +847,7 @@
                             <td><strong>소제동 우송중학교 입구</strong></td>
                             <td>동구 소제동</td>
                             <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">+10 대 투하</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">+10 대 투하</td>
                             <td>동구 주거지역 학생 및 직장인 퇴근 수요 보급</td>
                         </tr>
                         <tr>
@@ -855,7 +855,7 @@
                             <td><strong>도마동 정철어학원</strong></td>
                             <td>서구 도마동</td>
                             <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                            <td class="num" style="color:var(--accent-cyan); font-weight:700;">+10 대 투하</td>
+                            <td class="num" style="color:var(--accent-blue); font-weight:700;">+10 대 투하</td>
                             <td>도마네거리 생활권 0대 결품 즉시 차단</td>
                         </tr>
                     </tbody>
@@ -869,7 +869,7 @@
                 <p style="font-size:14px; color:var(--text-body); line-height:1.8; margin-bottom:16px;">
                     실제 수요 $y$와 예측 수요 $\hat{y}$ 사이의 오차 $e = y - \hat{y}$에 대해, 타슈의 결품 방지 목적함수는 다음과 같이 정의됩니다:
                 </p>
-                <div style="background:#090d16; padding:16px; border-radius:8px; font-family:var(--font-mono); font-size:14px; color:var(--accent-cyan); margin-bottom:14px;">
+                <div style="background:var(--bg-surface); padding:16px; border-radius:8px; font-family:var(--font-mono); font-size:14px; color:var(--accent-blue); margin-bottom:14px; border:1px solid var(--border-subtle);">
                     L_{0.85}(y, \hat{y}) = \max \Big( 0.85 \cdot (y - \hat{y}), \quad (0.85 - 1) \cdot (y - \hat{y}) \Big)
                 </div>
                 <p style="font-size:13px; color:var(--text-muted); line-height:1.7;">
@@ -935,11 +935,11 @@
                 attributionControl: false
             });
 
-            // High-Resolution Carto Dark Matter Tiles
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            // CartoDB Positron (High-Resolution Light Editorial Tiles - ZERO API KEY REQUIRED)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 subdomains: 'abcd',
                 maxZoom: 19,
-                opacity: 0.92
+                opacity: 1.0
             }).addTo(map);
 
             // Layer Groups
@@ -951,11 +951,11 @@
             // Populate Base Station Markers with Click Listener
             topStationsData.forEach(st => {
                 const marker = L.circleMarker([st.lat, st.lon], {
-                    radius: 3.5,
-                    fillColor: '#38bdf8',
-                    fillOpacity: 0.6,
+                    radius: 4.0,
+                    fillColor: '#2563eb',
+                    fillOpacity: 0.7,
                     color: '#ffffff',
-                    weight: 0.8
+                    weight: 1.2
                 });
                 
                 marker.on('click', () => {
@@ -964,7 +964,7 @@
                     const contentEl = document.getElementById('overlayContent');
                     if (titleEl) titleEl.innerText = st.name;
                     if (valEl) valEl.innerText = st.cap + '대 거치대';
-                    if (contentEl) contentEl.innerHTML = `위치: ${st.gu} ${st.dong}<br>실측 데이터: 1개년 전수 분석 거점<br>좌표: ${st.lat.toFixed(4)}° N, ${st.lon.toFixed(4)}° E`;
+                    if (contentEl) contentEl.innerHTML = `소속: ${st.gu} ${st.dong}<br>실측 데이터: 1개년 전수 분석 거점<br>좌표: ${st.lat.toFixed(4)}° N, ${st.lon.toFixed(4)}° E`;
                 });
 
                 stationLayerGroup.addLayer(marker);
@@ -983,8 +983,8 @@
                     [fl.dst_lat, fl.dst_lon]
                 ];
                 const poly = L.polyline(latlngs, {
-                    color: idx < 3 ? '#38bdf8' : '#818cf8',
-                    weight: Math.max(2.5, (fl.trips / 7205) * 5.5),
+                    color: idx < 3 ? '#2563eb' : '#4f46e5',
+                    weight: Math.max(3.0, (fl.trips / 7205) * 6.0),
                     opacity: 0.85,
                     dashArray: '8, 6'
                 });
@@ -1033,11 +1033,11 @@
                 topStationsData.forEach(st => {
                     const isDeficit = st.dong.includes('둔산') || st.dong.includes('봉명') || st.dong.includes('갈마');
                     const marker = L.circleMarker([st.lat, st.lon], {
-                        radius: isDeficit ? 6.5 : 3.5,
-                        fillColor: isDeficit ? '#f43f5e' : '#38bdf8',
-                        fillOpacity: isDeficit ? 0.95 : 0.4,
-                        color: isDeficit ? '#ffffff' : '#38bdf8',
-                        weight: isDeficit ? 2 : 0.8
+                        radius: isDeficit ? 7.0 : 3.5,
+                        fillColor: isDeficit ? '#e11d48' : '#2563eb',
+                        fillOpacity: isDeficit ? 0.95 : 0.35,
+                        color: isDeficit ? '#ffffff' : '#94a3b8',
+                        weight: isDeficit ? 2.5 : 0.8
                     });
                     if (isDeficit) {
                         marker.bindPopup(`<strong>🚨 ${st.name}</strong><br>18:00 상태: <strong>재고 0대 품절 위험!</strong><br>결품 차단 우선 배차 대상`);
@@ -1074,11 +1074,11 @@
                 // Draw Pickup Pins (Green)
                 dispatchPickups.forEach(p => {
                     const m = L.circleMarker([p.lat, p.lon], {
-                        radius: 8,
-                        fillColor: '#10b981',
+                        radius: 8.5,
+                        fillColor: '#059669',
                         fillOpacity: 1,
                         color: '#ffffff',
-                        weight: 2
+                        weight: 2.5
                     }).bindPopup(`<strong>[잉여 회수] ${p.name}</strong><br>현재 재고: ${p.stock}대<br>트럭 적재 회수: <strong>-${p.amt}대</strong><br>${p.desc}`);
                     dispatchLayerGroup.addLayer(m);
                 });
@@ -1086,11 +1086,11 @@
                 // Draw Dropoff Pins (Red/Cyan)
                 dispatchDropoffs.forEach(d => {
                     const m = L.circleMarker([d.lat, d.lon], {
-                        radius: 8,
-                        fillColor: '#f43f5e',
+                        radius: 8.5,
+                        fillColor: '#e11d48',
                         fillOpacity: 1,
                         color: '#ffffff',
-                        weight: 2
+                        weight: 2.5
                     }).bindPopup(`<strong>[긴급 공급] ${d.name}</strong><br>배차 전 재고: <strong>${d.stock}대 (0대 품절)</strong><br>트럭 투하 공급: <strong>+${d.amt}대</strong><br>${d.desc}`);
                     dispatchLayerGroup.addLayer(m);
 
@@ -1098,10 +1098,10 @@
                         [dispatchPickups[0].lat, dispatchPickups[0].lon],
                         [d.lat, d.lon]
                     ], {
-                        color: '#f59e0b',
-                        weight: 2,
-                        dashArray: '4, 8',
-                        opacity: 0.7
+                        color: '#d97706',
+                        weight: 2.5,
+                        dashArray: '5, 8',
+                        opacity: 0.85
                     });
                     dispatchLayerGroup.addLayer(line);
                 });
@@ -1118,9 +1118,9 @@
 
                 // Draw Tram 2 Loop
                 const tramPolyline = L.polyline(tramLoopCoords, {
-                    color: '#f59e0b',
-                    weight: 4.5,
-                    opacity: 0.9,
+                    color: '#d97706',
+                    weight: 5.0,
+                    opacity: 0.95,
                     dashArray: '10, 6'
                 }).bindPopup("<strong>대전 도시철도 2호선 트램 (38.8km 순환선)</strong><br>45개 정거장 무가선 수소 트램<br>타슈 연계 대여소: 357개소 (42.4% 통행 분담)");
                 tramLayerGroup.addLayer(tramPolyline);
