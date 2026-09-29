@@ -14,6 +14,9 @@
     <!-- Leaflet GIS Mapping CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+    <!-- KaTeX Mathematical Typesetting CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
     <style>
         :root {
             --bg-page: #f8f9fa;
@@ -441,6 +444,94 @@
                 display: none;
             }
         }
+
+        /* Mathematical Formulation Cards & KaTeX */
+        .math-section-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 16px;
+        }
+        .math-card {
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .math-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .math-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .math-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .math-badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .math-badge-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+        .math-badge-emerald { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+        .math-badge-amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+        .math-formula-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 14px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            text-align: center;
+        }
+        .math-formula-box .katex-display {
+            margin: 8px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        .math-desc {
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.8;
+        }
+        .math-bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .math-bullet-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 6px;
+        }
+        .math-bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -863,28 +954,100 @@
             </div>
 
             <!-- Mathematical Formulation -->
-            <div class="interactive-widget">
-                <span class="step-tag">MATHEMATICAL FORMULATION</span>
-                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:12px;">비대칭 분위수 손실(Quantile 85% Pinball Loss) 수식 정의</h3>
-                <p style="font-size:14px; color:var(--text-body); line-height:1.8; margin-bottom:16px;">
-                    실제 수요 $y$와 예측 수요 $\hat{y}$ 사이의 오차 $e = y - \hat{y}$에 대해, 타슈의 결품 방지 목적함수는 다음과 같이 정의됩니다:
-                </p>
-                <div style="background:var(--bg-surface); padding:16px; border-radius:8px; font-family:var(--font-mono); font-size:14px; color:var(--accent-blue); margin-bottom:14px; border:1px solid var(--border-subtle);">
-                    L_{0.85}(y, \hat{y}) = \max \Big( 0.85 \cdot (y - \hat{y}), \quad (0.85 - 1) \cdot (y - \hat{y}) \Big)
+            
+            <h3 id="math-section-heading" style="font-size:18px; color:var(--text-heading); margin-top:40px; margin-bottom:16px;">
+                3. 핵심 알고리즘 수학적 모델링 및 최적화 수식 체계 (Mathematical Formulations & Algorithmic Architecture)
+            </h3>
+
+            <div id="math-section" class="math-section-grid">
+                <!-- Card 1: Quantile Loss -->
+                <div class="math-card">
+                    <div class="math-card-header">
+                        <div class="math-card-title">
+                            <span>01. 비대칭 분위수 손실 함수 (Asymmetric Quantile Pinball Loss)</span>
+                        </div>
+                        <span class="math-badge math-badge-blue">OBJECTIVE FUNCTION</span>
+                    </div>
+                    <p class="math-desc">
+                        실제 수요 $y$와 모델 예측치 $\hat{y}$ 사이의 잔차 오차 $e = y - \hat{y}$에 대해, 시민의 결품 대기(과소 예측)와 단순 거치 잔여(과대 예측)의 사회적 비용 차이를 비대칭 가중치 $\tau = 0.85$로 수식화했습니다:
+                    </p>
+                    <div class="math-formula-box">
+                        $$\mathcal{L}_{0.85}(y, \hat{y}) = \begin{cases} 0.85 \cdot (y - \hat{y}) & \text{if } y \ge \hat{y} \quad (\text{과소 예측: 결품 발생, 시민 헛걸음}) \\[8pt] (1 - 0.85) \cdot (\hat{y} - y) = 0.15 \cdot (\hat{y} - y) & \text{if } y < \hat{y} \quad (\text{과대 예측: 단순 유휴 잉여}) \end{cases}$$
+                    </div>
+                    <div class="math-formula-box">
+                        $$\text{Asymmetric Penalty Ratio} = \frac{\tau}{1 - \tau} = \frac{0.85}{0.15} \approx \mathbf{5.67배}$$
+                    </div>
+                    <ul class="math-bullet-list">
+                        <li><strong>과소 예측 벌점 ($y \ge \hat{y}$, 대여 거점 품절):</strong> 페널티 가중치 $\tau = 0.85$</li>
+                        <li><strong>과대 예측 벌점 ($y < \hat{y}$, 단순 유휴 거치):</strong> 페널티 가중치 $1 - \tau = 0.15$</li>
+                        <li><strong>비대칭 패널티 효과:</strong> 동일한 1대의 예측 오차라도 "자전거가 모자라 시민이 헛걸음하는 결품 상황"을 <strong>5.67배 더 엄격하게 회피</strong>하도록 유도하여, 모델 스스로 피크 1시간 전 <strong>+3.6대의 선제적 안전 재고(Safety Stock Buffer)</strong>를 축적하도록 최적화되었습니다.</li>
+                    </ul>
                 </div>
-                <p style="font-size:13px; color:var(--text-muted); line-height:1.7;">
-                    $ullet$ <strong>과소 예측 ($y > \hat{y}$, 결품 발생):</strong> 벌점 가중치 $q = 0.85$<br>
-                    $ullet$ <strong>과대 예측 ($y < \hat{y}$, 단순 잉여):</strong> 벌점 가중치 $1 - q = 0.15$<br>
-                    $ullet$ <strong>비대칭 패널티 비율:</strong> $rac{0.85}{0.15} pprox \mathbf{5.67배}$<br>
-                    따라서 모델은 동일한 크기의 오차라도 "자전거가 모자라 시민이 헛걸음하는 상황"을 5.67배 더 엄격하게 회피하도록 학습되어 자연스러운 안전 재고(+3.6대)를 형성합니다.
-                </p>
+
+                <!-- Card 2: Poisson Demand & Super-Station Clustering -->
+                <div class="math-card">
+                    <div class="math-card-header">
+                        <div class="math-card-title">
+                            <span>02. 포아송 영-대여 우도 및 공간 군집화 (Poisson Sparsity & Super-Station Likelihood)</span>
+                        </div>
+                        <span class="math-badge math-badge-emerald">DEMAND SPARSITY</span>
+                    </div>
+                    <p class="math-desc">
+                        대전시 1,200개 개별 대여소의 시간당 대여량 $N_i(t)$는 대부분 0~1건에 수렴하는 극단적 포아송 희소성을 보이며, 특정 시구간 $\Delta t$ 동안 대여가 발생하지 않을 확률(영-대여 우도)은 다음과 같습니다:
+                    </p>
+                    <div class="math-formula-box">
+                        $$P(N_i(t) = k) = \frac{\lambda_i(t)^k e^{-\lambda_i(t)}}{k!}, \qquad P\big(N_i(\Delta t) = 0 \mid \lambda_i\big) = \exp\big(-\lambda_i(t) \cdot \Delta t\big)$$
+                    </div>
+                    <p class="math-desc">
+                        개별 대여소의 희소 강도($\lambda_i < 0.5$)로 인한 예측 불안정(초기 $R^2 = 0.72$)을 해결하기 위해, 보행 3분 반경($\le 300\text{m}$) 내 대여소를 460개 생활권 Super-Station 군집 $\mathcal{C}_k$로 집계했습니다:
+                    </p>
+                    <div class="math-formula-box">
+                        $$\Lambda_{\mathcal{C}_k}(t) = \sum_{i \in \mathcal{C}_k} \lambda_i(t) \ge 5.0, \qquad \mathcal{C}_k = \big\{ i \;\big|\; \text{dist}(i, \text{centroid}_k) \le 300\text{m} \big\}$$
+                    </div>
+                    <ul class="math-bullet-list">
+                        <li><strong>분산 안정화:</strong> 군집 집계를 통해 포아송 영-대여 과산포 현상을 상쇄하고 기저 모빌리티 통행 강도를 신뢰성 있게 확보</li>
+                        <li><strong>예측력 비약:</strong> 460개 Super-Station 기반 시계열 모델 도입 후 결정계수 <strong>$R^2 = 0.88$ 달성</strong> (0.72 대비 +22.2% 정밀도 향상)</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3: VRP Constraints -->
+                <div class="math-card">
+                    <div class="math-card-header">
+                        <div class="math-card-title">
+                            <span>03. 60분 골든타임 재배치 차량 경로 최적화 (Physical Rebalancing VRP Constraints)</span>
+                        </div>
+                        <span class="math-badge math-badge-amber">PHYSICAL CONSTRAINTS</span>
+                    </div>
+                    <p class="math-desc">
+                        현업의 실질적 제약 조건(트럭 10대, 적재 18대, 퇴근 60분 골든타임)을 정수계획법(MILP) 기반 차량 경로 문제(VRP) 제약식 체계로 구성했습니다:
+                    </p>
+                    <div class="math-formula-box">
+                        $$\min_{x, q} \; \sum_{k \in \mathcal{K}} \sum_{(i,j) \in \mathcal{E}} d_{ij} \cdot x_{ijk}$$
+                    </div>
+                    <div class="math-formula-box">
+                        $$\text{s.t.} \quad T_k = \sum_{(i,j) \in \mathcal{E}} \left( \frac{d_{ij}}{v_{\text{urban}}} x_{ijk} \right) + \sum_{i \in \mathcal{V}} \tau_{\text{load}} \cdot |q_{ik}| \le T_{\max} = 60 \text{ min} \quad (\forall k \in \mathcal{K})$$
+                    </div>
+                    <div class="math-formula-box">
+                        $$0 \le S_i(t) + \sum_{k \in \mathcal{K}} q_{ik} \le C_i, \qquad \sum_{i \in \mathcal{V}} |q_{ik}| \le 2 \cdot Q_{\text{truck}} = 36 \text{ 대} \quad (\forall k \in \mathcal{K})$$
+                    </div>
+                    <ul class="math-bullet-list">
+                        <li><strong>물리 파라미터 실측값:</strong> 도심 주행 속도 $v_{\text{urban}} = 22 \text{ km/h}$, 상·하차 소요 시간 $\tau_{\text{load}} = 40 \text{ sec/대}$, 트럭 용량 $Q_{\text{truck}} = 18 \text{ 대}$, 트럭 대수 $|\mathcal{K}| = 10 \text{ 대}$</li>
+                        <li><strong>외곽 $\rightarrow$ 중심 연계 최적화:</strong> 노은3동·송림마을 등 잉여 216대 회수 후, 갈마동·유성온천·소제동 등 품절 거점 176대 공급</li>
+                        <li><strong>실전 배차 검증:</strong> 트럭 10대 동시 투입 시 <strong>실소요 시간 48.5분</strong>으로 60분 이내 전원 임무 완결, 피크 시간대 결품률 <strong>38.0% $\rightarrow$ 13.3%</strong> 대폭 차단(65.0% 개선)</li>
+                    </ul>
+                </div>
             </div>
+
         </section>
 
     </main>
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- KaTeX JS + Auto-render Extension -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
     <!-- Embedded Scrollytelling & GIS Engine -->
     <script>
@@ -935,11 +1098,15 @@
                 attributionControl: false
             });
 
-            // CartoDB Positron (High-Resolution Light Editorial Tiles - ZERO API KEY REQUIRED)
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                subdomains: 'abcd',
-                maxZoom: 19,
-                opacity: 1.0
+            // Esri World Light Gray Canvas (Zero Watermark, 100% Free Open GIS)
+            const esriBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 16,
+                attribution: 'Tiles &copy; Esri'
+            }).addTo(map);
+
+            const esriRef = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 16,
+                opacity: 0.85
             }).addTo(map);
 
             // Layer Groups
@@ -1148,11 +1315,33 @@
             steps.forEach(step => observer.observe(step));
         }
 
+        // KaTeX Safe Auto-render
+        function renderMathSafe() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                setTimeout(renderMathSafe, 120);
+            }
+        }
+
         // Bootstrap on DOM Ready
         function bootstrap() {
             initLeafletMap();
             setupScrollObserver();
             onEnterStep(1);
+            renderMathSafe();
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target) {
+                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 300);
+                }
+            }
         }
 
         if (document.readyState === 'loading') {
