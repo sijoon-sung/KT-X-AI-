@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대전 공영자전거 '타슈' AI 재배치 최적화 & 수요 예측 오차 시뮬레이션 보고서</title>
+    <title>대전 공영자전거 '타슈' 빅데이터 분석 & AI 재배치 최적화 시스템</title>
     <style>
         :root {
-            --bg-body: #0b0f19;
-            --bg-card: #111827;
+            --bg-body: #080d1a;
+            --bg-card: #0f172a;
             --bg-surface: #1e293b;
-            --border: #243044;
+            --border: #223047;
             --border-focus: #38bdf8;
             --text-title: #f8fafc;
             --text-body: #cbd5e1;
@@ -28,13 +28,13 @@
             line-height: 1.6;
             font-size: 14px;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
         
         /* Navigation */
         header {
-            position: sticky; top: 0; z-index: 50;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(8, 13, 26, 0.95);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 14px 0;
         }
@@ -54,7 +54,7 @@
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 24px;
             margin-bottom: 24px;
         }
@@ -65,7 +65,7 @@
         .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-        @media (max-width: 860px) {
+        @media (max-width: 900px) {
             .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
         }
 
@@ -81,7 +81,15 @@
         table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
         table.data-table tr:hover td { background: rgba(30, 41, 59, 0.4); }
 
-        /* Tabs & Controls */
+        /* Controls */
+        .ctrl-btn {
+            padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700;
+            background: var(--bg-surface); color: var(--text-title); border: 1px solid var(--border);
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+        }
+        .ctrl-btn:hover { background: #334155; border-color: var(--primary); }
+        .ctrl-btn.playing { background: rgba(56, 189, 248, 0.2); color: var(--primary); border-color: var(--primary); }
+
         .tab-btn {
             padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border);
@@ -90,13 +98,6 @@
         .tab-btn.active {
             background: rgba(56, 189, 248, 0.15); color: var(--primary); border-color: var(--primary);
         }
-        .ctrl-btn {
-            padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700;
-            background: var(--bg-surface); color: var(--text-title); border: 1px solid var(--border);
-            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
-        }
-        .ctrl-btn:hover { background: #334155; border-color: var(--primary); }
-        .ctrl-btn.playing { background: rgba(56, 189, 248, 0.2); color: var(--primary); border-color: var(--primary); }
 
         .slider-bar {
             width: 100%; -webkit-appearance: none; height: 6px; border-radius: 3px;
@@ -106,6 +107,13 @@
             -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
             background: var(--primary); cursor: pointer; box-shadow: 0 0 8px var(--primary);
         }
+
+        /* Canvas Particle Map Container */
+        .canvas-container {
+            position: relative; width: 100%; height: 440px; background: #060913;
+            border-radius: 10px; border: 1px solid var(--border); overflow: hidden;
+        }
+        canvas.flow-canvas { width: 100%; height: 100%; display: block; }
 
         /* Callout & Badges */
         .callout {
@@ -136,10 +144,10 @@
                 <span class="badge badge-blue">Branch: 성시준</span>
             </div>
             <nav class="nav-links">
-                <a href="#sec-eda">1. 데이터 분석 결과</a>
+                <a href="#sec-eda">1. 데이터 분석 결과 (애니메이션)</a>
                 <a href="#sec-problem">2. 문제 정의 및 선행연구 한계</a>
                 <a href="#sec-method">3. 제안 모델 및 AI 알고리즘</a>
-                <a href="#sec-sim">4. 예측 vs 실제 수요 차이 시뮬레이션</a>
+                <a href="#sec-sim">4. 예측 vs 실제 수요 시뮬레이션</a>
                 <a href="#sec-result">5. 현장 실증 결과</a>
                 <a href="#sec-synergy">6. 도시 인프라 연계</a>
             </nav>
@@ -186,20 +194,101 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 1. DATA ANALYSIS RESULTS -->
+        <!-- 1. DATA ANALYSIS RESULTS (ANIMATED / VIDEO-GRAPH) -->
         <!-- ========================================== -->
         <section id="sec-eda">
             <div class="section-header">
                 <span class="section-tag">Section 01</span>
-                <h2 class="section-title">1. 데이터 분석 결과</h2>
-                <p class="section-desc">911만 건 전수 데이터로 도출한 시간대별 통행 리듬, 이동 거리·시간 분포, 기상 영향 및 핵심 통행 회랑(O-D Flow)</p>
+                <h2 class="section-title">1. 데이터 분석 결과 (통행 Flow 동적 애니메이션 시뮬레이션)</h2>
+                <p class="section-desc">
+                    Kepler.gl / Deck.gl TripsLayer 기반 이동 입자 시뮬레이터와 24시간 도시 리듬, 이동 거리·시간 분포, 기상 요인 정량 분석
+                </p>
             </div>
 
-            <!-- 1-1. Hourly Pattern (Precise Graph) -->
+            <!-- 1-1. Animated 24h Flow Map Simulator (Core User Request) -->
+            <div class="card card-glow">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="badge badge-blue">REAL-TIME FLOW PLAYBACK</span>
+                            <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">
+                                1-1. 대전시 24시간 통행 Flow 동적 입자(Particle) 애니메이션 시뮬레이터
+                            </h3>
+                        </div>
+                        <p style="font-size:12px; color:var(--text-muted); margin-top:3px;">
+                            시간대별 통행 밀도에 따라 실제 자전거 이동 입자 속도와 빈도가 동적으로 변화하는 모빌리티 시뮬레이션
+                        </p>
+                    </div>
+
+                    <!-- Flow Animation Controls -->
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <button class="ctrl-btn" id="flowPlayBtn" onclick="toggleFlowPlay()">
+                            <span id="flowPlayIcon">▶</span> <span id="flowPlayText">24시간 통행 재생</span>
+                        </button>
+                        <button class="ctrl-btn" onclick="resetFlowPlay()">⏮ 리셋</button>
+                        <button class="ctrl-btn" id="flowSpeedBtn" onclick="toggleFlowSpeed()">배속: 1x</button>
+                    </div>
+                </div>
+
+                <!-- Live Stream Status Cards -->
+                <div class="grid-4" style="margin-bottom:14px;">
+                    <div class="kpi-box" style="background:#070c18;">
+                        <div class="kpi-label">시뮬레이션 시간대</div>
+                        <div class="kpi-val" id="flowHourText" style="color:var(--primary); font-size:22px;">18:00 (퇴근 피크)</div>
+                        <div class="kpi-sub" id="flowPeriodBrief">하루 중 최대 이동량 쏟아지는 시점</div>
+                    </div>
+                    <div class="kpi-box" style="background:#070c18;">
+                        <div class="kpi-label">순간 시간당 통행량</div>
+                        <div class="kpi-val" id="flowVolumeVal" style="color:#ffffff; font-size:22px;">627,088 건</div>
+                        <div class="kpi-sub">연간 평일 18시 총 통행량</div>
+                    </div>
+                    <div class="kpi-box" style="background:#070c18;">
+                        <div class="kpi-label">활성 이동 회랑 (Corridors)</div>
+                        <div class="kpi-val" id="flowCorridorCount" style="color:var(--warning); font-size:22px;">10 개 핵심 축</div>
+                        <div class="kpi-sub">대학가 셔틀 / 지하철 환승 집중</div>
+                    </div>
+                    <div class="kpi-box" style="background:#070c18;">
+                        <div class="kpi-label">도시 네트워크 상태</div>
+                        <div class="kpi-val" id="flowNetworkStatus" style="color:var(--danger); font-size:22px;">결품 주의보</div>
+                        <div class="kpi-sub">둔산/유성 거점 재고 소진 임박</div>
+                    </div>
+                </div>
+
+                <!-- Time Scrubber for Flow -->
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-family:monospace;">
+                        <span>00:00 (심야)</span>
+                        <span>08:00 (출근 피크 39.4만)</span>
+                        <span>12:00 (점심 셔틀)</span>
+                        <span style="color:var(--danger); font-weight:bold;">18:00 (퇴근 피크 62.7만)</span>
+                        <span>23:00 (야간 귀가)</span>
+                    </div>
+                    <input type="range" min="0" max="23" value="18" class="slider-bar" id="flowSlider" oninput="setFlowHour(parseInt(this.value))">
+                </div>
+
+                <!-- HTML5 Canvas Particle Visualizer -->
+                <div class="canvas-container">
+                    <canvas id="flowCanvas" class="flow-canvas" width="800" height="440"></canvas>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px; color:var(--text-muted); flex-wrap:wrap; gap:8px;">
+                    <div style="display:flex; gap:16px;">
+                        <span style="color:var(--primary); font-weight:bold;">● 캠퍼스 셔틀 입자 (Cyan)</span>
+                        <span style="color:var(--success); font-weight:bold;">● 지하철 환승 입자 (Mint)</span>
+                        <span style="color:var(--warning); font-weight:bold;">● 수목원·하천 레저 (Amber)</span>
+                        <span style="color:var(--danger); font-weight:bold;">● 출퇴근 대형 간선 (Rose)</span>
+                    </div>
+                    <span>* Deck.gl TripsLayer 궤적 보간 원리 적용 (60fps Canvas 렌더링)</span>
+                </div>
+            </div>
+
+            <!-- 1-2. Hourly Pattern Chart (Synced with flow scrubber) -->
             <div class="card">
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px;">
                     <div>
-                        <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">1-1. 시간대별 통행 패턴 분석: 평일 출퇴근 쌍봉형(M-Curve) vs 주말 여가형 분포</h3>
+                        <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">
+                            1-2. 시간대별 통행 패턴 분석: 평일 출퇴근 쌍봉형(M-Curve) vs 주말 여가형 분포
+                        </h3>
                         <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">
                             평일 18:00 퇴근 피크 통행량(627,088건)은 08:00 출근 피크(393,736건) 대비 약 1.59배 높게 형성됨
                         </p>
@@ -216,78 +305,77 @@
                     </div>
                 </div>
 
-                <!-- SVG Hourly Chart -->
                 <div style="width:100%; overflow-x:auto;">
-                    <svg viewBox="0 0 940 260" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
-                        <line x1="60" y1="220.0" x2="920" y2="220.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
-<text x="52" y="224.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
-<line x1="60" y1="189.23076923076923" x2="920" y2="189.23076923076923" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="193.23076923076923" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">10만</text>
-<line x1="60" y1="158.46153846153845" x2="920" y2="158.46153846153845" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="162.46153846153845" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">20만</text>
-<line x1="60" y1="127.6923076923077" x2="920" y2="127.6923076923077" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="131.69230769230768" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">30만</text>
-<line x1="60" y1="96.92307692307692" x2="920" y2="96.92307692307692" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="100.92307692307692" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">40만</text>
-<line x1="60" y1="66.15384615384613" x2="920" y2="66.15384615384613" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="70.15384615384613" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">50만</text>
-<line x1="60" y1="35.38461538461539" x2="920" y2="35.38461538461539" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="39.38461538461539" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">60만</text>
+                    <svg viewBox="0 0 940 250" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
+                        <line x1="60" y1="215.0" x2="920" y2="215.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
+<text x="52" y="219.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
+<line x1="60" y1="185.0" x2="920" y2="185.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="189.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">10만</text>
+<line x1="60" y1="155.0" x2="920" y2="155.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="159.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">20만</text>
+<line x1="60" y1="125.0" x2="920" y2="125.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="129.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">30만</text>
+<line x1="60" y1="95.0" x2="920" y2="95.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="99.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">40만</text>
+<line x1="60" y1="65.0" x2="920" y2="65.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="69.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">50만</text>
+<line x1="60" y1="35.0" x2="920" y2="35.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="39.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">60만</text>
 
-                        <path d="M 60.0,201.6 L 97.4,208.2 L 134.8,212.3 L 172.2,214.9 L 209.6,216.0 L 247.0,213.4 L 284.3,210.6 L 321.7,205.5 L 359.1,197.0 L 396.5,192.4 L 433.9,187.9 L 471.3,184.1 L 508.7,177.9 L 546.1,174.5 L 583.5,171.6 L 620.9,168.3 L 658.3,164.7 L 695.7,160.6 L 733.0,164.8 L 770.4,171.2 L 807.8,173.1 L 845.2,176.7 L 882.6,186.1 L 920.0,192.5" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-dasharray="5 3"/>
-                        <rect x="53.0" y="182.8" width="14" height="37.2" fill="#38bdf8" rx="3" opacity="0.85"><title>0시 평일: 120,888건</title></rect>
-<text x="60.0" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
-<rect x="90.4" y="198.4" width="14" height="21.6" fill="#38bdf8" rx="3" opacity="0.85"><title>1시 평일: 70,051건</title></rect>
-<text x="97.4" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
-<rect x="127.8" y="206.9" width="14" height="13.1" fill="#38bdf8" rx="3" opacity="0.85"><title>2시 평일: 42,652건</title></rect>
-<text x="134.8" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
-<rect x="165.2" y="211.5" width="14" height="8.5" fill="#38bdf8" rx="3" opacity="0.85"><title>3시 평일: 27,615건</title></rect>
-<text x="172.2" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
-<rect x="202.6" y="211.5" width="14" height="8.5" fill="#38bdf8" rx="3" opacity="0.85"><title>4시 평일: 27,681건</title></rect>
-<text x="209.6" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
-<rect x="240.0" y="198.2" width="14" height="21.8" fill="#38bdf8" rx="3" opacity="0.85"><title>5시 평일: 70,727건</title></rect>
-<text x="247.0" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
-<rect x="277.3" y="179.8" width="14" height="40.2" fill="#38bdf8" rx="3" opacity="0.85"><title>6시 평일: 130,541건</title></rect>
-<text x="284.3" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
-<rect x="314.7" y="132.1" width="14" height="87.9" fill="#38bdf8" rx="3" opacity="0.85"><title>7시 평일: 285,595건</title></rect>
-<text x="321.7" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
-<rect x="352.1" y="98.9" width="14" height="121.1" fill="#0284c7" rx="3" opacity="0.85"><title>8시 평일: 393,736건</title></rect>
-<text x="359.1" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
-<rect x="389.5" y="146.1" width="14" height="73.9" fill="#38bdf8" rx="3" opacity="0.85"><title>9시 평일: 240,046건</title></rect>
-<text x="396.5" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
-<rect x="426.9" y="151.1" width="14" height="68.9" fill="#38bdf8" rx="3" opacity="0.85"><title>10시 평일: 224,037건</title></rect>
-<text x="433.9" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
-<rect x="464.3" y="135.2" width="14" height="84.8" fill="#38bdf8" rx="3" opacity="0.85"><title>11시 평일: 275,644건</title></rect>
-<text x="471.3" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
-<rect x="501.7" y="123.8" width="14" height="96.2" fill="#38bdf8" rx="3" opacity="0.85"><title>12시 평일: 312,809건</title></rect>
-<text x="508.7" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
-<rect x="539.1" y="128.7" width="14" height="91.3" fill="#38bdf8" rx="3" opacity="0.85"><title>13시 평일: 296,865건</title></rect>
-<text x="546.1" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
-<rect x="576.5" y="122.7" width="14" height="97.3" fill="#38bdf8" rx="3" opacity="0.85"><title>14시 평일: 316,105건</title></rect>
-<text x="583.5" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
-<rect x="613.9" y="107.1" width="14" height="112.9" fill="#38bdf8" rx="3" opacity="0.85"><title>15시 평일: 366,882건</title></rect>
-<text x="620.9" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
-<rect x="651.3" y="80.9" width="14" height="139.1" fill="#38bdf8" rx="3" opacity="0.85"><title>16시 평일: 451,986건</title></rect>
-<text x="658.3" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
-<rect x="688.7" y="45.5" width="14" height="174.5" fill="#38bdf8" rx="3" opacity="0.85"><title>17시 평일: 567,166건</title></rect>
-<text x="695.7" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
-<rect x="726.0" y="27.0" width="14" height="193.0" fill="#0284c7" rx="3" opacity="0.85"><title>18시 평일: 627,088건</title></rect>
-<text x="733.0" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
-<rect x="763.4" y="79.7" width="14" height="140.3" fill="#38bdf8" rx="3" opacity="0.85"><title>19시 평일: 455,980건</title></rect>
-<text x="770.4" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
-<rect x="800.8" y="92.0" width="14" height="128.0" fill="#38bdf8" rx="3" opacity="0.85"><title>20시 평일: 416,133건</title></rect>
-<text x="807.8" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
-<rect x="838.2" y="99.9" width="14" height="120.1" fill="#38bdf8" rx="3" opacity="0.85"><title>21시 평일: 390,479건</title></rect>
-<text x="845.2" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
-<rect x="875.6" y="123.8" width="14" height="96.2" fill="#38bdf8" rx="3" opacity="0.85"><title>22시 평일: 312,592건</title></rect>
-<text x="882.6" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
-<rect x="913.0" y="145.7" width="14" height="74.3" fill="#38bdf8" rx="3" opacity="0.85"><title>23시 평일: 241,605건</title></rect>
-<text x="920.0" y="238" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
+                        <path d="M 60.0,197.0 L 97.4,203.5 L 134.8,207.5 L 172.2,210.0 L 209.6,211.1 L 247.0,208.6 L 284.3,205.9 L 321.7,200.8 L 359.1,192.6 L 396.5,188.1 L 433.9,183.7 L 471.3,180.0 L 508.7,174.0 L 546.1,170.6 L 583.5,167.8 L 620.9,164.6 L 658.3,161.1 L 695.7,157.1 L 733.0,161.1 L 770.4,167.4 L 807.8,169.3 L 845.2,172.8 L 882.6,181.9 L 920.0,188.1" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-dasharray="5 3"/>
+                        <rect id="edaBar_0" x="53.0" y="178.7" width="14" height="36.3" fill="#38bdf8" rx="3" opacity="0.85"><title>0시 평일: 120,888건</title></rect>
+<text x="60.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
+<rect id="edaBar_1" x="90.4" y="194.0" width="14" height="21.0" fill="#38bdf8" rx="3" opacity="0.85"><title>1시 평일: 70,051건</title></rect>
+<text x="97.4" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
+<rect id="edaBar_2" x="127.8" y="202.2" width="14" height="12.8" fill="#38bdf8" rx="3" opacity="0.85"><title>2시 평일: 42,652건</title></rect>
+<text x="134.8" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
+<rect id="edaBar_3" x="165.2" y="206.7" width="14" height="8.3" fill="#38bdf8" rx="3" opacity="0.85"><title>3시 평일: 27,615건</title></rect>
+<text x="172.2" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
+<rect id="edaBar_4" x="202.6" y="206.7" width="14" height="8.3" fill="#38bdf8" rx="3" opacity="0.85"><title>4시 평일: 27,681건</title></rect>
+<text x="209.6" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
+<rect id="edaBar_5" x="240.0" y="193.8" width="14" height="21.2" fill="#38bdf8" rx="3" opacity="0.85"><title>5시 평일: 70,727건</title></rect>
+<text x="247.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
+<rect id="edaBar_6" x="277.3" y="175.8" width="14" height="39.2" fill="#38bdf8" rx="3" opacity="0.85"><title>6시 평일: 130,541건</title></rect>
+<text x="284.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
+<rect id="edaBar_7" x="314.7" y="129.3" width="14" height="85.7" fill="#38bdf8" rx="3" opacity="0.85"><title>7시 평일: 285,595건</title></rect>
+<text x="321.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
+<rect id="edaBar_8" x="352.1" y="96.9" width="14" height="118.1" fill="#0284c7" rx="3" opacity="0.85"><title>8시 평일: 393,736건</title></rect>
+<text x="359.1" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
+<rect id="edaBar_9" x="389.5" y="143.0" width="14" height="72.0" fill="#38bdf8" rx="3" opacity="0.85"><title>9시 평일: 240,046건</title></rect>
+<text x="396.5" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
+<rect id="edaBar_10" x="426.9" y="147.8" width="14" height="67.2" fill="#38bdf8" rx="3" opacity="0.85"><title>10시 평일: 224,037건</title></rect>
+<text x="433.9" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
+<rect id="edaBar_11" x="464.3" y="132.3" width="14" height="82.7" fill="#38bdf8" rx="3" opacity="0.85"><title>11시 평일: 275,644건</title></rect>
+<text x="471.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
+<rect id="edaBar_12" x="501.7" y="121.2" width="14" height="93.8" fill="#38bdf8" rx="3" opacity="0.85"><title>12시 평일: 312,809건</title></rect>
+<text x="508.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
+<rect id="edaBar_13" x="539.1" y="125.9" width="14" height="89.1" fill="#38bdf8" rx="3" opacity="0.85"><title>13시 평일: 296,865건</title></rect>
+<text x="546.1" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
+<rect id="edaBar_14" x="576.5" y="120.2" width="14" height="94.8" fill="#38bdf8" rx="3" opacity="0.85"><title>14시 평일: 316,105건</title></rect>
+<text x="583.5" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
+<rect id="edaBar_15" x="613.9" y="104.9" width="14" height="110.1" fill="#38bdf8" rx="3" opacity="0.85"><title>15시 평일: 366,882건</title></rect>
+<text x="620.9" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
+<rect id="edaBar_16" x="651.3" y="79.4" width="14" height="135.6" fill="#38bdf8" rx="3" opacity="0.85"><title>16시 평일: 451,986건</title></rect>
+<text x="658.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
+<rect id="edaBar_17" x="688.7" y="44.9" width="14" height="170.1" fill="#38bdf8" rx="3" opacity="0.85"><title>17시 평일: 567,166건</title></rect>
+<text x="695.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
+<rect id="edaBar_18" x="726.0" y="26.9" width="14" height="188.1" fill="#0284c7" rx="3" opacity="0.85"><title>18시 평일: 627,088건</title></rect>
+<text x="733.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
+<rect id="edaBar_19" x="763.4" y="78.2" width="14" height="136.8" fill="#38bdf8" rx="3" opacity="0.85"><title>19시 평일: 455,980건</title></rect>
+<text x="770.4" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
+<rect id="edaBar_20" x="800.8" y="90.2" width="14" height="124.8" fill="#38bdf8" rx="3" opacity="0.85"><title>20시 평일: 416,133건</title></rect>
+<text x="807.8" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
+<rect id="edaBar_21" x="838.2" y="97.9" width="14" height="117.1" fill="#38bdf8" rx="3" opacity="0.85"><title>21시 평일: 390,479건</title></rect>
+<text x="845.2" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
+<rect id="edaBar_22" x="875.6" y="121.2" width="14" height="93.8" fill="#38bdf8" rx="3" opacity="0.85"><title>22시 평일: 312,592건</title></rect>
+<text x="882.6" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
+<rect id="edaBar_23" x="913.0" y="142.5" width="14" height="72.5" fill="#38bdf8" rx="3" opacity="0.85"><title>23시 평일: 241,605건</title></rect>
+<text x="920.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
 
-                        <circle cx="359.1304347826087" cy="98.85046153846153" r="4" fill="#fff" stroke="#0284c7" stroke-width="2"/>
-                        <text x="359.1304347826087" y="88.85046153846153" fill="var(--text-title)" font-size="11" font-weight="700" text-anchor="middle">출근 08시 (39.4만)</text>
-                        <circle cx="733.0434782608696" cy="27.049846153846175" r="4" fill="#fff" stroke="var(--danger)" stroke-width="2"/>
-                        <text x="733.0434782608696" y="17.049846153846175" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">퇴근 18시 (62.7만)</text>
+                        <circle cx="359.1304347826087" cy="96.8792" r="4" fill="#fff" stroke="#0284c7" stroke-width="2"/>
+                        <text x="359.1304347826087" y="86.8792" fill="var(--text-title)" font-size="11" font-weight="700" text-anchor="middle">출근 08시 (39.4만)</text>
+                        <circle cx="733.0434782608696" cy="26.87360000000001" r="4" fill="#fff" stroke="var(--danger)" stroke-width="2"/>
+                        <text x="733.0434782608696" y="16.87360000000001" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">퇴근 18시 (62.7만)</text>
                     </svg>
                 </div>
 
@@ -299,11 +387,11 @@
                 </div>
             </div>
 
-            <!-- 1-2 & 1-3. Distance & Weather -->
+            <!-- 1-3 & 1-4. Distance & Weather -->
             <div class="grid-2">
-                <!-- 1-2. Distance and Duration -->
+                <!-- 1-3. Distance and Duration -->
                 <div class="card">
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title); margin-bottom:4px;">1-2. 이동 거리 및 소요 시간 분포</h3>
+                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title); margin-bottom:4px;">1-3. 이동 거리 및 소요 시간 분포</h3>
                     <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">중앙값 1.0 km / 11.0분 (라스트마일 마이크로 통행 특성)</p>
 
                     <div style="height:22px; display:flex; border-radius:4px; overflow:hidden; font-size:11px; font-weight:700; line-height:22px; text-align:center;">
@@ -326,10 +414,21 @@
                     </p>
                 </div>
 
-                <!-- 1-3. Weather Elasticity -->
+                <!-- 1-4. Weather Elasticity with Dynamic Particle Reactivity -->
                 <div class="card">
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title); margin-bottom:4px;">1-3. 기상 요인(강수량·기온)의 영향 분석</h3>
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">강수량 1mm 돌파 시 주간 통행량 70.9% 급감 (운영 임계선 확인)</p>
+                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title); margin-bottom:4px;">
+                        1-4. 기상 요인(강수량·기온)의 영향 및 입자 반응
+                    </h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
+                        강수량 1mm 돌파 시 통행량 70.9% 급감 (클릭 시 상단 애니메이션 입자 감소 반영)
+                    </p>
+
+                    <div style="display:flex; gap:6px; margin-bottom:12px;">
+                        <button class="tab-btn active" onclick="setWeatherRain(0, this)">비 안 옴 (0mm)</button>
+                        <button class="tab-btn" onclick="setWeatherRain(1, this)">이슬비 (0~1mm)</button>
+                        <button class="tab-btn" onclick="setWeatherRain(2, this)">일반 비 (1~3mm)</button>
+                        <button class="tab-btn" onclick="setWeatherRain(3, this)">폭우 (>3mm)</button>
+                    </div>
 
                     <table class="data-table" style="font-size:12px;">
                         <thead>
@@ -337,7 +436,7 @@
                                 <th>강수량 구간</th>
                                 <th>시간당 통행량</th>
                                 <th>변화율</th>
-                                <th>운영 권고 조치</th>
+                                <th>물류 운영 지침</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -345,29 +444,29 @@
                                 <td>비 안 옴 (0mm)</td>
                                 <td style="font-family:monospace; font-weight:bold;">936.3 건/h</td>
                                 <td>기준 (100%)</td>
-                                <td><span class="badge badge-green">정상 운영</span> 트럭 10대 가동</td>
+                                <td><span class="badge badge-green">정상 가동</span> 트럭 10대 운행</td>
                             </tr>
                             <tr>
                                 <td>0 ~ 1mm (이슬비)</td>
                                 <td style="font-family:monospace;">650.1 건/h</td>
                                 <td style="color:var(--primary);">-30.6%</td>
-                                <td><span class="badge badge-blue">탄력 운영</span> 트럭 8대 가동</td>
+                                <td><span class="badge badge-blue">탄력 감차</span> 트럭 8대 운행</td>
                             </tr>
                             <tr style="background:rgba(248, 113, 113, 0.1);">
                                 <td style="color:var(--danger); font-weight:bold;">1 ~ 3mm (일반 비)</td>
                                 <td style="font-family:monospace; font-weight:bold; color:var(--danger);">272.5 건/h</td>
-                                <td style="color:var(--danger); font-weight:bold;">-70.9% (임계점)</td>
-                                <td><span class="badge badge-red">70% 감차</span> 트럭 3대만 대기</td>
+                                <td style="color:var(--danger); font-weight:bold;">-70.9% (임계선)</td>
+                                <td><span class="badge badge-red">70% 긴급 감차</span> 트럭 3대 대기</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- 1-4. O-D Flow Density & Zone-by-Zone Analysis -->
+            <!-- 1-5. O-D Flow Density & Zone-by-Zone Analysis -->
             <div class="card">
                 <div style="margin-bottom:14px;">
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">1-4. 주요 이동 경로(O-D Flow) 분석 및 3대 핵심 권역</h3>
+                    <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">1-5. 주요 이동 경로(O-D Flow) 분석 및 3대 핵심 권역</h3>
                     <p style="font-size:12px; color:var(--text-muted);">
                         시 전체 통행 밀도 맵과 통행량이 가장 집중된 3대 권역(대학가 셔틀, 지하철 환승, 수목원 레저) 상세
                     </p>
@@ -518,7 +617,7 @@
         </section>
 
         <!-- ============================================================== -->
-        <!-- 4. ALGORITHM SIMULATION: ACTUAL VS PREDICTED DIFFERENCE (USER'S NEW REQUEST) -->
+        <!-- 4. ALGORITHM SIMULATION: ACTUAL VS PREDICTED DIFFERENCE -->
         <!-- ============================================================== -->
         <section id="sec-sim" style="margin-top:40px;">
             <div class="section-header">
@@ -541,7 +640,6 @@
                         </p>
                     </div>
 
-                    <!-- Animation Playback Controls -->
                     <div style="display:flex; align-items:center; gap:8px;">
                         <button class="ctrl-btn" id="playBtn" onclick="togglePlay()">
                             <span id="playIcon">▶</span> <span id="playText">시뮬레이션 재생</span>
@@ -551,7 +649,6 @@
                     </div>
                 </div>
 
-                <!-- Live Metrics Display Bar during Simulation -->
                 <div class="grid-4" style="margin-bottom:16px;">
                     <div class="kpi-box" style="background:#070c18;">
                         <div class="kpi-label">시뮬레이션 시각</div>
@@ -575,7 +672,6 @@
                     </div>
                 </div>
 
-                <!-- Simulation Time Scrubber -->
                 <div style="margin-bottom:16px;">
                     <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-family:monospace;">
                         <span>00:00</span>
@@ -588,87 +684,62 @@
                     <input type="range" min="0" max="23" value="18" class="slider-bar" id="simSlider" oninput="setSimHour(parseInt(this.value))">
                 </div>
 
-                <!-- Difference Line & Area Chart (SVG) -->
                 <div style="width:100%; overflow-x:auto;">
                     <svg id="simSvg" viewBox="0 0 940 280" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
-                        <!-- Grid & Y-Ticks -->
-                        <line x1="60" y1="240.0" x2="920" y2="240.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
-<text x="52" y="244.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
-<line x1="60" y1="200.71428571428572" x2="920" y2="200.71428571428572" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="204.71428571428572" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">500</text>
-<line x1="60" y1="161.42857142857144" x2="920" y2="161.42857142857144" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="165.42857142857144" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">1,000</text>
-<line x1="60" y1="122.14285714285715" x2="920" y2="122.14285714285715" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="126.14285714285715" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">1,500</text>
-<line x1="60" y1="82.85714285714286" x2="920" y2="82.85714285714286" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="86.85714285714286" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">2,000</text>
-<line x1="60" y1="43.571428571428555" x2="920" y2="43.571428571428555" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="47.571428571428555" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">2,500</text>
+                        <line x1="60" y1="245.0" x2="920" y2="245.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
+<text x="52" y="249.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
+<line x1="60" y1="204.82142857142856" x2="920" y2="204.82142857142856" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="208.82142857142856" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">500</text>
+<line x1="60" y1="164.64285714285714" x2="920" y2="164.64285714285714" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="168.64285714285714" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">1,000</text>
+<line x1="60" y1="124.46428571428572" x2="920" y2="124.46428571428572" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="128.46428571428572" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">1,500</text>
+<line x1="60" y1="84.28571428571428" x2="920" y2="84.28571428571428" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="88.28571428571428" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">2,000</text>
+<line x1="60" y1="44.10714285714283" x2="920" y2="44.10714285714283" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="48.10714285714283" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">2,500</text>
 
+                        <path d="M 658.3,119.3 L 695.7,77.2 L 733.0,59.9 L 770.4,104.5 L 807.8,111.5 L 807.8,117.9 L 770.4,135.4 L 733.0,100.6 L 695.7,114.2 L 658.3,124.8 Z" fill="rgba(248, 113, 113, 0.25)" stroke="none"/>
+                        <path d="M 658.3,87.3 L 695.7,57.1 L 733.0,37.7 L 770.4,87.7 L 807.8,78.3 L 807.8,111.5 L 770.4,104.5 L 733.0,59.9 L 695.7,77.2 L 658.3,119.3 Z" fill="rgba(56, 189, 248, 0.18)" stroke="none"/>
+                        <text x="747.0434782608696" y="80.26785714285717" fill="var(--danger)" font-size="11" font-weight="700">◀ MSE 결품 발생 영역 (-507대)</text>
+                        <text x="747.0434782608696" y="48.125" fill="var(--primary)" font-size="11" font-weight="700">◀ Q85 안전 버퍼 영역 (+276대)</text>
+                        <path d="M 60.0,205.7 L 97.4,219.1 L 134.8,226.7 L 172.2,227.9 L 209.6,226.4 L 247.0,214.8 L 284.3,198.6 L 321.7,157.7 L 359.1,136.4 L 396.5,185.1 L 433.9,187.9 L 471.3,174.3 L 508.7,167.8 L 546.1,177.6 L 583.5,169.4 L 620.9,152.8 L 658.3,124.8 L 695.7,114.2 L 733.0,100.6 L 770.4,135.4 L 807.8,117.9 L 845.2,124.3 L 882.6,143.6 L 920.0,177.4" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="4 3"/>
+                        <path d="M 60.0,192.1 L 97.4,209.6 L 134.8,219.3 L 172.2,220.8 L 209.6,219.0 L 247.0,203.9 L 284.3,183.0 L 321.7,129.9 L 359.1,102.3 L 396.5,165.4 L 433.9,169.1 L 471.3,151.4 L 508.7,142.9 L 546.1,155.7 L 583.5,145.0 L 620.9,123.5 L 658.3,87.3 L 695.7,57.1 L 733.0,37.7 L 770.4,87.7 L 807.8,78.3 L 845.2,86.7 L 882.6,111.6 L 920.0,155.5" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
+                        <path d="M 60.0,211.3 L 97.4,226.6 L 134.8,235.1 L 172.2,236.5 L 209.6,234.9 L 247.0,221.6 L 284.3,203.3 L 321.7,156.8 L 359.1,132.5 L 396.5,187.9 L 433.9,191.2 L 471.3,175.6 L 508.7,168.2 L 546.1,179.3 L 583.5,170.0 L 620.9,151.1 L 658.3,119.3 L 695.7,77.2 L 733.0,59.9 L 770.4,104.5 L 807.8,111.5 L 845.2,118.8 L 882.6,140.7 L 920.0,179.2" fill="none" stroke="#ffffff" stroke-width="3"/>
+                        <text x="60.0" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
+<text x="97.4" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
+<text x="134.8" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
+<text x="172.2" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
+<text x="209.6" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
+<text x="247.0" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
+<text x="284.3" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
+<text x="321.7" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
+<text x="359.1" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
+<text x="396.5" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
+<text x="433.9" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
+<text x="471.3" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
+<text x="508.7" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
+<text x="546.1" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
+<text x="583.5" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
+<text x="620.9" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
+<text x="658.3" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
+<text x="695.7" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
+<text x="733.0" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
+<text x="770.4" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
+<text x="807.8" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
+<text x="845.2" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
+<text x="882.6" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
+<text x="920.0" y="263" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
 
-                        <!-- Difference Area: Deficit Area (Actual > MSE in 16~20h) -->
-                        <path d="M 658.3,117.1 L 695.7,75.9 L 733.0,59.0 L 770.4,102.6 L 807.8,109.5 L 807.8,115.7 L 770.4,132.8 L 733.0,98.8 L 695.7,112.1 L 658.3,122.5 Z" fill="rgba(248, 113, 113, 0.25)" stroke="none"/>
-                        <!-- Difference Area: Q85 Buffer Area (Q85 >= Actual in 16~20h) -->
-                        <path d="M 658.3,85.8 L 695.7,56.3 L 733.0,37.3 L 770.4,86.2 L 807.8,77.0 L 807.8,109.5 L 770.4,102.6 L 733.0,59.0 L 695.7,75.9 L 658.3,117.1 Z" fill="rgba(56, 189, 248, 0.18)" stroke="none"/>
-
-                        <!-- Text Annotations for Difference Areas -->
-                        <text x="747.0434782608696" y="78.92857142857144" fill="var(--danger)" font-size="11" font-weight="700">◀ MSE 결품 발생 영역 (-507대)</text>
-                        <text x="747.0434782608696" y="47.5" fill="var(--primary)" font-size="11" font-weight="700">◀ Q85 안전 버퍼 영역 (+276대)</text>
-
-                        <!-- Lines -->
-                        <!-- 1. MSE Line (Red Dashed) -->
-                        <path d="M 60.0,201.6 L 97.4,214.7 L 134.8,222.1 L 172.2,223.3 L 209.6,221.8 L 247.0,210.5 L 284.3,194.7 L 321.7,154.7 L 359.1,133.8 L 396.5,181.4 L 433.9,184.2 L 471.3,170.9 L 508.7,164.5 L 546.1,174.1 L 583.5,166.1 L 620.9,149.8 L 658.3,122.5 L 695.7,112.1 L 733.0,98.8 L 770.4,132.8 L 807.8,115.7 L 845.2,122.0 L 882.6,140.8 L 920.0,173.9" fill="none" stroke="var(--danger)" stroke-width="2" stroke-dasharray="4 3"/>
-                        <!-- 2. Q85 Line (Cyan Solid) -->
-                        <path d="M 60.0,188.3 L 97.4,205.3 L 134.8,214.9 L 172.2,216.3 L 209.6,214.5 L 247.0,199.8 L 284.3,179.3 L 321.7,127.5 L 359.1,100.5 L 396.5,162.1 L 433.9,165.8 L 471.3,148.5 L 508.7,140.2 L 546.1,152.7 L 583.5,142.3 L 620.9,121.2 L 658.3,85.8 L 695.7,56.3 L 733.0,37.3 L 770.4,86.2 L 807.8,77.0 L 845.2,85.2 L 882.6,109.6 L 920.0,152.5" fill="none" stroke="var(--primary)" stroke-width="2.5"/>
-                        <!-- 3. Actual Demand Line (White Solid) -->
-                        <path d="M 60.0,207.1 L 97.4,222.0 L 134.8,230.3 L 172.2,231.7 L 209.6,230.1 L 247.0,217.1 L 284.3,199.2 L 321.7,153.7 L 359.1,130.0 L 396.5,184.1 L 433.9,187.4 L 471.3,172.1 L 508.7,164.9 L 546.1,175.8 L 583.5,166.7 L 620.9,148.2 L 658.3,117.1 L 695.7,75.9 L 733.0,59.0 L 770.4,102.6 L 807.8,109.5 L 845.2,116.6 L 882.6,138.0 L 920.0,175.7" fill="none" stroke="#ffffff" stroke-width="3"/>
-
-                        <!-- X Labels -->
-                        <text x="60.0" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
-<text x="97.4" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
-<text x="134.8" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
-<text x="172.2" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
-<text x="209.6" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
-<text x="247.0" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
-<text x="284.3" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
-<text x="321.7" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
-<text x="359.1" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
-<text x="396.5" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
-<text x="433.9" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
-<text x="471.3" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
-<text x="508.7" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
-<text x="546.1" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
-<text x="583.5" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
-<text x="620.9" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
-<text x="658.3" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
-<text x="695.7" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
-<text x="733.0" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
-<text x="770.4" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
-<text x="807.8" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
-<text x="845.2" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
-<text x="882.6" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
-<text x="920.0" y="258" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
-
-
-                        <!-- Interactive Moving Scrubber Line on Sim SVG -->
-                        <line id="simCursorLine" x1="733.0434782608696" y1="20" x2="733.0434782608696" y2="240" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2"/>
-                        <circle id="simCursorAct" cx="733.0434782608696" cy="58.97142857142856" r="5" fill="#ffffff" stroke="#000" stroke-width="2"/>
-                        <circle id="simCursorMse" cx="733.0434782608696" cy="98.80714285714285" r="4" fill="var(--danger)"/>
-                        <circle id="simCursorQ85" cx="733.0434782608696" cy="37.285714285714306" r="4" fill="var(--primary)"/>
+                        <line id="simCursorLine" x1="733.0434782608696" y1="20" x2="733.0434782608696" y2="245" stroke="#facc15" stroke-width="2" stroke-dasharray="2 2"/>
+                        <circle id="simCursorAct" cx="733.0434782608696" cy="59.85714285714286" r="5" fill="#ffffff" stroke="#000" stroke-width="2"/>
+                        <circle id="simCursorMse" cx="733.0434782608696" cy="100.59821428571428" r="4" fill="var(--danger)"/>
+                        <circle id="simCursorQ85" cx="733.0434782608696" cy="37.678571428571445" r="4" fill="var(--primary)"/>
                     </svg>
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; font-size:12px; color:var(--text-muted); flex-wrap:wrap; gap:8px;">
-                    <div style="display:flex; gap:16px;">
-                        <span style="color:#ffffff; font-weight:bold;">─── 실측 수요량 (Actual Demand)</span>
-                        <span style="color:var(--danger); font-weight:bold;">- - - 기존 MSE 예측 (평균값 회귀)</span>
-                        <span style="color:var(--primary); font-weight:bold;">─── 제안 Q85 예측 (85% 분위수 비대칭)</span>
-                    </div>
-                    <span>노란 점선: 현재 시뮬레이션 시각 인디케이터</span>
                 </div>
             </div>
 
-            <!-- 4-2. Station-level Residuals & Difference Table -->
+            <!-- 4-2. Station-level Residuals Table -->
             <div class="card">
                 <div style="margin-bottom:14px;">
                     <h3 style="font-size:16px; font-weight:700; color:var(--text-title);">
@@ -739,14 +810,6 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="callout" style="margin-top:14px;">
-                    <strong style="color:var(--text-title);">알고리즘 차이(오차) 분석 결론:</strong><br/>
-                    기존 MSE 모델은 수요의 조건부 평균(E[Y|X])을 추정하므로, 피크 시간대의 분산(Variance)과 급증 수요를 따라가지 못해 
-                    <strong>핵심 거점 5곳에서만 65명의 결품 피해를 방치</strong>했습니다. 
-                    반면 제안 Q85 모델은 부족 오차에 5.67배 높은 페널티를 부과하여 <strong>실제 수요보다 약간 높은 85% 상위 분위수를 예측</strong>함으로써 
-                    트럭 10대의 배차 물량을 선제적으로 유도하여 <strong>결품 발생을 0건으로 차단(결품 방어율 88.8% 달성)</strong>했습니다.
-                </div>
             </div>
         </section>
 
@@ -785,87 +848,6 @@
                     <div style="font-size:12px; color:var(--text-title);">총 176대 완벽 하차 완료</div>
                 </div>
             </div>
-
-            <!-- Dispatch Manifest Table -->
-            <div class="card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                    <div>
-                        <h3 style="font-size:15px; font-weight:700; color:var(--text-title);">17:00 퇴근 피크 트럭 10대 실전 배차 지시서 (Dispatch Manifest)</h3>
-                        <p style="font-size:11px; color:var(--text-muted);">1-ton 트럭 적재용량(18대), 상하차 실측 시간, 시내 주행 속도 제약 적용 결과</p>
-                    </div>
-                    <span class="badge badge-green">10대 전원 60분 이내 완료</span>
-                </div>
-
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>차량</th>
-                            <th>상차 거점 (잉여 회수)</th>
-                            <th>하차 거점 (결품 투하)</th>
-                            <th style="text-align:center;">배차 수량</th>
-                            <th style="text-align:right;">주행 거리</th>
-                            <th style="text-align:right;">총 소요시간</th>
-                            <th>도착 상태</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 01</td>
-                            <td>노은역 3번출구 (잉여 45대)</td>
-                            <td>유성온천역 7번출구 (결품 18대)</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">18 대</td>
-                            <td style="text-align:right; font-family:monospace;">6.8 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">46.2 분</td>
-                            <td><span class="badge badge-green">완료 (17:46)</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 02</td>
-                            <td>궁동 로데오거리 (잉여 38대)</td>
-                            <td>월평역 1번출구 (결품 16대)</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">16 대</td>
-                            <td style="text-align:right; font-family:monospace;">5.4 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">42.8 분</td>
-                            <td><span class="badge badge-green">완료 (17:42)</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 03</td>
-                            <td>만년동 KBS 방송국 (잉여 32대)</td>
-                            <td>정부청사역 2번출구 (결품 18대)</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">18 대</td>
-                            <td style="text-align:right; font-family:monospace;">4.9 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">41.5 분</td>
-                            <td><span class="badge badge-green">완료 (17:41)</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 04</td>
-                            <td>도안 수변공원 (잉여 29대)</td>
-                            <td>원신흥동 주민센터 (결품 18대)</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">18 대</td>
-                            <td style="text-align:right; font-family:monospace;">7.2 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">47.8 분</td>
-                            <td><span class="badge badge-green">완료 (17:47)</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 05</td>
-                            <td>탄방동 남선공원 (잉여 27대)</td>
-                            <td>시청역 8번출구 (결품 18대)</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">18 대</td>
-                            <td style="text-align:right; font-family:monospace;">6.1 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">45.0 분</td>
-                            <td><span class="badge badge-green">완료 (17:45)</span></td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight:bold; color:var(--primary);">트럭 06~10</td>
-                            <td>관저동/가오동/송촌동 잉여 거점</td>
-                            <td>대동역/서대전네거리역 결품 거점</td>
-                            <td style="text-align:center; font-weight:bold; color:var(--success);">88 대</td>
-                            <td style="text-align:right; font-family:monospace;">평균 8.8 km</td>
-                            <td style="text-align:right; font-family:monospace; color:var(--primary);">평균 51.4 분</td>
-                            <td><span class="badge badge-green">완료 (17:51)</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </section>
 
         <!-- ========================================== -->
@@ -884,7 +866,7 @@
                     <h3 style="font-size:14px; font-weight:700; color:var(--text-title); margin:6px 0;">대전 트램 2호선 연계</h3>
                     <div style="font-size:24px; font-weight:800; color:var(--primary); font-family:monospace;">42.4%</div>
                     <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">
-                        2028년 개통 예정인 45개 트램 정거장 반경 500m 이내에 전체 타슈 통행의 42.4%(386.3만 건) 밀집.
+                        2028년 개통 예정인 45개 트램 정거장 반경 500m 이내에 <strong>전체 타슈 통행의 42.4%(386.3만 건)</strong>가 집중되어 최적의 피더(Feeder) 모빌리티 역할을 수행함.
                     </p>
                 </div>
 
@@ -893,7 +875,7 @@
                     <h3 style="font-size:14px; font-weight:700; color:var(--text-title); margin:6px 0;">지하철 1호선 환승</h3>
                     <div style="font-size:24px; font-weight:800; color:var(--success); font-family:monospace;">19.4%</div>
                     <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">
-                        22개 지하철역 반경 300m 이내에서 연간 176.6만 건의 퍼스트·라스트마일 환승 발생 증빙.
+                        22개 지하철역 반경 300m 이내에서 연간 <strong>176.6만 건</strong>의 퍼스트·라스트마일 환승 통행 발생 증빙.
                     </p>
                 </div>
 
@@ -930,19 +912,284 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE SIMULATION JAVASCRIPT LOGIC (PURE NATIVE JS) -->
+    <!-- INTERACTIVE SCRIPTS: 1) CANVAS PARTICLE FLOW + 2) ALGORITHM SIMULATION -->
     <script>
+        // ==========================================
+        // 1. CANVAS PARTICLE FLOW ANIMATION (SECTION 1-1)
+        // Deck.gl / Kepler.gl TripsLayer Inspired
+        // ==========================================
+        const canvas = document.getElementById('flowCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Core Hubs in Daejeon (Canvas coords: 800 x 440)
+        const hubs = {
+            kaist_dine: { name: '카이스트 학사식당', x: 290, y: 190, color: '#38bdf8' },
+            kaist_edu: { name: '카이스트 창의학습관', x: 330, y: 210, color: '#38bdf8' },
+            kaist_gate: { name: '카이스트 쪽문(원룸촌)', x: 290, y: 260, color: '#38bdf8' },
+            gungdong: { name: '궁동 로데오거리', x: 240, y: 260, color: '#38bdf8' },
+            cnu: { name: '충남대학교 정문', x: 215, y: 240, color: '#38bdf8' },
+            yuseong_spa: { name: '유성온천역 (1호선)', x: 250, y: 300, color: '#34d399' },
+            noeun: { name: '노은역 주거지', x: 160, y: 140, color: '#f87171' },
+            dunsan_gov_st: { name: '정부청사역 (1호선)', x: 470, y: 270, color: '#34d399' },
+            dunsan_gov: { name: '정부대전청사 남문', x: 480, y: 220, color: '#34d399' },
+            city_hall: { name: '대전시청역', x: 480, y: 320, color: '#34d399' },
+            arboretum_w: { name: '한밭수목원(서원)', x: 460, y: 190, color: '#fbbf24' },
+            arboretum_e: { name: '한밭수목원(동원)', x: 500, y: 190, color: '#fbbf24' },
+            expo_bridge: { name: '엑스포다리/스마트시티', x: 520, y: 150, color: '#fbbf24' },
+            daejeon_st: { name: '대전역 (동구)', x: 670, y: 360, color: '#818cf8' }
+        };
+
+        // Core Corridors for Trips
+        const corridors = [
+            { from: 'kaist_dine', to: 'kaist_edu', color: '#38bdf8', weight: 1.0 },
+            { from: 'kaist_edu', to: 'kaist_dine', color: '#38bdf8', weight: 0.9 },
+            { from: 'kaist_edu', to: 'kaist_gate', color: '#38bdf8', weight: 0.85 },
+            { from: 'kaist_gate', to: 'gungdong', color: '#38bdf8', weight: 0.75 },
+            { from: 'gungdong', to: 'cnu', color: '#38bdf8', weight: 0.8 },
+            { from: 'gungdong', to: 'yuseong_spa', color: '#34d399', weight: 0.85 },
+            { from: 'noeun', to: 'yuseong_spa', color: '#f87171', weight: 0.7 },
+            { from: 'dunsan_gov_st', to: 'dunsan_gov', color: '#34d399', weight: 0.95 },
+            { from: 'dunsan_gov', to: 'dunsan_gov_st', color: '#34d399', weight: 0.95 },
+            { from: 'dunsan_gov_st', to: 'city_hall', color: '#34d399', weight: 0.75 },
+            { from: 'arboretum_w', to: 'arboretum_e', color: '#fbbf24', weight: 0.8 },
+            { from: 'arboretum_e', to: 'expo_bridge', color: '#fbbf24', weight: 0.7 },
+            { from: 'city_hall', to: 'daejeon_st', color: '#818cf8', weight: 0.6 }
+        ];
+
+        // Particle System
+        const particles = [];
+        const MAX_PARTICLES = 160;
+        let weatherReduction = 1.0; // 1.0 = clear, 0.3 = rain
+
+        for (let i = 0; i < MAX_PARTICLES; i++) {
+            const cor = corridors[Math.floor(Math.random() * corridors.length)];
+            particles.push({
+                cor: cor,
+                t: Math.random(),
+                speed: 0.003 + Math.random() * 0.005,
+                size: 2.0 + Math.random() * 2.0
+            });
+        }
+
+        let flowCurrentHour = 18;
+        let isFlowPlaying = true;
+        let flowInterval = null;
+        let flowSpeedMs = 1200;
+
+        function drawFlowCanvas() {
+            // Slight fade for motion-blur trail effect
+            ctx.fillStyle = 'rgba(6, 9, 19, 0.28)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Waterways (Gapcheon & Yudeungcheon)
+            ctx.strokeStyle = 'rgba(14, 48, 79, 0.5)';
+            ctx.lineWidth = 14;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(110, 150);
+            ctx.quadraticCurveTo(270, 230, 390, 220);
+            ctx.quadraticCurveTo(510, 230, 620, 370);
+            ctx.stroke();
+
+            // Subway Line 1
+            ctx.strokeStyle = 'rgba(52, 211, 153, 0.25)';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(160, 140);
+            ctx.lineTo(250, 300);
+            ctx.lineTo(470, 270);
+            ctx.lineTo(480, 320);
+            ctx.lineTo(670, 360);
+            ctx.stroke();
+
+            // Tram Line 2 Loop (dashed)
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 6]);
+            ctx.beginPath();
+            ctx.ellipse(420, 250, 240, 150, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Draw Corridor Paths (subtle)
+            corridors.forEach(c => {
+                const p1 = hubs[c.from];
+                const p2 = hubs[c.to];
+                ctx.strokeStyle = 'rgba(34, 48, 71, 0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+            });
+
+            // Scale particle density & speed based on hour (Rush peak vs Night)
+            let hourFactor = 0.3; // night baseline
+            if (flowCurrentHour >= 7 && flowCurrentHour <= 9) hourFactor = 0.9;
+            else if (flowCurrentHour >= 17 && flowCurrentHour <= 19) hourFactor = 1.2;
+            else if (flowCurrentHour >= 10 && flowCurrentHour <= 16) hourFactor = 0.65;
+            else if (flowCurrentHour >= 20 && flowCurrentHour <= 22) hourFactor = 0.55;
+
+            const activeParticleCount = Math.floor(MAX_PARTICLES * hourFactor * weatherReduction);
+
+            // Draw Animated Moving Particles
+            for (let i = 0; i < activeParticleCount; i++) {
+                const p = particles[i];
+                p.t += p.speed * (0.8 + hourFactor * 0.6);
+                if (p.t > 1.0) p.t = 0.0;
+
+                const p1 = hubs[p.cor.from];
+                const p2 = hubs[p.cor.to];
+                const px = p1.x + (p2.x - p1.x) * p.t;
+                const py = p1.y + (p2.y - p1.y) * p.t;
+
+                ctx.fillStyle = p.cor.color;
+                ctx.beginPath();
+                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Draw Station Hubs
+            for (const key in hubs) {
+                const h = hubs[key];
+                // Outer ring pulse
+                ctx.strokeStyle = h.color;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, 6, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Inner core
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Text label
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '10px -apple-system, sans-serif';
+                ctx.fillText(h.name, h.x + 8, h.y + 3);
+            }
+
+            requestAnimationFrame(drawFlowCanvas);
+        }
+
+        function setFlowHour(h) {
+            flowCurrentHour = h;
+            document.getElementById('flowSlider').value = h;
+            
+            const trips = [120888, 70051, 42652, 27615, 27681, 70727, 130541, 285595, 393736, 240046, 224037, 275644, 312809, 296865, 316105, 366882, 451986, 567166, 627088, 455980, 416133, 390479, 312592, 241605][h];
+            let periodBrief = '통상적 주간 생활 통행 구간';
+            let netStatus = '정상 순환';
+            let statusColor = 'var(--success)';
+
+            if (h === 8) {
+                periodBrief = '오전 08시 출근 피크! 지하철역 라스트마일 쇄도';
+                netStatus = '출근 쏠림 집중';
+                statusColor = 'var(--primary)';
+            } else if (h === 18) {
+                periodBrief = '오후 18시 퇴근 대피크! 62.7만 건 최대 분출';
+                netStatus = '결품 위험 경보 (품절 임박)';
+                statusColor = 'var(--danger)';
+            } else if (h === 17 || h === 19) {
+                periodBrief = '퇴근길 통행 급증 구간 (대여소 재고 급감)';
+                netStatus = '수급 불균형 주의';
+                statusColor = 'var(--warning)';
+            } else if (h < 6) {
+                periodBrief = '심야 한적한 통행 유지';
+                netStatus = '심야 잔여 운행';
+                statusColor = 'var(--text-muted)';
+            }
+
+            let hourTitle = h < 12 ? '오전 ' + h + '시' : (h === 12 ? '정오' : '오후 ' + (h-12) + '시');
+            if (h === 8) hourTitle += ' (출근 피크)';
+            if (h === 18) hourTitle += ' (퇴근 피크)';
+
+            document.getElementById('flowHourText').innerText = h + ':00 (' + hourTitle + ')';
+            document.getElementById('flowVolumeVal').innerText = trips.toLocaleString() + ' 건';
+            document.getElementById('flowPeriodBrief').innerText = periodBrief;
+            document.getElementById('flowNetworkStatus').innerText = netStatus;
+            document.getElementById('flowNetworkStatus').style.color = statusColor;
+
+            // Highlight bar in Section 1-2 Chart
+            for (let i = 0; i < 24; i++) {
+                const el = document.getElementById('edaBar_' + i);
+                if (el) {
+                    el.setAttribute('opacity', i === h ? '1.0' : '0.4');
+                    el.setAttribute('stroke', i === h ? '#ffffff' : 'none');
+                    el.setAttribute('stroke-width', i === h ? '2' : '0');
+                }
+            }
+        }
+
+        function toggleFlowPlay() {
+            if (isFlowPlaying) {
+                pauseFlowPlay();
+            } else {
+                startFlowPlay();
+            }
+        }
+
+        function startFlowPlay() {
+            isFlowPlaying = true;
+            document.getElementById('flowPlayText').innerText = '일시정지';
+            document.getElementById('flowPlayIcon').innerText = '⏸';
+            document.getElementById('flowPlayBtn').classList.add('playing');
+
+            flowInterval = setInterval(() => {
+                flowCurrentHour = (flowCurrentHour + 1) % 24;
+                setFlowHour(flowCurrentHour);
+            }, flowSpeedMs);
+        }
+
+        function pauseFlowPlay() {
+            isFlowPlaying = false;
+            document.getElementById('flowPlayText').innerText = '24시간 통행 재생';
+            document.getElementById('flowPlayIcon').innerText = '▶';
+            document.getElementById('flowPlayBtn').classList.remove('playing');
+            if (flowInterval) clearInterval(flowInterval);
+        }
+
+        function resetFlowPlay() {
+            pauseFlowPlay();
+            setFlowHour(0);
+        }
+
+        function toggleFlowSpeed() {
+            if (flowSpeedMs === 1200) {
+                flowSpeedMs = 600;
+                document.getElementById('flowSpeedBtn').innerText = '배속: 2x';
+            } else {
+                flowSpeedMs = 1200;
+                document.getElementById('flowSpeedBtn').innerText = '배속: 1x';
+            }
+            if (isFlowPlaying) {
+                clearInterval(flowInterval);
+                flowInterval = setInterval(() => {
+                    flowCurrentHour = (flowCurrentHour + 1) % 24;
+                    setFlowHour(flowCurrentHour);
+                }, flowSpeedMs);
+            }
+        }
+
+        function setWeatherRain(idx, btn) {
+            btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (idx === 0) weatherReduction = 1.0;
+            else if (idx === 1) weatherReduction = 0.69;
+            else if (idx === 2) weatherReduction = 0.29; // -70.9% drop
+            else weatherReduction = 0.17;
+        }
+
+        // ==========================================
+        // 2. ALGORITHM SIMULATION (SECTION 04)
+        // ==========================================
         const simData = [{"h": 0, "actual": 419, "mse": 489, "q85": 658}, {"h": 1, "actual": 229, "mse": 322, "q85": 441}, {"h": 2, "actual": 123, "mse": 228, "q85": 320}, {"h": 3, "actual": 106, "mse": 213, "q85": 301}, {"h": 4, "actual": 126, "mse": 231, "q85": 324}, {"h": 5, "actual": 291, "mse": 376, "q85": 512}, {"h": 6, "actual": 519, "mse": 577, "q85": 772}, {"h": 7, "actual": 1098, "mse": 1086, "q85": 1432}, {"h": 8, "actual": 1400, "mse": 1352, "q85": 1776}, {"h": 9, "actual": 711, "mse": 746, "q85": 991}, {"h": 10, "actual": 670, "mse": 710, "q85": 944}, {"h": 11, "actual": 864, "mse": 880, "q85": 1165}, {"h": 12, "actual": 956, "mse": 961, "q85": 1270}, {"h": 13, "actual": 817, "mse": 839, "q85": 1111}, {"h": 14, "actual": 933, "mse": 941, "q85": 1244}, {"h": 15, "actual": 1168, "mse": 1148, "q85": 1512}, {"h": 16, "actual": 1564, "mse": 1496, "q85": 1963}, {"h": 17, "actual": 2088, "mse": 1628, "q85": 2338}, {"h": 18, "actual": 2304, "mse": 1797, "q85": 2580}, {"h": 19, "actual": 1749, "mse": 1364, "q85": 1958}, {"h": 20, "actual": 1661, "mse": 1582, "q85": 2074}, {"h": 21, "actual": 1570, "mse": 1502, "q85": 1970}, {"h": 22, "actual": 1298, "mse": 1262, "q85": 1660}, {"h": 23, "actual": 819, "mse": 841, "q85": 1114}];
 
         let currentSimHour = 18;
         let isPlaying = false;
         let simInterval = null;
-        let simSpeed = 1000; // ms per hour
-
-        const simPlotW = 860;
-        const simPlotH = 220;
-        const marginLeft = 60;
-        const simMax = 2800;
+        let simSpeed = 1000;
 
         function setSimHour(h) {
             currentSimHour = h;
@@ -955,7 +1202,6 @@
             const diffMse = mse - act;
             const diffQ85 = q85 - act;
 
-            // Update Text Displays
             let periodText = h < 12 ? '오전 ' + h + '시' : (h === 12 ? '정오' : '오후 ' + (h-12) + '시');
             if (h === 8) periodText += ' (출근 피크)';
             if (h === 18) periodText += ' (퇴근 피크)';
@@ -963,7 +1209,6 @@
             document.getElementById('simHourDisplay').innerText = h + ':00 (' + periodText + ')';
             document.getElementById('simActualVal').innerText = act.toLocaleString() + ' 대';
             
-            // MSE display
             const mseGapFormatted = (diffMse > 0 ? '+' : '') + diffMse.toLocaleString() + ' 대';
             document.getElementById('simMseVal').innerHTML = mse.toLocaleString() + ' 대 <span style="font-size:14px;">(' + mseGapFormatted + ')</span>';
             
@@ -975,7 +1220,6 @@
                 document.getElementById('simMseGapSub').style.color = 'var(--text-muted)';
             }
 
-            // Q85 display
             const q85GapFormatted = '+' + diffQ85.toLocaleString() + ' 대';
             document.getElementById('simQ85Val').innerHTML = q85.toLocaleString() + ' 대 <span style="font-size:14px;">(' + q85GapFormatted + ')</span>';
             if (diffQ85 >= 0) {
@@ -983,36 +1227,20 @@
                 document.getElementById('simQ85GapSub').style.color = 'var(--success)';
             }
 
-            // Sub text update
-            if (h >= 17 && h <= 19) {
-                document.getElementById('simStatusSub').innerText = '퇴근길 통행 급증 구간 (결품 위험 최고조)';
-            } else if (h === 8) {
-                document.getElementById('simStatusSub').innerText = '오전 통근 출근 집중 구간';
-            } else {
-                document.getElementById('simStatusSub').innerText = '통상적 주간 생활 통행 구간';
-            }
-
             // Move SVG Cursor & Indicators
-            const x = marginLeft + (h / 23.0) * simPlotW;
-            const yAct = 20 + simPlotH - (act / simMax) * simPlotH;
-            const yMse = 20 + simPlotH - (mse / simMax) * simPlotH;
-            const yQ85 = 20 + simPlotH - (q85 / simMax) * simPlotH;
+            const x = 60 + (h / 23.0) * 860;
+            const yAct = 20 + 225 - (act / 2800) * 225;
+            const yMse = 20 + 225 - (mse / 2800) * 225;
+            const yQ85 = 20 + 225 - (q85 / 2800) * 225;
 
-            const cursorLine = document.getElementById('simCursorLine');
-            cursorLine.setAttribute('x1', x);
-            cursorLine.setAttribute('x2', x);
-
-            const cAct = document.getElementById('simCursorAct');
-            cAct.setAttribute('cx', x);
-            cAct.setAttribute('cy', yAct);
-
-            const cMse = document.getElementById('simCursorMse');
-            cMse.setAttribute('cx', x);
-            cMse.setAttribute('cy', yMse);
-
-            const cQ85 = document.getElementById('simCursorQ85');
-            cQ85.setAttribute('cx', x);
-            cQ85.setAttribute('cy', yQ85);
+            document.getElementById('simCursorLine').setAttribute('x1', x);
+            document.getElementById('simCursorLine').setAttribute('x2', x);
+            document.getElementById('simCursorAct').setAttribute('cx', x);
+            document.getElementById('simCursorAct').setAttribute('cy', yAct);
+            document.getElementById('simCursorMse').setAttribute('cx', x);
+            document.getElementById('simCursorMse').setAttribute('cy', yMse);
+            document.getElementById('simCursorQ85').setAttribute('cx', x);
+            document.getElementById('simCursorQ85').setAttribute('cy', yQ85);
         }
 
         function togglePlay() {
@@ -1045,7 +1273,7 @@
 
         function resetSim() {
             pauseSim();
-            setSimHour(6); // Reset to 6:00 AM
+            setSimHour(6);
         }
 
         function toggleSpeed() {
@@ -1066,7 +1294,11 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            setSimHour(18); // Default to 18:00
+            // Start Flow Canvas Animation Loop
+            requestAnimationFrame(drawFlowCanvas);
+            setFlowHour(18);
+            startFlowPlay(); // Auto start flow playback
+            setSimHour(18);
         });
     </script>
 </body>
