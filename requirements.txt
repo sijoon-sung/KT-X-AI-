@@ -1,0 +1,10 @@
+pandas>=2.2
+numpy
+pyarrow
+scikit-learn
+xgboost>=2.1
+holidays
+matplotlib
+requests
+tqdm
+# torch: pip install torch --index-url https://download.pytorch.org/whl/cu124

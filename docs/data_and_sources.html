@@ -1,0 +1,284 @@
+<title>타슈 데이터와 외부자료</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F5F7F6; --paper:#FFFFFF; --ink:#17211E; --muted:#59665F; --rule:#D6DEDA; --soft:#EAF0ED;
+  --accent:#1C7A58; --accent-soft:#D9EFE5; --warn:#95590F; --warn-soft:#F8EBD9; --blue:#2E6FA8;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0F1514; --paper:#161E1B; --ink:#E3EAE7; --muted:#96A49E; --rule:#2A3531; --soft:#1D2724;
+  --accent:#5CC69C; --accent-soft:#1B3A2E; --warn:#E0A75E; --warn-soft:#382A18; --blue:#79B2E0;}}
+:root[data-theme="dark"]{
+  --ground:#0F1514; --paper:#161E1B; --ink:#E3EAE7; --muted:#96A49E; --rule:#2A3531; --soft:#1D2724;
+  --accent:#5CC69C; --accent-soft:#1B3A2E; --warn:#E0A75E; --warn-soft:#382A18; --blue:#79B2E0;}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.72;padding-inline:16px;padding-block:28px 60px}
+.doc{max-width:860px;margin:0 auto;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:38px clamp(18px,5vw,52px)}
+header{border-bottom:2px solid var(--ink);padding-bottom:18px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}
+h1{font-size:clamp(23px,4vw,31px);margin:6px 0 10px;font-weight:700;text-wrap:balance}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:4px 20px;margin-top:12px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:500}
+h2{font-size:19px;font-weight:600;margin:38px 0 8px;padding-top:18px;border-top:1px solid var(--rule);display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--accent)}
+h3{font-size:15px;font-weight:600;margin:20px 0 4px}
+p{margin:8px 0;max-width:68ch}
+ul{margin:8px 0;padding-left:1.15em}li{margin:4px 0;max-width:66ch}
+code{font-family:var(--mono);font-size:.87em;background:var(--soft);padding:1px 5px;border-radius:3px}
+figure{margin:16px 0;border:1px solid var(--rule);border-radius:5px;overflow:hidden;background:var(--paper)}
+figure img{display:block;width:100%;height:auto}
+figcaption{font-size:12.5px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--rule);background:var(--soft)}
+.tbl{overflow-x:auto;margin:12px 0;border:1px solid var(--rule);border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 11px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{background:var(--soft);font-weight:600;font-size:12.5px;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;white-space:nowrap}
+.key{background:var(--accent-soft);border-left:3px solid var(--accent);padding:13px 17px;border-radius:0 4px 4px 0;margin:16px 0}
+.flag{background:var(--warn-soft);border-left:3px solid var(--warn);padding:13px 17px;border-radius:0 4px 4px 0;margin:16px 0}
+.key p,.flag p{margin:3px 0}
+.small{font-size:13px;color:var(--muted)}
+.pill{display:inline-block;font-size:11.5px;font-family:var(--mono);padding:1px 7px;border-radius:10px;border:1px solid var(--rule)}
+.yes{background:var(--accent-soft);border-color:transparent}
+.no{background:var(--warn-soft);border-color:transparent}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+@media (max-width:520px){.doc{padding:24px 16px}th,td{padding:7px 8px}}
+</style>
+
+<div class="doc">
+<header>
+  <div class="eyebrow">타슈 수요·재고 연구 · 데이터 점검 보고</div>
+  <h1>타슈 데이터와 외부자료</h1>
+  <p class="lede">과거 대여이력 19개월만 써서 수요의 모양, 대여소 유형, 이동 구조, 재고 복원을 확인했습니다. 실시간 API는 이 보고서의 어떤 숫자에도 쓰이지 않았습니다. 마지막에 다음으로 붙일 외부자료를 겹치는 기간 기준으로 정리했습니다.</p>
+  <div class="meta">
+    <span>작성 <b>2026-09-23</b></span>
+    <span>기간 <b>2024-08-01 ~ 2026-03-31</b></span>
+    <span>대여 <b>855만 건</b></span>
+    <span>대여소 <b>1,534곳</b></span>
+  </div>
+</header>
+
+<h2><span class="n">1</span>한눈에</h2>
+<div class="key">
+  <p><b>수요는 소수 대여소에 몰려 있고, 비가 오면 3분의 1로 줄고, 대여소 하나의 한 시간은 대부분 0건입니다.</b></p>
+  <p class="small">그래서 대여소×1시간을 그대로 맞히는 문제는 한계가 낮고, 구역으로 묶거나 재고 관점으로 바꿔야 합니다. 자전거번호로 재고를 되살리는 것은 가능해 보이며, 지금은 시작 수량을 잡는 규칙이 남은 문제입니다.</p>
+</div>
+
+<h2><span class="n">2</span>수요의 크기와 분포</h2>
+<p>19개월 동안 대여소 한 곳이 만든 대여는 중앙값 3,075건입니다. 시간으로 바꾸면 한 시간에 0.29건입니다. 그런데 평균은 한쪽으로 크게 치우쳐 있습니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th>시간당 대여</th><th class="n">대여소 수</th><th class="n">비율</th><th class="n">전체 대여 중 비중</th></tr></thead>
+  <tbody>
+    <tr><td>0.1건 미만</td><td class="n">339</td><td class="n">22%</td><td class="n">2.0%</td></tr>
+    <tr><td>0.1 ~ 0.3</td><td class="n">442</td><td class="n">29%</td><td class="n">10.6%</td></tr>
+    <tr><td>0.3 ~ 0.5</td><td class="n">265</td><td class="n">17%</td><td class="n">13.8%</td></tr>
+    <tr><td>0.5 ~ 1</td><td class="n">308</td><td class="n">20%</td><td class="n">29.8%</td></tr>
+    <tr><td>1 ~ 2</td><td class="n">127</td><td class="n">8%</td><td class="n">22.4%</td></tr>
+    <tr><td>2건 이상</td><td class="n">53</td><td class="n">3%</td><td class="n">21.5%</td></tr>
+  </tbody>
+</table></div>
+<figure>
+  <img src="figs/f4_lorenz.png" alt="대여소 누적 비율에 따른 대여 누적 비율 곡선. 상위 14%가 전체 절반을 차지한다.">
+  <figcaption>대여 절반을 211곳이 만든다. 지니계수 0.59. 하위 절반 대여소를 다 합쳐도 10%뿐이다.</figcaption>
+</figure>
+<p>이 분포가 예측 문제의 성격을 정합니다. 대여소×1시간 칸의 73%가 0건이라, 모델을 아무리 잘 만들어도 이 단위에서는 설명할 수 있는 몫 자체가 작습니다. 반대로 붐비는 200여 곳은 재배치에서도 예측에서도 실질적인 대상이 됩니다.</p>
+
+<h2><span class="n">3</span>시간 구조</h2>
+<figure>
+  <img src="figs/f1_hour.png" alt="시각별 대여 곡선. 평일은 8시와 18시에 봉우리가 있고 18시가 더 높다. 휴일은 오후에 완만하게 높다.">
+  <figcaption>평일은 8시(0.56건)와 18시(0.98건) 두 봉우리이고 퇴근이 훨씬 크다. 휴일은 낮 시간에 완만하게 퍼진다. 반납 곡선은 대여보다 약간 뒤에 온다.</figcaption>
+</figure>
+<div class="two">
+<div class="tbl"><table>
+  <thead><tr><th>요일</th><th class="n">시간당 대여</th></tr></thead>
+  <tbody>
+    <tr><td>월</td><td class="n">0.44</td></tr><tr><td>화</td><td class="n">0.46</td></tr>
+    <tr><td>수</td><td class="n">0.48</td></tr><tr><td>목</td><td class="n">0.49</td></tr>
+    <tr><td>금</td><td class="n">0.49</td></tr><tr><td>토</td><td class="n">0.45</td></tr>
+    <tr><td>일</td><td class="n">0.42</td></tr>
+  </tbody>
+</table></div>
+<div class="tbl"><table>
+  <thead><tr><th>월</th><th class="n">시간당 대여</th></tr></thead>
+  <tbody>
+    <tr><td>1월</td><td class="n">0.25</td></tr><tr><td>3월</td><td class="n">0.48</td></tr>
+    <tr><td>5월</td><td class="n">0.60</td></tr><tr><td>6월</td><td class="n">0.64</td></tr>
+    <tr><td>7월</td><td class="n">0.56</td></tr><tr><td>9월</td><td class="n">0.61</td></tr>
+    <tr><td>11월</td><td class="n">0.51</td></tr>
+  </tbody>
+</table></div>
+</div>
+<p>요일 차이는 작습니다. 가장 큰 금요일과 가장 작은 일요일이 17% 차이입니다. 반면 계절 차이는 2.5배가 넘습니다. 겨울에는 00~05시 운영도 멈춥니다.</p>
+<figure>
+  <img src="figs/f2_daily.png" alt="19개월 일별 대여량 시계열. 여름 가을에 높고 겨울에 낮으며 2025년 2~3월과 12월에 비어 있다.">
+  <figcaption>일별 대여량. 2025-02-26 ~ 03-04는 시스템 장애, 2025년 12월은 원본 파일이 1월 자료와 같아 통째로 결측이다. 두 구간은 학습과 평가에서 모두 제외했다.</figcaption>
+</figure>
+
+<h3>날씨의 영향</h3>
+<figure>
+  <img src="figs/f3_weather.png" alt="강수량 구간별, 기온 구간별 평균 이용 막대그래프.">
+  <figcaption>비가 시간당 1~3mm면 이용이 0.19건으로 떨어진다. 비가 없을 때의 3분의 1이다. 기온은 28도가 넘어도 줄지 않고 오히려 가장 높다.</figcaption>
+</figure>
+<div class="tbl"><table>
+  <thead><tr><th>조건</th><th class="n">시간당 대여</th><th class="n">비 없을 때 대비</th></tr></thead>
+  <tbody>
+    <tr><td>비 없음</td><td class="n">0.54</td><td class="n">기준</td></tr>
+    <tr><td>0 ~ 1mm</td><td class="n">0.41</td><td class="n">-24%</td></tr>
+    <tr><td>1mm 이상</td><td class="n">0.16</td><td class="n">-71%</td></tr>
+    <tr><td>기온 10도 미만</td><td class="n">0.35</td><td class="n">-36%</td></tr>
+    <tr><td>기온 20~28도</td><td class="n">0.61</td><td class="n">+13%</td></tr>
+    <tr><td>기온 30도 이상</td><td class="n">0.73</td><td class="n">+34%</td></tr>
+  </tbody>
+</table></div>
+<p>기온 상관은 0.40입니다. 더위보다 비가 훨씬 강한 변수입니다. 앞선 모델 실험에서도 날씨를 넣었을 때 도시 전체 설명력이 0.90에서 0.94로 올랐습니다.</p>
+
+<h2><span class="n">4</span>이동 구조</h2>
+<div class="tbl"><table>
+  <thead><tr><th>항목</th><th class="n">값</th></tr></thead>
+  <tbody>
+    <tr><td>이용시간 중앙값</td><td class="n">12분</td></tr>
+    <tr><td>이용시간 상위 10% / 1%</td><td class="n">41분 / 89분</td></tr>
+    <tr><td>빌린 곳에 그대로 반납</td><td class="n">6.1%</td></tr>
+    <tr><td>위치 미상(관제센터) 관련 기록</td><td class="n">5.4%</td></tr>
+  </tbody>
+</table></div>
+<figure>
+  <img src="figs/f5_odmap.png" alt="대전 지도 위에 가장 이동이 많은 120개 대여소 쌍을 선으로 그린 그림. 유성구 대학가와 둔산 업무지구에 집중된다.">
+  <figcaption>가장 굵은 이동 120쌍. KAIST 안쪽, 충남대 주변, 둔산 업무지구, 한밭수목원 주변에 뭉쳐 있다. 도시를 가로지르는 긴 이동은 거의 없다.</figcaption>
+</figure>
+<p>출근 시간(평일 7~9시)의 쏠림은 분명합니다. 도시 전체 |순유출입| 합이 427,488대이고, 대여소의 41%가 순유출입이 그 시간대 총 이동량의 30%를 넘습니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th>가장 많이 들어오는 곳</th><th class="n">순유입</th><th>가장 많이 빠지는 곳</th><th class="n">순유출</th></tr></thead>
+  <tbody>
+    <tr><td>둔산동 정부청사 입구(남문)</td><td class="n">+13,914</td><td>어은동 한빛아파트(126동 건너편)</td><td class="n">-6,237</td></tr>
+    <tr><td>궁동 충남대학교 학생회관</td><td class="n">+9,545</td><td>어은동 어은치안센터 입구</td><td class="n">-3,412</td></tr>
+    <tr><td>구성동 카이스트 창의학습관</td><td class="n">+6,666</td><td>태평동 유등마을(112동)</td><td class="n">-2,565</td></tr>
+    <tr><td>구성동 카이스트 정보전자동</td><td class="n">+6,319</td><td>용문동 둔산더샵 2단지</td><td class="n">-2,542</td></tr>
+  </tbody>
+</table></div>
+
+<h2><span class="n">5</span>대여소 유형 6개</h2>
+<p>평일·휴일 × 대여·반납의 하루 모양(96칸)으로 군집화했습니다. 크기는 지우고 모양만 남겼습니다. 기록이 충분한 1,356곳이 대상이고, 제외한 178곳은 전체 대여의 0.3%입니다.</p>
+<figure>
+  <img src="figs/f9_clusters.png" alt="유형 6개의 하루 모양 곡선 6개 패널.">
+  <figcaption>유형별 하루 모양. 파란 실선이 평일 대여, 주황 점선이 평일 반납, 초록이 휴일 대여다. 유형 3은 아침 반납과 저녁 대여가 완전히 분리된다.</figcaption>
+</figure>
+<div class="tbl"><table>
+  <thead><tr><th>유형</th><th class="n">곳</th><th class="n">대여비중</th><th class="n">출근대여</th><th class="n">퇴근대여</th><th class="n">심야</th><th class="n">출근 반납−대여</th><th class="n">휴일/평일</th><th class="n">역거리</th><th>대표</th></tr></thead>
+  <tbody>
+    <tr><td>3 · 업무지구 도착형</td><td class="n">35</td><td class="n">2%</td><td class="n">0.110</td><td class="n">0.394</td><td class="n">0.030</td><td class="n">+0.374</td><td class="n">0.35</td><td class="n">2.9km</td><td>정부청사 입구, 대덕비즈센터</td></tr>
+    <tr><td>1 · 캠퍼스·도심 도착형</td><td class="n">99</td><td class="n">8%</td><td class="n">0.142</td><td class="n">0.208</td><td class="n">0.026</td><td class="n">+0.162</td><td class="n">0.59</td><td class="n">0.66km</td><td>충남대 학생회관, KAIST 창의학습관, 대전역</td></tr>
+    <tr><td>4 · 역 접근형</td><td class="n">272</td><td class="n">15%</td><td class="n">0.168</td><td class="n">0.224</td><td class="n">0.058</td><td class="n">+0.013</td><td class="n">0.82</td><td class="n">1.1km</td><td>유성온천역 6번출구</td></tr>
+    <tr><td>0 · 주거·심야형</td><td class="n">317</td><td class="n">18%</td><td class="n">0.127</td><td class="n">0.205</td><td class="n">0.116</td><td class="n">-0.037</td><td class="n">0.95</td><td class="n">2.2km</td><td>어은동 한빛아파트, 궁동 다솔아파트</td></tr>
+    <tr><td>2 · 일반 주거형</td><td class="n">454</td><td class="n">36%</td><td class="n">0.136</td><td class="n">0.241</td><td class="n">0.071</td><td class="n">-0.056</td><td class="n">0.95</td><td class="n">1.2km</td><td>샘머리아파트, 다모아아파트</td></tr>
+    <tr><td>5 · 여가형</td><td class="n">179</td><td class="n">21%</td><td class="n">0.108</td><td class="n">0.256</td><td class="n">0.038</td><td class="n">+0.019</td><td class="n">1.13</td><td class="n">0.93km</td><td>한밭수목원, 무역전시관, KAIST 서쪽 쪽문</td></tr>
+  </tbody>
+</table></div>
+<p class="small">출근대여·퇴근대여·심야는 그 유형의 평일 하루 대여 중 해당 시간대가 차지하는 비율. "출근 반납−대여"가 양수면 아침에 사람이 들어오는 곳, 음수면 빠져나가는 곳.</p>
+<figure>
+  <img src="figs/f10_maps.png" alt="왼쪽은 유형별로 색을 칠한 대여소 지도, 오른쪽은 OD 커뮤니티 지도.">
+  <figcaption>왼쪽 유형 지도, 오른쪽 이동 커뮤니티 지도. 유형은 도시 전역에 섞여 있지만, 커뮤니티는 지리적으로 뭉친다.</figcaption>
+</figure>
+<div class="flag">
+  <p><b>유형은 뚜렷한 덩어리가 아니라 연속된 스펙트럼입니다.</b></p>
+  <p class="small">실루엣 점수가 k=3에서 0.132, k=6에서 0.082입니다. 0.5를 넘어야 잘 갈라진 군집으로 봅니다. 설명과 모델의 노드 특징으로는 쓸 수 있지만, "대여소는 6종류다"라는 주장은 세우기 어렵습니다.</p>
+</div>
+
+<h2><span class="n">6</span>OD 커뮤니티</h2>
+<p>대여소 사이 이동량을 그래프로 놓고 Louvain으로 나눴습니다. 해상도를 올릴수록 잘게 쪼개지고 모듈러리티는 떨어집니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th class="n">해상도</th><th class="n">커뮤니티 수</th><th class="n">모듈러리티</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0.6</td><td class="n">6</td><td class="n">0.617</td></tr>
+    <tr><td class="n">1.0</td><td class="n">7</td><td class="n">0.618</td></tr>
+    <tr><td class="n">1.5</td><td class="n">11</td><td class="n">0.598</td></tr>
+    <tr><td class="n">2.0 (채택)</td><td class="n">13</td><td class="n">0.582</td></tr>
+    <tr><td class="n">3.0</td><td class="n">19</td><td class="n">0.543</td></tr>
+  </tbody>
+</table></div>
+<ul>
+  <li>이동의 <b>67.8%</b>가 커뮤니티 안에서 끝납니다.</li>
+  <li>출근시간 불균형의 <b>74.6%</b>가 커뮤니티 안에서 상쇄됩니다. 트럭이 커뮤니티 안에서만 움직여도 대부분 해결된다는 뜻입니다.</li>
+  <li>가장 큰 커뮤니티는 260곳, 중앙값은 92곳입니다.</li>
+  <li>커뮤니티별 출근 순유입을 보면 8번(56곳)이 -22,609로 가장 많이 빠지고, 10번(67곳)이 +15,539로 가장 많이 받습니다.</li>
+</ul>
+<p>계획서의 60개 수준으로 쪼개려면 해상도를 더 올려야 합니다. 다만 그만큼 커뮤니티 안에서 끝나는 이동 비율이 떨어져서, 재배치 단위로서의 장점이 약해집니다. 이 균형점은 시뮬레이션에서 정하는 게 맞습니다.</p>
+
+<h2><span class="n">7</span>재고 복원</h2>
+<p>대여이력에는 "그 시각 몇 대가 있었는지"가 없습니다. 자전거번호로 기록을 이어 붙여 되살렸습니다. 대여는 -1, 반납은 +1이고, 직전 반납 대여소와 다음 대여 대여소가 다르면 그 사이에 누군가 옮긴 것으로 보고 옮김 사건을 넣었습니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th>점검 항목</th><th class="n">값</th><th>해석</th></tr></thead>
+  <tbody>
+    <tr><td>연쇄가 같은 대여소로 이어지는 비율</td><td class="n">99.0%</td><td>복원이 가능하다는 근거. 끊기는 1%만 추정하면 된다</td></tr>
+    <tr><td>옮김으로 판정된 건수</td><td class="n">89,504건 (하루 147건)</td><td>재배치 인력 규모와 맞는 크기</td></tr>
+    <tr><td>옮김 사이 간격 중앙값</td><td class="n">53.6시간</td><td>언제 옮겼는지는 모른다. 지금은 중간 시점으로 가정</td></tr>
+    <tr><td>72시간 넘게 안 쓰인 자전거</td><td class="n">24,890건</td><td>정비 반출로 보고 그 사이 재고에서 뺌</td></tr>
+    <tr><td>복원 재고가 음수인 칸</td><td class="n">0%</td><td>정상</td></tr>
+    <tr><td>재고 0으로 복원된 칸</td><td class="n">24.6%</td><td>검열된 수요의 크기</td></tr>
+    <tr><td>거치대 수를 넘는 칸</td><td class="n">14.2%</td><td>수준이 높게 잡혔다는 신호</td></tr>
+    <tr><td>재고 0인데 대여가 일어남</td><td class="n">전체 대여의 11.0%</td><td>가장 큰 남은 오차</td></tr>
+  </tbody>
+</table></div>
+<figure>
+  <img src="figs/f7_station_stock.png" alt="붐비는 대여소 세 곳의 한 주간 복원 재고 곡선.">
+  <figcaption>한 주 동안의 복원 재고. KAIST 서쪽 쪽문(주황)은 매일 0까지 떨어졌다 회복하고, 한빛아파트(파랑)는 밤에 차고 낮에 빈다. 한밭수목원(초록)이 65~90대에 머무는 것은 실제보다 높게 잡힌 것으로, 아래 설명한 시작 수량 문제다.</figcaption>
+</figure>
+<div class="flag">
+  <p><b>남은 문제는 "시작 수량"입니다.</b></p>
+  <p class="small">사건만으로는 재고의 변화량만 알 수 있고 절대 수준은 모릅니다. 지금은 "관측 기간 최소 재고 = 0"으로 맞췄는데, 이 가정이 맞지 않는 대여소에서 수준이 통째로 어긋납니다. 거치대 초과 14%와 재고 0인데 대여 11%가 같은 원인입니다. 옮긴 시각 3가지(중간/다음 대여 직전/반납 직후) × 시작 수량 3가지(기간 최소 0, 하루마다 재설정, 조정 없음)를 비교해 이 두 숫자를 최소로 만드는 것이 다음 작업입니다.</p>
+</div>
+<p>그럼에도 복원 재고는 이미 의미 있는 신호를 담고 있습니다. 재고가 많을수록 대여가 일어날 확률이 단조롭게 올라갑니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th>복원 재고</th><th class="n">0대</th><th class="n">1대</th><th class="n">2대</th><th class="n">3~4대</th><th class="n">5~9대</th><th class="n">10대+</th></tr></thead>
+  <tbody><tr><td>그 15분에 대여가 일어날 확률</td><td class="n">4.9%</td><td class="n">7.8%</td><td class="n">10.1%</td><td class="n">12.0%</td><td class="n">14.3%</td><td class="n">14.4%</td></tr></tbody>
+</table></div>
+<figure>
+  <img src="figs/f8_empty.png" alt="왼쪽 대여소별 결품 시간 비율 히스토그램, 오른쪽 시각별 결품 비율과 이용량.">
+  <figcaption>왼쪽: 대여소별로 비어 있던 시간 비율. 중앙값 0.21, 상위 10%는 0.70을 넘는다. 오른쪽: 이용이 가장 많은 17~18시에 비어 있는 대여소도 가장 많다.</figcaption>
+</figure>
+<figure>
+  <img src="figs/f11_cluster_empty.png" alt="유형별 시각에 따른 빈 대여소 비율 곡선.">
+  <figcaption>유형별 결품 패턴. 주거·심야형(유형 0)이 평균 0.31로 가장 자주 비고, 일반 주거형(유형 2)과 여가형(유형 5)이 0.18로 가장 덜 빈다.</figcaption>
+</figure>
+<figure>
+  <img src="figs/f6_city_stock.png" alt="19개월 동안 도시 전체 복원 재고의 일별 평균 곡선.">
+  <figcaption>도시 전체 복원 재고. 운영 대수가 늘어나는 흐름은 보이지만 절대 수준은 시작 수량 가정에 따라 통째로 움직인다. 실측과 맞춰 보정해야 할 값이다.</figcaption>
+</figure>
+
+<h2><span class="n">8</span>외부자료: 무엇을 쓸 수 있나</h2>
+<p>기준은 하나입니다. <b>대여이력 기간(2024-08 ~ 2026-03)과 겹치는가.</b> 실시간 API는 현재값만 주므로 과거와 겹치지 않습니다.</p>
+<div class="tbl"><table>
+  <thead><tr><th>자료</th><th>제공</th><th>기간</th><th>겹침</th><th>쓸 곳</th><th class="n">순위</th></tr></thead>
+  <tbody>
+    <tr><td>종관기상관측 ASOS 시간자료 (대전 133)</td><td>기상청 기상자료개방포털</td><td>1969~</td><td><span class="pill yes">있음</span></td><td>실측 강수·기온·풍속. 지금 쓰는 재분석(Open-Meteo) 대체</td><td class="n">1</td></tr>
+    <tr><td>시간대별 승하차인원</td><td>대전교통공사 (공공데이터포털)</td><td>~2026-06</td><td><span class="pill yes">있음</span></td><td>역 앞 대여소의 선행 신호. 유형 1·4에 직접 대응</td><td class="n">1</td></tr>
+    <tr><td>역별 승하차인원 API</td><td>대전교통공사</td><td>날짜 지정</td><td><span class="pill yes">있음</span></td><td>위와 같음. 일 단위 보완</td><td class="n">2</td></tr>
+    <tr><td>공휴일 정보, 대학 학사일정</td><td>한국천문연구원 / 각 대학</td><td>직접 구성</td><td><span class="pill yes">있음</span></td><td>방학·시험기간. 캠퍼스형 유형의 계절 변동</td><td class="n">2</td></tr>
+    <tr><td>버스 승하차인원</td><td>대전광역시</td><td>~2024-10</td><td><span class="pill no">일부</span></td><td>갱신본을 받아야 의미 있음</td><td class="n">3</td></tr>
+    <tr><td>주변시설·고도 (OSM, DEM)</td><td>OpenStreetMap / Copernicus</td><td>현재 스냅숏</td><td><span class="pill no">시점 하나</span></td><td>이미 반영. 새 대여소와 타 도시 이전에 필수</td><td class="n">완료</td></tr>
+    <tr><td>타슈 실시간 재고 API</td><td>대전교통공사</td><td>2026-09~ (수집 중)</td><td><span class="pill no">없음</span></td><td>복원 검증용. 다음 대여이력 공개분이 나와야 겹침 발생</td><td class="n">수집 유지</td></tr>
+  </tbody>
+</table></div>
+<div class="flag">
+  <p><b>복원을 실측으로 검증하려면 겹치는 기간이 필요합니다.</b></p>
+  <p class="small">지금 재고 수집은 2026-09-17부터, 대여이력은 2026-03-31까지라 겹치는 시간이 0입니다. 공공데이터포털에는 20240731판과 20260331판 두 판본만 있어 갱신 주기를 대전교통공사에 확인해야 합니다. 그 전까지는 내부 정합성(위 표의 네 숫자)과 인공 검열 실험으로 대신합니다.</p>
+</div>
+<h3>넣어도 효과가 작을 것들</h3>
+<ul>
+  <li><b>미세먼지.</b> 비만큼 강한 신호가 아닐 가능성이 높습니다. 기온·강수를 넣은 뒤 잔차로 확인하고 결정하는 게 낫습니다.</li>
+  <li><b>실시간 교통 속도.</b> 자전거 수요와의 연결이 간접적이고, 과거 자료를 시간 단위로 맞추기 어렵습니다.</li>
+  <li><b>유동인구 상용 데이터.</b> 공간 특징이 이미 비슷한 정보를 담고 있어, 대전 안에서는 이득이 작았습니다. 타 도시로 넘어갈 때 다시 검토할 값입니다.</li>
+</ul>
+
+<h2><span class="n">9</span>다음 세 가지</h2>
+<ol>
+  <li><b>복원 규칙 고르기.</b> 옮긴 시각 3가지 × 시작 수량 3가지를 비교해, "재고 0인데 대여 발생" 11%와 "거치대 초과" 14%를 가장 낮추는 조합을 고릅니다. 코드에 이미 선택지로 들어가 있습니다.</li>
+  <li><b>기상청 실측과 지하철 승하차 붙이기.</b> 재분석 날씨를 실측으로 바꿔 효과를 다시 재고, 역 앞 대여소(유형 1·4, 371곳)에 승하차를 넣어 이득을 확인합니다.</li>
+  <li><b>대여이력 갱신 주기 확인.</b> 대전교통공사에 다음 공개 시점을 묻습니다. 그 날짜가 복원 검증의 일정이 됩니다.</li>
+</ol>
+<p class="small">코드: <code>src/reconstruct_inventory.py</code>, <code>src/analyze_stations.py</code>, <code>src/make_report_figs.py</code>. 결과: <code>outputs/eda2/</code>, <code>outputs/report_figs/</code>, <code>data/processed/v3/</code>.</p>
+</div>

@@ -1,0 +1,32 @@
+# Virtual environment
+.venv/
+__pycache__/
+*.pyc
+*.log
+
+# Large data & binary files
+*.parquet
+*.npz
+*.pt
+*.csv.gz
+data/raw/
+data/processed/dataset_f60_h1/
+data/processed/*.parquet
+data/processed/v2/*.parquet
+data/processed/v2/*.npz
+data/processed/v3/*.parquet
+data/processed/v3/*.npz
+
+# Model prediction & large outputs
+outputs/**/*.parquet
+outputs/**/*.npz
+outputs/**/*.pt
+outputs/st/
+outputs/st_smoke/
+outputs/hpc/
+outputs/nn_net/
+outputs/nn_rent/
+outputs/xgb_net/*.parquet
+outputs/xgb_rent/*.parquet
+outputs/zone_smoke/
+exports/

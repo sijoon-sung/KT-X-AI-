@@ -1,0 +1,49 @@
+{
+  "model_name": "Tashu 300m Super-Station XGBoost",
+  "cluster_radius_m": 300.0,
+  "cluster_max_cutoff_m": 500.0,
+  "cluster_max_stations": 5,
+  "total_stations": 1534,
+  "total_clusters": 460,
+  "feature_cols": [
+    "lag1",
+    "lag2",
+    "lag24",
+    "lag168",
+    "roll24",
+    "lag1_ret",
+    "p1_lag1",
+    "p2_lag1",
+    "hour_sin",
+    "hour_cos",
+    "month_sin",
+    "month_cos",
+    "weekday",
+    "is_weekend",
+    "temperature_2m",
+    "precipitation",
+    "wind_speed_10m",
+    "is_rain"
+  ],
+  "train_samples": 2720750,
+  "evaluation": {
+    "september_2025_peak": {
+      "period": "2025년 9월 피크 성수기 (가을)",
+      "cluster_r2": 0.7761576175689697,
+      "cluster_corr": 0.8811138586318383,
+      "cluster_mae": 1.3439022302627563,
+      "cluster_rmse": 2.014115115500186,
+      "city_r2": 0.9547652006149292,
+      "city_corr": 0.9771320920378187
+    },
+    "feb_mar_2026_future": {
+      "period": "2026년 2~3월 해빙기 (비수기)",
+      "cluster_r2": 0.7153136730194092,
+      "cluster_corr": 0.8464522265538251,
+      "cluster_mae": 1.3400622606277466,
+      "cluster_rmse": 2.0862329395252597,
+      "city_r2": 0.9367647767066956,
+      "city_corr": 0.968710161258634
+    }
+  }
+}
