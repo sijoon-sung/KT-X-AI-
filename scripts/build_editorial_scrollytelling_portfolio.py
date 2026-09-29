@@ -1,9 +1,18 @@
 """
-KT-X-AI Urban Mobility AI & Optimization Project
-Tashu 9.11M Dataset Rebalancing Optimization Web Portfolio
+Bloomberg Graphics / NYT The Upshot / The Pudding Interactive Data Journalism Style
+Tashu 9.11M Dataset Scrollytelling Web Portfolio
 Author: 성시준 (KT-X-AI Lab)
-Architecture: Authentic Engineer-First Portfolio (Problem -> Deep Tech -> Dashboard -> Retrospective)
-Design: Clean Paper White (#f8f9fa) + Deep Ink Black (#111827) + Esri World Light Gray GIS + KaTeX Math
+Architecture:
+  - Hero Header with Publication Byline & Metrics Ribbon
+  - 5-Scene Split-Screen Scrollytelling (Sticky Leaflet Esri Map + Story Steps)
+    * Scene 1: 도시의 호흡 (The Urban Pulse) - 911만 건 통행 회랑
+    * Scene 2: 18:00 위기의 시간 (The Crisis) - 62.7만 건 폭증 & 0대 결품 비상
+    * Scene 3: 왜 기존 인공지능은 실패했는가? (The Insight) - 대칭 MSE의 맹점 vs 비대칭 손실(Q85) & 동적 손실 곡선
+    * Scene 4: 물리적 한계를 넘는 최적화 (The Solution) - 트럭 10대 48.5분 VRP 라우팅
+    * Scene 5: 결과 및 결론 (Conclusion) - 결품률 65% 차단 & 2028 트램 상생
+  - Deep Tech Appendix: KaTeX 3대 수학적 정식화 카드 + 실측 데이터 테이블 + 실전 배차 지시서
+  - Engineering Retrospective & Future Work (현장 한계점, 트램 시너지, 배운 점)
+  - Clean Professional Footer & GitHub Link
 """
 import os
 import sys
@@ -58,19 +67,19 @@ with open(ROOT / "outputs/eda_analysis_summary.json", 'r', encoding='utf-8') as 
 hours = list(range(24))
 weekday_vals = [eda_summary['weekday_hourly'][str(h)] for h in hours]
 max_v = max(weekday_vals) # 627,088
-mcurve_svg = '<svg viewBox="0 0 380 90" width="100%" height="90" style="overflow:visible; display:block;">\\n'
+mcurve_svg = '<svg viewBox="0 0 380 95" width="100%" height="95" style="overflow:visible; display:block;">\\n'
 for h in hours:
     val = weekday_vals[h]
-    bar_h = int((val / max_v) * 58)
+    bar_h = int((val / max_v) * 62)
     x = h * 15 + 10
-    y = 66 - bar_h
+    y = 70 - bar_h
     is_peak = (h == 8 or h == 18)
     color = "#e11d48" if h == 18 else ("#2563eb" if h == 8 else "#cbd5e1")
     mcurve_svg += f'<rect x="{x}" y="{y}" width="11" height="{bar_h}" rx="2" fill="{color}">'
     mcurve_svg += f'<title>{h}시: {val:,}건</title></rect>\\n'
     if h in [0, 8, 12, 18, 23]:
         lbl_col = "#e11d48" if h == 18 else ("#2563eb" if h == 8 else "#64748b")
-        mcurve_svg += f'<text x="{x+5.5}" y="80" fill="{lbl_col}" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">{h:02d}</text>\\n'
+        mcurve_svg += f'<text x="{x+5.5}" y="85" fill="{lbl_col}" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">{h:02d}</text>\\n'
 mcurve_svg += '</svg>'
 
 # 5. Load Tram Synergy Summary
@@ -200,9 +209,9 @@ html_template = f"""<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대전 타슈 911만 건 데이터 기반 AI 자율 재배치 최적화 포트폴리오 | KT-X-AI</title>
+    <title>911만 건의 궤적: 대전 타슈는 왜 18시에 멈추는가? | KT-X-AI</title>
     
-    <!-- Typography: Newsreader (NYT Serif) + Pretendard (Korean Sans) + JetBrains Mono -->
+    <!-- Editorial Typography: Newsreader (NYT Serif) + Pretendard (Korean Sans) + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -261,7 +270,7 @@ html_template = f"""<!DOCTYPE html>
         a:hover {{ text-decoration: underline; }}
 
         .container {{
-            max-width: 1240px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
         }}
@@ -274,7 +283,7 @@ html_template = f"""<!DOCTYPE html>
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-subtle);
             z-index: 1000;
-            padding: 14px 0;
+            padding: 12px 0;
         }}
         .nav-inner {{
             display: flex;
@@ -287,7 +296,7 @@ html_template = f"""<!DOCTYPE html>
             gap: 10px;
             font-weight: 700;
             color: var(--text-heading);
-            font-size: 15px;
+            font-size: 14px;
         }}
         .pulse-dot {{
             width: 8px;
@@ -300,12 +309,12 @@ html_template = f"""<!DOCTYPE html>
         .nav-links {{
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 18px;
             list-style: none;
         }}
         .nav-links a {{
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             transition: color 0.15s ease;
         }}
@@ -315,27 +324,27 @@ html_template = f"""<!DOCTYPE html>
         }}
         .nav-git-btn {{
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-heading);
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            padding: 6px 12px;
+            padding: 5px 11px;
             border-radius: 6px;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }}
         .nav-git-btn:hover {{
             background: #e2e8f0;
             text-decoration: none;
         }}
 
-        /* Hero Section */
-        header.hero-header {{
+        /* Publication Header (NYT The Upshot / Bloomberg Style) */
+        header.pub-header {{
             padding: 56px 0 32px;
             background: #ffffff;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 2px solid var(--text-heading);
         }}
         .kicker {{
             font-family: var(--font-mono);
@@ -349,20 +358,20 @@ html_template = f"""<!DOCTYPE html>
         }}
         .headline {{
             font-family: var(--font-serif);
-            font-size: 40px;
+            font-size: 44px;
             font-weight: 700;
             color: var(--text-heading);
-            line-height: 1.25;
+            line-height: 1.22;
             letter-spacing: -0.025em;
             margin-bottom: 16px;
-            max-width: 960px;
+            max-width: 980px;
         }}
         .dek {{
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 400;
             color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 880px;
+            line-height: 1.68;
+            max-width: 900px;
             margin-bottom: 24px;
         }}
         .byline-block {{
@@ -386,50 +395,228 @@ html_template = f"""<!DOCTYPE html>
             font-weight: 600;
         }}
 
-        /* Key Achievements Grid */
-        .metric-grid {{
+        /* Bloomberg Style Tabular Metrics Strip */
+        .metric-strip {{
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 32px 0 48px;
+            grid-template-columns: repeat(5, 1fr);
+            border-bottom: 1px solid var(--border-strong);
+            background: #ffffff;
         }}
         .metric-cell {{
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+            padding: 16px 20px;
+            border-right: 1px solid var(--border-subtle);
+        }}
+        .metric-cell:last-child {{
+            border-right: none;
         }}
         .metric-label {{
-            font-size: 12px;
+            font-family: var(--font-mono);
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }}
         .metric-val {{
             font-family: var(--font-mono);
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1.2;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
         }}
         .metric-sub {{
             font-size: 12px;
             color: var(--text-muted);
+        }}
+
+        /* Scrollytelling Stage Layout (The Pudding / NYT Style) */
+        .scrolly-container {{
+            position: relative;
+            display: flex;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 36px 24px 80px;
+            gap: 36px;
+        }}
+        .story-col {{
+            flex: 0 0 460px;
+            z-index: 10;
+        }}
+        .vis-col {{
+            flex: 1;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 90px);
+            max-height: 800px;
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+        }}
+
+        /* Sticky Visual Header */
+        .vis-header {{
+            padding: 12px 18px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            z-index: 500;
+        }}
+        .vis-title {{
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }}
+        .vis-status-badge {{
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #eff6ff;
+            color: var(--accent-blue);
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
+        }}
+
+        /* Leaflet Map Canvas */
+        #map {{
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            z-index: 1;
+        }}
+
+        /* Dynamic Overlay Panel inside Map */
+        .map-overlay-layer {{
+            position: absolute;
+            top: 55px;
+            right: 16px;
+            width: 310px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 14px 16px;
+            z-index: 400;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }}
+        .overlay-hdr {{
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }}
+        .overlay-title {{
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+        }}
+        .overlay-val {{
+            font-size: 18px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            color: var(--text-heading);
+        }}
+        .overlay-content {{
+            font-size: 12px;
+            color: var(--text-body);
             line-height: 1.5;
         }}
 
-        /* Content Sections */
-        section.report-section {{
-            padding: 48px 0;
-            border-bottom: 1px solid var(--border-subtle);
+        /* Story Prose Steps */
+        .step {{
+            min-height: 80vh;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
         }}
-        .section-header {{
-            margin-bottom: 28px;
+        .step:first-child {{
+            margin-top: 20px;
         }}
-        .section-tag {{
+        .step:last-child {{
+            min-height: 60vh;
+            margin-bottom: 20px;
+        }}
+        .step-card {{
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+            width: 100%;
+        }}
+        .step.is-active .step-card {{
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.12);
+        }}
+        .step-tag {{
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            display: inline-block;
+        }}
+        .step-title {{
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-heading);
+            line-height: 1.32;
+            letter-spacing: -0.015em;
+            margin-bottom: 14px;
+        }}
+        .step-prose {{
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }}
+        .stat-callout {{
+            background: var(--bg-surface);
+            border-left: 3px solid var(--accent-blue);
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+            color: var(--text-heading);
+            line-height: 1.6;
+            margin-top: 14px;
+        }}
+
+        /* Interactive Widgets inside Cards */
+        .interactive-widget {{
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }}
+
+        /* Deep Dive Technical Appendix Section */
+        section.appendix-section {{
+            padding: 60px 0 80px;
+            border-top: 2px solid var(--border-strong);
+            background: #ffffff;
+        }}
+        .appendix-header {{
+            margin-bottom: 36px;
+        }}
+        .appendix-tag {{
             font-family: var(--font-mono);
             font-size: 11px;
             font-weight: 700;
@@ -439,58 +626,13 @@ html_template = f"""<!DOCTYPE html>
             display: inline-block;
             margin-bottom: 8px;
         }}
-        .section-title {{
+        .appendix-title {{
             font-family: var(--font-serif);
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--text-heading);
             letter-spacing: -0.015em;
             margin-bottom: 12px;
-        }}
-        .section-lead {{
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 900px;
-        }}
-
-        /* Observation & Solution Cards Grid */
-        .card-grid-3 {{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 24px;
-        }}
-        .info-card {{
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }}
-        .info-card-header {{
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-subtle);
-        }}
-        .info-card-title {{
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-heading);
-            margin-bottom: 4px;
-        }}
-        .info-card-subtitle {{
-            font-size: 12px;
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-        }}
-        .info-card-body {{
-            font-size: 14px;
-            color: var(--text-body);
-            line-height: 1.8;
         }}
 
         /* Mathematical Formulation Cards & KaTeX */
@@ -576,73 +718,6 @@ html_template = f"""<!DOCTYPE html>
             font-weight: bold;
         }}
 
-        /* Interactive Simulation Dashboard */
-        .dashboard-container {{
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 24px;
-            margin-top: 24px;
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-        }}
-        .dashboard-sidebar {{
-            padding: 24px;
-            background: #ffffff;
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            overflow-y: auto;
-            max-height: 680px;
-        }}
-        .dashboard-map-wrap {{
-            position: relative;
-            height: 680px;
-            background: #f8fafc;
-        }}
-        #map {{
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }}
-        .scenario-tabs {{
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }}
-        .scenario-btn {{
-            padding: 12px 14px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.15s ease;
-        }}
-        .scenario-btn:hover {{
-            border-color: var(--border-strong);
-            background: #e2e8f0;
-        }}
-        .scenario-btn.active {{
-            background: #eff6ff;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 1px var(--accent-blue);
-        }}
-        .scenario-btn-title {{
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-heading);
-            margin-bottom: 2px;
-        }}
-        .scenario-btn-desc {{
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }}
-
         /* Table Styling */
         .table-wrap {{
             overflow-x: auto;
@@ -724,10 +799,11 @@ html_template = f"""<!DOCTYPE html>
         }}
 
         @media (max-width: 992px) {{
-            .metric-grid {{ grid-template-columns: 1fr 1fr; }}
-            .card-grid-3 {{ grid-template-columns: 1fr; }}
-            .dashboard-container {{ grid-template-columns: 1fr; }}
-            .dashboard-map-wrap {{ height: 480px; }}
+            .metric-strip {{ grid-template-columns: 1fr 1fr; }}
+            .scrolly-container {{ flex-direction: column; }}
+            .story-col {{ flex: none; width: 100%; }}
+            .vis-col {{ position: relative; top: 0; height: 500px; order: -1; }}
+            .step {{ min-height: auto; margin-bottom: 30px; }}
             .nav-links {{ display: none; }}
         }}
     </style>
@@ -740,14 +816,14 @@ html_template = f"""<!DOCTYPE html>
             <div class="nav-brand">
                 <span class="pulse-dot"></span>
                 <span>Tashu AI Optimization</span>
-                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); font-weight:400;">| KT-X-AI Lab</span>
+                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); font-weight:400;">| Data Journalism</span>
             </div>
             <ul class="nav-links">
-                <li><a href="#sec-overview">01. 개요 & 성과</a></li>
-                <li><a href="#sec-problem">02. 문제 정의</a></li>
-                <li><a href="#sec-engineering">03. 엔지니어링 & 수식</a></li>
-                <li><a href="#sec-dashboard">04. 시뮬레이션 대시보드</a></li>
-                <li><a href="#sec-retrospective">05. 한계점 & 회고</a></li>
+                <li><a href="#sec-story">스토리 5대 씬</a></li>
+                <li><a href="#sec-math">수학적 정합성 수식</a></li>
+                <li><a href="#sec-tables">OD 통행 매트릭스</a></li>
+                <li><a href="#sec-manifest">실전 배차 지시서</a></li>
+                <li><a href="#sec-retrospective">한계점 & 회고</a></li>
             </ul>
             <a href="https://github.com/sijoon-sung/KT-X-AI-.git" target="_blank" class="nav-git-btn">
                 <span>GitHub (origin/성시준)</span>
@@ -756,126 +832,222 @@ html_template = f"""<!DOCTYPE html>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="sec-overview" class="hero-header">
+    <!-- Publication Header (The New York Times / Bloomberg Style) -->
+    <header class="pub-header">
         <div class="container">
-            <span class="kicker">KT-X-AI URBAN DATA SCIENCE & REBALANCING OPTIMIZATION</span>
-            <h1 class="headline">대전 타슈 911만 건 데이터를 활용한 AI 기반 자율 재배치 최적화 및 시뮬레이션</h1>
+            <span class="kicker">Urban Mobility AI & Investigative Data Journalism</span>
+            <h1 class="headline">911만 건의 궤적: 대전 타슈는 왜 18시에 멈추는가?</h1>
             <p class="dek">
-                단순 평균(MSE) 기반 머신러닝의 결품 방치 한계를 극복하는 비대칭 분위수 손실(Quantile 85%)과 현장 1톤 트럭 10대의 60분 골든타임 물리 제약 VRP 알고리즘 모델링
+                머신러닝의 단순 평균(MSE)이 유발한 결품의 역설, 그리고 비대칭 분위수 손실(Quantile 85%)과 10대 트럭 물리 제약 알고리즘이 밝혀낸 도시 자전거 자율 재배치 해법
             </p>
             <div class="byline-block">
-                <span>연구 / 엔지니어링: <strong>성시준 (KT-X-AI Lab)</strong></span>
-                <span>분석 데이터: <strong>대전교통공사 타슈 9,116,462건 전수 이력 (1개년)</strong></span>
-                <span>기상 관측망: <strong>기상청 1시간 단위 AWS 지상관측망 연계</strong></span>
+                <span>연구 / 데이터 시각화: <strong>성시준 (KT-X-AI Lab)</strong></span>
+                <span>분석 데이터: <strong>대전교통공사 타슈 9,116,462건 전수 이력</strong></span>
+                <span>기상 관측망: <strong>기상청 1시간 단위 강수·기온 결합</strong></span>
                 <span class="badge-git">Branch: 성시준</span>
-            </div>
-
-            <!-- Key Achievements Grid (4 Metrics) -->
-            <div class="metric-grid">
-                <div class="metric-cell">
-                    <div class="metric-label">피크 결품 위험 감소율</div>
-                    <div class="metric-val" style="color:var(--accent-blue);">-65.0%</div>
-                    <div class="metric-sub">18:00 상습 결품 거점 결품률 38.0% ➔ 13.3% 차단 확인</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">재배치 소요 시간 모델링</div>
-                    <div class="metric-val" style="color:var(--accent-emerald);">48.5분</div>
-                    <div class="metric-sub">1톤 트럭 10대 물리 제약 하 60분 골든타임 내 완결</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">수요 예측 결정계수 ($R^2$)</div>
-                    <div class="metric-val" style="color:var(--accent-indigo);">0.72 ➔ 0.88</div>
-                    <div class="metric-sub">300m 반경 460개 생활권 슈퍼스테이션 군집화로 극복</div>
-                </div>
-                <div class="metric-cell">
-                    <div class="metric-label">전수 분석 데이터 규모</div>
-                    <div class="metric-val" style="color:var(--accent-rose);">9,116,462건</div>
-                    <div class="metric-sub">1개년 1,200개 대여소 전수 이상치 정제 및 OD 매트릭스 규명</div>
-                </div>
             </div>
         </div>
     </header>
 
-    <main class="container">
+    <!-- Bloomberg Style Tabular Metrics Strip -->
+    <div class="metric-strip container" style="max-width:100%; padding:0;">
+        <div class="metric-cell">
+            <div class="metric-label">전수 분석 통행량</div>
+            <div class="metric-val" style="color:var(--accent-blue);">9,116,462</div>
+            <div class="metric-sub">1개년 1,200개 대여소 전수</div>
+        </div>
+        <div class="metric-cell">
+            <div class="metric-label">18:00 퇴근 피크</div>
+            <div class="metric-val" style="color:var(--accent-rose);">627,088</div>
+            <div class="metric-sub">출근(39.3만) 대비 1.59배 폭증</div>
+        </div>
+        <div class="metric-cell">
+            <div class="metric-label">생활권 슈퍼스테이션</div>
+            <div class="metric-val" style="color:var(--accent-emerald);">460 거점</div>
+            <div class="metric-sub">300m 보행 반경 공간 집약</div>
+        </div>
+        <div class="metric-cell">
+            <div class="metric-label">피크 결품 방어율</div>
+            <div class="metric-val" style="color:var(--accent-blue);">-65.0%</div>
+            <div class="metric-sub">결품률 38.0% ➔ 13.3% 급감</div>
+        </div>
+        <div class="metric-cell">
+            <div class="metric-label">트럭 10대 실전 배차</div>
+            <div class="metric-val" style="color:var(--accent-amber);">48.5 분</div>
+            <div class="metric-sub">60분 골든타임 이내 완결</div>
+        </div>
+    </div>
 
-        <!-- Section 2: Problem Definition -->
-        <section id="sec-problem" class="report-section">
-            <div class="section-header">
-                <span class="section-tag">01 / PROBLEM DEFINITION</span>
-                <h2 class="section-title">데이터로 확인한 현장의 병목과 기존 머신러닝(MSE)의 한계</h2>
-                <p class="section-lead">
-                    대전시 공영자전거 타슈의 1개년 전수 이동 데이터를 분석한 결과, 관행적 직관 배차와 단순 평균(MSE) 기반 예측 모델이 현장에서 실패할 수밖에 없는 3가지 구조적 원인을 확인했습니다.
-                </p>
+    <!-- Scrollytelling Stage: The 5 Scenes -->
+    <div id="sec-story" class="scrolly-container">
+        
+        <!-- Left Story Prose Column -->
+        <div class="story-col">
+
+            <!-- Scene 1: 도시의 호흡 (Intro) -->
+            <div class="step" data-step="1">
+                <div class="step-card">
+                    <span class="step-tag">SCENE 01 / URBAN CIRCULATION</span>
+                    <h2 class="step-title">대전의 하루는 911만 번의 이동으로 완성됩니다</h2>
+                    <p class="step-prose">
+                        "대전의 하루는 911만 번의 이동으로 완성됩니다. 하지만 이 거대한 흐름 속에는 치명적인 동맥경화가 숨어 있습니다."
+                    </p>
+                    <p class="step-prose">
+                        2023년 한 해 동안 대전 시민들이 타슈를 타고 이동한 9,116,462건의 전수 궤적을 분석하면, 자전거는 도시 전체에 무작위로 흩어지는 것이 아니라 소수의 <strong>고밀도 생활권 간선 축</strong>에 압도적으로 집중됩니다.
+                    </p>
+                    <p class="step-prose">
+                        전체 통행의 51.2%가 1km 이내 초단거리(보행 대체)이며, 특히 카이스트 학내 셔틀(연 7,205건)과 충남대-유성온천역 환승 축(연 5,689건), 둔산 행정타운 연결로 등 상위 10대 핵심 통행 회랑이 도시의 혈관 역할을 수행하고 있습니다.
+                    </p>
+                    <div class="stat-callout">
+                        <strong>데이터 시각화:</strong> 우측 지도에 대전 전역의 실제 위경도 기반 상위 10대 이동 회랑이 푸른색 궤적으로 부드럽게 펼쳐집니다.
+                    </div>
+                </div>
             </div>
 
-            <div class="card-grid-3">
-                <!-- Observation 1 -->
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <div class="info-card-title">1. 18:00 퇴근 피크의 극단적 수요 불균형</div>
-                        <div class="info-card-subtitle">DIURNAL COMMUTE M-CURVE</div>
+            <!-- Scene 2: 18:00 위기의 시간 (The Problem) -->
+            <div class="step" data-step="2">
+                <div class="step-card">
+                    <span class="step-tag">SCENE 02 / 18:00 COMMUTE CRISIS</span>
+                    <h2 class="step-title">18:00, 위기의 시간: 1시간 만에 쏟아지는 결품 비상</h2>
+                    <p class="step-prose">
+                        "오후 6시 퇴근 시간. 불과 1시간 만에 특정 지역의 수요가 1.5배 폭증합니다. 붉게 물든 거점들은 자전거가 0대가 되어버린 '결품' 상태를 의미합니다. 시민들의 발이 묶이는 시간입니다."
+                    </p>
+                    <p class="step-prose">
+                        타슈 통행량은 18시에 <strong>627,088건</strong>으로 출근 피크인 08시(393,214건) 대비 1.59배 폭증합니다. 퇴근 인파가 지하철역과 주요 상권으로 쏟아져 나오면서, 갈마동 성원빌라, 유성온천역, 소제동 등 주요 주거·환승 거점 거치대가 0대로 완전 품절됩니다.
+                    </p>
+                    <div class="interactive-widget">
+                        <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px; font-family:var(--font-mono);">
+                            24시간 대전시 요일별 시간대 통행량 (M-CURVE)
+                        </div>
+                        {mcurve_svg}
                     </div>
-                    <div class="info-card-body">
-                        <p style="margin-bottom:12px;">
-                            대전시 타슈 통행량은 18시에 <strong>627,088건</strong>으로 출근 시간(393,214건) 대비 <strong>1.59배 폭증</strong>합니다. 출근 시간대는 분산되지만, 퇴근길에는 지하철역과 주요 상권에서 자전거가 일시에 소진되며 거치대가 0대로 완전 고갈되는 불균형이 발생합니다.
-                        </p>
-                        <div style="background:var(--bg-surface); padding:10px; border-radius:6px; border:1px solid var(--border-subtle); margin-top:10px;">
-                            <div style="font-size:11px; font-weight:600; color:var(--text-muted); margin-bottom:4px;">24시간 통행 분포 (08시 파랑 / 18시 빨강)</div>
-                            {mcurve_svg}
+                    <div class="stat-callout" style="border-left-color: var(--accent-rose);">
+                        <strong>시각화 반응:</strong> 지도가 도심 품절 거점으로 줌인되며, 자전거가 0대가 된 상습 결품 대여소들이 붉은색 펄스 핀으로 깜빡입니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 3: 왜 기존 인공지능은 실패했는가? (The Insight) -->
+            <div class="step" data-step="3">
+                <div class="step-card">
+                    <span class="step-tag">SCENE 03 / ASYMMETRIC LOSS INSIGHT</span>
+                    <h2 class="step-title">왜 기존 인공지능은 실패했는가? 단순 평균(MSE)의 함정</h2>
+                    <p class="step-prose">
+                        "기존의 예측 모델(MSE 기반)은 '남는 것'과 '모자란 것'을 똑같은 1의 오차로 취급합니다. 하지만 현실에서 남는 자전거는 약간의 공간 낭비일 뿐이지만, 모자란 자전거는 시민의 민원과 이동 포기로 이어집니다."
+                    </p>
+                    <p class="step-prose">
+                        일반적인 머신러닝의 대칭 손실(MSE)은 결품의 사회적 비용을 반영하지 못하고 무난한 평균값에 안주합니다. 본 연구팀은 결품 오차에 <strong>5.67배 높은 비대칭 벌점</strong>을 부과하는 <strong>Quantile 85% 비대칭 손실(Pinball Loss)</strong> 모델을 도입하여, 피크 1시간 전 안전 재고(+3.6대)를 선제 확보하도록 유도했습니다.
+                    </p>
+
+                    <!-- Interactive Quantile Simulator -->
+                    <div class="interactive-widget">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
+                            <span style="color:var(--text-muted); font-weight:600;">목표 분위수 ($\tau$):</span>
+                            <strong id="qValDisplay" style="color:var(--accent-blue); font-family:var(--font-mono); font-size:14px;">0.85</strong>
+                        </div>
+                        <input type="range" id="qSlider" min="0.50" max="0.95" step="0.05" value="0.85" style="width:100%; accent-color:var(--accent-blue); cursor:pointer;" oninput="updateQLossSim(parseFloat(this.value))">
+                        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); font-family:var(--font-mono); margin-top:4px;">
+                            <span>0.50 (대칭 MSE)</span>
+                            <span style="color:var(--accent-blue); font-weight:700;">0.85 (최적 모델)</span>
+                            <span>0.95 (초보수적)</span>
+                        </div>
+                        <div style="margin-top:12px; font-size:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">결품 벌점 배수</div>
+                                <div id="qRatioDisplay" style="color:var(--accent-amber); font-weight:800; font-family:var(--font-mono); font-size:15px;">5.67 배</div>
+                            </div>
+                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
+                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">확보 안전 재고</div>
+                                <div id="qBufferDisplay" style="color:var(--accent-emerald); font-weight:800; font-family:var(--font-mono); font-size:15px;">+3.6 대</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Observation 2 -->
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <div class="info-card-title">2. 대칭 손실(MSE) 기반 머신러닝의 치명적 맹점</div>
-                        <div class="info-card-subtitle">THE SYMMETRICAL LOSS FALLACY</div>
-                    </div>
-                    <div class="info-card-body">
-                        <p style="margin-bottom:12px;">
-                            기존 연구와 모델들은 대부분 평균제곱오차(MSE)를 목적함수로 채택했습니다. 하지만 MSE는 <strong>과소 예측(결품: 시민 헛걸음)</strong>과 <strong>과대 예측(잉여: 거치대 유휴)</strong>에 동일한 페널티를 부과합니다.
-                        </p>
-                        <p>
-                            결과적으로 모델은 결품의 사회적 비용을 반영하지 못하고 무난한 평균값에 안주하여, 피크 시간대 시민들이 텅 빈 거치대 앞에서 발을 구르는 사태를 방치합니다.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Observation 3 -->
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <div class="info-card-title">3. 물리적 제약 없는 탁상공론식 재배치의 한계</div>
-                        <div class="info-card-subtitle">REAL-WORLD PHYSICAL CONSTRAINTS</div>
-                    </div>
-                    <div class="info-card-body">
-                        <p style="margin-bottom:12px;">
-                            "어디서 어디로 수백 대를 동시에 옮기라"는 식의 알고리즘은 현장에서 실현 불가능합니다. 대전시 현장에는 <strong>1톤 트럭 10대(대당 최대 18대 적재)</strong>라는 명확한 장비 한계가 있습니다.
-                        </p>
-                        <p>
-                            또한 도심 실주행 속도(22km/h), 상하차 소요 시간(대당 40초), 그리고 퇴근 피크 직전 <strong>60분의 골든타임</strong>을 충족하지 못하는 경로는 실제 운영에 투입될 수 없습니다.
-                        </p>
+                    <div class="stat-callout" style="border-left-color: var(--accent-blue);">
+                        <strong>인터랙션:</strong> 상단 슬라이더를 조작해 목표 분위수에 따른 결품 벌점 가중치와 안전 재고의 동적 변화를 확인해 보세요.
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Section 3: Engineering & Deep Tech -->
-        <section id="sec-engineering" class="report-section">
-            <div class="section-header">
-                <span class="section-tag">02 / ENGINEERING & FORMULATIONS</span>
-                <h2 class="section-title">수학적 모델링과 데이터 엔지니어링으로 푼 4단계 접근법</h2>
-                <p class="section-lead">
-                    단순 경험적 배차가 아닌, 데이터의 통계적 특성과 현장의 물리적 제약을 목적함수 및 제약조건에 직접 반영하는 4단계 엔지니어링 파이프라인을 구축했습니다.
+            <!-- Scene 4: 물리적 한계를 넘는 최적화 (The Solution) -->
+            <div class="step" data-step="4">
+                <div class="step-card">
+                    <span class="step-tag">SCENE 04 / 10-TRUCK PHYSICAL FLEET</span>
+                    <h2 class="step-title">물리적 한계를 넘는 최적화: 트럭 10대의 48.5분 실전 배차</h2>
+                    <p class="step-prose">
+                        "예측이 완벽해도 현실의 벽이 남습니다. 우리에게 주어진 시간은 단 60분, 동원할 수 있는 1톤 트럭은 10대, 트럭당 적재량은 18대뿐입니다. 이 혹독한 제약 조건 속에서 AI는 가장 효율적인 구출 경로를 찾아야 합니다."
+                    </p>
+                    <p class="step-prose">
+                        도심 실주행 속도(22km/h), 상하차 소요 시간(대당 40초), 그리고 외곽 주거지 잉여 거점(노은3동, 하기동 등)에서 중심 품절 거점(갈마동, 유성온천역, 소제동 등)으로 이어지는 <strong>우선순위 차량 경로(VRP)</strong>를 최적화했습니다.
+                    </p>
+                    <div class="stat-callout" style="border-left-color: var(--accent-amber);">
+                        <strong>실증 성과:</strong> 17:00부터 17:48.5분까지 단 48.5분 만에 176대의 자전거가 정확히 재배치되어, 퇴근 60분 골든타임 내에 Top 20 거점 결품률을 38.0%에서 13.3%로 65.0% 차단했습니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scene 5: 결과 및 결론 (Conclusion) -->
+            <div class="step" data-step="5">
+                <div class="step-card">
+                    <span class="step-tag">SCENE 05 / RESTORATION & 2028 TRAM</span>
+                    <h2 class="step-title">결품률 65% 차단, 그리고 2028 대전 트램과의 상생</h2>
+                    <p class="step-prose">
+                        "이 최적화 알고리즘을 통해 18시 피크타임의 결품률을 65% 낮추고, 176대의 자전거를 단 48.5분 만에 재배치하는 시나리오를 완성했습니다. 이것이 데이터가 도시의 맥박을 뛰게 하는 방법입니다."
+                    </p>
+                    <p class="step-prose">
+                        나아가 대전시가 2028년 개통 예정인 총연장 38.8km, 45개 정거장의 <strong>도시철도 2호선 무가선 트램 순환선</strong>과 타슈의 환승 시너지를 검증했습니다. 트램 500m 영향권 타슈 대여소는 총 357개소로, 연간 환산 <strong>231만 건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다.
+                    </p>
+                    <div class="stat-callout" style="border-left-color: var(--accent-indigo);">
+                        <strong>미래 비전:</strong> 우측 지도에 대전시를 순환하는 38.8km 트램 2호선 궤도가 뚜렷한 주황색 순환선으로 펼쳐지며, 357개 연계 타슈 스테이션과의 환승 네트워크를 조망합니다.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Sticky Visual Column -->
+        <div class="vis-col">
+            <div class="vis-header">
+                <div class="vis-title">
+                    <span id="visIcon">📍</span>
+                    <span id="visTitleText">대전시 전역 10대 핵심 생활권 이동 회랑</span>
+                </div>
+                <div class="vis-status-badge" id="visBadge">SCENE 01 : 9.11M OD FLOWS</div>
+            </div>
+
+            <!-- Leaflet Map Canvas -->
+            <div id="map"></div>
+
+            <!-- Floating Overlay HUD -->
+            <div class="map-overlay-layer">
+                <div class="overlay-hdr">
+                    <span class="overlay-title" id="overlayTitle">연간 총 분석 통행량</span>
+                    <span class="overlay-val" id="overlayValue">9,116,462 건</span>
+                </div>
+                <div class="overlay-content" id="overlayContent">
+                    대전시 전역의 911만 건 이동 중 51.2%가 1km 이내 초단거리 보행 대체 통행으로 확인되었습니다.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Deep Dive Technical Appendix Section -->
+    <section id="sec-math" class="appendix-section">
+        <div class="container">
+            <div class="appendix-header">
+                <span class="appendix-tag">ENGINEERING APPENDIX / MATHEMATICAL RIGOR</span>
+                <h2 class="appendix-title">알고리즘 수학적 정식화 및 엔지니어링 증명 체계</h2>
+                <p style="font-size:16px; color:var(--text-muted); line-height:1.7; max-width:880px;">
+                    스토리텔링의 배경을 이루는 비대칭 손실 함수, 포아송 희소성 극복 우도 함수, 그리고 차량 경로 문제(VRP) 정수계획식의 엄밀한 수학적 정의입니다.
                 </p>
             </div>
 
-            <!-- Mathematical Formulations Cards -->
+            <!-- KaTeX Mathematical Formulations Cards -->
             {math_formulations_html}
 
             <!-- Real OD Flows Table -->
-            <div style="margin-top:40px;">
+            <div id="sec-tables" style="margin-top:56px;">
                 <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">911만 건 이동 데이터 기반 대전시 최다 빈도 통행 회랑 Top 8</h3>
                 <div class="table-wrap">
                     <table class="clean-table">
@@ -967,85 +1139,10 @@ html_template = f"""<!DOCTYPE html>
                     </table>
                 </div>
             </div>
-        </section>
-
-        <!-- Section 4: Simulation Dashboard -->
-        <section id="sec-dashboard" class="report-section">
-            <div class="section-header">
-                <span class="section-tag">03 / SIMULATION DASHBOARD</span>
-                <h2 class="section-title">최적화 알고리즘 적용 시나리오 인터랙티브 시각화</h2>
-                <p class="section-lead">
-                    최종 개발된 최적화 모델을 적용했을 때의 시나리오를 지도와 인터랙티브 도구로 시각화했습니다. 사용자가 직접 분위수 파라미터를 조작하며 안전 재고의 동적 변화를 검증할 수 있습니다.
-                </p>
-            </div>
-
-            <div class="dashboard-container">
-                <!-- Sidebar Controls -->
-                <div class="dashboard-sidebar">
-                    <div>
-                        <div style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; font-family:var(--font-mono);">
-                            SCENARIO SELECTOR
-                        </div>
-                        <div class="scenario-tabs">
-                            <button class="scenario-btn active" onclick="switchScenario(1, this)">
-                                <div class="scenario-btn-title">1. 상위 10대 핵심 통행 회랑</div>
-                                <div class="scenario-btn-desc">911만 건 데이터가 입증한 대전의 고밀도 혈관 통행 축</div>
-                            </button>
-                            <button class="scenario-btn" onclick="switchScenario(2, this)">
-                                <div class="scenario-btn-title">2. 18:00 퇴근 결품 위험 거점</div>
-                                <div class="scenario-btn-desc">퇴근길 재고 0대 품절 비상이 발생하는 상습 결품 대여소</div>
-                            </button>
-                            <button class="scenario-btn" onclick="switchScenario(3, this)">
-                                <div class="scenario-btn-title">3. 트럭 10대 실전 배차 (48.5분)</div>
-                                <div class="scenario-btn-desc">외곽 잉여 회수(-216대) ➔ 도심 긴급 투하(+176대) VRP 최적화</div>
-                            </button>
-                            <button class="scenario-btn" onclick="switchScenario(4, this)">
-                                <div class="scenario-btn-title">4. 2028 대전 트램 2호선 연계</div>
-                                <div class="scenario-btn-desc">38.8km 순환선 궤도 및 357개 연계 환승 거점 (연 231만 건)</div>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Quantile Parameter Interactive Simulator -->
-                    <div style="background:var(--bg-surface); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                            <span style="font-size:12px; font-weight:700; color:var(--text-heading);">분위수 목표치 (Quantile $\tau$)</span>
-                            <strong id="qValDisplay" style="font-family:var(--font-mono); color:var(--accent-blue); font-size:14px;">0.85</strong>
-                        </div>
-                        <input type="range" id="qSlider" min="0.50" max="0.95" step="0.05" value="0.85" style="width:100%; accent-color:var(--accent-blue); cursor:pointer;" oninput="updateQLossSim(parseFloat(this.value))">
-                        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); font-family:var(--font-mono); margin-top:4px;">
-                            <span>0.50 (대칭 MSE)</span>
-                            <span style="color:var(--accent-blue); font-weight:700;">0.85 (최적 모델)</span>
-                            <span>0.95 (보수적)</span>
-                        </div>
-                        <div style="margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">결품 벌점 배수</div>
-                                <div id="qRatioDisplay" style="color:var(--accent-amber); font-weight:800; font-family:var(--font-mono); font-size:15px;">5.67 배</div>
-                            </div>
-                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">확보 안전 재고</div>
-                                <div id="qBufferDisplay" style="color:var(--accent-emerald); font-weight:800; font-family:var(--font-mono); font-size:15px;">+3.6 대</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Telemetry Live Card -->
-                    <div id="telemetryCard" style="background:#ffffff; padding:14px; border-radius:8px; border:1px solid var(--border-subtle); font-size:12px;">
-                        <div id="telemetryTitle" style="font-weight:700; color:var(--text-heading); margin-bottom:4px;">대전시 전역 1,200개 대여소 모니터링</div>
-                        <div id="telemetryDesc" style="color:var(--text-muted); line-height:1.6;">지도를 클릭하면 해당 대여소의 분석 통계와 실측 좌표가 표시됩니다.</div>
-                    </div>
-                </div>
-
-                <!-- GIS Map Canvas -->
-                <div class="dashboard-map-wrap">
-                    <div id="map"></div>
-                </div>
-            </div>
 
             <!-- Dispatch Manifest Table -->
-            <div style="margin-top:32px;">
-                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:12px;">퇴근 피크(17:00 ➔ 18:00) 트럭 10대 실전 재배치 배차 지시서 (Dispatch Manifest)</h3>
+            <div id="sec-manifest" style="margin-top:56px;">
+                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">퇴근 피크(17:00 ➔ 18:00) 트럭 10대 실전 재배치 배차 지시서 (Dispatch Manifest)</h3>
                 <div class="table-wrap">
                     <table class="clean-table">
                         <thead>
@@ -1111,62 +1208,53 @@ html_template = f"""<!DOCTYPE html>
                     </table>
                 </div>
             </div>
-        </section>
 
-        <!-- Section 5: Retrospective & Future Work -->
-        <section id="sec-retrospective" class="report-section">
-            <div class="section-header">
-                <span class="section-tag">04 / RETROSPECTIVE & FUTURE WORK</span>
-                <h2 class="section-title">프로젝트 한계점, 배운 점, 그리고 인프라 연계 확장성</h2>
-                <p class="section-lead">
-                    수치적 최적화를 넘어 실제 도시 인프라에 적용하기 위해 필요한 현실적 고려 사항과, 연구를 진행하며 체감한 데이터 엔지니어링의 본질을 정리했습니다.
-                </p>
-            </div>
+            <!-- Retrospective & Future Work -->
+            <div id="sec-retrospective" style="margin-top:56px;">
+                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">엔지니어링 회고, 한계점, 그리고 2028 트램 확장성</h3>
+                
+                <div class="retrospective-card">
+                    <div class="retrospective-header">
+                        <span class="retrospective-tag tag-amber">LIMITATION & PRACTICAL CHALLENGES</span>
+                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">1. 실제 현장 적용 시 추가 고려 변수 (한계점)</h4>
+                    </div>
+                    <ul class="math-bullet-list" style="margin-top:0;">
+                        <li><strong>실시간 돌발 교통 상황의 변동성:</strong> 본 연구는 대전 도심 실주행 속도를 평균 22km/h로 가정하였으나, 기상 악화(우천, 강설)나 도로 공사, 퇴근길 국지적 정체로 인한 통행 속도 지연을 실시간으로 반영하기 위해선 지자체 지능형교통체계(ITS) 및 실시간 TPEG 데이터 피드 연동이 보완되어야 합니다.</li>
+                        <li><strong>고장 및 배터리 방전 자전거 선별:</strong> 단말기 고장, 타이어 펑크, 체인 이탈 등 물리적 수리가 필요한 자전거는 단순 재배치 대상에서 제외하고 정비 센터로 입고시키는 필터링 로직이 현장 프로세스에 결합되어야 합니다.</li>
+                        <li><strong>기사님의 현실적 근로 여건 (휴먼 팩터):</strong> 1톤 트럭의 도로변 안전 주정차 공간 확보, 상하차 시 작업 피로도, 기사님의 필수 휴게 시간 등 물리적·인간공학적 제약을 라우팅 목적함수에 추가 반영할 필요가 있습니다.</li>
+                    </ul>
+                </div>
 
-            <!-- Card 1: Real-world Variables -->
-            <div class="retrospective-card">
-                <div class="retrospective-header">
-                    <span class="retrospective-tag tag-amber">LIMITATION & PRACTICAL CHALLENGES</span>
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-heading);">1. 실제 현장 적용 시 추가 고려 변수 (한계점)</h3>
+                <div class="retrospective-card">
+                    <div class="retrospective-header">
+                        <span class="retrospective-tag tag-indigo">FUTURE WORK & MULTI-MODAL INFRASTRUCTURE</span>
+                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">2. 2028 대전 도시철도 2호선 트램과의 상생 시너지 확장성</h4>
+                    </div>
+                    <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
+                        <p style="margin-bottom:10px;">
+                            대전시가 추진 중인 총연장 38.8km, 45개 정거장의 <strong>도시철도 2호선 무가선 트램 순환선</strong>은 타슈와 상호 잠식 관계가 아닌 완벽한 보완재입니다. 본 연구팀의 공간 분석 결과, 트램 영향권 500m 이내에 속한 타슈 대여소는 총 <strong>357개소(전체의 29.8%)</strong>이며, 연간 환산 <strong>2,317,782건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다.
+                        </p>
+                        <p>
+                            향후 트램 개통 시점에 맞춰 정거장 주변 대여소 거치 용량을 선제적으로 2.5배 확충하고, 트램 하차 승객의 귀가 통행을 흡수하는 <strong>'트램 연계형 라스트마일 피더(Feeder) 재배치 모형'</strong>으로 확장할 수 있는 토대를 마련했습니다.
+                        </p>
+                    </div>
                 </div>
-                <ul class="math-bullet-list" style="margin-top:0;">
-                    <li><strong>실시간 돌발 교통 상황의 변동성:</strong> 본 연구는 대전 도심 실주행 속도를 평균 22km/h로 가정하였으나, 기상 악화(우천, 강설)나 도로 공사, 퇴근길 국지적 정체로 인한 통행 속도 지연을 실시간으로 반영하기 위해선 지자체 지능형교통체계(ITS) 및 실시간 TPEG 데이터 피드 연동이 보완되어야 합니다.</li>
-                    <li><strong>고장 및 배터리 방전 자전거 선별:</strong> 단말기 고장, 타이어 펑크, 체인 이탈 등 물리적 수리가 필요한 자전거는 단순 재배치 대상에서 제외하고 정비 센터로 입고시키는 필터링 로직이 현장 프로세스에 결합되어야 합니다.</li>
-                    <li><strong>기사님의 현실적 근로 여건 (휴먼 팩터):</strong> 1톤 트럭의 도로변 안전 주정차 공간 확보, 상하차 시 작업 피로도, 기사님의 필수 휴게 시간 등 물리적·인간공학적 제약을 라우팅 목적함수에 추가 반영할 필요가 있습니다.</li>
-                </ul>
-            </div>
 
-            <!-- Card 2: 2028 Tram Synergy -->
-            <div class="retrospective-card">
-                <div class="retrospective-header">
-                    <span class="retrospective-tag tag-indigo">FUTURE WORK & MULTI-MODAL INFRASTRUCTURE</span>
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-heading);">2. 2028 대전 도시철도 2호선 트램과의 상생 시너지 확장성</h3>
-                </div>
-                <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
-                    <p style="margin-bottom:10px;">
-                        대전시가 추진 중인 총연장 38.8km, 45개 정거장의 <strong>도시철도 2호선 무가선 트램 순환선</strong>은 타슈와 상호 잠식 관계가 아닌 완벽한 보완재입니다. 본 연구팀의 공간 분석 결과, 트램 영향권 500m 이내에 속한 타슈 대여소는 총 <strong>357개소(전체의 29.8%)</strong>이며, 연간 환산 <strong>2,317,782건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다.
-                    </p>
-                    <p>
-                        향후 트램 개통 시점에 맞춰 정거장 주변 대여소 거치 용량을 선제적으로 2.5배 확충하고, 트램 하차 승객의 귀가 통행을 흡수하는 <strong>'트램 연계형 라스트마일 피더(Feeder) 재배치 모형'</strong>으로 확장할 수 있는 토대를 마련했습니다.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Card 3: Key Takeaways -->
-            <div class="retrospective-card">
-                <div class="retrospective-header">
-                    <span class="retrospective-tag tag-emerald">ENGINEERING RETROSPECTIVE</span>
-                    <h3 style="font-size:16px; font-weight:700; color:var(--text-heading);">3. 프로젝트 회고 및 엔지니어링 교훈 (Key Takeaways)</h3>
-                </div>
-                <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
-                    <p>
-                        "머신러닝 지표($R^2$, RMSE)의 단순 상승이 실제 현장의 문제 해결로 직결되지 않는다는 점을 깊이 체감했습니다. 결품과 잉여가 사회에 미치는 비용의 차이를 파악하여 <strong>비대칭 손실(Quantile 85%)</strong>을 목적함수에 부여하고, 트럭 10대와 60분이라는 <strong>현장의 물리적 제약(VRP)</strong>을 수식에 녹여내는 것이야말로 진정한 데이터 엔지니어의 역할임을 배웠습니다."
-                    </p>
+                <div class="retrospective-card">
+                    <div class="retrospective-header">
+                        <span class="retrospective-tag tag-emerald">ENGINEERING RETROSPECTIVE</span>
+                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">3. 프로젝트 회고 및 엔지니어링 교훈 (Key Takeaways)</h4>
+                    </div>
+                    <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
+                        <p>
+                            "머신러닝 지표($R^2$, RMSE)의 단순 상승이 실제 현장의 문제 해결로 직결되지 않는다는 점을 깊이 체감했습니다. 결품과 잉여가 사회에 미치는 비용의 차이를 파악하여 <strong>비대칭 손실(Quantile 85%)</strong>을 목적함수에 부여하고, 트럭 10대와 60분이라는 <strong>현장의 물리적 제약(VRP)</strong>을 수식에 녹여내는 것이야말로 진정한 데이터 엔지니어의 역할임을 배웠습니다."
+                        </p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="pub-footer">
@@ -1188,8 +1276,9 @@ html_template = f"""<!DOCTYPE html>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-    <!-- Embedded GIS & Simulation Dashboard Engine -->
+    <!-- Embedded Scrollytelling GIS Engine -->
     <script>
+        // Data injected from Python pipeline
         const topStationsData = {json.dumps(top_stations_json, ensure_ascii=False)};
         const topFlowsData = {json.dumps(flows_clean, ensure_ascii=False)};
         const tramLoopCoords = {json.dumps(tram_loop_coords)};
@@ -1253,27 +1342,49 @@ html_template = f"""<!DOCTYPE html>
             dispatchLayerGroup = L.layerGroup().addTo(map);
 
             // Populate Base Station Markers
+            populateBaseStations();
+
+            // Initial Scene 1 View
+            onEnterScene(1);
+        }}
+
+        function populateBaseStations(customFilter = null) {{
+            if (!stationLayerGroup) return;
+            stationLayerGroup.clearLayers();
+
             topStationsData.forEach(st => {{
+                let radius = 4.0;
+                let fillColor = '#2563eb';
+                let fillOpacity = 0.7;
+                let weight = 1.2;
+
+                if (customFilter) {{
+                    const style = customFilter(st);
+                    radius = style.radius;
+                    fillColor = style.fillColor;
+                    fillOpacity = style.fillOpacity;
+                    weight = style.weight;
+                }}
+
                 const marker = L.circleMarker([st.lat, st.lon], {{
-                    radius: 4.0,
-                    fillColor: '#2563eb',
-                    fillOpacity: 0.7,
+                    radius: radius,
+                    fillColor: fillColor,
+                    fillOpacity: fillOpacity,
                     color: '#ffffff',
-                    weight: 1.2
+                    weight: weight
                 }});
-                
+
                 marker.on('click', () => {{
-                    const titleEl = document.getElementById('telemetryTitle');
-                    const descEl = document.getElementById('telemetryDesc');
+                    const titleEl = document.getElementById('overlayTitle');
+                    const valEl = document.getElementById('overlayValue');
+                    const contentEl = document.getElementById('overlayContent');
                     if (titleEl) titleEl.innerText = st.name;
-                    if (descEl) descEl.innerHTML = `소속: ${{st.gu}} ${{st.dong}} (${{st.cap}}대 거치대)<br>좌표: ${{st.lat.toFixed(4)}}° N, ${{st.lon.toFixed(4)}}° E<br>실측 데이터: 1개년 전수 분석 거점`;
+                    if (valEl) valEl.innerText = st.cap + '대 거치대';
+                    if (contentEl) contentEl.innerHTML = `소속: ${{st.gu}} ${{st.dong}}<br>실측 좌표: ${{st.lat.toFixed(4)}}° N, ${{st.lon.toFixed(4)}}° E<br>1개년 전수 분석 거점`;
                 }});
 
                 stationLayerGroup.addLayer(marker);
             }});
-
-            // Initial view: Scenario 1
-            renderFlowArcs();
         }}
 
         function renderFlowArcs() {{
@@ -1295,53 +1406,78 @@ html_template = f"""<!DOCTYPE html>
             }});
         }}
 
-        // Scenario Switcher
-        function switchScenario(scenarioId, btnEl) {{
+        // Scene Transition Engine
+        function onEnterScene(sceneNum) {{
             if (!map) return;
 
-            document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
-            if (btnEl) btnEl.classList.add('active');
+            const iconEl = document.getElementById('visIcon');
+            const titleEl = document.getElementById('visTitleText');
+            const badgeEl = document.getElementById('visBadge');
+            const overlayTitle = document.getElementById('overlayTitle');
+            const overlayVal = document.getElementById('overlayValue');
+            const overlayContent = document.getElementById('overlayContent');
 
+            // Reset dynamic layers
             flowLayerGroup.clearLayers();
             tramLayerGroup.clearLayers();
             dispatchLayerGroup.clearLayers();
 
-            const titleEl = document.getElementById('telemetryTitle');
-            const descEl = document.getElementById('telemetryDesc');
+            if (sceneNum === 1) {{
+                if (iconEl) iconEl.innerText = "📍";
+                if (titleEl) titleEl.innerText = "대전시 전역 10대 핵심 생활권 이동 회랑";
+                if (badgeEl) badgeEl.innerText = "SCENE 01 : 9.11M OD FLOWS";
+                if (overlayTitle) overlayTitle.innerText = "연간 총 분석 통행량";
+                if (overlayVal) overlayVal.innerText = "9,116,462 건";
+                if (overlayContent) overlayContent.innerHTML = "대전 전역의 911만 건 이동 중 51.2%가 1km 이내 초단거리 보행 대체 통행으로 확인되었습니다.";
 
-            if (scenarioId === 1) {{
-                if (titleEl) titleEl.innerText = "상위 10대 핵심 통행 회랑";
-                if (descEl) descEl.innerText = "911만 건 이동 빅데이터 분석을 통해 도출된 대전시 고밀도 간선 통행 축 (파란색 점선).";
-                map.flyTo([36.360, 127.365], 13, {{ duration: 1.0 }});
+                map.flyTo([36.3504, 127.3845], 12.5, {{ duration: 1.2 }});
+                populateBaseStations();
                 renderFlowArcs();
 
-            }} else if (scenarioId === 2) {{
-                if (titleEl) titleEl.innerText = "18:00 퇴근 결품 위험 거점 모니터링";
-                if (descEl) descEl.innerText = "18:00 퇴근 피크 시점 재고가 0대로 고갈될 위험이 높은 상습 결품 거점들이 빨간색으로 표시됩니다.";
-                map.flyTo([36.350, 127.375], 13, {{ duration: 1.0 }});
+            }} else if (sceneNum === 2) {{
+                if (iconEl) iconEl.innerText = "🚨";
+                if (titleEl) titleEl.innerText = "18:00 퇴근길 피크타임 재고 0대 결품 거점 비상";
+                if (badgeEl) badgeEl.innerText = "SCENE 02 : 18:00 STOCKOUT";
+                if (overlayTitle) overlayTitle.innerText = "18시 피크 결품 위험도";
+                if (overlayVal) overlayVal.innerText = "38.0% 품절";
+                if (overlayContent) overlayContent.innerHTML = "출근(39.3만) 대비 1.59배 폭증하는 퇴근 인파로 인해 둔산동·유성온천역 등 주요 환승지가 0대로 고갈됩니다.";
 
-                stationLayerGroup.clearLayers();
-                topStationsData.forEach(st => {{
+                map.flyTo([36.350, 127.370], 13.5, {{ duration: 1.2 }});
+
+                // Highlight deficit stations in red
+                populateBaseStations((st) => {{
                     const isDeficit = (st.name.includes("성원빌라") || st.name.includes("유성온천") || st.name.includes("우송중") || st.name.includes("정철어학원") || st.name.includes("둔산더샵"));
-                    const marker = L.circleMarker([st.lat, st.lon], {{
-                        radius: isDeficit ? 8.5 : 4.0,
+                    return {{
+                        radius: isDeficit ? 9.0 : 4.0,
                         fillColor: isDeficit ? '#e11d48' : '#cbd5e1',
                         fillOpacity: isDeficit ? 0.95 : 0.4,
-                        color: '#ffffff',
                         weight: isDeficit ? 2.5 : 1.0
-                    }});
-                    if (isDeficit) {{
-                        marker.bindPopup(`<strong>🚨 ${{st.name}}</strong><br>18:00 상태: <strong>재고 0대 품절 위험!</strong><br>결품 차단 우선 배차 대상`);
-                    }}
-                    stationLayerGroup.addLayer(marker);
+                    }};
                 }});
 
-            }} else if (scenarioId === 3) {{
-                if (titleEl) titleEl.innerText = "트럭 10대 물리 제약 실전 배차 (48.5분 소요)";
-                if (descEl) descEl.innerText = "외곽 주거지 잉여 거점(초록색, -216대 수거)에서 도심 결품 거점(빨간색, +176대 투하)으로 48.5분 만에 배차 완료.";
-                map.flyTo([36.353, 127.365], 12.8, {{ duration: 1.0 }});
+            }} else if (sceneNum === 3) {{
+                if (iconEl) iconEl.innerText = "⚖️";
+                if (titleEl) titleEl.innerText = "비대칭 손실(Q85) vs 기존 평균(MSE) 오차 분석";
+                if (badgeEl) badgeEl.innerText = "SCENE 03 : ASYMMETRIC LOSS";
+                if (overlayTitle) overlayTitle.innerText = "안전 재고 확보량";
+                if (overlayVal) overlayVal.innerText = "+3.6 대 완충";
+                if (overlayContent) overlayContent.innerHTML = "MSE는 결품과 잉여에 동일 벌점을 주지만, Q85는 헛걸음 결품에 5.67배 높은 벌점으로 안전 재고를 선제 비축합니다.";
 
-                // Pickup pins (Green)
+                map.flyTo([36.353, 127.360], 13, {{ duration: 1.2 }});
+                populateBaseStations();
+
+            }} else if (sceneNum === 4) {{
+                if (iconEl) iconEl.innerText = "🚚";
+                if (titleEl) titleEl.innerText = "트럭 10대 물리 제약 실전 배차 (골든타임 48.5분)";
+                if (badgeEl) badgeEl.innerText = "SCENE 04 : 10-TRUCK VRP";
+                if (overlayTitle) overlayTitle.innerText = "재배치 소요 시간";
+                if (overlayVal) overlayVal.innerText = "48.5 분 / 176대";
+                if (overlayContent) overlayContent.innerHTML = "외곽 잉여 거점(노은3동, 하기동 등)에서 수거(-216대)하여 갈마동·유성온천 등 0대 결품 거점에 집중 투하 완료했습니다.";
+
+                map.flyTo([36.353, 127.365], 12.8, {{ duration: 1.2 }});
+                populateBaseStations();
+
+                // Draw Pickup Pins (Green)
                 dispatchPickups.forEach(p => {{
                     const m = L.circleMarker([p.lat, p.lon], {{
                         radius: 8.5,
@@ -1353,7 +1489,7 @@ html_template = f"""<!DOCTYPE html>
                     dispatchLayerGroup.addLayer(m);
                 }});
 
-                // Dropoff pins (Rose)
+                // Draw Dropoff Pins (Rose)
                 dispatchDropoffs.forEach(d => {{
                     const m = L.circleMarker([d.lat, d.lon], {{
                         radius: 8.5,
@@ -1365,11 +1501,28 @@ html_template = f"""<!DOCTYPE html>
                     dispatchLayerGroup.addLayer(m);
                 }});
 
-            }} else if (scenarioId === 4) {{
-                if (titleEl) titleEl.innerText = "2028 대전 도시철도 2호선 트램 연계망";
-                if (descEl) descEl.innerText = "38.8km 순환선 궤도(주황색)와 500m 영향권 내 357개 타슈 환승 거점 (연간 231만 건 통행).";
-                map.flyTo([36.3504, 127.3845], 12.2, {{ duration: 1.0 }});
+            }} else if (sceneNum === 5) {{
+                if (iconEl) iconEl.innerText = "🚇";
+                if (titleEl) titleEl.innerText = "결품률 65% 차단 및 2028 대전 트램 2호선 상생 시너지";
+                if (badgeEl) badgeEl.innerText = "SCENE 05 : 2028 TRAM SYNERGY";
+                if (overlayTitle) overlayTitle.innerText = "트램 연계 통행량";
+                if (overlayVal) overlayVal.innerText = "2,317,782 건 (42.4%)";
+                if (overlayContent) overlayContent.innerHTML = "트럭 재배치로 결품률이 13.3%로 급감하며 정상화되었고, 38.8km 트램 순환선 357개 연계 거점의 지속 가능성을 완성합니다.";
 
+                map.flyTo([36.3504, 127.3845], 12.2, {{ duration: 1.2 }});
+
+                // Stations restored to calm emerald/blue
+                populateBaseStations((st) => {{
+                    const isRestored = (st.name.includes("성원빌라") || st.name.includes("유성온천") || st.name.includes("우송중") || st.name.includes("정철어학원"));
+                    return {{
+                        radius: isRestored ? 7.5 : 4.0,
+                        fillColor: isRestored ? '#059669' : '#2563eb',
+                        fillOpacity: isRestored ? 0.95 : 0.6,
+                        weight: isRestored ? 2.0 : 1.0
+                    }};
+                }});
+
+                // Draw Tram Loop
                 const tramPoly = L.polyline(tramLoopCoords, {{
                     color: '#d97706',
                     weight: 4.5,
@@ -1378,6 +1531,29 @@ html_template = f"""<!DOCTYPE html>
                 }}).bindPopup("<strong>대전 도시철도 2호선 트램 순환선 (2028 개통 예정)</strong><br>총연장 38.8km / 45개 정거장<br>타슈 357개 대여소 환승 연계");
                 tramLayerGroup.addLayer(tramPoly);
             }}
+        }}
+
+        // Setup Intersection Observer for Scrollytelling Steps
+        function setupScrollObserver() {{
+            const steps = document.querySelectorAll('.step');
+            const observerOptions = {{
+                root: null,
+                rootMargin: '0px 0px -40% 0px',
+                threshold: 0.2
+            }};
+
+            const observer = new IntersectionObserver((entries) => {{
+                entries.forEach(entry => {{
+                    if (entry.isIntersecting) {{
+                        const stepNum = parseInt(entry.target.getAttribute('data-step'));
+                        steps.forEach(s => s.classList.remove('is-active'));
+                        entry.target.classList.add('is-active');
+                        if (stepNum) onEnterScene(stepNum);
+                    }}
+                }});
+            }}, observerOptions);
+
+            steps.forEach(step => observer.observe(step));
         }}
 
         // KaTeX Safe Auto-render
@@ -1398,13 +1574,8 @@ html_template = f"""<!DOCTYPE html>
         // Bootstrap on DOM Ready
         function bootstrap() {{
             initLeafletMap();
+            setupScrollObserver();
             renderMathSafe();
-            if (window.location.hash) {{
-                const target = document.querySelector(window.location.hash);
-                if (target) {{
-                    setTimeout(() => target.scrollIntoView({{ behavior: 'smooth' }}), 300);
-                }}
-            }}
         }}
 
         if (document.readyState === 'loading') {{
@@ -1441,4 +1612,4 @@ with open(dest_brain, "w", encoding="utf-8") as f:
     f.write(html_template)
 print(f"Generated: {dest_brain}")
 
-print("Successfully compiled authentic engineering-first portfolio!")
+print("Successfully compiled authentic 5-scene scrollytelling data journalism portfolio!")
