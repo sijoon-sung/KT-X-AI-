@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+import json
+import os
+from pathlib import Path
+
+ROOT = Path("C:/Users/sijoo/Documents/tashu")
+
+# HTML Template with zero external CDN dependency - pure self-contained SVG, Canvas, and CSS
+html_code = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -990,3 +997,28 @@
     </script>
 </body>
 </html>
+"""
+
+# Save to destination paths
+dest_root = ROOT / "index.html"
+dest_docs = ROOT / "docs/index.html"
+dest_desktop = Path("C:/Users/sijoo/OneDrive/바탕 화면/타슈_재배치_최적화_최종결과패키지/00_타슈_AI_프로젝트_종합_웹포트폴리오.html")
+dest_brain = Path("C:/Users/sijoo/.gemini/antigravity/brain/69b779d9-e00f-4cbb-87f9-bef0e1d1ae7c/tashu_project_portfolio.html")
+
+os.makedirs(ROOT / "docs", exist_ok=True)
+
+with open(dest_root, "w", encoding="utf-8") as f:
+    f.write(html_code)
+print(f"Saved: {dest_root}")
+
+with open(dest_docs, "w", encoding="utf-8") as f:
+    f.write(html_code)
+print(f"Saved: {dest_docs}")
+
+with open(dest_desktop, "w", encoding="utf-8") as f:
+    f.write(html_code)
+print(f"Saved: {dest_desktop}")
+
+with open(dest_brain, "w", encoding="utf-8") as f:
+    f.write(html_code)
+print(f"Saved: {dest_brain}")
