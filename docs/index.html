@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,22 +27,27 @@
             color: var(--text-body);
             line-height: 1.6;
             font-size: 14px;
+            scroll-behavior: smooth;
         }
         .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
         
-        /* Navigation */
+        /* Floating Header */
         header {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(8, 13, 26, 0.95);
-            backdrop-filter: blur(12px);
+            background: rgba(8, 13, 26, 0.92);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            padding: 14px 0;
+            padding: 12px 0;
+            transition: all 0.3s;
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; }
         .nav-title { font-size: 15px; font-weight: 700; color: var(--text-title); display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 14px; font-size: 13px; font-weight: 500; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--text-title); }
+        .nav-links { display: flex; gap: 10px; font-size: 12px; font-weight: 600; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; padding: 6px 12px;
+            border-radius: 6px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-title); background: var(--bg-surface); }
         
         /* Section Titles */
         .section-header { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
@@ -57,6 +62,7 @@
             border-radius: 14px;
             padding: 24px;
             margin-bottom: 24px;
+            transition: border-color 0.25s, box-shadow 0.25s;
         }
         .card-glow {
             border-color: rgba(56, 189, 248, 0.4);
@@ -70,31 +76,62 @@
         }
 
         /* KPI Banner */
-        .kpi-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+        .kpi-box { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; transition: transform 0.2s; }
+        .kpi-box:hover { transform: translateY(-2px); }
         .kpi-label { font-size: 12px; color: var(--text-muted); font-weight: 600; }
         .kpi-val { font-size: 26px; font-weight: 800; color: var(--text-title); font-family: monospace; margin: 4px 0; }
         .kpi-sub { font-size: 11px; color: var(--text-muted); }
 
-        /* Tables */
+        /* Interactive Terms / Tooltips */
+        .term-tip {
+            color: var(--primary);
+            border-bottom: 1px dashed var(--primary);
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+        }
+        .term-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        /* Tables & Interactive Rows */
         table.data-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
         table.data-table th { padding: 10px 12px; background: var(--bg-surface); color: var(--text-muted); font-weight: 600; font-size: 12px; border-bottom: 1px solid var(--border); }
-        table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
-        table.data-table tr:hover td { background: rgba(30, 41, 59, 0.4); }
+        table.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+        table.data-table tr.hoverable-row { cursor: pointer; }
+        table.data-table tr.hoverable-row:hover td { background: rgba(56, 189, 248, 0.12); color: var(--text-title); }
 
         /* Controls */
         .ctrl-btn {
             padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700;
             background: var(--bg-surface); color: var(--text-title); border: 1px solid var(--border);
-            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ctrl-btn:hover { background: #334155; border-color: var(--primary); }
+        .ctrl-btn:hover { background: #334155; border-color: var(--primary); transform: translateY(-1px); }
         .ctrl-btn.playing { background: rgba(56, 189, 248, 0.2); color: var(--primary); border-color: var(--primary); }
 
         .tab-btn {
             padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
             background: var(--bg-surface); color: var(--text-muted); border: 1px solid var(--border);
-            cursor: pointer; transition: all 0.2s;
+            cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .tab-btn:hover { color: var(--text-title); }
         .tab-btn.active {
             background: rgba(56, 189, 248, 0.15); color: var(--primary); border-color: var(--primary);
         }
@@ -106,12 +143,15 @@
         .slider-bar::-webkit-slider-thumb {
             -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
             background: var(--primary); cursor: pointer; box-shadow: 0 0 8px var(--primary);
+            transition: transform 0.15s;
         }
+        .slider-bar::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
         /* Canvas Particle Map Container */
         .canvas-container {
             position: relative; width: 100%; height: 440px; background: #060913;
-            border-radius: 10px; border: 1px solid var(--border); overflow: hidden;
+            border-radius: 12px; border: 1px solid var(--border); overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
         }
         canvas.flow-canvas { width: 100%; height: 100%; display: block; }
 
@@ -131,20 +171,32 @@
         .badge-green { background: rgba(52, 211, 153, 0.15); color: var(--success); border: 1px solid rgba(52, 211, 153, 0.3); }
         .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.3); }
         .badge-red { background: rgba(248, 113, 113, 0.15); color: var(--danger); border: 1px solid rgba(248, 113, 113, 0.3); }
+
+        /* Pulse glow */
+        .pulse-indicator {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+            box-shadow: 0 0 8px var(--primary); display: inline-block;
+            animation: pulseGlow 1.8s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
     </style>
 </head>
 <body>
 
     <!-- Header Navigation -->
-    <header>
+    <header id="siteHeader">
         <div class="container nav-inner">
             <div class="nav-title">
-                <span style="display:inline-block; width:10px; height:10px; background:var(--primary); border-radius:2px;"></span>
-                <span>KT-X-AI | 대전 공영자전거 '타슈' AI 재배치 최적화 프로젝트</span>
+                <span class="pulse-indicator"></span>
+                <span>KT-X-AI | 대전 공영자전거 '타슈' AI 재배치 최적화</span>
                 <span class="badge badge-blue">Branch: 성시준</span>
             </div>
             <nav class="nav-links">
-                <a href="#sec-eda">1. 데이터 분석 결과 (애니메이션)</a>
+                <a href="#sec-eda" class="active">1. 데이터 분석 결과 (애니메이션)</a>
                 <a href="#sec-problem">2. 문제 정의 및 선행연구 한계</a>
                 <a href="#sec-method">3. 제안 모델 및 AI 알고리즘</a>
                 <a href="#sec-sim">4. 예측 vs 실제 수요 시뮬레이션</a>
@@ -165,8 +217,10 @@
             <p style="font-size:13px; color:var(--text-body); line-height:1.7;">
                 본 프로젝트는 대전광역시 공영자전거 '타슈'의 1개년 전수 통행 데이터(9,116,462건)와 1시간 단위 기상 관측 데이터를 결합하여 
                 시민 통행 패턴을 정량 분석하고, 출퇴근 시간대 특정 대여소 품절(Deficit) 현상을 해결하기 위한 
-                <strong>300m 생활권 Super-Station 군집화</strong>, <strong>Quantile 85% 비대칭 손실 XGBoost 모델</strong>, 
-                <strong>물리 제약 반영 트럭 10대 동선 최적화</strong>, 그리고 <strong>포아송 베이지안 고장 감지 알고리즘</strong>을 구축·실증한 성과 보고서입니다.
+                <span class="term-tip" data-tooltip="보행 3분 반경 내 대여소를 하나로 묶어 데이터 밀도를 높인 거점">300m 생활권 Super-Station</span> 군집화, 
+                <span class="term-tip" data-tooltip="부족 오차에 5.67배 높은 벌점을 부과하는 비대칭 손실 함수">Quantile 85% 비대칭 손실 XGBoost</span> 모델, 
+                <span class="term-tip" data-tooltip="상하차 시간과 시내 주행 속도를 반영한 트럭 10대 경로">물리 제약 반영 트럭 10대 동선 최적화</span>, 그리고 
+                <span class="term-tip" data-tooltip="자전거 ID 없이도 대여 정체 시간으로 고장 여부를 판별하는 통계 기법">포아송 베이지안 고장 감지 알고리즘</span>을 구축·실증한 성과 보고서입니다.
             </p>
 
             <div class="grid-4" style="margin-top:20px;">
@@ -194,7 +248,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 1. DATA ANALYSIS RESULTS (ANIMATED / VIDEO-GRAPH) -->
+        <!-- 1. DATA ANALYSIS RESULTS (ANIMATED / INTERACTIVE) -->
         <!-- ========================================== -->
         <section id="sec-eda">
             <div class="section-header">
@@ -205,7 +259,7 @@
                 </p>
             </div>
 
-            <!-- 1-1. Animated 24h Flow Map Simulator (Core User Request) -->
+            <!-- 1-1. Animated 24h Flow Map Simulator -->
             <div class="card card-glow">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
                     <div>
@@ -220,7 +274,6 @@
                         </p>
                     </div>
 
-                    <!-- Flow Animation Controls -->
                     <div style="display:flex; align-items:center; gap:8px;">
                         <button class="ctrl-btn" id="flowPlayBtn" onclick="toggleFlowPlay()">
                             <span id="flowPlayIcon">▶</span> <span id="flowPlayText">24시간 통행 재생</span>
@@ -230,7 +283,6 @@
                     </div>
                 </div>
 
-                <!-- Live Stream Status Cards -->
                 <div class="grid-4" style="margin-bottom:14px;">
                     <div class="kpi-box" style="background:#070c18;">
                         <div class="kpi-label">시뮬레이션 시간대</div>
@@ -254,7 +306,6 @@
                     </div>
                 </div>
 
-                <!-- Time Scrubber for Flow -->
                 <div style="margin-bottom:12px;">
                     <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); font-family:monospace;">
                         <span>00:00 (심야)</span>
@@ -266,7 +317,7 @@
                     <input type="range" min="0" max="23" value="18" class="slider-bar" id="flowSlider" oninput="setFlowHour(parseInt(this.value))">
                 </div>
 
-                <!-- HTML5 Canvas Particle Visualizer -->
+                <!-- Canvas Map -->
                 <div class="canvas-container">
                     <canvas id="flowCanvas" class="flow-canvas" width="800" height="440"></canvas>
                 </div>
@@ -278,11 +329,11 @@
                         <span style="color:var(--warning); font-weight:bold;">● 수목원·하천 레저 (Amber)</span>
                         <span style="color:var(--danger); font-weight:bold;">● 출퇴근 대형 간선 (Rose)</span>
                     </div>
-                    <span>* Deck.gl TripsLayer 궤적 보간 원리 적용 (60fps Canvas 렌더링)</span>
+                    <span>* 표의 행에 마우스를 올리면 지도 위 해당 회랑이 강조됩니다.</span>
                 </div>
             </div>
 
-            <!-- 1-2. Hourly Pattern Chart (Synced with flow scrubber) -->
+            <!-- 1-2. Hourly Pattern Chart -->
             <div class="card">
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px;">
                     <div>
@@ -306,76 +357,76 @@
                 </div>
 
                 <div style="width:100%; overflow-x:auto;">
-                    <svg viewBox="0 0 940 250" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
-                        <line x1="60" y1="215.0" x2="920" y2="215.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
-<text x="52" y="219.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
-<line x1="60" y1="185.0" x2="920" y2="185.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="189.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">10만</text>
-<line x1="60" y1="155.0" x2="920" y2="155.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="159.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">20만</text>
-<line x1="60" y1="125.0" x2="920" y2="125.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="129.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">30만</text>
-<line x1="60" y1="95.0" x2="920" y2="95.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="99.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">40만</text>
-<line x1="60" y1="65.0" x2="920" y2="65.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="69.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">50만</text>
-<line x1="60" y1="35.0" x2="920" y2="35.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="52" y="39.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">60만</text>
+                    <svg viewBox="0 0 940 240" style="width:100%; min-width:800px; height:auto; background:#070c18; border-radius:8px; border:1px solid var(--border);">
+                        <line x1="60" y1="205.0" x2="920" y2="205.0" stroke="#1e293b" stroke-width="1" stroke-dasharray="0"/>
+<text x="52" y="209.0" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">0</text>
+<line x1="60" y1="176.53846153846155" x2="920" y2="176.53846153846155" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="180.53846153846155" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">10만</text>
+<line x1="60" y1="148.07692307692307" x2="920" y2="148.07692307692307" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="152.07692307692307" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">20만</text>
+<line x1="60" y1="119.61538461538461" x2="920" y2="119.61538461538461" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="123.61538461538461" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">30만</text>
+<line x1="60" y1="91.15384615384615" x2="920" y2="91.15384615384615" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="95.15384615384615" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">40만</text>
+<line x1="60" y1="62.69230769230768" x2="920" y2="62.69230769230768" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="66.69230769230768" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">50만</text>
+<line x1="60" y1="34.230769230769226" x2="920" y2="34.230769230769226" stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="52" y="38.230769230769226" fill="#64748b" font-size="11" text-anchor="end" font-family="monospace">60만</text>
 
-                        <path d="M 60.0,197.0 L 97.4,203.5 L 134.8,207.5 L 172.2,210.0 L 209.6,211.1 L 247.0,208.6 L 284.3,205.9 L 321.7,200.8 L 359.1,192.6 L 396.5,188.1 L 433.9,183.7 L 471.3,180.0 L 508.7,174.0 L 546.1,170.6 L 583.5,167.8 L 620.9,164.6 L 658.3,161.1 L 695.7,157.1 L 733.0,161.1 L 770.4,167.4 L 807.8,169.3 L 845.2,172.8 L 882.6,181.9 L 920.0,188.1" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-dasharray="5 3"/>
-                        <rect id="edaBar_0" x="53.0" y="178.7" width="14" height="36.3" fill="#38bdf8" rx="3" opacity="0.85"><title>0시 평일: 120,888건</title></rect>
-<text x="60.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
-<rect id="edaBar_1" x="90.4" y="194.0" width="14" height="21.0" fill="#38bdf8" rx="3" opacity="0.85"><title>1시 평일: 70,051건</title></rect>
-<text x="97.4" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
-<rect id="edaBar_2" x="127.8" y="202.2" width="14" height="12.8" fill="#38bdf8" rx="3" opacity="0.85"><title>2시 평일: 42,652건</title></rect>
-<text x="134.8" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
-<rect id="edaBar_3" x="165.2" y="206.7" width="14" height="8.3" fill="#38bdf8" rx="3" opacity="0.85"><title>3시 평일: 27,615건</title></rect>
-<text x="172.2" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
-<rect id="edaBar_4" x="202.6" y="206.7" width="14" height="8.3" fill="#38bdf8" rx="3" opacity="0.85"><title>4시 평일: 27,681건</title></rect>
-<text x="209.6" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
-<rect id="edaBar_5" x="240.0" y="193.8" width="14" height="21.2" fill="#38bdf8" rx="3" opacity="0.85"><title>5시 평일: 70,727건</title></rect>
-<text x="247.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
-<rect id="edaBar_6" x="277.3" y="175.8" width="14" height="39.2" fill="#38bdf8" rx="3" opacity="0.85"><title>6시 평일: 130,541건</title></rect>
-<text x="284.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
-<rect id="edaBar_7" x="314.7" y="129.3" width="14" height="85.7" fill="#38bdf8" rx="3" opacity="0.85"><title>7시 평일: 285,595건</title></rect>
-<text x="321.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
-<rect id="edaBar_8" x="352.1" y="96.9" width="14" height="118.1" fill="#0284c7" rx="3" opacity="0.85"><title>8시 평일: 393,736건</title></rect>
-<text x="359.1" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
-<rect id="edaBar_9" x="389.5" y="143.0" width="14" height="72.0" fill="#38bdf8" rx="3" opacity="0.85"><title>9시 평일: 240,046건</title></rect>
-<text x="396.5" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
-<rect id="edaBar_10" x="426.9" y="147.8" width="14" height="67.2" fill="#38bdf8" rx="3" opacity="0.85"><title>10시 평일: 224,037건</title></rect>
-<text x="433.9" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
-<rect id="edaBar_11" x="464.3" y="132.3" width="14" height="82.7" fill="#38bdf8" rx="3" opacity="0.85"><title>11시 평일: 275,644건</title></rect>
-<text x="471.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
-<rect id="edaBar_12" x="501.7" y="121.2" width="14" height="93.8" fill="#38bdf8" rx="3" opacity="0.85"><title>12시 평일: 312,809건</title></rect>
-<text x="508.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
-<rect id="edaBar_13" x="539.1" y="125.9" width="14" height="89.1" fill="#38bdf8" rx="3" opacity="0.85"><title>13시 평일: 296,865건</title></rect>
-<text x="546.1" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
-<rect id="edaBar_14" x="576.5" y="120.2" width="14" height="94.8" fill="#38bdf8" rx="3" opacity="0.85"><title>14시 평일: 316,105건</title></rect>
-<text x="583.5" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
-<rect id="edaBar_15" x="613.9" y="104.9" width="14" height="110.1" fill="#38bdf8" rx="3" opacity="0.85"><title>15시 평일: 366,882건</title></rect>
-<text x="620.9" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
-<rect id="edaBar_16" x="651.3" y="79.4" width="14" height="135.6" fill="#38bdf8" rx="3" opacity="0.85"><title>16시 평일: 451,986건</title></rect>
-<text x="658.3" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
-<rect id="edaBar_17" x="688.7" y="44.9" width="14" height="170.1" fill="#38bdf8" rx="3" opacity="0.85"><title>17시 평일: 567,166건</title></rect>
-<text x="695.7" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
-<rect id="edaBar_18" x="726.0" y="26.9" width="14" height="188.1" fill="#0284c7" rx="3" opacity="0.85"><title>18시 평일: 627,088건</title></rect>
-<text x="733.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
-<rect id="edaBar_19" x="763.4" y="78.2" width="14" height="136.8" fill="#38bdf8" rx="3" opacity="0.85"><title>19시 평일: 455,980건</title></rect>
-<text x="770.4" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
-<rect id="edaBar_20" x="800.8" y="90.2" width="14" height="124.8" fill="#38bdf8" rx="3" opacity="0.85"><title>20시 평일: 416,133건</title></rect>
-<text x="807.8" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
-<rect id="edaBar_21" x="838.2" y="97.9" width="14" height="117.1" fill="#38bdf8" rx="3" opacity="0.85"><title>21시 평일: 390,479건</title></rect>
-<text x="845.2" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
-<rect id="edaBar_22" x="875.6" y="121.2" width="14" height="93.8" fill="#38bdf8" rx="3" opacity="0.85"><title>22시 평일: 312,592건</title></rect>
-<text x="882.6" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
-<rect id="edaBar_23" x="913.0" y="142.5" width="14" height="72.5" fill="#38bdf8" rx="3" opacity="0.85"><title>23시 평일: 241,605건</title></rect>
-<text x="920.0" y="231" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
+                        <path d="M 60.0,187.9 L 97.4,194.1 L 134.8,197.9 L 172.2,200.3 L 209.6,201.3 L 247.0,198.9 L 284.3,196.4 L 321.7,191.6 L 359.1,183.7 L 396.5,179.5 L 433.9,175.3 L 471.3,171.8 L 508.7,166.1 L 546.1,162.9 L 583.5,160.2 L 620.9,157.2 L 658.3,153.8 L 695.7,150.0 L 733.0,153.9 L 770.4,159.8 L 807.8,161.6 L 845.2,164.9 L 882.6,173.6 L 920.0,179.5" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-dasharray="5 3"/>
+                        <rect id="edaBar_0" x="53.0" y="170.6" width="14" height="34.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(0)"><title>0시 평일: 120,888건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="60.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">00</text>
+<rect id="edaBar_1" x="90.4" y="185.1" width="14" height="19.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(1)"><title>1시 평일: 70,051건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="97.4" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">01</text>
+<rect id="edaBar_2" x="127.8" y="192.9" width="14" height="12.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(2)"><title>2시 평일: 42,652건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="134.8" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">02</text>
+<rect id="edaBar_3" x="165.2" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(3)"><title>3시 평일: 27,615건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="172.2" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">03</text>
+<rect id="edaBar_4" x="202.6" y="197.1" width="14" height="7.9" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(4)"><title>4시 평일: 27,681건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="209.6" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">04</text>
+<rect id="edaBar_5" x="240.0" y="184.9" width="14" height="20.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(5)"><title>5시 평일: 70,727건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="247.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">05</text>
+<rect id="edaBar_6" x="277.3" y="167.8" width="14" height="37.2" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(6)"><title>6시 평일: 130,541건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="284.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">06</text>
+<rect id="edaBar_7" x="314.7" y="123.7" width="14" height="81.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(7)"><title>7시 평일: 285,595건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="321.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">07</text>
+<rect id="edaBar_8" x="352.1" y="92.9" width="14" height="112.1" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(8)"><title>8시 평일: 393,736건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="359.1" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">08</text>
+<rect id="edaBar_9" x="389.5" y="136.7" width="14" height="68.3" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(9)"><title>9시 평일: 240,046건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="396.5" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">09</text>
+<rect id="edaBar_10" x="426.9" y="141.2" width="14" height="63.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(10)"><title>10시 평일: 224,037건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="433.9" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">10</text>
+<rect id="edaBar_11" x="464.3" y="126.5" width="14" height="78.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(11)"><title>11시 평일: 275,644건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="471.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">11</text>
+<rect id="edaBar_12" x="501.7" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(12)"><title>12시 평일: 312,809건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="508.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">12</text>
+<rect id="edaBar_13" x="539.1" y="120.5" width="14" height="84.5" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(13)"><title>13시 평일: 296,865건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="546.1" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">13</text>
+<rect id="edaBar_14" x="576.5" y="115.0" width="14" height="90.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(14)"><title>14시 평일: 316,105건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="583.5" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">14</text>
+<rect id="edaBar_15" x="613.9" y="100.6" width="14" height="104.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(15)"><title>15시 평일: 366,882건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="620.9" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">15</text>
+<rect id="edaBar_16" x="651.3" y="76.4" width="14" height="128.6" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(16)"><title>16시 평일: 451,986건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="658.3" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">16</text>
+<rect id="edaBar_17" x="688.7" y="43.6" width="14" height="161.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(17)"><title>17시 평일: 567,166건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="695.7" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">17</text>
+<rect id="edaBar_18" x="726.0" y="26.5" width="14" height="178.5" fill="#0284c7" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(18)"><title>18시 평일: 627,088건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="733.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">18</text>
+<rect id="edaBar_19" x="763.4" y="75.2" width="14" height="129.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(19)"><title>19시 평일: 455,980건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="770.4" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">19</text>
+<rect id="edaBar_20" x="800.8" y="86.6" width="14" height="118.4" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(20)"><title>20시 평일: 416,133건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="807.8" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">20</text>
+<rect id="edaBar_21" x="838.2" y="93.9" width="14" height="111.1" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(21)"><title>21시 평일: 390,479건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="845.2" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">21</text>
+<rect id="edaBar_22" x="875.6" y="116.0" width="14" height="89.0" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(22)"><title>22시 평일: 312,592건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="882.6" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">22</text>
+<rect id="edaBar_23" x="913.0" y="136.2" width="14" height="68.8" fill="#38bdf8" rx="3" opacity="0.85" style="cursor:pointer; transition:all 0.2s;" onclick="setFlowHour(23)"><title>23시 평일: 241,605건 (클릭하여 시뮬레이터 이동)</title></rect>
+<text x="920.0" y="221" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="monospace">23</text>
 
-                        <circle cx="359.1304347826087" cy="96.8792" r="4" fill="#fff" stroke="#0284c7" stroke-width="2"/>
-                        <text x="359.1304347826087" y="86.8792" fill="var(--text-title)" font-size="11" font-weight="700" text-anchor="middle">출근 08시 (39.4만)</text>
-                        <circle cx="733.0434782608696" cy="26.87360000000001" r="4" fill="#fff" stroke="var(--danger)" stroke-width="2"/>
-                        <text x="733.0434782608696" y="16.87360000000001" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">퇴근 18시 (62.7만)</text>
+                        <circle cx="359.1304347826087" cy="92.93667692307692" r="4" fill="#fff" stroke="#0284c7" stroke-width="2"/>
+                        <text x="359.1304347826087" y="82.93667692307692" fill="var(--text-title)" font-size="11" font-weight="700" text-anchor="middle">출근 08시 (39.4만)</text>
+                        <circle cx="733.0434782608696" cy="26.52110769230771" r="4" fill="#fff" stroke="var(--danger)" stroke-width="2"/>
+                        <text x="733.0434782608696" y="16.52110769230771" fill="var(--danger)" font-size="11" font-weight="700" text-anchor="middle">퇴근 18시 (62.7만)</text>
                     </svg>
                 </div>
 
@@ -414,13 +465,13 @@
                     </p>
                 </div>
 
-                <!-- 1-4. Weather Elasticity with Dynamic Particle Reactivity -->
+                <!-- 1-4. Weather Elasticity -->
                 <div class="card">
                     <h3 style="font-size:16px; font-weight:700; color:var(--text-title); margin-bottom:4px;">
                         1-4. 기상 요인(강수량·기온)의 영향 및 입자 반응
                     </h3>
                     <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">
-                        강수량 1mm 돌파 시 통행량 70.9% 급감 (클릭 시 상단 애니메이션 입자 감소 반영)
+                        강수량 1mm 돌파 시 통행량 70.9% 급감 (버튼 클릭 시 상단 입자 흐름 동적 감소)
                     </p>
 
                     <div style="display:flex; gap:6px; margin-bottom:12px;">
@@ -482,9 +533,9 @@
 
                     <div style="display:flex; flex-direction:column; justify-content:space-between;">
                         <div>
-                            <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">3대 핵심 집중 권역 특성</div>
+                            <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">3대 핵심 집중 권역 특성 (클릭 시 지도 강조)</div>
                             
-                            <div style="background:var(--bg-surface); padding:12px; border-radius:8px; margin-bottom:10px; border-left:3px solid var(--primary);">
+                            <div class="hoverable-row" style="background:var(--bg-surface); padding:12px; border-radius:8px; margin-bottom:10px; border-left:3px solid var(--primary); cursor:pointer;" onclick="highlightZone('campus')">
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
                                     <strong style="color:var(--text-title); font-size:13px;">[권역 A] 유성·대학가 캠퍼스 셔틀 권역</strong>
                                     <span class="badge badge-blue">연간 약 210만 건</span>
@@ -495,7 +546,7 @@
                                 </div>
                             </div>
 
-                            <div style="background:var(--bg-surface); padding:12px; border-radius:8px; margin-bottom:10px; border-left:3px solid var(--success);">
+                            <div class="hoverable-row" style="background:var(--bg-surface); padding:12px; border-radius:8px; margin-bottom:10px; border-left:3px solid var(--success); cursor:pointer;" onclick="highlightZone('metro')">
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
                                     <strong style="color:var(--text-title); font-size:13px;">[권역 B] 둔산·정부청사 라스트마일 환승 권역</strong>
                                     <span class="badge badge-green">연간 약 145만 건</span>
@@ -506,7 +557,7 @@
                                 </div>
                             </div>
 
-                            <div style="background:var(--bg-surface); padding:12px; border-radius:8px; border-left:3px solid var(--warning);">
+                            <div class="hoverable-row" style="background:var(--bg-surface); padding:12px; border-radius:8px; border-left:3px solid var(--warning); cursor:pointer;" onclick="highlightZone('leisure')">
                                 <div style="display:flex; justify-content:space-between; align-items:center;">
                                     <strong style="color:var(--text-title); font-size:13px;">[권역 C] 만년·수목원·엑스포 수변 여가 권역</strong>
                                     <span class="badge badge-amber">연간 약 85만 건</span>
@@ -518,6 +569,100 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Interactive O-D Table (Hovering highlights route on Canvas) -->
+                <div style="margin-top:16px;">
+                    <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">
+                        대전시 최상위 O-D 통행 회랑 Top 8 (표 위에 마우스를 올리면 지도 위 회랑이 즉시 강조됩니다)
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>출발 대여소</th>
+                                <th>도착 대여소</th>
+                                <th style="text-align:right;">연간 통행량</th>
+                                <th style="text-align:right;">평균 거리</th>
+                                <th style="text-align:right;">소요 시간</th>
+                                <th>통행 유형</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_dine', 'kaist_edu')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--primary);">1</td>
+                                <td>어은동 카이스트 학사식당</td>
+                                <td>구성동 카이스트 창의학습관</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">7,205 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.46 km</td>
+                                <td style="text-align:right; font-family:monospace;">6.8 분</td>
+                                <td>캠퍼스 셔틀</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_dine')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--primary);">2</td>
+                                <td>구성동 카이스트 창의학습관</td>
+                                <td>어은동 카이스트 학사식당</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">6,104 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.49 km</td>
+                                <td style="text-align:right; font-family:monospace;">8.7 분</td>
+                                <td>캠퍼스 셔틀</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('kaist_edu', 'kaist_gate')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--primary);">3</td>
+                                <td>구성동 카이스트 창의학습관</td>
+                                <td>구성동 카이스트 쪽문(원룸촌)</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,675 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.62 km</td>
+                                <td style="text-align:right; font-family:monospace;">8.9 분</td>
+                                <td>기숙사 통학</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('gungdong', 'cnu')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--primary);">4</td>
+                                <td>궁동 로데오거리 남측</td>
+                                <td>충남대학교 정문</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,145 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.58 km</td>
+                                <td style="text-align:right; font-family:monospace;">6.5 분</td>
+                                <td>대학 상권 연결</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_w', 'arboretum_e')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--warning);">5</td>
+                                <td>만년동 한밭수목원(서원)</td>
+                                <td>만년동 한밭수목원(동원)</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">5,136 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.65 km</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--warning);">30.0 분</td>
+                                <td>공원 여가</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('dunsan_gov_st', 'dunsan_gov')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--success);">6</td>
+                                <td>둔산동 정부청사역 4번출구</td>
+                                <td>둔산동 정부청사 입구(남문)</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">4,964 건</td>
+                                <td style="text-align:right; font-family:monospace;">0.38 km</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--success);">3.1 분</td>
+                                <td>지하철 환승</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('arboretum_e', 'expo_bridge')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--warning);">7</td>
+                                <td>한밭수목원 동원</td>
+                                <td>엑스포다리 / 스마트시티</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">4,012 건</td>
+                                <td style="text-align:right; font-family:monospace;">1.45 km</td>
+                                <td style="text-align:right; font-family:monospace; color:var(--warning);">25.4 분</td>
+                                <td>수변 횡단 레저</td>
+                            </tr>
+                            <tr class="hoverable-row" onmouseenter="highlightCorridor('noeun', 'yuseong_spa')" onmouseleave="highlightCorridor(null, null)">
+                                <td style="font-weight:bold; color:var(--danger);">8</td>
+                                <td>노은역 3번출구 (잉여 주거지)</td>
+                                <td>유성온천역 7번출구 (결품 도심)</td>
+                                <td style="text-align:right; font-family:monospace; font-weight:bold;">3,842 건</td>
+                                <td style="text-align:right; font-family:monospace;">6.80 km</td>
+                                <td style="text-align:right; font-family:monospace;">46.2 분</td>
+                                <td>출퇴근 & 트럭 배차축</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -628,7 +773,6 @@
                 </p>
             </div>
 
-            <!-- Dynamic Playback Controller Card -->
             <div class="card card-glow">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
                     <div>
@@ -912,16 +1056,15 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE SCRIPTS: 1) CANVAS PARTICLE FLOW + 2) ALGORITHM SIMULATION -->
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
         // ==========================================
         // 1. CANVAS PARTICLE FLOW ANIMATION (SECTION 1-1)
-        // Deck.gl / Kepler.gl TripsLayer Inspired
+        // With Bidirectional Table Hover & Zone Selection
         // ==========================================
         const canvas = document.getElementById('flowCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Core Hubs in Daejeon (Canvas coords: 800 x 440)
         const hubs = {
             kaist_dine: { name: '카이스트 학사식당', x: 290, y: 190, color: '#38bdf8' },
             kaist_edu: { name: '카이스트 창의학습관', x: 330, y: 210, color: '#38bdf8' },
@@ -939,27 +1082,27 @@
             daejeon_st: { name: '대전역 (동구)', x: 670, y: 360, color: '#818cf8' }
         };
 
-        // Core Corridors for Trips
         const corridors = [
-            { from: 'kaist_dine', to: 'kaist_edu', color: '#38bdf8', weight: 1.0 },
-            { from: 'kaist_edu', to: 'kaist_dine', color: '#38bdf8', weight: 0.9 },
-            { from: 'kaist_edu', to: 'kaist_gate', color: '#38bdf8', weight: 0.85 },
-            { from: 'kaist_gate', to: 'gungdong', color: '#38bdf8', weight: 0.75 },
-            { from: 'gungdong', to: 'cnu', color: '#38bdf8', weight: 0.8 },
-            { from: 'gungdong', to: 'yuseong_spa', color: '#34d399', weight: 0.85 },
-            { from: 'noeun', to: 'yuseong_spa', color: '#f87171', weight: 0.7 },
-            { from: 'dunsan_gov_st', to: 'dunsan_gov', color: '#34d399', weight: 0.95 },
-            { from: 'dunsan_gov', to: 'dunsan_gov_st', color: '#34d399', weight: 0.95 },
-            { from: 'dunsan_gov_st', to: 'city_hall', color: '#34d399', weight: 0.75 },
-            { from: 'arboretum_w', to: 'arboretum_e', color: '#fbbf24', weight: 0.8 },
-            { from: 'arboretum_e', to: 'expo_bridge', color: '#fbbf24', weight: 0.7 },
-            { from: 'city_hall', to: 'daejeon_st', color: '#818cf8', weight: 0.6 }
+            { from: 'kaist_dine', to: 'kaist_edu', color: '#38bdf8', weight: 1.0, zone: 'campus' },
+            { from: 'kaist_edu', to: 'kaist_dine', color: '#38bdf8', weight: 0.9, zone: 'campus' },
+            { from: 'kaist_edu', to: 'kaist_gate', color: '#38bdf8', weight: 0.85, zone: 'campus' },
+            { from: 'kaist_gate', to: 'gungdong', color: '#38bdf8', weight: 0.75, zone: 'campus' },
+            { from: 'gungdong', to: 'cnu', color: '#38bdf8', weight: 0.8, zone: 'campus' },
+            { from: 'gungdong', to: 'yuseong_spa', color: '#34d399', weight: 0.85, zone: 'metro' },
+            { from: 'noeun', to: 'yuseong_spa', color: '#f87171', weight: 0.7, zone: 'metro' },
+            { from: 'dunsan_gov_st', to: 'dunsan_gov', color: '#34d399', weight: 0.95, zone: 'metro' },
+            { from: 'dunsan_gov', to: 'dunsan_gov_st', color: '#34d399', weight: 0.95, zone: 'metro' },
+            { from: 'dunsan_gov_st', to: 'city_hall', color: '#34d399', weight: 0.75, zone: 'metro' },
+            { from: 'arboretum_w', to: 'arboretum_e', color: '#fbbf24', weight: 0.8, zone: 'leisure' },
+            { from: 'arboretum_e', to: 'expo_bridge', color: '#fbbf24', weight: 0.7, zone: 'leisure' },
+            { from: 'city_hall', to: 'daejeon_st', color: '#818cf8', weight: 0.6, zone: 'metro' }
         ];
 
-        // Particle System
         const particles = [];
         const MAX_PARTICLES = 160;
-        let weatherReduction = 1.0; // 1.0 = clear, 0.3 = rain
+        let weatherReduction = 1.0;
+        let activeHoverCorridor = null;
+        let activeZone = null;
 
         for (let i = 0; i < MAX_PARTICLES; i++) {
             const cor = corridors[Math.floor(Math.random() * corridors.length)];
@@ -977,11 +1120,10 @@
         let flowSpeedMs = 1200;
 
         function drawFlowCanvas() {
-            // Slight fade for motion-blur trail effect
             ctx.fillStyle = 'rgba(6, 9, 19, 0.28)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Waterways (Gapcheon & Yudeungcheon)
+            // Waterways
             ctx.strokeStyle = 'rgba(14, 48, 79, 0.5)';
             ctx.lineWidth = 14;
             ctx.lineCap = 'round';
@@ -1002,7 +1144,7 @@
             ctx.lineTo(670, 360);
             ctx.stroke();
 
-            // Tram Line 2 Loop (dashed)
+            // Tram Line 2 Loop
             ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
             ctx.lineWidth = 2;
             ctx.setLineDash([6, 6]);
@@ -1011,20 +1153,22 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Draw Corridor Paths (subtle)
+            // Draw Corridors
             corridors.forEach(c => {
                 const p1 = hubs[c.from];
                 const p2 = hubs[c.to];
-                ctx.strokeStyle = 'rgba(34, 48, 71, 0.6)';
-                ctx.lineWidth = 1.5;
+                const isHovered = activeHoverCorridor && (activeHoverCorridor.from === c.from && activeHoverCorridor.to === c.to);
+                const isZoneMatched = activeZone && c.zone === activeZone;
+
+                ctx.strokeStyle = isHovered ? '#ffffff' : (isZoneMatched ? c.color : 'rgba(34, 48, 71, 0.5)');
+                ctx.lineWidth = isHovered ? 4.5 : (isZoneMatched ? 2.5 : 1.2);
                 ctx.beginPath();
                 ctx.moveTo(p1.x, p1.y);
                 ctx.lineTo(p2.x, p2.y);
                 ctx.stroke();
             });
 
-            // Scale particle density & speed based on hour (Rush peak vs Night)
-            let hourFactor = 0.3; // night baseline
+            let hourFactor = 0.3;
             if (flowCurrentHour >= 7 && flowCurrentHour <= 9) hourFactor = 0.9;
             else if (flowCurrentHour >= 17 && flowCurrentHour <= 19) hourFactor = 1.2;
             else if (flowCurrentHour >= 10 && flowCurrentHour <= 16) hourFactor = 0.65;
@@ -1032,7 +1176,6 @@
 
             const activeParticleCount = Math.floor(MAX_PARTICLES * hourFactor * weatherReduction);
 
-            // Draw Animated Moving Particles
             for (let i = 0; i < activeParticleCount; i++) {
                 const p = particles[i];
                 p.t += p.speed * (0.8 + hourFactor * 0.6);
@@ -1043,35 +1186,44 @@
                 const px = p1.x + (p2.x - p1.x) * p.t;
                 const py = p1.y + (p2.y - p1.y) * p.t;
 
-                ctx.fillStyle = p.cor.color;
+                const isHovered = activeHoverCorridor && (activeHoverCorridor.from === p.cor.from && activeHoverCorridor.to === p.cor.to);
+                ctx.fillStyle = isHovered ? '#ffffff' : p.cor.color;
                 ctx.beginPath();
-                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.arc(px, py, isHovered ? p.size * 1.5 : p.size, 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            // Draw Station Hubs
             for (const key in hubs) {
                 const h = hubs[key];
-                // Outer ring pulse
                 ctx.strokeStyle = h.color;
                 ctx.lineWidth = 1.5;
                 ctx.beginPath();
                 ctx.arc(h.x, h.y, 6, 0, Math.PI * 2);
                 ctx.stroke();
 
-                // Inner core
                 ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.arc(h.x, h.y, 2.5, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Text label
                 ctx.fillStyle = '#94a3b8';
                 ctx.font = '10px -apple-system, sans-serif';
                 ctx.fillText(h.name, h.x + 8, h.y + 3);
             }
 
             requestAnimationFrame(drawFlowCanvas);
+        }
+
+        function highlightCorridor(from, to) {
+            if (!from || !to) {
+                activeHoverCorridor = null;
+            } else {
+                activeHoverCorridor = { from: from, to: to };
+            }
+        }
+
+        function highlightZone(zoneName) {
+            activeZone = (activeZone === zoneName) ? null : zoneName;
         }
 
         function setFlowHour(h) {
@@ -1111,11 +1263,10 @@
             document.getElementById('flowNetworkStatus').innerText = netStatus;
             document.getElementById('flowNetworkStatus').style.color = statusColor;
 
-            // Highlight bar in Section 1-2 Chart
             for (let i = 0; i < 24; i++) {
                 const el = document.getElementById('edaBar_' + i);
                 if (el) {
-                    el.setAttribute('opacity', i === h ? '1.0' : '0.4');
+                    el.setAttribute('opacity', i === h ? '1.0' : '0.35');
                     el.setAttribute('stroke', i === h ? '#ffffff' : 'none');
                     el.setAttribute('stroke-width', i === h ? '2' : '0');
                 }
@@ -1177,7 +1328,7 @@
             btn.classList.add('active');
             if (idx === 0) weatherReduction = 1.0;
             else if (idx === 1) weatherReduction = 0.69;
-            else if (idx === 2) weatherReduction = 0.29; // -70.9% drop
+            else if (idx === 2) weatherReduction = 0.29;
             else weatherReduction = 0.17;
         }
 
@@ -1227,7 +1378,6 @@
                 document.getElementById('simQ85GapSub').style.color = 'var(--success)';
             }
 
-            // Move SVG Cursor & Indicators
             const x = 60 + (h / 23.0) * 860;
             const yAct = 20 + 225 - (act / 2800) * 225;
             const yMse = 20 + 225 - (mse / 2800) * 225;
@@ -1293,11 +1443,31 @@
             }
         }
 
+        // Window Scrollspy for Navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
-            // Start Flow Canvas Animation Loop
             requestAnimationFrame(drawFlowCanvas);
             setFlowHour(18);
-            startFlowPlay(); // Auto start flow playback
+            startFlowPlay();
             setSimHour(18);
         });
     </script>
