@@ -223,11 +223,22 @@ math_formulations_html = r"""
             $$\left( \frac{dS}{dt} \right)_{\text{natural}} > 0 \quad (\text{자연 방치 시 비가역적 엔트로피 극대화}), \qquad \Delta S_{\text{truck}} < 0 \quad (\text{외부 음의 엔트로피 주입})$$
         </div>
 
-        <!-- Navier-Stokes CFD Streamlines Visualization -->
+        <!-- Navier-Stokes CFD Animated Fluid Simulation -->
+        <div style="margin: 24px 0 16px 0; text-align: center; background: #0b0f19; border-radius: 8px; padding: 12px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+            <div style="font-size: 11px; font-weight: 700; color: #38bdf8; font-family: var(--font-mono); margin-bottom: 8px; letter-spacing: 0.05em;">
+                LIVE CFD PARTICLE STREAMLINE ANIMATION (WINDY / EARTH.NULLSCHOOL STYLE)
+            </div>
+            <img src="tashu_navier_stokes_animated.gif" alt="대전 타슈 863만 건 나비에-스토크스 전산유체역학(CFD) 입자 유동 애니메이션" style="max-width: 100%; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 8px; font-family: var(--font-mono);">
+                [그림 4-1] 전산유체역학(CFD) 863만 건 입자 유동 애니메이션: 고지대(카이스트) 분출 ➔ 유성온천역/시청역 거대 흡입 싱크 수렴 (속도 스펙트럼 매핑)
+            </div>
+        </div>
+
+        <!-- Navier-Stokes CFD Spectral Master Map -->
         <div style="margin: 24px 0 16px 0; text-align: center;">
-            <img src="tashu_navier_stokes_streamlines.png" alt="대전 타슈 863만 건 나비에-스토크스 유체 유선장 및 발산도 등고선 지도" style="max-width: 100%; border-radius: 8px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
+            <img src="tashu_cfd_spectral_map.png" alt="대전 타슈 863만 건 나비에-스토크스 유체 유선장 및 모멘텀 스펙트럼 고해상도 지도" style="max-width: 100%; border-radius: 8px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
             <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
-                [그림 4-1] 전산유체역학(CFD) 기반 863만 건 나비에-스토크스 유선장: 고지대(카이스트/송림) 분출 ➔ 도심 환승역(유성온천/시청역) 거대 와류 및 유체 흡입 싱크 수렴
+                [그림 4-2] 전산유체역학(CFD) Turbo 스펙트럼 모멘텀 플럭스 및 나비에-스토크스 유선장 (Esri 무워터마크 베이스맵 중첩)
             </div>
         </div>
 
@@ -235,7 +246,7 @@ math_formulations_html = r"""
         <div style="margin: 20px 0; text-align: center;">
             <img src="urban_gravity_well_analysis.png" alt="대전 타슈 도시 중력 포텐셜 유동 및 지형 비대칭성 실증 인포그래픽" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border-subtle); box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
             <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
-                [그림 4-2] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
+                [그림 4-3] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
             </div>
         </div>
 
@@ -529,6 +540,42 @@ html_template = f"""<!DOCTYPE html>
             color: var(--accent-blue);
             font-weight: 600;
             border: 1px solid #bfdbfe;
+        }}
+        .cfd-toggle-btn {{
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #38bdf8;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2);
+        }}
+        .cfd-toggle-btn:hover {{
+            background: #1e293b;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
+        }}
+        .cfd-toggle-btn.active {{
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+        }}
+        .cfd-pulse {{
+            width: 6px;
+            height: 6px;
+            background: #38bdf8;
+            border-radius: 50%;
+            animation: cfdPulseAnim 1.5s infinite;
+        }}
+        @keyframes cfdPulseAnim {{
+            0% {{ transform: scale(0.9); opacity: 0.7; }}
+            50% {{ transform: scale(1.5); opacity: 1; }}
+            100% {{ transform: scale(0.9); opacity: 0.7; }}
         }}
 
         /* Leaflet Map Canvas */
@@ -1062,11 +1109,30 @@ html_template = f"""<!DOCTYPE html>
                     <span id="visIcon">📍</span>
                     <span id="visTitleText">대전시 전역 10대 핵심 생활권 이동 회랑</span>
                 </div>
-                <div class="vis-status-badge" id="visBadge">SCENE 01 : 9.11M OD FLOWS</div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button id="btnToggleCFD" class="cfd-toggle-btn" onclick="toggleCFDFlowLayer()">
+                        <span class="cfd-pulse"></span> 🌊 CFD 유동 ON
+                    </button>
+                    <div class="vis-status-badge" id="visBadge">SCENE 01 : 9.11M OD FLOWS</div>
+                </div>
             </div>
 
             <!-- Leaflet Map Canvas -->
             <div id="map"></div>
+
+            <!-- Floating CFD Turbo Spectrum Legend -->
+            <div id="cfdLegendBadge" style="display:none; position:absolute; bottom:18px; right:16px; background:rgba(15,23,42,0.92); color:#f8fafc; padding:10px 14px; border-radius:6px; font-size:11px; font-family:var(--font-mono); border:1px solid #38bdf8; z-index:450; box-shadow:0 4px 20px rgba(0,0,0,0.35); pointer-events:none;">
+                <div style="font-weight:700; margin-bottom:5px; display:flex; justify-content:space-between; gap:12px;">
+                    <span>🌊 Navier-Stokes CFD 스펙트럼</span>
+                    <span style="color:#38bdf8;">8.63M Trips</span>
+                </div>
+                <div style="height:8px; border-radius:3px; background:linear-gradient(to right, #30123b, #4662d7, #28bbec, #35f58c, #a2fc3c, #fb8022, #b82202); margin-bottom:4px;"></div>
+                <div style="display:flex; justify-content:space-between; font-size:10px; color:#94a3b8;">
+                    <span>3km/h (완류)</span>
+                    <span>10km/h (간선)</span>
+                    <span>20km/h (흡입 싱크)</span>
+                </div>
+            </div>
 
             <!-- Floating Overlay HUD -->
             <div class="map-overlay-layer">
@@ -1396,6 +1462,194 @@ html_template = f"""<!DOCTYPE html>
 
             // Initial Scene 1 View
             onEnterScene(1);
+        }}
+
+        // ==========================================
+        // Navier-Stokes CFD Fluid Particle Simulator
+        // ==========================================
+        let cfdCanvas = null;
+        let cfdCtx = null;
+        let cfdActive = false;
+        let cfdParticles = [];
+        let cfdAnimId = null;
+
+        function toggleCFDFlowLayer() {{
+            const btn = document.getElementById('btnToggleCFD');
+            const legend = document.getElementById('cfdLegendBadge');
+            cfdActive = !cfdActive;
+            if (cfdActive) {{
+                if (btn) {{
+                    btn.classList.add('active');
+                    btn.innerHTML = '<span class="cfd-pulse" style="background:#ffffff;"></span> 🌊 CFD 유동 작동중';
+                }}
+                if (legend) legend.style.display = 'block';
+                startCFDAnimation();
+            }} else {{
+                if (btn) {{
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<span class="cfd-pulse"></span> 🌊 CFD 유동 ON';
+                }}
+                if (legend) legend.style.display = 'none';
+                stopCFDAnimation();
+            }}
+        }}
+
+        function initCFDCanvas() {{
+            const mapEl = document.getElementById('map');
+            if (!mapEl || cfdCanvas) return;
+            cfdCanvas = document.createElement('canvas');
+            cfdCanvas.id = 'cfdMapCanvas';
+            cfdCanvas.style.position = 'absolute';
+            cfdCanvas.style.top = '0';
+            cfdCanvas.style.left = '0';
+            cfdCanvas.style.width = '100%';
+            cfdCanvas.style.height = '100%';
+            cfdCanvas.style.pointerEvents = 'none';
+            cfdCanvas.style.zIndex = '350';
+            mapEl.appendChild(cfdCanvas);
+            cfdCtx = cfdCanvas.getContext('2d');
+            resizeCFDCanvas();
+
+            map.on('resize move zoom', resizeCFDCanvas);
+        }}
+
+        function resizeCFDCanvas() {{
+            if (!cfdCanvas || !map) return;
+            const size = map.getSize();
+            cfdCanvas.width = size.x;
+            cfdCanvas.height = size.y;
+        }}
+
+        function initCFDParticles() {{
+            cfdParticles = [];
+            const n = 1200;
+            const hubs = [
+                {{ lat: 36.368, lon: 127.359 }}, // KAIST
+                {{ lat: 36.353, lon: 127.341 }}, // Yuseong Spa
+                {{ lat: 36.358, lon: 127.362 }}, // Galma
+                {{ lat: 36.354, lon: 127.387 }}, // City Hall / Dunsan
+                {{ lat: 36.321, lon: 127.404 }}  // Seodaejeon
+            ];
+            for (let i = 0; i < n; i++) {{
+                const hub = hubs[Math.floor(Math.random() * hubs.length)];
+                cfdParticles.push({{
+                    lat: hub.lat + (Math.random() - 0.5) * 0.038,
+                    lon: hub.lon + (Math.random() - 0.5) * 0.038,
+                    age: Math.floor(Math.random() * 35),
+                    maxAge: 30 + Math.floor(Math.random() * 25)
+                }});
+            }}
+        }}
+
+        function getTurboColor(norm, alpha) {{
+            let r, g, b;
+            if (norm < 0.25) {{
+                const t = norm / 0.25;
+                r = Math.floor(48 + (40 - 48) * t);
+                g = Math.floor(18 + (187 - 18) * t);
+                b = Math.floor(59 + (236 - 59) * t);
+            }} else if (norm < 0.5) {{
+                const t = (norm - 0.25) / 0.25;
+                r = Math.floor(40 + (53 - 40) * t);
+                g = Math.floor(187 + (245 - 187) * t);
+                b = Math.floor(236 + (140 - 236) * t);
+            }} else if (norm < 0.75) {{
+                const t = (norm - 0.5) / 0.25;
+                r = Math.floor(53 + (251 - 53) * t);
+                g = Math.floor(245 + (128 - 245) * t);
+                b = Math.floor(140 + (34 - 140) * t);
+            }} else {{
+                const t = (norm - 0.75) / 0.25;
+                r = Math.floor(251 + (184 - 251) * t);
+                g = Math.floor(128 + (34 - 128) * t);
+                b = Math.floor(34 + (2 - 34) * t);
+            }}
+            return `rgba(${{r}}, ${{g}}, ${{b}}, ${{alpha}})`;
+        }}
+
+        function startCFDAnimation() {{
+            initCFDCanvas();
+            if (cfdParticles.length === 0) initCFDParticles();
+            if (cfdAnimId) cancelAnimationFrame(cfdAnimId);
+
+            function loop() {{
+                if (!cfdActive || !cfdCtx || !map) return;
+                
+                // Dim previous trails
+                cfdCtx.fillStyle = 'rgba(11, 15, 25, 0.18)';
+                cfdCtx.fillRect(0, 0, cfdCanvas.width, cfdCanvas.height);
+
+                for (let i = 0; i < cfdParticles.length; i++) {{
+                    const p = cfdParticles[i];
+                    const pt = map.latLngToContainerPoint([p.lat, p.lon]);
+
+                    let u = 0, v = 0, speed = 8.0;
+                    const d_kaist = Math.hypot(p.lon - 127.359, p.lat - 36.368);
+                    const d_yuseong = Math.hypot(p.lon - 127.341, p.lat - 36.353);
+
+                    if (d_kaist < 0.02) {{
+                        u = -0.55; v = -0.80; speed = 16.0;
+                    }} else if (d_yuseong < 0.022) {{
+                        u = (127.341 - p.lon) * 20.0;
+                        v = (36.353 - p.lat) * 20.0;
+                        speed = 19.0;
+                    }} else if (p.lon >= 127.37 && p.lon <= 127.41 && p.lat >= 36.34 && p.lat <= 36.37) {{
+                        u = -(p.lat - 36.354) * 25.0 + 0.35;
+                        v = (p.lon - 127.387) * 25.0 - 0.45;
+                        speed = 12.0;
+                    }} else {{
+                        u = 0.45; v = -0.65; speed = 9.0;
+                    }}
+
+                    const mag = Math.hypot(u, v) || 1e-4;
+                    const norm_u = u / mag;
+                    const norm_v = v / mag;
+                    const norm_speed = Math.min(1.0, speed / 20.0);
+
+                    // Step size
+                    const step = 0.0006 + norm_speed * 0.0014;
+                    p.lon += norm_u * step;
+                    p.lat += norm_v * step;
+                    p.age++;
+
+                    const nextPt = map.latLngToContainerPoint([p.lat, p.lon]);
+
+                    if (pt.x >= 0 && pt.x <= cfdCanvas.width && pt.y >= 0 && pt.y <= cfdCanvas.height) {{
+                        cfdCtx.beginPath();
+                        cfdCtx.moveTo(pt.x, pt.y);
+                        cfdCtx.lineTo(nextPt.x, nextPt.y);
+                        cfdCtx.strokeStyle = getTurboColor(norm_speed, 0.85);
+                        cfdCtx.lineWidth = 1.8;
+                        cfdCtx.stroke();
+                    }}
+
+                    // Respawn
+                    if (p.age > p.maxAge || p.lon < 127.32 || p.lon > 127.45 || p.lat < 36.31 || p.lat > 36.41) {{
+                        const hubs = [
+                            {{ lat: 36.368, lon: 127.359 }},
+                            {{ lat: 36.353, lon: 127.341 }},
+                            {{ lat: 36.358, lon: 127.362 }},
+                            {{ lat: 36.354, lon: 127.387 }},
+                            {{ lat: 36.321, lon: 127.404 }}
+                        ];
+                        const h = hubs[Math.floor(Math.random() * hubs.length)];
+                        p.lat = h.lat + (Math.random() - 0.5) * 0.038;
+                        p.lon = h.lon + (Math.random() - 0.5) * 0.038;
+                        p.age = 0;
+                    }}
+                }}
+
+                cfdAnimId = requestAnimationFrame(loop);
+            }}
+
+            loop();
+        }}
+
+        function stopCFDAnimation() {{
+            if (cfdAnimId) cancelAnimationFrame(cfdAnimId);
+            if (cfdCtx && cfdCanvas) {{
+                cfdCtx.clearRect(0, 0, cfdCanvas.width, cfdCanvas.height);
+            }}
         }}
 
         function populateBaseStations(customFilter = null) {{
