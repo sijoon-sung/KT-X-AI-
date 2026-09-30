@@ -1,0 +1,50 @@
+{
+  "total_elev_trips": 8636617,
+  "asymmetry_ratio_10m": 1.02,
+  "asymmetry_ratio_25m": 1.07,
+  "downhill_speed_kmh": Infinity,
+  "uphill_speed_kmh": Infinity,
+  "elevation_correlation": 0.22,
+  "top_gravity_corridors": [
+    {
+      "origin": "어은동 카이스트 학사식당",
+      "dest": "구성동 카이스트 서쪽 쪽문",
+      "dh": -18.0,
+      "down_trips": 5725,
+      "up_trips": 4858,
+      "ratio": 1.2
+    },
+    {
+      "origin": "어은동 카이스트 학사식당",
+      "dest": "구성동 카이스트 다솜관",
+      "dh": -17.0,
+      "down_trips": 3033,
+      "up_trips": 2395,
+      "ratio": 1.3
+    },
+    {
+      "origin": "구성동 카이스트 정보전자동 (1410)",
+      "dest": "만년동 갑천네거리",
+      "dh": -17.0,
+      "down_trips": 1512,
+      "up_trips": 1244,
+      "ratio": 1.2
+    },
+    {
+      "origin": "장동 대덕대학교",
+      "dest": "신성동 수천이들근린공원",
+      "dh": -25.0,
+      "down_trips": 1400,
+      "up_trips": 701,
+      "ratio": 2.0
+    },
+    {
+      "origin": "탄방동 공영주차장",
+      "dest": "용문역 5번출구",
+      "dh": -23.0,
+      "down_trips": 1124,
+      "up_trips": 808,
+      "ratio": 1.4
+    }
+  ]
+}
