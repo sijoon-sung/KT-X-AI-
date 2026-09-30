@@ -222,6 +222,15 @@ math_formulations_html = r"""
         <div class="math-formula-box">
             $$\left( \frac{dS}{dt} \right)_{\text{natural}} > 0 \quad (\text{자연 방치 시 비가역적 엔트로피 극대화}), \qquad \Delta S_{\text{truck}} < 0 \quad (\text{외부 음의 엔트로피 주입})$$
         </div>
+
+        <!-- Urban Gravity Well Infographic -->
+        <div style="margin: 20px 0; text-align: center;">
+            <img src="urban_gravity_well_analysis.png" alt="대전 타슈 도시 중력 포텐셜 유동 및 지형 비대칭성 실증 인포그래픽" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border-subtle); box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
+                [그림 4-1] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
+            </div>
+        </div>
+
         <ul class="math-bullet-list">
             <li><strong>중력 비대칭성 실측 검증:</strong> 대전 전역 1,424개 대여소 표고(28m ~ 150m) 전수 분석 결과, 고도 $h$와 자전거 순유출량(Net Drain) 간 상관계수 <strong>$r = +0.220$</strong> 성립 (고도가 높을수록 자전거가 자연 방출되어 바닥남).</li>
             <li><strong>비가역적 중력 하강 회랑:</strong> 장동 대덕대 ➔ 신성동 ($\Delta h = -25\text{m}$) 하강 1,400건 vs 역상승 701건으로 <strong>2.0배 일방통행 쏠림</strong> 확인. 카이스트 학사식당 ➔ 서쪽 쪽문 ($\Delta h = -18\text{m}$) 역시 하강 5,725건으로 극단적 편향 발생.</li>
