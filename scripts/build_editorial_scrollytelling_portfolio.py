@@ -223,11 +223,19 @@ math_formulations_html = r"""
             $$\left( \frac{dS}{dt} \right)_{\text{natural}} > 0 \quad (\text{자연 방치 시 비가역적 엔트로피 극대화}), \qquad \Delta S_{\text{truck}} < 0 \quad (\text{외부 음의 엔트로피 주입})$$
         </div>
 
+        <!-- Navier-Stokes CFD Streamlines Visualization -->
+        <div style="margin: 24px 0 16px 0; text-align: center;">
+            <img src="tashu_navier_stokes_streamlines.png" alt="대전 타슈 863만 건 나비에-스토크스 유체 유선장 및 발산도 등고선 지도" style="max-width: 100%; border-radius: 8px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
+                [그림 4-1] 전산유체역학(CFD) 기반 863만 건 나비에-스토크스 유선장: 고지대(카이스트/송림) 분출 ➔ 도심 환승역(유성온천/시청역) 거대 와류 및 유체 흡입 싱크 수렴
+            </div>
+        </div>
+
         <!-- Urban Gravity Well Infographic -->
         <div style="margin: 20px 0; text-align: center;">
             <img src="urban_gravity_well_analysis.png" alt="대전 타슈 도시 중력 포텐셜 유동 및 지형 비대칭성 실증 인포그래픽" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border-subtle); box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
             <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
-                [그림 4-1] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
+                [그림 4-2] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
             </div>
         </div>
 
