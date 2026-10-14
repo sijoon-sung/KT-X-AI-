@@ -1,0 +1,340 @@
+{
+  "transit_typology_coupling": {
+    "tashu_total_stations": 1425,
+    "seoul_total_stations": 2586,
+    "typology_contrast": [
+      {
+        "category": "GENERAL_STREET",
+        "tashu_count": 452,
+        "tashu_share_pct": 31.7,
+        "seoul_count": 705,
+        "seoul_share_pct": 27.3,
+        "seoul_total_racks": 8823,
+        "seoul_avg_rack_per_st": 12.5
+      },
+      {
+        "category": "SUBWAY_HUB",
+        "tashu_count": 93,
+        "tashu_share_pct": 6.5,
+        "seoul_count": 572,
+        "seoul_share_pct": 22.1,
+        "seoul_total_racks": 7000,
+        "seoul_avg_rack_per_st": 12.2
+      },
+      {
+        "category": "RESIDENTIAL_ORIGIN",
+        "tashu_count": 364,
+        "tashu_share_pct": 25.5,
+        "seoul_count": 449,
+        "seoul_share_pct": 17.4,
+        "seoul_total_racks": 5403,
+        "seoul_avg_rack_per_st": 12.0
+      },
+      {
+        "category": "PARK_LEISURE",
+        "tashu_count": 136,
+        "tashu_share_pct": 9.5,
+        "seoul_count": 379,
+        "seoul_share_pct": 14.7,
+        "seoul_total_racks": 4587,
+        "seoul_avg_rack_per_st": 12.1
+      },
+      {
+        "category": "CIVIC_COMMERCIAL",
+        "tashu_count": 116,
+        "tashu_share_pct": 8.1,
+        "seoul_count": 279,
+        "seoul_share_pct": 10.8,
+        "seoul_total_racks": 3271,
+        "seoul_avg_rack_per_st": 11.7
+      },
+      {
+        "category": "CAMPUS_RESEARCH",
+        "tashu_count": 105,
+        "tashu_share_pct": 7.4,
+        "seoul_count": 147,
+        "seoul_share_pct": 5.7,
+        "seoul_total_racks": 1879,
+        "seoul_avg_rack_per_st": 12.8
+      },
+      {
+        "category": "BUS_TRANSIT",
+        "tashu_count": 159,
+        "tashu_share_pct": 11.2,
+        "seoul_count": 55,
+        "seoul_share_pct": 2.1,
+        "seoul_total_racks": 634,
+        "seoul_avg_rack_per_st": 11.5
+      }
+    ]
+  },
+  "tashu_truck_relocation_analysis": {
+    "total_relocations_recorded": 81818,
+    "median_latency_hours": 43.4,
+    "mean_latency_hours": 193.4,
+    "percentile_25_hours": 10.1,
+    "percentile_75_hours": 166.5,
+    "percentile_90_hours": 553.2,
+    "quick_relocations_le_2h_pct": 11.1,
+    "delayed_relocations_gt_24h_pct": 61.1,
+    "extreme_delay_gt_72h_pct": 39.5,
+    "top_pickup_stations": [
+      {
+        "station_id": "ST1220",
+        "name": "타슈관제센터",
+        "pickup_count": 20492
+      },
+      {
+        "station_id": "ST1033",
+        "name": "정부청사 입구(남문)",
+        "pickup_count": 1522
+      },
+      {
+        "station_id": "ST0826",
+        "name": "오정농수산물시장(동대전농협)",
+        "pickup_count": 623
+      },
+      {
+        "station_id": "ST1355",
+        "name": "안영생활체육단지",
+        "pickup_count": 570
+      },
+      {
+        "station_id": "ST1192",
+        "name": "가장동 래미안 210동 건너편(맥도날드)",
+        "pickup_count": 558
+      },
+      {
+        "station_id": "ST0685",
+        "name": "대흥동 이안과병원 정류장",
+        "pickup_count": 543
+      }
+    ],
+    "top_dropoff_stations": [
+      {
+        "station_id": "ST1220",
+        "name": "타슈관제센터",
+        "dropoff_count": 4712
+      },
+      {
+        "station_id": "ST0051",
+        "name": "목동 한사랑아파트 109동(247)",
+        "dropoff_count": 1486
+      },
+      {
+        "station_id": "ST0400",
+        "name": "대덕대학교(259)",
+        "dropoff_count": 1032
+      },
+      {
+        "station_id": "ST0284",
+        "name": "원앙네거리(관저 지하차도 방면)",
+        "dropoff_count": 864
+      },
+      {
+        "station_id": "ST0413",
+        "name": "대전컨벤션센터(2)",
+        "dropoff_count": 819
+      },
+      {
+        "station_id": "ST1027",
+        "name": "한밭수목원(동원)",
+        "dropoff_count": 794
+      }
+    ]
+  },
+  "temporal_dynamics_by_urban_role": {
+    "SUBWAY_HUB": {
+      "station_count": 93,
+      "morning_rush_net_flow": 0.063,
+      "evening_rush_net_flow": -0.052,
+      "peak_morning_rental_per_st": 1.17,
+      "peak_evening_rental_per_st": 1.53,
+      "midday_12h_rental_per_st": 0.84,
+      "hourly_rentals_per_st": [
+        0.266,
+        0.158,
+        0.112,
+        0.07,
+        0.059,
+        0.11,
+        0.298,
+        0.755,
+        1.166,
+        0.734,
+        0.628,
+        0.788,
+        0.842,
+        0.835,
+        0.91,
+        1.013,
+        1.204,
+        1.491,
+        1.528,
+        1.051,
+        0.921,
+        0.855,
+        0.629,
+        0.542
+      ]
+    },
+    "BUS_TRANSIT": {
+      "station_count": 159,
+      "morning_rush_net_flow": -0.06,
+      "evening_rush_net_flow": 0.031,
+      "peak_morning_rental_per_st": 0.42,
+      "peak_evening_rental_per_st": 0.65,
+      "midday_12h_rental_per_st": 0.32,
+      "hourly_rentals_per_st": [
+        0.238,
+        0.136,
+        0.082,
+        0.059,
+        0.056,
+        0.094,
+        0.166,
+        0.337,
+        0.416,
+        0.264,
+        0.233,
+        0.265,
+        0.318,
+        0.313,
+        0.329,
+        0.396,
+        0.497,
+        0.59,
+        0.655,
+        0.5,
+        0.471,
+        0.469,
+        0.39,
+        0.321
+      ]
+    },
+    "RESIDENTIAL_ORIGIN": {
+      "station_count": 364,
+      "morning_rush_net_flow": -0.219,
+      "evening_rush_net_flow": 0.038,
+      "peak_morning_rental_per_st": 0.58,
+      "peak_evening_rental_per_st": 0.9,
+      "midday_12h_rental_per_st": 0.39,
+      "hourly_rentals_per_st": [
+        0.287,
+        0.163,
+        0.096,
+        0.061,
+        0.072,
+        0.155,
+        0.28,
+        0.558,
+        0.577,
+        0.306,
+        0.271,
+        0.309,
+        0.387,
+        0.388,
+        0.399,
+        0.478,
+        0.608,
+        0.754,
+        0.895,
+        0.702,
+        0.639,
+        0.61,
+        0.53,
+        0.417
+      ]
+    },
+    "CAMPUS_RESEARCH": {
+      "station_count": 105,
+      "morning_rush_net_flow": 0.284,
+      "evening_rush_net_flow": -0.114,
+      "peak_morning_rental_per_st": 0.52,
+      "peak_evening_rental_per_st": 0.82,
+      "midday_12h_rental_per_st": 0.72,
+      "hourly_rentals_per_st": [
+        0.235,
+        0.143,
+        0.086,
+        0.057,
+        0.043,
+        0.062,
+        0.112,
+        0.251,
+        0.516,
+        0.435,
+        0.511,
+        0.75,
+        0.72,
+        0.583,
+        0.681,
+        0.694,
+        0.713,
+        0.938,
+        0.815,
+        0.546,
+        0.491,
+        0.458,
+        0.378,
+        0.295
+      ]
+    },
+    "PARK_LEISURE": {
+      "station_count": 136,
+      "morning_rush_net_flow": -0.064,
+      "evening_rush_net_flow": 0.005,
+      "peak_morning_rental_per_st": 0.52,
+      "peak_evening_rental_per_st": 0.71,
+      "midday_12h_rental_per_st": 0.33,
+      "hourly_rentals_per_st": [
+        0.213,
+        0.126,
+        0.072,
+        0.048,
+        0.059,
+        0.108,
+        0.189,
+        0.406,
+        0.515,
+        0.299,
+        0.269,
+        0.292,
+        0.33,
+        0.335,
+        0.341,
+        0.428,
+        0.543,
+        0.689,
+        0.711,
+        0.54,
+        0.504,
+        0.451,
+        0.358,
+        0.3
+      ]
+    }
+  },
+  "rebalancing_failure_diagnostics": {
+    "seoul_ttareungi_rebalance_pathology": {
+      "core_bottleneck": "양방향 물리적 거치대 포화(Physical Dock Saturation) + 출근길 교통 체증 지연(Traffic Congestion Lag)",
+      "mechanism": "서울 대여소의 22.1%가 지하철 역세권에 위치하며 평균 거치대 수는 대여소당 12.8대에 불과함. 출근 시간(08:00~08:45)에 여의도, 강남, 가산디지털단지 등 주요 업무 거점으로 시간당 수백 대가 쏟아져 유입되나, 15개 거치대가 5분 만에 만차(Full)가 되어 반납 불가/지연 대란 발생. 반대로 강서·노원·은평 등 외곽 주거지(Bed-town) 대여소는 30분 만에 완전 품절(Stockout). 이 시간대 서울 간선도로의 극심한 정체로 인해 1톤 재배치 트럭의 주행 속도가 15km/h 이하로 저하되어, 실시간 순환 재배치가 물리적으로 불가능하고 출근 시간이 지난 뒤에야 트럭이 도착하는 '피크 타임 무력화 현상' 발생.",
+      "severity_index": "초고위험 (출퇴근 시간대 공급-수거 양방향 절단 동시 발생)"
+    },
+    "daejeon_tashu_rebalance_pathology": {
+      "core_bottleneck": "외곽 저수요 롱테일 고갈(Peripheral Long-tail Starvation) + 24시간 초과 정비/이동 지연(Depot Latency)",
+      "mechanism": "대전 타슈는 시즌2 도입으로 가상 거치대(Geofence) 시스템을 채택하여 거치대 만차로 인한 반납 실패 문제는 사실상 0%. 하지만 81,818건의 실측 트럭 재배치 데이터를 분석한 결과, 재배치 반응 시간의 중앙값이 43.4시간(1.8일)에 달하며 24시간 초과 지연 이동이 61.1%를 차지함. 트럭 재배치의 25%가 중앙정비센터(ST1220)로의 입고/출고에 집중되어 있어, 도심(둔산·유성)으로 한번 빨려 들어간 자전거가 외곽 주거지(동구·대덕구 롱테일 거점)로 자연 순환되지 못하고 외곽 대여소의 품절율(Stockout Rate 71.2%)이 만성적으로 방치되는 불균형 발생.",
+      "severity_index": "중고위험 (외곽 접근성 소외 및 자전거 편중 쏠림)"
+    },
+    "methodological_insight_matrix": {
+      "data_scale_vs_fidelity": {
+        "seoul": "대규모(Millions), 고밀도(역세권 중심)이나 자전거 개체 식별 궤적 추적 및 정밀 재고 상태 파악에 제약",
+        "tashu": "중규모(1,425개소)이나 개별 자전거 번호(ID) 연속 이력 기반으로 완전한 재고 복원, 트럭 이동 분리, 음이항 절단 수요 복원 가능"
+      },
+      "operational_recommendation": {
+        "seoul": "피크 시간대 트럭 의존 지양 -> 시민 참여형 마일리지 인센티브(만차역 -> 인근 역 유도 반납) 시스템 필수",
+        "tashu": "도심 집중 보충을 줄이고 롱테일 외곽 대여소 전담 순회 미니 셔틀 및 출근 전(06:30 이전) 사전 배치(Pre-fill) 강화"
+      }
+    }
+  }
+}

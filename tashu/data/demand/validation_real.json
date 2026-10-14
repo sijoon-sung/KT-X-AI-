@@ -1,0 +1,62 @@
+{
+  "hold_out": 159244,
+  "steps": 3000,
+  "results": [
+    {
+      "method": "naive/e_lb",
+      "calibration": 0.6729240448161767,
+      "mae": 1.105662748144919,
+      "calibration_low": 0.4864365527125896,
+      "calibration_mid": 0.534555325368249,
+      "calibration_high": 0.6995165161333263
+    },
+    {
+      "method": "drop/e_lb",
+      "calibration": 0.7424735994408995,
+      "mae": 1.0585910064652724,
+      "calibration_low": 0.5292904425126779,
+      "calibration_mid": 0.5855857840426368,
+      "calibration_high": 0.772667187050688
+    },
+    {
+      "method": "tobit/e_lb",
+      "calibration": 1.003895641605152,
+      "mae": 1.0348286198170755,
+      "calibration_low": 0.9165941952662399,
+      "calibration_mid": 0.948889113990519,
+      "calibration_high": 1.014785659213104
+    },
+    {
+      "method": "exposure/e_lb",
+      "calibration": 0.902476373358833,
+      "mae": 1.0090627003315187,
+      "calibration_low": 0.8583186006390412,
+      "calibration_mid": 0.8621519429074801,
+      "calibration_high": 0.9099796007198641
+    },
+    {
+      "method": "exposure/e_lbx",
+      "calibration": 0.8835081659827992,
+      "mae": 1.009207721018859,
+      "calibration_low": 0.8237955032060064,
+      "calibration_mid": 0.8301497549849494,
+      "calibration_high": 0.893467661008392
+    },
+    {
+      "method": "exposure/e_mid",
+      "calibration": 0.7944025180109083,
+      "mae": 1.038833295197973,
+      "calibration_low": 0.7168920277360789,
+      "calibration_mid": 0.7231691259022494,
+      "calibration_high": 0.8076450569826532
+    },
+    {
+      "method": "exposure/e_ub",
+      "calibration": 0.738228861056447,
+      "mae": 1.0738688268613674,
+      "calibration_low": 0.6618470825081518,
+      "calibration_mid": 0.6654450468175223,
+      "calibration_high": 0.7516915004869759
+    }
+  ]
+}

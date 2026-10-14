@@ -1,0 +1,35 @@
+{
+ "train_cells": 1462202,
+ "test_cells": 278154,
+ "hist_feb_mar": {
+  "markov_p0": 0.8718829045512708,
+  "stock_only": 0.8392086518712281,
+  "oracle_known_counts": 0.9701806977674082,
+  "nn_inventory_calendar_weather": 0.8833354371511382,
+  "nn_hybrid(+lam,mu,p0)": 0.886917720207744
+ },
+ "api_sept": {
+  "stock_only": 0.7520031046784855,
+  "markov_p0": 0.8072083836804482,
+  "nn_inventory_calendar_weather": 0.8155002918578027,
+  "nn_hybrid(+lam,mu,p0)": 0.8013041028177833
+ },
+ "api_paired nn_hybrid(+lam,mu,p0) - markov_p0": {
+  "mean": -0.006560278408811845,
+  "improved": 70,
+  "windows": 227,
+  "ci95": [
+   -0.008039862174725269,
+   -0.005100274596442462
+  ]
+ },
+ "api_paired nn_hybrid(+lam,mu,p0) - nn_inventory_calendar_weather": {
+  "mean": -0.013958680651719345,
+  "improved": 9,
+  "windows": 227,
+  "ci95": [
+   -0.014975065224027702,
+   -0.012932449531472554
+  ]
+ }
+}

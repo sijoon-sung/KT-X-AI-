@@ -1,0 +1,166 @@
+{
+  "feb_2026": {
+    "XGBoost (Poisson)": {
+      "mae": 0.4807,
+      "rmse": 0.8172,
+      "wape": 1.0577,
+      "poisson_log_likelihood": -0.6954,
+      "zero_regime": {
+        "actual_zero_percentage": 73.67,
+        "mean_prediction_on_actual_zero": 0.3446,
+        "percentage_pred_under_0_1": 43.06
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 2.0,
+        "peak_mae": 1.8548,
+        "peak_underestimate_rate": 85.94
+      }
+    },
+    "LightGBM (Poisson)": {
+      "mae": 0.4674,
+      "rmse": 0.8161,
+      "wape": 1.0285,
+      "poisson_log_likelihood": -0.6895,
+      "zero_regime": {
+        "actual_zero_percentage": 73.67,
+        "mean_prediction_on_actual_zero": 0.3195,
+        "percentage_pred_under_0_1": 45.29
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 2.0,
+        "peak_mae": 1.9498,
+        "peak_underestimate_rate": 86.42
+      }
+    },
+    "Historical Smoothed Mean": {
+      "mae": 0.5281,
+      "rmse": 0.8823,
+      "wape": 1.1622,
+      "poisson_log_likelihood": -0.7658,
+      "zero_regime": {
+        "actual_zero_percentage": 73.67,
+        "mean_prediction_on_actual_zero": 0.3731,
+        "percentage_pred_under_0_1": 31.47
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 2.0,
+        "peak_mae": 2.095,
+        "peak_underestimate_rate": 86.96
+      }
+    },
+    "Flat GCN (Monolithic)": {
+      "mae": 0.5769,
+      "rmse": 0.8901,
+      "wape": 1.2695,
+      "poisson_log_likelihood": -0.7976,
+      "zero_regime": {
+        "actual_zero_percentage": 73.67,
+        "mean_prediction_on_actual_zero": 0.4428,
+        "percentage_pred_under_0_1": 6.56
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 2.0,
+        "peak_mae": 2.2475,
+        "peak_underestimate_rate": 91.33
+      }
+    },
+    "Hierarchical GCN (Macro+Micro)": {
+      "mae": 0.6543,
+      "rmse": 1.2881,
+      "wape": 1.4397,
+      "poisson_log_likelihood": -0.9255,
+      "zero_regime": {
+        "actual_zero_percentage": 73.67,
+        "mean_prediction_on_actual_zero": 0.4607,
+        "percentage_pred_under_0_1": 14.89
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 2.0,
+        "peak_mae": 3.129,
+        "peak_underestimate_rate": 95.22
+      }
+    }
+  },
+  "mar_2026": {
+    "XGBoost (Poisson)": {
+      "mae": 0.4916,
+      "rmse": 0.9637,
+      "wape": 0.8696,
+      "poisson_log_likelihood": -0.7441,
+      "zero_regime": {
+        "actual_zero_percentage": 71.83,
+        "mean_prediction_on_actual_zero": 0.2732,
+        "percentage_pred_under_0_1": 49.77
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 3.0,
+        "peak_mae": 2.3436,
+        "peak_underestimate_rate": 93.08
+      }
+    },
+    "LightGBM (Poisson)": {
+      "mae": 0.4854,
+      "rmse": 0.9682,
+      "wape": 0.8586,
+      "poisson_log_likelihood": -0.7501,
+      "zero_regime": {
+        "actual_zero_percentage": 71.83,
+        "mean_prediction_on_actual_zero": 0.2536,
+        "percentage_pred_under_0_1": 51.67
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 3.0,
+        "peak_mae": 2.4202,
+        "peak_underestimate_rate": 93.13
+      }
+    },
+    "Historical Smoothed Mean": {
+      "mae": 0.5264,
+      "rmse": 1.0234,
+      "wape": 0.9312,
+      "poisson_log_likelihood": -0.8191,
+      "zero_regime": {
+        "actual_zero_percentage": 71.83,
+        "mean_prediction_on_actual_zero": 0.2778,
+        "percentage_pred_under_0_1": 41.78
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 3.0,
+        "peak_mae": 2.5899,
+        "peak_underestimate_rate": 94.25
+      }
+    },
+    "Flat GCN (Monolithic)": {
+      "mae": 0.5897,
+      "rmse": 1.0903,
+      "wape": 1.0431,
+      "poisson_log_likelihood": -0.8497,
+      "zero_regime": {
+        "actual_zero_percentage": 71.83,
+        "mean_prediction_on_actual_zero": 0.3643,
+        "percentage_pred_under_0_1": 12.6
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 3.0,
+        "peak_mae": 2.7289,
+        "peak_underestimate_rate": 95.3
+      }
+    },
+    "Hierarchical GCN (Macro+Micro)": {
+      "mae": 0.6625,
+      "rmse": 1.3825,
+      "wape": 1.1719,
+      "poisson_log_likelihood": -1.0248,
+      "zero_regime": {
+        "actual_zero_percentage": 71.83,
+        "mean_prediction_on_actual_zero": 0.3551,
+        "percentage_pred_under_0_1": 27.09
+      },
+      "peak_regime": {
+        "peak_threshold_trips": 3.0,
+        "peak_mae": 3.5194,
+        "peak_underestimate_rate": 96.75
+      }
+    }
+  }
+}

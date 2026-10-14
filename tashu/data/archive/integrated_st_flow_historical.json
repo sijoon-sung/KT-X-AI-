@@ -1,0 +1,228 @@
+{
+  "train_before": "2026-02-01",
+  "train_od": "data/processed/od_train_before_2026-02-01.npy",
+  "february_2026": {
+    "hours": 300,
+    "metrics": {
+      "flow": {
+        "error": 346804.70751953125,
+        "actual": 354647.0,
+        "predicted": 187284.34912109375,
+        "cells": 594077,
+        "mae": 0.5837706349842382,
+        "pred_actual_ratio": 0.5280866583422212
+      },
+      "baseline": {
+        "error": 327117.82080078125,
+        "actual": 354647.0,
+        "predicted": 260924.34716796875,
+        "cells": 594077,
+        "mae": 0.5506320237962103,
+        "pred_actual_ratio": 0.7357297458260432
+      },
+      "zero": {
+        "error": 354647.0,
+        "actual": 354647.0,
+        "predicted": 0.0,
+        "cells": 594077,
+        "mae": 0.5969714363626264,
+        "pred_actual_ratio": 0.0
+      },
+      "direct": {
+        "error": 320805.3603515625,
+        "actual": 354647.0,
+        "predicted": 236809.92919921875,
+        "cells": 594077,
+        "mae": 0.5400063634033341,
+        "pred_actual_ratio": 0.6677341954090088
+      }
+    },
+    "by_channel": {
+      "flow": {
+        "rentals": {
+          "absolute_error": 117777.84497070312,
+          "actual": 131823.0,
+          "predicted": 76517.12829589844,
+          "cells": 180929,
+          "mae": 0.6509616754124719,
+          "pred_actual_ratio": 0.5804535498046505
+        },
+        "returns": {
+          "absolute_error": 229026.86279296875,
+          "actual": 222824.0,
+          "predicted": 110767.21801757812,
+          "cells": 413148,
+          "mae": 0.5543458102011114,
+          "pred_actual_ratio": 0.4971063171721993
+        }
+      },
+      "baseline": {
+        "rentals": {
+          "absolute_error": 116384.95971679688,
+          "actual": 131823.0,
+          "predicted": 124177.96557617188,
+          "cells": 180929,
+          "mae": 0.6432631569112573,
+          "pred_actual_ratio": 0.9420053069356021
+        },
+        "returns": {
+          "absolute_error": 210732.857421875,
+          "actual": 222824.0,
+          "predicted": 136746.38354492188,
+          "cells": 413148,
+          "mae": 0.5100662654106398,
+          "pred_actual_ratio": 0.6136968349231765
+        }
+      },
+      "zero": {
+        "rentals": {
+          "absolute_error": 131823.0,
+          "actual": 131823.0,
+          "predicted": 0.0,
+          "cells": 180929,
+          "mae": 0.7285896677702303,
+          "pred_actual_ratio": 0.0
+        },
+        "returns": {
+          "absolute_error": 222824.0,
+          "actual": 222824.0,
+          "predicted": 0.0,
+          "cells": 413148,
+          "mae": 0.5393321521585485,
+          "pred_actual_ratio": 0.0
+        }
+      },
+      "direct": {
+        "rentals": {
+          "absolute_error": 110745.98559570312,
+          "actual": 131823.0,
+          "predicted": 106560.2314453125,
+          "cells": 180929,
+          "mae": 0.6120963781135315,
+          "pred_actual_ratio": 0.8083584157947589
+        },
+        "returns": {
+          "absolute_error": 210059.373046875,
+          "actual": 222824.0,
+          "predicted": 130249.69458007812,
+          "cells": 413148,
+          "mae": 0.5084361368005533,
+          "pred_actual_ratio": 0.584540689423393
+        }
+      }
+    },
+    "ode_1_vs_8_mean_abs_difference": 0.06996581595587104
+  },
+  "march_2026": {
+    "hours": 300,
+    "metrics": {
+      "flow": {
+        "error": 347715.03466796875,
+        "actual": 356969.0,
+        "predicted": 279136.3173828125,
+        "cells": 611539,
+        "mae": 0.5685901220821056,
+        "pred_actual_ratio": 0.7819623479428536
+      },
+      "baseline": {
+        "error": 324796.4033203125,
+        "actual": 356969.0,
+        "predicted": 290884.5439453125,
+        "cells": 611539,
+        "mae": 0.5311131478455381,
+        "pred_actual_ratio": 0.8148734034196596
+      },
+      "zero": {
+        "error": 356969.0,
+        "actual": 356969.0,
+        "predicted": 0.0,
+        "cells": 611539,
+        "mae": 0.5837223791123706,
+        "pred_actual_ratio": 0.0
+      },
+      "direct": {
+        "error": 319077.50341796875,
+        "actual": 356969.0,
+        "predicted": 274965.56591796875,
+        "cells": 611539,
+        "mae": 0.521761495862028,
+        "pred_actual_ratio": 0.7702785561714568
+      }
+    },
+    "by_channel": {
+      "flow": {
+        "rentals": {
+          "absolute_error": 122792.93078613281,
+          "actual": 138967.0,
+          "predicted": 115839.12915039062,
+          "cells": 203118,
+          "mae": 0.6045398772444235,
+          "pred_actual_ratio": 0.8335729284678421
+        },
+        "returns": {
+          "absolute_error": 224922.1044921875,
+          "actual": 218002.0,
+          "predicted": 163297.18994140625,
+          "cells": 408421,
+          "mae": 0.5507114092864654,
+          "pred_actual_ratio": 0.7490628064944646
+        }
+      },
+      "baseline": {
+        "rentals": {
+          "absolute_error": 121933.89111328125,
+          "actual": 138967.0,
+          "predicted": 138403.21533203125,
+          "cells": 203118,
+          "mae": 0.6003106131080517,
+          "pred_actual_ratio": 0.9959430320294117
+        },
+        "returns": {
+          "absolute_error": 202862.51489257812,
+          "actual": 218002.0,
+          "predicted": 152481.32983398438,
+          "cells": 408421,
+          "mae": 0.4966995205745496,
+          "pred_actual_ratio": 0.6994492244749332
+        }
+      },
+      "zero": {
+        "rentals": {
+          "absolute_error": 138967.0,
+          "actual": 138967.0,
+          "predicted": 0.0,
+          "cells": 203118,
+          "mae": 0.6841688082789315,
+          "pred_actual_ratio": 0.0
+        },
+        "returns": {
+          "absolute_error": 218002.0,
+          "actual": 218002.0,
+          "predicted": 0.0,
+          "cells": 408421,
+          "mae": 0.5337678522896717,
+          "pred_actual_ratio": 0.0
+        }
+      },
+      "direct": {
+        "rentals": {
+          "absolute_error": 117088.94677734375,
+          "actual": 138967.0,
+          "predicted": 126404.30310058594,
+          "cells": 203118,
+          "mae": 0.5764577574481028,
+          "pred_actual_ratio": 0.9095994236083814
+        },
+        "returns": {
+          "absolute_error": 201988.55541992188,
+          "actual": 218002.0,
+          "predicted": 148561.26586914062,
+          "cells": 408421,
+          "mae": 0.4945596710745086,
+          "pred_actual_ratio": 0.681467444652529
+        }
+      }
+    },
+    "ode_1_vs_8_mean_abs_difference": 0.07391132120239108
+  }
+}

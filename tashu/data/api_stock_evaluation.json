@@ -1,0 +1,38 @@
+{
+  "source": "C:\\Users\\DISLAB\\Downloads\\tashu_stock_10min.csv.gz",
+  "source_start": "2026-09-17T14:14:16",
+  "source_end": "2026-09-20T10:30:01",
+  "snapshots": 400,
+  "api_stations": 1374,
+  "matched_stations": 1363,
+  "evaluated_hour_windows": 38,
+  "first_window": "2026-09-17T20:00:01",
+  "last_window": "2026-09-20T09:00:01",
+  "metrics": {
+    "flow_10_step": {
+      "stockout_auc": 0.6998255075829509,
+      "stockout_events": 8085,
+      "starting_in_stock_cells": 26913,
+      "stockout_event_rate": 0.3004124400847174,
+      "net_stock_change_mae": 2.7131545543670654,
+      "mean_predicted_net_change": -2.504633903503418
+    },
+    "flow_1_step": {
+      "stockout_auc": 0.7340876605968111,
+      "stockout_events": 8085,
+      "starting_in_stock_cells": 26913,
+      "stockout_event_rate": 0.3004124400847174,
+      "net_stock_change_mae": 0.9256052374839783,
+      "mean_predicted_net_change": -0.357362300157547
+    },
+    "stock_only": {
+      "stockout_auc": 0.7503205859665844,
+      "stockout_events": 8085,
+      "starting_in_stock_cells": 26913,
+      "stockout_event_rate": 0.3004124400847174,
+      "net_stock_change_mae": 0.8436112403869629,
+      "mean_predicted_net_change": 0.0
+    }
+  },
+  "limitations": "Stock snapshots do not reveal gross rentals/returns; net change may include rebalancing."
+}

@@ -1,0 +1,124 @@
+{
+  "model_capacity": "UltraMax 10.6M STGNN + 2,000-Tree XGBoost on CUDA",
+  "winter_feb_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5281,
+      "rmse": 0.8823,
+      "wape": 1.1622,
+      "poisson_log_likelihood": -0.7658,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.3731,
+        "percentage_pred_under_0_1": 31.47
+      },
+      "peak_regime": {
+        "peak_mae": 2.095
+      }
+    },
+    "UltraMax-XGBoost (2,000 Trees, CUDA)": {
+      "mae": 0.4411,
+      "rmse": 0.7715,
+      "wape": 0.9706,
+      "poisson_log_likelihood": -0.691,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2948,
+        "percentage_pred_under_0_1": 50.85
+      },
+      "peak_regime": {
+        "peak_mae": 1.6659
+      }
+    },
+    "UltraMax-STGNN (10.6M params, CUDA)": {
+      "mae": 0.3817,
+      "rmse": 0.6995,
+      "wape": 0.8398,
+      "poisson_log_likelihood": -0.6496,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2043,
+        "percentage_pred_under_0_1": 58.19
+      },
+      "peak_regime": {
+        "peak_mae": 1.8534
+      }
+    },
+    "UltraMax-Ensemble (XGB + STGNN, GPU)": {
+      "mae": 0.4101,
+      "rmse": 0.7204,
+      "wape": 0.9024,
+      "poisson_log_likelihood": -0.6615,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2586,
+        "percentage_pred_under_0_1": 52.87
+      },
+      "peak_regime": {
+        "peak_mae": 1.6944
+      }
+    }
+  },
+  "spring_mar_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5264,
+      "rmse": 1.0234,
+      "wape": 0.9312,
+      "poisson_log_likelihood": -0.8191,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2778,
+        "percentage_pred_under_0_1": 41.78
+      },
+      "peak_regime": {
+        "peak_mae": 2.5899
+      }
+    },
+    "UltraMax-XGBoost (2,000 Trees, CUDA)": {
+      "mae": 0.441,
+      "rmse": 0.8393,
+      "wape": 0.7802,
+      "poisson_log_likelihood": -0.7335,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2383,
+        "percentage_pred_under_0_1": 56.75
+      },
+      "peak_regime": {
+        "peak_mae": 1.8466
+      }
+    },
+    "UltraMax-STGNN (10.6M params, CUDA)": {
+      "mae": 0.4184,
+      "rmse": 0.8177,
+      "wape": 0.7401,
+      "poisson_log_likelihood": -0.7129,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2006,
+        "percentage_pred_under_0_1": 60.94
+      },
+      "peak_regime": {
+        "peak_mae": 1.9149
+      }
+    },
+    "UltraMax-Ensemble (XGB + STGNN, GPU)": {
+      "mae": 0.4282,
+      "rmse": 0.818,
+      "wape": 0.7575,
+      "poisson_log_likelihood": -0.7155,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2232,
+        "percentage_pred_under_0_1": 57.74
+      },
+      "peak_regime": {
+        "peak_mae": 1.8491
+      }
+    }
+  },
+  "autumn_sep_2026_realtime_api": {
+    "evaluated_snapshots": 50,
+    "total_evaluated_station_windows": 32438,
+    "actual_stockout_event_rate_pct": 26.36,
+    "UltraMax-XGBoost": {
+      "net_stock_change_mae": 1.2248,
+      "stockout_prediction_auc": 0.7706
+    },
+    "UltraMax-STGNN": {
+      "net_stock_change_mae": 1.1848,
+      "stockout_prediction_auc": 0.7741
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+ "NR": 40,
+ "trucks": [
+  0,
+  1,
+  2,
+  3
+ ],
+ "cap": 15,
+ "windows": [
+  [
+   6,
+   8
+  ],
+  [
+   16,
+   18
+  ]
+ ],
+ "feb_2026": {
+  "days": 28,
+  "P0+0truck": {
+   "catchment_loss_per_day": 832.7,
+   "reduction_vs_P0_static": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "P0+1truck": {
+   "catchment_loss_per_day": 813.5,
+   "reduction_vs_P0_static": 0.023,
+   "ci95": [
+    0.019,
+    0.028
+   ]
+  },
+  "P0+2truck": {
+   "catchment_loss_per_day": 799.5,
+   "reduction_vs_P0_static": 0.04,
+   "ci95": [
+    0.033,
+    0.047
+   ]
+  },
+  "P0+3truck": {
+   "catchment_loss_per_day": 787.8,
+   "reduction_vs_P0_static": 0.054,
+   "ci95": [
+    0.047,
+    0.061
+   ]
+  },
+  "P2+0truck": {
+   "catchment_loss_per_day": 581.8,
+   "reduction_vs_P0_static": 0.301,
+   "ci95": [
+    0.289,
+    0.31
+   ]
+  },
+  "P2+1truck": {
+   "catchment_loss_per_day": 576.1,
+   "reduction_vs_P0_static": 0.308,
+   "ci95": [
+    0.296,
+    0.319
+   ]
+  },
+  "P2+2truck": {
+   "catchment_loss_per_day": 570.5,
+   "reduction_vs_P0_static": 0.315,
+   "ci95": [
+    0.303,
+    0.328
+   ]
+  },
+  "P2+3truck": {
+   "catchment_loss_per_day": 566.1,
+   "reduction_vs_P0_static": 0.32,
+   "ci95": [
+    0.307,
+    0.332
+   ]
+  }
+ },
+ "mar_2026": {
+  "days": 31,
+  "P0+0truck": {
+   "catchment_loss_per_day": 822.4,
+   "reduction_vs_P0_static": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "P0+1truck": {
+   "catchment_loss_per_day": 807.5,
+   "reduction_vs_P0_static": 0.018,
+   "ci95": [
+    0.014,
+    0.022
+   ]
+  },
+  "P0+2truck": {
+   "catchment_loss_per_day": 793.7,
+   "reduction_vs_P0_static": 0.035,
+   "ci95": [
+    0.03,
+    0.043
+   ]
+  },
+  "P0+3truck": {
+   "catchment_loss_per_day": 781.8,
+   "reduction_vs_P0_static": 0.049,
+   "ci95": [
+    0.044,
+    0.056
+   ]
+  },
+  "P2+0truck": {
+   "catchment_loss_per_day": 505.9,
+   "reduction_vs_P0_static": 0.385,
+   "ci95": [
+    0.375,
+    0.398
+   ]
+  },
+  "P2+1truck": {
+   "catchment_loss_per_day": 505.4,
+   "reduction_vs_P0_static": 0.385,
+   "ci95": [
+    0.377,
+    0.397
+   ]
+  },
+  "P2+2truck": {
+   "catchment_loss_per_day": 503.5,
+   "reduction_vs_P0_static": 0.388,
+   "ci95": [
+    0.378,
+    0.398
+   ]
+  },
+  "P2+3truck": {
+   "catchment_loss_per_day": 501.6,
+   "reduction_vs_P0_static": 0.39,
+   "ci95": [
+    0.378,
+    0.402
+   ]
+  }
+ }
+}

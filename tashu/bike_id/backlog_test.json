@@ -1,0 +1,58 @@
+{
+ "n=0 (빈 곳 첫 도착)": {
+  "arrivals": 1282053,
+  "gap_median_min": 11.9,
+  "share_rented_within_2min": 0.16447057960942332,
+  "share_within_10min": 0.45419807137458434,
+  "gap_over_expected_median": 0.21960673118506036
+ },
+ "n=1": {
+  "arrivals": 1115523,
+  "gap_median_min": 9.683333333333334,
+  "share_rented_within_2min": 0.21341917647596687,
+  "share_within_10min": 0.5089657496976754,
+  "gap_over_expected_median": 0.1927621231922875
+ },
+ "n=2-4": {
+  "arrivals": 1578856,
+  "gap_median_min": 9.183333333333334,
+  "share_rented_within_2min": 0.22567352564135046,
+  "share_within_10min": 0.521801861601058,
+  "gap_over_expected_median": 0.19917560711889717
+ },
+ "n>=5": {
+  "arrivals": 1078577,
+  "gap_median_min": 8.6,
+  "share_rented_within_2min": 0.23050278283330722,
+  "share_within_10min": 0.5377761624807501,
+  "gap_over_expected_median": 0.2259244963027384
+ },
+ "within_station_ratio_n0_over_n2plus": {
+  "stations": 395,
+  "median": 1.3119709794437726,
+  "q25": 1.1687595755952978,
+  "q75": 1.4337945856427154
+ },
+ "n0_by_empty_duration": {
+  "<5min": {
+   "n": 244339,
+   "gap_median_min": 6.283333333333333,
+   "within_2min": 0.29262622831394086
+  },
+  "5-30": {
+   "n": 484066,
+   "gap_median_min": 10.266666666666667,
+   "within_2min": 0.16254188478430628
+  },
+  "30-120": {
+   "n": 388192,
+   "gap_median_min": 15.116666666666667,
+   "within_2min": 0.11872475476053088
+  },
+  ">120": {
+   "n": 160845,
+   "gap_median_min": 24.783333333333335,
+   "within_2min": 0.08307376666977526
+  }
+ }
+}

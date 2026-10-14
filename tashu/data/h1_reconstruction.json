@@ -1,0 +1,64 @@
+{
+ "api_2026_09": {
+  "empty_share_daytime": 0.48443482196372,
+  "mean_stock_per_station": 1.810370922088623,
+  "stations": 1363
+ },
+ "rent/72h": {
+  "rentals_at_zero_stock": 0.2944,
+  "empty_share_daytime": 0.5004,
+  "mean_stock": 1.47,
+  "corr_station_mean_vs_api": 0.697,
+  "ratio_mean_stock_vs_api": 0.816
+ },
+ "rent/24h": {
+  "rentals_at_zero_stock": 0.3151,
+  "empty_share_daytime": 0.525,
+  "mean_stock": 1.32,
+  "corr_station_mean_vs_api": 0.692,
+  "ratio_mean_stock_vs_api": 0.731
+ },
+ "mid/72h": {
+  "rentals_at_zero_stock": 0.2152,
+  "empty_share_daytime": 0.3915,
+  "mean_stock": 2.12,
+  "corr_station_mean_vs_api": 0.499,
+  "ratio_mean_stock_vs_api": 1.18
+ },
+ "mid/24h": {
+  "rentals_at_zero_stock": 0.23,
+  "empty_share_daytime": 0.4108,
+  "mean_stock": 1.97,
+  "corr_station_mean_vs_api": 0.459,
+  "ratio_mean_stock_vs_api": 1.095
+ },
+ "batch/72h": {
+  "rentals_at_zero_stock": 0.2232,
+  "empty_share_daytime": 0.4059,
+  "mean_stock": 1.95,
+  "corr_station_mean_vs_api": 0.577,
+  "ratio_mean_stock_vs_api": 1.084
+ },
+ "batch/24h": {
+  "rentals_at_zero_stock": 0.2386,
+  "empty_share_daytime": 0.4257,
+  "mean_stock": 1.8,
+  "corr_station_mean_vs_api": 0.544,
+  "ratio_mean_stock_vs_api": 1.0
+ },
+ "depart/72h": {
+  "rentals_at_zero_stock": 0.1581,
+  "empty_share_daytime": 0.317,
+  "mean_stock": 2.88,
+  "corr_station_mean_vs_api": 0.329,
+  "ratio_mean_stock_vs_api": 1.602
+ },
+ "depart/24h": {
+  "rentals_at_zero_stock": 0.169,
+  "empty_share_daytime": 0.3325,
+  "mean_stock": 2.73,
+  "corr_station_mean_vs_api": 0.294,
+  "ratio_mean_stock_vs_api": 1.517
+ },
+ "batch_share_of_relocations": 0.28158740073168553
+}

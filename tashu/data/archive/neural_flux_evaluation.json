@@ -1,0 +1,71 @@
+{
+  "cutoff": "2026-02-01",
+  "model": "HighDimKineticModel (Neural-KFDM)",
+  "february_2026": {
+    "hours": 532,
+    "rental_full_exposure": {
+      "cells": 336669,
+      "predicted": 143270.89868853727,
+      "actual": 197271.0,
+      "abs_error": 193302.81602474887,
+      "mae": 0.5741628009253863,
+      "pred_actual_ratio": 0.7262643707820069
+    },
+    "return_all_active": {
+      "cells": 732664,
+      "predicted": 158996.91241447016,
+      "actual": 319409.0,
+      "abs_error": 311583.0308793265,
+      "mae": 0.4252741104780998,
+      "pred_actual_ratio": 0.4977846974082451
+    },
+    "hourly_total_mae": 139.4356223305855,
+    "distribution_optimality": {
+      "mean_optimality_score": 41.79929876079002,
+      "mean_hourly_deficit": 234.42680656461786,
+      "mean_hourly_excess": 374.73570882467396
+    }
+  },
+  "march_2026": {
+    "hours": 744,
+    "rental_full_exposure": {
+      "cells": 501056,
+      "predicted": 262139.93633206442,
+      "actual": 358592.0,
+      "abs_error": 322119.87497948407,
+      "mae": 0.6428819832104277,
+      "pred_actual_ratio": 0.7310256122056945
+    },
+    "return_all_active": {
+      "cells": 1013445,
+      "predicted": 343729.9099642243,
+      "actual": 567240.0,
+      "abs_error": 509944.2089566691,
+      "mae": 0.5031789677354658,
+      "pred_actual_ratio": 0.6059690959104159
+    },
+    "hourly_total_mae": 200.72043458557567,
+    "distribution_optimality": {
+      "mean_optimality_score": 43.29378556414018,
+      "mean_hourly_deficit": 234.3056687680624,
+      "mean_hourly_excess": 387.093898219447
+    }
+  },
+  "directional_reversal": {
+    "mean_directional_shift_l1": 0.6968911290168762,
+    "top_shift_station_indices": [
+      1423,
+      1411,
+      1329,
+      1386,
+      1331
+    ],
+    "top_shift_values": [
+      1.8179961442947388,
+      1.778184413909912,
+      1.703047275543213,
+      1.6866545677185059,
+      1.6594041585922241
+    ]
+  }
+}

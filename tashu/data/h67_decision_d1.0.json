@@ -1,0 +1,151 @@
+{
+ "catchments": 564,
+ "stations_in_multi_station_catchment": 1231,
+ "feb_2026": {
+  "days": 28,
+  "P0_current/station_loss": {
+   "per_day_mean": 2776.6,
+   "ci95": [
+    2734.5,
+    2817.2
+   ]
+  },
+  "P0_current/catchment_loss": {
+   "per_day_mean": 1002.5,
+   "ci95": [
+    976.5,
+    1027.0
+   ]
+  },
+  "P1_station/station_loss": {
+   "per_day_mean": 2235.7,
+   "ci95": [
+    2199.6,
+    2274.0
+   ]
+  },
+  "P1_station/catchment_loss": {
+   "per_day_mean": 806.9,
+   "ci95": [
+    783.9,
+    831.5
+   ]
+  },
+  "P2_catchment/station_loss": {
+   "per_day_mean": 2313.4,
+   "ci95": [
+    2273.8,
+    2351.8
+   ]
+  },
+  "P2_catchment/catchment_loss": {
+   "per_day_mean": 728.9,
+   "ci95": [
+    706.9,
+    754.9
+   ]
+  },
+  "P1_station vs P0 reduction/station_loss": {
+   "mean": 0.195,
+   "ci95": [
+    0.189,
+    0.201
+   ]
+  },
+  "P1_station vs P0 reduction/catchment_loss": {
+   "mean": 0.195,
+   "ci95": [
+    0.183,
+    0.208
+   ]
+  },
+  "P2_catchment vs P0 reduction/station_loss": {
+   "mean": 0.167,
+   "ci95": [
+    0.161,
+    0.173
+   ]
+  },
+  "P2_catchment vs P0 reduction/catchment_loss": {
+   "mean": 0.273,
+   "ci95": [
+    0.26,
+    0.286
+   ]
+  }
+ },
+ "mar_2026": {
+  "days": 31,
+  "P0_current/station_loss": {
+   "per_day_mean": 2673.5,
+   "ci95": [
+    2636.4,
+    2714.2
+   ]
+  },
+  "P0_current/catchment_loss": {
+   "per_day_mean": 986.6,
+   "ci95": [
+    961.5,
+    1014.8
+   ]
+  },
+  "P1_station/station_loss": {
+   "per_day_mean": 1990.9,
+   "ci95": [
+    1956.3,
+    2030.5
+   ]
+  },
+  "P1_station/catchment_loss": {
+   "per_day_mean": 695.4,
+   "ci95": [
+    676.0,
+    718.7
+   ]
+  },
+  "P2_catchment/station_loss": {
+   "per_day_mean": 2056.1,
+   "ci95": [
+    2021.8,
+    2096.8
+   ]
+  },
+  "P2_catchment/catchment_loss": {
+   "per_day_mean": 628.0,
+   "ci95": [
+    608.9,
+    651.9
+   ]
+  },
+  "P1_station vs P0 reduction/station_loss": {
+   "mean": 0.255,
+   "ci95": [
+    0.249,
+    0.262
+   ]
+  },
+  "P1_station vs P0 reduction/catchment_loss": {
+   "mean": 0.295,
+   "ci95": [
+    0.282,
+    0.307
+   ]
+  },
+  "P2_catchment vs P0 reduction/station_loss": {
+   "mean": 0.231,
+   "ci95": [
+    0.225,
+    0.237
+   ]
+  },
+  "P2_catchment vs P0 reduction/catchment_loss": {
+   "mean": 0.363,
+   "ci95": [
+    0.351,
+    0.375
+   ]
+  }
+ },
+ "generator_d": 1.0
+}

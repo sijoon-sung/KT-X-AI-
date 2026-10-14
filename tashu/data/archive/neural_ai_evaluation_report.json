@@ -1,0 +1,22 @@
+{
+  "Feb_2026": {
+    "days": 20,
+    "baseline_unmet_1h": 508.3405511856079,
+    "neural_unmet_1h": 136.16454030275344,
+    "reduction_1h_pct": 73.213913392277,
+    "baseline_unmet_15m": 215.62980566197083,
+    "neural_unmet_15m": 6.817319697190302,
+    "reduction_15m_pct": 96.83841495091018,
+    "active_station_coverage_pct": 100.0
+  },
+  "Mar_2026": {
+    "days": 22,
+    "baseline_unmet_1h": 863.3239801580256,
+    "neural_unmet_1h": 257.3521586917341,
+    "reduction_1h_pct": 70.19054670013597,
+    "baseline_unmet_15m": 365.73049075780807,
+    "neural_unmet_15m": 16.730332583151135,
+    "reduction_15m_pct": 95.42550238333007,
+    "active_station_coverage_pct": 100.0
+  }
+}

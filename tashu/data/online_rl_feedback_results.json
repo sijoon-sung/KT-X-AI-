@@ -1,0 +1,18 @@
+{
+  "feb": {
+    "static_mae": 0.46,
+    "online_rl_mae": 0.408,
+    "static_wape": 1.3261,
+    "online_rl_wape": 1.0258,
+    "mae_improvement_pct": 11.29,
+    "mean_reward": -0.2602
+  },
+  "mar": {
+    "static_mae": 0.4647,
+    "online_rl_mae": 0.4364,
+    "static_wape": 2.6449,
+    "online_rl_wape": 1.3109,
+    "mae_improvement_pct": 6.1,
+    "mean_reward": -0.2757
+  }
+}

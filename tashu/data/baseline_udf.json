@@ -1,0 +1,51 @@
+{
+ "train": [
+  "2025-08-01",
+  "2026-02-01"
+ ],
+ "rate_ratio_exposure_over_observed": {
+  "0.1": 1.1009415597037335,
+  "0.5": 1.619283997549066,
+  "0.9": 3.116111222064444
+ },
+ "city_rate_sum_observed": 32067.31516262269,
+ "city_rate_sum_exposure": 44132.63585032667,
+ "feb_2026": {
+  "days": 28,
+  "current": {
+   "lost_total": 16537.0,
+   "lost_per_day": 590.6071428571429,
+   "lost_share_of_rentals": 0.056140219848862395
+  },
+  "observed": {
+   "lost_total": 20629.0,
+   "lost_per_day": 736.75,
+   "lost_share_of_rentals": 0.07003184345783288
+  },
+  "exposure": {
+   "lost_total": 30265.0,
+   "lost_per_day": 1080.892857142857,
+   "lost_share_of_rentals": 0.10274437647250531
+  },
+  "rentals_total": 294566.0
+ },
+ "mar_2026": {
+  "days": 31,
+  "current": {
+   "lost_total": 34693.0,
+   "lost_per_day": 1119.1290322580646,
+   "lost_share_of_rentals": 0.06905027755054922
+  },
+  "observed": {
+   "lost_total": 38955.0,
+   "lost_per_day": 1256.6129032258063,
+   "lost_share_of_rentals": 0.07753303438681132
+  },
+  "exposure": {
+   "lost_total": 51763.0,
+   "lost_per_day": 1669.774193548387,
+   "lost_share_of_rentals": 0.10302509200268295
+  },
+  "rentals_total": 502431.0
+ }
+}

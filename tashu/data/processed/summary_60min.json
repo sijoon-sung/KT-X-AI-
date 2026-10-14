@@ -1,0 +1,32 @@
+{
+  "bin_min": 60,
+  "T": 14616,
+  "N": 1425,
+  "trips": 8011752,
+  "merge_min": 3,
+  "period": [
+    "2024-08-01T00:00:00",
+    "2026-04-02T00:00:00"
+  ],
+  "missing_data_bins": 916,
+  "night_closed_bins": 753,
+  "same_station_pair_rate": 0.9897677988936897,
+  "relocations": 81818,
+  "censored_share_daytime": [
+    0.6522962812556337,
+    0.35581578724607654
+  ],
+  "zero_exposure_share_daytime": [
+    0.4186516334235259,
+    0.25399790037591274
+  ],
+  "rentals_in_censored_bins_share": [
+    0.47931918065899654,
+    0.17846859963022776
+  ],
+  "mean_inv_start_daytime": [
+    1.2976030697952172,
+    3.2405196419915017
+  ],
+  "negative_inv_cells": 0
+}

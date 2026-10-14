@@ -1,0 +1,56 @@
+{
+  "evaluation_target": "Tashu Hourly Rentals & Returns Forecasting",
+  "training_period": "2025-08-01 ~ 2026-02-01",
+  "test_period_feb_2026": {
+    "hierarchical_gcn": {
+      "rent_mae": 0.6101,
+      "ret_mae": 0.6124,
+      "net_flow_mae": 0.5428,
+      "rent_wape": 1.3426,
+      "ret_wape": 1.3655,
+      "macro_cluster_mae": 76.93
+    },
+    "flat_gcn": {
+      "rent_mae": 0.5697,
+      "ret_mae": 0.545,
+      "net_flow_mae": 0.4819,
+      "rent_wape": 1.2535,
+      "ret_wape": 1.2152,
+      "macro_cluster_mae": 45.49
+    },
+    "historical_mean": {
+      "rent_mae": 0.5281,
+      "ret_mae": 0.5022,
+      "net_flow_mae": 0.5302,
+      "rent_wape": 1.1622,
+      "ret_wape": 1.1198,
+      "macro_cluster_mae": 38.95
+    }
+  },
+  "test_period_mar_2026": {
+    "hierarchical_gcn": {
+      "rent_mae": 0.6257,
+      "ret_mae": 0.6312,
+      "net_flow_mae": 0.577,
+      "rent_wape": 1.1068,
+      "ret_wape": 1.1187,
+      "macro_cluster_mae": 85.58
+    },
+    "flat_gcn": {
+      "rent_mae": 0.5787,
+      "ret_mae": 0.5655,
+      "net_flow_mae": 0.5393,
+      "rent_wape": 1.0237,
+      "ret_wape": 1.0023,
+      "macro_cluster_mae": 40.61
+    },
+    "historical_mean": {
+      "rent_mae": 0.5264,
+      "ret_mae": 0.5086,
+      "net_flow_mae": 0.5594,
+      "rent_wape": 0.9311,
+      "ret_wape": 0.9013,
+      "macro_cluster_mae": 40.22
+    }
+  }
+}

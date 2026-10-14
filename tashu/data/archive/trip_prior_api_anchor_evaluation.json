@@ -1,0 +1,55 @@
+{
+  "train_before": "2026-02-01",
+  "february_2026": {
+    "rentals": {
+      "error": 190057.9955128412,
+      "actual": 197408.0,
+      "predicted": 124304.60286712646,
+      "cells": 336755,
+      "mae": 0.5643806194795659,
+      "pred_actual_ratio": 0.6296837152857354
+    },
+    "returns": {
+      "error": 318037.89911713544,
+      "actual": 319409.0,
+      "predicted": 175433.34063339233,
+      "cells": 732664,
+      "mae": 0.43408424477951074,
+      "pred_actual_ratio": 0.5492435737045366
+    }
+  },
+  "march_2026": {
+    "rentals": {
+      "error": 322384.0308812236,
+      "actual": 358832.0,
+      "predicted": 255601.88609313965,
+      "cells": 501170,
+      "mae": 0.6432628267478573,
+      "pred_actual_ratio": 0.7123163098417634
+    },
+    "returns": {
+      "error": 526745.8302646492,
+      "actual": 567240.0,
+      "predicted": 353768.4373664856,
+      "cells": 1013445,
+      "mae": 0.519757688147506,
+      "pred_actual_ratio": 0.6236662389226528
+    }
+  },
+  "recent_api": {
+    "windows": 38,
+    "cells": 26913,
+    "events": 8085,
+    "first_window": "2026-09-17T20:00:01",
+    "last_window": "2026-09-20T09:00:01",
+    "stockout_auc": 0.8058764535615123,
+    "stock_only_auc": 0.7503205859665844,
+    "observed_event_rate": 0.3004124400847174,
+    "mean_predicted_event_probability": 0.16254197553227065,
+    "brier_score": 0.18379627296244497,
+    "paired_hourly_auc_gain": 0.04213649710221459,
+    "hours_improved": 37,
+    "net_stock_change_mae": 0.8988141417503357,
+    "api_used_for_training": false
+  }
+}

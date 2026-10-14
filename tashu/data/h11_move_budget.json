@@ -1,0 +1,138 @@
+{
+ "budgets": [
+  0,
+  50,
+  100,
+  200,
+  400,
+  800,
+  1000000000
+ ],
+ "NR": 200,
+ "feb_2026": {
+  "days": 28,
+  "bikes_to_move_per_night_for_full_P2": {
+   "mean": 1204.5,
+   "p90": 1301.5
+  },
+  "budget_0": {
+   "loss_per_day": 1240.6,
+   "reduction": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "budget_50": {
+   "loss_per_day": 1212.1,
+   "reduction": 0.023,
+   "ci95": [
+    0.021,
+    0.025
+   ]
+  },
+  "budget_100": {
+   "loss_per_day": 1185.8,
+   "reduction": 0.044,
+   "ci95": [
+    0.041,
+    0.047
+   ]
+  },
+  "budget_200": {
+   "loss_per_day": 1143.0,
+   "reduction": 0.079,
+   "ci95": [
+    0.074,
+    0.082
+   ]
+  },
+  "budget_400": {
+   "loss_per_day": 1078.8,
+   "reduction": 0.13,
+   "ci95": [
+    0.125,
+    0.136
+   ]
+  },
+  "budget_800": {
+   "loss_per_day": 1006.9,
+   "reduction": 0.188,
+   "ci95": [
+    0.179,
+    0.197
+   ]
+  },
+  "budget_1000000000": {
+   "loss_per_day": 971.3,
+   "reduction": 0.217,
+   "ci95": [
+    0.206,
+    0.227
+   ]
+  }
+ },
+ "mar_2026": {
+  "days": 31,
+  "bikes_to_move_per_night_for_full_P2": {
+   "mean": 1446.8064516129032,
+   "p90": 1612.0
+  },
+  "budget_0": {
+   "loss_per_day": 1217.4,
+   "reduction": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "budget_50": {
+   "loss_per_day": 1188.8,
+   "reduction": 0.023,
+   "ci95": [
+    0.022,
+    0.025
+   ]
+  },
+  "budget_100": {
+   "loss_per_day": 1158.6,
+   "reduction": 0.048,
+   "ci95": [
+    0.045,
+    0.051
+   ]
+  },
+  "budget_200": {
+   "loss_per_day": 1104.3,
+   "reduction": 0.093,
+   "ci95": [
+    0.089,
+    0.096
+   ]
+  },
+  "budget_400": {
+   "loss_per_day": 1019.0,
+   "reduction": 0.163,
+   "ci95": [
+    0.158,
+    0.169
+   ]
+  },
+  "budget_800": {
+   "loss_per_day": 908.0,
+   "reduction": 0.254,
+   "ci95": [
+    0.246,
+    0.262
+   ]
+  },
+  "budget_1000000000": {
+   "loss_per_day": 839.3,
+   "reduction": 0.311,
+   "ci95": [
+    0.301,
+    0.32
+   ]
+  }
+ }
+}

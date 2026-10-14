@@ -1,0 +1,234 @@
+{
+  "cutoff": "2026-02-01",
+  "model": "KineticFluxDemandModel",
+  "february_2026": {
+    "hours": 532,
+    "rental_full_exposure": {
+      "cells": 336669,
+      "predicted": 136984.05343502795,
+      "actual": 197271.0,
+      "abs_error": 189957.6915490334,
+      "mae": 0.564226856494163,
+      "pred_actual_ratio": 0.6943952909197396
+    },
+    "return_all_active": {
+      "cells": 732664,
+      "predicted": 256075.9402459311,
+      "actual": 319409.0,
+      "abs_error": 331318.18315751344,
+      "mae": 0.4522102671313364,
+      "pred_actual_ratio": 0.8017179861742503
+    },
+    "hourly_total_mae": 146.3407274160129,
+    "distribution_optimality": {
+      "mean_optimality_score": 62.74071199282171,
+      "mean_hourly_deficit": 183.71970350401742,
+      "mean_hourly_excess": 127.08378896498142
+    },
+    "commute_samples": [
+      {
+        "time": "2026-02-01T08:00:00",
+        "hour": 8,
+        "macro_demand": 415.1659240722656,
+        "optimality_score": 63.59742918304829,
+        "expected_deficit": 148.99765014648438,
+        "expected_excess": 153.26451110839844,
+        "top_rebalance_in": [
+          392,
+          1238,
+          635,
+          7,
+          360
+        ],
+        "top_rebalance_out": [
+          1131,
+          694,
+          1145,
+          1421,
+          1013
+        ]
+      },
+      {
+        "time": "2026-02-01T18:00:00",
+        "hour": 18,
+        "macro_demand": 909.0266723632812,
+        "optimality_score": 72.44082348182684,
+        "expected_deficit": 358.8677062988281,
+        "expected_excess": 142.17279052734375,
+        "top_rebalance_in": [
+          55,
+          1062,
+          413,
+          444,
+          482
+        ],
+        "top_rebalance_out": [
+          1131,
+          428,
+          1013,
+          1241,
+          313
+        ]
+      },
+      {
+        "time": "2026-02-02T08:00:00",
+        "hour": 8,
+        "macro_demand": 498.0033264160156,
+        "optimality_score": 70.29874822395634,
+        "expected_deficit": 153.82113647460938,
+        "expected_excess": 142.0053253173828,
+        "top_rebalance_in": [
+          4,
+          982,
+          391,
+          968,
+          1238
+        ],
+        "top_rebalance_out": [
+          1131,
+          359,
+          181,
+          429,
+          973
+        ]
+      },
+      {
+        "time": "2026-02-02T18:00:00",
+        "hour": 18,
+        "macro_demand": 984.8992309570312,
+        "optimality_score": 72.73091077482914,
+        "expected_deficit": 407.9097900390625,
+        "expected_excess": 129.23634338378906,
+        "top_rebalance_in": [
+          95,
+          413,
+          794,
+          1031,
+          481
+        ],
+        "top_rebalance_out": [
+          1131,
+          1238,
+          358,
+          973,
+          871
+        ]
+      }
+    ]
+  },
+  "march_2026": {
+    "hours": 744,
+    "rental_full_exposure": {
+      "cells": 501056,
+      "predicted": 253117.47223548702,
+      "actual": 358592.0,
+      "abs_error": 320471.92387861334,
+      "mae": 0.6395930272836037,
+      "pred_actual_ratio": 0.70586480522568
+    },
+    "return_all_active": {
+      "cells": 1013445,
+      "predicted": 438853.98986330326,
+      "actual": 567240.0,
+      "abs_error": 544355.7499717901,
+      "mae": 0.5371339835627884,
+      "pred_actual_ratio": 0.7736654500093493
+    },
+    "hourly_total_mae": 208.99694041549526,
+    "distribution_optimality": {
+      "mean_optimality_score": 55.251795888066624,
+      "mean_hourly_deficit": 203.12339962426051,
+      "mean_hourly_excess": 211.37101496419598
+    },
+    "commute_samples": [
+      {
+        "time": "2026-03-01T08:00:00",
+        "hour": 8,
+        "macro_demand": 672.3875122070312,
+        "optimality_score": 72.64086342014878,
+        "expected_deficit": 225.75843811035156,
+        "expected_excess": 142.16043090820312,
+        "top_rebalance_in": [
+          33,
+          362,
+          141,
+          99,
+          444
+        ],
+        "top_rebalance_out": [
+          1131,
+          720,
+          359,
+          1203,
+          409
+        ]
+      },
+      {
+        "time": "2026-03-01T18:00:00",
+        "hour": 18,
+        "macro_demand": 1163.73193359375,
+        "optimality_score": 73.82689854144822,
+        "expected_deficit": 449.011962890625,
+        "expected_excess": 160.1575164794922,
+        "top_rebalance_in": [
+          817,
+          1055,
+          990,
+          1031,
+          482
+        ],
+        "top_rebalance_out": [
+          1131,
+          396,
+          117,
+          965,
+          1300
+        ]
+      },
+      {
+        "time": "2026-03-02T08:00:00",
+        "hour": 8,
+        "macro_demand": 755.4878540039062,
+        "optimality_score": 75.0366035049689,
+        "expected_deficit": 241.42637634277344,
+        "expected_excess": 135.7644805908203,
+        "top_rebalance_in": [
+          394,
+          362,
+          486,
+          647,
+          979
+        ],
+        "top_rebalance_out": [
+          1131,
+          1240,
+          426,
+          966,
+          359
+        ]
+      },
+      {
+        "time": "2026-03-02T18:00:00",
+        "hour": 18,
+        "macro_demand": 1242.90087890625,
+        "optimality_score": 75.93035885739361,
+        "expected_deficit": 454.505615234375,
+        "expected_excess": 143.8179473876953,
+        "top_rebalance_in": [
+          1062,
+          182,
+          62,
+          499,
+          647
+        ],
+        "top_rebalance_out": [
+          1131,
+          1240,
+          1300,
+          966,
+          359
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "source": "C:\\Users\\DISLAB\\Downloads\\tashu_stock_10min.csv.gz",
+  "windows": 35,
+  "cells": 24881,
+  "stockout_events": 7402,
+  "first_window": "2026-09-18T07:00:01",
+  "last_window": "2026-09-20T09:00:01",
+  "metrics": {
+    "flow": {
+      "stockout_auc": 0.7317670771452164,
+      "net_stock_change_mae": 1.020037055015564
+    },
+    "baseline": {
+      "stockout_auc": 0.7542786434623621,
+      "net_stock_change_mae": 0.8545353412628174
+    },
+    "stock_only": {
+      "stockout_auc": 0.7501822583131719
+    }
+  },
+  "paired_hourly_auc_gain": -0.014323710786475728,
+  "hours_improved": 6,
+  "predicted_net_total": -954.6774530410767,
+  "observed_net_total": -564.0,
+  "training_use_of_api": false
+}

@@ -1,0 +1,16 @@
+{
+  "source": "C:/Users/DISLAB/Downloads/tashu_stock_10min.csv.gz",
+  "first_window": "2026-09-17T21:00:01",
+  "last_window": "2026-09-20T09:00:01",
+  "hour_windows": 61,
+  "cells": 40485,
+  "events": 9342,
+  "event_rate": 0.2307521304186736,
+  "mean_predicted_risk": 0.1274964878967519,
+  "risk_auc": 0.8326274610638051,
+  "stock_only_auc": 0.7518921442983095,
+  "stock_trend_auc": 0.6957903519110363,
+  "risk_brier": 0.14703951978500912,
+  "net_stock_change_mae": 1.017269492149353,
+  "api_used_for_training": false
+}

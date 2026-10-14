@@ -1,0 +1,52 @@
+{
+  "question": "Does the OD graph improve allocation of a known return total?",
+  "oracle_total_used_only_for_evaluation": true,
+  "february_2026": {
+    "hours": 448,
+    "models": {
+      "graph": {
+        "cross_entropy": 6.714354776507968,
+        "oracle_total_mae": 0.48750400173168246,
+        "top10_mass": 0.38117042038097815
+      },
+      "no_graph": {
+        "cross_entropy": 6.727735822722303,
+        "oracle_total_mae": 0.48972931061695374,
+        "top10_mass": 0.3774789613171418
+      }
+    },
+    "paired_cross_entropy_gain": {
+      "mean": 0.013381046214334258,
+      "hours_graph_better": 331,
+      "days": 28,
+      "day_block_bootstrap_95pct": [
+        0.010598155414086097,
+        0.0158999432228757
+      ]
+    }
+  },
+  "march_2026": {
+    "hours": 496,
+    "models": {
+      "graph": {
+        "cross_entropy": 6.714324086415677,
+        "oracle_total_mae": 0.6496591696629103,
+        "top10_mass": 0.37628040678385727
+      },
+      "no_graph": {
+        "cross_entropy": 6.726705815197372,
+        "oracle_total_mae": 0.6558324225304161,
+        "top10_mass": 0.37275569926591323
+      }
+    },
+    "paired_cross_entropy_gain": {
+      "mean": 0.012381728781695175,
+      "hours_graph_better": 376,
+      "days": 31,
+      "day_block_bootstrap_95pct": [
+        0.010414965654545418,
+        0.01413540396397135
+      ]
+    }
+  }
+}

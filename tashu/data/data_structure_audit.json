@@ -1,0 +1,598 @@
+{
+  "trip_source": "data/processed/tashu_60min.npz",
+  "period": [
+    "2024-08-01T00:00:00",
+    "2026-04-01T23:00:00"
+  ],
+  "stations_all": 1425,
+  "valid_hours": 12947,
+  "all_hours": 14616,
+  "months": {
+    "2024-08": {
+      "valid_hours": 719,
+      "calendar_hours": 744,
+      "active_station_median": 1183.0,
+      "rentals": 437070,
+      "returns": 435304,
+      "rentals_per_valid_hour": 607.8859527121001,
+      "returns_per_valid_hour": 605.4297635605006
+    },
+    "2024-09": {
+      "valid_hours": 720,
+      "calendar_hours": 720,
+      "active_station_median": 1189.0,
+      "rentals": 429056,
+      "returns": 428305,
+      "rentals_per_valid_hour": 595.9111111111112,
+      "returns_per_valid_hour": 594.8680555555555
+    },
+    "2024-10": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1189.0,
+      "rentals": 415583,
+      "returns": 414552,
+      "rentals_per_valid_hour": 558.5793010752689,
+      "returns_per_valid_hour": 557.1935483870968
+    },
+    "2024-11": {
+      "valid_hours": 720,
+      "calendar_hours": 720,
+      "active_station_median": 1195.0,
+      "rentals": 341302,
+      "returns": 340075,
+      "rentals_per_valid_hour": 474.03055555555557,
+      "returns_per_valid_hour": 472.3263888888889
+    },
+    "2024-12": {
+      "valid_hours": 599,
+      "calendar_hours": 744,
+      "active_station_median": 1279.0,
+      "rentals": 233618,
+      "returns": 230355,
+      "rentals_per_valid_hour": 390.0133555926544,
+      "returns_per_valid_hour": 384.5659432387312
+    },
+    "2025-01": {
+      "valid_hours": 589,
+      "calendar_hours": 744,
+      "active_station_median": 1283.0,
+      "rentals": 178114,
+      "returns": 175423,
+      "rentals_per_valid_hour": 302.4006791171477,
+      "returns_per_valid_hour": 297.83191850594227
+    },
+    "2025-02": {
+      "valid_hours": 487,
+      "calendar_hours": 672,
+      "active_station_median": 1285.0,
+      "rentals": 157250,
+      "returns": 154788,
+      "rentals_per_valid_hour": 322.8952772073922,
+      "returns_per_valid_hour": 317.8398357289528
+    },
+    "2025-03": {
+      "valid_hours": 650,
+      "calendar_hours": 744,
+      "active_station_median": 1283.0,
+      "rentals": 318535,
+      "returns": 317676,
+      "rentals_per_valid_hour": 490.05384615384617,
+      "returns_per_valid_hour": 488.7323076923077
+    },
+    "2025-04": {
+      "valid_hours": 720,
+      "calendar_hours": 720,
+      "active_station_median": 1285.0,
+      "rentals": 457037,
+      "returns": 456011,
+      "rentals_per_valid_hour": 634.7736111111111,
+      "returns_per_valid_hour": 633.3486111111112
+    },
+    "2025-05": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1286.0,
+      "rentals": 517852,
+      "returns": 516845,
+      "rentals_per_valid_hour": 696.0376344086021,
+      "returns_per_valid_hour": 694.6841397849462
+    },
+    "2025-06": {
+      "valid_hours": 720,
+      "calendar_hours": 720,
+      "active_station_median": 1288.0,
+      "rentals": 535640,
+      "returns": 534764,
+      "rentals_per_valid_hour": 743.9444444444445,
+      "returns_per_valid_hour": 742.7277777777778
+    },
+    "2025-07": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1288.0,
+      "rentals": 489873,
+      "returns": 488725,
+      "rentals_per_valid_hour": 658.4314516129032,
+      "returns_per_valid_hour": 656.888440860215
+    },
+    "2025-08": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1286.0,
+      "rentals": 520022,
+      "returns": 519080,
+      "rentals_per_valid_hour": 698.9543010752689,
+      "returns_per_valid_hour": 697.6881720430108
+    },
+    "2025-09": {
+      "valid_hours": 720,
+      "calendar_hours": 720,
+      "active_station_median": 1286.0,
+      "rentals": 535404,
+      "returns": 534355,
+      "rentals_per_valid_hour": 743.6166666666667,
+      "returns_per_valid_hour": 742.1597222222222
+    },
+    "2025-10": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1287.0,
+      "rentals": 512768,
+      "returns": 511664,
+      "rentals_per_valid_hour": 689.2043010752689,
+      "returns_per_valid_hour": 687.7204301075269
+    },
+    "2025-11": {
+      "valid_hours": 719,
+      "calendar_hours": 720,
+      "active_station_median": 1367.0,
+      "rentals": 515129,
+      "returns": 513977,
+      "rentals_per_valid_hour": 716.452016689847,
+      "returns_per_valid_hour": 714.8497913769123
+    },
+    "2026-01": {
+      "valid_hours": 588,
+      "calendar_hours": 744,
+      "active_station_median": 1376.0,
+      "rentals": 277331,
+      "returns": 273223,
+      "rentals_per_valid_hour": 471.6513605442177,
+      "returns_per_valid_hour": 464.6649659863946
+    },
+    "2026-02": {
+      "valid_hours": 532,
+      "calendar_hours": 672,
+      "active_station_median": 1377.0,
+      "rentals": 323742,
+      "returns": 319409,
+      "rentals_per_valid_hour": 608.5375939849624,
+      "returns_per_valid_hour": 600.3928571428571
+    },
+    "2026-03": {
+      "valid_hours": 744,
+      "calendar_hours": 744,
+      "active_station_median": 1370.0,
+      "rentals": 568439,
+      "returns": 567240,
+      "rentals_per_valid_hour": 764.0309139784946,
+      "returns_per_valid_hour": 762.4193548387096
+    }
+  },
+  "months_without_valid_hours": [
+    "2025-12",
+    "2026-04"
+  ],
+  "station": {
+    "stable_pre_feb": 1282,
+    "new_or_inactive_pre_feb": 140,
+    "train": {
+      "rentals_per_station_quantiles": [
+        1.0,
+        198.0,
+        496.0,
+        1159.5,
+        2372.75,
+        4184.600000000003,
+        15669.0
+      ],
+      "returns_per_station_quantiles": [
+        2.0,
+        187.2,
+        477.0,
+        1143.5,
+        2355.5,
+        4199.400000000003,
+        15633.0
+      ],
+      "top_10pct_station_share_rentals": 0.3681135412236126,
+      "top_10pct_station_share_returns": 0.37003637714720217,
+      "station_return_rental_corr": 0.9997782889867897,
+      "zero_rental_station_hour_fraction": 0.7268259720431491,
+      "zero_return_station_hour_fraction": 0.7260594776564889
+    },
+    "feb": {
+      "rentals_per_station_quantiles": [
+        0.0,
+        25.0,
+        59.0,
+        153.5,
+        322.0,
+        560.0,
+        2056.0
+      ],
+      "returns_per_station_quantiles": [
+        0.0,
+        23.0,
+        57.0,
+        147.0,
+        316.0,
+        566.9000000000001,
+        2051.0
+      ],
+      "top_10pct_station_share_rentals": 0.3719051771469173,
+      "top_10pct_station_share_returns": 0.37841570290666093,
+      "station_return_rental_corr": 0.9985931887938859,
+      "zero_rental_station_hour_fraction": 0.7369682005325325,
+      "zero_return_station_hour_fraction": 0.740576577950336,
+      "rank_stability_return_corr_train": 0.9646925772121463,
+      "rank_stability_rental_corr_train": 0.9629143131436408,
+      "mean_absolute_net_flow_per_hour": 17.10902255639098
+    },
+    "mar": {
+      "rentals_per_station_quantiles": [
+        0.0,
+        46.099999999999994,
+        116.5,
+        266.0,
+        558.75,
+        949.0000000000018,
+        4475.0
+      ],
+      "returns_per_station_quantiles": [
+        0.0,
+        44.0,
+        111.0,
+        260.0,
+        557.0,
+        945.7000000000003,
+        4620.0
+      ],
+      "top_10pct_station_share_rentals": 0.3646811890595829,
+      "top_10pct_station_share_returns": 0.3690321021168989,
+      "station_return_rental_corr": 0.999348360369823,
+      "zero_rental_station_hour_fraction": 0.7184643030882526,
+      "zero_return_station_hour_fraction": 0.7179054904131649,
+      "rank_stability_return_corr_train": 0.9765370435011371,
+      "rank_stability_rental_corr_train": 0.9761025012291231,
+      "mean_absolute_net_flow_per_hour": 14.58736559139785
+    }
+  },
+  "calendar": {
+    "train": {
+      "rentals": {
+        "hourly_mean": [
+          416.1803278688525,
+          245.0655737704918,
+          157.1639344262295,
+          105.20491803278688,
+          98.84426229508196,
+          170.17763157894737,
+          297.0980392156863,
+          604.7254901960785,
+          812.8888888888889,
+          567.7777777777778,
+          549.6209150326797,
+          643.5424836601308,
+          736.2418300653595,
+          730.7843137254902,
+          772.5490196078431,
+          869.2941176470588,
+          1039.7843137254902,
+          1239.986928104575,
+          1259.0718954248366,
+          997.8366013071895,
+          935.1307189542483,
+          877.7385620915032,
+          710.9477124183006,
+          556.5592105263158
+        ],
+        "weekday_mean": [
+          628.9359504132232,
+          667.1611570247934,
+          695.297520661157,
+          704.300796812749,
+          700.9620493358634,
+          647.0075901328273,
+          582.086785009862
+        ],
+        "peak_hour": 18,
+        "peak_trough_ratio": 12.737936084404186
+      },
+      "returns": {
+        "hourly_mean": [
+          484.0245901639344,
+          290.4344262295082,
+          178.4262295081967,
+          119.59836065573771,
+          94.44262295081967,
+          149.14473684210526,
+          252.99346405228758,
+          515.4313725490196,
+          827.9019607843137,
+          560.1372549019608,
+          527.562091503268,
+          598.3137254901961,
+          723.3790849673203,
+          721.562091503268,
+          735.9607843137255,
+          837.4640522875817,
+          987.3006535947712,
+          1164.8496732026144,
+          1303.7254901960785,
+          1040.6797385620914,
+          936.7124183006536,
+          922.5424836601308,
+          803.0326797385621,
+          594.0394736842105
+        ],
+        "weekday_mean": [
+          626.603305785124,
+          664.4793388429752,
+          692.3657024793389,
+          701.1553784860557,
+          697.8842504743833,
+          644.7438330170778,
+          582.0631163708086
+        ],
+        "peak_hour": 18,
+        "peak_trough_ratio": 13.80441848671425
+      }
+    },
+    "feb": {
+      "rentals": {
+        "hourly_mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          118.64285714285714,
+          162.17857142857142,
+          320.14285714285717,
+          546.8571428571429,
+          435.17857142857144,
+          433.7142857142857,
+          548.6785714285714,
+          636.6428571428571,
+          686.8928571428571,
+          724.8928571428571,
+          770.9642857142857,
+          877.2142857142857,
+          1064.9285714285713,
+          993.7142857142857,
+          673.2142857142857,
+          609.2142857142857,
+          571.8571428571429,
+          468.32142857142856,
+          414.9642857142857
+        ],
+        "weekday_mean": [
+          499.25,
+          413.7631578947368,
+          608.3157894736842,
+          708.4605263157895,
+          727.5921052631579,
+          666.7368421052631,
+          449.9605263157895
+        ],
+        "peak_hour": 17,
+        "peak_trough_ratio": 1064928571.4285713
+      },
+      "returns": {
+        "hourly_mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          92.5,
+          147.46428571428572,
+          269.67857142857144,
+          546.4285714285714,
+          416.07142857142856,
+          412.67857142857144,
+          503.10714285714283,
+          612.6428571428571,
+          652.8571428571429,
+          698.8214285714286,
+          750.25,
+          848.75,
+          1035.2857142857142,
+          1083.142857142857,
+          730.9285714285714,
+          608.8214285714286,
+          596.5357142857143,
+          507.32142857142856,
+          400.07142857142856
+        ],
+        "weekday_mean": [
+          492.4868421052632,
+          406.9078947368421,
+          601.0263157894736,
+          700.0,
+          717.6842105263158,
+          658.4736842105264,
+          444.13157894736844
+        ],
+        "peak_hour": 18,
+        "peak_trough_ratio": 1083142857.142857
+      }
+    },
+    "mar": {
+      "rentals": {
+        "hourly_mean": [
+          293.80645161290323,
+          171.70967741935485,
+          111.06451612903226,
+          70.12903225806451,
+          64.54838709677419,
+          148.61290322580646,
+          262.03225806451616,
+          641.5483870967741,
+          923.258064516129,
+          672.0967741935484,
+          663.0322580645161,
+          830.4516129032259,
+          976.2258064516129,
+          944.2903225806451,
+          1005.741935483871,
+          1160.0,
+          1364.3870967741937,
+          1578.0967741935483,
+          1526.6774193548388,
+          1050.1290322580646,
+          908.8064516129032,
+          844.0,
+          671.0645161290323,
+          500.4193548387097
+        ],
+        "weekday_mean": [
+          566.5333333333333,
+          798.1916666666667,
+          680.3854166666666,
+          764.2604166666666,
+          810.5,
+          790.8645833333334,
+          688.85
+        ],
+        "peak_hour": 17,
+        "peak_trough_ratio": 24.448275862068964
+      },
+      "returns": {
+        "hourly_mean": [
+          349.51612903225805,
+          200.8709677419355,
+          122.58064516129032,
+          80.38709677419355,
+          59.354838709677416,
+          131.48387096774192,
+          228.29032258064515,
+          540.9677419354839,
+          922.8064516129032,
+          665.7096774193549,
+          624.9032258064516,
+          757.8709677419355,
+          932.8387096774194,
+          923.9677419354839,
+          959.9354838709677,
+          1110.9032258064517,
+          1321.774193548387,
+          1519.7096774193549,
+          1645.8387096774193,
+          1160.9354838709678,
+          932.4193548387096,
+          892.9677419354839,
+          745.0,
+          517.8387096774194
+        ],
+        "weekday_mean": [
+          568.5666666666667,
+          792.8833333333333,
+          679.28125,
+          763.4375,
+          807.125,
+          788.5,
+          689.6666666666666
+        ],
+        "peak_hour": 18,
+        "peak_trough_ratio": 27.728804347826088
+      }
+    }
+  },
+  "censoring_proxy": {
+    "train": {
+      "active_cells": 4506216,
+      "lower_exposure_zero_fraction": 0.4058564880156655,
+      "lower_exposure_full_fraction": 0.3986167107835044,
+      "upper_exposure_zero_fraction": 0.23749039105093941,
+      "upper_exposure_full_fraction": 0.6827178279958174,
+      "rental_events_lower_exposure_zero_fraction": 0.0006599531962742995,
+      "rental_events_lower_exposure_partial_fraction": 0.4704433094607928,
+      "mean_rentals_full_lower_exposure": 0.6848161144337686,
+      "mean_rentals_partial_lower_exposure": 0.40324867904100536
+    },
+    "feb": {
+      "active_cells": 680772,
+      "lower_exposure_zero_fraction": 0.3743926013408307,
+      "lower_exposure_full_fraction": 0.46262037804140005,
+      "upper_exposure_zero_fraction": 0.22093006175342111,
+      "upper_exposure_full_fraction": 0.7094254757833753,
+      "rental_events_lower_exposure_zero_fraction": 0.0012757161773729936,
+      "rental_events_lower_exposure_partial_fraction": 0.38774020605238513,
+      "mean_rentals_full_lower_exposure": 0.601938788146276,
+      "mean_rentals_partial_lower_exposure": 0.32817159742286783
+    },
+    "mar": {
+      "active_cells": 942647,
+      "lower_exposure_zero_fraction": 0.33937306329941114,
+      "lower_exposure_full_fraction": 0.4956945707141698,
+      "upper_exposure_zero_fraction": 0.23469336877961738,
+      "upper_exposure_full_fraction": 0.6672741758049408,
+      "rental_events_lower_exposure_zero_fraction": 0.000705210765227913,
+      "rental_events_lower_exposure_partial_fraction": 0.36734243178941667,
+      "mean_rentals_full_lower_exposure": 0.7295752945330808,
+      "mean_rentals_partial_lower_exposure": 0.4163830351170217
+    }
+  },
+  "api": {
+    "source": "C:/Users/DISLAB/Downloads/tashu_stock_10min.csv.gz",
+    "rows": 549600,
+    "first": "2026-09-17 14:14:16",
+    "last": "2026-09-20 10:30:01",
+    "timestamps": 400,
+    "stations": 1374,
+    "station_overlap_with_trips": 1363,
+    "stations_per_snapshot_quantiles": [
+      1374.0,
+      1374.0,
+      1374.0,
+      1374.0,
+      1374.0,
+      1374.0,
+      1374.0
+    ],
+    "empty_fraction": 0.4794286754002911,
+    "stock_quantiles": [
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      2.0,
+      6.0,
+      72.0
+    ],
+    "capacity_missing_fraction": 0.002911208151382824,
+    "stock_above_capacity_fraction": 0.07365174672489083,
+    "duplicate_timestamp_station": 0,
+    "station_empty_fraction_quantiles": [
+      0.0,
+      0.07825000000000003,
+      0.270625,
+      0.4875,
+      0.7025,
+      0.8425,
+      1.0
+    ],
+    "station_snapshot_count_quantiles": [
+      400.0,
+      400.0,
+      400.0,
+      400.0,
+      400.0,
+      400.0,
+      400.0
+    ]
+  }
+}

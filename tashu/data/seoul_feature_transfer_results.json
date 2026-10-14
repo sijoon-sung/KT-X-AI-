@@ -1,0 +1,28 @@
+{
+  "baseline_tashu_only": {
+    "feb": {
+      "mae": 257.9,
+      "rmse": 326.49,
+      "corr": 0.6005
+    },
+    "mar": {
+      "mae": 508.1,
+      "rmse": 635.97,
+      "corr": 0.517
+    }
+  },
+  "enhanced_with_seoul_feature": {
+    "feb": {
+      "mae": 258.51,
+      "rmse": 328.09,
+      "corr": 0.5887
+    },
+    "mar": {
+      "mae": 506.78,
+      "rmse": 633.62,
+      "corr": 0.5156
+    }
+  },
+  "improvement_feb_mae": -0.61,
+  "improvement_mar_mae": 1.32
+}

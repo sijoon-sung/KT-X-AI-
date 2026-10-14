@@ -1,0 +1,253 @@
+{
+ "season_city": {
+  "2024-08": {
+   "city_rentals_per_hour": 726.4,
+   "active_bikes": 2810,
+   "per_bike_per_hour": 0.2585
+  },
+  "2024-09": {
+   "city_rentals_per_hour": 731.9,
+   "active_bikes": 2635,
+   "per_bike_per_hour": 0.2778
+  },
+  "2024-10": {
+   "city_rentals_per_hour": 701.7,
+   "active_bikes": 2710,
+   "per_bike_per_hour": 0.2589
+  },
+  "2024-11": {
+   "city_rentals_per_hour": 603.1,
+   "active_bikes": 2747,
+   "per_bike_per_hour": 0.2195
+  },
+  "2024-12": {
+   "city_rentals_per_hour": 426.1,
+   "active_bikes": 2350,
+   "per_bike_per_hour": 0.1813
+  },
+  "2025-01": {
+   "city_rentals_per_hour": 324.1,
+   "active_bikes": 2127,
+   "per_bike_per_hour": 0.1524
+  },
+  "2025-02": {
+   "city_rentals_per_hour": 349.3,
+   "active_bikes": 2339,
+   "per_bike_per_hour": 0.1494
+  },
+  "2025-03": {
+   "city_rentals_per_hour": 624.1,
+   "active_bikes": 2773,
+   "per_bike_per_hour": 0.2251
+  },
+  "2025-04": {
+   "city_rentals_per_hour": 818.0,
+   "active_bikes": 3356,
+   "per_bike_per_hour": 0.2438
+  },
+  "2025-05": {
+   "city_rentals_per_hour": 882.5,
+   "active_bikes": 3535,
+   "per_bike_per_hour": 0.2496
+  },
+  "2025-06": {
+   "city_rentals_per_hour": 928.4,
+   "active_bikes": 3860,
+   "per_bike_per_hour": 0.2405
+  },
+  "2025-07": {
+   "city_rentals_per_hour": 803.9,
+   "active_bikes": 4001,
+   "per_bike_per_hour": 0.2009
+  },
+  "2025-08": {
+   "city_rentals_per_hour": 849.8,
+   "active_bikes": 3868,
+   "per_bike_per_hour": 0.2197
+  },
+  "2025-09": {
+   "city_rentals_per_hour": 940.5,
+   "active_bikes": 4047,
+   "per_bike_per_hour": 0.2324
+  },
+  "2025-10": {
+   "city_rentals_per_hour": 886.6,
+   "active_bikes": 4058,
+   "per_bike_per_hour": 0.2185
+  },
+  "2025-11": {
+   "city_rentals_per_hour": 933.6,
+   "active_bikes": 3845,
+   "per_bike_per_hour": 0.2428
+  },
+  "2026-01": {
+   "city_rentals_per_hour": 507.2,
+   "active_bikes": 3498,
+   "per_bike_per_hour": 0.145
+  },
+  "2026-02": {
+   "city_rentals_per_hour": 657.5,
+   "active_bikes": 4057,
+   "per_bike_per_hour": 0.1621
+  },
+  "2026-03": {
+   "city_rentals_per_hour": 1013.0,
+   "active_bikes": 4944,
+   "per_bike_per_hour": 0.2049
+  }
+ },
+ "shape_l1_to_city_quantiles": {
+  "0.25": 0.22176448885337557,
+  "0.5": 0.2766665291700536,
+  "0.75": 0.3355306547651362,
+  "0.9": 0.4368294454503134
+ },
+ "shape_kmeans_within_ss": {
+  "2": 4.391,
+  "3": 3.89,
+  "4": 3.482,
+  "6": 3.216
+ },
+ "shape_types_k4": {
+  "0": {
+   "stations": 377,
+   "weekday_peak_hour": 18,
+   "weekend_peak_hour": 17,
+   "am_share_wd(7-9)": 0.132,
+   "pm_share_wd(17-19)": 0.298,
+   "weekend_over_weekday": 0.973
+  },
+  "1": {
+   "stations": 40,
+   "weekday_peak_hour": 17,
+   "weekend_peak_hour": 17,
+   "am_share_wd(7-9)": 0.089,
+   "pm_share_wd(17-19)": 0.495,
+   "weekend_over_weekday": 0.361
+  },
+  "2": {
+   "stations": 281,
+   "weekday_peak_hour": 18,
+   "weekend_peak_hour": 17,
+   "am_share_wd(7-9)": 0.24,
+   "pm_share_wd(17-19)": 0.268,
+   "weekend_over_weekday": 0.862
+  },
+  "3": {
+   "stations": 162,
+   "weekday_peak_hour": 8,
+   "weekend_peak_hour": 17,
+   "am_share_wd(7-9)": 0.195,
+   "pm_share_wd(17-19)": 0.211,
+   "weekend_over_weekday": 0.683
+  }
+ },
+ "campus_stations": 76,
+ "campus_share_by_month": {
+  "2024-08": 0.0619,
+  "2024-09": 0.0707,
+  "2024-10": 0.0708,
+  "2024-11": 0.068,
+  "2024-12": 0.0682,
+  "2025-01": 0.0587,
+  "2025-02": 0.0677,
+  "2025-03": 0.0689,
+  "2025-04": 0.0673,
+  "2025-05": 0.064,
+  "2025-06": 0.0609,
+  "2025-07": 0.0611,
+  "2025-08": 0.0579,
+  "2025-09": 0.0673,
+  "2025-10": 0.0604,
+  "2025-11": 0.0631,
+  "2026-01": 0.0574,
+  "2026-02": 0.0526,
+  "2026-03": 0.0705
+ },
+ "models": {
+  "M0_flat_table": {
+   "feb_2026": {
+    "ll_per_cell": -1.0452,
+    "pred_over_actual": 1.319,
+    "wape_hourly_cells": 1.088
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.3451,
+    "pred_over_actual": 0.845,
+    "wape_hourly_cells": 0.823
+   }
+  },
+  "M1_scale_x_cityshape": {
+   "feb_2026": {
+    "ll_per_cell": -0.9888,
+    "pred_over_actual": 1.32,
+    "wape_hourly_cells": 1.111
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.2767,
+    "pred_over_actual": 0.845,
+    "wape_hourly_cells": 0.866
+   }
+  },
+  "M2_scale_x_typeshape": {
+   "feb_2026": {
+    "ll_per_cell": -0.9885,
+    "pred_over_actual": 1.343,
+    "wape_hourly_cells": 1.115
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.2537,
+    "pred_over_actual": 0.859,
+    "wape_hourly_cells": 0.849
+   }
+  },
+  "M3_+season(2025 same month)": {
+   "feb_2026": {
+    "ll_per_cell": -1.0419,
+    "pred_over_actual": 0.57,
+    "wape_hourly_cells": 0.939
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.3217,
+    "pred_over_actual": 0.651,
+    "wape_hourly_cells": 0.843
+   }
+  },
+  "M4_+level(active bikes, oracle)": {
+   "feb_2026": {
+    "ll_per_cell": -0.9577,
+    "pred_over_actual": 0.988,
+    "wape_hourly_cells": 0.991
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.2548,
+    "pred_over_actual": 1.16,
+    "wape_hourly_cells": 0.916
+   }
+  },
+  "M5_+campus season": {
+   "feb_2026": {
+    "ll_per_cell": -0.9585,
+    "pred_over_actual": 0.988,
+    "wape_hourly_cells": 0.992
+   },
+   "mar_2026": {
+    "ll_per_cell": -1.2539,
+    "pred_over_actual": 1.159,
+    "wape_hourly_cells": 0.915
+   }
+  }
+ },
+ "season_factor_from_2025": {
+  "feb_2026": 0.424,
+  "mar_2026": 0.758
+ },
+ "level_factor_active_bikes_oracle": {
+  "feb_2026": 1.735,
+  "mar_2026": 1.783
+ },
+ "campus_share_adjust": {
+  "feb_2026": 1.106,
+  "mar_2026": 1.125
+ }
+}

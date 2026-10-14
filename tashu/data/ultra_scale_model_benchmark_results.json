@@ -1,0 +1,110 @@
+{
+  "feb_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5281,
+      "rmse": 0.8823,
+      "wape": 1.1622,
+      "poisson_log_likelihood": -0.7658,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.3731,
+        "percentage_pred_under_0_1": 31.47
+      },
+      "peak_regime": {
+        "peak_mae": 2.095
+      }
+    },
+    "Ultra-XGBoost (1,500 Trees, CUDA)": {
+      "mae": 0.441,
+      "rmse": 0.7704,
+      "wape": 0.9704,
+      "poisson_log_likelihood": -0.6904,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2953,
+        "percentage_pred_under_0_1": 50.76
+      },
+      "peak_regime": {
+        "peak_mae": 1.6647
+      }
+    },
+    "Ultra-STGNN (7.36M params, CUDA)": {
+      "mae": 0.383,
+      "rmse": 0.701,
+      "wape": 0.8428,
+      "poisson_log_likelihood": -0.6506,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2047,
+        "percentage_pred_under_0_1": 57.54
+      },
+      "peak_regime": {
+        "peak_mae": 1.8899
+      }
+    },
+    "Ultra-Ensemble (XGB + STGNN, GPU)": {
+      "mae": 0.4105,
+      "rmse": 0.7201,
+      "wape": 0.9033,
+      "poisson_log_likelihood": -0.6617,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2591,
+        "percentage_pred_under_0_1": 52.65
+      },
+      "peak_regime": {
+        "peak_mae": 1.7067
+      }
+    }
+  },
+  "mar_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5264,
+      "rmse": 1.0234,
+      "wape": 0.9312,
+      "poisson_log_likelihood": -0.8191,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2778,
+        "percentage_pred_under_0_1": 41.78
+      },
+      "peak_regime": {
+        "peak_mae": 2.5899
+      }
+    },
+    "Ultra-XGBoost (1,500 Trees, CUDA)": {
+      "mae": 0.4408,
+      "rmse": 0.8385,
+      "wape": 0.7797,
+      "poisson_log_likelihood": -0.7327,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2382,
+        "percentage_pred_under_0_1": 56.65
+      },
+      "peak_regime": {
+        "peak_mae": 1.8478
+      }
+    },
+    "Ultra-STGNN (7.36M params, CUDA)": {
+      "mae": 0.4195,
+      "rmse": 0.8209,
+      "wape": 0.7421,
+      "poisson_log_likelihood": -0.7133,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2006,
+        "percentage_pred_under_0_1": 60.39
+      },
+      "peak_regime": {
+        "peak_mae": 1.9494
+      }
+    },
+    "Ultra-Ensemble (XGB + STGNN, GPU)": {
+      "mae": 0.4286,
+      "rmse": 0.8191,
+      "wape": 0.7581,
+      "poisson_log_likelihood": -0.7152,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2231,
+        "percentage_pred_under_0_1": 57.5
+      },
+      "peak_regime": {
+        "peak_mae": 1.8636
+      }
+    }
+  }
+}

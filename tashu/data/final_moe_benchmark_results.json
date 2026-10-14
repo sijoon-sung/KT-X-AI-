@@ -1,0 +1,170 @@
+{
+  "model_name": "Final Spatio-Temporal Dynamic MoE Foundation System",
+  "main_expert": "10.7M UltraMax-STGNN (10 blocks, 416 dim, ZIP Dual Head)",
+  "specialist_expert": "UltraMax-XGBoost (4,000 Trees, CUDA Hist)",
+  "gating_router": "Contextual Neural Gating Network (12 context feats -> Softmax 2)",
+  "model_artifacts_path": "C:\\Users\\DISLAB\\Desktop\\KT X AI\\tashu\\models\\final_moe",
+  "winter_feb_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5281,
+      "rmse": 0.8823,
+      "wape": 1.1622,
+      "poisson_log_likelihood": -0.7658,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.3731,
+        "percentage_pred_under_0_1": 31.47
+      },
+      "peak_regime": {
+        "peak_mae": 2.095
+      }
+    },
+    "UltraMax-XGBoost (4,000 Trees, CUDA)": {
+      "mae": 0.4411,
+      "rmse": 0.7715,
+      "wape": 0.9706,
+      "poisson_log_likelihood": -0.691,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2948,
+        "percentage_pred_under_0_1": 50.85
+      },
+      "peak_regime": {
+        "peak_mae": 1.6659
+      }
+    },
+    "UltraMax-STGNN (10.7M params, CUDA)": {
+      "mae": 0.3806,
+      "rmse": 0.6995,
+      "wape": 0.8375,
+      "poisson_log_likelihood": -0.651,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2002,
+        "percentage_pred_under_0_1": 58.27
+      },
+      "peak_regime": {
+        "peak_mae": 1.8905
+      }
+    },
+    "Static Ensemble (50:50)": {
+      "mae": 0.4028,
+      "rmse": 0.7109,
+      "wape": 0.8865,
+      "poisson_log_likelihood": -0.6574,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2475,
+        "percentage_pred_under_0_1": 53.59
+      },
+      "peak_regime": {
+        "peak_mae": 1.7265
+      }
+    },
+    "★ Final Dynamic MoE (최종 확정)": {
+      "mae": 0.43,
+      "rmse": 0.7619,
+      "wape": 0.9461,
+      "poisson_log_likelihood": -0.6776,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2782,
+        "percentage_pred_under_0_1": 53.18
+      },
+      "peak_regime": {
+        "peak_mae": 1.6691
+      }
+    },
+    "routing_analysis": {
+      "w_gcn_night_pct": 43.93,
+      "w_gcn_offpeak_pct": 28.88,
+      "w_gcn_rush_pct": 30.24,
+      "w_xgb_rush_pct": 69.76
+    }
+  },
+  "spring_mar_2026": {
+    "Historical Smoothed Mean": {
+      "mae": 0.5264,
+      "rmse": 1.0234,
+      "wape": 0.9312,
+      "poisson_log_likelihood": -0.8191,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2778,
+        "percentage_pred_under_0_1": 41.78
+      },
+      "peak_regime": {
+        "peak_mae": 2.5899
+      }
+    },
+    "UltraMax-XGBoost (4,000 Trees, CUDA)": {
+      "mae": 0.441,
+      "rmse": 0.8393,
+      "wape": 0.7802,
+      "poisson_log_likelihood": -0.7335,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2383,
+        "percentage_pred_under_0_1": 56.75
+      },
+      "peak_regime": {
+        "peak_mae": 1.8466
+      }
+    },
+    "UltraMax-STGNN (10.7M params, CUDA)": {
+      "mae": 0.4181,
+      "rmse": 0.82,
+      "wape": 0.7396,
+      "poisson_log_likelihood": -0.7142,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.1985,
+        "percentage_pred_under_0_1": 60.87
+      },
+      "peak_regime": {
+        "peak_mae": 1.9381
+      }
+    },
+    "Static Ensemble (50:50)": {
+      "mae": 0.4255,
+      "rmse": 0.816,
+      "wape": 0.7527,
+      "poisson_log_likelihood": -0.7142,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2184,
+        "percentage_pred_under_0_1": 58.07
+      },
+      "peak_regime": {
+        "peak_mae": 1.8658
+      }
+    },
+    "★ Final Dynamic MoE (최종 확정)": {
+      "mae": 0.4355,
+      "rmse": 0.835,
+      "wape": 0.7704,
+      "poisson_log_likelihood": -0.7215,
+      "zero_regime": {
+        "mean_prediction_on_actual_zero": 0.2296,
+        "percentage_pred_under_0_1": 57.95
+      },
+      "peak_regime": {
+        "peak_mae": 1.8476
+      }
+    },
+    "routing_analysis": {
+      "w_gcn_night_pct": 46.08,
+      "w_gcn_offpeak_pct": 27.14,
+      "w_gcn_rush_pct": 28.21,
+      "w_xgb_rush_pct": 71.79
+    }
+  },
+  "autumn_sep_2026_realtime_api": {
+    "evaluated_snapshots": 50,
+    "total_evaluated_station_windows": 32438,
+    "actual_stockout_event_rate_pct": 26.36,
+    "UltraMax-XGBoost": {
+      "net_stock_change_mae": 1.2248,
+      "stockout_auc": 0.7706
+    },
+    "UltraMax-STGNN": {
+      "net_stock_change_mae": 1.1839,
+      "stockout_auc": 0.7731
+    },
+    "Final-Dynamic-MoE": {
+      "net_stock_change_mae": 1.2131,
+      "stockout_auc": 0.7709
+    }
+  }
+}

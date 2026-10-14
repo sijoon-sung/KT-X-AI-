@@ -1,0 +1,27 @@
+{
+ "windows": 227,
+ "exposure-observed": {
+  "mean_gain": 0.0147,
+  "windows_improved": 225,
+  "bootstrap_95pct": [
+   0.0138,
+   0.0155
+  ]
+ },
+ "observed-stock_only": {
+  "mean_gain": 0.0449,
+  "windows_improved": 227,
+  "bootstrap_95pct": [
+   0.043,
+   0.0468
+  ]
+ },
+ "exposure-stock_only": {
+  "mean_gain": 0.0595,
+  "windows_improved": 227,
+  "bootstrap_95pct": [
+   0.0575,
+   0.0617
+  ]
+ }
+}

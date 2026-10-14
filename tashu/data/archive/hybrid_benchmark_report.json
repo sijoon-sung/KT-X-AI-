@@ -1,0 +1,20 @@
+{
+  "Feb_2026": {
+    "baseline_unmet_1h": 136.75508790016175,
+    "hybrid_unmet_1h": 0.7312202088534832,
+    "reduction_1h_pct": 99.46530676110031,
+    "baseline_unmet_15m": 69.9349670559908,
+    "hybrid_unmet_15m": 0.005391261401616186,
+    "reduction_15m_pct": 99.99229103604596,
+    "active_coverage_pct": 100.0
+  },
+  "Mar_2026": {
+    "baseline_unmet_1h": 124.49627295407382,
+    "hybrid_unmet_1h": 0.9877788549797102,
+    "reduction_1h_pct": 99.20657957741105,
+    "baseline_unmet_15m": 69.2159517453279,
+    "hybrid_unmet_15m": 0.024070990561912056,
+    "reduction_15m_pct": 99.96522334815177,
+    "active_coverage_pct": 100.0
+  }
+}

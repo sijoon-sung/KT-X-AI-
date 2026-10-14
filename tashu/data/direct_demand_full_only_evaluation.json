@@ -1,0 +1,60 @@
+{
+  "train_before": "2026-02-01",
+  "partial_weight": 0.0,
+  "february_2026": {
+    "direct": {
+      "predicted": 160173.1923942566,
+      "actual": 197271.0,
+      "abs_error": 173300.8599698448,
+      "cells": 336669,
+      "mae": 0.5147514620290101,
+      "pred_actual_ratio": 0.811944950825294
+    },
+    "station_hour_baseline": {
+      "predicted": 245964.35346456853,
+      "actual": 197271.0,
+      "abs_error": 213986.6649676458,
+      "cells": 336669,
+      "mae": 0.6355995502040456,
+      "pred_actual_ratio": 1.2468348285585238
+    },
+    "zero": {
+      "predicted": 0.0,
+      "actual": 197271.0,
+      "abs_error": 197271.0,
+      "cells": 336669,
+      "mae": 0.5859494043110592,
+      "pred_actual_ratio": 0.0
+    },
+    "hours": 532,
+    "hourly_total_mae": 116.41869142718781
+  },
+  "march_2026": {
+    "direct": {
+      "predicted": 311956.7112426758,
+      "actual": 358592.0,
+      "abs_error": 296195.9944611608,
+      "cells": 501056,
+      "mae": 0.5911434938632824,
+      "pred_actual_ratio": 0.8699488868761037
+    },
+    "station_hour_baseline": {
+      "predicted": 300206.54832779616,
+      "actual": 358592.0,
+      "abs_error": 320742.4546554694,
+      "cells": 501056,
+      "mae": 0.6401329485236569,
+      "pred_actual_ratio": 0.8371813881174041
+    },
+    "zero": {
+      "predicted": 0.0,
+      "actual": 358592.0,
+      "abs_error": 358592.0,
+      "cells": 501056,
+      "mae": 0.7156724996806744,
+      "pred_actual_ratio": 0.0
+    },
+    "hours": 744,
+    "hourly_total_mae": 151.44199573352773
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "total_multi_city_hours": 40896,
+  "simplex_pearson_correlations": {
+    "Seoul_vs_WashingtonDC": 0.858,
+    "Seoul_vs_Daejeon": 0.9449,
+    "WashingtonDC_vs_Daejeon": 0.9348
+  }
+}

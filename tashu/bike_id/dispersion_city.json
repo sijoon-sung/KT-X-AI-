@@ -1,0 +1,10 @@
+{
+ "cells": 667409,
+ "station_hour_mean_only": 1.6813309760387094,
+ "x_city_day_factor": 1.3376263861091189,
+ "x_city_hour_factor": 1.1988806587342788,
+ "busy_station_hour_mean_only": 1.8405723474594697,
+ "busy_x_city_hour_factor": 1.249914186843793,
+ "zero_obs": 0.5388434977652384,
+ "zero_poisson_city_hour": 0.534958984191313
+}

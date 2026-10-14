@@ -1,0 +1,29 @@
+{
+  "description": "Exogenous foundation features engineered from Seoul Ttareungi big-data for Tashu models.",
+  "temporal_shape": [
+    14616,
+    2
+  ],
+  "station_shape": [
+    1425,
+    6
+  ],
+  "feature_names_temporal": [
+    "seoul_macro_intensity_prior",
+    "seoul_rain_suppression_factor"
+  ],
+  "feature_names_station": [
+    "seoul_proto0_transit_hub_affinity",
+    "seoul_proto1_residential_drain_affinity",
+    "seoul_proto2_youth_commercial_affinity",
+    "seoul_proto3_river_leisure_affinity",
+    "seoul_proto4_neighborhood_affinity",
+    "seoul_fitted_transit_feeder_index"
+  ],
+  "summary_statistics": {
+    "mean_seoul_prior_intensity": 0.09566222131252289,
+    "mean_transit_feeder_index": 0.19624601304531097,
+    "mean_transit_hub_affinity": 0.779985785484314,
+    "mean_residential_drain_affinity": 0.6174964308738708
+  }
+}

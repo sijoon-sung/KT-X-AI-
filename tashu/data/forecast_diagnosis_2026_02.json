@@ -1,0 +1,220 @@
+{
+  "train_before": "2026-02-01",
+  "test_start": "2026-02-01",
+  "test_end": "2026-03-01",
+  "train_hours": 11671,
+  "test_hours": 532,
+  "sampled_test_hours": 84,
+  "historical_all_full_exposure": {
+    "cells": 336669,
+    "predicted": 361560.2625244026,
+    "actual": 197271.0,
+    "abs_error": 272770.4232790721,
+    "mae": 0.8102035627844325,
+    "pred_actual_ratio": 1.8328100051421778
+  },
+  "full_only_all_full_exposure": {
+    "cells": 336669,
+    "predicted": 245964.35346456856,
+    "actual": 197271.0,
+    "abs_error": 213986.66496764586,
+    "mae": 0.6355995502040457,
+    "pred_actual_ratio": 1.2468348285585238
+  },
+  "sampled_full_exposure": {
+    "historical": {
+      "cells": 53932,
+      "predicted": 56301.7933102569,
+      "actual": 30628.0,
+      "abs_error": 42358.64676383198,
+      "mae": 0.7854084173372391,
+      "pred_actual_ratio": 1.838245830947398
+    },
+    "full_only": {
+      "cells": 53932,
+      "predicted": 38227.51888250227,
+      "actual": 30628.0,
+      "abs_error": 33209.80936432174,
+      "mae": 0.615771886158899,
+      "pred_actual_ratio": 1.2481232493960517
+    },
+    "flow_1_step": {
+      "cells": 53932,
+      "predicted": 112315.75299072266,
+      "actual": 30628.0,
+      "abs_error": 92273.35876464844,
+      "mae": 1.7109203953988066,
+      "pred_actual_ratio": 3.6670939333525747
+    },
+    "flow_10_step": {
+      "cells": 53932,
+      "predicted": 177582.14721679688,
+      "actual": 30628.0,
+      "abs_error": 153271.78979492188,
+      "mae": 2.8419452235207645,
+      "pred_actual_ratio": 5.798032754890848
+    },
+    "zero": {
+      "cells": 53932,
+      "predicted": 0.0,
+      "actual": 30628.0,
+      "abs_error": 30628.0,
+      "mae": 0.5679003189201216,
+      "pred_actual_ratio": 0.0
+    }
+  },
+  "day_2026_02_15": [
+    {
+      "time": "2026-02-15T05:00:00",
+      "actual_total": 86,
+      "historical_total": 236.06161086888497,
+      "full_only_total": 150.17944783478342,
+      "flow_1_step_total": 2281.373291015625,
+      "flow_10_step_total": 4052.17529296875
+    },
+    {
+      "time": "2026-02-15T06:00:00",
+      "actual_total": 102,
+      "historical_total": 326.85527269622304,
+      "full_only_total": 212.37420255531705,
+      "flow_1_step_total": 2274.7666015625,
+      "flow_10_step_total": 4058.15673828125
+    },
+    {
+      "time": "2026-02-15T07:00:00",
+      "actual_total": 168,
+      "historical_total": 494.52474369327143,
+      "full_only_total": 318.99117455936573,
+      "flow_1_step_total": 2289.694091796875,
+      "flow_10_step_total": 4080.57666015625
+    },
+    {
+      "time": "2026-02-15T08:00:00",
+      "actual_total": 321,
+      "historical_total": 767.7403358028225,
+      "full_only_total": 495.67970736884695,
+      "flow_1_step_total": 2272.943359375,
+      "flow_10_step_total": 4023.80908203125
+    },
+    {
+      "time": "2026-02-15T09:00:00",
+      "actual_total": 390,
+      "historical_total": 901.6296683711112,
+      "full_only_total": 579.2836090276243,
+      "flow_1_step_total": 2261.5341796875,
+      "flow_10_step_total": 3976.18994140625
+    },
+    {
+      "time": "2026-02-15T10:00:00",
+      "actual_total": 572,
+      "historical_total": 1041.1261464797349,
+      "full_only_total": 667.182072459654,
+      "flow_1_step_total": 2248.6337890625,
+      "flow_10_step_total": 3952.67041015625
+    },
+    {
+      "time": "2026-02-15T11:00:00",
+      "actual_total": 505,
+      "historical_total": 1138.9469959179912,
+      "full_only_total": 715.5187797464628,
+      "flow_1_step_total": 2198.190673828125,
+      "flow_10_step_total": 3832.155029296875
+    },
+    {
+      "time": "2026-02-15T12:00:00",
+      "actual_total": 580,
+      "historical_total": 1329.3067840133529,
+      "full_only_total": 825.0512234420621,
+      "flow_1_step_total": 2183.71142578125,
+      "flow_10_step_total": 3782.9111328125
+    },
+    {
+      "time": "2026-02-15T13:00:00",
+      "actual_total": 708,
+      "historical_total": 1422.2786258563065,
+      "full_only_total": 874.5950125246281,
+      "flow_1_step_total": 2191.988037109375,
+      "flow_10_step_total": 3806.87939453125
+    },
+    {
+      "time": "2026-02-15T14:00:00",
+      "actual_total": 818,
+      "historical_total": 1501.2484086480429,
+      "full_only_total": 917.3046648620063,
+      "flow_1_step_total": 2167.0380859375,
+      "flow_10_step_total": 3771.689697265625
+    },
+    {
+      "time": "2026-02-15T15:00:00",
+      "actual_total": 935,
+      "historical_total": 1582.8354607615574,
+      "full_only_total": 971.4667103740043,
+      "flow_1_step_total": 2144.586669921875,
+      "flow_10_step_total": 3741.39697265625
+    },
+    {
+      "time": "2026-02-15T16:00:00",
+      "actual_total": 1012,
+      "historical_total": 1706.533098230203,
+      "full_only_total": 1017.8280039625233,
+      "flow_1_step_total": 2107.734130859375,
+      "flow_10_step_total": 3694.665283203125
+    },
+    {
+      "time": "2026-02-15T17:00:00",
+      "actual_total": 948,
+      "historical_total": 1842.344118699089,
+      "full_only_total": 1103.7941999850996,
+      "flow_1_step_total": 2032.8536376953125,
+      "flow_10_step_total": 3549.80078125
+    },
+    {
+      "time": "2026-02-15T18:00:00",
+      "actual_total": 772,
+      "historical_total": 1731.7800073658232,
+      "full_only_total": 1038.4891841579883,
+      "flow_1_step_total": 2089.45263671875,
+      "flow_10_step_total": 3668.58056640625
+    },
+    {
+      "time": "2026-02-15T19:00:00",
+      "actual_total": 657,
+      "historical_total": 1546.3924061517887,
+      "full_only_total": 923.2421251884646,
+      "flow_1_step_total": 2155.06982421875,
+      "flow_10_step_total": 3774.670166015625
+    },
+    {
+      "time": "2026-02-15T20:00:00",
+      "actual_total": 533,
+      "historical_total": 1497.894866950705,
+      "full_only_total": 873.8251102534855,
+      "flow_1_step_total": 2161.5498046875,
+      "flow_10_step_total": 3777.75927734375
+    },
+    {
+      "time": "2026-02-15T21:00:00",
+      "actual_total": 484,
+      "historical_total": 1403.5682387799818,
+      "full_only_total": 799.3423885065981,
+      "flow_1_step_total": 2158.7939453125,
+      "flow_10_step_total": 3779.7119140625
+    },
+    {
+      "time": "2026-02-15T22:00:00",
+      "actual_total": 435,
+      "historical_total": 1130.155610452899,
+      "full_only_total": 644.1631342438575,
+      "flow_1_step_total": 2178.217529296875,
+      "flow_10_step_total": 3827.858154296875
+    },
+    {
+      "time": "2026-02-15T23:00:00",
+      "actual_total": 377,
+      "historical_total": 959.8977533805726,
+      "full_only_total": 546.6115421383752,
+      "flow_1_step_total": 2207.55419921875,
+      "flow_10_step_total": 3893.119140625
+    }
+  ]
+}

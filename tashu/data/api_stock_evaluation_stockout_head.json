@@ -1,0 +1,86 @@
+{
+  "source": "C:\\Users\\DISLAB\\Downloads\\tashu_stock_10min.csv.gz",
+  "source_start": "2026-09-17T14:14:16",
+  "source_end": "2026-09-20T10:30:01",
+  "snapshots": 400,
+  "api_stations": 1374,
+  "matched_stations": 1363,
+  "evaluated_hour_windows": 37,
+  "first_window": "2026-09-17T21:00:01",
+  "last_window": "2026-09-20T09:00:01",
+  "metrics": {
+    "flow_10_step": {
+      "stockout_auc": 0.6998770124538316,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 2.7235424518585205,
+      "mean_predicted_net_change": -2.5159225463867188
+    },
+    "flow_1_step": {
+      "stockout_auc": 0.7346313998502286,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 0.9250451922416687,
+      "mean_predicted_net_change": -0.3583272099494934
+    },
+    "stock_only": {
+      "stockout_auc": 0.7504169868488699,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 0.8423588871955872,
+      "mean_predicted_net_change": 0.0
+    },
+    "stock_trend": {
+      "stockout_auc": 0.6910368531229764,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 1.3411592245101929,
+      "mean_predicted_net_change": -0.02337847836315632
+    },
+    "direct": {
+      "stockout_auc": 0.7543958103235959,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 0.8569492697715759,
+      "mean_predicted_net_change": -0.04497702419757843
+    },
+    "direct_nb_risk": {
+      "stockout_auc": 0.7627660828860028,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763,
+      "net_stock_change_mae": 0.8569492697715759,
+      "mean_predicted_net_change": -0.04497702419757843
+    },
+    "stockout_head": {
+      "stockout_auc": 0.8164506921163526,
+      "stockout_events": 7846,
+      "starting_in_stock_cells": 26228,
+      "stockout_event_rate": 0.2991459508921763
+    }
+  },
+  "limitations": "Stock snapshots do not reveal gross rentals/returns; net change may include rebalancing. Historical stockout labels are reconstructed from trips; API evaluation spans only three days.",
+  "direct_nb_risk_paired_hourly_auc_gain": {
+    "hours": 37,
+    "mean_gain": -0.010222271455745429,
+    "hours_improved": 12,
+    "bootstrap_95pct": [
+      -0.021441840690072118,
+      0.0011565106665153654
+    ]
+  },
+  "stockout_head_paired_hourly_auc_gain": {
+    "hours": 37,
+    "mean_gain": 0.053611630150003795,
+    "hours_improved": 37,
+    "bootstrap_95pct": [
+      0.04988468947264012,
+      0.05719129121462587
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "station_classification": {
+    "inactive": 137,
+    "structural_zero": 38,
+    "moderate_uncertain": 281,
+    "starved_censored": 846,
+    "core_commuter": 123
+  },
+  "evaluation_results": {
+    "Feb_2026": {
+      "days_evaluated": 20,
+      "avg_bikes_at_6am": 2321.45,
+      "1h_simulation": {
+        "baseline_unmet": 475.14211921510287,
+        "safe_proactive_unmet": 7.560401411727071,
+        "safe_proactive_reduction_pct": 98.4088126255327,
+        "safe_relay_unmet": 7.560401411727071,
+        "safe_relay_reduction_pct": 98.4088126255327
+      },
+      "15m_micro_timeline": {
+        "baseline_unmet": 295.8483415004869,
+        "safe_proactive_unmet": 60.604366691976246,
+        "safe_proactive_reduction_pct": 79.51505613159691
+      }
+    },
+    "Mar_2026": {
+      "days_evaluated": 22,
+      "avg_bikes_at_6am": 3070.818181818182,
+      "1h_simulation": {
+        "baseline_unmet": 593.45636669576,
+        "safe_proactive_unmet": 26.03463147225028,
+        "safe_proactive_reduction_pct": 95.61305043920825,
+        "safe_relay_unmet": 26.005745890160856,
+        "safe_relay_reduction_pct": 95.617917786449
+      },
+      "15m_micro_timeline": {
+        "baseline_unmet": 358.0699564268569,
+        "safe_proactive_unmet": 97.50300762186926,
+        "safe_proactive_reduction_pct": 72.7698440285687
+      }
+    }
+  }
+}

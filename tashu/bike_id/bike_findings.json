@@ -1,0 +1,386 @@
+{
+ "A_prefix_bikes": {
+  "DJ2": 2158,
+  "DJ3": 4617,
+  "DJ4": 1
+ },
+ "A_prefix_trips": {
+  "DJ2": 2399071,
+  "DJ3": 6717401,
+  "DJ4": 1
+ },
+ "A_fleet_by_month": {
+  "2024-08": {
+   "trips": 512885,
+   "days": 31,
+   "active_bikes": 2810,
+   "new_bikes": 2810,
+   "trips_per_bike_day": 5.888,
+   "by_prefix": {
+    "DJ2": 1084,
+    "DJ3": 1726,
+    "DJ4": 0
+   }
+  },
+  "2024-09": {
+   "trips": 518058,
+   "days": 30,
+   "active_bikes": 2635,
+   "new_bikes": 347,
+   "trips_per_bike_day": 6.554,
+   "by_prefix": {
+    "DJ2": 959,
+    "DJ3": 1676,
+    "DJ4": 0
+   }
+  },
+  "2024-10": {
+   "trips": 513780,
+   "days": 31,
+   "active_bikes": 2710,
+   "new_bikes": 299,
+   "trips_per_bike_day": 6.116,
+   "by_prefix": {
+    "DJ2": 967,
+    "DJ3": 1743,
+    "DJ4": 0
+   }
+  },
+  "2024-11": {
+   "trips": 418703,
+   "days": 30,
+   "active_bikes": 2747,
+   "new_bikes": 282,
+   "trips_per_bike_day": 5.081,
+   "by_prefix": {
+    "DJ2": 937,
+    "DJ3": 1810,
+    "DJ4": 0
+   }
+  },
+  "2024-12": {
+   "trips": 272734,
+   "days": 31,
+   "active_bikes": 2350,
+   "new_bikes": 60,
+   "trips_per_bike_day": 3.744,
+   "by_prefix": {
+    "DJ2": 726,
+    "DJ3": 1624,
+    "DJ4": 0
+   }
+  },
+  "2025-01": {
+   "trips": 203545,
+   "days": 31,
+   "active_bikes": 2127,
+   "new_bikes": 22,
+   "trips_per_bike_day": 3.087,
+   "by_prefix": {
+    "DJ2": 638,
+    "DJ3": 1488,
+    "DJ4": 1
+   }
+  },
+  "2025-02": {
+   "trips": 177206,
+   "days": 26,
+   "active_bikes": 2339,
+   "new_bikes": 79,
+   "trips_per_bike_day": 2.914,
+   "by_prefix": {
+    "DJ2": 865,
+    "DJ3": 1474,
+    "DJ4": 0
+   }
+  },
+  "2025-03": {
+   "trips": 366879,
+   "days": 28,
+   "active_bikes": 2773,
+   "new_bikes": 197,
+   "trips_per_bike_day": 4.725,
+   "by_prefix": {
+    "DJ2": 1134,
+    "DJ3": 1639,
+    "DJ4": 0
+   }
+  },
+  "2025-04": {
+   "trips": 537111,
+   "days": 30,
+   "active_bikes": 3356,
+   "new_bikes": 395,
+   "trips_per_bike_day": 5.335,
+   "by_prefix": {
+    "DJ2": 1266,
+    "DJ3": 2090,
+    "DJ4": 0
+   }
+  },
+  "2025-05": {
+   "trips": 614735,
+   "days": 31,
+   "active_bikes": 3535,
+   "new_bikes": 83,
+   "trips_per_bike_day": 5.61,
+   "by_prefix": {
+    "DJ2": 1370,
+    "DJ3": 2165,
+    "DJ4": 0
+   }
+  },
+  "2025-06": {
+   "trips": 634451,
+   "days": 30,
+   "active_bikes": 3860,
+   "new_bikes": 231,
+   "trips_per_bike_day": 5.479,
+   "by_prefix": {
+    "DJ2": 1570,
+    "DJ3": 2290,
+    "DJ4": 0
+   }
+  },
+  "2025-07": {
+   "trips": 571347,
+   "days": 31,
+   "active_bikes": 4001,
+   "new_bikes": 291,
+   "trips_per_bike_day": 4.606,
+   "by_prefix": {
+    "DJ2": 1645,
+    "DJ3": 2356,
+    "DJ4": 0
+   }
+  },
+  "2025-08": {
+   "trips": 607705,
+   "days": 31,
+   "active_bikes": 3868,
+   "new_bikes": 93,
+   "trips_per_bike_day": 5.068,
+   "by_prefix": {
+    "DJ2": 1542,
+    "DJ3": 2326,
+    "DJ4": 0
+   }
+  },
+  "2025-09": {
+   "trips": 636357,
+   "days": 30,
+   "active_bikes": 4047,
+   "new_bikes": 172,
+   "trips_per_bike_day": 5.241,
+   "by_prefix": {
+    "DJ2": 1534,
+    "DJ3": 2513,
+    "DJ4": 0
+   }
+  },
+  "2025-10": {
+   "trips": 608467,
+   "days": 31,
+   "active_bikes": 4058,
+   "new_bikes": 347,
+   "trips_per_bike_day": 4.837,
+   "by_prefix": {
+    "DJ2": 1398,
+    "DJ3": 2660,
+    "DJ4": 0
+   }
+  },
+  "2025-11": {
+   "trips": 602748,
+   "days": 30,
+   "active_bikes": 3845,
+   "new_bikes": 29,
+   "trips_per_bike_day": 5.225,
+   "by_prefix": {
+    "DJ2": 1220,
+    "DJ3": 2625,
+    "DJ4": 0
+   }
+  },
+  "2026-01": {
+   "trips": 309115,
+   "days": 31,
+   "active_bikes": 3498,
+   "new_bikes": 50,
+   "trips_per_bike_day": 2.851,
+   "by_prefix": {
+    "DJ2": 1041,
+    "DJ3": 2457,
+    "DJ4": 0
+   }
+  },
+  "2026-02": {
+   "trips": 362319,
+   "days": 28,
+   "active_bikes": 4057,
+   "new_bikes": 438,
+   "trips_per_bike_day": 3.19,
+   "by_prefix": {
+    "DJ2": 1129,
+    "DJ3": 2928,
+    "DJ4": 0
+   }
+  },
+  "2026-03": {
+   "trips": 648328,
+   "days": 31,
+   "active_bikes": 4944,
+   "new_bikes": 551,
+   "trips_per_bike_day": 4.23,
+   "by_prefix": {
+    "DJ2": 1267,
+    "DJ3": 3677,
+    "DJ4": 0
+   }
+  }
+ },
+ "B_ops": {
+  "ST0001": {
+   "rent_from": 804,
+   "return_to": 384
+  },
+  "ST1220": {
+   "rent_from": 262714,
+   "return_to": 281125
+  },
+  "ST1198": {
+   "rent_from": 674,
+   "return_to": 674
+  }
+ },
+ "B_ops_trip_share": 0.05287417623021535,
+ "B_ops_trip_minutes_median": 14.316666666666666,
+ "pairs": 9109697,
+ "pairs_same_station": 0.990158179794564,
+ "pairs_relocated_regular": 0.006755328964289372,
+ "pairs_next_from_ops": 0.0006226332225978537,
+ "C_same_station_trip_share": 0.08579535089941033,
+ "C_failed_share_of_trips": 0.03331134749151344,
+ "C_failed_km_median": 0.0,
+ "C_after_failed": {
+  "n": 303446,
+  "next_rent_same_station": 0.9801546238869518,
+  "re_rent_within_3min": 0.284913955036481,
+  "idle_over_24h": 0.028967262709015774,
+  "relocated": 0.019070938486584105,
+  "next_from_ops": 0.0007744376264640166,
+  "next_trip_failed_again": 0.2738905769065995
+ },
+ "C_after_normal": {
+  "n": 8542779,
+  "next_rent_same_station": 0.9911632970957109,
+  "re_rent_within_3min": 0.11728080522743244,
+  "idle_over_24h": 0.018060984604658506,
+  "relocated": 0.006315743389826659,
+  "next_from_ops": 0.0006083500462788514,
+  "next_trip_failed_again": 0.024723336516138367
+ },
+ "D_duration_hist_45_75": {
+  "45": 42866,
+  "46": 41156,
+  "47": 40102,
+  "48": 38383,
+  "49": 37036,
+  "50": 35906,
+  "51": 35943,
+  "52": 33414,
+  "53": 30940,
+  "54": 31065,
+  "55": 29602,
+  "56": 28206,
+  "57": 25834,
+  "58": 23489,
+  "59": 20375,
+  "60": 15269,
+  "61": 11099,
+  "62": 8925,
+  "63": 7427,
+  "64": 6940,
+  "65": 6466,
+  "66": 6183,
+  "67": 5740,
+  "68": 5399,
+  "69": 5216,
+  "70": 4961,
+  "71": 4827,
+  "72": 4506,
+  "73": 4020,
+  "74": 3972,
+  "75": 3817
+ },
+ "D_rerent_pairs": 1098915,
+ "D_rerent_share_of_trips": 0.12054168317067357,
+ "D_rerent_first_leg": {
+  "le_2min": 0.08880668659541457,
+  "m50_60": 0.08983952353002735,
+  "other": 0.7983592907549719,
+  "gt_60": 0.022994499119586138
+ },
+ "D_all_trips_50_60_share": 0.03400909540345263,
+ "E_rentals_with_no_reconstructed_bike": 0.005435548193736733,
+ "E_intervals": 8747023,
+ "E_skips_quantiles": {
+  "0.5": 1.0,
+  "0.9": 6.0,
+  "0.99": 36.0
+ },
+ "E_strong_share_intervals": 0.009255377515298634,
+ "E_strong_share_bike_hours": 0.16964768295484078,
+ "E_strong_share_bike_hours_le72h": 0.07387901269199883,
+ "E_next_trip_failed": {
+  "strong": 0.043319292957990044,
+  "not_strong": 0.03413832758716585
+ },
+ "E_after_next_trip": {
+  "strong_relocated_or_ops": 0.01815322510742103,
+  "not_strong_relocated_or_ops": 0.007236572803645133,
+  "strong_idle_over_24h": 0.05258986837054373,
+  "not_strong_idle_over_24h": 0.017964935455581005
+ },
+ "E_bikes_strong_rate_quantiles": {
+  "0.5": 0.008289374529012811,
+  "0.9": 0.025144232259709916,
+  "0.99": 0.05651970275786276
+ },
+ "E_strong_rate_by_prefix": {
+  "DJ2": 0.01611034744526317,
+  "DJ3": 0.006843903972385153
+ },
+ "F_trips_in_groups": 0.06803113440910756,
+ "F_groups": 299803,
+ "F_group_share_by_daytype": {
+  "weekday": 0.05466137787068897,
+  "weekend": 0.10437858903247965
+ },
+ "G_poisson_check": {
+  "raw_trips": {
+   "groups": 53562,
+   "pooled_var_over_mean": 1.9626837519684428,
+   "busy_groups_var_over_mean": 2.140781481188732,
+   "share_groups_dispersion_gt_1_5": 0.2872620931012992,
+   "zero_obs": 0.5257091228916602,
+   "zero_poisson": 0.5038747764927904
+  },
+  "merged_rerent": {
+   "groups": 53562,
+   "pooled_var_over_mean": 1.8158206760686246,
+   "busy_groups_var_over_mean": 1.9859315112443567,
+   "share_groups_dispersion_gt_1_5": 0.2686538086888759,
+   "zero_obs": 0.5388434977652384,
+   "zero_poisson": 0.5197630517618796
+  },
+  "groups_collapsed": {
+   "groups": 53562,
+   "pooled_var_over_mean": 1.8439331680117592,
+   "busy_groups_var_over_mean": 2.0166096229320445,
+   "share_groups_dispersion_gt_1_5": 0.24853068696406205,
+   "zero_obs": 0.5257300995341687,
+   "zero_poisson": 0.5106804432485951
+  }
+ }
+}

@@ -1,0 +1,101 @@
+{
+  "model": "Neural-KFDM Proactive System",
+  "periods": {
+    "2026년 2월 (겨울 평일)": {
+      "evaluated_weekdays": 20,
+      "total_latent_demand": 49877.85412597656,
+      "actual_unmet": 13750.742820739746,
+      "track1_unmet": 8681.777912139893,
+      "track1_reduction_pct": 36.863207862156486,
+      "track2_unmet": 7624.6590485572815,
+      "track2_reduction_pct": 44.55092973553919,
+      "overflow_reduction_pct": -222.03110359810495
+    },
+    "2026년 3월 (봄철 평일)": {
+      "evaluated_weekdays": 22,
+      "total_latent_demand": 89504.27783203125,
+      "actual_unmet": 21035.59197998047,
+      "track1_unmet": 15848.207837104797,
+      "track1_reduction_pct": 24.66003404046102,
+      "track2_unmet": 14595.78470993042,
+      "track2_reduction_pct": 30.613862810130566,
+      "overflow_reduction_pct": -31.261555092807637
+    }
+  },
+  "natural_experiment_validation": {
+    "verified_stations_count": 178,
+    "average_demand_multiplier_when_overstocked": 3.5405003939136304,
+    "sample_cases": [
+      {
+        "st_idx": 403,
+        "station_id": "ST0419",
+        "mean_high_stock_rent": 5.993006993006993,
+        "mean_low_stock_rent": 0.8016877637130801,
+        "demand_multiplier": 7.4754876702245125
+      },
+      {
+        "st_idx": 863,
+        "station_id": "ST0912",
+        "mean_high_stock_rent": 3.5273972602739727,
+        "mean_low_stock_rent": 0.5222672064777328,
+        "demand_multiplier": 6.754008707656366
+      },
+      {
+        "st_idx": 173,
+        "station_id": "ST0184",
+        "mean_high_stock_rent": 11.281045751633988,
+        "mean_low_stock_rent": 1.6900584795321638,
+        "demand_multiplier": 6.674944026053328
+      },
+      {
+        "st_idx": 736,
+        "station_id": "ST0780",
+        "mean_high_stock_rent": 5.613793103448276,
+        "mean_low_stock_rent": 0.8511904761904762,
+        "demand_multiplier": 6.595225464190982
+      },
+      {
+        "st_idx": 429,
+        "station_id": "ST0447",
+        "mean_high_stock_rent": 18.276315789473685,
+        "mean_low_stock_rent": 2.8,
+        "demand_multiplier": 6.527255639097745
+      },
+      {
+        "st_idx": 886,
+        "station_id": "ST0940",
+        "mean_high_stock_rent": 6.34965034965035,
+        "mean_low_stock_rent": 0.9882352941176471,
+        "demand_multiplier": 6.425241425241425
+      },
+      {
+        "st_idx": 1167,
+        "station_id": "ST1269",
+        "mean_high_stock_rent": 3.603448275862069,
+        "mean_low_stock_rent": 0.5684647302904564,
+        "demand_multiplier": 6.338912660458092
+      },
+      {
+        "st_idx": 145,
+        "station_id": "ST0154",
+        "mean_high_stock_rent": 5.758426966292135,
+        "mean_low_stock_rent": 0.9111111111111111,
+        "demand_multiplier": 6.320224719101124
+      },
+      {
+        "st_idx": 359,
+        "station_id": "ST0374",
+        "mean_high_stock_rent": 20.28205128205128,
+        "mean_low_stock_rent": 3.2216216216216216,
+        "demand_multiplier": 6.295603166408536
+      },
+      {
+        "st_idx": 901,
+        "station_id": "ST0956",
+        "mean_high_stock_rent": 3.1675977653631286,
+        "mean_low_stock_rent": 0.51,
+        "demand_multiplier": 6.210976010515939
+      }
+    ]
+  }
+}

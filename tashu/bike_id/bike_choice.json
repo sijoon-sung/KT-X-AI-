@@ -1,0 +1,48 @@
+{
+ "A_events": 227690,
+ "A_oldest_rank_mean(0.5=random,1=FIFO,0=LIFO)": 0.6215006912011367,
+ "A_oldest_rank_by_n": {
+  "2-3": 0.6086358974358974,
+  "4-9": 0.6341393207272787,
+  "10+": 0.7035242824238476
+ },
+ "A_rank_hist": [
+  57523,
+  12338,
+  27817,
+  16660,
+  113352
+ ],
+ "A_DJ3_picked_share": 0.7116991246328875,
+ "A_DJ3_present_share": 0.5659933837996319,
+ "A_mixed_events": 140284,
+ "B_bikes": 4041,
+ "B_corr_train_test_skip_ratio": 0.32800484408308817,
+ "B_test_skip_ratio_by_train_quintile": {
+  "bottom20%": 1.2265841875704988,
+  "top20%": 1.5694015773823802
+ },
+ "B_test_failed_rate_by_train_quintile": {
+  "bottom20%": 0.02946863070956441,
+  "top20%": 0.03501777055439471
+ },
+ "B_test_failed_rate_by_train_failed_quintile": {
+  "bottom20%": 0.02183100571322953,
+  "top20%": 0.0347125543209991
+ },
+ "B_prefix_skip_ratio": {
+  "DJ2": 1.517296574944691,
+  "DJ3": 1.2339399627758996
+ },
+ "C_stations": 1009,
+ "C_corr_sticky_share_vs_failed_rate": 0.04689878092973093,
+ "C_failed_rate_by_sticky_share": {
+  "low25%": 0.02562852170401849,
+  "high25%": 0.027831593344282986
+ },
+ "C_sticky_share_quantiles": {
+  "0.1": 0.09116799896761794,
+  "0.5": 0.14398408781489952,
+  "0.9": 0.20438842346365843
+ }
+}

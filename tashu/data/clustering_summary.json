@@ -1,0 +1,393 @@
+{
+  "total_stations_evaluated": 1283,
+  "number_of_clusters": 6,
+  "clusters": {
+    "0": {
+      "cluster_id": 0,
+      "name": "외곽 저수요 롱테일 (Low-demand Peripheral)",
+      "code": "LOW_DEMAND_PERIPHERAL",
+      "description": "일평균 8건 미만의 외곽/한적한 대여소. 결품 및 초과 적재 위험 낮음.",
+      "rebalance_priority": "낮음 (Low Priority)",
+      "recommended_action": "정기 트럭 순회 최소화, 시민 앱 신고 또는 정비 주기 시 수시 방문",
+      "station_count": 219,
+      "avg_daily_trips": 6.6,
+      "avg_net_flow_am": -0.23,
+      "avg_net_flow_pm": 0.06,
+      "avg_self_loop_ratio": 0.053,
+      "avg_weekend_to_weekday": 1.02,
+      "avg_stockout_rate": 0.712,
+      "district_breakdown": {
+        "동구": 113,
+        "중구": 33,
+        "서구": 6,
+        "대덕구": 62,
+        "유성구": 5
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST1321",
+          "name": "판암네거리/판암지구대 정류장",
+          "gu": "동구",
+          "daily_trips": 25.1,
+          "net_am": "-0.69",
+          "self_loop": "0.083"
+        },
+        {
+          "station_id": "ST0052",
+          "name": "신흥마을 102동(191)",
+          "gu": "동구",
+          "daily_trips": 22.8,
+          "net_am": "-0.52",
+          "self_loop": "0.054"
+        },
+        {
+          "station_id": "ST0573",
+          "name": "은어송코오롱하늘채2차아파트 103동",
+          "gu": "동구",
+          "daily_trips": 22.2,
+          "net_am": "-0.51",
+          "self_loop": "0.073"
+        },
+        {
+          "station_id": "ST0053",
+          "name": "판암역 4번출구",
+          "gu": "동구",
+          "daily_trips": 21.7,
+          "net_am": "-0.18",
+          "self_loop": "0.069"
+        },
+        {
+          "station_id": "ST0615",
+          "name": "용운종합사회복지관 맞은편",
+          "gu": "동구",
+          "daily_trips": 20.8,
+          "net_am": "-0.31",
+          "self_loop": "0.061"
+        }
+      ]
+    },
+    "1": {
+      "cluster_id": 1,
+      "name": "주거단지 출근 유출 거점 (Residential Morning Outflow)",
+      "code": "RESIDENTIAL_MORNING_OUTFLOW",
+      "description": "아파트/주거 밀집지로 아침(07~09시) 출근 대여 급증 및 심각한 순유출. 오전 품절 위험 최고.",
+      "rebalance_priority": "최우선 (High Priority)",
+      "recommended_action": "06:30~07:30 이전 자전거 집중 사전 공급(Morning Pre-fill) 필수. 09시 이후 추가 공급 불필요.",
+      "station_count": 221,
+      "avg_daily_trips": 34.8,
+      "avg_net_flow_am": -0.44,
+      "avg_net_flow_pm": 0.1,
+      "avg_self_loop_ratio": 0.11,
+      "avg_weekend_to_weekday": 0.95,
+      "avg_stockout_rate": 0.27,
+      "district_breakdown": {
+        "유성구": 68,
+        "동구": 25,
+        "서구": 58,
+        "중구": 32,
+        "대덕구": 37,
+        "": 1
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST0763",
+          "name": "어은동 한빛아파트(126동 건너편)",
+          "gu": "유성구",
+          "daily_trips": 213.7,
+          "net_am": "-0.61",
+          "self_loop": "0.107"
+        },
+        {
+          "station_id": "ST0764",
+          "name": "어은치안센터 입구",
+          "gu": "유성구",
+          "daily_trips": 150.5,
+          "net_am": "-0.59",
+          "self_loop": "0.089"
+        },
+        {
+          "station_id": "ST1343",
+          "name": "한밭중 네거리",
+          "gu": "동구",
+          "daily_trips": 139.8,
+          "net_am": "-0.61",
+          "self_loop": "0.174"
+        },
+        {
+          "station_id": "ST1172",
+          "name": "다모아아파트 상가",
+          "gu": "서구",
+          "daily_trips": 125.8,
+          "net_am": "-0.47",
+          "self_loop": "0.122"
+        },
+        {
+          "station_id": "ST0525",
+          "name": "태평동 유등마을(112동)",
+          "gu": "중구",
+          "daily_trips": 124.3,
+          "net_am": "-0.46",
+          "self_loop": "0.132"
+        }
+      ]
+    },
+    "2": {
+      "cluster_id": 2,
+      "name": "정부청사·업무·연구 집중 유입 거점 (Workplace & Campus Morning Peak Inflow)",
+      "code": "WORKPLACE_PEAK_INFLOW",
+      "description": "정부청사, 연구소, 핵심 강의동 등 아침 출근·등교 반납 폭증. 오후 퇴근 시 역방향 유출.",
+      "rebalance_priority": "최우선 (High Priority)",
+      "recommended_action": "08:30~10:00 거치대 만차 방지용 긴급 트럭 수거(Drain), 오후 17시 이전에는 공급 불필요.",
+      "station_count": 64,
+      "avg_daily_trips": 19.0,
+      "avg_net_flow_am": 0.65,
+      "avg_net_flow_pm": -0.62,
+      "avg_self_loop_ratio": 0.091,
+      "avg_weekend_to_weekday": 0.45,
+      "avg_stockout_rate": 0.461,
+      "district_breakdown": {
+        "동구": 5,
+        "서구": 6,
+        "유성구": 31,
+        "중구": 2,
+        "대덕구": 20
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST1341",
+          "name": "선화교(대전역 방향)",
+          "gu": "동구",
+          "daily_trips": 183.0,
+          "net_am": "+0.81",
+          "self_loop": "0.109"
+        },
+        {
+          "station_id": "ST1033",
+          "name": "정부청사 입구(남문)",
+          "gu": "서구",
+          "daily_trips": 138.9,
+          "net_am": "+0.56",
+          "self_loop": "0.086"
+        },
+        {
+          "station_id": "ST0375",
+          "name": "카이스트 창의학습관(22)",
+          "gu": "유성구",
+          "daily_trips": 132.6,
+          "net_am": "+0.78",
+          "self_loop": "0.108"
+        },
+        {
+          "station_id": "ST0188",
+          "name": "한국생명공학연구원 입구",
+          "gu": "유성구",
+          "daily_trips": 50.0,
+          "net_am": "+0.84",
+          "self_loop": "0.085"
+        },
+        {
+          "station_id": "ST1194",
+          "name": "관평동 대덕비즈센터 남문 맞은편",
+          "gu": "유성구",
+          "daily_trips": 41.5,
+          "net_am": "+0.62",
+          "self_loop": "0.130"
+        }
+      ]
+    },
+    "3": {
+      "cluster_id": 3,
+      "name": "도심·역세권·여가 초고수요 거점 (Core Urban Hubs & Transit Centers)",
+      "code": "CORE_URBAN_HIGH_DEMAND",
+      "description": "대전역, 서대전역, 카이스트 관문, 타임월드, 한밭수목원 등 종일 회전율이 높은 대형 거점.",
+      "rebalance_priority": "상시집중 (Continuous Monitoring)",
+      "recommended_action": "종일 상시 모니터링, 피크 시간대(점심/퇴근/주말) 거치대 부족 시 인접 분산 유도 및 수시 정돈.",
+      "station_count": 335,
+      "avg_daily_trips": 44.7,
+      "avg_net_flow_am": 0.0,
+      "avg_net_flow_pm": 0.0,
+      "avg_self_loop_ratio": 0.074,
+      "avg_weekend_to_weekday": 0.98,
+      "avg_stockout_rate": 0.359,
+      "district_breakdown": {
+        "유성구": 65,
+        "서구": 119,
+        "중구": 78,
+        "동구": 35,
+        "대덕구": 38
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST0373",
+          "name": "카이스트 서쪽 쪽문(105)",
+          "gu": "유성구",
+          "daily_trips": 198.5,
+          "net_am": "-0.08",
+          "self_loop": "0.076"
+        },
+        {
+          "station_id": "ST0426",
+          "name": "샘머리아파트(209동)",
+          "gu": "서구",
+          "daily_trips": 156.1,
+          "net_am": "-0.19",
+          "self_loop": "0.081"
+        },
+        {
+          "station_id": "ST1039",
+          "name": "타임월드",
+          "gu": "서구",
+          "daily_trips": 152.2,
+          "net_am": "+0.18",
+          "self_loop": "0.049"
+        },
+        {
+          "station_id": "ST0412",
+          "name": "무역전시관입구(택시승강장)(1)",
+          "gu": "유성구",
+          "daily_trips": 144.9,
+          "net_am": "+0.41",
+          "self_loop": "0.093"
+        },
+        {
+          "station_id": "ST0191",
+          "name": "유성구청(31)",
+          "gu": "유성구",
+          "daily_trips": 143.8,
+          "net_am": "+0.05",
+          "self_loop": "0.087"
+        }
+      ]
+    },
+    "4": {
+      "cluster_id": 4,
+      "name": "생활권 보조 주거 거점 (Secondary Residential Commuter)",
+      "code": "SECONDARY_RESIDENTIAL",
+      "description": "중소형 주거지역 및 환승 정류장 주변으로 완만한 출근 유출 발생.",
+      "rebalance_priority": "중간 (Medium Priority)",
+      "recommended_action": "출근 전 최소 기본 수량(3~5대) 유지 점검, 주거지 유출 거점 트럭 순회 경로에 연계.",
+      "station_count": 254,
+      "avg_daily_trips": 10.7,
+      "avg_net_flow_am": -0.22,
+      "avg_net_flow_pm": 0.03,
+      "avg_self_loop_ratio": 0.061,
+      "avg_weekend_to_weekday": 0.99,
+      "avg_stockout_rate": 0.681,
+      "district_breakdown": {
+        "유성구": 146,
+        "서구": 101,
+        "동구": 1,
+        "": 2,
+        "중구": 3,
+        "대덕구": 1
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST0160",
+          "name": "반석역 1번출구",
+          "gu": "유성구",
+          "daily_trips": 33.1,
+          "net_am": "-0.05",
+          "self_loop": "0.033"
+        },
+        {
+          "station_id": "ST0338",
+          "name": "아이파크시티 1단지 107동",
+          "gu": "유성구",
+          "daily_trips": 32.2,
+          "net_am": "-0.47",
+          "self_loop": "0.080"
+        },
+        {
+          "station_id": "ST0140",
+          "name": "침신대네거리(롯데마트)",
+          "gu": "유성구",
+          "daily_trips": 32.1,
+          "net_am": "+0.00",
+          "self_loop": "0.045"
+        },
+        {
+          "station_id": "ST0215",
+          "name": "도안 3단지 한라비발디(301동)(67)",
+          "gu": "유성구",
+          "daily_trips": 31.9,
+          "net_am": "-0.30",
+          "self_loop": "0.058"
+        },
+        {
+          "station_id": "ST0772",
+          "name": "진터네거리(도안4블럭 방면)",
+          "gu": "유성구",
+          "daily_trips": 31.2,
+          "net_am": "-0.28",
+          "self_loop": "0.052"
+        }
+      ]
+    },
+    "5": {
+      "cluster_id": 5,
+      "name": "대학 캠퍼스 및 연구·행정 완만 유입형 (Campus Academic & Institutional Inflow)",
+      "code": "CAMPUS_ACADEMIC_INFLOW",
+      "description": "충남대 단과대, 학생회관, 연구단지 등으로 오전부터 낮 시간대까지 완만한 유입 지속.",
+      "rebalance_priority": "중간 (Medium Priority)",
+      "recommended_action": "낮 시간대(11~14시) 교내 거치 현황 점검, 기숙사/식당과 단과대 간 내부 균형 재배치.",
+      "station_count": 190,
+      "avg_daily_trips": 19.4,
+      "avg_net_flow_am": 0.21,
+      "avg_net_flow_pm": -0.07,
+      "avg_self_loop_ratio": 0.058,
+      "avg_weekend_to_weekday": 0.75,
+      "avg_stockout_rate": 0.603,
+      "district_breakdown": {
+        "유성구": 33,
+        "서구": 48,
+        "중구": 48,
+        "동구": 41,
+        "대덕구": 19,
+        "": 1
+      },
+      "top_representative_stations": [
+        {
+          "station_id": "ST1016",
+          "name": "충남대학교 학생회관",
+          "gu": "유성구",
+          "daily_trips": 195.5,
+          "net_am": "+0.63",
+          "self_loop": "0.089"
+        },
+        {
+          "station_id": "ST1032",
+          "name": "정부청사역 4번출구",
+          "gu": "서구",
+          "daily_trips": 98.5,
+          "net_am": "-0.03",
+          "self_loop": "0.048"
+        },
+        {
+          "station_id": "ST1058",
+          "name": "카이스트 학사식당(21)",
+          "gu": "유성구",
+          "daily_trips": 98.0,
+          "net_am": "+0.03",
+          "self_loop": "0.066"
+        },
+        {
+          "station_id": "ST0686",
+          "name": "오룡역 1번출구",
+          "gu": "중구",
+          "daily_trips": 90.6,
+          "net_am": "+0.22",
+          "self_loop": "0.062"
+        },
+        {
+          "station_id": "ST0770",
+          "name": "유성온천역 2번출구",
+          "gu": "유성구",
+          "daily_trips": 85.3,
+          "net_am": "+0.07",
+          "self_loop": "0.042"
+        }
+      ]
+    }
+  }
+}

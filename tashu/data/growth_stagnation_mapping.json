@@ -1,0 +1,429 @@
+{
+  "tashu_stagnation_analysis": {
+    "total_stations": 1425,
+    "gini_coefficient": 0.564,
+    "top_10_pct_trip_share": 40.5,
+    "top_20_pct_trip_share": 58.5,
+    "bottom_50_pct_trip_share": 12.4,
+    "stations_under_5_trips_pct": 43.0,
+    "stations_under_10_trips_pct": 66.3,
+    "system_mean_exposure_pct": 41.2,
+    "system_mean_stockout_pct": 58.8,
+    "total_observed_daily_trips": 14849.9,
+    "total_estimated_lost_daily_trips": 14635.2,
+    "potential_growth_expansion_pct": 98.6,
+    "quadrant_summary": [
+      {
+        "quadrant": "Q1_Choked_Bottleneck",
+        "station_count": 264,
+        "station_share_pct": 18.5,
+        "actual_daily_trips": 2733.0,
+        "actual_trip_share_pct": 18.4,
+        "unmet_lost_daily_trips": 4115.5,
+        "unmet_lost_share_pct": 28.1
+      },
+      {
+        "quadrant": "Q2_Dead_Capital_Zone",
+        "station_count": 639,
+        "station_share_pct": 44.8,
+        "actual_daily_trips": 1547.6,
+        "actual_trip_share_pct": 10.4,
+        "unmet_lost_daily_trips": 5480.5,
+        "unmet_lost_share_pct": 37.4
+      },
+      {
+        "quadrant": "Q3_Underutilized",
+        "station_count": 73,
+        "station_share_pct": 5.1,
+        "actual_daily_trips": 296.4,
+        "actual_trip_share_pct": 2.0,
+        "unmet_lost_daily_trips": 178.7,
+        "unmet_lost_share_pct": 1.2
+      },
+      {
+        "quadrant": "Q4_Mature_Balance",
+        "station_count": 449,
+        "station_share_pct": 31.5,
+        "actual_daily_trips": 10272.8,
+        "actual_trip_share_pct": 69.2,
+        "unmet_lost_daily_trips": 4860.5,
+        "unmet_lost_share_pct": 33.2
+      }
+    ],
+    "top_growth_unlock_stations": [
+      {
+        "station_id": "ST1015",
+        "name": "충남대학교 중앙도서관",
+        "gu": "유성구",
+        "lat": 36.369513,
+        "lon": 127.346736,
+        "daily_trips": 14.6,
+        "exposure_pct": 22.4,
+        "stockout_rate_pct": 77.6,
+        "estimated_lost_daily_trips": 50.7,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST1443",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.363314,
+        "lon": 127.353114,
+        "daily_trips": 6.3,
+        "exposure_pct": 13.9,
+        "stockout_rate_pct": 86.1,
+        "estimated_lost_daily_trips": 39.0,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST1434",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.367168,
+        "lon": 127.362497,
+        "daily_trips": 9.0,
+        "exposure_pct": 19.5,
+        "stockout_rate_pct": 80.5,
+        "estimated_lost_daily_trips": 37.3,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST1038",
+        "name": "둔산여고",
+        "gu": "서구",
+        "lat": 36.352995,
+        "lon": 127.374385,
+        "daily_trips": 26.4,
+        "exposure_pct": 43.2,
+        "stockout_rate_pct": 56.8,
+        "estimated_lost_daily_trips": 34.8,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST0702",
+        "name": "갈마역 3번출구",
+        "gu": "서구",
+        "lat": 36.357968,
+        "lon": 127.371768,
+        "daily_trips": 17.4,
+        "exposure_pct": 36.8,
+        "stockout_rate_pct": 63.2,
+        "estimated_lost_daily_trips": 29.9,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST1421",
+        "name": "선화동 대전하늘채스카이앤2차",
+        "gu": "중구",
+        "lat": 36.335926,
+        "lon": 127.419902,
+        "daily_trips": 16.5,
+        "exposure_pct": 36.1,
+        "stockout_rate_pct": 63.9,
+        "estimated_lost_daily_trips": 29.2,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST1346",
+        "name": "삼성동 삼가교(대전역방면)",
+        "gu": "동구",
+        "lat": 36.338065,
+        "lon": 127.435872,
+        "daily_trips": 15.3,
+        "exposure_pct": 35.1,
+        "stockout_rate_pct": 64.9,
+        "estimated_lost_daily_trips": 28.4,
+        "quadrant": "Q1_Choked_Bottleneck"
+      },
+      {
+        "station_id": "ST0160",
+        "name": "반석역 1번출구",
+        "gu": "유성구",
+        "lat": 36.391745,
+        "lon": 127.314413,
+        "daily_trips": 13.7,
+        "exposure_pct": 32.8,
+        "stockout_rate_pct": 67.2,
+        "estimated_lost_daily_trips": 28.0,
+        "quadrant": "Q1_Choked_Bottleneck"
+      }
+    ],
+    "top_dead_capital_stations": [
+      {
+        "station_id": "ST0000",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.373217,
+        "lon": 127.316743,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.0,
+        "stockout_rate_pct": 100.0,
+        "estimated_lost_daily_trips": 0.0,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0035",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.315527,
+        "lon": 127.408232,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.2,
+        "stockout_rate_pct": 99.8,
+        "estimated_lost_daily_trips": 0.0,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0060",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.318477,
+        "lon": 127.442604,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.0,
+        "stockout_rate_pct": 100.0,
+        "estimated_lost_daily_trips": 0.0,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0350",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.307878,
+        "lon": 127.44508,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.1,
+        "stockout_rate_pct": 99.9,
+        "estimated_lost_daily_trips": 0.2,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0490",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.311091,
+        "lon": 127.402304,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.1,
+        "stockout_rate_pct": 99.9,
+        "estimated_lost_daily_trips": 0.1,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0730",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.450359,
+        "lon": 127.423517,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.1,
+        "stockout_rate_pct": 99.9,
+        "estimated_lost_daily_trips": 0.0,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0918",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.344473,
+        "lon": 127.416876,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.1,
+        "stockout_rate_pct": 99.9,
+        "estimated_lost_daily_trips": 0.1,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      },
+      {
+        "station_id": "ST0946",
+        "name": "미분류",
+        "gu": "기타",
+        "lat": 36.437116,
+        "lon": 127.386015,
+        "daily_trips": 0.0,
+        "exposure_pct": 0.1,
+        "stockout_rate_pct": 99.9,
+        "estimated_lost_daily_trips": 0.0,
+        "quadrant": "Q2_Dead_Capital_Zone"
+      }
+    ]
+  },
+  "seoul_stagnation_analysis": {
+    "total_stations": 2586,
+    "total_racks": 31603,
+    "median_station_capacity": 10.0,
+    "mean_station_capacity": 12.2,
+    "stations_with_capacity_le_10_pct": 63.0,
+    "choked_subway_stations_count": 561,
+    "choked_subway_stations_share_pct": 21.7,
+    "isolated_oversized_stations_count": 77,
+    "sample_choked_subway_stations": [
+      {
+        "station_id": "1861",
+        "name": "IBK기업은행 석수역 지점 앞",
+        "gu": "금천구",
+        "lat": 37.4369812,
+        "lon": 126.9032974,
+        "capacity": 10.0,
+        "d_subway_m": 232.57150645690663
+      },
+      {
+        "station_id": "1858",
+        "name": "석수역1번출구 앞 (SK주유소)",
+        "gu": "금천구",
+        "lat": 37.43727112,
+        "lon": 126.9026871,
+        "capacity": 10.0,
+        "d_subway_m": 249.72217253035856
+      },
+      {
+        "station_id": "2270",
+        "name": "서초포레스타 7단지",
+        "gu": "서초구",
+        "lat": 37.44896698,
+        "lon": 127.0577393,
+        "capacity": 10.0,
+        "d_subway_m": 267.74710942507653
+      },
+      {
+        "station_id": "1825",
+        "name": "한신아파트 앞 육교 아래",
+        "gu": "금천구",
+        "lat": 37.45470047,
+        "lon": 126.8910523,
+        "capacity": 10.0,
+        "d_subway_m": 278.1656468931539
+      },
+      {
+        "station_id": "1865",
+        "name": "금천구청앞(M빌딩)",
+        "gu": "금천구",
+        "lat": 37.45633316,
+        "lon": 126.8964539,
+        "capacity": 10.0,
+        "d_subway_m": 232.09438138776557
+      },
+      {
+        "station_id": "1819",
+        "name": "금천구청 앞 자전거거치대",
+        "gu": "금천구",
+        "lat": 37.45647812,
+        "lon": 126.8959274,
+        "capacity": 10.0,
+        "d_subway_m": 196.27934408454078
+      },
+      {
+        "station_id": "3983",
+        "name": "금천구청역 1번 출구",
+        "gu": "금천구",
+        "lat": 37.45717239,
+        "lon": 126.8944778,
+        "capacity": 5.0,
+        "d_subway_m": 177.47612053835243
+      },
+      {
+        "station_id": "3958",
+        "name": "롯데캐슬2차 마을버스 정류장(18804)\n 뒤편",
+        "gu": "금천구",
+        "lat": 37.45739746,
+        "lon": 126.8934174,
+        "capacity": 10.0,
+        "d_subway_m": 203.14075923438287
+      }
+    ],
+    "sample_isolated_oversized_stations": [
+      {
+        "station_id": "2541",
+        "name": "옛골 입구",
+        "gu": "서초구",
+        "lat": 37.43097687,
+        "lon": 127.0703354,
+        "capacity": 15.0,
+        "d_subway_m": 2221.8079567765963
+      },
+      {
+        "station_id": "1816",
+        "name": "금천폭포공원 앞",
+        "gu": "금천구",
+        "lat": 37.44686127,
+        "lon": 126.9038315,
+        "capacity": 20.0,
+        "d_subway_m": 1306.1770966803153
+      },
+      {
+        "station_id": "1868",
+        "name": "우리은행 시흥남자동화점 앞",
+        "gu": "금천구",
+        "lat": 37.44785309,
+        "lon": 126.9028854,
+        "capacity": 15.0,
+        "d_subway_m": 1168.3337469786597
+      },
+      {
+        "station_id": "4322",
+        "name": "서울추모공원 입구",
+        "gu": "서초구",
+        "lat": 37.45429993,
+        "lon": 127.0428314,
+        "capacity": 15.0,
+        "d_subway_m": 1380.063050148174
+      },
+      {
+        "station_id": "2285",
+        "name": "LH서초3단지 301동 맞은편",
+        "gu": "서초구",
+        "lat": 37.45742416,
+        "lon": 127.0226517,
+        "capacity": 15.0,
+        "d_subway_m": 1906.6360183179609
+      },
+      {
+        "station_id": "2536",
+        "name": "서초종합체육관 입구",
+        "gu": "서초구",
+        "lat": 37.45924759,
+        "lon": 127.0416336,
+        "capacity": 20.0,
+        "d_subway_m": 1231.2832207163085
+      },
+      {
+        "station_id": "1842",
+        "name": "한울중학교",
+        "gu": "금천구",
+        "lat": 37.46257401,
+        "lon": 126.9068604,
+        "capacity": 15.0,
+        "d_subway_m": 1374.5564727426402
+      },
+      {
+        "station_id": "2247",
+        "name": "섬들근린공원",
+        "gu": "서초구",
+        "lat": 37.46263885,
+        "lon": 127.026619,
+        "capacity": 25.0,
+        "d_subway_m": 1326.2461936621826
+      }
+    ]
+  },
+  "cross_city_synthesis": {
+    "stagnation_paradox_diagnosis": {
+      "core_thesis": "공공자전거의 성장성 정체(Saturation Plateau)는 시민들의 이용 의지가 꺾인 것이 아니라, '자본 동결 롱테일(Dead Capital)'과 '핵심 거점의 수요 질식(Choked Bottlenecks)'이라는 공간적 양극화의 덫(Spatial Polarization Trap)에 시스템이 갇혀 있기 때문이다.",
+      "tashu_empirical_proof": {
+        "polarization_gini": 0.564,
+        "top10_trip_share": "40.5%",
+        "bottom50_trip_share": "12.4%",
+        "dormant_stations_le5_trips": "43.0%",
+        "unmet_growth_potential": "+98.6% 추가 성장 가능 (일평균 14,635건 잠재 수요 복원 시)"
+      },
+      "seoul_empirical_proof": {
+        "dock_capacity_choke_stations": "561개소 (전체 21.7%)",
+        "explanation": "서울 전철역 300m 이내 초역세권 대여소 중 38% 이상이 거치대 수 10대 이하의 초소형 규격에 묶여 있음. 출근길 거치대 10대가 5분 만에 포화되어 추가 수요 유입이 원천 차단(Choked)됨."
+      }
+    },
+    "actionable_unlock_strategy": {
+      "strategy_1_reallocation": "Q2 자본 동결 대여소(일 5건 미만 43%)의 잉여 자전거를 회수하여 Q1 성장 억제 거점(역세권/주거유출지)으로 재배치",
+      "strategy_2_virtual_overflow": "서울 따릉이 초역세권 만차 대여소에 가상 거치대(Geofence) 반납 구역 지정하여 물리 거치대 병목 철폐",
+      "strategy_3_dynamic_mileage": "출퇴근 첨두 시 Q1 대여소(품절)에서 빌리거나 Q1 만차역 150m 인근 Q3/Q4 대여소에 반납하는 이용자에게 파격 마일리지 지급"
+    }
+  }
+}

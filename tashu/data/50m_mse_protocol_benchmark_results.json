@@ -1,0 +1,112 @@
+{
+  "evaluation_protocol": "Fixed Standard MSE/RMSE Protocol (Zero-Free Peak Weighted)",
+  "model_capacity": "Ultra50M (50,245,634 Parameters, 14 Blocks, 768 Dim)",
+  "winter_feb_2026": {
+    "Historical Baseline": {
+      "overall_mse": 0.7785,
+      "overall_rmse": 0.8823,
+      "overall_mae": 0.5281,
+      "peak_regime": {
+        "peak_mse": 6.6253,
+        "peak_rmse": 2.574,
+        "peak_mae": 2.095,
+        "evaluated_peak_events": 29774
+      }
+    },
+    "UltraMax-XGBoost (4,000 Trees)": {
+      "overall_mse": 0.6031,
+      "overall_rmse": 0.7766,
+      "overall_mae": 0.4468,
+      "peak_regime": {
+        "peak_mse": 4.2796,
+        "peak_rmse": 2.0687,
+        "peak_mae": 1.6613,
+        "evaluated_peak_events": 29774
+      }
+    },
+    "★ Ultra50M-STGNN (50.2M params)": {
+      "overall_mse": 0.6915,
+      "overall_rmse": 0.8316,
+      "overall_mae": 0.4757,
+      "peak_regime": {
+        "peak_mse": 3.0181,
+        "peak_rmse": 1.7373,
+        "peak_mae": 1.3013,
+        "evaluated_peak_events": 29774
+      }
+    },
+    "★ Ultra50M-MoE (최종 확장)": {
+      "overall_mse": 0.5972,
+      "overall_rmse": 0.7728,
+      "overall_mae": 0.4448,
+      "peak_regime": {
+        "peak_mse": 4.1374,
+        "peak_rmse": 2.0341,
+        "peak_mae": 1.6282,
+        "evaluated_peak_events": 29774
+      }
+    }
+  },
+  "spring_mar_2026": {
+    "Historical Baseline": {
+      "overall_mse": 1.0473,
+      "overall_rmse": 1.0234,
+      "overall_mae": 0.5264,
+      "peak_regime": {
+        "peak_mse": 10.9412,
+        "peak_rmse": 3.3078,
+        "peak_mae": 2.5899,
+        "evaluated_peak_events": 60271
+      }
+    },
+    "UltraMax-XGBoost (4,000 Trees)": {
+      "overall_mse": 0.7147,
+      "overall_rmse": 0.8454,
+      "overall_mae": 0.4466,
+      "peak_regime": {
+        "peak_mse": 5.7357,
+        "peak_rmse": 2.3949,
+        "peak_mae": 1.8501,
+        "evaluated_peak_events": 60271
+      }
+    },
+    "★ Ultra50M-STGNN (50.2M params)": {
+      "overall_mse": 0.8349,
+      "overall_rmse": 0.9137,
+      "overall_mae": 0.5002,
+      "peak_regime": {
+        "peak_mse": 4.089,
+        "peak_rmse": 2.0221,
+        "peak_mae": 1.4336,
+        "evaluated_peak_events": 60271
+      }
+    },
+    "★ Ultra50M-MoE (최종 확장)": {
+      "overall_mse": 0.7088,
+      "overall_rmse": 0.8419,
+      "overall_mae": 0.4467,
+      "peak_regime": {
+        "peak_mse": 5.5521,
+        "peak_rmse": 2.3563,
+        "peak_mae": 1.8126,
+        "evaluated_peak_events": 60271
+      }
+    }
+  },
+  "autumn_sep_2026_realtime_api": {
+    "evaluated_snapshots": 50,
+    "total_evaluated_station_windows": 32438,
+    "UltraMax-XGBoost": {
+      "net_stock_mse": 4.6489,
+      "net_stock_rmse": 2.1561,
+      "net_stock_mae": 1.2281,
+      "stockout_auc": 0.7681
+    },
+    "Ultra50M-STGNN": {
+      "net_stock_mse": 4.6172,
+      "net_stock_rmse": 2.1488,
+      "net_stock_mae": 1.2,
+      "stockout_auc": 0.7589
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "world_cells": 6218148,
+  "censored_share": 0.4460162414918397,
+  "cap_slack": 1,
+  "steps": 3000,
+  "results": [
+    {
+      "method": "observed (no correction)",
+      "recovery_censored": 0.4330961143459155,
+      "mae_censored": 0.6360092954663868,
+      "recovery_low": 0.4436517222682001,
+      "recovery_mid": 0.44103748419847616,
+      "recovery_high": 0.4308539798931684
+    },
+    {
+      "method": "rule: historical avg",
+      "recovery_censored": 0.5580280674676175,
+      "mae_censored": 0.608226826494397,
+      "recovery_low": 0.4970948502111576,
+      "recovery_mid": 0.5399042344850904,
+      "recovery_high": 0.5647237322166033
+    },
+    {
+      "method": "naive",
+      "recovery_censored": 0.5949138124075528,
+      "mae_censored": 0.6022627000391136,
+      "recovery_low": 0.6537864016319874,
+      "recovery_mid": 0.63566035068439,
+      "recovery_high": 0.5832076730468578
+    },
+    {
+      "method": "drop",
+      "recovery_censored": 0.5830744509559959,
+      "mae_censored": 0.5741516939278947,
+      "recovery_low": 0.509342837821016,
+      "recovery_mid": 0.5513656231421594,
+      "recovery_high": 0.5933803249932922
+    },
+    {
+      "method": "tobit",
+      "recovery_censored": 1.010172102213,
+      "mae_censored": 0.5849405777910563,
+      "recovery_low": 0.9945348107576715,
+      "recovery_mid": 0.9996592999704307,
+      "recovery_high": 1.0132115330947347
+    },
+    {
+      "method": "exposure",
+      "recovery_censored": 0.9729679508096511,
+      "mae_censored": 0.5331062113557844,
+      "recovery_low": 0.9782820424610765,
+      "recovery_mid": 0.9718833622488328,
+      "recovery_high": 0.9729847003513258
+    }
+  ]
+}

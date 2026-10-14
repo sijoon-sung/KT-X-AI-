@@ -1,0 +1,142 @@
+{
+  "model": "NB city total + multinomial region shares + smoothed station shares",
+  "target": "recorded rentals and returns; no claim of latent unmet demand",
+  "train_before": "2026-02-01",
+  "train_hours": 11671,
+  "selection_validation": "2026-01; final Feb and Mar excluded",
+  "best_epoch": 3,
+  "january_validation_loss": 9.784950256347656,
+  "api_used_for_training": false,
+  "historical": {
+    "february_2026": {
+      "valid_hours": 532,
+      "recorded_rentals": {
+        "city_total": {
+          "observed": 309630.0,
+          "predicted": 251829.09375,
+          "ratio": 0.8133226633071899,
+          "mae": 197.9314422607422,
+          "wape": 0.3400818109512329
+        },
+        "city_baseline": {
+          "observed": 309630.0,
+          "predicted": 351272.875,
+          "ratio": 1.1344923973083496,
+          "mae": 175.59475708007812,
+          "wape": 0.3017033636569977
+        },
+        "region": {
+          "observed": 309630.0,
+          "predicted": 251829.109375,
+          "ratio": 0.8133227229118347,
+          "mae": 8.04109001159668,
+          "wape": 0.4282971918582916
+        },
+        "region_baseline": {
+          "observed": 309630.0,
+          "predicted": 351272.84375,
+          "ratio": 1.13449227809906,
+          "mae": 7.082179546356201,
+          "wape": 0.3772221803665161
+        },
+        "oracle_total_region_share_wape": 0.2744203805923462
+      },
+      "returns": {
+        "city_total": {
+          "observed": 305574.0,
+          "predicted": 252882.40625,
+          "ratio": 0.8275651931762695,
+          "mae": 195.96319580078125,
+          "wape": 0.341169148683548
+        },
+        "city_baseline": {
+          "observed": 305574.0,
+          "predicted": 346977.375,
+          "ratio": 1.1354937553405762,
+          "mae": 176.8683624267578,
+          "wape": 0.3079253137111664
+        },
+        "region": {
+          "observed": 305574.0,
+          "predicted": 252882.421875,
+          "ratio": 0.8275652527809143,
+          "mae": 8.049028396606445,
+          "wape": 0.43441057205200195
+        },
+        "region_baseline": {
+          "observed": 305574.0,
+          "predicted": 346977.375,
+          "ratio": 1.1354937553405762,
+          "mae": 6.998199939727783,
+          "wape": 0.37769678235054016
+        },
+        "oracle_total_region_share_wape": 0.28242042660713196
+      }
+    },
+    "march_2026": {
+      "valid_hours": 744,
+      "recorded_rentals": {
+        "city_total": {
+          "observed": 538846.0,
+          "predicted": 381224.25,
+          "ratio": 0.7074827551841736,
+          "mae": 342.98675537109375,
+          "wape": 0.4735715985298157
+        },
+        "city_baseline": {
+          "observed": 538846.0,
+          "predicted": 417451.8125,
+          "ratio": 0.7747145295143127,
+          "mae": 270.34588623046875,
+          "wape": 0.3732742369174957
+        },
+        "region": {
+          "observed": 538846.0,
+          "predicted": 381224.25,
+          "ratio": 0.7074827551841736,
+          "mae": 12.183966636657715,
+          "wape": 0.5215052366256714
+        },
+        "region_baseline": {
+          "observed": 538846.0,
+          "predicted": 417451.8125,
+          "ratio": 0.7747145295143127,
+          "mae": 9.610849380493164,
+          "wape": 0.4113691747188568
+        },
+        "oracle_total_region_share_wape": 0.2481524795293808
+      },
+      "returns": {
+        "city_total": {
+          "observed": 537815.0,
+          "predicted": 377107.8125,
+          "ratio": 0.7011849880218506,
+          "mae": 337.05108642578125,
+          "wape": 0.4662681818008423
+        },
+        "city_baseline": {
+          "observed": 537815.0,
+          "predicted": 416928.1875,
+          "ratio": 0.7752260565757751,
+          "mae": 271.9856262207031,
+          "wape": 0.3762582242488861
+        },
+        "region": {
+          "observed": 537815.0,
+          "predicted": 377107.84375,
+          "ratio": 0.7011850476264954,
+          "mae": 12.116908073425293,
+          "wape": 0.519629180431366
+        },
+        "region_baseline": {
+          "observed": 537815.0,
+          "predicted": 416928.1875,
+          "ratio": 0.7752260565757751,
+          "mae": 9.594451904296875,
+          "wape": 0.41145455837249756
+        },
+        "oracle_total_region_share_wape": 0.25337639451026917
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+﻿world 6,218,148 cells, censored 44.6%  (true demand 3,924,921 → observed 2,161,016, 55.1%)
+  observed (no correction)   recovery 0.433  MAE 0.636  (activity low/mid/high 0.44/0.44/0.43)
+  rule: historical avg       recovery 0.558  MAE 0.608  (activity low/mid/high 0.50/0.54/0.56)
+    [naive/e_mid] step     0  nll 0.7878  1s
+    [naive/e_mid] step   500  nll 0.5850  6s
+    [naive/e_mid] step  1000  nll 0.5818  11s
+    [naive/e_mid] step  1500  nll 0.5809  16s
+    [naive/e_mid] step  2000  nll 0.5804  21s
+    [naive/e_mid] step  2500  nll 0.5798  26s
+    [naive/e_mid] step  2999  nll 0.5792  31s
+  naive                      recovery 0.595  MAE 0.602  (activity low/mid/high 0.65/0.64/0.58)
+    [drop/e_mid] step     0  nll 0.6222  0s
+    [drop/e_mid] step   500  nll 0.4250  5s
+    [drop/e_mid] step  1000  nll 0.4221  10s
+    [drop/e_mid] step  1500  nll 0.4202  15s
+    [drop/e_mid] step  2000  nll 0.4210  20s
+    [drop/e_mid] step  2500  nll 0.4207  25s
+    [drop/e_mid] step  2999  nll 0.4200  30s
+  drop                       recovery 0.583  MAE 0.574  (activity low/mid/high 0.51/0.55/0.59)
+    [tobit/e_mid] step     0  nll 0.6741  0s
+    [tobit/e_mid] step   500  nll 0.4233  10s
+    [tobit/e_mid] step  1000  nll 0.4211  19s
+    [tobit/e_mid] step  1500  nll 0.4202  29s
+    [tobit/e_mid] step  2000  nll 0.4189  39s
+    [tobit/e_mid] step  2500  nll 0.4187  48s
+    [tobit/e_mid] step  2999  nll 0.4182  59s
+  tobit                      recovery 1.010  MAE 0.585  (activity low/mid/high 0.99/1.00/1.01)
+    [exposure/e_mid] step     0  nll 1.1883  0s
+    [exposure/e_mid] step   500  nll 0.8720  5s
+    [exposure/e_mid] step  1000  nll 0.8688  11s
+    [exposure/e_mid] step  1500  nll 0.8679  16s
+    [exposure/e_mid] step  2000  nll 0.8670  21s
+    [exposure/e_mid] step  2500  nll 0.8668  26s
+    [exposure/e_mid] step  2999  nll 0.8653  31s
+  exposure                   recovery 0.973  MAE 0.533  (activity low/mid/high 0.98/0.97/0.97)
+saved data\demand\validation_sim.json

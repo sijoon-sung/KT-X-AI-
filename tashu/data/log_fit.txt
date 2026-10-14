@@ -1,0 +1,29 @@
+﻿cells 16,586,564  exposure=e_lbx  재고 부족 셀 61.8%
+    [exposure/e_lbx] step     0  nll 1.4391  1s
+    [exposure/e_lbx] step   500  nll 1.0656  6s
+    [exposure/e_lbx] step  1000  nll 1.0622  11s
+    [exposure/e_lbx] step  1500  nll 1.0599  17s
+    [exposure/e_lbx] step  2000  nll 1.0605  22s
+    [exposure/e_lbx] step  2500  nll 1.0592  27s
+    [exposure/e_lbx] step  2999  nll 1.0601  32s
+saved data\demand\summary_lbx.json
+{
+  "exposure": "lbx",
+  "steps": 3000,
+  "observed_total": 7763765,
+  "reliable_stations": 1392,
+  "unreliable_stations": 29,
+  "unmet_share_reliable_only": [
+    0.31164065259714346,
+    0.47625223845812353
+  ],
+  "unmet_total": [
+    3530436,
+    7077037
+  ],
+  "unmet_share": [
+    0.31258836325235945,
+    0.47686350431155095
+  ],
+  "top10pct_stations_share_of_unmet_low": 0.2825164528295575
+}

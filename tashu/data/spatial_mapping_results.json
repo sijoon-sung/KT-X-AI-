@@ -1,0 +1,126 @@
+{
+  "seoul_spatial_summary": {
+    "total_bike_stations": 2586,
+    "total_subway_stations": 589,
+    "median_dist_to_subway_m": 442.8,
+    "mean_dist_to_subway_m": 510.9,
+    "median_1nn_alternative_m": 175.8,
+    "rings": [
+      {
+        "transit_tier": "Core_Walkable (<300m)",
+        "station_count": 882,
+        "share_pct": 34.1,
+        "avg_subway_dist_m": 150.3,
+        "avg_alternative_1nn_m": 150.6,
+        "avg_normalized_radius": 0.55,
+        "total_capacity": 10820
+      },
+      {
+        "transit_tier": "Transit_Catchment (300~600m)",
+        "station_count": 882,
+        "share_pct": 34.1,
+        "avg_subway_dist_m": 449.4,
+        "avg_alternative_1nn_m": 206.2,
+        "avg_normalized_radius": 0.59,
+        "total_capacity": 10845
+      },
+      {
+        "transit_tier": "Mid_Range (600~1000m)",
+        "station_count": 544,
+        "share_pct": 21.0,
+        "avg_subway_dist_m": 754.9,
+        "avg_alternative_1nn_m": 228.9,
+        "avg_normalized_radius": 0.67,
+        "total_capacity": 6699
+      },
+      {
+        "transit_tier": "Isolated_NonTransit (>=1000m)",
+        "station_count": 278,
+        "share_pct": 10.8,
+        "avg_subway_dist_m": 1373.0,
+        "avg_alternative_1nn_m": 247.8,
+        "avg_normalized_radius": 0.77,
+        "total_capacity": 3239
+      }
+    ]
+  },
+  "daejeon_spatial_summary": {
+    "total_bike_stations": 1425,
+    "total_subway_stations": 22,
+    "median_dist_to_subway_m": 1576.5,
+    "mean_dist_to_subway_m": 2600.6,
+    "median_1nn_alternative_m": 138.0,
+    "rings": [
+      {
+        "transit_tier": "Core_Walkable (<300m)",
+        "station_count": 130,
+        "share_pct": 9.1,
+        "avg_subway_dist_m": 146.7,
+        "avg_alternative_1nn_m": 106.6,
+        "avg_normalized_radius": 0.31,
+        "total_capacity": 1300
+      },
+      {
+        "transit_tier": "Transit_Catchment (300~600m)",
+        "station_count": 195,
+        "share_pct": 13.7,
+        "avg_subway_dist_m": 459.2,
+        "avg_alternative_1nn_m": 133.9,
+        "avg_normalized_radius": 0.32,
+        "total_capacity": 1950
+      },
+      {
+        "transit_tier": "Mid_Range (600~1000m)",
+        "station_count": 191,
+        "share_pct": 13.4,
+        "avg_subway_dist_m": 809.6,
+        "avg_alternative_1nn_m": 137.7,
+        "avg_normalized_radius": 0.32,
+        "total_capacity": 1910
+      },
+      {
+        "transit_tier": "Isolated_NonTransit (>=1000m)",
+        "station_count": 909,
+        "share_pct": 63.8,
+        "avg_subway_dist_m": 3787.2,
+        "avg_alternative_1nn_m": 184.5,
+        "avg_normalized_radius": 0.49,
+        "total_capacity": 9090
+      }
+    ]
+  },
+  "tashu_spatial_operational_coupling": [
+    {
+      "ring": "Walkable (<300m)",
+      "station_count": 117,
+      "avg_daily_trips": 38.5,
+      "avg_stockout_rate_pct": 53.3,
+      "morning_net_flow_am": 0.052,
+      "leisure_self_loop_pct": 5.1
+    },
+    {
+      "ring": "Catchment (300~600m)",
+      "station_count": 179,
+      "avg_daily_trips": 35.2,
+      "avg_stockout_rate_pct": 49.5,
+      "morning_net_flow_am": -0.085,
+      "leisure_self_loop_pct": 6.5
+    },
+    {
+      "ring": "Mid_Range (600~1000m)",
+      "station_count": 171,
+      "avg_daily_trips": 33.0,
+      "avg_stockout_rate_pct": 50.1,
+      "morning_net_flow_am": -0.1,
+      "leisure_self_loop_pct": 6.6
+    },
+    {
+      "ring": "Isolated (>=1000m)",
+      "station_count": 816,
+      "avg_daily_trips": 18.7,
+      "avg_stockout_rate_pct": 51.0,
+      "morning_net_flow_am": -0.117,
+      "leisure_self_loop_pct": 7.9
+    }
+  ]
+}

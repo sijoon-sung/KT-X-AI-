@@ -1,0 +1,19 @@
+{
+  "train_before": "2026-02-01",
+  "historical_label": "exposure_ub<1 positive; exposure==1 negative; ambiguous excluded",
+  "inventory_input": "mean_of_reconstructed_bounds",
+  "february_2026": {
+    "sampled_hours": 448,
+    "cells": 300064,
+    "positive_rate": 0.07731350645195692,
+    "stockout_auc": 0.8864120438335309,
+    "stock_only_auc": 0.8547315884626392
+  },
+  "march_2026": {
+    "sampled_hours": 496,
+    "cells": 358149,
+    "positive_rate": 0.12009526761208324,
+    "stockout_auc": 0.8639765701153882,
+    "stock_only_auc": 0.8266179716232179
+  }
+}

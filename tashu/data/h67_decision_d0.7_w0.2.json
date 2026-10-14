@@ -1,0 +1,183 @@
+{
+ "catchments": 840,
+ "stations_in_multi_station_catchment": 955,
+ "feb_2026": {
+  "days": 28,
+  "walk_km": 0.2,
+  "P0_current/band_satisfaction": {
+   "0.05": 0.371,
+   "0.1": 0.438,
+   "0.2": 0.5241
+  },
+  "P1_station/band_satisfaction": {
+   "0.05": 0.3588,
+   "0.1": 0.4572,
+   "0.2": 0.5809
+  },
+  "P2_catchment/band_satisfaction": {
+   "0.05": 0.3566,
+   "0.1": 0.4543,
+   "0.2": 0.5772
+  },
+  "P0_current/station_loss": {
+   "per_day_mean": 3145.9,
+   "ci95": [
+    3102.0,
+    3187.4
+   ]
+  },
+  "P0_current/catchment_loss": {
+   "per_day_mean": 1901.3,
+   "ci95": [
+    1866.2,
+    1935.7
+   ]
+  },
+  "P1_station/station_loss": {
+   "per_day_mean": 2601.4,
+   "ci95": [
+    2563.1,
+    2644.7
+   ]
+  },
+  "P1_station/catchment_loss": {
+   "per_day_mean": 1568.4,
+   "ci95": [
+    1535.5,
+    1601.0
+   ]
+  },
+  "P2_catchment/station_loss": {
+   "per_day_mean": 2672.3,
+   "ci95": [
+    2630.9,
+    2715.3
+   ]
+  },
+  "P2_catchment/catchment_loss": {
+   "per_day_mean": 1533.5,
+   "ci95": [
+    1501.1,
+    1567.1
+   ]
+  },
+  "P1_station vs P0 reduction/station_loss": {
+   "mean": 0.173,
+   "ci95": [
+    0.168,
+    0.178
+   ]
+  },
+  "P1_station vs P0 reduction/catchment_loss": {
+   "mean": 0.175,
+   "ci95": [
+    0.168,
+    0.183
+   ]
+  },
+  "P2_catchment vs P0 reduction/station_loss": {
+   "mean": 0.151,
+   "ci95": [
+    0.146,
+    0.155
+   ]
+  },
+  "P2_catchment vs P0 reduction/catchment_loss": {
+   "mean": 0.193,
+   "ci95": [
+    0.186,
+    0.201
+   ]
+  }
+ },
+ "mar_2026": {
+  "days": 31,
+  "walk_km": 0.2,
+  "P0_current/band_satisfaction": {
+   "0.05": 0.3087,
+   "0.1": 0.3721,
+   "0.2": 0.4592
+  },
+  "P1_station/band_satisfaction": {
+   "0.05": 0.2816,
+   "0.1": 0.3818,
+   "0.2": 0.5178
+  },
+  "P2_catchment/band_satisfaction": {
+   "0.05": 0.2825,
+   "0.1": 0.3807,
+   "0.2": 0.515
+  },
+  "P0_current/station_loss": {
+   "per_day_mean": 3027.3,
+   "ci95": [
+    2988.2,
+    3062.5
+   ]
+  },
+  "P0_current/catchment_loss": {
+   "per_day_mean": 1827.7,
+   "ci95": [
+    1796.6,
+    1854.5
+   ]
+  },
+  "P1_station/station_loss": {
+   "per_day_mean": 2337.0,
+   "ci95": [
+    2297.9,
+    2372.6
+   ]
+  },
+  "P1_station/catchment_loss": {
+   "per_day_mean": 1376.9,
+   "ci95": [
+    1347.5,
+    1404.5
+   ]
+  },
+  "P2_catchment/station_loss": {
+   "per_day_mean": 2396.0,
+   "ci95": [
+    2356.5,
+    2431.3
+   ]
+  },
+  "P2_catchment/catchment_loss": {
+   "per_day_mean": 1342.6,
+   "ci95": [
+    1312.9,
+    1371.4
+   ]
+  },
+  "P1_station vs P0 reduction/station_loss": {
+   "mean": 0.228,
+   "ci95": [
+    0.223,
+    0.233
+   ]
+  },
+  "P1_station vs P0 reduction/catchment_loss": {
+   "mean": 0.247,
+   "ci95": [
+    0.239,
+    0.254
+   ]
+  },
+  "P2_catchment vs P0 reduction/station_loss": {
+   "mean": 0.209,
+   "ci95": [
+    0.203,
+    0.214
+   ]
+  },
+  "P2_catchment vs P0 reduction/catchment_loss": {
+   "mean": 0.265,
+   "ci95": [
+    0.258,
+    0.273
+   ]
+  }
+ },
+ "generator_d": 0.7
+}
