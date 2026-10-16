@@ -2,11 +2,14 @@
 import argparse
 from pathlib import Path
 
+PROFILES = {"base": 48, "medium": 96}
+
 
 def train_options(p):
     p.add_argument("--history", type=int, default=24, help="Past hourly context; sparse lags up to this value")
     p.add_argument("--horizon", type=int, default=3)
-    p.add_argument("--hidden", type=int, default=48)
+    p.add_argument("--profile", choices=list(PROFILES), default="base", help="base: width 48, medium: width 96; training budget stays identical")
+    p.add_argument("--hidden", type=int, default=None, help="Explicit width overrides --profile")
     p.add_argument("--epochs", type=int, default=15)
     p.add_argument("--batch-size", type=int, default=32)
     p.add_argument("--lr", type=float, default=.002)
@@ -58,6 +61,8 @@ def main(argv=None):
     scenario_options(rec)
     plan_options(rec)
     args = p.parse_args(argv)
+    if args.command in ("train", "demo"):
+        args.hidden = PROFILES[args.profile] if args.hidden is None else args.hidden
     try:
         from .pipeline import fit, recommend
         if args.command == "train":

@@ -4,6 +4,7 @@ import importlib.metadata
 import json
 import platform
 import subprocess
+import time
 from pathlib import Path
 
 import numpy as np
@@ -37,6 +38,17 @@ def device_for(name):
     return torch.device(name)
 
 
+def sync(device):
+    if device.type == "cuda":
+        torch.cuda.synchronize(device)
+
+
+def parameter_counts(model):
+    total = sum(p.numel() for p in model.parameters())
+    trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    return {"total": total, "trainable": trainable, "frozen": total - trainable}
+
+
 def limit_evenly(indices, maximum):
     if maximum < 1:
         raise ValueError("Sampling limits must be positive.")
@@ -67,12 +79,22 @@ def fit(args):
     device = device_for(args.device)
     print(f"stations={len(panel.stations)} partitions={ {k: len(v) for k, v in parts.items()} } features={x.shape[-1]}", flush=True)
     gcn = CountGCN(x.shape[-1], args.hidden, args.horizon * 2).to(device)
+    sync(device)
+    started = time.perf_counter()
     gcn_log = train_neural(gcn, x, y, mask, slices["train"], slices["validation"], graph,
                            args.epochs, args.batch_size, args.lr, args.seed)
+    sync(device)
+    train_seconds = {"gcn": time.perf_counter() - started}
     flow = GraphFlow(gcn, args.hidden, args.horizon * 2).to(device)
+    started = time.perf_counter()
     flow_log = train_neural(flow, x, y, mask, slices["train"], slices["validation"], graph,
                             args.epochs, args.batch_size, args.lr, args.seed, flow=True)
+    sync(device)
+    train_seconds["gcn_flow_residual"] = time.perf_counter() - started
+    train_seconds["gcn_flow_including_base"] = train_seconds["gcn"] + train_seconds["gcn_flow_residual"]
+    started = time.perf_counter()
     xgb = train_xgboost(x, y, mask, slices["train"], slices["validation"], args.seed, args.trees)
+    train_seconds["xgboost"] = time.perf_counter() - started
     out.mkdir(parents=True, exist_ok=True)
     save_models(out / "models", xgb, gcn, flow, {"gcn": gcn_log, "gcn_flow": flow_log})
     np.save(out / "graph.npy", graph)
@@ -84,6 +106,9 @@ def fit(args):
     metadata = {"schema_version": 1, "source": args.source, "panel_sha256": file_hash(args.panel),
                 "code_commit": commit, "code_dirty": dirty, "seed": args.seed,
                 "history": args.history, "horizon": args.horizon, "hidden": args.hidden,
+                "profile": args.profile if args.hidden == {"base": 48, "medium": 96}[args.profile] else "custom",
+                "parameter_counts": {"gcn": parameter_counts(gcn), "gcn_flow": parameter_counts(flow)},
+                "training_seconds": train_seconds,
                 "feature_count": x.shape[-1], "stations": panel.stations,
                 "coords": panel.coords.tolist(), "train_end": str(pd.Timestamp(args.train_end)),
                 "valid_end": str(pd.Timestamp(args.valid_end)), "graph": args.graph,
@@ -106,17 +131,30 @@ def fit(args):
         for part in ("validation", "test"):
             idx = slices[part]
             count_chunks, actual_chunks, mask_chunks, evidence = [], [], [], []
+            # Warm up once outside measurement. Always reset the sampling seed per measured call.
+            predict_scenarios(name, models, x[idx[:1]], graph, args.horizon,
+                              args.samples, args.ode_steps, args.seed + 1999)
+            sync(device)
+            inference_seconds = 0.0
             for offset in range(0, len(idx), 8):
                 selected = idx[offset:offset + 8]
+                sync(device)
+                started = time.perf_counter()
                 scenarios = predict_scenarios(name, models, x[selected], graph, args.horizon,
                                              args.samples, args.ode_steps, args.seed + 2000 + offset)
+                sync(device)
+                inference_seconds += time.perf_counter() - started
                 count_chunks.append(scenarios)
                 actual_chunks.append(y[selected].reshape(len(selected), len(panel.stations), args.horizon, 2).transpose(0, 2, 1, 3))
                 mask_chunks.append(mask[selected].reshape(len(selected), len(panel.stations), args.horizon, 2).transpose(0, 2, 1, 3))
                 for j, at in enumerate(selected):
                     evidence.append(stock_evidence(panel, origins[at], scenarios[:, j]))
             results[name][part] = {"counts": count_metrics(np.concatenate(count_chunks, 1), np.concatenate(actual_chunks), np.concatenate(mask_chunks)),
-                                   "stock": stock_metrics(evidence)}
+                                   "stock": stock_metrics(evidence),
+                                   "inference": {"seconds": inference_seconds,
+                                                 "ms_per_city_origin": inference_seconds * 1000 / len(idx),
+                                                 "samples_per_origin": args.samples,
+                                                 "batch_origins": 8, "device": str(device)}}
         print(f"{name}: test MAE={results[name]['test']['counts']['mae']:.4f}", flush=True)
     # All three candidates must be comparable on the same selection metric.
     has_stock = all(results[n]["validation"]["stock"].get("brier") is not None for n in MODELS)

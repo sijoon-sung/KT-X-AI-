@@ -41,3 +41,14 @@ def test_poisson_baseline_can_train_an_all_zero_channel():
     models = train_xgboost(x, y, np.ones_like(y, dtype=bool), np.arange(6), np.arange(6, 8), seed=1, trees=2)
     prediction = models[0].predict(tabular_features(x))
     assert np.isfinite(prediction).all() and (prediction >= 0).all()
+
+
+def test_medium_has_more_capacity_without_changing_frozen_base_policy():
+    from tashu_contest.pipeline import parameter_counts
+    base = CountGCN(24, 48, 6)
+    medium = CountGCN(24, 96, 6)
+    flow = GraphFlow(medium, 96, 6)
+    small_count, medium_count = parameter_counts(base), parameter_counts(medium)
+    assert 3 < medium_count["total"] / small_count["total"] < 4.5
+    assert parameter_counts(flow)["frozen"] == medium_count["total"]
+    assert parameter_counts(flow)["trainable"] > 0

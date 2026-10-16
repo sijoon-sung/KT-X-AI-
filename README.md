@@ -36,6 +36,25 @@ tashu demo --out runs/demo --budget 20 --truck-capacity 10
 tashu demo --out runs/quick --days 12 --stations 6 --epochs 2 --trees 30 --samples 16 --ode-steps 4
 ```
 
+## 한 단계 큰 모델
+
+기본 `base`는 은닉 차원 48, `medium`은 96입니다. 그래프 계층 수와 입력·학습 횟수·
+XGBoost 트리 수·생성 시나리오 수는 그대로 두고 폭만 키워 효과를 비교합니다.
+
+```bash
+tashu demo --profile base --out runs/size_base
+tashu demo --profile medium --out runs/size_medium
+# 같은 실데이터와 같은 분할로 확대 모델 학습
+tashu train --profile medium --panel data/hourly_panel.csv --train-end 2026-02-01 --valid-end 2026-03-01 --out runs/real_medium
+```
+
+`--hidden`을 직접 지정하면 profile보다 우선합니다. 기본값은 기존 base를 유지합니다.
+새 실행 metadata.json에는 전체/학습/고정 파라미터 수와 학습 시간을 기록하고,
+evaluation.json에는 warm-up을 제외한 도시 전체 한 예측 시점의 시나리오 생성 시간을
+기록합니다. GCN + Flow Matching 학습 시간은 잔차 모델 단독/기본 GCN 포함을 구분합니다.
+품절 Brier·CRPS 등 **검증 구간**의 이득과 실행 비용을 보고 크기를 선택하세요.
+합성 데이터에서 커진 모델이 낫더라도 실데이터 성능으로 해석하지 않습니다.
+
 ## 실제 데이터로 학습
 
 [입력 규약](docs/DATA_CONTRACT.md)에 맞춘 시간별 CSV를 사용합니다. 이번 구현은 원본
