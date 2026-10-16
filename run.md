@@ -10,6 +10,7 @@ README는 프로젝트 설명, 이 문서는 실제 실행 순서의 기준입�
 
 | 하려는 일 | 이동 |
 |---|---|
+| RTX 3080에서 크게 학습 | [0. RTX 3080](#0-rtx-3080-확대-실행) |
 | 처음 설치 | [1. 설치](#1-설치-최초-1회) |
 | 코드가 도는지 빠르게 확인 | [2. 빠른 확인](#2-빠른-확인-합성-데이터) |
 | 확대 모델까지 전체 시연 | [3. Medium 전체 실행](#3-medium-전체-실행-합성-데이터) |
@@ -19,8 +20,92 @@ README는 프로젝트 설명, 이 문서는 실제 실행 순서의 기준입�
 | 기존 저장 모델로 합성 시연 다시 계산 | [7. 재학습 없이 추천](#7-재학습-없이-합성-예제-추천만-다시-계산) |
 | 결과 위치와 옵션 확인 | [8. 결과](#8-결과-파일), [9. 설정](#9-자주-바꾸는-설정) |
 | 테스트 | [10. 테스트](#10-테스트와-실행-도움말) |
+| Git에 결과 요약 올리기 | [11. 결과 공유](#11-git에-올릴-결과-요약) |
+
+## 0. RTX 3080 확대 실행
+
+현재 브랜치 `contest/model-medium`에서 `base`, `medium`, `large`, `rtx3080`을 모두 선택합니다.
+RTX 3080의 10GB/12GB 변형을 고려한 시작 설정이며 실제 사용량은 대여소 수에 따라 달라집니다.
+폭뿐 아니라 층수와 학습량도 바꾸므로 기존 medium과의 비교는 **전체 설정 비교**입니다.
+성능 향상은 같은 데이터·분할의 검증 점수로 확인해야 합니다.
+
+| 항목 | medium | rtx3080 |
+|---|---|---|
+| 은닉 폭 / GCN 층 / Flow 블록 | 96 / 2 / 1 | 512 / 4 / 6 |
+| 최대 에포크 / 조기 종료 patience | 15 / 비활성 | 60 / 12 |
+| 배치 × 누적 | 32 × 1 | 4 × 4 (유효 16) |
+| 학습률 / dropout | 0.002 / 0 | 0.0005 / 0.1 |
+| XGBoost 트리 / 깊이 / 학습 장치 | 150 / 4 / CPU | 600 / 6 / CUDA |
+| 시나리오 / ODE 단계 | 32 / 8 | 64 / 12 |
+| 평가 배치 / 시나리오 묶음 | 8 / 32 | 2 / 4 |
+
+### CUDA 환경 확인
+
+**이미 CUDA가 작동하는 `.venv`라면 1번의 CPU 전용 설치를 다시 실행하지 마세요.**
+아래는 기존 CUDA PyTorch를 유지하며 프로젝트 의존성을 설치합니다.
+새 GPU 환경은 [PyTorch 공식 설치 선택기](https://pytorch.org/get-started/locally/)에서
+Windows/Pip/Python/CUDA에 맞는 명령으로 PyTorch를 먼저 설치한 뒤 진행합니다.
+
+```powershell
+& .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
+if ($LASTEXITCODE -ne 0) { throw "의존성 설치 실패" }
+& .\.venv\Scripts\python.exe -c "import torch; print('torch:',torch.__version__,'CUDA:',torch.version.cuda); assert torch.cuda.is_available(), 'CUDA를 사용할 수 없습니다'; p=torch.cuda.get_device_properties(0); print(p.name, round(p.total_memory/1024**3,2),'GiB')"
+if ($LASTEXITCODE -ne 0) { throw "CUDA 설치와 드라이버를 확인하세요." }
+```
+
+### 먼저 GPU 짧은 실행
+
+512 폭과 전체 층수는 유지하고 반복 횟수만 줄입니다. 이 검사가 성공하면 전체 학습으로 갑니다.
+합성 자료의 실행 확인이며 실제 타슈 성능 검증은 아닙니다.
+
+```powershell
+$GpuSmokeRoot = Join-Path "runs" ("rtx3080-smoke-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli demo --profile rtx3080 --out $GpuSmokeRoot --days 35 --stations 64 --epochs 2 --trees 30 --samples 8 --ode-steps 4 --max-eval-origins 8 --seed 42
+if ($LASTEXITCODE -ne 0) { throw "GPU 짧은 실행 실패: 오류와 아래 메모리 대응을 확인하세요." }
+Write-Host "보고서: $GpuSmokeRoot/recommendation/report.html"
+```
+
+### 실제 자료 전체 학습
+
+파일과 분할 날짜를 자기 데이터에 맞게 수정합니다. 각 분할은 history/horizon을 확보할 만큼 길어야 합니다.
+`rtx3080`은 CUDA와 혼합 정밀도를 기본으로 사용하며 각 신경망을 최대 60에포크 학습합니다.
+
+```powershell
+$PanelFile = "data/hourly_panel.csv"
+$TrainEnd = "2026-08-31 23:00:00"
+$ValidEnd = "2026-09-15 23:00:00"
+if (-not (Test-Path -LiteralPath $PanelFile)) { throw "실제 패널 CSV 경로를 지정하세요." }
+$GpuTrainRoot = Join-Path "runs" ("rtx3080-real-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli train --profile rtx3080 --panel $PanelFile --train-end $TrainEnd --valid-end $ValidEnd --out $GpuTrainRoot --max-training-rows 1000000 --seed 42
+if ($LASTEXITCODE -ne 0) { throw "학습 실패: 위 오류를 확인하세요." }
+Write-Host "평가: $GpuTrainRoot/evaluation.json"
+Write-Host "GPU 정보와 실제 설정: $GpuTrainRoot/metadata.json"
+```
+
+실데이터 없이 확대 설정으로 전체 과정을 확인하려면 다음 합성 실행을 사용합니다.
+이 명령은 128개 대여소·90일이며 실행 시간이 길어질 수 있습니다.
+
+```powershell
+$GpuDemoRoot = Join-Path "runs" ("rtx3080-demo-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli demo --profile rtx3080 --out $GpuDemoRoot --days 90 --stations 128 --seed 42
+if ($LASTEXITCODE -ne 0) { throw "확대 합성 실행 실패" }
+Write-Host "보고서: $GpuDemoRoot/recommendation/report.html"
+```
+
+### 메모리가 부족할 때
+
+- train/demo 명령에 `--batch-size 2 --accumulate 8 --eval-batch-size 1 --sample-chunk 1`을 추가해 새 출력 폴더로 재실행합니다. 유효 학습 배치는 16으로 유지합니다.
+- recommend는 `--device cuda --sample-chunk 1`을 사용합니다. 일반 GPU 추천은 6·7번 명령에 `--device cuda --sample-chunk 4`를 추가합니다.
+- XGBoost CUDA 지원이 없는 설치에서는 `--xgb-device cpu`를 명시합니다. 신경망의 CUDA 설정은 유지됩니다.
+- 수치 문제가 발생하면 `--no-amp`로 float32를 사용합니다. GPU 메모리는 더 필요합니다.
+- CPU에서 코드만 확인할 때는 `--device cpu --xgb-device cpu`를 함께 지정합니다. GPU 성능 확인으로 해석하지 않습니다.
+
+혼합 정밀도, 실제 GPU 정보, 에포크별 최대 GPU 할당량, 조기 종료 시점은 결과 파일에 기록됩니다.
+현재 개발 환경의 검증은 CPU에서 수행했으며 RTX 3080에서의 최대 메모리·학습 속도를 실측하지 않았습니다.
 
 ## 1. 설치 (최초 1회)
+
+이 절은 **CPU 전용** 설치입니다. 기존 CUDA 환경은 0번을 사용합니다.
 
 Python **3.12**를 설치한 환경에서 시작합니다. 아래 첫 명령으로 버전을 확인하세요.
 현재 브랜치는 `contest/model-medium`이며 기본형과 확대형 코드를 모두 포함합니다.
@@ -189,7 +274,7 @@ demo 출력은 `run/`에 학습 결과, `recommendation/`에 추천 결과를 �
 
 | 옵션 | 기본값 | 바꾸는 이유 |
 |---|---|---|
-| `--profile` | `base` (48) | `medium`은 96. 학습/demo에 사용 |
+| `--profile` | `base` (48) | `medium` 96 / `large` 256 / `rtx3080` 512. 학습/demo에 사용 |
 | `--hidden` | profile 사용 | 직접 폭 지정. profile보다 우선 |
 | `--epochs` | 15 | 학습 반복 횟수 |
 | `--history` / `--horizon` | 24 / 3 | 과거 문맥 길이 / 미래 예측 길이 |
@@ -203,6 +288,13 @@ demo 출력은 `run/`에 학습 결과, `recommendation/`에 추천 결과를 �
 | `--max-distance-km` | 5 | 수거→보충 최대 직선거리 |
 | `--device` | `cpu` | CUDA 설치 확인 후 `cuda` 선택 |
 
+위 기본값은 `base` 기준이며 확대 profile은 0번 표처럼 바뀝니다. 명시한 옵션이 profile보다 우선합니다.
+`--gcn-layers`, `--flow-blocks`, `--expansion`, `--dropout`으로 구조를 바꿀 수 있습니다.
+`--accumulate`는 학습 배치 누적, `--patience`는 조기 종료 대기 에포크(0은 비활성),
+`--eval-batch-size`와 `--sample-chunk`는 예측 메모리를 관리합니다.
+`--amp`/`--no-amp`는 CUDA 혼합 정밀도, `--xgb-depth`와 `--xgb-device`는 XGBoost 설정입니다.
+recommend에서 시나리오 수·ODE 단계·묶음 크기를 생략하면 저장된 실행 설정을 사용합니다.
+
 학습 옵션은 train/demo, 이동 옵션은 recommend/demo에서 사용합니다.
 **모델 폭을 바꾸려면 재학습**해야 합니다. recommend에서 profile을 바꿀 수는 없습니다.
 큰 자료는 학습 행 수/평가 시점 수 제한을 확인하고 실행하세요. 선택한 시각은 metadata에 기록됩니다.
@@ -214,6 +306,37 @@ demo 출력은 `run/`에 학습 결과, `recommendation/`에 추천 결과를 �
 & .\.venv\Scripts\python.exe -m tashu_contest.cli --help
 & .\.venv\Scripts\python.exe -m tashu_contest.cli train --help
 & .\.venv\Scripts\python.exe -m tashu_contest.cli recommend --help
+```
+
+CUDA 전용 테스트는 실제 CUDA가 사용 가능할 때 실행되고 CPU 환경에서는 건너뜁니다.
+CPU에서 테스트가 통과해도 실제 GPU 검증이 끝났다는 뜻은 아닙니다.
+
+## 11. Git에 올릴 결과 요약
+
+`runs/`는 Git에서 제외됩니다. 실행 스크립트만 올리면 실제 점수는 확인할 수 없습니다.
+학습 완료 후 아래처럼 작은 요약만 `results/`로 복사해 커밋·업로드하세요.
+train이면 출력 폴더, demo이면 그 아래 `run`을 지정합니다.
+
+```powershell
+$FinishedRun = "runs/실제완료폴더/run"
+$ResultFiles = @((Join-Path $FinishedRun "metadata.json"), (Join-Path $FinishedRun "evaluation.json"), (Join-Path $FinishedRun "models/training.json"))
+foreach ($ResultFile in $ResultFiles) {
+    if (-not (Test-Path -LiteralPath $ResultFile)) { throw "완료된 실행 파일이 없습니다: $ResultFile" }
+}
+$ResultShareRoot = Join-Path "results" ("run-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+New-Item -ItemType Directory -Path $ResultShareRoot -Force | Out-Null
+Copy-Item -LiteralPath $ResultFiles -Destination $ResultShareRoot
+Write-Host "Git에 올릴 결과: $ResultShareRoot"
+git status --short
+```
+
+위 폴더에는 원본 데이터·모델 가중치를 복사하지 않습니다. metadata에 입력 해시와
+대여소 목록이 포함되므로 공유 전에 내용을 확인하세요. `run_size_comparison.ps1`도 이제
+base/medium 요약과 비교 CSV를 `results/size-compare-...`에 자동 복사합니다.
+해당 비교 스크립트를 실행할 때도 이 문서의 다음 명령을 사용합니다.
+
+```powershell
+& .\run_size_comparison.ps1
 ```
 
 ## 실행 전후 확인

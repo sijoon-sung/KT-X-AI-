@@ -16,6 +16,7 @@ from .evaluation import count_metrics, stock_evidence, stock_metrics
 from .models import (CountGCN, GraphFlow, load_models, predict_scenarios, save_models,
                      seed_everything, train_neural, train_xgboost)
 from .operations import plan_transfers, station_summary
+from .profiles import architecture_label
 
 MODELS = ("xgboost", "gcn", "gcn_flow")
 
@@ -63,6 +64,22 @@ def fit(args):
         raise ValueError("Invalid history/horizon/epochs/hidden/samples/steps/batch/trees/neighbors.")
     if args.max_training_rows < 1 or args.max_eval_origins < 1:
         raise ValueError("Sampling limits must be positive.")
+    if min(args.gcn_layers, args.flow_blocks, args.expansion, args.accumulate,
+           args.eval_batch_size, args.sample_chunk, args.xgb_depth) < 1 or args.patience < 0:
+        raise ValueError("Layers, blocks, accumulation and chunk sizes must be positive; patience >= 0.")
+    if not (0 <= args.dropout < 1) or not np.isfinite(args.lr) or args.lr <= 0:
+        raise ValueError("Require dropout in [0,1) and a finite positive learning rate.")
+    device = device_for(args.device)
+    if args.xgb_device == "cuda" and not torch.cuda.is_available():
+        raise ValueError("XGBoost CUDA requested but CUDA unavailable. Use --xgb-device cpu for a CPU smoke test.")
+    if args.device == "cuda" and args.xgb_device == "cuda":
+        print("CUDA enabled for PyTorch and XGBoost training; tabular prediction uses CPU NumPy.", flush=True)
+    gpu = None
+    if device.type == "cuda":
+        props = torch.cuda.get_device_properties(device)
+        gpu = {"name": props.name, "total_memory_bytes": props.total_memory,
+               "torch_cuda_version": torch.version.cuda}
+        print(f"GPU: {props.name}; VRAM={props.total_memory / 1024**3:.1f} GiB; AMP={args.amp}", flush=True)
     seed_everything(args.seed)
     panel = read_panel(args.panel)
     parts = split_origins(panel, args.history, args.horizon, args.train_end, args.valid_end)
@@ -76,24 +93,29 @@ def fit(args):
     x = make_features(panel, args.history, origins)
     y, mask = targets(panel, origins, args.horizon)
     graph = build_graph(panel, args.train_end, args.neighbors, args.graph)
-    device = device_for(args.device)
     print(f"stations={len(panel.stations)} partitions={ {k: len(v) for k, v in parts.items()} } features={x.shape[-1]}", flush=True)
-    gcn = CountGCN(x.shape[-1], args.hidden, args.horizon * 2).to(device)
+    gcn = CountGCN(x.shape[-1], args.hidden, args.horizon * 2,
+                   layers=args.gcn_layers, dropout=args.dropout).to(device)
     sync(device)
     started = time.perf_counter()
     gcn_log = train_neural(gcn, x, y, mask, slices["train"], slices["validation"], graph,
-                           args.epochs, args.batch_size, args.lr, args.seed)
+                           args.epochs, args.batch_size, args.lr, args.seed,
+                           accumulate=args.accumulate, amp=args.amp, patience=args.patience)
     sync(device)
     train_seconds = {"gcn": time.perf_counter() - started}
-    flow = GraphFlow(gcn, args.hidden, args.horizon * 2).to(device)
+    flow = GraphFlow(gcn, args.hidden, args.horizon * 2, blocks=args.flow_blocks,
+                      expansion=args.expansion, dropout=args.dropout).to(device)
+    print(f"GCN parameters={parameter_counts(gcn)}; GCN+FM parameters={parameter_counts(flow)}", flush=True)
     started = time.perf_counter()
     flow_log = train_neural(flow, x, y, mask, slices["train"], slices["validation"], graph,
-                            args.epochs, args.batch_size, args.lr, args.seed, flow=True)
+                            args.epochs, args.batch_size, args.lr, args.seed, flow=True,
+                            accumulate=args.accumulate, amp=args.amp, patience=args.patience)
     sync(device)
     train_seconds["gcn_flow_residual"] = time.perf_counter() - started
     train_seconds["gcn_flow_including_base"] = train_seconds["gcn"] + train_seconds["gcn_flow_residual"]
     started = time.perf_counter()
-    xgb = train_xgboost(x, y, mask, slices["train"], slices["validation"], args.seed, args.trees)
+    xgb = train_xgboost(x, y, mask, slices["train"], slices["validation"], args.seed, args.trees,
+                       depth=args.xgb_depth, device=args.xgb_device)
     train_seconds["xgboost"] = time.perf_counter() - started
     out.mkdir(parents=True, exist_ok=True)
     save_models(out / "models", xgb, gcn, flow, {"gcn": gcn_log, "gcn_flow": flow_log})
@@ -103,10 +125,18 @@ def fit(args):
         dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], text=True).strip())
     except (FileNotFoundError, subprocess.CalledProcessError):
         commit, dirty = None, None
-    metadata = {"schema_version": 1, "source": args.source, "panel_sha256": file_hash(args.panel),
+    metadata = {"schema_version": 2, "source": args.source, "panel_sha256": file_hash(args.panel),
                 "code_commit": commit, "code_dirty": dirty, "seed": args.seed,
                 "history": args.history, "horizon": args.horizon, "hidden": args.hidden,
-                "profile": args.profile if args.hidden == {"base": 48, "medium": 96}[args.profile] else "custom",
+                "profile": architecture_label(args), "requested_profile": args.profile,
+                "gcn_layers": args.gcn_layers, "flow_blocks": args.flow_blocks,
+                "expansion": args.expansion, "dropout": args.dropout,
+                "accumulate": args.accumulate, "effective_batch_size": args.batch_size * args.accumulate,
+                "amp": bool(args.amp and device.type == "cuda"), "gpu": gpu,
+                "patience": args.patience, "sample_chunk": args.sample_chunk,
+                "eval_batch_size": args.eval_batch_size,
+                "xgb_depth": args.xgb_depth, "xgb_training_device": args.xgb_device,
+                "xgb_inference_device": "cpu",
                 "parameter_counts": {"gcn": parameter_counts(gcn), "gcn_flow": parameter_counts(flow)},
                 "training_seconds": train_seconds,
                 "feature_count": x.shape[-1], "stations": panel.stations,
@@ -124,6 +154,7 @@ def fit(args):
                                 "Direct transfer batches; no road routing, dispatch timing or causal policy guarantee."]}
     write_json(out / "metadata.json", metadata)
     # Evaluate serialized artifacts, rather than a possibly different last epoch.
+    del xgb, gcn, flow  # Release training copies before allocating reloaded GPU models.
     models = load_models(out / "models", metadata, device)
     results = {}
     for name in MODELS:
@@ -133,15 +164,17 @@ def fit(args):
             count_chunks, actual_chunks, mask_chunks, evidence = [], [], [], []
             # Warm up once outside measurement. Always reset the sampling seed per measured call.
             predict_scenarios(name, models, x[idx[:1]], graph, args.horizon,
-                              args.samples, args.ode_steps, args.seed + 1999)
+                              args.samples, args.ode_steps, args.seed + 1999,
+                              sample_chunk=args.sample_chunk, amp=args.amp)
             sync(device)
             inference_seconds = 0.0
-            for offset in range(0, len(idx), 8):
-                selected = idx[offset:offset + 8]
+            for offset in range(0, len(idx), args.eval_batch_size):
+                selected = idx[offset:offset + args.eval_batch_size]
                 sync(device)
                 started = time.perf_counter()
                 scenarios = predict_scenarios(name, models, x[selected], graph, args.horizon,
-                                             args.samples, args.ode_steps, args.seed + 2000 + offset)
+                                             args.samples, args.ode_steps, args.seed + 2000 + offset,
+                                             sample_chunk=args.sample_chunk, amp=args.amp)
                 sync(device)
                 inference_seconds += time.perf_counter() - started
                 count_chunks.append(scenarios)
@@ -154,7 +187,10 @@ def fit(args):
                                    "inference": {"seconds": inference_seconds,
                                                  "ms_per_city_origin": inference_seconds * 1000 / len(idx),
                                                  "samples_per_origin": args.samples,
-                                                 "batch_origins": 8, "device": str(device)}}
+                                                 "batch_origins": args.eval_batch_size,
+                                                 "scenario_chunk": args.sample_chunk,
+                                                 "amp": bool(name != "xgboost" and args.amp and device.type == "cuda"),
+                                                 "device": "cpu" if name == "xgboost" else str(device)}}
         print(f"{name}: test MAE={results[name]['test']['counts']['mae']:.4f}", flush=True)
     # All three candidates must be comparable on the same selection metric.
     has_stock = all(results[n]["validation"]["stock"].get("brier") is not None for n in MODELS)
@@ -170,6 +206,11 @@ def recommend(args):
     run = Path(args.run)
     metadata = json.loads((run / "metadata.json").read_text(encoding="utf-8"))
     evaluation = json.loads((run / "evaluation.json").read_text(encoding="utf-8"))
+    # Keep old runs usable. A missing device remains CPU unless the user asks for CUDA.
+    args.device = args.device or "cpu"
+    args.samples = args.samples if args.samples is not None else metadata.get("samples", 32)
+    args.ode_steps = args.ode_steps if args.ode_steps is not None else metadata.get("ode_steps", 8)
+    args.sample_chunk = args.sample_chunk if args.sample_chunk is not None else metadata.get("sample_chunk", 32)
     panel = read_panel(args.panel)
     if panel.stations != metadata["stations"] or not np.allclose(panel.coords, metadata["coords"], atol=1e-6, rtol=0):
         raise ValueError("Station IDs/order/coordinates differ from training. Retrain for a new station set.")
@@ -187,20 +228,22 @@ def recommend(args):
     initial = panel.stock[at]
     if not np.isfinite(initial).all():
         raise ValueError("Recommendations require measured opening stock for every station; blanks are not zero. Supply --snapshot.")
-    if args.samples < 2 or args.ode_steps < 1:
-        raise ValueError("Require samples >= 2 and ode-steps >= 1.")
+    if args.samples < 2 or args.ode_steps < 1 or args.sample_chunk < 1:
+        raise ValueError("Require samples >= 2, ode-steps >= 1 and sample-chunk >= 1.")
     x = make_features(panel, metadata["history"], [at])
     graph = np.load(run / "graph.npy", allow_pickle=False)
     seed_everything(metadata["seed"])
     models = load_models(run / "models", metadata, device_for(args.device))
     name = evaluation["selected_model"] if args.model == "auto" else args.model
     scenarios = predict_scenarios(name, models, x, graph, metadata["horizon"], args.samples,
-                                 args.ode_steps, metadata["seed"] + 3000)[:, 0]
+                                 args.ode_steps, metadata["seed"] + 3000,
+                                 sample_chunk=args.sample_chunk, amp=args.amp)[:, 0]
     plan = plan_transfers(initial, scenarios, panel.coords, panel.capacity, args.budget,
                           args.truck_capacity, args.service_level, args.max_distance_km)
     transfers = [{**r, "from_station": panel.stations[r["from_index"]], "to_station": panel.stations[r["to_index"]]} for r in plan["transfers"]]
     result = {"source": metadata["source"], "timestamp": str(panel.times[at]), "model": name,
               "horizon_hours": metadata["horizon"], "samples": args.samples, "ode_steps": args.ode_steps,
+              "sample_chunk": args.sample_chunk, "amp": bool(name != "xgboost" and args.amp and args.device == "cuda"),
               "forecast_only_no_dispatch": True, "budget_bikes": args.budget, "truck_capacity": args.truck_capacity,
               "service_level": args.service_level, "max_distance_km": args.max_distance_km,
               "snapshot_file": str(args.snapshot) if args.snapshot else None,

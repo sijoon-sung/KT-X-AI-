@@ -1,5 +1,6 @@
 $ErrorActionPreference = "Stop"
-$SizeRunRoot = Join-Path "runs" ("size-compare-" + (Get-Date -Format "yyyyMMdd-HHmmss"))
+$SizeRunRoot = Join-Path "runs" ("size-compare-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+$ShareResultRoot = Join-Path "results" (Split-Path $SizeRunRoot -Leaf)
 $SizeRows = @()
 
 foreach ($ModelSize in @("base", "medium")) {
@@ -12,6 +13,9 @@ foreach ($ModelSize in @("base", "medium")) {
     
     $SizeMeta = Get-Content (Join-Path $SizeRun "run/metadata.json") -Raw -Encoding UTF8 | ConvertFrom-Json
     $SizeEval = Get-Content (Join-Path $SizeRun "run/evaluation.json") -Raw -Encoding UTF8 | ConvertFrom-Json
+    $ShareModelRoot = Join-Path $ShareResultRoot $ModelSize
+    New-Item -ItemType Directory -Path $ShareModelRoot -Force | Out-Null
+    Copy-Item -LiteralPath @((Join-Path $SizeRun "run/metadata.json"), (Join-Path $SizeRun "run/evaluation.json"), (Join-Path $SizeRun "run/models/training.json")) -Destination $ShareModelRoot
     
     foreach ($ForecastModel in @("xgboost", "gcn", "gcn_flow")) {
         $ValidationResult = $SizeEval.models.$ForecastModel.validation
@@ -34,3 +38,5 @@ Write-Host "========================================================"
 $SizeRows | Format-Table -AutoSize
 $SizeRows | Export-Csv (Join-Path $SizeRunRoot "validation_comparison.csv") -NoTypeInformation -Encoding UTF8
 Write-Host "Saved comparison to: $SizeRunRoot/validation_comparison.csv"
+Copy-Item -LiteralPath (Join-Path $SizeRunRoot "validation_comparison.csv") -Destination $ShareResultRoot
+Write-Host "Shareable summaries (no weights or source data): $ShareResultRoot"
