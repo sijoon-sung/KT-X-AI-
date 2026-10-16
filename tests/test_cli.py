@@ -1,6 +1,7 @@
 import json
 import subprocess
 import sys
+import csv
 
 
 def test_complete_demo_train_reload_compare_and_recommend(tmp_path):
@@ -18,6 +19,10 @@ def test_complete_demo_train_reload_compare_and_recommend(tmp_path):
     assert recommendation["initial_fleet_bikes"] == recommendation["final_fleet_bikes"]
     assert recommendation["moved_bikes"] <= recommendation["budget_bikes"]
     assert (out / "recommendation/report.html").exists()
+    with (out / "recommendation/hourly_forecasts.csv").open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    assert len(rows) == 4 * 2
+    assert {row["hours_ahead"] for row in rows} == {"1", "2"}
     again = subprocess.run([sys.executable, "-m", "tashu_contest.cli", "recommend", "--run", str(out / "run"),
                             "--panel", str(out / "synthetic_panel.csv"), "--model", "gcn_flow", "--samples", "8",
                             "--ode-steps", "2", "--out", str(tmp_path / "again")], capture_output=True, text=True)

@@ -102,6 +102,7 @@ runs/demo/
     report.html             # 오프라인 보고서
     recommendation.json     # 시간별 예상 대수·전체 추천
     stations.csv            # 현재/목표/보충/위험
+    hourly_forecasts.csv    # 대여소·시간별 예상 재고 대수와 대여/반납량
     transfers.csv           # 출발지·도착지·이동 대수
 ```
 

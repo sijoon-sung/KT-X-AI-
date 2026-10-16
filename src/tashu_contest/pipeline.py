@@ -174,6 +174,18 @@ def recommend(args):
     out.mkdir(parents=True, exist_ok=True)
     write_json(out / "recommendation.json", result)
     pd.DataFrame(result["stations"]).drop(columns=["forecast_stock_p10", "forecast_stock_p50", "forecast_stock_p90", "forecast_rentals_mean", "forecast_returns_mean"]).to_csv(out / "stations.csv", index=False, encoding="utf-8-sig")
+    forecasts = []
+    for row in result["stations"]:
+        for h in range(metadata["horizon"]):
+            forecasts.append({"station_id": row["station_id"], "name": row["name"],
+                              "hours_ahead": h + 1,
+                              "stock_timestamp": str(panel.times[at] + pd.Timedelta(hours=h + 1)),
+                              "stock_p10": row["forecast_stock_p10"][h],
+                              "stock_p50": row["forecast_stock_p50"][h],
+                              "stock_p90": row["forecast_stock_p90"][h],
+                              "rentals_mean": row["forecast_rentals_mean"][h],
+                              "returns_mean": row["forecast_returns_mean"][h]})
+    pd.DataFrame(forecasts).to_csv(out / "hourly_forecasts.csv", index=False, encoding="utf-8-sig")
     pd.DataFrame(transfers, columns=["batch", "from_station", "to_station", "bikes", "direct_distance_km", "from_index", "to_index"]).to_csv(out / "transfers.csv", index=False, encoding="utf-8-sig")
     from .report import render_report
     render_report(out / "report.html", evaluation, result)
