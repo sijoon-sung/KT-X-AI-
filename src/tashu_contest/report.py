@@ -1,0 +1,40 @@
+"""Offline, self-contained presentation report; no CDN or live dispatch."""
+import json
+from pathlib import Path
+
+
+def render_report(path, evaluation, recommendation):
+    payload = json.dumps({"evaluation": evaluation, "plan": recommendation}, ensure_ascii=False, allow_nan=False)
+    payload = payload.replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+    html = '''<!doctype html><html lang="ko"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>타슈 · 품절 예측과 대수별 재배치 검토</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,"Malgun Gothic",sans-serif;color:#18313b;background:#f1f5f6}
+body{max-width:1200px;margin:auto;padding:28px}h1{font-size:30px;letter-spacing:-1px}h2{font-size:20px}
+.eyebrow{color:#477986;font-weight:700}.banner{background:#fff3d4;border-left:5px solid #bf8820;padding:16px;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.card,section{background:white;border:1px solid #dce6e9;border-radius:12px;padding:20px;margin-bottom:16px}.value{font-size:30px;font-weight:750;margin-top:10px}
+.muted{color:#536e78;font-size:14px;line-height:1.7}.scroll{overflow:auto;max-height:430px}table{border-collapse:collapse;width:100%;font-size:14px;white-space:nowrap}td,th{padding:12px;border-bottom:1px solid #e5ecef;text-align:right}td:first-child,th:first-child{text-align:left}th{background:#f5f8fa;position:sticky;top:0}tbody tr:hover{background:#eff8f7}button,select{font:inherit;border:1px solid #b5cbd0;border-radius:6px;background:white;padding:8px;color:#18313b}button{cursor:pointer}svg{width:100%;max-height:260px}li{line-height:1.8}a{color:#087e82}@media(max-width:700px){body{padding:14px}.cards{grid-template-columns:repeat(2,1fr)}h1{font-size:25px}}
+</style>
+<body><div class="eyebrow">TASHU / OPERATIONS PREVIEW</div><h1>품절 위험을 보고, 몇 대를 옮길지 결정하기</h1>
+<p id="context" class="muted"></p><div id="banner" class="banner"></div><div id="cards" class="cards"></div>
+<section><h2>같은 기간에서 비교한 세 모델</h2><p class="muted">테스트 구간의 관측 대여·반납 예측과 재고 0대 발생을 비교합니다. 추천 모델은 검증 구간에서 선택했습니다. Brier 점수와 MAE는 낮을수록 좋습니다.</p><div class="scroll"><table><thead><tr><th>모델</th><th>대여·반납 MAE</th><th>CRPS</th><th>품절 Brier</th><th>품절 AUC</th><th>재고 대수 MAE</th></tr></thead><tbody id="models"></tbody></table></div></section>
+<section><h2>대여소별 보충 필요 대수와 미래 재고</h2><p class="muted">행을 선택하면 추천 이동 후 시간별 예상 재고를 볼 수 있습니다. 품절 위험은 미래 정시 재고가 한 번이라도 0대가 될 확률입니다. 이미 0대인 대여소의 회복 확률은 별도 열로 표시합니다.</p><label>대여소 선택 <select id="station"></select></label><div id="chart"></div><div class="scroll"><table><thead><tr><th>대여소</th><th>현재 대수</th><th>목표 대수</th><th>보충 필요</th><th>이동 후 대수</th><th>위험 전 → 후</th><th>0대에서 회복</th></tr></thead><tbody id="stations"></tbody></table></div></section>
+<section><h2>이동 배치별 추천</h2><p class="muted">한 배치는 출발 대여소에서 수거해 도착 대여소로 전달하는 직접 이동입니다. 적재 한도와 총 이동 대수 예산을 지키지만 도로 경로·배차 시간은 계산하지 않습니다. 자동 출동하지 않습니다.</p><div class="scroll"><table><thead><tr><th>배치</th><th>수거 대여소</th><th>보충 대여소</th><th>이동 대수</th><th>직선거리</th></tr></thead><tbody id="transfers"></tbody></table></div><p id="outcome" class="muted"></p></section>
+<section><h2>해석 범위</h2><ul><li>관측된 대여·반납으로 만든 시나리오입니다. 공급이 없어 관측되지 않은 잠재 수요의 정답을 복원했다고 주장하지 않습니다.</li><li>동일한 시나리오에서 추천 전후의 서비스 실패 추정치를 비교합니다. 실제 정책 효과나 독립적인 현장 검증 결과는 아닙니다.</li><li>시뮬레이션은 시간 구간 안에서 대여가 먼저, 반납이 나중에 발생한다고 가정합니다.</li><li>목표 대수에 비해 도시 전체 공급이 부족하면 이동 추천으로 모두 채울 수 없습니다.</li><li>XGBoost·일반 GCN의 확률은 독립 Poisson 시나리오를, GCN + Flow Matching은 생성 시나리오를 사용합니다.</li></ul></section>
+<script id="data" type="application/json">__PAYLOAD__</script><script>
+const data=JSON.parse(document.getElementById('data').textContent),p=data.plan,e=data.evaluation;
+const el=id=>document.getElementById(id),fmt=(x,d=3)=>x===null||x===undefined?'미평가':Number(x).toFixed(d),pct=x=>x===null?'—':Math.round(x*100)+'%',names={xgboost:'XGBoost',gcn:'일반 GCN',gcn_flow:'GCN + Flow Matching'};
+function td(row,value){const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell)}
+el('context').textContent=p.timestamp+' KST · '+p.horizon_hours+'시간 예측 · '+names[p.model]+' · '+p.samples+'개 시나리오 · 목표 서비스 수준 '+pct(p.service_level);
+el('banner').textContent=p.source==='synthetic'?'합성 데이터 실행 예제입니다. 실제 타슈 성능이나 효과를 나타내지 않습니다.':'사용자가 제공한 데이터에 대한 모델 추정입니다. 현장 검증 전 추천 검토용으로 사용하세요.';
+[['현재 총 대수',p.initial_fleet_bikes+'대'],['총 보충 필요',p.requested_topup_bikes+'대'],['추천 이동',p.moved_bikes+' / '+p.budget_bikes+'대'],['남은 보충 필요',p.unfilled_topup_bikes+'대']].forEach(([title,value])=>{const c=document.createElement('div');c.className='card';const t=document.createElement('div');t.textContent=title;const v=document.createElement('div');v.className='value';v.textContent=value;c.append(t,v);el('cards').append(c)});
+Object.entries(e.models).forEach(([name,res])=>{const tr=document.createElement('tr'),c=res.test.counts,s=res.test.stock;[names[name]+(name===e.selected_model?' (검증 선택)':''),fmt(c.mae),fmt(c.crps),fmt(s.brier),fmt(s.auc),fmt(s.net_inventory_mae)].forEach(v=>td(tr,v));el('models').append(tr)});
+p.stations.forEach((s,i)=>{const opt=document.createElement('option');opt.value=i;opt.textContent=s.name+' ('+s.station_id+')';el('station').append(opt);const tr=document.createElement('tr');const button=document.createElement('button');button.textContent=s.name;button.onclick=()=>{el('station').value=i;chart(i)};const cell=document.createElement('td');cell.append(button);tr.append(cell);[s.current_stock,s.target_stock,s.requested_topup,s.planned_stock,pct(s.empty_probability_before)+' → '+pct(s.empty_probability_after),pct(s.recovery_probability_after)].forEach(v=>td(tr,v));el('stations').append(tr)});
+for(const move of p.transfers){const tr=document.createElement('tr');[move.batch,move.from_station,move.to_station,move.bikes,fmt(move.direct_distance_km,2)+' km'].forEach(v=>td(tr,v));el('transfers').append(tr)}
+if(!p.transfers.length){const tr=document.createElement('tr');td(tr,'조건을 만족하면서 서비스 실패를 줄이는 이동이 없습니다.');el('transfers').append(tr)}
+el('outcome').textContent='트럭 적재 한도 '+p.truck_capacity+'대 · 최대 직접 이동거리 '+p.max_distance_km+'km · 이동 전후 총 대수 '+p.initial_fleet_bikes+' → '+p.final_fleet_bikes+'대 · 시나리오상 서비스 실패 추정 '+fmt(p.service_failures_before,1)+' → '+fmt(p.service_failures_after,1)+'건';
+function chart(i){const s=p.stations[i],w=900,h=240,left=45,bottom=200,max=Math.max(1,...s.forecast_stock_p90)*1.15,n=p.horizon_hours,x=k=>left+(k+1)*(w-left-25)/(n+1),y=v=>bottom-v/max*160,ns='http://www.w3.org/2000/svg';const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 '+w+' '+h);svg.setAttribute('role','img');svg.setAttribute('aria-label','추천 후 예상 재고 중앙값과 10~90% 구간');function node(tag,attrs,text){const z=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>z.setAttribute(k,v));if(text)z.textContent=text;svg.append(z);return z}node('line',{x1:left,y1:bottom,x2:w-20,y2:bottom,stroke:'#a6bfc7'});for(let k=0;k<n;k++){node('line',{x1:x(k),x2:x(k),y1:y(s.forecast_stock_p90[k]),y2:y(s.forecast_stock_p10[k]),stroke:'#b7dfd9','stroke-width':20});node('circle',{cx:x(k),cy:y(s.forecast_stock_p50[k]),r:6,fill:'#087e82'});node('text',{x:x(k),y:y(s.forecast_stock_p50[k])-12,'text-anchor':'middle',fill:'#18313b'},fmt(s.forecast_stock_p50[k],1)+'대');node('text',{x:x(k),y:225,'text-anchor':'middle',fill:'#536e78'},'+'+(k+1)+'시간')}node('text',{x:16,y:30,fill:'#536e78'},'대수');el('chart').replaceChildren(svg)}
+el('station').onchange=()=>chart(Number(el('station').value));if(p.stations.length)chart(0);
+</script></body></html>'''
+    Path(path).write_text(html.replace("__PAYLOAD__", payload), encoding="utf-8")

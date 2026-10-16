@@ -59,3 +59,8 @@ models/
 scratch/
 tmp/
 temp/
+
+# Contest runs are regenerated from explicit inputs; never mix them with source.
+runs/
+.pytest_cache/
+*.egg-info/
