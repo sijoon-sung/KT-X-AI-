@@ -1,22 +1,22 @@
 {
   "feb_2026": {
     "overall_rentals": {
-      "mae": 0.3395,
-      "rmse": 0.7665,
-      "wape": 0.7471,
-      "poisson_ll": -1.3631,
-      "mean_at_zero": 0.0787,
-      "zero_under_0_1_pct": 93.13,
-      "peak_mae": 2.1458
+      "mae": 0.3373,
+      "rmse": 0.7574,
+      "wape": 0.7423,
+      "poisson_ll": -1.5097,
+      "mean_at_zero": 0.0875,
+      "zero_under_0_1_pct": 92.3,
+      "peak_mae": 2.06
     },
     "overall_returns": {
-      "mae": 0.3598,
-      "rmse": 0.8076,
-      "wape": 0.8021,
-      "poisson_ll": -1.4073,
-      "mean_at_zero": 0.0794,
-      "zero_under_0_1_pct": 93.19,
-      "peak_mae": 2.3477
+      "mae": 0.3595,
+      "rmse": 0.8055,
+      "wape": 0.8016,
+      "poisson_ll": -1.4769,
+      "mean_at_zero": 0.0821,
+      "zero_under_0_1_pct": 92.88,
+      "peak_mae": 2.309
     },
     "historical_mean": {
       "mae": 0.5281,
@@ -27,35 +27,35 @@
       "zero_under_0_1_pct": 31.47,
       "peak_mae": 2.095
     },
-    "inference_ms_per_hour": 12.67,
+    "inference_ms_per_hour": 12.64,
     "transit_segments": {
-      "subway_core_mae": 0.5328,
-      "bus_hub_mae": 0.2844,
-      "residential_mae": 0.341,
-      "rush_hour_mae": 0.3998,
-      "offpeak_mae": 0.3324,
-      "rainy_hours_mae": 0.1171,
-      "dry_hours_mae": 0.3442
+      "subway_core_mae": 0.5262,
+      "bus_hub_mae": 0.2835,
+      "residential_mae": 0.3386,
+      "rush_hour_mae": 0.3995,
+      "offpeak_mae": 0.33,
+      "rainy_hours_mae": 0.1169,
+      "dry_hours_mae": 0.342
     }
   },
   "mar_2026": {
     "overall_rentals": {
-      "mae": 0.3809,
-      "rmse": 0.8877,
-      "wape": 0.6738,
-      "poisson_ll": -1.4039,
-      "mean_at_zero": 0.0811,
-      "zero_under_0_1_pct": 93.04,
-      "peak_mae": 2.1855
+      "mae": 0.3785,
+      "rmse": 0.8807,
+      "wape": 0.6695,
+      "poisson_ll": -1.5138,
+      "mean_at_zero": 0.088,
+      "zero_under_0_1_pct": 92.43,
+      "peak_mae": 2.1364
     },
     "overall_returns": {
       "mae": 0.4109,
-      "rmse": 0.9363,
-      "wape": 0.7282,
-      "poisson_ll": -1.4595,
-      "mean_at_zero": 0.0839,
-      "zero_under_0_1_pct": 92.86,
-      "peak_mae": 2.3919
+      "rmse": 0.9394,
+      "wape": 0.7283,
+      "poisson_ll": -1.5511,
+      "mean_at_zero": 0.0847,
+      "zero_under_0_1_pct": 92.73,
+      "peak_mae": 2.386
     },
     "historical_mean": {
       "mae": 0.5264,
@@ -66,25 +66,25 @@
       "zero_under_0_1_pct": 41.78,
       "peak_mae": 2.5899
     },
-    "inference_ms_per_hour": 12.66,
+    "inference_ms_per_hour": 12.68,
     "transit_segments": {
-      "subway_core_mae": 0.5485,
-      "bus_hub_mae": 0.3221,
-      "residential_mae": 0.3781,
-      "rush_hour_mae": 0.5602,
-      "offpeak_mae": 0.3646,
-      "rainy_hours_mae": 0.0568,
-      "dry_hours_mae": 0.4088
+      "subway_core_mae": 0.5428,
+      "bus_hub_mae": 0.3197,
+      "residential_mae": 0.3757,
+      "rush_hour_mae": 0.5564,
+      "offpeak_mae": 0.3623,
+      "rainy_hours_mae": 0.0632,
+      "dry_hours_mae": 0.4056
     }
   },
   "policy_simulations": {
     "scenario_a_subway_boost": {
-      "subway_core_change_pct": 3.6,
-      "citywide_change_pct": -1.0
+      "subway_core_change_pct": 4.0,
+      "citywide_change_pct": -0.68
     },
     "scenario_b_transit_surge": {
-      "subway_core_change_pct": 10.74,
-      "citywide_change_pct": 11.18
+      "subway_core_change_pct": 7.94,
+      "citywide_change_pct": 6.48
     }
   }
 }

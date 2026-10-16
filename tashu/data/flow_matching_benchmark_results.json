@@ -10,28 +10,28 @@
       "peak_mae": 2.095
     },
     "rentals_flow_matching": {
-      "mae": 0.3739,
-      "rmse": 0.8796,
-      "wape": 0.8227,
-      "poisson_ll": -2.1902,
-      "mean_at_zero": 0.0287,
-      "zero_under_0_1_pct": 97.55,
-      "peak_mae": 2.8727
+      "mae": 0.3528,
+      "rmse": 0.8174,
+      "wape": 0.7763,
+      "poisson_ll": -1.6595,
+      "mean_at_zero": 0.0496,
+      "zero_under_0_1_pct": 95.64,
+      "peak_mae": 2.5181
     },
     "returns_flow_matching": {
-      "mae": 0.3786,
-      "rmse": 0.8944,
-      "wape": 0.8441,
-      "poisson_ll": -2.2594,
-      "mean_at_zero": 0.0303,
-      "zero_under_0_1_pct": 97.32,
-      "peak_mae": 2.9391
+      "mae": 0.3639,
+      "rmse": 0.8416,
+      "wape": 0.8114,
+      "poisson_ll": -1.9038,
+      "mean_at_zero": 0.0546,
+      "zero_under_0_1_pct": 95.11,
+      "peak_mae": 2.628
     },
-    "inference_ms_per_hour": 14.56,
+    "inference_ms_per_hour": 14.54,
     "scenario_evaluation": {
-      "energy_score": 13.4315,
-      "coverage_80": 90.76,
-      "coverage_90": 94.31
+      "energy_score": 13.2676,
+      "coverage_80": 81.47,
+      "coverage_90": 88.85
     }
   },
   "mar_2026": {
@@ -45,28 +45,28 @@
       "peak_mae": 2.5899
     },
     "rentals_flow_matching": {
-      "mae": 0.4227,
-      "rmse": 1.0355,
-      "wape": 0.7477,
-      "poisson_ll": -2.0496,
-      "mean_at_zero": 0.0393,
-      "zero_under_0_1_pct": 96.61,
-      "peak_mae": 2.8743
+      "mae": 0.4001,
+      "rmse": 0.9647,
+      "wape": 0.7078,
+      "poisson_ll": -1.597,
+      "mean_at_zero": 0.0574,
+      "zero_under_0_1_pct": 95.0,
+      "peak_mae": 2.5665
     },
     "returns_flow_matching": {
-      "mae": 0.4364,
-      "rmse": 1.0518,
-      "wape": 0.7735,
-      "poisson_ll": -2.1759,
-      "mean_at_zero": 0.0419,
-      "zero_under_0_1_pct": 96.31,
-      "peak_mae": 2.9395
+      "mae": 0.4194,
+      "rmse": 0.9874,
+      "wape": 0.7433,
+      "poisson_ll": -1.8558,
+      "mean_at_zero": 0.0658,
+      "zero_under_0_1_pct": 94.14,
+      "peak_mae": 2.6617
     },
-    "inference_ms_per_hour": 14.61,
+    "inference_ms_per_hour": 14.58,
     "scenario_evaluation": {
-      "energy_score": 19.2124,
-      "coverage_80": 88.35,
-      "coverage_90": 92.45
+      "energy_score": 19.0115,
+      "coverage_80": 79.86,
+      "coverage_90": 87.23
     }
   }
 }
