@@ -19,6 +19,11 @@ def seed_everything(seed):
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.set_num_threads(min(4, max(1, torch.get_num_threads())))
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
+        torch.backends.cudnn.benchmark = True
 
 
 def graph_tensor(graph, device):
@@ -167,7 +172,16 @@ def poisson_objective(pred, y, mask):
 def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size, lr, seed, flow=False,
                  accumulate=1, amp=False, patience=0):
     device = next(model.parameters()).device
-    # Keep the full data on CPU, moving batches only; supports larger real panels.
+    # Aggressively exploit GPU VRAM: if using CUDA and data fits (< 1.5GB),
+    # preload tensors directly onto GPU to eliminate repeated PCIe host-to-device transfers.
+    data_bytes = getattr(x, "nbytes", 0) + getattr(y, "nbytes", 0) + getattr(mask, "nbytes", 0)
+    if device.type == "cuda" and data_bytes < 1024 * 1024 * 1536:
+        x_dev = torch.as_tensor(x, dtype=torch.float32, device=device)
+        y_dev = torch.as_tensor(y, dtype=torch.float32, device=device)
+        m_dev = torch.as_tensor(mask, dtype=torch.bool, device=device)
+        get_batch = lambda idx: (x_dev[idx], y_dev[idx], m_dev[idx])
+    else:
+        get_batch = lambda idx: tuple(torch.as_tensor(arr[idx], device=device) for arr in (x, y, mask))
     graph = graph_tensor(graph, device)
     optimizer = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=lr, weight_decay=1e-4)
     if accumulate < 1 or patience < 0:
@@ -190,7 +204,7 @@ def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size
             optimizer.zero_grad()
             for micro in range(0, len(group), batch_size):
                 idx = group[micro:micro + batch_size]
-                a, b, m = (torch.as_tensor(arr[idx], device=device) for arr in (x, y, mask))
+                a, b, m = get_batch(idx)
                 count = int(mask[idx].sum())
                 if not count:
                     continue
@@ -212,7 +226,7 @@ def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size
         with torch.no_grad():
             for offset in range(0, len(validation), batch_size):
                 idx = validation[offset:offset + batch_size]
-                a, b, m = (torch.as_tensor(arr[idx], device=device) for arr in (x, y, mask))
+                a, b, m = get_batch(idx)
                 if not m.any():
                     continue
                 with torch.autocast(device.type, dtype=torch.float16, enabled=use_amp):

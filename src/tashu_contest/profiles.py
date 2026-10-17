@@ -15,6 +15,10 @@ PROFILES = {
                     epochs=60, batch_size=4, accumulate=4, lr=.0005, patience=12,
                     trees=600, xgb_depth=6, device="cuda", xgb_device="cuda",
                     samples=64, ode_steps=12, sample_chunk=4, eval_batch_size=2),
+    "100m": dict(BASE, hidden=1024, gcn_layers=6, flow_blocks=18, dropout=.1,
+                 epochs=60, batch_size=16, accumulate=1, lr=.0003, patience=12,
+                 trees=1000, xgb_depth=8, device="cuda", xgb_device="cuda",
+                 samples=64, ode_steps=12, sample_chunk=8, eval_batch_size=4),
 }
 
 

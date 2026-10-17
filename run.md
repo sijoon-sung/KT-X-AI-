@@ -29,15 +29,17 @@ RTX 3080의 10GB/12GB 변형을 고려한 시작 설정이며 실제 사용량�
 폭뿐 아니라 층수와 학습량도 바꾸므로 기존 medium과의 비교는 **전체 설정 비교**입니다.
 성능 향상은 같은 데이터·분할의 검증 점수로 확인해야 합니다.
 
-| 항목 | medium | rtx3080 |
-|---|---|---|
-| 은닉 폭 / GCN 층 / Flow 블록 | 96 / 2 / 1 | 512 / 4 / 6 |
-| 최대 에포크 / 조기 종료 patience | 15 / 비활성 | 60 / 12 |
-| 배치 × 누적 | 32 × 1 | 4 × 4 (유효 16) |
-| 학습률 / dropout | 0.002 / 0 | 0.0005 / 0.1 |
-| XGBoost 트리 / 깊이 / 학습 장치 | 150 / 4 / CPU | 600 / 6 / CUDA |
-| 시나리오 / ODE 단계 | 32 / 8 | 64 / 12 |
-| 평가 배치 / 시나리오 묶음 | 8 / 32 | 2 / 4 |
+| 항목 | medium | rtx3080 | 100m (신규) |
+|---|---|---|---|
+| 은닉 폭 / GCN 층 / Flow 블록 | 96 / 2 / 1 | 512 / 4 / 6 | 1024 / 6 / 18 |
+| 총 파라미터 수 | 약 6만 개 | 약 872만 개 | **약 9,996만 개 (딱 100M)** |
+| 최대 에포크 / 조기 종료 patience | 15 / 비활성 | 60 / 12 | 60 / 12 |
+| 배치 × 누적 | 32 × 1 | 4 × 4 (유효 16) | 4 × 4 (유효 16) |
+| 학습률 / dropout | 0.002 / 0 | 0.0005 / 0.1 | 0.0003 / 0.1 |
+| XGBoost 트리 / 깊이 / 학습 장치 | 150 / 4 / CPU | 600 / 6 / CUDA | 1000 / 8 / CUDA |
+| 시나리오 / ODE 단계 | 32 / 8 | 64 / 12 | 64 / 12 |
+| 평가 배치 / 시나리오 묶음 | 8 / 32 | 2 / 4 | 2 / 4 |
+| 실측 피크 VRAM (RTX 3080 10GB) | < 0.2 GiB | ~0.54 GiB | **~1.87 GiB (여유 8GB+)** |
 
 ### CUDA 환경 확인
 
@@ -91,6 +93,18 @@ $GpuDemoRoot = Join-Path "runs" ("rtx3080-demo-" + (Get-Date -Format "yyyyMMdd-H
 if ($LASTEXITCODE -ne 0) { throw "확대 합성 실행 실패" }
 Write-Host "보고서: $GpuDemoRoot/recommendation/report.html"
 ```
+
+### 100M 파라미터 극대화 실행 (딱 100M, 99.96M)
+
+99,964,940개(GCN 7.39M + Flow 92.57M) 파라미터의 초거대 모델로 학습·평가 및 재배치 추천을 실행합니다.
+
+```powershell
+$Gpu100mRoot = Join-Path "runs" ("100m-demo-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli demo --profile 100m --out $Gpu100mRoot --days 90 --stations 128 --seed 42
+if ($LASTEXITCODE -ne 0) { throw "100M 실행 실패" }
+Write-Host "100M 보고서: $Gpu100mRoot/recommendation/report.html"
+```
+
 
 ### 메모리가 부족할 때
 

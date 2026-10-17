@@ -8,7 +8,7 @@ from .profiles import PROFILES, resolve_profile
 def train_options(p):
     p.add_argument("--history", type=int, default=24, help="Past hourly context; sparse lags up to this value")
     p.add_argument("--horizon", type=int, default=3)
-    p.add_argument("--profile", choices=list(PROFILES), default="base", help="base 48; medium 96; large 256; rtx3080 512 with deeper flow blocks")
+    p.add_argument("--profile", choices=list(PROFILES), default="base", help="base 48; medium 96; large 256; rtx3080 512; 100m 1024 (99.96M parameters)")
     p.add_argument("--hidden", type=int, default=None, help="Explicit width overrides --profile")
     p.add_argument("--gcn-layers", type=int, default=None)
     p.add_argument("--flow-blocks", type=int, default=None)

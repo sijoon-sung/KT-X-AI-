@@ -60,6 +60,17 @@ def test_rtx_capacity_is_substantial_and_microbatch_is_bounded():
     assert p["sample_chunk"] == 4
 
 
+def test_100m_profile_reaches_exact_100m_scale():
+    p = PROFILES["100m"]
+    base = CountGCN(24, p["hidden"], 6, layers=p["gcn_layers"], dropout=p["dropout"])
+    flow = GraphFlow(base, p["hidden"], 6, blocks=p["flow_blocks"], expansion=p["expansion"], dropout=p["dropout"])
+    total_params = sum(t.numel() for t in flow.parameters())
+    assert 95_000_000 <= total_params <= 105_000_000
+    assert p["batch_size"] * p["accumulate"] == 16
+    assert p["device"] == "cuda" and p["xgb_device"] == "cuda"
+
+
+
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="Requires an actual CUDA-enabled PyTorch/GPU")
 def test_cuda_amp_sparse_graph_and_chunked_inference():
     seed_everything(2)
