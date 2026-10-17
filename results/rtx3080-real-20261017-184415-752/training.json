@@ -1,0 +1,1206 @@
+{
+  "gcn": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5850965171784583,
+      "validation_loss": 0.4745194266239802,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 387973120,
+      "peak_cuda_allocated_bytes": 337643008
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5203770267489021,
+      "validation_loss": 0.45715780432025593,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5044992511783546,
+      "validation_loss": 0.45080621788899106,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5001756422250353,
+      "validation_loss": 0.4505094923079014,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.4958881246492707,
+      "validation_loss": 0.45521247759461403,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.4929212945034017,
+      "validation_loss": 0.4398820474743843,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.4906650859676062,
+      "validation_loss": 0.4415034552415212,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.4868284299759259,
+      "validation_loss": 0.4421757608652115,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.48554885697303596,
+      "validation_loss": 0.4391568998495738,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.48724901270652154,
+      "validation_loss": 0.4393595717847347,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.48421320231184267,
+      "validation_loss": 0.4359852535029252,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.48382087183855615,
+      "validation_loss": 0.4370302769045035,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.4814624079384761,
+      "validation_loss": 0.43996373812357586,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.47898250496892475,
+      "validation_loss": 0.4376342097918193,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.4795054312082861,
+      "validation_loss": 0.43170324837168056,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.4808217831845461,
+      "validation_loss": 0.4397994341949622,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.48085798458967344,
+      "validation_loss": 0.43930767600735027,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.47849926107655133,
+      "validation_loss": 0.43596093108256656,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.4765717157656482,
+      "validation_loss": 0.43604976187149685,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.4741609756845565,
+      "validation_loss": 0.43411393463611603,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.4738891767062945,
+      "validation_loss": 0.43314942220846814,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.4731197556497503,
+      "validation_loss": 0.43202776337663334,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.47289538930561176,
+      "validation_loss": 0.43134527405103046,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.4750430791307628,
+      "validation_loss": 0.43369386220971745,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.47145663444741853,
+      "validation_loss": 0.4341559906800588,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.4715215367132341,
+      "validation_loss": 0.4312037316461404,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.4722349368255772,
+      "validation_loss": 0.4392923675477505,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.4727038705150031,
+      "validation_loss": 0.4372567646205425,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.47055390679943393,
+      "validation_loss": 0.43271396805842716,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.47027898783555233,
+      "validation_loss": 0.43158165737986565,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.46978217975472,
+      "validation_loss": 0.4394410525759061,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.46790865342944515,
+      "validation_loss": 0.42911478877067566,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.4673360880746462,
+      "validation_loss": 0.43917448321978253,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.466925018482551,
+      "validation_loss": 0.43595410510897636,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.4668737632319312,
+      "validation_loss": 0.4325465386112531,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.4657425088509056,
+      "validation_loss": 0.4273908908168475,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.4657512653011719,
+      "validation_loss": 0.4320104047656059,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.46506975864721356,
+      "validation_loss": 0.42618972435593605,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.46386795723392354,
+      "validation_loss": 0.4293271650870641,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.46463702399097145,
+      "validation_loss": 0.42880967259407043,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 41,
+      "train_loss": 0.4642325185994894,
+      "validation_loss": 0.4298051595687866,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 42,
+      "train_loss": 0.4637861419397386,
+      "validation_loss": 0.43051882709066075,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 43,
+      "train_loss": 0.46302343849499206,
+      "validation_loss": 0.4328988765676816,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 44,
+      "train_loss": 0.46297725377095067,
+      "validation_loss": 0.4300976072748502,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 45,
+      "train_loss": 0.4615093598928929,
+      "validation_loss": 0.437482883532842,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 46,
+      "train_loss": 0.4640615654007002,
+      "validation_loss": 0.42742902785539627,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 47,
+      "train_loss": 0.46140083590276126,
+      "validation_loss": 0.4293871410191059,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 48,
+      "train_loss": 0.46060261317793,
+      "validation_loss": 0.42720569546024006,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 49,
+      "train_loss": 0.4605601875252534,
+      "validation_loss": 0.4249623343348503,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 50,
+      "train_loss": 0.46100912993924453,
+      "validation_loss": 0.4292818245788415,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 51,
+      "train_loss": 0.46041862982228415,
+      "validation_loss": 0.4266861528158188,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 52,
+      "train_loss": 0.45910523106871276,
+      "validation_loss": 0.4291713498532772,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 53,
+      "train_loss": 0.46016730798530336,
+      "validation_loss": 0.430210892111063,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 54,
+      "train_loss": 0.4595011852212987,
+      "validation_loss": 0.43235888083775836,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 55,
+      "train_loss": 0.45805006637805845,
+      "validation_loss": 0.42576319848497707,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 56,
+      "train_loss": 0.4576037888808489,
+      "validation_loss": 0.42813797543446225,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 57,
+      "train_loss": 0.4571613589820568,
+      "validation_loss": 0.42406944558024406,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 58,
+      "train_loss": 0.45730972488976257,
+      "validation_loss": 0.4244365394115448,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 59,
+      "train_loss": 0.45600747656607965,
+      "validation_loss": 0.42693165441354114,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    },
+    {
+      "epoch": 60,
+      "train_loss": 0.45762202422946346,
+      "validation_loss": 0.4260977804660797,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 400556032,
+      "peak_cuda_allocated_bytes": 337643520
+    }
+  ],
+  "gcn_flow": [
+    {
+      "epoch": 1,
+      "train_loss": 0.40573551493370485,
+      "validation_loss": 0.33368732531865436,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 989855744,
+      "peak_cuda_allocated_bytes": 860410368
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3352001857237271,
+      "validation_loss": 0.28811247274279594,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.29743139742274644,
+      "validation_loss": 0.25611988951762515,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.2637078528877094,
+      "validation_loss": 0.2403232418000698,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.25919580522719027,
+      "validation_loss": 0.23465709326167902,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.2552171255795426,
+      "validation_loss": 0.23358345218002796,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.25440865288343906,
+      "validation_loss": 0.2331896498799324,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.25402242354618265,
+      "validation_loss": 0.23325136179725328,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.253291767124034,
+      "validation_loss": 0.2299215334157149,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.25274848545852463,
+      "validation_loss": 0.2288909231623014,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.25298306296205336,
+      "validation_loss": 0.22916773209969202,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.2544778101863543,
+      "validation_loss": 0.22784334483246008,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.24773524558130983,
+      "validation_loss": 0.2266116595516602,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.24924670281283204,
+      "validation_loss": 0.22658292576670647,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.2475979891683385,
+      "validation_loss": 0.22617000651856264,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.24906428779961975,
+      "validation_loss": 0.227532089377443,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.249796785748969,
+      "validation_loss": 0.2259545400738716,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.2475418879223727,
+      "validation_loss": 0.22563060062626997,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.25183448796094765,
+      "validation_loss": 0.22523182133833566,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.24170812731070757,
+      "validation_loss": 0.22743184491991997,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 21,
+      "train_loss": 0.2428014548698653,
+      "validation_loss": 0.22498043440282345,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 22,
+      "train_loss": 0.23877881270318038,
+      "validation_loss": 0.22477054658035436,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 23,
+      "train_loss": 0.24408213092212652,
+      "validation_loss": 0.22540755197405815,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 24,
+      "train_loss": 0.24649406730440063,
+      "validation_loss": 0.22462496906518936,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 25,
+      "train_loss": 0.2458283166677257,
+      "validation_loss": 0.22513855000336966,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 26,
+      "train_loss": 0.246580671284716,
+      "validation_loss": 0.22474071010947227,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 27,
+      "train_loss": 0.24865395576718224,
+      "validation_loss": 0.22498936764895916,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.2413899695192283,
+      "validation_loss": 0.2273524465660254,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.24732749663360312,
+      "validation_loss": 0.2248468827456236,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.24129501015751292,
+      "validation_loss": 0.2238964599867662,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.24639314499149273,
+      "validation_loss": 0.22506750747561455,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.2443662923168922,
+      "validation_loss": 0.22495388922592005,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.24519933544013253,
+      "validation_loss": 0.22488515824079514,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.24682407320234376,
+      "validation_loss": 0.22410876800616583,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.24442552135293688,
+      "validation_loss": 0.22427696796754995,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.24743904756795762,
+      "validation_loss": 0.22440486090878645,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.246044875645056,
+      "validation_loss": 0.22422203545769057,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.24068559097922354,
+      "validation_loss": 0.22441067670782408,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.2477542849040001,
+      "validation_loss": 0.22408443627258143,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.24206533852070378,
+      "validation_loss": 0.22348054374257723,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 41,
+      "train_loss": 0.2412179740234272,
+      "validation_loss": 0.2237813783188661,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 42,
+      "train_loss": 0.24206286504271707,
+      "validation_loss": 0.2240766113003095,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 43,
+      "train_loss": 0.24063866213442273,
+      "validation_loss": 0.2233011064430078,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 44,
+      "train_loss": 0.24053921138291487,
+      "validation_loss": 0.22288791400690874,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 45,
+      "train_loss": 0.24133050579467696,
+      "validation_loss": 0.22285916718343893,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 46,
+      "train_loss": 0.24642804358752304,
+      "validation_loss": 0.22336023673415184,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 47,
+      "train_loss": 0.24080032745282978,
+      "validation_loss": 0.22354427290459475,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 48,
+      "train_loss": 0.24333259773193183,
+      "validation_loss": 0.22261452488601208,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 49,
+      "train_loss": 0.24004147726855932,
+      "validation_loss": 0.2240097988396883,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 50,
+      "train_loss": 0.2433537139972153,
+      "validation_loss": 0.22281916191180548,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 51,
+      "train_loss": 0.24362468011725086,
+      "validation_loss": 0.22356931120157242,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 52,
+      "train_loss": 0.23936267355899296,
+      "validation_loss": 0.22331679301957288,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 53,
+      "train_loss": 0.24777003261948122,
+      "validation_loss": 0.22244747914373875,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 54,
+      "train_loss": 0.24297200787970283,
+      "validation_loss": 0.22433949199815592,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 55,
+      "train_loss": 0.24604412942015313,
+      "validation_loss": 0.22327524423599243,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 56,
+      "train_loss": 0.23979632411061264,
+      "validation_loss": 0.22265996721883616,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 57,
+      "train_loss": 0.23960738123151856,
+      "validation_loss": 0.22197968202332655,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 58,
+      "train_loss": 0.24372651706305026,
+      "validation_loss": 0.22212896309792995,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 59,
+      "train_loss": 0.24536523528980506,
+      "validation_loss": 0.2232141817609469,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    },
+    {
+      "epoch": 60,
+      "train_loss": 0.2431461731490795,
+      "validation_loss": 0.22210150708754858,
+      "amp": true,
+      "effective_batch_size": 16,
+      "data_preloaded_cuda": true,
+      "peak_cuda_reserved_bytes": 1017118720,
+      "peak_cuda_allocated_bytes": 861398016
+    }
+  ]
+}

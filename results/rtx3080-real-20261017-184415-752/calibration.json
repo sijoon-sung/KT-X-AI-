@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "fitted_on": "validation_only",
+  "count_factor": [
+    [
+      0.885000676950408,
+      0.9305814742064583
+    ],
+    [
+      0.8196863209988051,
+      0.8094439848606617
+    ],
+    [
+      0.8861401056151912,
+      0.8535682815155262
+    ]
+  ],
+  "mae_tolerance": 0.01,
+  "objective": "group_event_brier_with_count_and_stock_mae_guardrails",
+  "in_stock": {
+    "flow_weight": 0.0,
+    "correct_counts": false
+  },
+  "empty": {
+    "flow_weight": 0.0,
+    "correct_counts": false
+  },
+  "in_stock_validation": {
+    "gcn_baseline": {
+      "count_mae": 0.4969637095928192,
+      "stock_mae": 0.8000620702236074,
+      "event_brier": 0.1337166717973156
+    },
+    "candidates": [
+      {
+        "flow_weight": 0.0,
+        "correct_counts": false,
+        "admissible": true,
+        "count_mae": 0.4969637095928192,
+        "stock_mae": 0.8000620702236074,
+        "event_brier": 0.1337166717973156
+      },
+      {
+        "flow_weight": 0.25,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.50420743227005,
+        "stock_mae": 0.7991867486642921,
+        "event_brier": 0.13353949411221802
+      },
+      {
+        "flow_weight": 0.5,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.5116987824440002,
+        "stock_mae": 0.7994017914564163,
+        "event_brier": 0.13391499891589678
+      },
+      {
+        "flow_weight": 0.75,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.5195616483688354,
+        "stock_mae": 0.7990490810824181,
+        "event_brier": 0.13453840537112274
+      },
+      {
+        "flow_weight": 1.0,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.5276010632514954,
+        "stock_mae": 0.7990224906005738,
+        "event_brier": 0.13535629458157095
+      },
+      {
+        "flow_weight": 0.25,
+        "correct_counts": true,
+        "admissible": true,
+        "count_mae": 0.4990452826023102,
+        "stock_mae": 0.795551273251212,
+        "event_brier": 0.13425660013055618
+      },
+      {
+        "flow_weight": 0.5,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.5021199584007263,
+        "stock_mae": 0.7921299903532205,
+        "event_brier": 0.13508883051930284
+      },
+      {
+        "flow_weight": 0.75,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.5038537383079529,
+        "stock_mae": 0.7877849201048778,
+        "event_brier": 0.13651970546016992
+      },
+      {
+        "flow_weight": 1.0,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.5062363743782043,
+        "stock_mae": 0.7845052469822895,
+        "event_brier": 0.13818010085058624
+      }
+    ]
+  },
+  "empty_validation": {
+    "gcn_baseline": {
+      "count_mae": 0.21381203830242157,
+      "stock_mae": 0.35843347060897207,
+      "event_brier": 0.153639697871294
+    },
+    "candidates": [
+      {
+        "flow_weight": 0.0,
+        "correct_counts": false,
+        "admissible": true,
+        "count_mae": 0.21381203830242157,
+        "stock_mae": 0.35843347060897207,
+        "event_brier": 0.153639697871294
+      },
+      {
+        "flow_weight": 0.25,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.22259584069252014,
+        "stock_mae": 0.36957750023900005,
+        "event_brier": 0.15384182239712169
+      },
+      {
+        "flow_weight": 0.5,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.23133032023906708,
+        "stock_mae": 0.3805205271145527,
+        "event_brier": 0.15461147278536602
+      },
+      {
+        "flow_weight": 0.75,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.24015194177627563,
+        "stock_mae": 0.3912632981107048,
+        "event_brier": 0.15596531368613098
+      },
+      {
+        "flow_weight": 1.0,
+        "correct_counts": false,
+        "admissible": false,
+        "count_mae": 0.2490219622850418,
+        "stock_mae": 0.4022846535097154,
+        "event_brier": 0.1580435504723238
+      },
+      {
+        "flow_weight": 0.25,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.21908605098724365,
+        "stock_mae": 0.36278747221624724,
+        "event_brier": 0.15220404789252392
+      },
+      {
+        "flow_weight": 0.5,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.2249796837568283,
+        "stock_mae": 0.3675607508185751,
+        "event_brier": 0.1514845533747737
+      },
+      {
+        "flow_weight": 0.75,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.22946617007255554,
+        "stock_mae": 0.37015632842188284,
+        "event_brier": 0.1505263885084494
+      },
+      {
+        "flow_weight": 1.0,
+        "correct_counts": true,
+        "admissible": false,
+        "count_mae": 0.23445990681648254,
+        "stock_mae": 0.3735964350158935,
+        "event_brier": 0.15053134239078073
+      }
+    ]
+  },
+  "scenario_settings": {
+    "samples": 64,
+    "ode_steps": 12,
+    "sample_chunk": 4,
+    "seed": 42
+  }
+}
