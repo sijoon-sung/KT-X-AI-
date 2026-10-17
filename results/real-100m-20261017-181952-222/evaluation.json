@@ -1,0 +1,1692 @@
+{
+  "source": "user_provided_unverified",
+  "selection_metric": "validation_balanced_count_stock_stockout_recovery",
+  "selection_scores": {
+    "xgboost": 1.0453989608866903,
+    "gcn": 1.0,
+    "gcn_flow": 1.0321685036930246,
+    "gcn_flow_calibrated": 1.0
+  },
+  "selection_objectives": [
+    "counts.mae",
+    "stock.net_inventory_mae",
+    "stock.brier",
+    "stock.recovery_brier"
+  ],
+  "selected_model": "gcn",
+  "models": {
+    "xgboost": {
+      "validation": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.4040417969226837,
+          "rmse": 0.7179301381111145,
+          "wape": 1.1337889432907104,
+          "crps": 0.2287993734611973,
+          "coverage_90": 0.9733020481510349,
+          "interval_width_90": 1.3559630612929758,
+          "peak_mae": 2.0848472118377686,
+          "zero_mae": 0.2672453224658966
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 67380,
+          "net_inventory_mae": 0.6372614538678878,
+          "brier": 0.13544562077373665,
+          "auc": 0.8039016933161158,
+          "average_precision": 0.48194477227553645,
+          "event_rate": 0.21461858118135946,
+          "currently_empty_cells": 55788,
+          "recovery_brier": 0.1642722303981703,
+          "top10pct_precision": 0.5599584446423271
+        },
+        "inference": {
+          "seconds": 4.669489299878478,
+          "ms_per_city_origin": 48.64051354040081,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": false,
+          "device": "cpu",
+          "timing_method": "measured"
+        }
+      },
+      "test": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.5096113085746765,
+          "rmse": 0.9335095286369324,
+          "wape": 0.8988122344017029,
+          "crps": 0.31707311009002104,
+          "coverage_90": 0.9546067160301377,
+          "interval_width_90": 1.5666678168571915,
+          "peak_mae": 2.2811460494995117,
+          "zero_mae": 0.28682568669319153
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 69653,
+          "net_inventory_mae": 0.8015370533699799,
+          "brier": 0.14432168366648782,
+          "auc": 0.8005776835549395,
+          "average_precision": 0.5148759895410965,
+          "event_rate": 0.2352375346359812,
+          "currently_empty_cells": 52232,
+          "recovery_brier": 0.1758215085235703,
+          "top10pct_precision": 0.6045076083835774
+        },
+        "inference": {
+          "seconds": 4.785598800750449,
+          "ms_per_city_origin": 49.84998750781718,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": false,
+          "device": "cpu",
+          "timing_method": "measured"
+        }
+      }
+    },
+    "gcn": {
+      "validation": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.3768013119697571,
+          "rmse": 0.7103395462036133,
+          "wape": 1.0573489665985107,
+          "crps": 0.22409175061101758,
+          "coverage_90": 0.9668961635056724,
+          "interval_width_90": 1.1871347806789638,
+          "peak_mae": 2.158707618713379,
+          "zero_mae": 0.22202186286449432
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 67380,
+          "net_inventory_mae": 0.6143325325977527,
+          "brier": 0.13263934422190377,
+          "auc": 0.8197584304952092,
+          "average_precision": 0.5039160611435369,
+          "event_rate": 0.21461858118135946,
+          "currently_empty_cells": 55788,
+          "recovery_brier": 0.15632746349041238,
+          "top10pct_precision": 0.5792520035618878
+        },
+        "inference": {
+          "seconds": 1.7970586004666984,
+          "ms_per_city_origin": 18.71936042152811,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "measured"
+        }
+      },
+      "test": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.5014424324035645,
+          "rmse": 0.9441130757331848,
+          "wape": 0.8844046592712402,
+          "crps": 0.318966430864923,
+          "coverage_90": 0.9492576535030743,
+          "interval_width_90": 1.4940034478652457,
+          "peak_mae": 2.3018722534179688,
+          "zero_mae": 0.26663991808891296
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 69653,
+          "net_inventory_mae": 0.8030893618985109,
+          "brier": 0.1448551631614934,
+          "auc": 0.8053370570434899,
+          "average_precision": 0.5219543175243568,
+          "event_rate": 0.2352375346359812,
+          "currently_empty_cells": 52232,
+          "recovery_brier": 0.1762258231977643,
+          "top10pct_precision": 0.6045076083835774
+        },
+        "inference": {
+          "seconds": 2.5225039997603744,
+          "ms_per_city_origin": 26.276083330837235,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "measured"
+        }
+      }
+    },
+    "gcn_flow": {
+      "validation": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.40584391355514526,
+          "rmse": 0.7142897248268127,
+          "wape": 1.1388459205627441,
+          "crps": 0.22489973732101007,
+          "coverage_90": 0.9776254113622586,
+          "interval_width_90": 1.4677801187537882,
+          "peak_mae": 2.119234085083008,
+          "zero_mae": 0.26743096113204956
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 67380,
+          "net_inventory_mae": 0.6208296713296744,
+          "brier": 0.1344209801800423,
+          "auc": 0.8087415666541319,
+          "average_precision": 0.4947462102234548,
+          "event_rate": 0.21461858118135946,
+          "currently_empty_cells": 55788,
+          "recovery_brier": 0.16064041322590655,
+          "top10pct_precision": 0.5709409320273078
+        },
+        "inference": {
+          "seconds": 1719.2454646993428,
+          "ms_per_city_origin": 17908.806923951488,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "measured"
+        }
+      },
+      "test": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.5285708904266357,
+          "rmse": 0.942043662071228,
+          "wape": 0.9322516918182373,
+          "crps": 0.3170971284441652,
+          "coverage_90": 0.9660693794925089,
+          "interval_width_90": 1.8374813939767896,
+          "peak_mae": 2.2431554794311523,
+          "zero_mae": 0.31886929273605347
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 69653,
+          "net_inventory_mae": 0.8075687379497067,
+          "brier": 0.14625101605794977,
+          "auc": 0.7974527374764633,
+          "average_precision": 0.5140274669768267,
+          "event_rate": 0.2352375346359812,
+          "currently_empty_cells": 52232,
+          "recovery_brier": 0.17913379923346798,
+          "top10pct_precision": 0.5984783232845249
+        },
+        "inference": {
+          "seconds": 1719.3380289995112,
+          "ms_per_city_origin": 17909.771135411575,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "measured"
+        }
+      }
+    },
+    "gcn_flow_calibrated": {
+      "validation": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.3768013119697571,
+          "rmse": 0.7103395462036133,
+          "wape": 1.0573489665985107,
+          "crps": 0.22409175061101758,
+          "coverage_90": 0.9668961635056724,
+          "interval_width_90": 1.1871347806789638,
+          "peak_mae": 2.158707618713379,
+          "zero_mae": 0.22202186286449432
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 67380,
+          "net_inventory_mae": 0.6143325325977527,
+          "brier": 0.13263934422190377,
+          "auc": 0.8197584304952092,
+          "average_precision": 0.5039160611435369,
+          "event_rate": 0.21461858118135946,
+          "currently_empty_cells": 55788,
+          "recovery_brier": 0.15632746349041238,
+          "top10pct_precision": 0.5792520035618878
+        },
+        "inference": {
+          "seconds": 2.3668642004486173,
+          "ms_per_city_origin": 24.654835421339765,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "shared forecasts + mixture application"
+        }
+      },
+      "test": {
+        "counts": {
+          "cells": 739008,
+          "mae": 0.5014424324035645,
+          "rmse": 0.9441130757331848,
+          "wape": 0.8844046592712402,
+          "crps": 0.318966430864923,
+          "coverage_90": 0.9492576535030743,
+          "interval_width_90": 1.4940034478652457,
+          "peak_mae": 2.3018722534179688,
+          "zero_mae": 0.26663991808891296
+        },
+        "stock": {
+          "status": "evaluated_hourly_snapshots",
+          "cells": 69653,
+          "net_inventory_mae": 0.8030893618985109,
+          "brier": 0.1448551631614934,
+          "auc": 0.8053370570434899,
+          "average_precision": 0.5219543175243568,
+          "event_rate": 0.2352375346359812,
+          "currently_empty_cells": 52232,
+          "recovery_brier": 0.1762258231977643,
+          "top10pct_precision": 0.6045076083835774
+        },
+        "inference": {
+          "seconds": 3.1730482997372746,
+          "ms_per_city_origin": 33.05258645559661,
+          "samples_per_origin": 64,
+          "batch_origins": 2,
+          "scenario_chunk": 4,
+          "amp": true,
+          "device": "cuda",
+          "timing_method": "shared forecasts + mixture application"
+        }
+      }
+    }
+  },
+  "calibration": {
+    "schema_version": 1,
+    "fitted_on": "validation_only",
+    "count_factor": [
+      [
+        0.8355022517410676,
+        0.8858675828191124
+      ],
+      [
+        0.8139369013686464,
+        0.8142305290185283
+      ],
+      [
+        0.7764198776239714,
+        0.7960820688860369
+      ]
+    ],
+    "mae_tolerance": 0.01,
+    "objective": "group_event_brier_with_count_and_stock_mae_guardrails",
+    "in_stock": {
+      "flow_weight": 0.0,
+      "correct_counts": false
+    },
+    "empty": {
+      "flow_weight": 0.0,
+      "correct_counts": false
+    },
+    "in_stock_validation": {
+      "gcn_baseline": {
+        "count_mae": 0.5073345303535461,
+        "stock_mae": 0.8101856232066884,
+        "event_brier": 0.13263934422190377
+      },
+      "candidates": [
+        {
+          "flow_weight": 0.0,
+          "correct_counts": false,
+          "admissible": true,
+          "count_mae": 0.5073345303535461,
+          "stock_mae": 0.8101856232066884,
+          "event_brier": 0.13263934422190377
+        },
+        {
+          "flow_weight": 0.25,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.5135179162025452,
+          "stock_mae": 0.8070513474572079,
+          "event_brier": 0.13260228470405722
+        },
+        {
+          "flow_weight": 0.5,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.5197820663452148,
+          "stock_mae": 0.8051699162709014,
+          "event_brier": 0.1328580018992097
+        },
+        {
+          "flow_weight": 0.75,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.5264230370521545,
+          "stock_mae": 0.8030840321064608,
+          "event_brier": 0.13360647516881863
+        },
+        {
+          "flow_weight": 1.0,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.5331677794456482,
+          "stock_mae": 0.8013539502325121,
+          "event_brier": 0.1344209801800423
+        },
+        {
+          "flow_weight": 0.25,
+          "correct_counts": true,
+          "admissible": true,
+          "count_mae": 0.5051263570785522,
+          "stock_mae": 0.801827786435144,
+          "event_brier": 0.13334592081524563
+        },
+        {
+          "flow_weight": 0.5,
+          "correct_counts": true,
+          "admissible": true,
+          "count_mae": 0.5045264363288879,
+          "stock_mae": 0.7955282384733353,
+          "event_brier": 0.13434073407701655
+        },
+        {
+          "flow_weight": 0.75,
+          "correct_counts": true,
+          "admissible": true,
+          "count_mae": 0.5027366280555725,
+          "stock_mae": 0.7885892048827545,
+          "event_brier": 0.13609497396413067
+        },
+        {
+          "flow_weight": 1.0,
+          "correct_counts": true,
+          "admissible": true,
+          "count_mae": 0.5024212598800659,
+          "stock_mae": 0.7828280368803799,
+          "event_brier": 0.13806600188529608
+        }
+      ]
+    },
+    "empty_validation": {
+      "gcn_baseline": {
+        "count_mae": 0.21914510428905487,
+        "stock_mae": 0.37778379012212904,
+        "event_brier": 0.15632746349041238
+      },
+      "candidates": [
+        {
+          "flow_weight": 0.0,
+          "correct_counts": false,
+          "admissible": true,
+          "count_mae": 0.21914510428905487,
+          "stock_mae": 0.37778379012212904,
+          "event_brier": 0.15632746349041238
+        },
+        {
+          "flow_weight": 0.25,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.22737836837768555,
+          "stock_mae": 0.38432221460409643,
+          "event_brier": 0.15669210336452283
+        },
+        {
+          "flow_weight": 0.5,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.2355305552482605,
+          "stock_mae": 0.3904803863136636,
+          "event_brier": 0.1573363575122002
+        },
+        {
+          "flow_weight": 0.75,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.2437707781791687,
+          "stock_mae": 0.3964720982409598,
+          "event_brier": 0.15870940127133076
+        },
+        {
+          "flow_weight": 1.0,
+          "correct_counts": false,
+          "admissible": false,
+          "count_mae": 0.2520638406276703,
+          "stock_mae": 0.40279486254511127,
+          "event_brier": 0.16064041322590655
+        },
+        {
+          "flow_weight": 0.25,
+          "correct_counts": true,
+          "admissible": false,
+          "count_mae": 0.22239260375499725,
+          "stock_mae": 0.37502772773714776,
+          "event_brier": 0.1539317493653429
+        },
+        {
+          "flow_weight": 0.5,
+          "correct_counts": true,
+          "admissible": false,
+          "count_mae": 0.2264370322227478,
+          "stock_mae": 0.3742321190638369,
+          "event_brier": 0.15257361101541775
+        },
+        {
+          "flow_weight": 0.75,
+          "correct_counts": true,
+          "admissible": false,
+          "count_mae": 0.22889243066310883,
+          "stock_mae": 0.37017612061136207,
+          "event_brier": 0.15053298784992963
+        },
+        {
+          "flow_weight": 1.0,
+          "correct_counts": true,
+          "admissible": false,
+          "count_mae": 0.23214669525623322,
+          "stock_mae": 0.3680675989161349,
+          "event_brier": 0.14969116482263212
+        }
+      ]
+    },
+    "scenario_settings": {
+      "samples": 64,
+      "ode_steps": 12,
+      "sample_chunk": 4,
+      "seed": 42
+    }
+  },
+  "operations": {
+    "source": "user_provided_unverified",
+    "partition": "test",
+    "budget_bikes": 20,
+    "truck_capacity": 10,
+    "service_level": 0.9,
+    "max_distance_km": 5.0,
+    "models": {
+      "xgboost": {
+        "status": "observed_transaction_replay",
+        "interpretation": "Fixed observed-transaction replay; censored demand and dispatch timing unobserved. Not a causal policy effect.",
+        "eligible_origins": 96,
+        "evaluated_origins": 8,
+        "rows": [
+          {
+            "timestamp": "2026-03-01 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 39.0,
+                "blocked_returns": 0.0,
+                "service_failures": 39.0,
+                "stockout_station_hours": 1657,
+                "initially_empty_recovered": 94,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 35.0,
+                "blocked_returns": 0.0,
+                "service_failures": 35.0,
+                "stockout_station_hours": 1647,
+                "initially_empty_recovered": 97,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 35.0,
+                "blocked_returns": 0.0,
+                "service_failures": 35.0,
+                "stockout_station_hours": 1642,
+                "initially_empty_recovered": 96,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 9.09375
+          },
+          {
+            "timestamp": "2026-03-05 05:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 100.0,
+                "blocked_returns": 0.0,
+                "service_failures": 100.0,
+                "stockout_station_hours": 1640,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 93.0,
+                "blocked_returns": 0.0,
+                "service_failures": 93.0,
+                "stockout_station_hours": 1633,
+                "initially_empty_recovered": 200,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 96.0,
+                "blocked_returns": 0.0,
+                "service_failures": 96.0,
+                "stockout_station_hours": 1615,
+                "initially_empty_recovered": 203,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 9.625
+          },
+          {
+            "timestamp": "2026-03-09 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 542.0,
+                "blocked_returns": 0.0,
+                "service_failures": 542.0,
+                "stockout_station_hours": 1263,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 537.0,
+                "blocked_returns": 0.0,
+                "service_failures": 537.0,
+                "stockout_station_hours": 1265,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 525.0,
+                "blocked_returns": 0.0,
+                "service_failures": 525.0,
+                "stockout_station_hours": 1262,
+                "initially_empty_recovered": 299,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 17.9375
+          },
+          {
+            "timestamp": "2026-03-14 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 69.0,
+                "blocked_returns": 0.0,
+                "service_failures": 69.0,
+                "stockout_station_hours": 1601,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 63.0,
+                "blocked_returns": 0.0,
+                "service_failures": 63.0,
+                "stockout_station_hours": 1599,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 59.0,
+                "blocked_returns": 0.0,
+                "service_failures": 59.0,
+                "stockout_station_hours": 1592,
+                "initially_empty_recovered": 137,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 12.421875
+          },
+          {
+            "timestamp": "2026-03-18 13:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 22.0,
+                "blocked_returns": 0.0,
+                "service_failures": 22.0,
+                "stockout_station_hours": 1530,
+                "initially_empty_recovered": 70,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 20.0,
+                "blocked_returns": 0.0,
+                "service_failures": 20.0,
+                "stockout_station_hours": 1524,
+                "initially_empty_recovered": 72,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 18.0,
+                "blocked_returns": 0.0,
+                "service_failures": 18.0,
+                "stockout_station_hours": 1500,
+                "initially_empty_recovered": 74,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 14.046875
+          },
+          {
+            "timestamp": "2026-03-22 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 660.0,
+                "blocked_returns": 0.0,
+                "service_failures": 660.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 648.0,
+                "blocked_returns": 0.0,
+                "service_failures": 648.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 643.0,
+                "blocked_returns": 0.0,
+                "service_failures": 643.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 19.015625
+          },
+          {
+            "timestamp": "2026-03-27 07:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 396.0,
+                "blocked_returns": 0.0,
+                "service_failures": 396.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 394.0,
+                "blocked_returns": 0.0,
+                "service_failures": 394.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 380.0,
+                "blocked_returns": 0.0,
+                "service_failures": 380.0,
+                "stockout_station_hours": 1318,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 16.5
+          },
+          {
+            "timestamp": "2026-03-31 21:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 465.0,
+                "blocked_returns": 0.0,
+                "service_failures": 465.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 456.0,
+                "blocked_returns": 0.0,
+                "service_failures": 456.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 447.0,
+                "blocked_returns": 0.0,
+                "service_failures": 447.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.203125
+          }
+        ],
+        "policies": {
+          "no_action": {
+            "unserved_rentals_mean": 286.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 286.625,
+            "stockout_station_hours_mean": 1427.5,
+            "initially_empty_recovered_mean": 205.75,
+            "moved_bikes_mean": 0.0,
+            "failures_reduction_mean": 0.0
+          },
+          "nearest_zero_first": {
+            "unserved_rentals_mean": 280.75,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 280.75,
+            "stockout_station_hours_mean": 1424.625,
+            "initially_empty_recovered_mean": 206.5,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 5.875
+          },
+          "marginal_benefit": {
+            "unserved_rentals_mean": 275.375,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 275.375,
+            "stockout_station_hours_mean": 1417.25,
+            "initially_empty_recovered_mean": 207.25,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 11.25
+          }
+        },
+        "demand_replay": {
+          "status": "not_available_no_requested_rentals",
+          "evaluated_origins": 0,
+          "policies": {}
+        }
+      },
+      "gcn": {
+        "status": "observed_transaction_replay",
+        "interpretation": "Fixed observed-transaction replay; censored demand and dispatch timing unobserved. Not a causal policy effect.",
+        "eligible_origins": 96,
+        "evaluated_origins": 8,
+        "rows": [
+          {
+            "timestamp": "2026-03-01 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 39.0,
+                "blocked_returns": 0.0,
+                "service_failures": 39.0,
+                "stockout_station_hours": 1657,
+                "initially_empty_recovered": 94,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 36.0,
+                "blocked_returns": 0.0,
+                "service_failures": 36.0,
+                "stockout_station_hours": 1630,
+                "initially_empty_recovered": 101,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 33.0,
+                "blocked_returns": 0.0,
+                "service_failures": 33.0,
+                "stockout_station_hours": 1646,
+                "initially_empty_recovered": 95,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 6.265625
+          },
+          {
+            "timestamp": "2026-03-05 05:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 100.0,
+                "blocked_returns": 0.0,
+                "service_failures": 100.0,
+                "stockout_station_hours": 1640,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 91.0,
+                "blocked_returns": 0.0,
+                "service_failures": 91.0,
+                "stockout_station_hours": 1639,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 91.0,
+                "blocked_returns": 0.0,
+                "service_failures": 91.0,
+                "stockout_station_hours": 1622,
+                "initially_empty_recovered": 202,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 12.171875
+          },
+          {
+            "timestamp": "2026-03-09 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 542.0,
+                "blocked_returns": 0.0,
+                "service_failures": 542.0,
+                "stockout_station_hours": 1263,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 535.0,
+                "blocked_returns": 0.0,
+                "service_failures": 535.0,
+                "stockout_station_hours": 1265,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 523.0,
+                "blocked_returns": 0.0,
+                "service_failures": 523.0,
+                "stockout_station_hours": 1266,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 17.09375
+          },
+          {
+            "timestamp": "2026-03-14 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 69.0,
+                "blocked_returns": 0.0,
+                "service_failures": 69.0,
+                "stockout_station_hours": 1601,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 63.0,
+                "blocked_returns": 0.0,
+                "service_failures": 63.0,
+                "stockout_station_hours": 1598,
+                "initially_empty_recovered": 137,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 56.0,
+                "blocked_returns": 0.0,
+                "service_failures": 56.0,
+                "stockout_station_hours": 1588,
+                "initially_empty_recovered": 137,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 11.609375
+          },
+          {
+            "timestamp": "2026-03-18 13:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 22.0,
+                "blocked_returns": 0.0,
+                "service_failures": 22.0,
+                "stockout_station_hours": 1530,
+                "initially_empty_recovered": 70,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 19.0,
+                "blocked_returns": 0.0,
+                "service_failures": 19.0,
+                "stockout_station_hours": 1524,
+                "initially_empty_recovered": 71,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 21.0,
+                "blocked_returns": 0.0,
+                "service_failures": 21.0,
+                "stockout_station_hours": 1500,
+                "initially_empty_recovered": 77,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 14.0
+          },
+          {
+            "timestamp": "2026-03-22 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 660.0,
+                "blocked_returns": 0.0,
+                "service_failures": 660.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 651.0,
+                "blocked_returns": 0.0,
+                "service_failures": 651.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 641.0,
+                "blocked_returns": 0.0,
+                "service_failures": 641.0,
+                "stockout_station_hours": 1226,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.5625
+          },
+          {
+            "timestamp": "2026-03-27 07:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 396.0,
+                "blocked_returns": 0.0,
+                "service_failures": 396.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 395.0,
+                "blocked_returns": 0.0,
+                "service_failures": 395.0,
+                "stockout_station_hours": 1322,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 381.0,
+                "blocked_returns": 0.0,
+                "service_failures": 381.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 16.796875
+          },
+          {
+            "timestamp": "2026-03-31 21:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 465.0,
+                "blocked_returns": 0.0,
+                "service_failures": 465.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 455.0,
+                "blocked_returns": 0.0,
+                "service_failures": 455.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 447.0,
+                "blocked_returns": 0.0,
+                "service_failures": 447.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.359375
+          }
+        ],
+        "policies": {
+          "no_action": {
+            "unserved_rentals_mean": 286.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 286.625,
+            "stockout_station_hours_mean": 1427.5,
+            "initially_empty_recovered_mean": 205.75,
+            "moved_bikes_mean": 0.0,
+            "failures_reduction_mean": 0.0
+          },
+          "nearest_zero_first": {
+            "unserved_rentals_mean": 280.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 280.625,
+            "stockout_station_hours_mean": 1423.375,
+            "initially_empty_recovered_mean": 206.875,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 6.0
+          },
+          "marginal_benefit": {
+            "unserved_rentals_mean": 274.125,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 274.125,
+            "stockout_station_hours_mean": 1418.75,
+            "initially_empty_recovered_mean": 207.25,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 12.5
+          }
+        },
+        "demand_replay": {
+          "status": "not_available_no_requested_rentals",
+          "evaluated_origins": 0,
+          "policies": {}
+        }
+      },
+      "gcn_flow": {
+        "status": "observed_transaction_replay",
+        "interpretation": "Fixed observed-transaction replay; censored demand and dispatch timing unobserved. Not a causal policy effect.",
+        "eligible_origins": 96,
+        "evaluated_origins": 8,
+        "rows": [
+          {
+            "timestamp": "2026-03-01 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 39.0,
+                "blocked_returns": 0.0,
+                "service_failures": 39.0,
+                "stockout_station_hours": 1657,
+                "initially_empty_recovered": 94,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 41.0,
+                "blocked_returns": 0.0,
+                "service_failures": 41.0,
+                "stockout_station_hours": 1614,
+                "initially_empty_recovered": 107,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 35.0,
+                "blocked_returns": 0.0,
+                "service_failures": 35.0,
+                "stockout_station_hours": 1627,
+                "initially_empty_recovered": 101,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 4.65625
+          },
+          {
+            "timestamp": "2026-03-05 05:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 100.0,
+                "blocked_returns": 0.0,
+                "service_failures": 100.0,
+                "stockout_station_hours": 1640,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 91.0,
+                "blocked_returns": 0.0,
+                "service_failures": 91.0,
+                "stockout_station_hours": 1639,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 93.0,
+                "blocked_returns": 0.0,
+                "service_failures": 93.0,
+                "stockout_station_hours": 1619,
+                "initially_empty_recovered": 202,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 12.28125
+          },
+          {
+            "timestamp": "2026-03-09 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 542.0,
+                "blocked_returns": 0.0,
+                "service_failures": 542.0,
+                "stockout_station_hours": 1263,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 532.0,
+                "blocked_returns": 0.0,
+                "service_failures": 532.0,
+                "stockout_station_hours": 1268,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 525.0,
+                "blocked_returns": 0.0,
+                "service_failures": 525.0,
+                "stockout_station_hours": 1261,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 17.453125
+          },
+          {
+            "timestamp": "2026-03-14 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 69.0,
+                "blocked_returns": 0.0,
+                "service_failures": 69.0,
+                "stockout_station_hours": 1601,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 62.0,
+                "blocked_returns": 0.0,
+                "service_failures": 62.0,
+                "stockout_station_hours": 1596,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 57.0,
+                "blocked_returns": 0.0,
+                "service_failures": 57.0,
+                "stockout_station_hours": 1586,
+                "initially_empty_recovered": 138,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 10.9375
+          },
+          {
+            "timestamp": "2026-03-18 13:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 22.0,
+                "blocked_returns": 0.0,
+                "service_failures": 22.0,
+                "stockout_station_hours": 1530,
+                "initially_empty_recovered": 70,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 19.0,
+                "blocked_returns": 0.0,
+                "service_failures": 19.0,
+                "stockout_station_hours": 1524,
+                "initially_empty_recovered": 71,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 18.0,
+                "blocked_returns": 0.0,
+                "service_failures": 18.0,
+                "stockout_station_hours": 1509,
+                "initially_empty_recovered": 74,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 16.203125
+          },
+          {
+            "timestamp": "2026-03-22 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 660.0,
+                "blocked_returns": 0.0,
+                "service_failures": 660.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 647.0,
+                "blocked_returns": 0.0,
+                "service_failures": 647.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 641.0,
+                "blocked_returns": 0.0,
+                "service_failures": 641.0,
+                "stockout_station_hours": 1226,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.78125
+          },
+          {
+            "timestamp": "2026-03-27 07:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 396.0,
+                "blocked_returns": 0.0,
+                "service_failures": 396.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 395.0,
+                "blocked_returns": 0.0,
+                "service_failures": 395.0,
+                "stockout_station_hours": 1322,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 382.0,
+                "blocked_returns": 0.0,
+                "service_failures": 382.0,
+                "stockout_station_hours": 1316,
+                "initially_empty_recovered": 267,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 17.359375
+          },
+          {
+            "timestamp": "2026-03-31 21:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 465.0,
+                "blocked_returns": 0.0,
+                "service_failures": 465.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 456.0,
+                "blocked_returns": 0.0,
+                "service_failures": 456.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 448.0,
+                "blocked_returns": 0.0,
+                "service_failures": 448.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.78125
+          }
+        ],
+        "policies": {
+          "no_action": {
+            "unserved_rentals_mean": 286.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 286.625,
+            "stockout_station_hours_mean": 1427.5,
+            "initially_empty_recovered_mean": 205.75,
+            "moved_bikes_mean": 0.0,
+            "failures_reduction_mean": 0.0
+          },
+          "nearest_zero_first": {
+            "unserved_rentals_mean": 280.375,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 280.375,
+            "stockout_station_hours_mean": 1421.5,
+            "initially_empty_recovered_mean": 207.5,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 6.25
+          },
+          "marginal_benefit": {
+            "unserved_rentals_mean": 274.875,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 274.875,
+            "stockout_station_hours_mean": 1415.75,
+            "initially_empty_recovered_mean": 207.875,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 11.75
+          }
+        },
+        "demand_replay": {
+          "status": "not_available_no_requested_rentals",
+          "evaluated_origins": 0,
+          "policies": {}
+        }
+      },
+      "gcn_flow_calibrated": {
+        "status": "observed_transaction_replay",
+        "interpretation": "Fixed observed-transaction replay; censored demand and dispatch timing unobserved. Not a causal policy effect.",
+        "eligible_origins": 96,
+        "evaluated_origins": 8,
+        "rows": [
+          {
+            "timestamp": "2026-03-01 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 39.0,
+                "blocked_returns": 0.0,
+                "service_failures": 39.0,
+                "stockout_station_hours": 1657,
+                "initially_empty_recovered": 94,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 36.0,
+                "blocked_returns": 0.0,
+                "service_failures": 36.0,
+                "stockout_station_hours": 1630,
+                "initially_empty_recovered": 101,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 33.0,
+                "blocked_returns": 0.0,
+                "service_failures": 33.0,
+                "stockout_station_hours": 1646,
+                "initially_empty_recovered": 95,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 6.265625
+          },
+          {
+            "timestamp": "2026-03-05 05:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 100.0,
+                "blocked_returns": 0.0,
+                "service_failures": 100.0,
+                "stockout_station_hours": 1640,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 91.0,
+                "blocked_returns": 0.0,
+                "service_failures": 91.0,
+                "stockout_station_hours": 1639,
+                "initially_empty_recovered": 199,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 91.0,
+                "blocked_returns": 0.0,
+                "service_failures": 91.0,
+                "stockout_station_hours": 1622,
+                "initially_empty_recovered": 202,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 12.171875
+          },
+          {
+            "timestamp": "2026-03-09 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 542.0,
+                "blocked_returns": 0.0,
+                "service_failures": 542.0,
+                "stockout_station_hours": 1263,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 535.0,
+                "blocked_returns": 0.0,
+                "service_failures": 535.0,
+                "stockout_station_hours": 1265,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 523.0,
+                "blocked_returns": 0.0,
+                "service_failures": 523.0,
+                "stockout_station_hours": 1266,
+                "initially_empty_recovered": 298,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 17.09375
+          },
+          {
+            "timestamp": "2026-03-14 00:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 69.0,
+                "blocked_returns": 0.0,
+                "service_failures": 69.0,
+                "stockout_station_hours": 1601,
+                "initially_empty_recovered": 136,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 63.0,
+                "blocked_returns": 0.0,
+                "service_failures": 63.0,
+                "stockout_station_hours": 1598,
+                "initially_empty_recovered": 137,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 56.0,
+                "blocked_returns": 0.0,
+                "service_failures": 56.0,
+                "stockout_station_hours": 1588,
+                "initially_empty_recovered": 137,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 11.609375
+          },
+          {
+            "timestamp": "2026-03-18 13:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 22.0,
+                "blocked_returns": 0.0,
+                "service_failures": 22.0,
+                "stockout_station_hours": 1530,
+                "initially_empty_recovered": 70,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 19.0,
+                "blocked_returns": 0.0,
+                "service_failures": 19.0,
+                "stockout_station_hours": 1524,
+                "initially_empty_recovered": 71,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 21.0,
+                "blocked_returns": 0.0,
+                "service_failures": 21.0,
+                "stockout_station_hours": 1500,
+                "initially_empty_recovered": 77,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 14.0
+          },
+          {
+            "timestamp": "2026-03-22 18:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 660.0,
+                "blocked_returns": 0.0,
+                "service_failures": 660.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 651.0,
+                "blocked_returns": 0.0,
+                "service_failures": 651.0,
+                "stockout_station_hours": 1227,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 641.0,
+                "blocked_returns": 0.0,
+                "service_failures": 641.0,
+                "stockout_station_hours": 1226,
+                "initially_empty_recovered": 310,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.5625
+          },
+          {
+            "timestamp": "2026-03-27 07:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 396.0,
+                "blocked_returns": 0.0,
+                "service_failures": 396.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 395.0,
+                "blocked_returns": 0.0,
+                "service_failures": 395.0,
+                "stockout_station_hours": 1322,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 381.0,
+                "blocked_returns": 0.0,
+                "service_failures": 381.0,
+                "stockout_station_hours": 1320,
+                "initially_empty_recovered": 266,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 16.796875
+          },
+          {
+            "timestamp": "2026-03-31 21:00:00",
+            "policies": {
+              "no_action": {
+                "unserved_rentals": 465.0,
+                "blocked_returns": 0.0,
+                "service_failures": 465.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 0
+              },
+              "nearest_zero_first": {
+                "unserved_rentals": 455.0,
+                "blocked_returns": 0.0,
+                "service_failures": 455.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              },
+              "marginal_benefit": {
+                "unserved_rentals": 447.0,
+                "blocked_returns": 0.0,
+                "service_failures": 447.0,
+                "stockout_station_hours": 1182,
+                "initially_empty_recovered": 273,
+                "moved_bikes": 20
+              }
+            },
+            "demand_policies": {},
+            "model_expected_failures_reduction": 18.359375
+          }
+        ],
+        "policies": {
+          "no_action": {
+            "unserved_rentals_mean": 286.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 286.625,
+            "stockout_station_hours_mean": 1427.5,
+            "initially_empty_recovered_mean": 205.75,
+            "moved_bikes_mean": 0.0,
+            "failures_reduction_mean": 0.0
+          },
+          "nearest_zero_first": {
+            "unserved_rentals_mean": 280.625,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 280.625,
+            "stockout_station_hours_mean": 1423.375,
+            "initially_empty_recovered_mean": 206.875,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 6.0
+          },
+          "marginal_benefit": {
+            "unserved_rentals_mean": 274.125,
+            "blocked_returns_mean": 0.0,
+            "service_failures_mean": 274.125,
+            "stockout_station_hours_mean": 1418.75,
+            "initially_empty_recovered_mean": 207.25,
+            "moved_bikes_mean": 20.0,
+            "failures_reduction_mean": 12.5
+          }
+        },
+        "demand_replay": {
+          "status": "not_available_no_requested_rentals",
+          "evaluated_origins": 0,
+          "policies": {}
+        }
+      }
+    }
+  },
+  "evaluation_settings": {
+    "code_panel_hash_verified": true,
+    "code_commit": "ac06d7f60f9ec624563d910abdea5b22eb567d25",
+    "code_dirty": false,
+    "seed": 42,
+    "samples": 64,
+    "ode_steps": 12,
+    "sample_chunk": 4,
+    "backtest_origins": 8
+  },
+  "limitations": [
+    "Observed transactions, not identified latent demand.",
+    "Hourly endpoint stockout labels; intra-hour events are unobserved.",
+    "Rentals occur before returns in the simulator.",
+    "GCN/XGBoost probabilities use independent Poisson scenarios.",
+    "Direct transfer batches; no road routing, dispatch timing or causal policy guarantee.",
+    "Calibration fitted on validation only; selected on that same validation set. Single seed; no uncertainty interval for score differences.",
+    "Replay holds observed transactions fixed; not causal avoided stockouts or uncensored demand."
+  ]
+}
