@@ -20,7 +20,12 @@ def test_complete_demo_train_reload_compare_and_recommend(tmp_path, architecture
     assert metadata["parameter_counts"]["gcn_flow"]["frozen"] > 0
     assert metadata["training_seconds"]["gcn_flow_including_base"] > 0
     recommendation = json.loads((out / "recommendation/recommendation.json").read_text(encoding="utf-8"))
-    assert set(evaluation["models"]) == {"xgboost", "gcn", "gcn_flow"}
+    assert set(evaluation["models"]) == {"xgboost", "gcn", "gcn_flow", "gcn_flow_calibrated"}
+    assert evaluation["calibration"]["fitted_on"] == "validation_only"
+    assert evaluation["operations"]["partition"] == "test"
+    assert evaluation["operations"]["models"]["gcn_flow_calibrated"]["evaluated_origins"] > 0
+    assert (out / "run/calibration.json").exists()
+    assert (out / "run/operations_evaluation.json").exists()
     assert evaluation["models"]["gcn_flow"]["test"]["inference"]["ms_per_city_origin"] > 0
     assert evaluation["selection_metric"].startswith("validation_")
     assert recommendation["source"] == "synthetic"
@@ -39,6 +44,20 @@ def test_complete_demo_train_reload_compare_and_recommend(tmp_path, architecture
     assert reloaded["model"] == "gcn_flow"
     assert reloaded["sample_chunk"] == metadata["sample_chunk"]
     assert metadata["flow_blocks"] == (3 if architecture else 1)
+    calibrated = subprocess.run([sys.executable, "-m", "tashu_contest.cli", "recommend", "--run", str(out / "run"),
+                                "--panel", str(out / "synthetic_panel.csv"), "--model", "gcn_flow_calibrated",
+                                "--out", str(tmp_path / "calibrated")], capture_output=True, text=True)
+    assert calibrated.returncode == 0, calibrated.stdout + calibrated.stderr
+    if not architecture:
+        rerun = subprocess.run([sys.executable, "-m", "tashu_contest.cli", "evaluate", "--run", str(out / "run"),
+                               "--panel", str(out / "synthetic_panel.csv"), "--backtest-origins", "2"], capture_output=True, text=True)
+        assert rerun.returncode == 0, rerun.stdout + rerun.stderr
+        assert (out / "run/evaluation_before_upgrade.json").exists()
+        altered = tmp_path / "altered.csv"
+        altered.write_bytes((out / "synthetic_panel.csv").read_bytes() + b"\n")
+        rejected = subprocess.run([sys.executable, "-m", "tashu_contest.cli", "evaluate", "--run", str(out / "run"),
+                                  "--panel", str(altered)], capture_output=True, text=True)
+        assert rejected.returncode == 2 and "hash mismatch" in rejected.stderr
 
 
 def test_profiles_preserve_base_and_allow_explicit_override(monkeypatch):

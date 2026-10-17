@@ -28,6 +28,7 @@ def train_options(p):
     p.add_argument("--neighbors", type=int, default=5)
     p.add_argument("--max-training-rows", type=int, default=250000, help="Evenly sample forecast origins to bound tabular training RAM")
     p.add_argument("--max-eval-origins", type=int, default=96, help="Per partition; selected timestamps are recorded")
+    p.add_argument("--backtest-origins", type=int, default=8, help="Test city snapshots for independent transaction replay; 0 disables")
 
 
 def scenario_options(p):
@@ -62,12 +63,23 @@ def main(argv=None):
     train.add_argument("--out", required=True)
     train_options(train)
     scenario_options(train)
+    plan_options(train)
+    evaluate = sub.add_parser("evaluate", help="Re-evaluate saved models without training; validation calibration + test transfer replay")
+    evaluate.add_argument("--run", required=True)
+    evaluate.add_argument("--panel", required=True, help="Identical CSV used to train this run")
+    evaluate.add_argument("--eval-batch-size", type=int, default=None)
+    evaluate.add_argument("--backtest-origins", type=int, default=8)
+    scenario_options(evaluate)
+    plan_options(evaluate)
+    audit = sub.add_parser("audit", help="Check observed panel completeness and stock balance before real-data training")
+    audit.add_argument("--panel", required=True)
+    audit.add_argument("--out", required=True)
     rec = sub.add_parser("recommend", help="Load saved models and propose concrete direct bike transfers")
     rec.add_argument("--run", required=True)
     rec.add_argument("--panel", required=True)
     rec.add_argument("--at", help="Forecast origin hour in KST; defaults to last panel row")
     rec.add_argument("--snapshot", help="Optional measured station_id,stock CSV at --at")
-    rec.add_argument("--model", choices=["auto", "xgboost", "gcn", "gcn_flow"], default="auto")
+    rec.add_argument("--model", choices=["auto", "xgboost", "gcn", "gcn_flow", "gcn_flow_calibrated"], default="auto")
     rec.add_argument("--out", required=True)
     scenario_options(rec)
     plan_options(rec)
@@ -76,7 +88,13 @@ def main(argv=None):
         resolve_profile(args)
     try:
         from .pipeline import fit, recommend
-        if args.command == "train":
+        if args.command == "audit":
+            from .audit import audit_panel
+            audit_panel(args.panel, args.out)
+        elif args.command == "evaluate":
+            from .evaluation_run import evaluate_saved
+            evaluate_saved(args)
+        elif args.command == "train":
             args.source = "user_provided_unverified"
             fit(args)
         elif args.command == "recommend":
@@ -98,7 +116,7 @@ def main(argv=None):
         p.exit(2, f"입력/실행 오류: {exc}\n")
     except RuntimeError as exc:
         if "out of memory" in str(exc).lower():
-            p.exit(2, "GPU/메모리 부족: train/demo는 --batch-size 2 --accumulate 8 --eval-batch-size 1 --sample-chunk 1, recommend는 --sample-chunk 1을 사용하고 새 출력 폴더로 재실행하세요.\n")
+            p.exit(2, "GPU/메모리 부족: train/demo 학습은 --batch-size 2 --accumulate 8, train/demo/evaluate 예측은 --eval-batch-size 1 --sample-chunk 1, recommend는 --sample-chunk 1을 사용하세요. 학습 재시도는 새 출력 폴더를 지정하세요.\n")
         raise
 
 

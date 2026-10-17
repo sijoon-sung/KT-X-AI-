@@ -172,10 +172,14 @@ def poisson_objective(pred, y, mask):
 def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size, lr, seed, flow=False,
                  accumulate=1, amp=False, patience=0):
     device = next(model.parameters()).device
-    # Aggressively exploit GPU VRAM: if using CUDA and data fits (< 1.5GB),
-    # preload tensors directly onto GPU to eliminate repeated PCIe host-to-device transfers.
+    # Reserve room for gradients, Adam moments and activations before preloading.
     data_bytes = getattr(x, "nbytes", 0) + getattr(y, "nbytes", 0) + getattr(mask, "nbytes", 0)
-    if device.type == "cuda" and data_bytes < 1024 * 1024 * 1536:
+    preload = False
+    if device.type == "cuda":
+        free_bytes, _ = torch.cuda.mem_get_info(device)
+        reserve = max(1024**3, 4 * sum(p.numel() * p.element_size() for p in model.parameters() if p.requires_grad))
+        preload = data_bytes < min(1536 * 1024**2, max(0, free_bytes - reserve) * .25)
+    if preload:
         x_dev = torch.as_tensor(x, dtype=torch.float32, device=device)
         y_dev = torch.as_tensor(y, dtype=torch.float32, device=device)
         m_dev = torch.as_tensor(mask, dtype=torch.bool, device=device)
@@ -238,7 +242,8 @@ def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size
             raise ValueError("Training and validation require observed target cells.")
         score = total / cells
         logs.append({"epoch": epoch, "train_loss": weighted_loss / training_cells, "validation_loss": score,
-                     "amp": use_amp, "effective_batch_size": batch_size * accumulate,
+                     "amp": use_amp, "effective_batch_size": batch_size * accumulate, "data_preloaded_cuda": preload,
+                     "peak_cuda_reserved_bytes": torch.cuda.max_memory_reserved(device) if device.type == "cuda" else None,
                      "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(device) if device.type == "cuda" else None})
         if score < best:
             best = score

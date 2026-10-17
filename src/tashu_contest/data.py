@@ -28,6 +28,7 @@ class Panel:
     coords: np.ndarray  # [N,2] latitude, longitude
     capacity: np.ndarray
     names: list[str]
+    requested_rentals: np.ndarray | None = None  # Optional replay-only evidence; never a predictor input.
 
 
 def read_panel(path: str | Path) -> Panel:
@@ -40,7 +41,7 @@ def read_panel(path: str | Path) -> Panel:
     frame["timestamp"] = local_times(frame.timestamp)
     if frame.duplicated(["timestamp", "station_id"]).any():
         raise ValueError("Duplicate timestamp/station_id rows.")
-    for col in ("rentals", "returns", "stock", "capacity", "lat", "lon"):
+    for col in ("rentals", "returns", "stock", "capacity", "lat", "lon", "requested_rentals"):
         if col not in frame:
             frame[col] = np.nan
         frame[col] = pd.to_numeric(frame[col], errors="raise")
@@ -51,6 +52,8 @@ def read_panel(path: str | Path) -> Panel:
             raise ValueError(f"{col} must be a nonnegative integer or blank.")
     if frame.timestamp.isna().any():
         raise ValueError("Missing timestamps.")
+    if (frame.requested_rentals < frame.rentals).any():
+        raise ValueError("requested_rentals cannot be smaller than served rentals in the same hour.")
     stations = sorted(frame.station_id.unique())
     meta = []
     for sid in stations:
@@ -78,7 +81,9 @@ def read_panel(path: str | Path) -> Panel:
     return Panel(times, stations, counts.astype(np.float32),
                  dense.stock.to_numpy().reshape(shape).astype(np.float32),
                  np.array([r[:2] for r in meta], dtype=np.float64),
-                 np.array([r[2] for r in meta]), [r[3] for r in meta])
+                 np.array([r[2] for r in meta]), [r[3] for r in meta],
+                 dense.requested_rentals.to_numpy().reshape(shape).astype(np.float32)
+                 if dense.requested_rentals.notna().any() else None)
 
 
 def make_features(panel: Panel, history: int, origins=None) -> np.ndarray:
@@ -198,6 +203,7 @@ def make_demo(path: Path, days=35, stations=12, seed=42):
         for s in range(stations):
             records.append({"timestamp": ts.isoformat(), "station_id": f"DEMO{s:03d}",
                             "name": f"예시 대여소 {s + 1}", "rentals": int(rentals[s]), "returns": int(returns[s]),
+                            "requested_rentals": int(requested[s]),
                             "stock": int(stock[s]), "lat": coords[s, 0], "lon": coords[s, 1]})
         stock = stock - rentals + returns
         pending = sum((rng.multinomial(int(rentals[s]), destination[s]) for s in range(stations)),

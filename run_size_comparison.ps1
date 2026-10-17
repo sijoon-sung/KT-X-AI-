@@ -15,9 +15,9 @@ foreach ($ModelSize in @("base", "medium")) {
     $SizeEval = Get-Content (Join-Path $SizeRun "run/evaluation.json") -Raw -Encoding UTF8 | ConvertFrom-Json
     $ShareModelRoot = Join-Path $ShareResultRoot $ModelSize
     New-Item -ItemType Directory -Path $ShareModelRoot -Force | Out-Null
-    Copy-Item -LiteralPath @((Join-Path $SizeRun "run/metadata.json"), (Join-Path $SizeRun "run/evaluation.json"), (Join-Path $SizeRun "run/models/training.json")) -Destination $ShareModelRoot
+    Copy-Item -LiteralPath @((Join-Path $SizeRun "run/metadata.json"), (Join-Path $SizeRun "run/evaluation.json"), (Join-Path $SizeRun "run/models/training.json"), (Join-Path $SizeRun "run/calibration.json"), (Join-Path $SizeRun "run/operations_evaluation.json")) -Destination $ShareModelRoot
     
-    foreach ($ForecastModel in @("xgboost", "gcn", "gcn_flow")) {
+    foreach ($ForecastModel in @("xgboost", "gcn", "gcn_flow", "gcn_flow_calibrated")) {
         $ValidationResult = $SizeEval.models.$ForecastModel.validation
         $SizeRows += [PSCustomObject]@{
             Size = $ModelSize

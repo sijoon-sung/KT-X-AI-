@@ -12,7 +12,6 @@ import pandas as pd
 import torch
 
 from .data import build_graph, make_features, read_panel, split_origins, targets
-from .evaluation import count_metrics, stock_evidence, stock_metrics
 from .models import (CountGCN, GraphFlow, load_models, predict_scenarios, save_models,
                      seed_everything, train_neural, train_xgboost)
 from .operations import plan_transfers, station_summary
@@ -62,13 +61,15 @@ def fit(args):
         raise ValueError("Output folder is not empty. Choose a new run folder to preserve results.")
     if args.history < 1 or args.horizon < 1 or args.epochs < 1 or args.hidden < 4 or args.samples < 2 or args.ode_steps < 1 or args.batch_size < 1 or args.trees < 1 or args.neighbors < 1:
         raise ValueError("Invalid history/horizon/epochs/hidden/samples/steps/batch/trees/neighbors.")
-    if args.max_training_rows < 1 or args.max_eval_origins < 1:
+    if args.max_training_rows < 1 or args.max_eval_origins < 1 or args.backtest_origins < 0:
         raise ValueError("Sampling limits must be positive.")
     if min(args.gcn_layers, args.flow_blocks, args.expansion, args.accumulate,
            args.eval_batch_size, args.sample_chunk, args.xgb_depth) < 1 or args.patience < 0:
         raise ValueError("Layers, blocks, accumulation and chunk sizes must be positive; patience >= 0.")
     if not (0 <= args.dropout < 1) or not np.isfinite(args.lr) or args.lr <= 0:
         raise ValueError("Require dropout in [0,1) and a finite positive learning rate.")
+    if args.budget < 0 or args.truck_capacity < 1 or not 0 < args.service_level < 1 or args.max_distance_km <= 0:
+        raise ValueError("Invalid backtest movement constraints.")
     device = device_for(args.device)
     if args.xgb_device == "cuda" and not torch.cuda.is_available():
         raise ValueError("XGBoost CUDA requested but CUDA unavailable. Use --xgb-device cpu for a CPU smoke test.")
@@ -153,52 +154,12 @@ def fit(args):
                                 "GCN/XGBoost probabilities use independent Poisson scenarios.",
                                 "Direct transfer batches; no road routing, dispatch timing or causal policy guarantee."]}
     write_json(out / "metadata.json", metadata)
-    # Evaluate serialized artifacts, rather than a possibly different last epoch.
+    # Evaluate serialized artifacts, fit validation-only calibration, replay test policies.
     del xgb, gcn, flow  # Release training copies before allocating reloaded GPU models.
-    models = load_models(out / "models", metadata, device)
-    results = {}
-    for name in MODELS:
-        results[name] = {}
-        for part in ("validation", "test"):
-            idx = slices[part]
-            count_chunks, actual_chunks, mask_chunks, evidence = [], [], [], []
-            # Warm up once outside measurement. Always reset the sampling seed per measured call.
-            predict_scenarios(name, models, x[idx[:1]], graph, args.horizon,
-                              args.samples, args.ode_steps, args.seed + 1999,
-                              sample_chunk=args.sample_chunk, amp=args.amp)
-            sync(device)
-            inference_seconds = 0.0
-            for offset in range(0, len(idx), args.eval_batch_size):
-                selected = idx[offset:offset + args.eval_batch_size]
-                sync(device)
-                started = time.perf_counter()
-                scenarios = predict_scenarios(name, models, x[selected], graph, args.horizon,
-                                             args.samples, args.ode_steps, args.seed + 2000 + offset,
-                                             sample_chunk=args.sample_chunk, amp=args.amp)
-                sync(device)
-                inference_seconds += time.perf_counter() - started
-                count_chunks.append(scenarios)
-                actual_chunks.append(y[selected].reshape(len(selected), len(panel.stations), args.horizon, 2).transpose(0, 2, 1, 3))
-                mask_chunks.append(mask[selected].reshape(len(selected), len(panel.stations), args.horizon, 2).transpose(0, 2, 1, 3))
-                for j, at in enumerate(selected):
-                    evidence.append(stock_evidence(panel, origins[at], scenarios[:, j]))
-            results[name][part] = {"counts": count_metrics(np.concatenate(count_chunks, 1), np.concatenate(actual_chunks), np.concatenate(mask_chunks)),
-                                   "stock": stock_metrics(evidence),
-                                   "inference": {"seconds": inference_seconds,
-                                                 "ms_per_city_origin": inference_seconds * 1000 / len(idx),
-                                                 "samples_per_origin": args.samples,
-                                                 "batch_origins": args.eval_batch_size,
-                                                 "scenario_chunk": args.sample_chunk,
-                                                 "amp": bool(name != "xgboost" and args.amp and device.type == "cuda"),
-                                                 "device": "cpu" if name == "xgboost" else str(device)}}
-        print(f"{name}: test MAE={results[name]['test']['counts']['mae']:.4f}", flush=True)
-    # All three candidates must be comparable on the same selection metric.
-    has_stock = all(results[n]["validation"]["stock"].get("brier") is not None for n in MODELS)
-    metric = "validation_stock_brier" if has_stock else "validation_count_crps"
-    best = min(MODELS, key=lambda n: results[n]["validation"]["stock"]["brier"] if has_stock else results[n]["validation"]["counts"]["crps"])
-    report = {"source": args.source, "selection_metric": metric, "selected_model": best,
-              "models": results, "limitations": metadata["limitations"]}
-    write_json(out / "evaluation.json", report)
+    del x, y, mask
+    args.run = str(out)
+    from .evaluation_run import evaluate_saved
+    evaluate_saved(args)
     return out
 
 
@@ -206,11 +167,12 @@ def recommend(args):
     run = Path(args.run)
     metadata = json.loads((run / "metadata.json").read_text(encoding="utf-8"))
     evaluation = json.loads((run / "evaluation.json").read_text(encoding="utf-8"))
+    settings = {**metadata, **evaluation.get("evaluation_settings", {})}
     # Keep old runs usable. A missing device remains CPU unless the user asks for CUDA.
     args.device = args.device or "cpu"
-    args.samples = args.samples if args.samples is not None else metadata.get("samples", 32)
-    args.ode_steps = args.ode_steps if args.ode_steps is not None else metadata.get("ode_steps", 8)
-    args.sample_chunk = args.sample_chunk if args.sample_chunk is not None else metadata.get("sample_chunk", 32)
+    args.samples = args.samples if args.samples is not None else settings.get("samples", 32)
+    args.ode_steps = args.ode_steps if args.ode_steps is not None else settings.get("ode_steps", 8)
+    args.sample_chunk = args.sample_chunk if args.sample_chunk is not None else settings.get("sample_chunk", 32)
     panel = read_panel(args.panel)
     if panel.stations != metadata["stations"] or not np.allclose(panel.coords, metadata["coords"], atol=1e-6, rtol=0):
         raise ValueError("Station IDs/order/coordinates differ from training. Retrain for a new station set.")
@@ -235,9 +197,16 @@ def recommend(args):
     seed_everything(metadata["seed"])
     models = load_models(run / "models", metadata, device_for(args.device))
     name = evaluation["selected_model"] if args.model == "auto" else args.model
-    scenarios = predict_scenarios(name, models, x, graph, metadata["horizon"], args.samples,
-                                 args.ode_steps, metadata["seed"] + 3000,
-                                 sample_chunk=args.sample_chunk, amp=args.amp)[:, 0]
+    if name == "gcn_flow_calibrated":
+        from .calibration import predict_calibrated
+        calibration = json.loads((run / "calibration.json").read_text(encoding="utf-8"))
+        scenarios = predict_calibrated(models, x, graph, metadata["horizon"], args.samples,
+                                       args.ode_steps, metadata["seed"] + 3000, initial[None],
+                                       calibration, args.sample_chunk, args.amp)[:, 0]
+    else:
+        scenarios = predict_scenarios(name, models, x, graph, metadata["horizon"], args.samples,
+                                     args.ode_steps, metadata["seed"] + 3000,
+                                     sample_chunk=args.sample_chunk, amp=args.amp)[:, 0]
     plan = plan_transfers(initial, scenarios, panel.coords, panel.capacity, args.budget,
                           args.truck_capacity, args.service_level, args.max_distance_km)
     transfers = [{**r, "from_station": panel.stations[r["from_index"]], "to_station": panel.stations[r["to_index"]]} for r in plan["transfers"]]

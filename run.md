@@ -10,6 +10,7 @@ README는 프로젝트 설명, 이 문서는 실제 실행 순서의 기준입�
 
 | 하려는 일 | 이동 |
 |---|---|
+| 기존 실험에 보정·재배치 평가 추가 | [12. 개선 평가](#12-보정대수회복재배치-평가-추가) |
 | RTX 3080에서 크게 학습 | [0. RTX 3080](#0-rtx-3080-확대-실행) |
 | 처음 설치 | [1. 설치](#1-설치-최초-1회) |
 | 코드가 도는지 빠르게 확인 | [2. 빠른 확인](#2-빠른-확인-합성-데이터) |
@@ -24,7 +25,7 @@ README는 프로젝트 설명, 이 문서는 실제 실행 순서의 기준입�
 
 ## 0. RTX 3080 확대 실행
 
-현재 브랜치 `contest/model-medium`에서 `base`, `medium`, `large`, `rtx3080`을 모두 선택합니다.
+현재 브랜치 `contest/model-medium`에서 `base`, `medium`, `large`, `rtx3080`, `100m`을 모두 선택합니다.
 RTX 3080의 10GB/12GB 변형을 고려한 시작 설정이며 실제 사용량은 대여소 수에 따라 달라집니다.
 폭뿐 아니라 층수와 학습량도 바꾸므로 기존 medium과의 비교는 **전체 설정 비교**입니다.
 성능 향상은 같은 데이터·분할의 검증 점수로 확인해야 합니다.
@@ -32,14 +33,18 @@ RTX 3080의 10GB/12GB 변형을 고려한 시작 설정이며 실제 사용량�
 | 항목 | medium | rtx3080 | 100m (신규) |
 |---|---|---|---|
 | 은닉 폭 / GCN 층 / Flow 블록 | 96 / 2 / 1 | 512 / 4 / 6 | 1024 / 6 / 18 |
-| 총 파라미터 수 | 약 6만 개 | 약 872만 개 | **약 9,996만 개 (딱 100M)** |
+| 총 파라미터 수 | 약 6만 개 | 약 872만 개 | 약 9,996만 개 |
 | 최대 에포크 / 조기 종료 patience | 15 / 비활성 | 60 / 12 | 60 / 12 |
-| 배치 × 누적 | 32 × 1 | 4 × 4 (유효 16) | 4 × 4 (유효 16) |
+| 배치 × 누적 | 32 × 1 | 4 × 4 (유효 16) | 16 × 1 (유효 16) |
 | 학습률 / dropout | 0.002 / 0 | 0.0005 / 0.1 | 0.0003 / 0.1 |
 | XGBoost 트리 / 깊이 / 학습 장치 | 150 / 4 / CPU | 600 / 6 / CUDA | 1000 / 8 / CUDA |
 | 시나리오 / ODE 단계 | 32 / 8 | 64 / 12 | 64 / 12 |
-| 평가 배치 / 시나리오 묶음 | 8 / 32 | 2 / 4 | 2 / 4 |
-| 실측 피크 VRAM (RTX 3080 10GB) | < 0.2 GiB | ~0.54 GiB | **~1.87 GiB (여유 8GB+)** |
+| 평가 배치 / 시나리오 묶음 | 8 / 32 | 2 / 4 | 4 / 8 |
+| 업로드된 학습 로그의 최대 할당량 | 미제공 | 약 0.206 GiB | 약 2.521 GiB |
+
+위 메모리는 업로드된 128대여소 합성 실행의 PyTorch 학습 할당량이며 전체 GPU 사용량이나
+추론 최대값이 아닙니다. 예약 메모리·CUDA 컨텍스트·XGBoost 메모리는 별도입니다.
+새 실행에서는 예약 메모리도 기록하며 데이터 사전 적재 전 여유 메모리를 확인합니다.
 
 ### CUDA 환경 확인
 
@@ -94,7 +99,7 @@ if ($LASTEXITCODE -ne 0) { throw "확대 합성 실행 실패" }
 Write-Host "보고서: $GpuDemoRoot/recommendation/report.html"
 ```
 
-### 100M 파라미터 극대화 실행 (딱 100M, 99.96M)
+### 약 100M 파라미터 실행 (99.96M)
 
 99,964,940개(GCN 7.39M + Flow 92.57M) 파라미터의 초거대 모델로 학습·평가 및 재배치 추천을 실행합니다.
 
@@ -115,7 +120,7 @@ Write-Host "100M 보고서: $Gpu100mRoot/recommendation/report.html"
 - CPU에서 코드만 확인할 때는 `--device cpu --xgb-device cpu`를 함께 지정합니다. GPU 성능 확인으로 해석하지 않습니다.
 
 혼합 정밀도, 실제 GPU 정보, 에포크별 최대 GPU 할당량, 조기 종료 시점은 결과 파일에 기록됩니다.
-현재 개발 환경의 검증은 CPU에서 수행했으며 RTX 3080에서의 최대 메모리·학습 속도를 실측하지 않았습니다.
+개발 환경 테스트는 CPU에서 수행합니다. GPU 수치는 사용자가 업로드한 RTX 3080 실행 기록에 근거합니다.
 
 ## 1. 설치 (최초 1회)
 
@@ -275,6 +280,9 @@ Write-Host "보고서: $DemoPlanRoot/report.html"
 | `metadata.json` | 입력 해시·시드·분할·설정·파라미터 수·학습 시간 |
 | `evaluation.json` | 세 모델 검증/시험 점수와 시나리오 생성 시간 |
 | `models/training.json` | 에포크별 학습/검증 손실 |
+| `calibration.json` | 검증 자료에서만 학습한 건수 보정·0대/재고 보유별 Flow 비중 |
+| `operations_evaluation.json` | 별도 시험 기록으로 평가한 이동 없음·근거리 보충·추천 전후 결과 |
+| `evaluation_before_upgrade.json` | 기존 저장 모델 재평가 시 보존한 첫 이전 평가 |
 | `report.html` | 모델 비교, 대여소별 재고·품절, 이동 배치 |
 | `stations.csv` | 현재 대수·목표 대수·보충 필요·이동 후 대수·품절/회복 확률 |
 | `hourly_forecasts.csv` | 대여소·시간별 예상 재고 p10/p50/p90와 대여/반납량 |
@@ -334,6 +342,7 @@ train이면 출력 폴더, demo이면 그 아래 `run`을 지정합니다.
 ```powershell
 $FinishedRun = "runs/실제완료폴더/run"
 $ResultFiles = @((Join-Path $FinishedRun "metadata.json"), (Join-Path $FinishedRun "evaluation.json"), (Join-Path $FinishedRun "models/training.json"))
+$ResultFiles += @("calibration.json", "operations_evaluation.json") | ForEach-Object { Join-Path $FinishedRun $_ } | Where-Object { Test-Path -LiteralPath $_ }
 foreach ($ResultFile in $ResultFiles) {
     if (-not (Test-Path -LiteralPath $ResultFile)) { throw "완료된 실행 파일이 없습니다: $ResultFile" }
 }
@@ -352,6 +361,85 @@ base/medium 요약과 비교 CSV를 `results/size-compare-...`에 자동 복사�
 ```powershell
 & .\run_size_comparison.ps1
 ```
+
+## 12. 보정·대수·회복·재배치 평가 추가
+
+**이번 개선부터 train/demo는 기본 세 모델에 `gcn_flow_calibrated`를 추가합니다.**
+검증 구간에서 Flow의 건수 편향을 보정하고, 현재 0대/재고 보유 대여소의 혼합 비중을
+따로 고릅니다. 각 그룹의 대여·반납/재고 MAE가 일반 GCN보다 1% 넘게 악화되지 않는
+검증 후보 중 품절 또는 회복 Brier가 가장 작은 후보를 선택합니다. 시험 점수 향상을
+보장하는 조건은 아닙니다. 정답 누락은 그대로 제외하며 정수 시나리오를 유지합니다.
+
+최종 auto 모델은 검증의 건수 MAE·재고 MAE·품절 Brier·0대 회복 Brier를 GCN 대비
+비율로 정규화해 동등 가중 평균이 가장 작은 모델입니다. 미평가 지표는 공통으로 제외합니다.
+따라서 이전의 품절 Brier 하나만으로 고른 auto 모델과 선택 기준이 달라집니다.
+모든 시험 점수는 모델·보정 선택 후 평가하며, 시험 재배치 결과로 모델을 고르지 않습니다.
+
+### A. 기존 RTX 3080/100M 모델을 재학습 없이 평가
+
+**본인 PC에 있는 원래 실행 폴더와 원래 CSV를 지정합니다.** Git에 올린 `results/`
+요약만으로는 재평가할 수 없습니다. 학습 폴더의 모델 가중치·graph.npy·metadata.json이
+필요합니다. CSV 해시가 학습 당시와 다르면 거부합니다. 원래 evaluation.json은 최초 1회
+evaluation_before_upgrade.json으로 보존하고 새 평가·보정·재배치 결과를 같은 폴더에 저장합니다.
+
+```powershell
+$ExistingDemo = "runs/100m-gpu-20261017-030447-872"
+$ExistingRun = Join-Path $ExistingDemo "run"
+$ExistingPanel = Join-Path $ExistingDemo "synthetic_panel.csv"
+foreach ($ExistingFile in @((Join-Path $ExistingRun "metadata.json"), $ExistingPanel)) {
+    if (-not (Test-Path -LiteralPath $ExistingFile)) { throw "원래 실행 폴더로 경로를 수정하세요: $ExistingFile" }
+}
+& .\.venv\Scripts\python.exe -m tashu_contest.cli evaluate --run $ExistingRun --panel $ExistingPanel --device cuda --backtest-origins 16 --budget 20 --truck-capacity 5
+if ($LASTEXITCODE -ne 0) { throw "기존 모델 재평가 실패" }
+$UpgradedPlan = Join-Path $ExistingDemo ("calibrated-plan-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli recommend --run $ExistingRun --panel $ExistingPanel --model auto --device cuda --sample-chunk 4 --budget 20 --truck-capacity 5 --out $UpgradedPlan
+if ($LASTEXITCODE -ne 0) { throw "보정 추천 실패" }
+Write-Host "보고서: $UpgradedPlan/report.html"
+Write-Host "11번 결과 공유에서 FinishedRun을 $ExistingRun 로 지정하세요."
+```
+
+실제 train 실행 폴더에는 run 하위 폴더가 없습니다. 이 경우 `$ExistingRun`에 학습 출력
+폴더 자체를, `$ExistingPanel`에는 원래 실제 CSV를 지정합니다. `evaluate`는 데이터 분할과
+평가 시점을 원래 metadata에서 불러옵니다. `--backtest-origins 0`은 재배치 평가를 끕니다.
+새 시나리오는 evaluation_cache/*.npy로 디스크에 저장하므로 여유 공간이 필요합니다.
+
+### B. 요청 수까지 보관하는 새 합성 검증
+
+새 합성 자료는 실제 대여 건수와 별개로 requested_rentals(요청 수)를 보관합니다.
+요청 수는 모델 입력·학습 정답·보정·이동 계획에 넣지 않고 재배치 평가에서만 씁니다.
+이전 합성 자료에는 이 열이 없어 복구하지 않습니다. 반납량을 고정한 수요 재생 실험이며,
+이동 때문에 달라질 OD·후속 반납까지 재현하는 현장 정책 실험은 아닙니다.
+
+```powershell
+$ImprovedDemo = Join-Path "runs" ("rtx3080-improved-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli demo --profile rtx3080 --days 90 --stations 128 --out $ImprovedDemo --backtest-origins 16 --budget 20 --truck-capacity 5 --seed 42
+if ($LASTEXITCODE -ne 0) { throw "개선 검증 실행 실패" }
+Write-Host "보고서: $ImprovedDemo/recommendation/report.html"
+```
+
+평가에는 이동 없음, 가까운 잉여 대여소에서 0대 대여소 우선 보충, 예상 순이익 기준 추천을
+같은 예산·거리·서비스 목표로 비교합니다. 시험 관측 거래/별도 요청 기록은 계획 확정 후에만
+사용합니다. 실패 감소가 음수이면 악화로 그대로 저장합니다. 도시 전체 재고·거래가 완전한
+시점만 재생하며 부족하면 0점 대신 미평가로 표시합니다. 여러 시점은 독립 실행이며 실제
+차량 연속 운행이나 누적 일일 성과로 합산하지 않습니다.
+
+### C. 실제 데이터 사용 전 점검
+
+출처를 확인한 시간별 CSV를 준비한 뒤 검사합니다. 기존 저장소 자료를 자동으로 실제
+정답으로 간주하거나 합성 자료를 실제 자료로 바꾸지 않습니다. 필수 열은 5번과 같습니다.
+요청 수 열은 선택이며 실제 자료에 넣으면 별도로 검증해야 할 사용자 제공 증거로 표시합니다.
+
+```powershell
+$RealPanel = "data/hourly_panel.csv"
+$AuditRoot = Join-Path "runs" ("real-audit-" + (Get-Date -Format "yyyyMMdd-HHmmss-fff"))
+& .\.venv\Scripts\python.exe -m tashu_contest.cli audit --panel $RealPanel --out $AuditRoot
+if ($LASTEXITCODE -ne 0) { throw "패널 검사 실패" }
+Write-Host "관측률·재고 수지·평가 가능 여부: $AuditRoot/data_audit.json"
+```
+
+검사가 출처의 진위를 보장하지 않습니다. 재고 수지가 맞지 않으면 시간 정렬·외부 재배치·
+시간 안의 대여/반납 순서를 점검합니다. 그 뒤 0번의 실제 자료 학습 명령을 사용하면 새
+보정·재배치 평가가 함께 실행됩니다. 실제 재고/자료가 없으면 해당 성과를 측정했다고 쓰지 않습니다.
 
 ## 실행 전후 확인
 
