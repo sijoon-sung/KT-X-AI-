@@ -55,35 +55,49 @@ def read_panel(path: str | Path) -> Panel:
     if (frame.requested_rentals < frame.rentals).any():
         raise ValueError("requested_rentals cannot be smaller than served rentals in the same hour.")
     stations = sorted(frame.station_id.unique())
-    meta = []
-    for sid in stations:
-        rows = frame[frame.station_id == sid]
-        for col in ("lat", "lon", "capacity"):
-            if rows[col].nunique(dropna=True) > 1:
-                raise ValueError(f"{sid}: {col} changes; split versions explicitly.")
-        first = rows.iloc[0]
-        lat, lon = first.lat, first.lon
-        if not (np.isfinite(lat) and np.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
-            raise ValueError(f"{sid}: valid coordinates required.")
-        cap = rows.capacity.dropna()
-        cap = float(cap.iloc[0]) if len(cap) else np.nan
-        if np.isfinite(cap) and (rows.stock.dropna() > cap).any():
-            raise ValueError(f"{sid}: stock exceeds capacity; correct capacity or leave it blank.")
-        name = str(first.get("name", sid))
-        meta.append((lat, lon, cap, sid if name == "nan" else name))
+    st_grp = frame.groupby("station_id")
+    for col in ("lat", "lon", "capacity"):
+        if col in frame and (st_grp[col].nunique(dropna=True) > 1).any():
+            bad = (st_grp[col].nunique(dropna=True) > 1).idxmax()
+            raise ValueError(f"{bad}: {col} changes; split versions explicitly.")
+    first_rows = st_grp.first().loc[stations]
+    lats = first_rows["lat"].to_numpy(dtype=np.float64)
+    lons = first_rows["lon"].to_numpy(dtype=np.float64)
+    if not (np.isfinite(lats).all() and np.isfinite(lons).all() and (-90 <= lats).all() and (lats <= 90).all() and (-180 <= lons).all() and (lons <= 180).all()):
+        raise ValueError("valid coordinates required.")
+    caps = first_rows["capacity"] if "capacity" in first_rows else pd.Series(np.nan, index=stations)
+    if "capacity" in frame and "stock" in frame:
+        max_stock = st_grp["stock"].max()
+        exceeded = (max_stock > caps).dropna()
+        if exceeded.any() and bool(exceeded.any()):
+            bad = exceeded[exceeded].index[0]
+            raise ValueError(f"{bad}: stock exceeds capacity; correct capacity or leave it blank.")
+    names = [str(first_rows.loc[s, "name"]) if ("name" in first_rows and str(first_rows.loc[s, "name"]) != "nan") else s for s in stations]
+
     times = pd.date_range(frame.timestamp.min(), frame.timestamp.max(), freq="h")
     if len(times) * len(stations) > 100_000_000:
         raise ValueError("Panel is too large; check timestamps or split the input period.")
-    index = pd.MultiIndex.from_product([times, stations], names=["timestamp", "station_id"])
-    dense = frame.set_index(["timestamp", "station_id"]).reindex(index)
+    st_map = {s: i for i, s in enumerate(stations)}
+    t_map = {t: i for i, t in enumerate(times)}
+    st_idx = frame["station_id"].map(st_map).to_numpy()
+    t_idx = frame["timestamp"].map(t_map).to_numpy()
+
     shape = (len(times), len(stations))
-    counts = np.stack([dense[c].to_numpy().reshape(shape) for c in ("rentals", "returns")], -1)
-    return Panel(times, stations, counts.astype(np.float32),
-                 dense.stock.to_numpy().reshape(shape).astype(np.float32),
-                 np.array([r[:2] for r in meta], dtype=np.float64),
-                 np.array([r[2] for r in meta]), [r[3] for r in meta],
-                 dense.requested_rentals.to_numpy().reshape(shape).astype(np.float32)
-                 if dense.requested_rentals.notna().any() else None)
+    counts = np.full((shape[0], shape[1], 2), np.nan, dtype=np.float32)
+    stock = np.full(shape, np.nan, dtype=np.float32)
+
+    counts[t_idx, st_idx, 0] = frame["rentals"].to_numpy(dtype=np.float32)
+    counts[t_idx, st_idx, 1] = frame["returns"].to_numpy(dtype=np.float32)
+    stock[t_idx, st_idx] = frame["stock"].to_numpy(dtype=np.float32)
+
+    requested = None
+    if "requested_rentals" in frame and frame["requested_rentals"].notna().any():
+        requested = np.full(shape, np.nan, dtype=np.float32)
+        requested[t_idx, st_idx] = frame["requested_rentals"].to_numpy(dtype=np.float32)
+
+    return Panel(times, stations, counts, stock,
+                 np.column_stack([lats, lons]),
+                 caps.to_numpy(dtype=np.float32), names, requested)
 
 
 def make_features(panel: Panel, history: int, origins=None) -> np.ndarray:
