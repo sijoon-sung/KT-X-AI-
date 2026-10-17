@@ -245,6 +245,8 @@ def train_neural(model, x, y, mask, train, validation, graph, epochs, batch_size
                      "amp": use_amp, "effective_batch_size": batch_size * accumulate, "data_preloaded_cuda": preload,
                      "peak_cuda_reserved_bytes": torch.cuda.max_memory_reserved(device) if device.type == "cuda" else None,
                      "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(device) if device.type == "cuda" else None})
+        if device.type == "cuda":
+            torch.cuda.empty_cache()
         if score < best:
             best = score
             best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
