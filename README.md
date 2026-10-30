@@ -1,7 +1,11 @@
-# Multimodal Transit Continuous Flow Matching (Transit-CFM)
+# 타슈 관측 기반 예측 연구
 
 새 연구는 [가설별 Draft PR 진행 체계](docs/research-workflow.md)를 따릅니다.
 [연구 기록](research/README.md)에서 계획·실행·판단을 추적합니다. 아래 내용은 기존 연구 기록이며 새 연구의 재현 검증을 대신하지 않습니다.
+
+새 연구의 출발점은 [프로젝트 문제의식과 해결 계획](docs/project-charter.md)입니다.
+첫 가설 [H-0001: 관측 간격과 0대 비율](docs/H-0001-observation-resolution.md)은 계획 초안이며 미동결·미실행입니다.
+
 ## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
 
 This repository contains the core methodology implementation of **Multimodal Transit Continuous Flow Matching (Transit-CFM)**, a graph-informed continuous generative framework designed for city-wide bike-sharing demand modeling and counterfactual transit policy simulations.
