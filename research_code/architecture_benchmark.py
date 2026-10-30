@@ -253,6 +253,8 @@ def main():
     ap.add_argument('--sample-chunk', type=int, default=16)
     args = ap.parse_args()
     started = datetime.now(timezone.utc).isoformat()
+    code_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    subprocess.run(['git', 'diff', '--quiet', 'HEAD', '--', 'research_code'], cwd=ROOT, check=True)
     torch.set_num_threads(4)
     torch.set_num_interop_threads(1)
     use_cuda = torch.cuda.is_available() if args.device == 'auto' else args.device == 'cuda'
@@ -417,7 +419,6 @@ def main():
                                   dates=len(np.unique(v['day']))) for k, v in splits.items()},
                    metrics=metrics, comparisons=comparisons, records=records, limitations=limitations)
     write(run_dir / 'summary.json', summary)
-    code_commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     run_manifest = dict(schema_version=1, run_id=args.run_id, hypothesis_id='H-0002',
         plan_sha256=record['preregistration']['plan_sha256'], code_commit=code_commit,
         input_manifest_sha256=digest(manifest_path), started_at_utc=started,
