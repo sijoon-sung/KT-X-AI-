@@ -6,7 +6,7 @@
 
 | 가설 | 질문 | 상태 |
 |---|---|---|
-| [H-0001](hypotheses/H-0001.json) | [10분·30분 관측에서의 0대 비율 민감도](../docs/H-0001-observation-resolution.md) | 계획 초안, 미동결·미실행 |
+| [H-0001](hypotheses/H-0001.json) | [10분·30분 관측에서의 0대 비율 민감도](../docs/H-0001-observation-resolution.md) | 완료, 5%p 초과 가설을 지지하지 않음 |
 
 - `hypotheses/H-0001.json`: 가설, 선행연구, 동결 계획, 실행 연결, 결론의 기준 기록.
 - `runs/<run-id>/manifest.json`: 한 실행의 재현 정보와 공개 가능한 지표.

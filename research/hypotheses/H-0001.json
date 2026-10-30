@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0001",
   "title": "10분·30분 관측에서 0대 비율의 민감도",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "타슈의 같은 대여소·날짜를 10분과 30분 간격으로 관측했을 때 관측 0대 비율의 평균 절대차가 실질적인 크기인가?",
     "hypothesis": "동일한 완전 관측 대여소·날짜에서, 세 시작 위상에 대한 10분 기준 대비 30분 관측 0대 비율의 절대차를 구하고 날짜별 대여소 평균·기간 평균한 값이 5%p보다 크다. 5%p는 계획상 제안값이며 현장 합의 기준이 아니다. 5%p는 관측 요약의 변화를 판단하는 진단 기준으로 유지하며 운영상 허용 오차를 뜻하지 않는다.",
@@ -59,6 +59,19 @@
     "plan_sha256": "90eba5beb13f1cd21a57807c58bebe505f879f19afd7e6cb616c696707552ddf",
     "frozen_at_utc": "2026-10-30T16:47:19.415878+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "평균 절대차 1.24378%p, 3일 블록 95% 구간 1.15535~1.31411%p, 7일 블록 1.15809~1.30411%p. 사전 진단 기준 5%p 초과 가설은 지지하지 않았다. 42개 날짜, 57,800개 완전 관측 대여소·날짜의 결과이며 실제 연속 품절이나 예측 성능에 대한 결론이 아니다. 모델 채택 없이 입력 감사·진단 기록을 보존한다.",
+    "limitations": [
+      "Asia/Seoul is a conditional interpretation; source OS timezone is not independently proven.",
+      "Complete-case station-days are selectively represented; missing calendar dates remain missing.",
+      "Ten-minute polls are a reference, not continuous-time truth, user failures or unmet demand.",
+      "Short one-season period; block bootstrap is descriptive and cannot establish annual generalization."
+    ],
+    "run_manifests": [
+      "research/runs/H-0001-20261031-resolution/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

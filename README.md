@@ -4,7 +4,8 @@
 [연구 기록](research/README.md)에서 계획·실행·판단을 추적합니다. 아래 내용은 기존 연구 기록이며 새 연구의 재현 검증을 대신하지 않습니다.
 
 새 연구의 출발점은 [프로젝트 문제의식과 해결 계획](docs/project-charter.md)입니다.
-첫 가설 [H-0001: 관측 간격과 0대 비율](docs/H-0001-observation-resolution.md)은 계획 초안이며 미동결·미실행입니다.
+첫 가설 [H-0001: 관측 간격과 0대 비율](docs/H-0001-observation-resolution.md)은 완료했습니다.
+관측 0대 비율의 평균 절대차는 1.24%p로, 사전 기준 5%p 초과 가설을 지지하지 않았습니다.
 
 ## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
 

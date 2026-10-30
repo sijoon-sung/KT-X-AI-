@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0001-20261031-resolution",
+  "hypothesis_id": "H-0001",
+  "plan_sha256": "90eba5beb13f1cd21a57807c58bebe505f879f19afd7e6cb616c696707552ddf",
+  "code_commit": "31a9a8185fefa969176a632cc7a56a2ffc666b6c",
+  "input_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875",
+  "started_at_utc": "2026-10-30T16:48:02.303423+00:00",
+  "finished_at_utc": "2026-10-30T16:48:02.517317+00:00",
+  "command": [
+    "python",
+    "research_code/observation_resolution.py",
+    "--panel",
+    "<PRIVATE_OBSERVED_PANEL>",
+    "--run-id",
+    "H-0001-20261031-resolution"
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "packages": {
+      "numpy": "2.5.4"
+    },
+    "rng": "numpy.random.default_rng / PCG64"
+  },
+  "seed": 20261031,
+  "evaluation_scope": "Paired 42 calendar dates; 42 eligible dates; complete station-days only; no model training.",
+  "metrics": {
+    "mean_daily_abs_zero_share_shift_pp": 1.2437785768866603,
+    "eligible_dates": 42,
+    "eligible_station_days": 57800,
+    "candidate_station_days": 58086,
+    "ci_3day_lower_pp": 1.1553513067049426,
+    "ci_3day_upper_pp": 1.3141108195367401,
+    "ci_7day_lower_pp": 1.1580944688166572,
+    "ci_7day_upper_pp": 1.3041106698494167
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "1fb1c3114a545c03561d65c620caa7ee8944b948d4b9df68be2a6f1ef11f0935",
+      "availability": "public repository aggregate"
+    }
+  ],
+  "limitations": [
+    "Asia/Seoul is a conditional interpretation; source OS timezone is not independently proven.",
+    "Complete-case station-days are selectively represented; missing calendar dates remain missing.",
+    "Ten-minute polls are a reference, not continuous-time truth, user failures or unmet demand.",
+    "Short one-season period; block bootstrap is descriptive and cannot establish annual generalization."
+  ]
+}
