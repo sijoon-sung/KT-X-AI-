@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0003",
   "title": "재고의 조건부 변동과 포아송 관측 가정 진단",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "같은 대여소와 현재 2~10대 재고를 조건으로 보았을 때 30분 뒤 관측 재고의 변동이 포아송 평균=분산 기준보다 실질적으로 작은가?",
     "hypothesis": "적격 대여소별 관측쌍 가중 조건부 분산/평균 비율의 중앙값이 0.8 미만이다. 0.8은 사전 진단 기준이며 현장 허용 오차가 아니다. 네트워크나 최종 모형군을 정하는 가설이 아니다.",
@@ -60,6 +60,21 @@
     "plan_sha256": "d6277ee4f9bc39379dc7372914d91475231643ff56b2d7a6d78fd6c74ead370e",
     "frozen_at_utc": "2026-10-30T18:47:12.915438+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "30분 조건부 분산/평균 비율의 대여소 중앙값 0.448967. 3일 블록 95% 구간 0.382655~0.472587, 7일 블록 0.388835~0.469501. 적격 1,111개 대여소·192,147쌍에서 사전 0.8 미만 가설을 지지했다. 직접 Poisson/NB2 재고 분포의 제약을 검토할 개발 자료 진단이며 사건 과정 기각·예측 성능·GCN/CFM/CMP 채택을 뜻하지 않는다.",
+    "limitations": [
+      "Development-period diagnostic, already used by H-0001/H-0002; not independent forecast validation.",
+      "Primary population: observed current stock 2..10 with sufficiently repeated station-state strata.",
+      "Coarse conditioning omits time and other history; finite dependent samples and complete-case selection limit inference.",
+      "Block intervals are diagnostic, not a formal goodness-of-fit rejection of every Poisson process or annual behavior.",
+      "Observation likelihood and rental/return event intensities are different quantities; operator actions are unobserved.",
+      "No GCN, flow matching, CMP or other final architecture is selected by this diagnostic."
+    ],
+    "run_manifests": [
+      "research/runs/H-0003-20261031-structure/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

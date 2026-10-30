@@ -16,6 +16,10 @@
 그래프 CFM 0.082581이었습니다. 이번 소형 재고 적응 CFM의 추가 가치 가설은 지지하지 않았습니다.
 기존 전체 모델·정책 효과의 검증으로 확대하지 않습니다. 후속 연구·학습 연산은 dislab에서 수행합니다.
 
+[H-0003 자료 구조 진단](docs/H-0003-results.md)은 dislab CPU에서 완료했습니다.
+같은 대여소·같은 현재 2~10대에서 30분 뒤 재고의 분산/평균 비율 중앙값은 0.449였습니다.
+직접 재고 분포의 분산 제약과 상태 지속성을 먼저 검토할 근거이며, GCN·Flow Matching이나 최종 모형을 선정한 결과는 아닙니다.
+
 ## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
 
 This repository contains the core methodology implementation of **Multimodal Transit Continuous Flow Matching (Transit-CFM)**, a graph-informed continuous generative framework designed for city-wide bike-sharing demand modeling and counterfactual transit policy simulations.

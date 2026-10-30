@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0003-20261031-structure",
+  "hypothesis_id": "H-0003",
+  "plan_sha256": "d6277ee4f9bc39379dc7372914d91475231643ff56b2d7a6d78fd6c74ead370e",
+  "code_commit": "570513b0826608bdeaac76d541134382242f417e",
+  "input_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875",
+  "started_at_utc": "2026-10-30T18:50:40.461138+00:00",
+  "finished_at_utc": "2026-10-30T18:50:42.544847+00:00",
+  "command": [
+    "python",
+    "research_code/stock_dispersion.py",
+    "--panel",
+    "<PRIVATE_AUDITED_PANEL>",
+    "--run-id",
+    "H-0003-20261031-structure"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "numpy": "1.26.4"
+    },
+    "compute_location": "dislab, user-authorized remote Windows workstation",
+    "device": "CPU; no GPU training",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    }
+  },
+  "seed": 20261031,
+  "evaluation_scope": {
+    "period": {
+      "role": "development_diagnostic",
+      "start": "2026-09-18T00:00:00+09:00",
+      "end": "2026-10-16T00:00:00+09:00"
+    },
+    "candidate_station_origins": 926610,
+    "common_complete_pairs": 921327,
+    "station_ids": 1383,
+    "eligible_stations": 1111,
+    "eligible_strata": 3034,
+    "undefined_mean_station_count": 0,
+    "daily_common_pairs": [
+      {
+        "day_index": 0,
+        "pairs": 31602
+      },
+      {
+        "day_index": 1,
+        "pairs": 32976
+      },
+      {
+        "day_index": 2,
+        "pairs": 32976
+      },
+      {
+        "day_index": 3,
+        "pairs": 32976
+      },
+      {
+        "day_index": 4,
+        "pairs": 33007
+      },
+      {
+        "day_index": 5,
+        "pairs": 33048
+      },
+      {
+        "day_index": 6,
+        "pairs": 33048
+      },
+      {
+        "day_index": 7,
+        "pairs": 33048
+      },
+      {
+        "day_index": 8,
+        "pairs": 33048
+      },
+      {
+        "day_index": 9,
+        "pairs": 33048
+      },
+      {
+        "day_index": 10,
+        "pairs": 33048
+      },
+      {
+        "day_index": 11,
+        "pairs": 33048
+      },
+      {
+        "day_index": 12,
+        "pairs": 33048
+      },
+      {
+        "day_index": 13,
+        "pairs": 33026
+      },
+      {
+        "day_index": 14,
+        "pairs": 33000
+      },
+      {
+        "day_index": 15,
+        "pairs": 33000
+      },
+      {
+        "day_index": 16,
+        "pairs": 33000
+      },
+      {
+        "day_index": 17,
+        "pairs": 33000
+      },
+      {
+        "day_index": 18,
+        "pairs": 32958
+      },
+      {
+        "day_index": 19,
+        "pairs": 32935
+      },
+      {
+        "day_index": 20,
+        "pairs": 32952
+      },
+      {
+        "day_index": 21,
+        "pairs": 32952
+      },
+      {
+        "day_index": 22,
+        "pairs": 32952
+      },
+      {
+        "day_index": 23,
+        "pairs": 32952
+      },
+      {
+        "day_index": 24,
+        "pairs": 32976
+      },
+      {
+        "day_index": 25,
+        "pairs": 33024
+      },
+      {
+        "day_index": 26,
+        "pairs": 33017
+      },
+      {
+        "day_index": 27,
+        "pairs": 31662
+      }
+    ]
+  },
+  "metrics": {
+    "median_station_conditional_fano_30min": 0.44896690672153633,
+    "eligible_stations": 1111,
+    "eligible_pairs": 192147,
+    "eligible_strata": 3034,
+    "common_pairs": 921327,
+    "bootstrap_3day_valid": 2000,
+    "ci_3day_lower": 0.38265508566750817,
+    "ci_3day_upper": 0.4725866212540326,
+    "bootstrap_7day_valid": 2000,
+    "ci_7day_lower": 0.38883474075200364,
+    "ci_7day_upper": 0.46950129660458906
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "fe73324f224a073734334b5ebd1e0723d7e3a3b523811d32f3b7682d360ed167",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "station-level sufficient statistics",
+      "sha256": "27facd2a3b6043fea7cad63aae555f810dc0e5d848744d70411729e2c3ca4233",
+      "availability": "private dislab filesystem; not published"
+    }
+  ],
+  "limitations": [
+    "Development-period diagnostic, already used by H-0001/H-0002; not independent forecast validation.",
+    "Primary population: observed current stock 2..10 with sufficiently repeated station-state strata.",
+    "Coarse conditioning omits time and other history; finite dependent samples and complete-case selection limit inference.",
+    "Block intervals are diagnostic, not a formal goodness-of-fit rejection of every Poisson process or annual behavior.",
+    "Observation likelihood and rental/return event intensities are different quantities; operator actions are unobserved.",
+    "No GCN, flow matching, CMP or other final architecture is selected by this diagnostic."
+  ]
+}

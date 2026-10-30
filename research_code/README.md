@@ -25,6 +25,7 @@ API 표시 재고만 정답으로 쓰며, 누락을 0으로 바꾸지 않는다.
 python research_code/audit_inputs.py --archive PRIVATE_ARCHIVE --prepared PRIVATE_PREPARED_FOLDER --out research/datasets/tashu-primary-v1.json
 python research_code/observation_resolution.py --panel PRIVATE_PANEL --run-id H-0001-20261031-resolution
 python research_code/architecture_benchmark.py --prepared PRIVATE_PREPARED_FOLDER --run-id H-0002-20261031-dislab --device cuda --sample-chunk 4
+python research_code/stock_dispersion.py --panel PRIVATE_PANEL --run-id H-0003-20261031-structure
 ```
 
 완료된 가설을 다시 실행할 때는 기존 기록을 덮어쓰지 않도록 별도 재현 브랜치·새 실행 ID를 사용한다.
@@ -54,3 +55,9 @@ Git에서 제외한다. 시험 자료의 탐색·재사용 여부와 부정·불
 `.gitattributes`에서 이 파일들의 줄바꿈 자동 변환을 막아, Windows와 다른 운영체제의 Git 다운로드에서도
 실행 당시 해시가 유지되게 한다. 코드·계획의 의미나 관측값을 바꾼 조치가 아니다.
 자동 검사에서도 공개 입력 및 결과 파일의 실제 바이트를 기록된 해시와 비교한다.
+
+`stock_dispersion.py`는 H-0003의 개발 자료 진단이다. dislab CPU에서 실행하며 GPU 학습을 하지 않는다.
+현재와 세 미래 시점의 공통 완전 관측, 정확한 현재 재고 층, 고정 적격 집합의 도시 날짜 블록 부트스트랩을 사용한다.
+합성 자료 검사 `python -m unittest discover -s research_code/tests -p test_stock_dispersion.py -v`의 9개 항목은
+분할 경계·누락·실제 요청 시차·조건부 분산·블록 재표집·큰 변화 보존·판정 조건을 점검한다.
+이 검사는 dislab에서 통과했으며, [진단 결과](../docs/H-0003-results.md)의 실증 해석과 구분한다.

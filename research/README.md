@@ -10,6 +10,7 @@
 |---|---|---|
 | [H-0001](hypotheses/H-0001.json) | [10분·30분 관측에서의 0대 비율 민감도](../docs/H-0001-observation-resolution.md) | 완료, 5%p 초과 가설을 지지하지 않음 |
 | [H-0002](hypotheses/H-0002.json) | [소형 API 재고 그래프 CFM의 추가 가치](../docs/H-0002-architecture-results.md) | dislab에서 완료, 직접 분류기 대비 개선 가설을 지지하지 않음 |
+| [H-0003](hypotheses/H-0003.json) | [재고의 조건부 변동과 분포 가정](../docs/H-0003-results.md) | dislab CPU에서 완료, 30분 변동비 중앙값 0.449로 사전 0.8 미만 가설 지지. 모형 채택 없음 |
 
 모든 후속 학습·분석 연산은 사용자가 지정한 dislab에서 수행한다.
 원본·가중치·개별 예측은 공개하지 않고, 완료 결과와 중단된 실행을 함께 기록한다.

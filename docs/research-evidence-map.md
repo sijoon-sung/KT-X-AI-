@@ -12,6 +12,7 @@
 | [Lin·He·Peeta, TRC 2018](https://arxiv.org/pdf/1712.04997), DOI 10.1016/j.trc.2018.10.011 | Citi Bike 거래 기반 시간당 대여량, 여러 사전 그래프와 학습 필터·시간 블록 비교 | 저자 원고 초록, §3.1~3.3의 그래프 정의·DDGF 확인 | 거리는 가능한 관계 중 하나다. 재고에서 필요한 관계와 거래량에서의 관계가 같은가? |
 | [Wu 외, Graph WaveNet, IJCAI 2019](https://arxiv.org/pdf/1906.00121) | 교통 시계열, 사전 관계와 학습 의존 행렬·시간 모형 | 저자 원고의 self-adaptive adjacency 설명과 Table 3 비교 확인 | 학습 그래프가 자기 이력·공통 정보보다 추가 가치를 주는가? 관계의 의미·방향·안정성은 무엇인가? |
 | [Salinas 외, DeepAR, arXiv v3 2019](https://arxiv.org/pdf/1704.04110) | 관련 시계열의 조건부 확률 예측, 정수 자료에 음이항 likelihood | §3.1의 분포·평균/분산 모수화와 자기회귀 표본 생성 설명 확인 | 시간 인코더와 관측 분포를 나눠 설계할 수 있는가? 재고의 조건부 분산에 어떤 계수형 분포가 맞는가? |
+| [Shmueli 외, JRSS C 2005](https://doi.org/10.1111/j.1467-9876.2005.00474.x) | 과산포·저산포를 표현하는 Conway–Maxwell–Poisson 계수형 분포 | [대학 보관 출판 PDF](https://ics.uci.edu/~johnsong/papers/Shmueli%20et.%20al%20-%20A%20Useful%20Distribution%20for%20Fitting%20Discrete%20Data%20%28revival%20of%20the%20Conway-Maxwell-Poisson%20distribution%29.pdf)의 요약·서론·§2에서 분포 정의와 분산 유연성 확인. 타슈 적합·구현 재현 없음 | H-0003의 조건부 저산포를 표현할 비교 후보인가? 정규화·꼬리·계산 비용을 어떻게 평가할까? |
 | [Gammelli 외, TRC 2020](https://arxiv.org/abs/2001.07402) | 공급에 의해 절단된 잠재 수요의 GP 추정 | 이전 원문 검토에서 censored likelihood와 자전거 모사 절단 실험 확인 | 표시 재고·실측 거래·미충족 수요의 관측 범위를 어떻게 구분할 것인가? |
 | [Lipman 외, ICLR 2023](https://arxiv.org/abs/2210.02747)·[Tong 외, 2024](https://arxiv.org/html/2302.00482v4) | 확률 경로·벡터장 회귀, 독립 결합과 OT 결합 | Lipman 저자 초록·경로 설명, Tong §3.2.2~3.2.3 확인 | 어떤 사전분포·결합·확률 경로를 쓸 이유가 있는가? 생성 시간과 물리 시간을 혼동하지 않는가? |
 | [Kollovieh 외, TSFlow, ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/file/ee1a1ecc92f35702b5c29dad3dc909ea-Paper-Conference.pdf) | GP와 조건부 사전분포를 이용한 시계열 생성·확률 예측 | §3의 조건부 prior/generative 분해, informed prior 및 App. B.2 설명 확인 | 과거에 조건부인 사전분포가 필요한가? H-0002의 독립 Gaussian 설정과 무엇이 다른가? |
@@ -38,3 +39,11 @@
 후속 문헌 카드는 최소한 질문, 관측 자료, 정답, 시간 범위, 가정, 출력 분포, 평가,
 코드/자료 접근, 확인 범위, 우리 자료에 적용되지 않는 조건을 같은 형식으로 채운다.
 이 비교가 다음 자료 진단과 모형군 선택의 근거가 된다.
+
+## 첫 자료 진단으로 달라진 질문
+
+[H-0003 결과](H-0003-results.md)는 개발 기간의 현재 2~10대 적격 층에서 30분 조건부 변동비 중앙값 0.449를 보였다.
+따라서 정수라는 이유만으로 Poisson/NB2 직접 분포를 기본값으로 정하지 않고,
+분산 유연성과 현재 상태의 지속성을 표현하는 후보를 함께 비교한다.
+CMP의 문헌상 유연성이 타슈의 예측 성능 우위를 보장하지 않으며, 이 진단은 해당 모형의 채택 실험이 아니다.
+계수형 전이와 큐 모형은 다음 원문 심화 검토 대상이다. GCN과 Flow Matching의 선택도 여전히 열려 있다.
