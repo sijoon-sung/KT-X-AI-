@@ -1,6 +1,7 @@
 # 타슈 예측 연구: 문제의식과 해결 계획
 
 작성일: 2026-10-31. 상태: 연구 기획과 1차 검증 기록. 운영 개선을 입증한 문서가 아니다.
+현재의 상위 설계는 [연구 프로그램](research-program.md)과 [결정 기록](research-decisions.md)에서 이어 간다.
 진행 규칙은 [연구 체계](research-workflow.md), 첫 검증 계획은 [H-0001](H-0001-observation-resolution.md)을 따른다.
 
 ## 1. 이 프로젝트를 왜 다시 시작하는가

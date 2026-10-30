@@ -1,5 +1,9 @@
 # 타슈 관측 기반 예측 연구
 
+현재 연구 방향은 [큰 질문에서 모형군으로 좁혀 가는 연구 설계](docs/research-program.md)에서 정리합니다.
+[선행연구 비교](docs/research-evidence-map.md)와 [결정 기록](docs/research-decisions.md)을 근거로
+문제·관측 과정·의존성·확률 표현을 먼저 정하며, 최종 아키텍처는 열어 둡니다.
+
 새 연구는 [가설별 Draft PR 진행 체계](docs/research-workflow.md)를 따릅니다.
 [연구 기록](research/README.md)에서 계획·실행·판단을 추적합니다. 아래 내용은 기존 연구 기록이며 새 연구의 재현 검증을 대신하지 않습니다.
 

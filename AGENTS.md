@@ -3,6 +3,9 @@
 적용 저장소: `sijoon-sung/KT-X-AI-`. 상세 절차는 `docs/research-workflow.md`.
 
 ## 작업 시작
+- [큰 연구 방향](docs/research-program.md), [문헌 비교](docs/research-evidence-map.md), [결정 기록](docs/research-decisions.md)을 먼저 확인한다.
+- 완성된 아키텍처를 전제로 연구를 좁히지 않는다. 문제·관측 과정·확률 가정·의존성을 정리한 뒤 모형군과 구성요소를 선택한다.
+- GCN·포아송·Flow Matching의 역할과 사용 조건을 각각 설명한다. 제한된 한 실험의 결과를 전체 방법군의 판정으로 확대하지 않는다.
 - 기존 구현에서는 문제의식과 아이디어만 참고한다. 과거 성능표를 재현된 증거로 인용하지 않는다.
 - 먼저 GitHub 연결과 기존 PR·브랜치를 확인한다. 같은 가설의 열린 PR이 있으면 이어서 갱신한다.
 - 연결된 GitHub 도구를 우선 사용한다. 필요한 쓰기 기능이 없으면 인증된 `gh`와 Git을 사용한다.

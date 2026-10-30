@@ -1,6 +1,8 @@
 # 연구 기록
 
 진행 절차: [연구·개발 체계](../docs/research-workflow.md).
+상위 설계: [연구 프로그램](../docs/research-program.md), [문헌 비교](../docs/research-evidence-map.md),
+[결정 기록](../docs/research-decisions.md). 최종 모형군·아키텍처는 아직 확정하지 않았다.
 
 기획 배경: [프로젝트 문제의식과 해결 계획](../docs/project-charter.md).
 
