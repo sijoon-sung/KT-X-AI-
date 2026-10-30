@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0002",
   "title": "API 재고에 맞춘 그래프 CFM의 추가 가치",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "API 재고에 맞춘 소형 그래프 CFM이 동일 입력의 직접 분류기보다 30분 뒤 관측 0대 확률을 더 잘 예측하는가?",
     "hypothesis": "그래프 CFM의 현재 양수 표본 Brier score가 자기 이력 분류기와 같은 좌표 그래프 직접 분류기 각각보다 평균 2% 이상 낮고, 날짜 의존성을 고려한 개선 구간 하한도 0을 넘는다. 이는 작은 재고 적응 모형에 한정된 가설이며 원래 거래량·정책 전체 모형의 검증이 아니다.",
@@ -78,6 +78,21 @@
     "plan_sha256": "d674d3c99e5a24cc9c6c37da45efc6e1d8f4aff1f3884cfe1d877135aa6fd048",
     "frozen_at_utc": "2026-10-30T16:58:07.141923+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "사전 등록한 소형 API 재고 CFM의 추가 가치: 지지하지 않음. 현재 양수 Brier: CFM 0.082581, 자기 이력 0.079564, 좌표 그래프 직접 0.078826. 기존 전체 아키텍처나 정책 효과의 판정으로 확대하지 않는다. 모델 채택 없이 비교·실패 기록을 보존한다.",
+    "limitations": [
+      "Single conditional-KST, one-season, one-city retrospective benchmark with seven test dates.",
+      "Test dates were previously included in H-0001 observation summaries; not wholly unseen raw data.",
+      "Small stock-adapted models, fixed update budget; not a reproduction of the original full Transit-CFM.",
+      "CFM has a different training objective and more parameters; Monte Carlo plug-in Brier includes sampling noise.",
+      "Observed future API zero is not latent demand, verified bike usability or policy effectiveness.",
+      "Two local attempts failed at generation; user moved computation to dislab; same scientific plan, chunk 4, different recorded hardware/packages; no best-of-attempt selection."
+    ],
+    "run_manifests": [
+      "research/runs/H-0002-20261031-dislab/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

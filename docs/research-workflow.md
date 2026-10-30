@@ -90,4 +90,6 @@ API의 `.env`, 토큰, 원본 백업 ZIP, 개인 경로·인증정보를 PR에 �
 
 이 체계 도입 PR 자체는 가설 검증 PR이 아니다.
 첫 가설 [H-0001](H-0001-observation-resolution.md)은 동결 커밋 게시 후 비교를 완료했다.
-[프로젝트 기획](project-charter.md)에서 전체 순서를 설명한다. 이후 아키텍처 비교는 별도 가설로 진행한다.
+[프로젝트 기획](project-charter.md)에서 전체 순서를 설명한다.
+[H-0002 아키텍처 비교](H-0002-architecture-results.md)도 dislab에서 완료했으며 CFM의 추가 가치 가설을 지지하지 않았다.
+후속 연산은 dislab에서 수행하고, 새 비교·기간·학습 예산은 새 가설로 동결한다.

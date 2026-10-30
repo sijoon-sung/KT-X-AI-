@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0002-20261031-dislab",
+  "hypothesis_id": "H-0002",
+  "plan_sha256": "d674d3c99e5a24cc9c6c37da45efc6e1d8f4aff1f3884cfe1d877135aa6fd048",
+  "code_commit": "ddb1af2f9a1296760a898832e94c6d9ec3a3fd26",
+  "input_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875",
+  "started_at_utc": "2026-10-30T17:57:23.446478+00:00",
+  "finished_at_utc": "2026-10-30T18:04:36.213952+00:00",
+  "command": [
+    "python",
+    "research_code/architecture_benchmark.py",
+    "--prepared",
+    "<PRIVATE_AUDITED_INPUT>",
+    "--run-id",
+    "H-0002-20261031-dislab",
+    "--device",
+    "cuda",
+    "--sample-chunk",
+    "4"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "numpy": "1.26.4",
+      "torch": "2.7.1+cu118"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "cuda": "11.8",
+    "peak_cuda_allocated_bytes": 49299968,
+    "cpu_threads": 4,
+    "compute_location": "dislab, user-authorized remote Windows workstation"
+  },
+  "seed": [
+    17,
+    29,
+    43
+  ],
+  "evaluation_scope": {
+    "train": {
+      "origins": 671,
+      "valid_cells": 918569,
+      "current_positive_cells": 495258,
+      "dates": 28
+    },
+    "validation": {
+      "origins": 167,
+      "valid_cells": 228456,
+      "current_positive_cells": 120630,
+      "dates": 7
+    },
+    "test": {
+      "origins": 167,
+      "valid_cells": 228456,
+      "current_positive_cells": 119276,
+      "dates": 7
+    }
+  },
+  "metrics": {
+    "brier_current_positive": 0.08258142925444104,
+    "identity_relative_improvement": -0.03792940275650708,
+    "geo_relative_improvement": -0.047639011715842
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "aac4dc3327798623709fd28588b7f4c22747b299c20b6d67f5b95d0fbc29cbff",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "checkpoints and individual probabilities",
+      "availability": "private dislab filesystem; not published"
+    }
+  ],
+  "limitations": [
+    "Single conditional-KST, one-season, one-city retrospective benchmark with seven test dates.",
+    "Test dates were previously included in H-0001 observation summaries; not wholly unseen raw data.",
+    "Small stock-adapted models, fixed update budget; not a reproduction of the original full Transit-CFM.",
+    "CFM has a different training objective and more parameters; Monte Carlo plug-in Brier includes sampling noise.",
+    "Observed future API zero is not latent demand, verified bike usability or policy effectiveness."
+  ]
+}

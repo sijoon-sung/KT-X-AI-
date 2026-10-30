@@ -7,6 +7,11 @@
 첫 가설 [H-0001: 관측 간격과 0대 비율](docs/H-0001-observation-resolution.md)은 완료했습니다.
 관측 0대 비율의 평균 절대차는 1.24%p로, 사전 기준 5%p 초과 가설을 지지하지 않았습니다.
 
+[H-0002 아키텍처 비교](docs/H-0002-architecture-results.md)는 dislab RTX 3080에서 세 시드로 완료했습니다.
+현재 재고 양수인 표본의 미래 관측 0대 Brier는 자기 이력 0.079564, 좌표 그래프 직접 예측 0.078826,
+그래프 CFM 0.082581이었습니다. 이번 소형 재고 적응 CFM의 추가 가치 가설은 지지하지 않았습니다.
+기존 전체 모델·정책 효과의 검증으로 확대하지 않습니다. 후속 연구·학습 연산은 dislab에서 수행합니다.
+
 ## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
 
 This repository contains the core methodology implementation of **Multimodal Transit Continuous Flow Matching (Transit-CFM)**, a graph-informed continuous generative framework designed for city-wide bike-sharing demand modeling and counterfactual transit policy simulations.
