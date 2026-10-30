@@ -1,5 +1,7 @@
 # H-0001: 관측 간격이 대여소별 0대 비율에 주는 영향
 
+> 현재 위치: 과거 API 자료 감사 기록이다. 후속 모델의 학습·선택 근거로 사용하지 않는다. [최신 자료 계약](training-validation-contract.md).
+
 상태: **완료 / 가설을 지지하지 않음**. 기준 기록: [가설 JSON](../research/hypotheses/H-0001.json).
 배경: [프로젝트 기획](project-charter.md). 동결된 계획 커밋 `31a9a8185fefa969176a632cc7a56a2ffc666b6c` 게시 후 실행했다.
 

@@ -1,5 +1,9 @@
 # 타슈 관측 기반 예측 연구
 
+**현재 자료 계약: 과거 대여·반납 기록으로 학습·내부 검증하고, 타슈 API는 외부 검증에만 사용합니다.**
+[자료 사용 계약](docs/training-validation-contract.md)과 [과거 원본 감사](docs/historical-source-audit.md)를 우선합니다.
+아래 H-0001~H-0003은 이전 API 개발·탐색 기록입니다. 과거 이력 학습→API 검증을 수행한 결과로 승계하지 않습니다.
+
 현재 연구 방향은 [큰 질문에서 모형군으로 좁혀 가는 연구 설계](docs/research-program.md)에서 정리합니다.
 [선행연구 비교](docs/research-evidence-map.md)와 [결정 기록](docs/research-decisions.md)을 근거로
 문제·관측 과정·의존성·확률 표현을 먼저 정하며, 최종 아키텍처는 열어 둡니다.
@@ -18,7 +22,7 @@
 
 [H-0003 자료 구조 진단](docs/H-0003-results.md)은 dislab CPU에서 완료했습니다.
 같은 대여소·같은 현재 2~10대에서 30분 뒤 재고의 분산/평균 비율 중앙값은 0.449였습니다.
-직접 재고 분포의 분산 제약과 상태 지속성을 먼저 검토할 근거이며, GCN·Flow Matching이나 최종 모형을 선정한 결과는 아닙니다.
+이미 API를 탐색한 진단 기록으로 보존하며, 후속 학습의 분포·아키텍처 선택 근거에서는 제외합니다.
 
 ## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
 
