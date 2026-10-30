@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "H-0000",
+  "title": "TODO: 연구 질문",
+  "status": "planned",
+  "plan": {
+    "question": "TODO: 답할 질문",
+    "hypothesis": "TODO: 반증 가능한 예상",
+    "prior_art": [{"title": "TODO", "url": "TODO", "verified_scope": "TODO", "difference_to_test": "TODO"}],
+    "data": {
+      "dataset_id": "TODO",
+      "observed_truth": "TODO: 직접 관측한 정답",
+      "not_observed": ["TODO: 이 자료로 확인할 수 없는 것"],
+      "input_manifest_sha256": "TODO"
+    },
+    "evaluation": {
+      "design": "TODO: 시간 분할 또는 짝지은 관측 비교",
+      "periods": [{"role": "TODO", "start": "TODO", "end": "TODO"}],
+      "baselines": ["TODO"],
+      "primary_metric": {"name": "TODO", "direction": "lower", "unit": "TODO"},
+      "success_rule": "TODO: 효과 크기와 불확실성을 포함한 채택 조건",
+      "failure_rule": "TODO: 기각·불확실 판단 조건",
+      "exclusion_rule": "TODO: 누락·중복·이상치 처리",
+      "uncertainty_plan": "TODO: 반복·신뢰구간·검정과 한계",
+      "seed_plan": "TODO: 시드 목록 또는 결정적 실험 사유"
+    }
+  },
+  "preregistration": {"plan_sha256": null, "frozen_at_utc": null},
+  "result": null,
+  "withdrawal_reason": null
+}
