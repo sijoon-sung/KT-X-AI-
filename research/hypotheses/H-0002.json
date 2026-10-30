@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "H-0002",
+  "title": "API 재고에 맞춘 그래프 CFM의 추가 가치",
+  "status": "preregistered",
+  "plan": {
+    "question": "API 재고에 맞춘 소형 그래프 CFM이 동일 입력의 직접 분류기보다 30분 뒤 관측 0대 확률을 더 잘 예측하는가?",
+    "hypothesis": "그래프 CFM의 현재 양수 표본 Brier score가 자기 이력 분류기와 같은 좌표 그래프 직접 분류기 각각보다 평균 2% 이상 낮고, 날짜 의존성을 고려한 개선 구간 하한도 0을 넘는다. 이는 작은 재고 적응 모형에 한정된 가설이며 원래 거래량·정책 전체 모형의 검증이 아니다.",
+    "prior_art": [
+      {
+        "title": "Lipman et al., Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/abs/2210.02747",
+        "verified_scope": "저자 초록과 확률 경로 설명 확인. 타슈 실험 근거가 아님.",
+        "difference_to_test": "API 정수 재고의 미래 0대 확률에 기본 독립 결합 CFM이 필요한지 직접 분류기와 비교."
+      },
+      {
+        "title": "Tong et al., Improving and generalizing flow-based generative models with minibatch optimal transport",
+        "url": "https://arxiv.org/html/2302.00482v4",
+        "verified_scope": "원문 §3.2.2~3.2.3에서 독립 결합과 OT 결합 구분 확인.",
+        "difference_to_test": "독립 Gaussian 결합을 사용하고 OT 최적성 주장을 하지 않는다."
+      },
+      {
+        "title": "Nejadshamsi et al. (2026), Multi-task dynamic graph-based bike-sharing demand prediction",
+        "url": "https://doi.org/10.1016/j.knosys.2025.114986",
+        "verified_scope": "출판사 검색 노출 초록·방법·거래량 정답 확인; 전체 재현 미완료.",
+        "difference_to_test": "거래량이 아닌 API 재고, 고정 좌표 그래프의 추가 가치와 CFM의 추가 가치를 분리."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-primary-stock-v1-20260917-20261030",
+      "observed_truth": "원본 재감사된 API parking_count. 한국 시간 조건부 해석. 입력 manifest의 패널과 첫날(20260917) 메타데이터만 사용. 새 예측 평가의 시험 기간은 H-0001 관측 요약에 이미 포함되었으므로 완전히 미열람인 자료라고 부르지 않는다.",
+      "not_observed": [
+        "개별 거래량과 잠재 수요",
+        "서버 갱신 시각과 실제 고장 없는 재고",
+        "관측 사이 품절과 운영 개입의 인과 효과"
+      ],
+      "input_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875"
+    },
+    "evaluation": {
+      "design": "고정 시간 분할. 시작 시각은 매 정시, 목표는 격자 3칸(30분) 뒤다. 각 구간 시작 후 60분부터 종료 30분 전까지만 요청한다. 입력은 현재와 10·20·30·40·50분 전의 log1p 재고/3, 유효 표시 6개, 시각 sin/cos, 요일 sin/cos, 첫날 좌표의 중심화/스케일링 2개와 8차원 대여소 임베딩이다. 첫날 메타데이터의 좌표가 유효하고 학습 구간 관측률이 90% 이상인 ID만 포함한다. 첫날 좌표 기준 8개 최근접 이웃의 평균 0.5와 자기 자신 0.5의 행 정규화 고정 그래프를 사용한다. 섞은 그래프는 시드 20261031로 같은 인접행렬의 노드 순서를 동시에 치환한다. 본인 이력은 입력에서 유지한다. 모형은 32폭·2개 잔차 블록, 동일 맥락 인코더를 사용한다. 직접 분류기는 identity/좌표/섞은 그래프의 BCE 헤드, CFM은 좌표 그래프 맥락과 그래프 속도장으로 미래 log1p(stock+U[0,1))를 학습한다. Gaussian x0와 독립 결합, t~U[0,1], 속도 MSE. CFM 생성 시간은 물리 시간이 아니다. 직접 분류기와 CFM의 목적함수가 다름을 명시한다.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2026-09-18T00:00:00+09:00",
+          "end": "2026-10-16T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-10-16T00:00:00+09:00",
+          "end": "2026-10-23T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-10-23T00:00:00+09:00",
+          "end": "2026-10-30T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "현재 상태 유지: 현재 0대면 확률 1, 양수면 0",
+        "학습 기간의 대여소별·현재 0/양수 상태별 미래 0대 빈도; 전역 같은 상태 빈도에 가중치 20으로 수축",
+        "동일 맥락 인코더 identity 그래프 직접 BCE 분류기",
+        "동일 맥락 인코더 좌표 그래프 직접 BCE 분류기",
+        "연결을 섞은 그래프 직접 BCE 분류기(공간 정보 진단)"
+      ],
+      "primary_metric": {
+        "name": "brier_current_positive",
+        "direction": "lower",
+        "unit": "squared probability error; macro average over eligible test dates"
+      },
+      "success_rule": "시드별 점수의 산술 평균을 사용하며 예측을 앙상블하지 않는다. CFM이 identity 직접 분류기와 좌표 직접 분류기 각각에 대해 시험 날짜 평균 주 지표를 2% 이상 개선하고, 짝지은 날짜별 점수차(대조군-CFM)의 2일 이동 블록 2000회 95% 백분위 구간 하한이 0 초과일 때 supported. 날짜별 점수는 그 날 현재 양수인 유효 station-origin의 평균이다. 두 대조군 모두 조건을 만족해야 하므로 사후 최우수 대조군 선택을 하지 않는다. 2%는 사전 계산 투자 진단값이지 현장 합의 기준이 아니다.",
+      "failure_rule": "두 대조군 중 하나라도 상대 개선이 0 이하이거나 개선 구간 상한이 0 이하이면 not_supported. 그 외에는 inconclusive. 학습 실패·비유한 출력·7개 시험 날짜 중 유효 날짜 5일 미만도 inconclusive로 기록하며 자료·모형 크기를 결과에 맞춰 바꾸지 않는다. 공간 그래프와 섞은 그래프 차이는 보조 진단으로만 보고한다.",
+      "exclusion_rule": "원본 관측 계약(10분 내림, 지연 0~120초, earliest poll, 결측 NaN)을 유지한다. 평가 가능한 표본은 본인 6개 입력 재고와 미래 재고가 모두 유효하고 실제 요청 시각 차이가 28~32분인 경우다. 누락은 0대 정답으로 만들지 않는다. 이웃의 누락 입력에는 유효 표시와 수치 0 자리값을 함께 제공한다. 미래 정답의 결측은 손실·평가에서 제외한다. 좌표가 없거나 첫날에 없던 ID와 train 관측률 90% 미만 ID는 train 정보만으로 제외한다. 전부 0인 ID도 임의 제외하지 않는다. 큰 재고는 보존한다. 모든 대조군에 같은 대상 표본을 적용한다.",
+      "uncertainty_plan": "학습 시드 17,29,43. 각 모델/시드에 AdamW(lr=.001,weight_decay=.0001), batch=4개 도시 요청 시각, gradient clip=2, FP32, 600 updates를 적용한다. 매100 update의 검증 Brier(현재 양수)를 비교해 가장 낮은 checkpoint를 택하며 동점은 앞선 update. 추가 튜닝이나 시험 기반 보정은 하지 않는다. CFM 검증은 Gaussian 64개, 시험은128개 표본과 Euler 12 step을 사용한다. 정수 복원은 max(0,floor(expm1(z)))이며 0대는 z<log(2)와 동치다. 주 Brier는 샘플 빈도의 통상 plug-in score로 MC 오차를 포함한다. 보조로 불편 MC 보정 score와 날짜별 검증을 보고하며 MC score만으로 CFM을 부당하게 기각했다고 단정하지 않는다. count 평균/중앙값·0 초기값 경로와 persistence MAE는 보조. 현재 0/양수·전체 Brier, reliability bins와 학습·추론 시간·파라미터 수도 보고한다. 날짜 블록 seed=20261031; NumPy default_rng PCG64. 7일 시험은 제한된 검정력과 일반화 한계를 갖는다. 로컬 CUDA가 사용 가능하면 메모리 상한을 두고 사용하며 아니면 CPU 4스레드, 동일 FP32 계획. 메모리 부족 시 evaluation sample chunk만 축소하고 모형·학습량은 바꾸지 않는다.",
+      "seed_plan": "학습/배치/CFM noise·dequantization seed:17,29,43. 검증 표본 seed=학습seed+10000, 시험=학습seed+20000. 그래프 치환/날짜 부트스트랩 seed20261031. RNG와 패키지 버전은 실행 manifest에 기록. 각 checkpoint 검증에 동일 초기 난수 seed를 재설정한다."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "d674d3c99e5a24cc9c6c37da45efc6e1d8f4aff1f3884cfe1d877135aa6fd048",
+    "frozen_at_utc": "2026-10-30T16:58:07.141923+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
