@@ -1,6 +1,6 @@
 # H-0003: 재고의 조건부 변동과 계수형 분포 가정
 
-상태: 계획 작성 중. 기준 기록은 [H-0003 JSON](../research/hypotheses/H-0003.json)이다.
+상태: 사전 동결·미실행. 기준 기록은 [H-0003 JSON](../research/hypotheses/H-0003.json)이다.
 이 단계는 [연구 프로그램](research-program.md)의 자료 구조 진단이며 네트워크 비교가 아니다.
 
 ## 왜 이 질문부터 보는가
