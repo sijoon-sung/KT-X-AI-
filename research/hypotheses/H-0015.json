@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0015",
   "title": "예측 시나리오에서 재배치 수량·적재·동선으로 연결하는 시제품",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can the planning interface produce consistent quantities and a capacity/time feasible route, and actually respond to joint risk?",
     "hypothesis": "Fixed synthetic scenarios and confirmed fictional resource inputs yield zero acceptance constraint violations; changing joint dependence alone changes the CVaR allocation while expected-only remains invariant.",
@@ -74,6 +74,21 @@
     "plan_sha256": "c05fcfdeb44fdd0fa5f0837ccec65bcd5273790e01517e836bd76701de8eb4e6",
     "frozen_at_utc": "2026-10-31T15:12:35.446107+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab CPU의 합성 기능 검사13개 통과·제약위반0. 가상적재6대·총10대이동의7분경로와 같은주변분포의공동위험변화에따른CVaR배치변경을확인. 실제예측/도로/운영효과검증결과가아님.",
+    "limitations": [
+      "All executed stock/road/fleet cases are synthetic.",
+      "13engineeringassertions do not validate prediction quality or field savings.",
+      "One vehicle,<=8visits;2stage quantity/routing heuristic, exact route for fixed small allocation.",
+      "Only terminal10minute planning, no arrival-stock trajectory/counterfactual demand model.",
+      "No real API adapter or truck-road profile run in this acceptance; lineage/freshness fields are contract checks.",
+      "All outputdispatch_allowed=false; no messages or actual rebalancing."
+    ],
+    "run_manifests": [
+      "research/runs/H-0015-20261101-rebalancing-pipeline/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

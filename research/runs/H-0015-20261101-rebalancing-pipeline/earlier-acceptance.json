@@ -1,0 +1,9 @@
+{
+  "scope": "earlier10tests passed; same quantity/routing behavior; collector-clock guard then expanded",
+  "code_commit": "b7bd958086b238c1775e08e0af2cc460b2b26e64",
+  "tests_run": 10,
+  "metrics": {
+    "acceptance_constraint_violations": 0
+  },
+  "seconds": 0.21916970005258918
+}
