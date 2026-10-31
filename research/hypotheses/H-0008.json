@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0008",
   "title": "공모전용 GCN 예측시스템 연결과 고정출력 인수검증",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "고정된 과거전용GCN과정을 실제30분 예측서비스·화면으로 연결하고 기존 고정출력을 재현할 수 있는가?",
     "hypothesis": "H7고정모델의 예측서비스가 사전64개 재생입력에서 확률/평균/분위수를 허용오차 내 재현하고 미래정답 비의존·누락/미지원입력 계약을 지킨다. 통합 인수검증이며 성능 우월성 가설이 아니다.",
@@ -59,6 +59,22 @@
     "plan_sha256": "f11f4b4898e87108b82639e5eb2fa781e681e691c58a757a7c402a168fd27f84",
     "frozen_at_utc": "2026-10-31T06:33:00.212741+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "공모전 시연용 GCN 예측시스템 연결을 채택.64/64고정출력재현(확률/평균최대오차0),체크포인트forward일치·8서비스/14프로토콜검사·5HTTP검사통과.브라우저에서재생/정답별도조회·수동/스냅샷/누락·JSON저장확인.1차HTML검사표식오류는보존후검사코드수정·재실행.성능우월성/운영채택을뜻하지않으며H7부정결과보존.",
+    "limitations": [
+      "Engineering acceptance only; no new model accuracy evidence or GCN superiority claim.",
+      "GCN is the user-requested competition demonstration path; H7 negative result and non-adoption for performance remain unchanged.",
+      "September was previously exposed; February/March have no measured inventory truth.",
+      "Replay/manual/current snapshot only; live API polling and operational deployment not implemented.",
+      "Non-clock-hour scenarios hold current-hour rates fixed and have no empirical validation; API displayed inventory is not guaranteed usable bikes.",
+      "Web UI interactions verified separately; inference and tests on dislab CPU; local browser is presentation only."
+    ],
+    "run_manifests": [
+      "research/runs/H-0008-20261031-prediction-system/manifest.json",
+      "research/runs/H-0008-20261031-prediction-system-r2/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }
