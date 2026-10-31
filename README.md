@@ -4,6 +4,11 @@
 [자료 사용 계약](docs/training-validation-contract.md)과 [과거 원본 감사](docs/historical-source-audit.md)를 우선합니다.
 아래 H-0001~H-0003은 이전 API 개발·탐색 기록입니다. 과거 이력 학습→API 검증을 수행한 결과로 승계하지 않습니다.
 
+[H-0004 과거 이력 학습](docs/H-0004-results.md)은 dislab에서 완료했습니다.
+대여소 1,192개의 두 평균 예측 모델을 학습·저장하고 재로딩을 확인했습니다.
+3월 내부 보류에서 요일·시간대 평균은 고정 평균보다 Poisson deviance를 11.35% 줄였습니다.
+이 결과는 기록 대여·반납 건수의 평균 예측 기준선이며, API 재고 외부 검증은 아직 수행하지 않았습니다.
+
 현재 연구 방향은 [큰 질문에서 모형군으로 좁혀 가는 연구 설계](docs/research-program.md)에서 정리합니다.
 [선행연구 비교](docs/research-evidence-map.md)와 [결정 기록](docs/research-decisions.md)을 근거로
 문제·관측 과정·의존성·확률 표현을 먼저 정하며, 최종 아키텍처는 열어 둡니다.

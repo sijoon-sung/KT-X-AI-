@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0004",
   "title": "다운로드 이력의 달력 패턴 학습 기준선",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "과거 대여이력만으로 학습한 요일·시간대별 평활 평균이 대여소별 고정 평균보다 이후 기록 거래 건수의 평균 Poisson deviance를 1% 넘게 줄이는가?",
     "hypothesis": "2026년 3월 내부 보류 구간에서 대여·반납을 함께 평가한 deviance 개선율이 1%를 넘는다. 과거 이력의 달력 기준선을 세우는 비교이며 API 재고 검증이나 최종 아키텍처 선정이 아니다.",
@@ -76,6 +76,23 @@
     "plan_sha256": "5929cf717521e492f9ca7b7f88dda47422a3e3f36df50379cb0da16c4c165fbe",
     "frozen_at_utc": "2026-10-31T03:53:20.131696+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "과거 이력만으로 두 평균 모형을 학습했다. 적격 대여소 1,192개, 3월 내부 보류에서 고정 평균 deviance 1.433104 대비 달력 평균 1.270475, 개선율 11.3480%. 사전 1% 초과 가설은 지지. API는 학습·선택·평가에 사용하지 않았다. 채택은 후속 평균 건수 비교 기준선에 한정한다.",
+    "limitations": [
+      "Historical recorded completed-trip counts only; no API training, tuning or evaluation.",
+      "Zero count is no accepted record in assumed-covered city hours; complete station recording is not independently proven.",
+      "Missing months, month boundaries, nights and unknown city hours are masked; duration>=24h trips are excluded.",
+      "Recurring training stations and daytime source scope restrict generalization; operation and station changes remain uncertain.",
+      "Naive clocks conditionally interpreted as KST; no independent source-clock verification.",
+      "Retrospective historical periods were summarized in legacy work; not untouched independent external test.",
+      "Bootstrap is conditional on training cohort and validation-selected alpha; model-selection uncertainty is excluded.",
+      "Poisson deviance compares mean forecasts; not Poisson distribution fit, uncertainty calibration, inventory or policy validation."
+    ],
+    "run_manifests": [
+      "research/runs/H-0004-20261031-historical/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

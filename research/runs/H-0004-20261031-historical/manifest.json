@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0004-20261031-historical",
+  "hypothesis_id": "H-0004",
+  "plan_sha256": "5929cf717521e492f9ca7b7f88dda47422a3e3f36df50379cb0da16c4c165fbe",
+  "code_commit": "e07e92b570d27c3ff4a5e6e32d3ae7ba3c34be52",
+  "input_manifest_sha256": "e5135c4b2b20650ab60c23ff552dffb53863e255c8b87959685b78b99b6390d8",
+  "started_at_utc": "2026-10-31T03:59:16.754254+00:00",
+  "finished_at_utc": "2026-10-31T04:02:16.538193+00:00",
+  "command": [
+    "python",
+    "research_code/historical_calendar.py",
+    "fit",
+    "--archive",
+    "<PRIVATE_DOWNLOADED_HISTORY>",
+    "--run-id",
+    "H-0004-20261031-historical"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "numpy": "1.26.4"
+    },
+    "compute_location": "dislab",
+    "device": "CPU; no GPU training",
+    "threads": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    }
+  },
+  "seed": 20261031,
+  "evaluation_scope": {
+    "learning_source": "downloaded historical completed trips; no API data",
+    "source_archive_sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+    "source_quality": {
+      "source_rows": 9320018,
+      "invalid_width": 0,
+      "missing_key": 0,
+      "invalid_datetime": 0,
+      "filename_month_mismatch": 203545,
+      "invalid_duration": 8,
+      "duplicate_completed_trips": 2,
+      "accepted_completed_trips": 9116463
+    },
+    "source_hour_masks": {
+      "candidate_hours": 5832,
+      "missing_source_month_hours": 744,
+      "boundary_date_hours": 336,
+      "out_of_scope_hours": 1782,
+      "unknown_city_record_hours": 0,
+      "eligible_record_hours": 2970
+    },
+    "source_station_count": 1425,
+    "selected_training_station_count": 1192,
+    "excluded_training_station_count": 233,
+    "periods": {
+      "train": {
+        "hours": 2145,
+        "dates": 143,
+        "cells": 5113680
+      },
+      "validation": {
+        "hours": 390,
+        "dates": 26,
+        "cells": 929760
+      },
+      "test": {
+        "hours": 435,
+        "dates": 29,
+        "cells": 1037040
+      }
+    },
+    "target": "accepted recorded transaction counts conditional on source scope, not verified actual demand/stock"
+  },
+  "metrics": {
+    "calendar_deviance_improvement_percent": 11.347981666248232,
+    "constant_mean_poisson_deviance": 1.4331037237428585,
+    "calendar_mean_poisson_deviance": 1.2704753759141982,
+    "eligible_stations": 1192,
+    "evaluation_cells": 1037040,
+    "ci_3day_lower": 10.110860977634466,
+    "ci_3day_upper": 12.914360686775138,
+    "ci_7day_lower": 10.5366934367344,
+    "ci_7day_upper": 12.983149241658465
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "f31da9af4612e034f3aabbb811c81f83b93f4c58b5a03f00189aa27e7d82f686",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "constant.npz",
+      "sha256": "f5475aebc9883a4d9bd1a341a1eaf212c01d3da0c035c682de3c11697805c1f6",
+      "availability": "private dislab artifact; not published"
+    },
+    {
+      "id": "calendar.npz",
+      "sha256": "1bd63ba90fc7e6aab5117d0cc483af53d9ffd7903b447214195aa5eabef0ff76",
+      "availability": "private dislab artifact; not published"
+    },
+    {
+      "id": "selection.json",
+      "sha256": "b8b4370ac4a030b18a5e06eae78a0cc82ce7522bfc701e886cb7fb6460109659",
+      "availability": "private dislab artifact; not published"
+    },
+    {
+      "id": "prepared_panel.npz",
+      "sha256": "69b75ae9e0255e6b9e100c6e69764677a83d794554a8377388d69bb5a4130f89",
+      "availability": "private dislab artifact; not published"
+    },
+    {
+      "id": "inference_check.json",
+      "sha256": "7b51babc60a9edc5ecaddb81bc9f62abb42828834def33b8f380448ac8d6f40a",
+      "availability": "private dislab verification; not published"
+    }
+  ],
+  "limitations": [
+    "Historical recorded completed-trip counts only; no API training, tuning or evaluation.",
+    "Zero count is no accepted record in assumed-covered city hours; complete station recording is not independently proven.",
+    "Missing months, month boundaries, nights and unknown city hours are masked; duration>=24h trips are excluded.",
+    "Recurring training stations and daytime source scope restrict generalization; operation and station changes remain uncertain.",
+    "Naive clocks conditionally interpreted as KST; no independent source-clock verification.",
+    "Retrospective historical periods were summarized in legacy work; not untouched independent external test.",
+    "Bootstrap is conditional on training cohort and validation-selected alpha; model-selection uncertainty is excluded.",
+    "Poisson deviance compares mean forecasts; not Poisson distribution fit, uncertainty calibration, inventory or policy validation."
+  ],
+  "post_run_verification": {
+    "saved_model_cli_prediction_ok": true,
+    "api_used": false,
+    "checked_at_utc": "2026-10-31T04:03:27.625307+00:00",
+    "target": "recorded rental/return hourly means; no inventory validation"
+  }
+}
