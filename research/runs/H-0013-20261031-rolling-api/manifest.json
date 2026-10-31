@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0013",
+  "plan_sha256": "7dd06c0ac8ab7e081228bc53fc21f9a9e959130b3b6484a3bdd8145574730a18",
+  "input_manifest_sha256": "330513d242622205a11f075b79d61b2a04ae6980a83918a1f039ce689f0329b3",
+  "code_commit": "259b25ee5e56df398be81699a52fd08731234aa5",
+  "started_at_utc": "2026-10-31T12:16:57.080408+00:00",
+  "finished_at_utc": "2026-10-31T12:47:30.976311+00:00",
+  "timestamp_basis": "Collector reference for run envelope; native remote report times preserved with measured clock difference.",
+  "command": [
+    "python",
+    "research_code/rolling_inventory_evaluate.py",
+    "--fit-dir",
+    "PRIVATE_FROZEN_FIT",
+    "--panel",
+    "PRIVATE_SEPTEMBER_PANEL",
+    "--weather-dir",
+    "PRIVATE_WEATHER",
+    "--out",
+    "PRIVATE_EVALUATION"
+  ],
+  "additional_commands": [
+    [
+      "python",
+      "research_code/rolling_inventory_fit.py",
+      "--history-dir",
+      "PRIVATE_HISTORY",
+      "--parent-dir",
+      "PRIVATE_H12",
+      "--weather-dir",
+      "PRIVATE_WEATHER",
+      "--out",
+      "PRIVATE_FIT"
+    ],
+    [
+      "python",
+      "research_code/rolling_inventory_predict.py",
+      "predict",
+      "--fit-dir",
+      "PRIVATE_FIT",
+      "--snapshot",
+      "PRIVATE_CURRENT",
+      "--previous",
+      "PRIVATE_PREVIOUS",
+      "--weather-dir",
+      "PRIVATE_WEATHER",
+      "--out",
+      "PRIVATE_FORECAST"
+    ],
+    [
+      "python",
+      "research_code/rolling_inventory_predict.py",
+      "score",
+      "--forecast",
+      "PRIVATE_CONFIRMED_FORECAST",
+      "--snapshot",
+      "PRIVATE_FUTURE",
+      "--out",
+      "PRIVATE_LIVE_SCORE"
+    ]
+  ],
+  "environment": {
+    "historical_fit": {
+      "python": "3.12.14",
+      "torch": "2.7.1+cu128",
+      "numpy": "1.26.4",
+      "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "device": "local GPU",
+      "free_gpu_bytes": 7440695296,
+      "total_gpu_bytes": 8585216000,
+      "threads": 4,
+      "memory_fraction": 0.55,
+      "tf32": false,
+      "deterministic": true
+    },
+    "external_evaluation_and_live_inference": {
+      "python": "3.12.10",
+      "torch": "2.7.1+cu118",
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "cuda_runtime": "11.8",
+      "gpu": "NVIDIA GeForce RTX 3080"
+    },
+    "execution_location_deviation": true
+  },
+  "evaluation_scope": "Official September2026 API 10-minute inventory forecasts; repeated exposed evaluation. March completed-count auxiliary and one additional live functional roundtrip separated. Historical-only fit; previous/current API inference only; future truth scoring only.",
+  "metrics": {
+    "worst_control_fair_crps_relative_gain": -0.003267662462513199,
+    "persistence_fair_crps": 0.21201496358960195,
+    "persistence_median_mae": 0.21201496358960195,
+    "persistence_mean_rmse": 0.6007048395951837,
+    "persistence_brier": 0.061430115342641714,
+    "persistence_median_exact": 0.8348794651700365,
+    "persistence_median_within1": 0.9669863872335216,
+    "recent_trend_fair_crps": 0.3197969006317264,
+    "recent_trend_median_mae": 0.3197969006317264,
+    "recent_trend_mean_rmse": 0.7929105158510695,
+    "recent_trend_brier": 0.07269185572834828,
+    "recent_trend_median_exact": 0.7743234597016637,
+    "recent_trend_median_within1": 0.9380459881854838,
+    "no_recent_poisson_fair_crps": 0.17945419912457572,
+    "no_recent_poisson_median_mae": 0.21155289340943934,
+    "no_recent_poisson_mean_rmse": 0.5868985625171038,
+    "no_recent_poisson_brier": 0.05307208102914197,
+    "no_recent_poisson_median_exact": 0.8346313464993507,
+    "no_recent_poisson_median_within1": 0.9670953967478557,
+    "recent_poisson_fair_crps": 0.17917046218719354,
+    "recent_poisson_median_mae": 0.21203855520091308,
+    "recent_poisson_mean_rmse": 0.5874371198765089,
+    "recent_poisson_brier": 0.05282352435039272,
+    "recent_poisson_median_exact": 0.8343185542735188,
+    "recent_poisson_median_within1": 0.9670266556735181,
+    "recent_cfm_fair_crps": 0.17975593078087343,
+    "recent_cfm_median_mae": 0.21198201668415023,
+    "recent_cfm_mean_rmse": 0.5881744148504008,
+    "recent_cfm_brier": 0.0535437345069624,
+    "recent_cfm_median_exact": 0.8342587617414026,
+    "recent_cfm_median_within1": 0.9670819739345236
+  },
+  "decision": "not_supported",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "model_artifacts": [
+    {
+      "id": "context.npz",
+      "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+    },
+    {
+      "id": "flow-11.pt",
+      "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e"
+    },
+    {
+      "id": "flow-29.pt",
+      "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e"
+    },
+    {
+      "id": "no_recent-11.pt",
+      "sha256": "7c9c81a5c7201dfb43c7307d300510a8583dddf58085609cf6958326e77cbb0f"
+    },
+    {
+      "id": "no_recent-29.pt",
+      "sha256": "3c4f8de7b60f3a16dfec0ae5f3f4f077b4c5b23687db5c7b04ab3f2ad584799c"
+    },
+    {
+      "id": "recent-11.pt",
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+    },
+    {
+      "id": "recent-29.pt",
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+    },
+    {
+      "id": "time-features.npz",
+      "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+    }
+  ],
+  "stage_code_commits": {
+    "plan": "457e02eeaedb78e51616082573afe30417fdc6fb",
+    "historical_fit": "1c5916eb1d8aa71217f25bb33bc920c264354663",
+    "september_evaluation": "259b25ee5e56df398be81699a52fd08731234aa5",
+    "engineering_acceptance": "6410a92abb2cf3c3e8c9ed6f021e6bdbfdafd2f6",
+    "receipt_utility": "13082428492a6542cac37664926aa046cc0e83e1"
+  },
+  "verification": {
+    "semantic_tests_dislab": 14,
+    "core_code_hashes_verified": 12,
+    "cpu_gpu_rate_checks": 16,
+    "repeated_generation_identical": true,
+    "tamper_rejected": true,
+    "live_roundtrip_completed": true,
+    "exact_secret_or_private_path_matches": 0
+  },
+  "artifacts": [
+    {
+      "id": "execution-deviations.json",
+      "sha256": "76cbd865b901479eee229926c19bdfdb6fa9b7733d3dc55b075b1e2776d914b5"
+    },
+    {
+      "id": "input-integrity.json",
+      "sha256": "df82fe836d58541b72550f6a86bf94b58df99b167fb8459eb42208dfc7a4d6c1"
+    },
+    {
+      "id": "live-roundtrip.json",
+      "sha256": "bb145df64155fb04e7ec32049a14f247c2f29dbb30f00b66b486fc8e0e6d4197"
+    },
+    {
+      "id": "prediction-acceptance.json",
+      "sha256": "66129082d37b8eda106cc0e81a7a31141b1d146e1bf18c59ca1b800b67ebbe29"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "4f054fb12881e5b2fa0ee0af4e3d95193a9030d91e135f00a39090b1dbcc22a4"
+    },
+    {
+      "id": "training.json",
+      "sha256": "2397ba27192ff7f11802f96ddefbc86de60d1cbacfcf5bd7e2cc69568225b472"
+    }
+  ],
+  "limitations": [
+    "September has been exposed in earlier hypotheses; not an untouched test.",
+    "API change is a noisy recent-flow proxy containing operations/repair/reporting changes.",
+    "Historical completed-flow training is not latent demand or operational action truth.",
+    "CFM samples only station-wise rental/return pairs, not city joint scenarios.",
+    "No capacity/action/routing/reward logs; no RL or relocation effect trained.",
+    "Weather archive as-of arrival/revisions not verified.",
+    "Confidence intervals condition on fixed fitted models and sampling rule.",
+    "Historical fitting was run locally contrary to the supplied dislab-only instruction; preserved as an execution deviation.",
+    "Live weather was missing; one live episode does not estimate general operational accuracy.",
+    "Remote OS clock lag; live issue proof uses collector confirmation before truth, original timestamp retained."
+  ]
+}

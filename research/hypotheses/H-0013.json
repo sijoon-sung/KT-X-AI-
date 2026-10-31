@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0013",
   "title": "실시간 재고 입력과 GCN·Flow Matching의 10분 재고 예측",
-  "status": "running",
+  "status": "completed",
   "plan": {
     "question": "과거 거래만 학습한 서울 encoder+타슈 GCN+CFM이 최근 API 관측을 입력받을 때 10분 재고를 현재유지 및 동일GCN Poisson보다 개선하는가?",
     "hypothesis": "최근관측 조건부 CFM의 fairCRPS가 recent GCN Poisson 및 현재유지 각각보다 1% 초과 개선된다.",
@@ -78,7 +78,26 @@
     "plan_sha256": "7dd06c0ac8ab7e081228bc53fc21f9a9e959130b3b6484a3bdd8145574730a18",
     "frozen_at_utc": "2026-10-31T12:12:42.410449+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "동일9월 1298ID/2458501쌍에서 CFM 최소fairCRPS상대개선 -0.326766%, 판정not_supported. 실제새API1296쌍발행→관측→채점완료. 로컬학습위치위반과dislab전체평가전환은제약으로보존.",
+    "limitations": [
+      "September has been exposed in earlier hypotheses; not an untouched test.",
+      "API change is a noisy recent-flow proxy containing operations/repair/reporting changes.",
+      "Historical completed-flow training is not latent demand or operational action truth.",
+      "CFM samples only station-wise rental/return pairs, not city joint scenarios.",
+      "No capacity/action/routing/reward logs; no RL or relocation effect trained.",
+      "Weather archive as-of arrival/revisions not verified.",
+      "Confidence intervals condition on fixed fitted models and sampling rule.",
+      "Historical fitting was run locally contrary to the supplied dislab-only instruction; preserved as an execution deviation.",
+      "Live weather was missing; one live episode does not estimate general operational accuracy.",
+      "Remote OS clock lag; live issue proof uses collector confirmation before truth, original timestamp retained."
+    ],
+    "run_manifests": [
+      "research/runs/H-0013-20261031-rolling-api/manifest.json"
+    ]
+  },
   "execution_notes": [
     {
       "scope": "execution location deviation; frozen plan remains unchanged",

@@ -76,3 +76,31 @@ Gast 원문 심화 확인과 [H-0005 결과](H-0005-results.md)를 연결했다.
 기존 AI 배치 사업 보도, 2026년 출근 후 지역별 집중·부족 보도, 공식 지정 대여소 안내를 연결했다.
 2026년 보험 대상 차량 14대는 재게시본에서 확인한 잠정 자료이며 나라장터 원문 첨부는 시스템 점검으로 대조하지 못했다.
 실가동 재배치 차량 수·적재량·거점으로 확정하지 않는다. 예측 지표와 실제 운영 개선은 별도 평가다.
+
+
+## H-0013 문헌과 적용 경계
+
+### 가설
+
+완료 거래의 확률 예측과 관측 재고 연결, 관리자 행동을 다른 검증 대상으로 둔다.
+다음 원문은 설계 근거이며 이번 설정의 성능 우위를 보장하는 자료가 아니다.
+
+### 실험
+
+- [Lipman 외, Flow Matching](https://arxiv.org/html/2210.02747v2): 확인 범위는 원문§3의 조건부 벡터장 회귀다.
+  질문은 과거 완료 대여/반납2D log 잔차 분포를 생성할 수 있는가다. 원문의 일반 연속 생성과 우리의10분 계수 정답은 다르다.
+  독립Gaussian coupling·dequantization·역변환을 명시하고 과거 flow loss/energy와 별도 재고 fairCRPS로 평가한다.
+  구현은 저장소 `rolling_inventory_model.py`·`scaled_flow_core.py`다. 도시 공동 보존·물리 재배치나 신규성을 입증한 재현으로 부르지 않는다.
+- [Ferro, Fair scores for ensemble forecasts](https://empslocal.ex.ac.uk/people/staff/ferro/Publications/ferro2013.pdf): 저자 원문 초록·독립 ensemble 표본 해석을 확인했다.
+  질문은 유한128입자와 pointmass를 비교할 때 표본 수 영향을 어떻게 구분하는가다. 일반 예측/검증값을 다루며 특정 교통 예측시간을 정하는 논문이 아니다.
+  IID seed-mixture 가정 아래 M(M−1) 보정 fairCRPS를 주지표로, 일반CRPS·fairBrier를 보조로 사용한다.
+  저장소 `rolling_inventory_metrics.py`의 pairwise 등가 검사를 제공한다. 이 보정은 확률 보정 완료나 독립시험을 보장하지 않는다.
+- [Liang 외, RL bike rebalancing](https://www.cirrelt.ca/documentstravail/cirrelt-2024-04.pdf): 확인 범위는 초록의 운영 MDP·행동·보상·시뮬레이터다.
+  질문은 예측 상태를 실제 수량/이동 행동으로 연결하는 데 무엇이 필요한가다. 이번 자료에는 미래 재고와 과거 완료 거래만 있고 action/cost 정답이 없다.
+  논문의 상세 simulator·실험 성능·시간 설정을 재현했다고 하지 않는다. 이번 구현은 상태예측·로그 필드·관리자 참고목록이며 정책/운영 보상 평가는 미실행이다.
+
+### 결과
+
+[H-0013](H-0013-rolling-api-flow.md)의 재사용9월에서 CFM 추가이득 주가설은 지지하지 못했다.
+서울/GCN 단독효과는 이번 대조에서 분리하지 않았으며 CFM/Poisson은 head·목적함수 묶음 대조다.
+후속 설계의 분포·정규화·선택 기준은 과거 내부 정답으로 새 계획에서 정한다. API 관측 통계를 모형군 선택 근거로 재사용하지 않는다.
