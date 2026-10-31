@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "id": "H-0015",
+  "title": "예측 시나리오에서 재배치 수량·적재·동선으로 연결하는 시제품",
+  "status": "preregistered",
+  "plan": {
+    "question": "Can the planning interface produce consistent quantities and a capacity/time feasible route, and actually respond to joint risk?",
+    "hypothesis": "Fixed synthetic scenarios and confirmed fictional resource inputs yield zero acceptance constraint violations; changing joint dependence alone changes the CVaR allocation while expected-only remains invariant.",
+    "prior_art": [
+      {
+        "title": "Schuijbroek et al., Inventory Rebalancing and Vehicle Routing",
+        "url": "https://www.andrew.cmu.edu/user/vanhoeve/papers/bike_sharing.pdf",
+        "verified_scope": "Author original abstract/intro inventory-service requirements and routing coupling; finite-dock assumptions noted.",
+        "difference_to_test": "Small one-vehicle synthetic contract prototype, not a reproduction or Tashu operating improvement."
+      },
+      {
+        "title": "Rockafellar & Uryasev, Optimization of Conditional Value-at-Risk",
+        "url": "https://sites.math.washington.edu/~rtr/papers/rtr179-CVaR1.pdf",
+        "verified_scope": "Author manuscript scenario CVaR linear formulation and use outside finance.",
+        "difference_to_test": "Tail of total bike-buffer shortfall under supplied scenarios; no inferred unmet demand or actual operating cost."
+      },
+      {
+        "title": "SciPy1.15.3 milp official documentation",
+        "url": "https://docs.scipy.org/doc/scipy-1.15.3/reference/generated/scipy.optimize.milp.html",
+        "verified_scope": "Integer variables, linear constraints/bounds, solver status/gap/time limit.",
+        "difference_to_test": "Use existing pinnedremoteSciPy; no dependency installation or claim of globally optimal combinedrouting."
+      },
+      {
+        "title": "OR-Tools pickup-delivery official documentation",
+        "url": "https://developers.google.com/optimization/routing/pickup_delivery",
+        "verified_scope": "Same vehicle and pickup-before-delivery constraints.",
+        "difference_to_test": "Production scale path; prototype exact small permutation routing, no OR-Tools execution claim."
+      },
+      {
+        "title": "OSRM official API documentation",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "Profiles tied to extracted Lua mode and directed time matrices.",
+        "difference_to_test": "Road-matrix interface only; synthetic times in accepted tests, no true truck route/traffic API claimed."
+      }
+    ],
+    "data": {
+      "dataset_id": "H15-functional-pipeline-v1",
+      "observed_truth": "engineering acceptance of planning contracts; not a field-effect or prediction superiority test",
+      "not_observed": "Real vehicle/capacity/depot/road/handover costs, live action results and counterfactual bicycle demand",
+      "input_manifest_sha256": "332774db5d84289bdd7bc929d8d7bf9e9a9c2eba34418c619945ac75afe823c8"
+    },
+    "evaluation": {
+      "design": "Exact functional plan research/plans/H-0015-v1.json SHA256=e9bb0b4c839af29431c1e6af9433f0a3c9429a28009a4f30952be917df086134",
+      "periods": [
+        {
+          "role": "engineering_acceptance",
+          "start": "2026-11-01T00:00:00+09:00",
+          "end": "2026-11-02T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "expected-only same marginal scenarios",
+        "exact main-case route/quantity oracle",
+        "input/horizon/capacity/time rejection oracles"
+      ],
+      "primary_metric": {
+        "name": "acceptance_constraint_violations",
+        "unit": "count",
+        "direction": "lower"
+      },
+      "success_rule": "all acceptance assertions pass, zero constraint violations; positive virtual routing example; no real dispatch",
+      "failure_rule": "any unsafe result or failed acceptance assertion meansnot_supported; preservelogs",
+      "exclusion_rule": "No field data; execute all preregistered fixtures and edge cases, no failure exclusion.",
+      "uncertainty_plan": "Deterministic engineering acceptance, exact small-case routing; no population confidence interval, no field effectiveness inference.",
+      "seed_plan": "No stochastic training; supplied finite4member scenarios and deterministic ordered solver/route selection."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "c05fcfdeb44fdd0fa5f0837ccec65bcd5273790e01517e836bd76701de8eb4e6",
+    "frozen_at_utc": "2026-10-31T15:12:35.446107+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
