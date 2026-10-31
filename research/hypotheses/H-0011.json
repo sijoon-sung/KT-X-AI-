@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "H-0011",
+  "title": "대여소 전이 임베딩·기상·모델 용량의 다계절 거래 예측 비교",
+  "status": "preregistered",
+  "plan": {
+    "question": "서울 대여소 표현과 실제 기상을 사용한 큰 GCN이 여러 계절의 과거 기록 건수 예측을 개선하는가?",
+    "hypothesis": "사전 주후보 large_weather_pretrained가 큰 달력/기상/무작위표현 세 대조군 모두에 대해 다계절 macro Poisson deviance를 1% 넘게 감소시킨다.",
+    "prior_art": [
+      {
+        "title": "Wang et al., RegionTrans IJCAI2019",
+        "url": "https://ijcai.org/proceedings/2019/262",
+        "verified_scope": "학회 초록 및 저자 원문 arxiv1802.00386의 지역 매칭/표현 전이 확인",
+        "difference_to_test": "공유 프로필 인코더 전이와 무작위 인코더 대조; 전체 RegionTrans 재현 아님"
+      },
+      {
+        "title": "NOAA GHCNh documentation v1.1.0",
+        "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/doc/ghcnh_DOCUMENTATION.pdf",
+        "verified_scope": "원문 표의 변수 단위/결측/QC/3시간강수/자료원 코드 확인",
+        "difference_to_test": "1시간 지연·4시간 나이·QC·결측 표시를 동결한 외생 맥락"
+      },
+      {
+        "title": "Lin et al. TRC2018",
+        "url": "https://arxiv.org/pdf/1712.04997",
+        "verified_scope": "대여소 거래와 공간 관계의 비교",
+        "difference_to_test": "각 시간 분할의 과거 전용 OD; 전이/기상/크기 효과 분리"
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-cross-city-weather-H0011-v1",
+      "input_manifest_sha256": "b6740834808554b02ff598e34942edd6ec954e50a3eed11e349d18ba0465e9c5",
+      "observed_truth": "과거 완료 대여/반납의 30분 기록 건수만. 재고 API를 읽지 않음.",
+      "not_observed": [
+        "과거 실측 재고/품절",
+        "미충족 수요/운영 이동",
+        "기상 실시간 수신/수정 전 값",
+        "정책 효과"
+      ]
+    },
+    "evaluation": {
+      "design": "내부 기록 건수 실험이다. 타슈 재고 API 원본·예측·요약을 실행 입력에 포함하지 않는다. 공식 9월 재고 평가는 이 H11의 범위 밖이며 후속 동결 계획에서 수행한다. 아래 시각은 KST 반개구간이다.\n\n세 rolling fold: A train2024-08-01~2025-03-01, validation2025-03, test2025-04-01~2025-06-01; B train같은시작~2025-07-01, validation2025-07, test2025-08-01~2025-10-01; C train같은시작~2026-02-01, validation2026-02, test2026-03. 기존 과거 자료의 내부 진단이며 미열람 독립 자료가 아니다. periods 필드에는 최종 fold를 적고 세부 분할은 이 설계를 따른다.\n\n타슈 원본은 H4의 member hash/header/encoding/필수키/날짜/월일치/0<=duration<24h/완전중복 제거를 재사용한다. 2025-12 이름의 2025-01 행은 제외하고 12월을 결측으로 둔다. 30분 건수, 각월 첫날/마지막날과07~21시 밖, 도시 양 channel 기록이 없는 시간을 제외한다. 각 fold 학습에서 channel별100건 이상·활동60일 이상·마지막30일1건 이상의 대여소만 사용하고 첫 학습 기록 이전은 노출에서 제외한다. 실측 공급 노출은 아니다. validation/test/API로 코호트·OD·프로필을 만들지 않는다.\n\nfold 학습 전용 무방향OD=count+transpose에서 각행 상위8개(동점은 대여소ID순)를 남기고 자기weight1을 더해 행 정규화한다. alpha32 고정의 계층 weekly/month-weekly Poisson prior(H10 수식)를 사용하고 mean/rate하한1e-6이다. own달력32=log1p(base/weekly/seasonal)6+요일7/시각15/반시간2/월sin cos2. neighbor입력은 lograte6와 임베딩64만이며 달력을 이웃으로 다시 전달하지 않는다.\n\n서울2024 ZIP의12개 CP949 CSV에서 bike/renttime/origin/returntime/destination5열만 읽는다. 월일치·유효시각·0<=duration<24h·정수station1~99999·bike비어있지않음/UTF8최대32bytes를 확인하고 월별5tuple 완전중복을 제거한다. 개인속성은 읽거나 학습하지 않는다. 07~21시/월경계일/도시기록/첫기록이전노출 규칙은 타슈와 같다. 대여소 주간420(요일7*반시간30*channel2), 월24 평균률을 각channel 전체평균으로 나눠log1p한 뒤 월관측mask12를 붙여456차원으로 만든다. 서울은 channel별100건·활동60일·노출6개월 이상을 사용한다. 서울2024전체는 모든 타슈fold학습종료 이전이다. 타슈 프로필은 해당fold학습만 사용하며 결측월은 값0/mask0이다. 자료 공개시점까지 고려한2025년 실운영 재현을 주장하지 않는다.\n\n서울 station번호의SHA256 정수 mod10==0을 source validation, 나머지를 source train으로 나눈다. source train의456차원 평균/std(하한.1)로 표준화한다. AEencoder456->256SiLU->64, decoder64->256SiLU->444. source seed20261101,batch256,AdamW .001/weightdecay.0001,100epoch,input표준공간20%독립zero mask,weekly420과 관측월mask24의 maskedMSE. 깨끗한 source validationMSE최소/동점최초 checkpoint를 선택한다. source train으로만 embedding평균/std(하한.1)를 구한다. 같은 초기값의 미학습encoder와 그 자체의 source train embedding표준화도 저장해 random대조로 쓴다. 양 encoder는 타슈 학습 중 고정한다.\n\n다섯 후보: small_calendar(width32 depth1),large_calendar(width256 depth3),large_weather,large_weather_random,large_weather_pretrained(사전 주후보). 동일109 own=calendar32+weather13+embedding64,70 neighbor=lograte6+embedding64이며 사용하지않는block은0이다. own/neighbor선형합에SiLU,depth-1개 width선형SiLU,출력2를0초기화한다. rate=prior*exp(2*tanh(raw/2)). 날씨는 도시공통이므로 neighbor에 넣지 않는다. 모든 후보의 train노출·표본·optimizer·epoch는 같고 seed11/29의 동일가중rate평균을 사용한다. 추가 source사전학습 연산은 별도로 기록한다.\n\nGHCNh temperature(C),wind_speed(m/s),relative_humidity(%),precipitation_3_hour(mm)를 사용한다. 변수별 Quality_Code가 빈값/0/1/4/9인 경우만 허용하고 나머지flag를 제외한다. 온도[-60,60],wind[0,75],RH[0,100],precip[0,500],finite 외는 missing이다. precip Measurement_Code는 빈값/T만 허용하고 T는0으로 표현하되 trace flag1을 추가한다. 원본 빈 강수를0으로 해석하지 않는다. 변수별 예측시작-1h 이하 최신 보고,age<=4h만 사용한다. 미래 기상과 미래 일요약은 금지한다. 4values+4present+4age/4h+trace=13이다. values평균/std(하한.1)는 타슈fold train에서만 구하고 missing은 표준공간0/present0/age1이다. 아카이브 수정과 실시간 수신시각 미검증은 hindcast의 제약으로 남긴다.\n\n타슈 각seed12epoch+epoch0. 매epoch PCG64(seed+epoch)로 유효time/node를 균등 rejection sampling해262144노출(각2channel)을 뽑고 batch8192,AdamW .001/weightdecay.0001,gradnorm1,float32 deterministic/TF32off로 학습한다. validation전체 Poisson deviance최소/동점최초 epoch를 선택한다. checkpoint와 전처리/profile/OD/embedding/weather/split을 해시로 lock한 뒤 test전체 deviance/MAE를 계산한다. 후보 추가/epoch연장/학습률탐색은 없다. GPUmemory .55,CPUthreads4,localRTX4060이며 chunk처리로 거대한T*N*feature배열을 만들지 않는다.\n\n주metric은 fold등가중macro deviance에서1-full/control을 large_calendar,large_weather,large_weather_random 세 대조군별로 구한 최소값이다. small/large·weather·pretrained/random 차이는 고정 보조비교다. 각fold/seed/전체대조·coverage·결측률·params·시간을 보고한다. 거래 개선은 실측재고·잠재수요·운영효과를 의미하지 않는다.\n",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "small_calendar",
+        "large_calendar",
+        "large_weather",
+        "large_weather_random"
+      ],
+      "primary_metric": {
+        "name": "worst_control_macro_count_deviance_gain",
+        "direction": "higher",
+        "unit": "fraction; internal count diagnostic only"
+      },
+      "success_rule": "각 fold>=500학습ID/10test일, source train>=100/validation>=20station, 모든 후보 완료, 3/7일 bootstrap유효>=1900일 때 점추정과 두95%하한>.01이면 supported. 재고 공식 개선 판정 아님.",
+      "failure_rule": "동일 충분성에서 두 구간 상한<=.01이면 not_supported, 그 외 inconclusive. 자료/수치/메모리/모델 실패는 미실행/실패로 보존하고 유리한 비교군 삭제 없음.",
+      "exclusion_rule": "design의 사전 원본/QC/기간/노출/학습코호트 규칙만 적용. test오차·API·기상관측 여부로 표본 제거하지 않음. 과거 보조시험 반복 노출을 명시.",
+      "uncertainty_plan": "각fold의 도시동기화 일별 deviance합과 노출수, 후보별2seed 평균rate의 점수. 각fold내 3/7일 이동블록 2000회 PCG64seed20261101, fold별mean의 등가중 macro에서 full vs3control 최소 상대감소의2.5/97.5분위수. 학습/선택/도시간이전 불확실성 미포함.",
+      "seed_plan": "source20261101,target11/29,12epoch+0,262144samples/epoch,batch8192,source100epochs; 모든비교군/체크포인트 기록. 합성자료로 시각/QC/결측/프로필 미래비의존/graph훈련기간/실제최적화/저장로드 확인."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
+    "frozen_at_utc": "2026-10-31T09:56:19.239644+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}

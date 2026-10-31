@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "tashu-cross-city-weather-H0011-v1",
+  "sources": [
+    {
+      "id": "seoul-trips-2024.zip",
+      "sha256": "f1385bffd913aa0b37a4914fd835621eea4f55d14665ffdd6fb2d76a0faae8cb",
+      "bytes": 2068679477,
+      "url": "https://data.seoul.go.kr/dataList/OA-15182/F/1/datasetView.do",
+      "role": "source-city profile pretraining only",
+      "license": "KOGL Type 1; attribution Seoul Metropolitan Government"
+    },
+    {
+      "id": "daejeon-2024-ghcnh.psv",
+      "bytes": 7385506,
+      "sha256": "be88e64ab764ff1d9ac3b9523e8c909104b52069495bf5078902ee02fae573c4",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/psv/GHCNh_KSI0000RKTF_2024.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "daejeon-2025-ghcnh.psv",
+      "bytes": 7326061,
+      "sha256": "d2215df66ab5947456febf25a5ef38e3a40c39e93ebb77cdb004d0409fb338a9",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/psv/GHCNh_KSI0000RKTF_2025.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "daejeon-2026-ghcnh.psv",
+      "bytes": 5118009,
+      "sha256": "f52b24c497c71ca50a40ded97b5157b763032575871678d7d729d374e147c652",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2026/psv/GHCNh_KSI0000RKTF_2026.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "historical-trips-20260331.zip",
+      "sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+      "bytes": 493887524,
+      "role": "target-city completed historical transactions",
+      "catalog": "research/datasets/tashu-historical-H0004-v1.json"
+    }
+  ],
+  "api_data_included": false,
+  "truth": "completed recorded rental/return counts; no measured inventory truth",
+  "weather_station": "KSI0000RKTF TAEJON; city-representativeness unverified",
+  "weather_documentation": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/doc/ghcnh_DOCUMENTATION.pdf",
+  "source_acquisition_note": "Legacy ISD 2026 unavailable (404); legacy 2025 incomplete. GHCNh successor actually downloaded. Raw archives/private records not published."
+}
