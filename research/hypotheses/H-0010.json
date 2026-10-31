@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0010",
   "title": "넓은 과거 이력의 대여소별 계절 패턴과 GCN 잔차 학습",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "더 넓은 과거 이력의 대여소별 계절 패턴을 계층 평활하고 작은 GCN으로 보완하면 공식9월 재고 분포 예측이 개선되는가?",
     "hypothesis": "사전 주후보 seasonal_od가 같은 넓은 이력의 pooled_calendar 및 고정 H9full 대비 전체재고CRPS를 각각1% 넘게 줄인다.",
@@ -85,6 +85,21 @@
     "plan_sha256": "6083732a5b9b736df06b4b7a7d0517e4b0a71b73f52b4efb6051ddaa31425e3d",
     "frozen_at_utc": "2026-10-31T08:58:15.311491+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "넓은 과거 이력의 계층 계절 프로필과 GCN 각2시드 학습·9월 평가 완료. 두 주대조군 대비 최소 CRPS 상대 감소 0.243%, 사전 판정 not_supported. 연구 구현/고정 모델을 보존하며 API 점수로 운영 모델을 선택하지 않는다.",
+    "limitations": [
+      "Repeatedly exposed September official evaluation, not an untouched independent test; no API fitting/selection/calibration.",
+      "February and March are completed-count data, not measured inventory; March was already used in prior research.",
+      "First historical record is only a conservative record-support proxy, not physical opening date or measured supply exposure.",
+      "Static calendar/OD inputs omit current weather, recent transactions, operator moves and observation process.",
+      "Poisson zero-reflection has no measured physical parking cap; completed flows are not identified latent demand.",
+      "Primary comparison is a seasonality-plus-GCN package; graph effect is a separate auxiliary contrast; intervals omit fit/selection uncertainty."
+    ],
+    "run_manifests": [
+      "research/runs/H-0010-20261031-seasonal-history/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

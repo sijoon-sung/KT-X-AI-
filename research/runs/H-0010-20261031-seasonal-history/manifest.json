@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0010-20261031-seasonal-history",
+  "hypothesis_id": "H-0010",
+  "plan_sha256": "6083732a5b9b736df06b4b7a7d0517e4b0a71b73f52b4efb6051ddaa31425e3d",
+  "code_commit": "19997dbb223b922ecb31f7474e722a3e8cab196f",
+  "input_manifest_sha256": "010c5c6ff02437814ef7bb142bf89c81bcc762f48e36b1a3229cf9df8e873af7",
+  "started_at_utc": "2026-10-31T09:00:40.848988+00:00",
+  "finished_at_utc": "2026-10-31T09:15:36.755638+00:00",
+  "command": [
+    [
+      "python",
+      "research_code/seasonal_history.py",
+      "train",
+      "--archive",
+      "<PRIVATE_HISTORY_ARCHIVE>",
+      "--h4-artifacts",
+      "<PRIVATE_H4_ARTIFACTS>",
+      "--h7-artifacts",
+      "<PRIVATE_H7_ARTIFACTS>",
+      "--run-id",
+      "H-0010-20261031-seasonal-history"
+    ],
+    [
+      "python",
+      "research_code/seasonal_history.py",
+      "evaluate",
+      "--panel",
+      "<PRIVATE_AUDITED_API_PANEL>",
+      "--h7-artifacts",
+      "<PRIVATE_H7_ARTIFACTS>",
+      "--h9-artifacts",
+      "<PRIVATE_H9_ARTIFACTS>",
+      "--run-id",
+      "H-0010-20261031-seasonal-history"
+    ]
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu118",
+    "scipy": "1.15.3",
+    "device": "NVIDIA GeForce RTX 3080",
+    "cuda_peak_bytes": 921512448,
+    "compute_location": "dislab",
+    "threads": 4
+  },
+  "seed": [
+    11,
+    29
+  ],
+  "evaluation_scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "metrics": {
+    "worst_control_relative_crps_gain": 0.002434915410858274,
+    "valid_pairs": 237222,
+    "ci_3day_lower": -0.0009041273502732539,
+    "ci_3day_upper": 0.004110003829519093,
+    "ci_7day_lower": 0.0024349154108579407,
+    "ci_7day_upper": 0.003855691971538011
+  },
+  "artifacts": [
+    {
+      "id": "training.json",
+      "sha256": "ea72de38cb2b2a43f1d1ce0acc806b7d730fab7e09e868be4a3d62c1e204eda9",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "0f3f50bb7105b2bcbb3cfb9a1f9ec3672006a850addbb8478e376abe999927d0",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "context.npz",
+      "sha256": "cf48a4db8a93fb734d811979e8f42bba84f9f7047fb31d48e26a1f3bb23e816c",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-h4_calendar.npz",
+      "sha256": "bbb66c9cc74b432818e707f2acdfa7fe2553aee8e887021f82143aa474ed1287",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-h9_full.npz",
+      "sha256": "d0eab00ec59b2adc85cf447658bf2b2f43c6cc9a6d1f9db9966ecf3a54239c98",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-pooled_calendar.npz",
+      "sha256": "27460a896bb597c34ca14e0bec7df0ba56b453b287ae5a392f9759443b2f735e",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-seasonal_od.npz",
+      "sha256": "25d85466f7db656098dfa750da73c1b558a58f6a8dcccc9835e4098b6751bde3",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-seasonal_profile.npz",
+      "sha256": "384bd856af76930e88565f3c2384d996217ecc07f961ce2e9892814b6750ca0d",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "predictions-seasonal_self.npz",
+      "sha256": "71efbd62b8934b1af09efaafac541d7e9a2f98969a7c0ccba291e839f5402a93",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "rates-pooled_calendar.npz",
+      "sha256": "2d3032feedd393375e2a9348c9773a49b97de18bc8cc2e20453240178f0eeadd",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "rates-seasonal_od.npz",
+      "sha256": "232dbc3f255ad3e2394a147d75e956da01f86d2f4d4c34af47fb8abbbf6acdab",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "rates-seasonal_profile.npz",
+      "sha256": "4bf90690f7072dc3947efa3870ecdaba616b1f0cdfe901bf36af569a41967d72",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "rates-seasonal_self.npz",
+      "sha256": "9c732cbac23c3e8341b7cd99d775fdebdda8b9df4b74689e510012fd18477d07",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "seasonal_od-seed11.pt",
+      "sha256": "fe66d033d2596871445acd856f1809aa62a80a1ab2c8b5814d8de06da0cd1cb8",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "seasonal_od-seed29.pt",
+      "sha256": "d1be864b201bfd5dbcf9ea29773724d13e6edc72582cebe3f4ec83e56608aeeb",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "seasonal_self-seed11.pt",
+      "sha256": "68bcde2f817d39a01fb979dd623a16ccfcc1800e6551aa70433a1eb21bf77b1a",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "seasonal_self-seed29.pt",
+      "sha256": "9294589e0cdfdb1592a8d341bb6bb62d51ab78d534367280f918792a6af1bc29",
+      "availability": "private model/rates/individual predictions; not published"
+    },
+    {
+      "id": "selection.json",
+      "sha256": "994e73be85e261784a05f546ca90ea300ecb620e6a6e6fe480cb66d261f57a63",
+      "availability": "private model/rates/individual predictions; not published"
+    }
+  ],
+  "limitations": [
+    "Repeatedly exposed September official evaluation, not an untouched independent test; no API fitting/selection/calibration.",
+    "February and March are completed-count data, not measured inventory; March was already used in prior research.",
+    "First historical record is only a conservative record-support proxy, not physical opening date or measured supply exposure.",
+    "Static calendar/OD inputs omit current weather, recent transactions, operator moves and observation process.",
+    "Poisson zero-reflection has no measured physical parking cap; completed flows are not identified latent demand.",
+    "Primary comparison is a seasonality-plus-GCN package; graph effect is a separate auxiliary contrast; intervals omit fit/selection uncertainty."
+  ]
+}
