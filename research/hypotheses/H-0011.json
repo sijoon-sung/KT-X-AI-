@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0011",
   "title": "대여소 전이 임베딩·기상·모델 용량의 다계절 거래 예측 비교",
-  "status": "running",
+  "status": "completed",
   "plan": {
     "question": "서울 대여소 표현과 실제 기상을 사용한 큰 GCN이 여러 계절의 과거 기록 건수 예측을 개선하는가?",
     "hypothesis": "사전 주후보 large_weather_pretrained가 큰 달력/기상/무작위표현 세 대조군 모두에 대해 다계절 macro Poisson deviance를 1% 넘게 감소시킨다.",
@@ -78,6 +78,22 @@
     "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
     "frozen_at_utc": "2026-10-31T09:56:19.239644+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "서울2753대여소64차원 사전학습 및 기상/용량/무작위표현 대조,3시간분할·각2seed 완료. 최소 대조군 상대 count deviance 감소 -0.323917%, 판정 not_supported. 재고 외부 평가는 후속 계획이며 수행하지 않음.",
+    "limitations": [
+      "Only completed historical count diagnostics; no inventory API loaded/evaluated and no measured inventory/stockout/operational gain demonstrated.",
+      "Historical tests reused from existing archives; not untouched independent tests. Source-city 2024 retrospective publication timing not a claim of 2025 deployment availability.",
+      "First historical record is a record-support proxy, not measured station opening, capacity or supply exposure; December2025 source is missing.",
+      "City-level weather station, revised GHCNh hindcast, receipt times unverified. Blank precipitation stays missing; reporting/missingness patterns may drift.",
+      "Static normalized station profiles do not transfer recent temporal shocks or directly identify functional station labels. Source and target month-support distributions differ.",
+      "Small fixed sampling budget and two seeds; block intervals omit fit/selection/transfer uncertainty. All specified controls and failed first attempt retained.",
+      "Research implementation adopted for reproducibility; live system model and official September evaluation unchanged. Flow Matching with the new context is a separate frozen experiment."
+    ],
+    "run_manifests": [
+      "research/runs/H-0011-20261031-cross-city-weather/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

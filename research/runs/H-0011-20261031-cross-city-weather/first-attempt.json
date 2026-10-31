@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0011",
+  "status": "failed_after_completed_source_pretraining",
+  "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
+  "code_commit": "3664fbd48daf86fa22889c6dff550c9bc704f93e",
+  "started_at_utc": "2026-10-31T10:01:50.681054+00:00",
+  "failure": "KeyError: members. The H4 dataset wrapper was passed instead of its hash-checked source_catalog. No target model had fitted.",
+  "resolution": "Fixed manifest-to-source-catalog resolution and added a semantic test; preserved source artifacts by hash; resumed without source refitting or plan changes.",
+  "source_artifacts": [
+    {
+      "id": "source-profiles.npz",
+      "sha256": "1425eb44c54a3c5ff2ceac21c2c9456e8f4fe08eb64626338db51f30b734668d"
+    },
+    {
+      "id": "source_encoders.pt",
+      "sha256": "06820605b0f4227c8ecca423775606b433462181192c7fd5b07640e538460a3c"
+    },
+    {
+      "id": "source-learning.json",
+      "sha256": "0070766c9d78071b0c450edb30099c46e554b9f7cecb85fb2915e703b78baa44"
+    },
+    {
+      "id": "source-audit.json",
+      "sha256": "112c983fdb030b85bfc86da56c0b88207971c0e741cf4483cbc4b2fa6b00f64e"
+    }
+  ]
+}

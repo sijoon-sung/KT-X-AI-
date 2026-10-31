@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0011-20261031-cross-city-weather",
+  "hypothesis_id": "H-0011",
+  "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
+  "code_commit": "cc3223d01830954abd203be77ed9ec05c67aaa5e",
+  "source_pretraining_code_commit": "3664fbd48daf86fa22889c6dff550c9bc704f93e",
+  "input_manifest_sha256": "b6740834808554b02ff598e34942edd6ec954e50a3eed11e349d18ba0465e9c5",
+  "started_at_utc": "2026-10-31T10:01:50.681054+00:00",
+  "resumed_at_utc": "2026-10-31T10:08:25.064279+00:00",
+  "finished_at_utc": "2026-10-31T10:12:14.346804+00:00",
+  "command": [
+    "python",
+    "research_code/cross_city_weather.py",
+    "--source-dir",
+    "PRIVATE_RAW",
+    "--history-dir",
+    "PRIVATE_HISTORY",
+    "--out",
+    "PRIVATE_OUTPUT",
+    "--resume-source"
+  ],
+  "initial_command": [
+    "python",
+    "research_code/cross_city_weather.py",
+    "--source-dir",
+    "PRIVATE_RAW",
+    "--history-dir",
+    "PRIVATE_HISTORY",
+    "--out",
+    "PRIVATE_OUTPUT"
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "packages": {
+      "torch": "2.7.1+cu128",
+      "numpy": "1.26.4",
+      "pandas": "2.2.3"
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "initial_free_gpu_bytes": 7440695296,
+    "cpu_threads": 4
+  },
+  "seed": 20261101,
+  "target_seeds": [
+    11,
+    29
+  ],
+  "evaluation_scope": "Three chronological folds of historical 30-minute completed rental/return counts. Official September inventory evaluation not executed in H11.",
+  "metrics": {
+    "small_calendar": 0.9432207697590401,
+    "large_calendar": 0.9443037429001889,
+    "large_weather": 0.9189398692473455,
+    "large_weather_random": 0.9050543823928551,
+    "large_weather_pretrained": 0.9079860060883153,
+    "worst_control_macro_count_deviance_gain": -0.003239168554390437,
+    "source_station_count": 2753,
+    "source_validation_mse": 0.44073283672332764,
+    "resume_seconds": 229.28499340000053,
+    "peak_gpu_bytes": 596413952
+  },
+  "artifacts": [
+    {
+      "id": "historical-quality.json",
+      "sha256": "c6be46e2e5d6c54a5581357a31f3de6d9993a0365df6501aaa9304bc1ad9c59b",
+      "availability": "private"
+    },
+    {
+      "id": "prediction-acceptance.json",
+      "sha256": "bd82c63061c8f65f64cb4e921a763f96ca286dbddeb6afada1398d01d7876a79",
+      "availability": "private"
+    },
+    {
+      "id": "results.json",
+      "sha256": "8a5685292c39130e21b66ff02955f98a977720712fb2cdf4e4cf4bcb4b85b915",
+      "availability": "private"
+    },
+    {
+      "id": "source-audit.json",
+      "sha256": "112c983fdb030b85bfc86da56c0b88207971c0e741cf4483cbc4b2fa6b00f64e",
+      "availability": "private"
+    },
+    {
+      "id": "source-learning.json",
+      "sha256": "0070766c9d78071b0c450edb30099c46e554b9f7cecb85fb2915e703b78baa44",
+      "availability": "private"
+    },
+    {
+      "id": "source-profiles.npz",
+      "sha256": "1425eb44c54a3c5ff2ceac21c2c9456e8f4fe08eb64626338db51f30b734668d",
+      "availability": "private"
+    },
+    {
+      "id": "source-resume-lock.json",
+      "sha256": "4466475dce3ad7d95b5f058f1256e18d35da612fa073915af8e19342b1408dd1",
+      "availability": "private"
+    },
+    {
+      "id": "source_encoders.pt",
+      "sha256": "06820605b0f4227c8ecca423775606b433462181192c7fd5b07640e538460a3c",
+      "availability": "private"
+    },
+    {
+      "id": "spring/context.npz",
+      "sha256": "4a9a7d8dfd9b1b73ad4d61985f666e1b44ec18ea6638b689177091bf2ae7fa6d",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_calendar-11.pt",
+      "sha256": "bba3a42b2125870fe46fd8a7308e7e3ae6794a3472b38cb888ed1164b0829eb9",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_calendar-29.pt",
+      "sha256": "037418a7da147169d7ac16681f3df32da7edc110534ae97c8428c108e3e17186",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather-11.pt",
+      "sha256": "c631e6b3f5e6a0c734b708ca776ff64db2efa9a7fcfcedb0ae995a2cfb7231c9",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather-29.pt",
+      "sha256": "73606362a0725020a132f9f1aa25639ef01c45243eb3d4cec09ccf016b4a0350",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather_pretrained-11.pt",
+      "sha256": "c6ac9600eadc8354988738e821e06a8c010b2c8da9a59dbd999c6466e622904f",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather_pretrained-29.pt",
+      "sha256": "f5eecdf38db8f90becd160731879a246b30f8c3c2b8090f820aa485a95b2c793",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather_random-11.pt",
+      "sha256": "4e829f6c2ab8dfdd79c0c6d6c7ddc7aa2594aae4d52beec29584b8d57a7c4d5c",
+      "availability": "private"
+    },
+    {
+      "id": "spring/large_weather_random-29.pt",
+      "sha256": "d3bfb19e3542735afc97a277e48288ac8d7a2e0237cd12c4cdde13071e725c9f",
+      "availability": "private"
+    },
+    {
+      "id": "spring/pre-test-lock.json",
+      "sha256": "d584f1c8bc3caa8b750d1f8f707531fdbacf8b7a00746501ddc5838ad6c379a7",
+      "availability": "private"
+    },
+    {
+      "id": "spring/results.json",
+      "sha256": "5f537e8365c3faebc4997c6847ba9fc1dbc12457e2f75b64918d5c3c5bab953f",
+      "availability": "private"
+    },
+    {
+      "id": "spring/small_calendar-11.pt",
+      "sha256": "5b5688713002aa40d1a16a9e3f89ae5d15523727fc540947662a91382074e541",
+      "availability": "private"
+    },
+    {
+      "id": "spring/small_calendar-29.pt",
+      "sha256": "6bb5ee2e7b20a8dc44a1453a8790280f9a1e4f6e3edb362232fa130e60c31966",
+      "availability": "private"
+    },
+    {
+      "id": "spring/weather-scaling.json",
+      "sha256": "68e0e209704371dc1f5bb14b5c6c1def63b516b4515b518dc66e530bd6961a66",
+      "availability": "private"
+    },
+    {
+      "id": "started-resume.json",
+      "sha256": "57e9ceda2f05cd74f0f1b4fd85b5cd1fdeedd1ef22f4fa09a2404fb2c2963a58",
+      "availability": "private"
+    },
+    {
+      "id": "started.json",
+      "sha256": "61a322767f7e445952058b87fe1d5a90658144ce91d60770a139261e40b340c9",
+      "availability": "private"
+    },
+    {
+      "id": "summer/context.npz",
+      "sha256": "ad7e8d9b862ddf53783687cda4dcd111e8f7380ee042106ee9d240b936a99bce",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_calendar-11.pt",
+      "sha256": "173afa0924b56b186e6e502e9406acd0291f044a9e9b84f6a6457704532c665c",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_calendar-29.pt",
+      "sha256": "2d00b12cd4bb153acc3014ef2445a5fc7bef4d22450e25e3734302854f335aba",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather-11.pt",
+      "sha256": "fa7a5b0e3186d016155b1567b7f394db37e521a85cd29aa93fb3ea17713253b3",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather-29.pt",
+      "sha256": "ec0d79c8a34179a6fb54d58d270289cb42ad2b86c65e0e5187041e82d1ebbb30",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather_pretrained-11.pt",
+      "sha256": "eb6d24ed0fdef71ed8c22c2bd168e69803423e8d3dcfbd79a3e9d5690e76a615",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather_pretrained-29.pt",
+      "sha256": "cda4e4c4feb9e3b28ff5fab103a352f99f23e25862038efa9d9cd10032cebddc",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather_random-11.pt",
+      "sha256": "6262a79d9e0517dbf2714e1329e411d21de5f2199403dafeb838e2c2798db3ff",
+      "availability": "private"
+    },
+    {
+      "id": "summer/large_weather_random-29.pt",
+      "sha256": "5fde87b02030748ee4244e561daa7d17825d1d59f5f48e05c1cf037b4f147cbf",
+      "availability": "private"
+    },
+    {
+      "id": "summer/pre-test-lock.json",
+      "sha256": "6d8b0a48b06f4e5d5ffe43450a1e7f65168f662b1df6580f74c74358eca06205",
+      "availability": "private"
+    },
+    {
+      "id": "summer/results.json",
+      "sha256": "71864f68f390bfe4a94c2f9f9622727aa0bad2240d2f9a7d5314dc16869f89b0",
+      "availability": "private"
+    },
+    {
+      "id": "summer/small_calendar-11.pt",
+      "sha256": "f58442bd295f3e1b053922c99732c14767695b8e0d252a7f9767893333948e49",
+      "availability": "private"
+    },
+    {
+      "id": "summer/small_calendar-29.pt",
+      "sha256": "603fdbb9b942a26865f36b45bc7c1f538e54f337b1eb269ad5c82f1610d28c82",
+      "availability": "private"
+    },
+    {
+      "id": "summer/weather-scaling.json",
+      "sha256": "6d7cdbecc036a53696100a8eff03597644d9c00b0a2e8c0ef2d68fd41d4eaa5d",
+      "availability": "private"
+    },
+    {
+      "id": "winter/context.npz",
+      "sha256": "422878643a17b410778ffeb69004369eeee2d8eaa8d7bdf96f5cf3116ef79d4d",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_calendar-11.pt",
+      "sha256": "49ec16f59bb7b8825ca0267be4b2cb400b86c0343f3acc483c9bcfb40aa539e6",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_calendar-29.pt",
+      "sha256": "84ce35dc2760fdaab61cefb678beae1eaa902416ed07f171b0363658c34d6a4a",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather-11.pt",
+      "sha256": "4606a16a642f1af3c7ce2b961602517ca5c6dc864e57285fa5751e807349b33c",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather-29.pt",
+      "sha256": "f01eadb4faa31087374b7199c55822590422a986cebb7ae133acec03ac1740cf",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather_pretrained-11.pt",
+      "sha256": "9205b392073433c86905a27847fdf9bd5cc150ffc70194d4cb0d6a27db519a72",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather_pretrained-29.pt",
+      "sha256": "07492188603642744d70b73263f0f9686881f5ca461aadb3770ef818a692c860",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather_random-11.pt",
+      "sha256": "113b7d9c0289593fc761a7ca8371a78759f50c9e86df6fdc3c99d6b03565afed",
+      "availability": "private"
+    },
+    {
+      "id": "winter/large_weather_random-29.pt",
+      "sha256": "9c7ef853e467103f5435355f4e9f196f9d55bc8d922278051f06e0b065ad4ad7",
+      "availability": "private"
+    },
+    {
+      "id": "winter/pre-test-lock.json",
+      "sha256": "1de38ed2c85b50571b855094c0859337a411e2b3ab870ccfbf3af9dc2cbe9098",
+      "availability": "private"
+    },
+    {
+      "id": "winter/results.json",
+      "sha256": "52f3fb0320b12d1f2f8587d55811cae5912457ecd2ca1f45b733aef8d1e8e496",
+      "availability": "private"
+    },
+    {
+      "id": "winter/small_calendar-11.pt",
+      "sha256": "d4bf4130232f32e3d75036589b58b8b90a903335f03c408bec9cab4fca541563",
+      "availability": "private"
+    },
+    {
+      "id": "winter/small_calendar-29.pt",
+      "sha256": "2122d22c57df84ed2d5950c7dd36bc0dfb9085b725e7886d2124599c5317326c",
+      "availability": "private"
+    },
+    {
+      "id": "winter/weather-scaling.json",
+      "sha256": "9bbda9f23451c40dddd4b8f6c1a2af199c366c0afca2e918d13f0e6d16707ba1",
+      "availability": "private"
+    }
+  ],
+  "limitations": [
+    "Only completed historical count diagnostics; no inventory API loaded/evaluated and no measured inventory/stockout/operational gain demonstrated.",
+    "Historical tests reused from existing archives; not untouched independent tests. Source-city 2024 retrospective publication timing not a claim of 2025 deployment availability.",
+    "First historical record is a record-support proxy, not measured station opening, capacity or supply exposure; December2025 source is missing.",
+    "City-level weather station, revised GHCNh hindcast, receipt times unverified. Blank precipitation stays missing; reporting/missingness patterns may drift.",
+    "Static normalized station profiles do not transfer recent temporal shocks or directly identify functional station labels. Source and target month-support distributions differ.",
+    "Small fixed sampling budget and two seeds; block intervals omit fit/selection/transfer uncertainty. All specified controls and failed first attempt retained.",
+    "Research implementation adopted for reproducibility; live system model and official September evaluation unchanged. Flow Matching with the new context is a separate frozen experiment."
+  ]
+}
