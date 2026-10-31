@@ -41,5 +41,16 @@ class Acceptance(unittest.TestCase):
     def test_unknown_api_forecast_lineage_is_rejected(self):
         request=copy.deepcopy(self.fixtures['main']);request['mode']='live_shadow';request['forecast']['source_kind']='api_forecast'
         with self.assertRaises(ValueError):p.plan(request)
+    def metadata_request(self):
+        request=copy.deepcopy(self.fixtures['main']);request['mode']='live_shadow';request['forecast'].update(source_kind='api_forecast',model_lock_sha256='a'*64,model_status='frozen_research_reference',observed_at_utc='2026-10-31T15:00:00+00:00');return request
+    def test_stale_collector_metadata_is_rejected(self):
+        request=self.metadata_request();request['planner_reference_at_utc']='2026-10-31T15:05:00+00:00'
+        with self.assertRaises(ValueError):p.plan(request)
+    def test_future_dated_collector_metadata_is_rejected(self):
+        request=self.metadata_request();request['planner_reference_at_utc']='2026-10-31T14:59:00+00:00'
+        with self.assertRaises(ValueError):p.plan(request)
+    def test_collector_clock_metadata_does_not_use_remote_wall_clock(self):
+        # Synthetic adapter metadata only, not a real API experiment or hash attestation.
+        request=self.metadata_request();request['planner_reference_at_utc']='2026-10-31T15:00:30+00:00';result=p.plan(request);self.assertEqual(result['total_moved_bikes'],10);self.assertFalse(result['dispatch_allowed'])
 
 if __name__=='__main__':unittest.main()

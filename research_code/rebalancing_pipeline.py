@@ -26,10 +26,13 @@ def validate(request):
     if request['mode']=='synthetic_shadow':
         if f.get('source_kind')!='synthetic':raise ValueError('Synthetic source must be labeled.')
     else:
-        if f.get('source_kind')!='api_forecast' or not re.fullmatch('[0-9a-f]{64}',str(f.get('model_lock_sha256') or '')):raise ValueError('Verified frozen forecast lineage required for API-derived planning.')
+        if f.get('source_kind')!='api_forecast' or not re.fullmatch('[0-9a-f]{64}',str(f.get('model_lock_sha256') or '')):raise ValueError('Frozen forecast lineage fields required from the verified adapter.')
         if f.get('model_status') not in ('frozen_research_reference','historical_gate_passed'):raise ValueError('Unknown forecast validation status.')
         if request['mode']=='live_shadow':
-            age=(datetime.now(timezone.utc)-datetime.fromisoformat(f['observed_at_utc'])).total_seconds()
+            if not request.get('planner_reference_at_utc'):raise ValueError('Collector reference clock required; do not assume remote OS is synchronized.')
+            reference=datetime.fromisoformat(request['planner_reference_at_utc']);observed=datetime.fromisoformat(f['observed_at_utc'])
+            if reference.utcoffset() is None or observed.utcoffset() is None:raise ValueError('Timezone-aware collector timestamps required.')
+            age=(reference-observed).total_seconds()
             if not 0<=age<=120:raise ValueError('Live inventory is stale or future-dated.')
     stations=request['stations']
     if [s['id'] for s in stations]!=ids:raise ValueError('Station policy and forecast order differ.')
