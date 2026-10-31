@@ -47,15 +47,22 @@
   "assets": [
     {
       "id": "research_code/forecast_web/results.html",
-      "sha256": "9b2a2043669f2e1876dbbbcd5f324050f0dbc74834d40ad92f73cf3d6f792988"
+      "sha256": "5560ac50d7c53dfa51dee15dec4b090043560e94fd8d4ce2d418b1568072d18b",
+      "working_copy_sha256": "9b2a2043669f2e1876dbbbcd5f324050f0dbc74834d40ad92f73cf3d6f792988",
+      "hash_basis": "Git blob, canonical repository line endings"
     },
     {
       "id": "research_code/forecast_web/results.css",
-      "sha256": "8721bb3c0bc45d447bb38a42ed871b05bb6794bbcca949f3b515b1b066748899"
+      "sha256": "8721bb3c0bc45d447bb38a42ed871b05bb6794bbcca949f3b515b1b066748899",
+      "working_copy_sha256": "8721bb3c0bc45d447bb38a42ed871b05bb6794bbcca949f3b515b1b066748899",
+      "hash_basis": "Git blob, canonical repository line endings"
     },
     {
       "id": "research_code/forecast_web/results.js",
-      "sha256": "16a446bb172e2e49702fa22f07568308cb2cb2ad031b4202ebf67933c2101670"
+      "sha256": "16a446bb172e2e49702fa22f07568308cb2cb2ad031b4202ebf67933c2101670",
+      "working_copy_sha256": "16a446bb172e2e49702fa22f07568308cb2cb2ad031b4202ebf67933c2101670",
+      "hash_basis": "Git blob, canonical repository line endings"
     }
-  ]
+  ],
+  "asset_scope": "Current committed assets; positive browser execution preceded later text-only clarification and one official comparison row addition. Existing handlers unchanged; supplementary browser rerun was not executed."
 }

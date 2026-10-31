@@ -29,7 +29,7 @@
   "artifacts": [
     {
       "id": "browser-checks.json",
-      "sha256": "df3dce9af16dbb1aaf99fd8f2bc2bbf09676d686a7fb10d40095662edd53056c"
+      "sha256": "e6064822fc9f1116ca7d80a0eacfcbeec84f169b27e67fb1b51397f3eba3df7e"
     },
     {
       "id": "summary.json",
