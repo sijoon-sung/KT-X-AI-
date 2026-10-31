@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "id": "H-0012",
+  "title": "서울 미래 거래 예측 사전학습과 보완 기상의 다계절 이전",
+  "status": "preregistered",
+  "plan": {
+    "question": "미래 대여/반납 건수 예측으로 서울에서 사전학습한 공유 모형이 보완 기상 아래 타슈 건수 예측을 개선하는가?",
+    "hypothesis": "사전 주후보 weather_forecast_full이 동일 보완기상·용량의 weather_scratch 및 weather_ae 모두보다 세분할 macro Poisson deviance를1% 넘게 줄인다.",
+    "prior_art": [
+      {
+        "title": "RegionTrans, IJCAI2019 / author preprint",
+        "url": "https://ijcai.org/proceedings/2019/262",
+        "verified_scope": "학회 초록·저자 원문의 지역표현과 이종도시 예측 이전/외생맥락 확인",
+        "difference_to_test": "대여소번호 매칭 없이 공유weeklyencoder+조건부건수GCN을 source예측으로학습해target미세조정. 전체 RegionTrans 재현 아님"
+      },
+      {
+        "title": "Yao et al., Learning from Multiple Cities, WWW2019",
+        "url": "https://faculty.ist.psu.edu/jessieli/Publications/2019-WWW-traffc-predict-multiple-cities.pdf",
+        "verified_scope": "저자 PDF 초록·서론의 도시시공간이전과negative transfer 위험, Single-FT 사전학습/미세조정 대조 확인",
+        "difference_to_test": "단일서울의task-oriented초기화와AE/scratch/encoder-only대조. MetaST/MAML 전체재현 또는신규성주장 없음"
+      },
+      {
+        "title": "NOAA GHCNh documentation v1.1.0",
+        "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/doc/ghcnh_DOCUMENTATION.pdf",
+        "verified_scope": "원문 일반강수nominal-hour/중간METAR/마지막보고·3시간누적·QC/현상코드필드 확인",
+        "difference_to_test": "기간불명source412generic amount 제외,explicitmissing/age·현상보고와공항관측을분리"
+      },
+      {
+        "title": "KMA Weather Nuri past daily observations",
+        "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=8",
+        "verified_scope": "실제공식HTML의station/year/month선택과달력날짜별 일강수량numeric/dash·전월완결성 확인",
+        "difference_to_test": "KSTdate-2만사용,당일최고기온/강수입력금지,대시를0관측으로추정하지않음"
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-forecast-transfer-H0012-v1",
+      "input_manifest_sha256": "0e0eee9adef329d30fd2ca0b69085ef321a1ac2a8a1f6e3b459fa148218b8987",
+      "observed_truth": "과거 완료거래30분 대여/반납 건수. 기상은 지연된 외생 관측·보고 상태이며 재고 API 미사용.",
+      "not_observed": [
+        "과거 실측재고/공급노출/미충족수요",
+        "운영자이동/정책효과",
+        "미열람독립반복시험",
+        "기상실시간수신/수정전관측·대여소미세기상"
+      ]
+    },
+    "evaluation": {
+      "design": "이 실험은 과거 완료 대여/반납 건수의 내부 비교이다. 재고 API 원본·중간파일·기존 API 예측·요약을 읽지 않는다. 공식9월 재고평가와 새 맥락의 Flow Matching은 별도 가설이며 본 결과로 수행했다고 보고하지 않는다. 기존 H11의3개 보조 시험을 재사용하고 source2024도H11에서 프로필 학습에 사용했던 원본이므로 독립 미열람 시험이라고 하지 않는다. 아래는KST반개구간이다.\n\nsource서울:2024-01-01~2024-09-01 train,2024-09 validation,2024-10-01~2025-01-01 source보조test. sourcecohort/OD/prior/profile은 train만으로 계산한다. sourcetrain종료는 모든 타슈fold학습종료 이전이다. target3fold는 H11과동일: Atrain2024-08-01~2025-03-01/val2025-03/test2025-04~05; Btrain같은시작~2025-07-01/val2025-07/test2025-08~09; Ctrain같은시작~2026-02-01/val2026-02/test2026-03. periods필드는 마지막fold이며 본 설계에3분할을 적는다.\n\n타슈 원본/5열/인코딩/월일치/완료0<=duration<24h/완전중복/누락2025-12 규칙은 H4 canonical reader를 그대로 사용한다. 서울은 H11의12개CP949파일/5열/정수station1~99999/bike비어있지않음 최대32UTF8bytes/월일치/유효날짜/같은완료기간/5tuple완전중복을 재사용한다. 새 optional callback으로 월별 실제30분 건수·train이전OD·첫기록을 저장하며 기존H11기록·규칙을 바꾸지 않는다. 07:00~21:30, 월첫/마지막날과 도시전체 양채널 기록 없는 시간은 제외한다. 각도시/cohort는 해당train의 channel별100건·활동60일·마지막30일기록이 있는대여소만, 첫train기록 이전노출 제외. 공급/운영개시 실측이아니다. 미래 존재ID는 스키마만, cohort/graph/profile/노출을 미래로 선택하지 않는다.\n\nsource와 target의 data context는 H11식 alpha32 고정 계층weekly/month-weekly prior(rate하한1e-6), own달력32=log1p(base/weekly/seasonal)6+weekday7/hour15/half2/monthsin cos2, neighborlograte6이다. graph=count+transpose의 각행 상위8양수OD(동점ID사전순)+selfweight1 행정규화. 해당train이전에 완료된 OD만. 서울은 callback에서rent/return모두source train종료 이전인 OD만 누적한다. 두도시ID나 지리노드를 매칭하지 않는다.\n\n공유 station encoder는 각train의 weekly정규화420차원 프로필만 사용한다. monthly값/관측mask12는 source와target의 달라지는 월지원 문제를 줄이기 위해 encoder입력에서 제외하고, 계절률prior/calendar에는 남긴다. 420->256SiLU->64LayerNorm(affine포함). 표준화는 집계된weekly평균률/각채널전체평균의log1p로 고정하며 추가source전역mean/std를 쓰지 않는다. 최근30분거래·현재재고는 입력하지 않는다. train전체집계 프로필은 train행에는 학습용 요약이지만 val/test의 label/시각 이후데이터를 집계에 넣지 않는다. 실제배포때구할수없는9월최근거래를 source에만 넣어 사전학습하지 않는다.\n\nforecaster는 encoder가 만든64차원과 own달력32/기상54=150입력, neighborlog6+graph@embedding64=70입력, 폭256/3층이다. own/neighbor선형합SiLU후 폭256선형SiLU2개,2출력0초기화,rate=prior*exp(2*tanh(raw/2)). 매 minibatch에서 전체cohort 프로필encoder와 graph@embedding을 다시 계산해 encoder로의gradient를 유지한다. frozen cache로 잘못 학습하지 않는다. 도시간에 학습되는node-ID파라미터는 없다.\n\n보완기상54차원: (1)H11 원래13의thermo3/3시간강수·관측mask·age·trace. 값은temp/20,wind/5,RH/100,preciplog1p/log11로 물리단위 고정, 나머지mask/age동일. (2)primary nominal-hour강수4=logvalue/present/age/trace. 원문에서nominal-hour라고확인된 source223의공백/T measurement만 사용하고 출처412의누적기간 불명generic강수는 제외한다. (3)기상청일별4=이틀전numeric강수logvalue/numericmask/원문dashmask/reportednumericzero. '-'를 임의0강수관측으로바꾸지않고별도범주다. 일집계당일/미래요약입력금지. 해당KSTdate-2만 사용,다른날 forwardfill없음. (4)공항thermo9=3values/3masks/3ages. source서울은GimpoRKSS,target대전은CheongjuRKTU이며 도시간거리한계를명시한다. (5,6)primary와공항의pres_wx_MW1~3최근보고각12=코드0..99의10개십단위multi-hot+present+age. RA:61처럼콜론뒤정수를해석하고 결측을맑음으로바꾸지않는다.\n\n시간별기상은 예측시작-1h이하 최신변수보고만, age<=4h(동률원본순 마지막)다. 온도[-60,60],wind[0,75],RH[0,100],precip[0,500] finite,primary13은H11동일QC,추가변수/현상코드는QC빈값/0/1/4만. nominal강수T=0+trace1이다. 공항강수필드가없어도그값을만들지않는다. dailycalendar원본은선택station/year/month와모든실제날짜를확인하고 numeric와dash는보존,raw필드는비공개. hourly와일별은모두개정된아카이브/hindcast이고실시간수신/수정전상태는검증하지못한다. 가까운공항기상을대전대여소실측으로부르지않는다. GHCNd최근기간과공항amount강수는실제불완전하여학습입력에서제외한다.\n\n각seed11/29에 대해 source초기encoder/backbone는 torch.manual_seed(seed)로시작한다. sourceforecast와 sourceAE의encoder초기값은같다. sourceforecast는 같은모형으로 source다음30분 실제건수 Poisson NLL(rate-ylograte의2채널mean)을 학습한다. source24round+round0, round당1048576유효time/station균등rejection표본,batch8192,PCG64(seed+round),AdamWlr.001/weightdecay.0001/gradnorm1. 각round source9월전체deviance최소/동점최초checkpoint를선택한다.\n\nsourceAE는 같은420->256->64LayerNorm encoder와64->256SiLU->420decoder이다. source traincohort에서ID의SHA256int mod10==0은AEstationvalidation,나머지stationtrain. 동일seed/24round+0/round당128step/batch8192station균등복원추출/입력20%독립zero mask/AdamW동일조건으로masked없는420MSE를최소화한다. sourcevalstation의깨끗한프로필MSE최소/동점최초checkpoint를고른다. sourceforecast와 optimizerstep/batch/round를맞추되실제FLOPs·과제정답정보량까지같다고하지않고별도시간/모수기록한다. AEencoder와sourceforecastencoder를각seed별로저장한다. source선택이후sourceOct~Dec보조점수도보고하되재선택하지않는다.\n\ntarget5후보: legacy_weather_scratch,weather_scratch,weather_ae,weather_forecast_encoder,weather_forecast_full(사전주후보). 매seed초기모형은같고 legacy는54기상중앞13만허용(나머지0),나머지full54. ae는해당seedAEencoder만,forecast_encoder는해당seedforecastencoder만초기화하고backbone는scratch동일,forecast_full은해당seedsourceforecaster전체를초기화한다. 모든후보는encoder/backbone전체를 targettrain에서fine-tune하며 optimizer는새로시작한다. 각16epoch+0,epoch당524288유효exposure/batch8192/PCG64(seed+epoch)/AdamW동일lr.001,wd.0001,gradnorm1. 각targetval전체Poissondeviance최소/동점최초checkpoint를선택하고2seedrate동일가중평균. plan에없는epoch연장·width추가·학습률탐색·불리한후보삭제없음.\n\nsource와각fold의selectedweights/context/graph/profile/weather/입력manifest hash를lock한뒤 해당test전체deviance/MAE/날짜별오차합·노출수를계산한다. 주비교는세fold등가중macrodeviance에서1-full/control의 weather_scratch와weather_ae 두개최솟값. legacy/newweather차이,AE/scratch,encoder-only/full,각fold/seed/기간커버리지/모수/시간은보조로모두보고한다. 첫노출proxy와기록0을실측공급으로부르지않는다. count개선을재고/품절/잠재수요/운영효과로바꾸지않는다.\n\n로컬RTX4060Laptop8GB,기존전용venvPython3.12/torch2.7.1+cu128/numpy1.26.4/scipy1.15.3/pandas2.2.3,CPU4threads,GPU55%사용상한,float32TF32off deterministic이다. source는월별chunk와privatecache,희소OD를사용하고GPUgraph곱은dense가능(메모리기록),거대한T*N*feature배열은만들지않는다. 시작여유GPU>=2GiB,계획/코드게시확인후실행. sourcecache중단복구는원본·코드·cachehash검증한전처리만재사용하며 다른가중치실험을고르는재시작은금지한다. 의미검사로source/target시간경계·미래비의존·dailyD-2·QC/코드/결측·encodergradient·실제최적화·hash잠금·저장복원을확인한다.\n",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "weather_scratch primary",
+        "weather_ae primary",
+        "legacy_weather_scratch auxiliary",
+        "weather_forecast_encoder auxiliary"
+      ],
+      "primary_metric": {
+        "name": "worst_control_macro_count_deviance_gain",
+        "direction": "higher",
+        "unit": "fraction; historical count diagnostic only"
+      },
+      "success_rule": "source>=500trainstation/10sourceval日/10sourcetest日,각targetfold>=500trainstation/10test日,AEsourceval>=20/train>=100,모든후보완료,각block유효bootstrap>=1900에서주metric점추정과3/7일95%하한모두>.01이면supported. 재고 공식 판정 아님.",
+      "failure_rule": "같은충분성에서두구간상한모두<=.01이면not_supported,나머지inconclusive.자료/수치/메모리/학습게이트실패는실패/미실행보존하며유리한후보제외없음.",
+      "exclusion_rule": "설계의원본/QC/누락/노출/시간분할규칙만.시험오차·기상유무·API로대상제외하지않음.기상누락은mask,기록범위밖0채움금지.모든분할train전용통계/OD/코호트.",
+      "uncertainty_plan": "각fold의도시동기화 일별deviance합과channel노출,2seed평균rate점수. 각fold내3/7일이동블록2000회PCG64seed20261102,foldmean등가중macro에서full vs2primarycontrol최소상대감소2.5/97.5분위수.학습/선택/전이불확실성미포함.모든보조대조/각fold보고.",
+      "seed_plan": "sourceAE와sourceforecast각11/29,24round+0,round128step×8192sample;target각11/29,16epoch+0,epoch64step×8192sample. 같은seed초기encoder/공통backbone/targetsample순서. 합성검사와실제GPU·저장로드/잠금검사 후실행."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "bcdf20d2120fb9b3e39a4551498ee64c04a2813f93f44fc08c4d27bf2685a226",
+    "frozen_at_utc": "2026-10-31T10:38:06.151750+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}

@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "id": "tashu-forecast-transfer-H0012-v1",
+  "sources": [
+    {
+      "id": "seoul-trips-2024.zip",
+      "sha256": "f1385bffd913aa0b37a4914fd835621eea4f55d14665ffdd6fb2d76a0faae8cb",
+      "bytes": 2068679477,
+      "url": "https://data.seoul.go.kr/dataList/OA-15182/F/1/datasetView.do",
+      "role": "source-city profile pretraining only",
+      "license": "KOGL Type 1; attribution Seoul Metropolitan Government"
+    },
+    {
+      "id": "daejeon-2024-ghcnh.psv",
+      "bytes": 7385506,
+      "sha256": "be88e64ab764ff1d9ac3b9523e8c909104b52069495bf5078902ee02fae573c4",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/psv/GHCNh_KSI0000RKTF_2024.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "daejeon-2025-ghcnh.psv",
+      "bytes": 7326061,
+      "sha256": "d2215df66ab5947456febf25a5ef38e3a40c39e93ebb77cdb004d0409fb338a9",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/psv/GHCNh_KSI0000RKTF_2025.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "daejeon-2026-ghcnh.psv",
+      "bytes": 5118009,
+      "sha256": "f52b24c497c71ca50a40ded97b5157b763032575871678d7d729d374e147c652",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2026/psv/GHCNh_KSI0000RKTF_2026.psv",
+      "role": "lagged observed target-city weather; not future observations"
+    },
+    {
+      "id": "historical-trips-20260331.zip",
+      "sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+      "bytes": 493887524,
+      "role": "target-city completed historical transactions",
+      "catalog": "research/datasets/tashu-historical-H0004-v1.json"
+    },
+    {
+      "id": "seoul-2024-ghcnh.psv",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/psv/GHCNh_KSI0000RKSL_2024.psv",
+      "sha256": "31a4600a9ccb2218c1b03958ab4466090888e178b5af0c8e44bce207655c7743",
+      "bytes": 6471711,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "seoul-airport-2024-ghcnh.psv",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/psv/GHCNh_KSI0000RKSS_2024.psv",
+      "sha256": "abf046e755e9ec5db2757f789327d604198d6b0fa47b7f4b86b8e6633dfde971",
+      "bytes": 6444024,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "cheongju-airport-2024-ghcnh.psv",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2024/psv/GHCNh_KSI0000RKTU_2024.psv",
+      "sha256": "ad39432453fe225314e27c0fef37ae0f4987f4790da0dffd3d064aee9a0ea78a",
+      "bytes": 6955902,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "cheongju-airport-2025-ghcnh.psv",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2025/psv/GHCNh_KSI0000RKTU_2025.psv",
+      "sha256": "69b66d108e97dfb64f543b9e3841643b857c91bc7c68f58da2003d483047acb2",
+      "bytes": 7431269,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "cheongju-airport-2026-ghcnh.psv",
+      "url": "https://www.ncei.noaa.gov/oa/global-historical-climatology-network/hourly/access/by-year/2026/psv/GHCNh_KSI0000RKTU_2026.psv",
+      "sha256": "94acfbed478fd8c2d44d0f5e1cf73ff8e4c50d5eedd87293688fdbbfa751f1c3",
+      "bytes": 5679650,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202312.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2023&mm=12",
+      "sha256": "6879a528e5214f877edf486833052ecd93217a7ae5662d7526bf83d2d67087c7",
+      "bytes": 112065,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202401.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=1",
+      "sha256": "02e08e7afe6ee3e2e8b21ce858412a47418f03e28e84ce3e2b47ebee8eca0aed",
+      "bytes": 110199,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202402.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=2",
+      "sha256": "ad7e76ca0cb5b7a963a5a4e6dc430ee9aae602a8ff3b4a3a54a6f8499ecfb205",
+      "bytes": 108424,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202403.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=3",
+      "sha256": "2ce37d7f0f59ba856c750f720d13b4edff024ff981b7c36b3b7cab2015a792dc",
+      "bytes": 112038,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202404.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=4",
+      "sha256": "926f1abf42e6c45398e6a3074f1eb60e1c5a939ef49b5ec0f03a01e946aed9cd",
+      "bytes": 109346,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202405.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=5",
+      "sha256": "0a51271906029fa62861b0a460c6d199a8ca2c5b271c4b872ddc192d4adfe219",
+      "bytes": 110238,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202406.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=6",
+      "sha256": "da2895a6e0b44e89aedc8460228ea51fb2e9288a2b2bc3b07ee7116f4438417d",
+      "bytes": 111209,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202407.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=7",
+      "sha256": "218cd822bf5aca9440370462944fcae9eeabd7b347a3a25a9f655b0aa171a893",
+      "bytes": 110282,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202408.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=8",
+      "sha256": "f6cc84ae6b9b478731747e4ff593141300c697850098b1bfa5d7bb8255b43177",
+      "bytes": 110257,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202409.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=9",
+      "sha256": "269b90e85a647cf728f5bc3a0c0605e01d48b3b8b7b5662a063ecf18e287acf3",
+      "bytes": 109370,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202410.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=10",
+      "sha256": "3160abe19dbcba2b9740853270ec186fd9dae9f618e7c0688316e8f74857621e",
+      "bytes": 110243,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202411.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=11",
+      "sha256": "7f434dc904bfb0a9a2fe8248bd744d5bff17dd929f2cbb00da80cdde86d65185",
+      "bytes": 109325,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-108-202412.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=108&yy=2024&mm=12",
+      "sha256": "4fea865c7308765d359eb396c04cbdcfacf7c8dea3a10fe6f022db1704259ffb",
+      "bytes": 110193,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202407.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=7",
+      "sha256": "8fd25283252f6dea69dcf7d4776e2b4b9941359cdc4a8c664a9df960896f39bc",
+      "bytes": 110275,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202408.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=8",
+      "sha256": "340f14cae3698aa50f2c6e0dca68de9bf339ede5b6631306a6146db88ef5d97b",
+      "bytes": 110246,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202409.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=9",
+      "sha256": "21f8487ad29aedb345f498fe3b9b69b6c91c7fa769a04ba782d3896bd55017c6",
+      "bytes": 109359,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202410.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=10",
+      "sha256": "ab320ea5b88a9b28807deaf74042bb5522325b5925d0d13f84ec415462cd004b",
+      "bytes": 110245,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202411.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=11",
+      "sha256": "dc30ddbc88e25965ce0e298aedfe5cefc045e2e47fd821a52b9f7057d01dae1e",
+      "bytes": 109320,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202412.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2024&mm=12",
+      "sha256": "8020d82813751d5a3da254c5b9980579a6b971c3907e4eb5d02071d5d9d60aad",
+      "bytes": 110198,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202501.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=1",
+      "sha256": "872c432abce64d97d0ce4659da1bb44b7c517b1f70f017b42b4cf6143af87189",
+      "bytes": 110207,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202502.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=2",
+      "sha256": "902f3ce777332cfe5f43395827bc569da6d8095b711364a5c9db8943d359eb31",
+      "bytes": 107572,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202503.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=3",
+      "sha256": "e52984e7bc21d2f2351f7e88039bc4594a2ea34458f2703f2854501dc87db2c5",
+      "bytes": 112039,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202504.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=4",
+      "sha256": "7b2c12739fe06c393ee7fc6a5df7f9840c9a208615de4995a48b23aeb6c2aed2",
+      "bytes": 109333,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202505.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=5",
+      "sha256": "9ce83d2a8407f67691b1773f44395404d9118eabd4b89b1630d0a425440512cb",
+      "bytes": 110240,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202506.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=6",
+      "sha256": "e4a8842ca78cb311c71082f0517e6f96a3f2c760986b7c1e73513b6d0ca08864",
+      "bytes": 109370,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202507.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=7",
+      "sha256": "2b6eca8a2fd6f94b513761e4bc0f6126b82c20ffa2dc7dd3cafe3b3652eb65c5",
+      "bytes": 110245,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202508.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=8",
+      "sha256": "59b998dbb80d52fd2e75656f3e614ab9a55b8031f11c935e66ba26e0a2c1c775",
+      "bytes": 112096,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202509.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=9",
+      "sha256": "ef687f9c6cfca3c807d14904d104c2d558cd7ac3843f8f77c72569caf7949703",
+      "bytes": 109391,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202510.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=10",
+      "sha256": "f3fc020070c146a33f30d6c30a7f5f55fcda58225fb5fcf46261ece35e272ea8",
+      "bytes": 110251,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202511.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=11",
+      "sha256": "1329e16263e0c746ce55513cd274fbf77052110425de4725c2a36f268af3c759",
+      "bytes": 111152,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202512.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2025&mm=12",
+      "sha256": "c81ece4e53d80d03508e929abd763b631057fa1e02f7f0f93c7d935fd849a8b1",
+      "bytes": 110193,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202601.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2026&mm=1",
+      "sha256": "48ff591f29a852d45b5122966f5d5803b2c3ced93299ef309b8de619b8e12ba0",
+      "bytes": 110214,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202602.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2026&mm=2",
+      "sha256": "5b0e0aa29ed829e14da2014cbd7b564421caab1c4a74fb075725141058162d05",
+      "bytes": 107550,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    },
+    {
+      "id": "kma-calendar-133-202603.html",
+      "url": "https://www.weather.go.kr/w/weather/land/past-obs/obs-by-day.do?stn=133&yy=2026&mm=3",
+      "sha256": "2574dc3acffec7cae676aa8f6bd7d502ec9319489684c7dc916c248872400af5",
+      "bytes": 110192,
+      "role": "historical weather/calendar observation; asof limits in plan"
+    }
+  ],
+  "api_data_included": false,
+  "source_catalog": "docs/sources/tashu-historical-trips-source-v1.json",
+  "source_catalog_sha256": "e8c04e3b6839760001b025e9e489b0044b330470489434853b5182dcf0554438",
+  "inherited_parser_commit": "69fa1781431211c3674d1d31d9e1457460d38f03",
+  "truth": "30-minute recorded completed rentals and returns; no measured stock truth",
+  "source_seoul_role": "source future recorded-count prediction and AE objective control, chronological source train/selection/test",
+  "weather_role": "lagged GHCNh primary/airport, KMA daily status at date-2; revised archive hindcast, receipt times unverified",
+  "omitted_probes": [
+    "GHCNd Seoul/Daejeon daily files ended2025Jan and were sparse, excluded from fitting.",
+    "Airport precipitation amounts empty, not fabricated.",
+    "Generic source412 precipitation accumulation period unresolved, not used as nominal-hour amount."
+  ],
+  "attribution": [
+    "Seoul Metropolitan Government OA-15182, KOGL Type1",
+    "Korea Meteorological Administration Weather Nuri past observations, stations108/133, raw pages remain private",
+    "NOAA NCEI GHCNh v1.1.0, primary station RKSL/RKTF and airport RKSS/RKTU"
+  ]
+}
