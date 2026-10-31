@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0005",
   "title": "과거 흐름에서 9월 미래 재고로 연결하는 첫 과정 검증",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "고정한 과거 거래율과 현재 API 재고를 연결한 단순 출생사멸 과정이 9월30분뒤0대 확률에서 현재재고유지보다 나은가?",
     "hypothesis": "현재 재고가 양수인 공식9월 관측쌍에서 달력 거래율 기반 과정의 Brier가 현재 상태 유지보다0.005넘게 낮다. 흐름→상태 연결의 첫 검증이며 최종GCN/FM조합 선택이 아니다.",
@@ -67,6 +67,22 @@
     "plan_sha256": "e6078c1d18a7787b69916e714763e32c113b93dfcc9999a983caa9e5eda6d40f",
     "frozen_at_utc": "2026-10-31T04:34:31.824355+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "공식9월 평가: 정확히 대응한 과거 학습ID 1,176개, 현재양수 131,118쌍. Brier 0.149934→0.119369, 감소 0.030565; 두 블록구간 하한>0.005로 사전 가설 지지. 전체 재고 수량 MAE는 악화. 확률 대조 기준으로 보존하고 기본 운영 모델/최종 아키텍처로 채택하지 않음.",
+    "limitations": [
+      "Official September API evaluation, previously exposed in legacy experiments; not an untouched independent test.",
+      "Frozen historical completed-flow priors are effective rates, not identified latent demand or empty/non-full exposure-corrected intensities.",
+      "Independent memoryless attempted events, no physical upper capacity, operator rebalancing or state-correction component.",
+      "Past-to-September drift, source recording assumptions, station-ID changes and unmatched stations limit transfer.",
+      "Current API stock is an evaluation initial condition; request clocks are not server update times and KST is conditional.",
+      "Daytime exact-ID complete pairs over about two weeks; block intervals exclude rate-estimation uncertainty.",
+      "Primary current-positive empty-risk score does not establish all-stock, joint dependence, operational usefulness or final GCN/FM architecture."
+    ],
+    "run_manifests": [
+      "research/runs/H-0005-20261031-september/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

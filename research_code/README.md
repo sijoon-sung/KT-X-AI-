@@ -82,3 +82,18 @@ Git에서 제외한다. 시험 자료의 탐색·재사용 여부와 부정·불
 합성 자료 검사 `python -m unittest discover -s research_code/tests -p test_stock_dispersion.py -v`의 9개 항목은
 분할 경계·누락·실제 요청 시차·조건부 분산·블록 재표집·큰 변화 보존·판정 조건을 점검한다.
 이 검사는 dislab에서 통과했으며, [진단 결과](../docs/H-0003-results.md)의 실증 해석과 구분한다.
+
+## H-0005: 고정 과거 흐름에서 미래 재고로 연결
+
+`history_to_stock.py`는 H-0004의 비공개 고정 가중치를 해시로 확인하고, 새 학습 없이 공식 9월을 평가한다.
+현재 API는 검증 시작 상태이며 미래 API는 정답이다. API 학습·선택·보정은 하지 않는다.
+계획의 반복 상한·꼬리 게이트와 과거 계수만으로 API를 읽기 전에 전이표를 만든다.
+실제 ID·시간·누락·현재 양수/0 표본, Brier와 수량 MAE, 도시 날짜 블록 구간을 보고한다.
+
+```text
+python -m unittest discover -s research_code/tests -p test_history_to_stock.py -v
+python research_code/history_to_stock.py --panel <PRIVATE_AUDITED_API_PANEL> --rate-model-dir <PRIVATE_FROZEN_HISTORY_MODELS> --run-id <NEW_RUN_ID>
+```
+
+완료 기록에서의 재현은 별도 재현 브랜치·새 실행 ID가 필요하다. [동결 계획](../docs/H-0005-history-to-stock.md)과
+[결과](../docs/H-0005-results.md)를 따른다. 일반 모형군의 성능이나 최종 아키텍처의 증명으로 해석하지 않는다.

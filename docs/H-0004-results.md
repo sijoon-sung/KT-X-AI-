@@ -1,6 +1,6 @@
 # H-0004 보조 결과: 과거 거래 건수 기준선 학습
 
-> **공식 재고 평가와 구분:** 2·3월에는 실측 재고·품절 정답이 없다. 아래 11.35%는 기록 거래 건수의 보조 비교이며 프로젝트의 재고 성능이 아니다. 공식 평가는 [9월 API 재고](september-evaluation-contract.md)에 고정하며 아직 미실행이다. 동결 계획과 수치는 보존한다.
+> **공식 재고 평가와 구분:** 2·3월에는 실측 재고·품절 정답이 없다. 아래 11.35%는 기록 거래 건수의 보조 비교이며 프로젝트의 재고 성능이 아니다. 공식 평가는 [9월 API 재고](september-evaluation-contract.md)에 고정한다. 후속 [H-0005](H-0005-results.md)에서 별도 평가했으며 아래 동결 계획과 수치는 보존한다.
 
 [가설 PR #8](https://github.com/sijoon-sung/KT-X-AI-/pull/8)과 [사전 계획](H-0004-historical-calendar.md)에 따른 결과다.
 [자료 계약](training-validation-contract.md)을 준수해 다운로드 이력만 사용했다. API 학습·튜닝·선택·외부 검증은 하지 않았다.
