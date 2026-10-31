@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "tashu-dependence-flow-H0014-design-v1",
-  "status": "design inputs pinned; executable tensor/mask/compute audit pending before preregistration",
+  "status": "historical tensor/support/layout audited; exact experiment inputs",
   "historical_source_manifest": "research/datasets/tashu-rolling-api-H0013-v1.json",
   "historical_source_manifest_sha256": "330513d242622205a11f075b79d61b2a04ae6980a83918a1f039ce689f0329b3",
   "historical_sources": [
@@ -265,9 +265,48 @@
     "label": "D_i = completed_returns_i - completed_rentals_i over next10min",
     "shape": "issue × fixed historical station",
     "support": "source-valid bins and first-record mask; no zero-imputation of unsupported observations",
-    "audit_status": "pending before freeze; raw historical source remains authoritative"
+    "audit_status": "completed canonical archive rebuild, parent support match,10-to30 reconciliation, fixed layout/evaluation hash"
   },
   "literature_manifest": "docs/sources/H-0014-flow-matching-literature.json",
   "literature_manifest_sha256": "8aceecfa643e2b0bb9831bb8ab470edeaed86baaa23490b0c6af9afc7bbc69c5",
-  "api_training": false
+  "api_training": false,
+  "derived_files": [
+    {
+      "id": "context.npz",
+      "bytes": 200047986,
+      "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+    },
+    {
+      "id": "counts.npy",
+      "bytes": 461574272,
+      "sha256": "3f2a7f79546fc2dbb39f27a943c5dfcddc5500c23416c8033c1fd75bd4c1662d"
+    },
+    {
+      "id": "dependence-layout.npz",
+      "bytes": 16278,
+      "sha256": "ed78d956ea61f72199588b361263e4603ed0133b7356025cbffeeb1d043092dd"
+    },
+    {
+      "id": "fixed-evaluation-issues.npz",
+      "bytes": 651,
+      "sha256": "1bb2875d64c9ad4d1fc5dab9127621bfdaa34bcb6b13bd0ee861b9f54b2c3d99"
+    },
+    {
+      "id": "recent-11.pt",
+      "bytes": 1273888,
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+    },
+    {
+      "id": "recent-29.pt",
+      "bytes": 1273888,
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+    },
+    {
+      "id": "time-features.npz",
+      "bytes": 1443221,
+      "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+    }
+  ],
+  "tensor_audit": "docs/sources/H-0014-historical-tensor-audit.json",
+  "tensor_audit_sha256": "1448cc5691b7b1bd64490258349104dc9139ec99659f245a9133c9a45b30889d"
 }
