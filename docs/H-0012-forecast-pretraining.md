@@ -13,8 +13,12 @@
 
 ## 실험
 
-계획 게시 단계이며 학습·정확도 결과는 아직 없다. 로컬 RTX4060Laptop8GB를 사용한다.
+계획·구현 게시 후 전처리와 본 실험을 실행 중이며 정확도 결과는 아직 없다. 로컬 RTX4060Laptop8GB를 사용한다.
 원본·가중치·개별 기록은 비공개이며 공개 PR에는 해시·분할·요약·실패를 기록한다.
+계획 게시 커밋 `77a746998f4347e547b2d24bfbe432c05d7fa7e2`, 주 구현 커밋 `1aee0f33fa04bb5f0d38668d190434721e4b0259`.
+계획 해시 `bcdf20d2120fb9b3e39a4551498ee64c04a2813f93f44fc08c4d27bf2685a226`.
+입력 명세의 서울 ZIP 개별 `role`에는 H11의 상속 문구가 남아 있으며 H12의 실제 역할은 같은 명세의
+`source_seoul_role`과 동결 설계에 명시한 미래 건수 예측/AE 대조다. 원본·고정 해시는 바꾸지 않는다.
 
 ### 예측 사전학습과 대조군
 
@@ -57,6 +61,16 @@ target후보의 구조·미세조정 예산·선택 규칙은 같다. 각seed의
 
 ## 결과
 
-미실행. 원본 확보·스키마/날짜·출처 확인을 사전학습 완료와 구분한다.
-다음 행동은 Draft PR 게시와 구현 검사를 마치고 source 예측 사전학습·동일 대조군·세분할 미세조정을 로컬 GPU에서 실행하는 것이다.
+실행 중. 원본 확보·스키마/날짜·출처 확인을 사전학습 완료와 구분한다.
+H12 의미 검사7개와 변경한 H11 source callback의 회귀 검사8개를 통과했다.
+이틀 전 일별 입력·미래 보고 제외·누적기간 불명 강수 제외·현상코드·동일 encoder 초기화·graph를 통한 gradient·source 미래 label 비의존을 검사했다.
+다음 행동은 source 예측 사전학습·동일 대조군·세분할 미세조정을 마치고 모든 결과를 기록하는 것이다.
 실패·효과 없음도 같은 기록에 보존하고 결과가 나온 뒤 유리하게 예산이나 후보를 바꾸지 않는다.
+
+고정 모델 예측 CLI는 다음30분 완료 대여·반납 기대건수를 반환한다. 실측 재고 예측을 반환한다고 하지 않는다.
+`forecast_transfer_predict.py`는 context/가중치 해시·지원 대여소·시간을 확인하고 고정encoder를 재사용한다.
+
+```text
+python research_code/forecast_transfer.py --source-dir PRIVATE_RAW --history-dir PRIVATE_HISTORY --out PRIVATE_OUTPUT
+python research_code/forecast_transfer_predict.py --model-dir PRIVATE_OUTPUT/winter --station HISTORICAL_ID --timestamp KST_DATETIME --weather-dir PRIVATE_RAW
+```
