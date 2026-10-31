@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "id": "H-0009",
+  "title": "규모 확대·따릉이 과거 특성·GCN조건부 Flow Matching 융합",
+  "status": "preregistered",
+  "plan": {
+    "question": "공통입력에서모델규모·서울과거패턴특성을늘리고GCN조건부FlowMatching의30분공동거래생성을붙이면공식9월재고분포예측이개선되는가?",
+    "hypothesis": "고정full융합후보(large_seoul_cfm)의전체재고CRPS가small·large·large_seoul및기존H7OD/H4달력대비각각1%넘게감소한다. 모델우열은사전정의된전체비교로보고하고API로서비스승자를선택하지않는다.",
+    "prior_art": [
+      {
+        "title": "Lipman et al., Flow Matching, ICLR2023",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "§3.1~3.2와Gaussianconditionalpaths확인.벡터장회귀와내부생성시간.타슈성능재현아님.",
+        "difference_to_test": "GCN조건부bivariate30분거래logdequantization CFM,고정ODE표본을재고과정에연결"
+      },
+      {
+        "title": "UCI Seoul Bike Sharing Demand, DOI10.24432/C5F62R",
+        "url": "https://archive.ics.uci.edu/dataset/560/seoul+bike+sharing+demand",
+        "verified_scope": "공식필드/라이선스CCBY4.0확인;dislab신규다운로드8760시간·2017-12~2018-11·운영8465시간·비운영295시간감사.대여소/반납/재고없음.",
+        "difference_to_test": "과거서울월/요일/시간대공통특성4개,대전실시간날씨/2026서울관측아님."
+      },
+      {
+        "title": "Wang et al., RegionTrans, IJCAI2019",
+        "url": "https://www.ijcai.org/Proceedings/2019/0262.pdf",
+        "verified_scope": "공식출판검색초록의도시간표현전이·지역매칭설명확인.전체PDF접근실패,방법/성능재현없음.",
+        "difference_to_test": "지역대응이없는도시집계라RegionTrans재현아닌달력패턴특성전이로한정"
+      },
+      {
+        "title": "H7 frozen OD-GCN reference",
+        "url": "https://github.com/sijoon-sung/KT-X-AI-/pull/12",
+        "verified_scope": "정적26특성·width32·1층1762모수·과거전용학습과9월부정결과.기존수치/가중치모형선택근거로사용안함.",
+        "difference_to_test": "신규공통계절/반시간입력의small/large·Seoul·FM대조;기존모형은고정참고."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-scaled-seoul-flow-H0009-v1",
+      "input_manifest_sha256": "c0350d694efdcd656b505eb586d7ee1068e51f03a9f4afbebdcf451255c27d24",
+      "observed_truth": "학습/내부검증:다운로드완료거래의실제30분대여/반납건수.공식평가:9월API현재/30분뒤표시재고,정답분리.",
+      "not_observed": [
+        "2/3월재고",
+        "잠재미충족수요·공급노출·물리용량·운영이동",
+        "동시서울2026관측·대전실측날씨·서울대여소재고",
+        "미열람독립9월시험·현장운영효용"
+      ]
+    },
+    "evaluation": {
+      "design": "원본재파싱은H4해시/인코딩/행폭/월일치/0<=기간<24h/완전중복규칙그대로.학습ID1192와H4valid시간/H7OD그래프고정.반시간실제완료대여/반납합계가H4시간건수와일치해야진행.각valid시간의정시/30분origin모두학습.07~21시,원본월경계/누락시간은H4마스크그대로,API안봄.\n모든신규rate후보공통34특성=H7의26+월sin/cos2+반시간onehot2+서울4(없음후보는0마스크,같은입력너비).서울FunctioningDay=Yes만;공식과거2017~18자료의globalmean mu로정규화한log[(그룹합+tau*mu)/(n+tau)/mu] 네표:월(tau24),시간(tau24),요일×시간(tau8),월×시간(tau8).2026월·요일·시간으로lookup,서울대여소·동시상황·기상관측으로해석안함.누락그룹은prior로계산,새API통계없음.\n신규small=1층32,large=3층128,large_seoul=3층128+서울.큰모형은1층own/ODneighbor선형후2residualGCNblock(SiLU/LayerNorm),prior=H4calendar,exp[2*tanh(raw/2)]시간률출력·초기output0.각11/29seed·20epoch포아송건수NLL(평균=hourrate/2),AdamWlr.001wd.0001batch32fullnodes,gradnorm1,epoch0포함고정Febdeviance최소/동점최초저장.월별features·고정률저장,API/3월미열람상태에서모두lock.\nfull=large_seoul인코더각seed고정후bivariate(rental,return)실제30분건수CFM.조건=동일GCNhidden+log1p(rate/2),목표x1=log1p(y+U[0,1))-log1p(rate/2),x0~N(0,I2),t~U[0,1],선형경로xt=(1-t)x0+tx1,targetvelocity=x1-x0.128폭3hidden SiLU MLP,시간(t,sin(pi*t),cos(pi*t),t^2),마지막선형0.조건인코더학습안함.각seed20epoch,AdamWlr.001wd.0001batch16384,고정시간·노드flatten순회shuffle,gradnorm1.고정Feb valid flatten에서linspace131072개(전체미만이면전체)·독립고정noise/U/t의CFM MSE로epoch0~20최소선택.모형군/하이퍼파라미터추가탐색없음.\n새rate3후보는2seed평균률로동일30분0반사포아송과정,기존H7OD·H4달력함께대조.전체후보과거률로동일Ktail규칙을API전고정;K>1024실패. fullCFM은2seed각256표본의동일가중혼합M512,Heun16고정step으로잔차생성,실수inverse expm1후floor와하한0으로정수화(음수학습자료절단아님).생성값유한/정수·비음수,65535초과시후보실패(잘라사용안함).미관측상한물리용량으로오해안함.개별대여소대여/반납2차원결합이며도시전체동시의존성모형아님.\n생성30분대여d/반납a의조건부균등사건순서로재고경계처리.순최저경로깊이L은반사원리P(L>=k)=1 if k<=max(d-a,0),else choose(d+a,d-k)/choose(d+a,d),k>d이면0.고정uniform에binarysearch로표본추출;최종재고b+(a-d)+max(L-b,0),무상한·음수0반사.미래API정답을건수/최저경로/초기b에사용안함.고정표본512의empiricalPMF·lower median/mean/P0/5/95분위수·CRPS;MC오차있음,포아송대조군은해석적PMF.\n학습·선택파일/표본·K/weights/export/context프로필해시를lock한뒤처음March보조건수진단(미래재고진단아님):rates전체deviance,CFM linspace65536개의표본평균MAE/empiricalCRPS.출력보고만선택안함.그후9월API평가:기존H5pair_data와1192고정ID/현재유효/정답유효/120초시차/9월양쪽시점;2/3월재고/10월시험없음.모든후보동일공통237222예상쌍(실제수보고).전체CRPS주지표;전체/현재0/양수의P0Brier,평균RMSE/중앙값MAE/범위포함률보조.현재유지대조동일보고.비교군별API점수로모형/분포/feature/ensemble가중치/epoch/보정/임계값선택안함.\nCPU/GPU계산dislab전용.고정신규후보·모형출처를별도연구모드로서비스에연결하며사용자융합요청으로경로결정,API승자선택아님.미래정답별도조회·null/미지원ID계약유지;기존서비스시제품기능유지.새정확도개선주장은사전판정과구간을따름.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2025-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_recorded_count_test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "official_evaluation",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "small32 same34features(maskedSeoul)",
+        "large128 depth3 noSeoul",
+        "large128 depth3 Seoul",
+        "frozenH7OD",
+        "frozenH4calendar",
+        "currentpersistence auxiliary"
+      ],
+      "primary_metric": {
+        "name": "worst_control_relative_crps_gain",
+        "direction": "higher",
+        "unit": "fraction"
+      },
+      "success_rule": "공통ID>=500·유효쌍>=10000·유효날짜>=10·각블록유효복제>=1900에서full의5대조군대비최소상대CRPS감소점추정과3/7일두95%하한모두>.01이면supported.1%는사전연구기준이며운영효용기준아님.",
+      "failure_rule": "같은충분성에서두구간상한모두<=.01이면not_supported.그외inconclusive.후보가자료/학습/생성수치게이트실패하면실패·미실행기록,후보만유리하게제외해성공선언안함.서비스구현채택과성능판정구분.",
+      "exclusion_rule": "학습/원본/서울/모델/그래프/패널해시와ID순서검사.서울비운영시간은프로필에서제외,0수요로학습안함.타슈누락0대체/재고상한자르기/미래반납으로재고실측복원없음.9월미지원/현재또는정답누락/시차범위밖은모든후보공통제외.후보오차기반표본제외없음.",
+      "uncertainty_plan": "14일9/17~30의빈/부분날포함도시동기화3/7일이동블록각2000회PCG64seed20261031독립초기화.각날5control/full CRPS합과쌍수를복원해gain_c=(sumcontrol-sumfull)/sumcontrol,복제마다min5,2.5/97.5분위수.기존9월반복노출명시.부트구간은학습선택/CFM MonteCarlo불확실성미포함.표본혼합/비음수projection/ODE16/M512고정수치근사공개.새API보정안함.",
+      "seed_plan": "학습11/29,서울프로필결정적,validation노이즈seed20261031+seed,추론seed20261109+month*1000+weekday*100+hour*2+half를context별고정.두checkpoint각256sample·표본크기와계산구현기록.훈련CUDA RTX3080 float32 TF32off deterministic algorithms·CPU4스레드·GPU메모리상한35%.학습예산/ODEsteps/샘플수를API결과로조절안함.모든weights/export/K/학습선택/원본·검증해시/실행코드·환경·시각기록.미래라벨비의존,30분일치,서울출처마스크,깊이/크기,CFM실제최적화,반사최저경로전체열거합성검사."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "26fbcba8134836e1097080fb8be4fbe7db6d58bb0e4691ca073860c2470e06f2",
+    "frozen_at_utc": "2026-10-31T07:05:43.179370+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
