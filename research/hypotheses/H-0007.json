@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "H-0007",
+  "title": "과거 OD 관계 GCN의 추가 가치와 공식9월 검증",
+  "status": "preregistered",
+  "plan": {
+    "question": "과거 전용 OD 관계의 작은 그래프 흐름 추정기가 자기/치환 관계와 달력 기준선보다 공식9월0대 위험을 개선하는가?",
+    "hypothesis": "현재양수 공식9월쌍에서 사전 주후보OD-GCN의Brier가 자기관계·치환관계·H4달력 세대조군 각각보다0.002넘게 낮다. 최종GCN/FM아키텍처의확정이아님.",
+    "prior_art": [
+      {
+        "title": "Lin, He & Peeta, TRC2018 §3–5",
+        "url": "https://arxiv.org/pdf/1712.04997",
+        "verified_scope": "관계종류·학습기간전용 DE/ATD/DC·시간순서분할·최근거래입력 확인.",
+        "difference_to_test": "우리는9월최근거래없으므로고정과거프로필+달력만사용. 고정OD관계·동일모수자기/치환대조로제한, 원문재현아님."
+      },
+      {
+        "title": "Kipf & Welling, ICLR2017 §2 Eq2 and limitations",
+        "url": "https://arxiv.org/pdf/1609.02907",
+        "verified_scope": "근방특성의선형결합·비선형변환과자기연결·국소가정확인.",
+        "difference_to_test": "분류원문재현아님. 별도자기/이웃변환·행정규화된OD의1층메시지전달로실현거래평균을추정."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-historical-od-gcn-H0007-v1",
+      "input_manifest_sha256": "634811a3b3abbb0fb2be39daec50c4ed87b455d04ecd9adf043b08e4a73bfbbb",
+      "observed_truth": "학습/체크포인트선택은다운로드과거기록의시간별실현대여/반납건수만.공식평가는9월API미래재고/0대,현재API는초기상태만.2·3월재고정답없음.",
+      "not_observed": [
+        "과거실측재고·가용노출·잠재수요",
+        "9월거래/운영자이동·실제이용성",
+        "독립미열람9월시험자료"
+      ]
+    },
+    "evaluation": {
+      "design": "H4고정1192ID·prepared_panel해시와같은기록범위/결측규칙.학습2025-08~2026-01,체크포인트선택2026-02,보조거래보류2026-03.기존H4에서선택한달력prior/상수prior를입력으로고정(평활16은과거2월에서기존선택,중첩선택낙관성과과거재사용공개). 그래프는원본H4파서·완전중복제거후 대여/반납모두학습기간·각시각공통유효시간·두ID학습코호트인OD만집계.자기순환제거,C+C.T로대칭가중치,각행상위16양수이웃(동률ID순서),선택의합집합유지,원가중치행정규화.고립점만자기연결.자기A=I,OD A,치환A[p,p](PCG64seed20261031,노드특성은그대로)의세조건. 노드X=[log1p(고정대여/반납률)2,log1p(달력대여/반납률)2,요일onehot7,시각07~21onehot15],26차원. h=ReLU(XW_self+(AX)W_neighbor+b),폭32, z=hW_out+b_out, mu=calendar*exp(2*tanh(z/2)).동일모수·1층·마지막층0초기화로epoch0달력prior. 3조건각seed11,29,47,Adam lr0.002 weight_decay0.0001,batch32시간,20epoch,gradient norm1,dropout없음.초기epoch0포함각epoch의2월평균Poissondeviance최소체크포인트,동률앞epoch.같은seed초기값/배치순서.시드승자선택없이3시드평균률을각조건최종출력으로고정·저장·해시후3월보조건수와9월API평가. 9월최근거래를0으로조작하지않음. 모델선택에API사용없음. 상태과정은H5/H6와같은독립Poisson시도·0반사·상한없음·30분고정. 각후보평균률과H4기준선모두의과거계수에서K=max(16,ceil(Pois.isf(1e-12,max_rate_sum*0.5))+1),최대1024,확률꼬리<=1e-10/평균꼬리상계<=1e-8을API읽기전검사(미달시숫자없이실패기록). 동일K로전방PMF·평균/하위중앙값·P0·CRPS/5~95분위수.공식현재/목표9월·정시07~21·3칸뒤30분·각요청지연0..120s·실경과1800±120s·정확ID교집합·결측0대체없음. OD사전주후보이고9월점수로3조건중승자를선택하지않음.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2025-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_recorded_count_test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "official_evaluation",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "동일 모수 자기관계I",
+        "동일 모수 고정치환OD관계",
+        "고정H4달력률과정",
+        "현재재고유지(보조)"
+      ],
+      "primary_metric": {
+        "name": "worst_control_positive_brier_gain",
+        "direction": "higher",
+        "unit": "squared_probability"
+      },
+      "success_rule": "공통훈련ID>=500,현재양수유효쌍>=10000,양수유효날짜>=10,각블록유효복제>=1900에서점추정과3/7일두95%하한모두>0.002면supported.0.002는사전연구간격이며서비스효용기준아님.",
+      "failure_rule": "같은충분성에서두95%상한모두<=0.002면not_supported.나머지/자료·수치부족은inconclusive.실패도보존,API로모델/보정선택안함.",
+      "exclusion_rule": "모든입력·원본회원·기존모델/패널SHA검사.기존H4파서기간<24h·파일월일치·완전중복규칙.그래프는검증/시험거래를포함하지않음.학습ID는그대로고정,API매칭은평가대응만.음수/비정수관측·중복ID·순서/시간손상중단.누락0대체/고재고자르기/10월평가없음.한후보만불리한표본제외안함.",
+      "uncertainty_plan": "주점수=min_{c=self,permuted,calendar} mean[(p_c-y0)^2-(p_od-y0)^2],현재양수공통쌍.9/17~30의14개달력일(부분/빈날보존)도시동기화3일/7일이동블록각2000회PCG64seed20261031재초기화.날짜별4후보손실합·양수쌍수를함께14일길이복원추출,각복제에서세차중최소계산,2.5/97.5백분위.모형·시드선택불확실성미포함,9월기존노출·반복평가공개.보조:2월선택epoch/학습경로·3월거래deviance/MAE(재고성능아님),각seed결과/평균률,그래프/범위통계,현재0/양수/전체Brier·평균RMSE·중앙값MAE·CRPS·고정5~95포함률,같은현재유지.보조로주가설·9월모형선택안바꿈.",
+      "seed_plan": "학습seed11/29/47,그래프치환/블록seed20261031각독립재초기화PCG64. dislabRTX3080CUDA학습,float32·TF32off·deterministic algorithms·CUBLAS_WORKSPACE_CONFIG=:4096:8·CPU4스레드·GPU메모리상한15%.CUDA불가/OOM이면구조/예산을바꾸지않고실패기록.API평가PMF는CPUfloat64chunk512.실제버전·환경·계획/코드게시와실행시각·학습/가중치/선택/예측해시기록.합성검사로학습전용간선·순서·고립·치환·동일모수·epoch0·미래정답비의존·PMF확인."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "68500e2476dec802d04b52f934471539d45d68932f908953b059992a4bf5f59b",
+    "frozen_at_utc": "2026-10-31T05:54:52.894925+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
