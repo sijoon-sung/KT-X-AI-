@@ -1,0 +1,104 @@
+{
+  "checks": [
+    {
+      "name": "remote_plan_loads",
+      "passed": true
+    },
+    {
+      "name": "old_results_address_redirects_to_operational_view",
+      "passed": true
+    },
+    {
+      "name": "no_research_sections",
+      "passed": true
+    },
+    {
+      "name": "model_attribution",
+      "passed": true
+    },
+    {
+      "name": "real_interactive_map",
+      "passed": true
+    },
+    {
+      "name": "actual_distance",
+      "passed": true
+    },
+    {
+      "name": "per_leg_distance_and_load",
+      "passed": true
+    },
+    {
+      "name": "no_desktop_overflow",
+      "passed": true
+    },
+    {
+      "name": "capacity_recomputes_remotely",
+      "passed": true
+    },
+    {
+      "name": "deadline_recomputes",
+      "passed": true
+    },
+    {
+      "name": "objective_changes_and_completes",
+      "passed": true
+    },
+    {
+      "name": "candidate_exclusion_recalculates",
+      "passed": true
+    },
+    {
+      "name": "station_search",
+      "passed": true
+    },
+    {
+      "name": "restore_default",
+      "passed": true
+    },
+    {
+      "name": "stop_selection",
+      "passed": true
+    },
+    {
+      "name": "route_preview",
+      "passed": true
+    },
+    {
+      "name": "assumptions_available",
+      "passed": true
+    },
+    {
+      "name": "no_mobile_overflow",
+      "passed": true
+    },
+    {
+      "name": "no_browser_exceptions",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "scope": "Display/interaction QA only on local browser; all planning requests computed on dislab.",
+  "assets": [
+    {
+      "id": "research_code/forecast_web/dispatch.html",
+      "sha256": "370158b371751fa15788f4b4817c396156478747b83081eccc58f46ee997631f",
+      "hash_basis": "canonical Git blob"
+    },
+    {
+      "id": "research_code/forecast_web/dispatch.css",
+      "sha256": "05272168b621d371a11ba231d998128d1e0cc0738dc1e9d8a5ee8f4ea9543585",
+      "hash_basis": "canonical Git blob"
+    },
+    {
+      "id": "research_code/forecast_web/dispatch.js",
+      "sha256": "3154001b17c07a5b92ddcdb40d87cf46bcdab2d320f933ce3ec1d53425f03951",
+      "hash_basis": "canonical Git blob"
+    },
+    {
+      "id": "research_code/forecast_web/results.html",
+      "sha256": "d22aa60123c9fc95325d8e76992f34f4c77cd0bc984cdf9af77bb1842cd9e4c0",
+      "hash_basis": "canonical Git blob"
+    }
+  ]
+}

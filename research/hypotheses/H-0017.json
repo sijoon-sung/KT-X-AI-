@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0017",
   "title": "지도 중심 동적 재배치 수량·거리·방문 순서 계산",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can an operator dynamically select candidates/resources and receive a bounded optimal quantity/route with actual directed road distances without research clutter?",
     "hypothesis": "Exact small-candidate integer/route enumeration yields zero acceptance failures and dynamic controls really change computed feasible plans; product omits research sections while keeping source date/assumptions.",
@@ -66,6 +66,19 @@
     "plan_sha256": "4a89e0e6c9181824d115d8647e2f7afa320df37e53847efc79310417e8f6a822",
     "frozen_at_utc": "2026-10-31T16:46:42.493466+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislabCPU기능검사41개실패0,브라우저19개통과.고정예측+실제좌표도로추정에서기본4대/4.7852km/6.005분;적재1대면2대/4.2945km;3분제한이면2대/2.382km.동적계산과선택후보내완전탐색이며실제운영효과미검증.",
+    "limitations": [
+      "Recorded Oct31 current state and frozen H13 stationwise predictions; no new model fit or superiority test.",
+      "Exact finite search restricted to<=5selectedstations, onevehicle, onevisit, integercaps, fixedcar-roadmatrix and policyobjective.",
+      "Realfleet/depot/parking/handling/traffic/truckaccess unverified, resourcesassumed.",
+      "No actual dispatch or measured field improvement."
+    ],
+    "run_manifests": [
+      "research/runs/H-0017-20261101-dynamic-dispatch/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

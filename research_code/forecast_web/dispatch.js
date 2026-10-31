@@ -51,7 +51,7 @@ function renderPlan(){
  $('alternatives').querySelectorAll('[data-mode]').forEach(el=>{el.onclick=()=>setObjective(el.dataset.mode);el.onkeydown=e=>{if(e.key==='Enter')setObjective(el.dataset.mode);};});
  $('previewRoute').disabled=!r.stops.length;$('export').disabled=false;
  const date=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
- $('calculationStatus').textContent=`${date} 기록 · 선택 ${ids.length}곳 계산 완료`;drawBase();drawRoute();fit();
+ $('calculationStatus').textContent=`${date} 기록 · 선택 ${ids.length}곳 계산 완료`;$('conditionSummary').innerHTML=`적재 ${plan.parameters.capacity}대 · 목표 ${plan.parameters.target}대 · ${plan.parameters.deadline_minutes}분 제한 <span>설정 ›</span>`;drawBase();drawRoute();fit();
 }
 function icon(type,text){return L.divIcon({className:'',html:`<div class="route-pin ${type}">${text}</div>`,iconSize:type==='depot'?[22,22]:[30,30],iconAnchor:type==='depot'?[11,11]:[15,15]});}
 function popup(s){
@@ -70,7 +70,7 @@ function drawRoute(){
  r.stops.forEach((s,i)=>L.marker([stationById[s.station_id].lat,stationById[s.station_id].lon],{icon:icon(s.action,String(i+1))}).addTo(routeLayer).bindTooltip(`${esc(stationById[s.station_id].name)} · ${s.action==='pickup'?'수거':'배치'} ${s.bikes}대`).on('click',()=>selectStop(i)));
  L.marker([anchor.lat,anchor.lon],{icon:icon('depot','⌂'),zIndexOffset:200}).addTo(routeLayer).bindTooltip('출발 · 복귀 위치 (가정)');
 }
-function fit(){if(!map)return;const points=ids.map(id=>stationById[id]);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{padding:[90,100],maxZoom:15});}
+function fit(){if(!map)return;const points=ids.map(id=>stationById[id]);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{padding:map.getSize().x<500?[35,55]:[90,100],maxZoom:15});}
 function selectStop(i){
  const s=plan.route.stops[i];document.querySelectorAll('[data-stop]').forEach((el,j)=>el.classList.toggle('active',j===i));
  if(map)map.panTo([stationById[s.station_id].lat,stationById[s.station_id].lon]);
@@ -101,9 +101,10 @@ async function init(){
  try{
   const r=await fetch('/api/dispatch/info');if(!r.ok)throw Error('관측 기록을 불러오지 못했습니다.');info=await r.json();stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));ids=info.default_ids.slice();depot=info.default_depot_id;
   $('recordTime').textContent=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+' 기준';
-  if(window.L){map=L.map('map',{zoomControl:false}).setView([36.32,127.39],14);L.control.zoom({position:'topright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',keepBuffer:1}).addTo(map);baseLayer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);}
+  if(window.L){map=L.map('map',{zoomControl:false}).setView([36.32,127.39],14);L.control.zoom({position:'topright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',keepBuffer:1}).addTo(map);baseLayer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);map.on('resize',fit);}
   candidates();drawBase();fit();$('recalculate').disabled=false;
   ['capacity','target','deadline','budget'].forEach(id=>$(id).onchange=invalidate);$('depot').onchange=()=>{depot=$('depot').value;candidates();invalidate();};
+  const tab=setting=>{$('controlScroll').className='control-scroll '+(setting?'view-settings':'view-route');$('settingsTab').classList.toggle('active',setting);$('routeTab').classList.toggle('active',!setting);};$('settingsTab').onclick=()=>tab(true);$('routeTab').onclick=()=>tab(false);$('conditionSummary').onclick=()=>tab(true);
   $('restore').onclick=()=>{ids=info.default_ids.slice();depot=info.default_depot_id;candidates();invalidate();};
   document.querySelectorAll('[data-objective]').forEach(b=>b.onclick=()=>setObjective(b.dataset.objective));$('recalculate').onclick=calculate;
   $('fitMap').onclick=fit;$('showAll').onclick=()=>{allVisible=!allVisible;$('showAll').classList.toggle('active',allVisible);drawBase();};
