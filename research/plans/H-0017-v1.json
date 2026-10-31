@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0017",
+  "compute": "dislab CPU only, local display/transport only",
+  "forecast": "Existing H13 stationwise GCN+FlowMatching frozen128samples; no H14 gate bypass or new model superiority claim",
+  "limits": {
+    "candidate_stations": 5,
+    "capacity": [
+      1,
+      12
+    ],
+    "target": [
+      1,
+      5
+    ],
+    "work_budget": [
+      1,
+      12
+    ],
+    "deadline_minutes": [
+      1,
+      10
+    ],
+    "service_minutes": 0.1,
+    "pickup_limit": 6,
+    "dropoff_limit": 3,
+    "horizon": 10
+  },
+  "optimization": {
+    "method": "Exhaust all integer station-net choices and feasible single-visit route permutations within<=5selectedcandidates; verify conservation/load/terminal supply/time; complete search or fail explicitly after15seconds, never call partial result optimal.",
+    "risk": "mean total target shortfall + CVaR90 total shortfall of unchanged supplied scenarios",
+    "objectives": {
+      "balanced": "risk + .03*road_km + .01*moved",
+      "distance": "risk + .5*road_km + .01*moved",
+      "time": "risk + .07*route_minutes + .01*moved"
+    },
+    "zero_action": true,
+    "scope": "Best computed objective within selected candidate set, one vehicle, integer caps and fixed estimated road matrix; not citywide/field optimum."
+  },
+  "roads": {
+    "provider": "OSRM public current car profile",
+    "table": "duration,distance directed matrix,cache bycoords",
+    "geometry": "selected route GeoJSON, cache bysequence",
+    "query_timeout_seconds": 20,
+    "retries": 1,
+    "failures": "explicit unavailable; no invented distances"
+  },
+  "ui": {
+    "references": [
+      "https://support.onfleet.com/hc/en-us/articles/360023669612-Map-Sidebar",
+      "https://support.onfleet.com/hc/en-us/articles/360023910351-Route-Optimization-Operating",
+      "https://www.mapbox.com/fleet"
+    ],
+    "content": "Operational map, candidate/quantity/sequence/legkm/ETA/load and resource controls. No hypothesis/research/PR/experiment pages in product. Model attribution only Flow Matching + GCN. Record date and planning assumptions remain visible.",
+    "interaction": "Change resource/candidate/depot/objective -> debounced remote calculation; ignore stale responses, preserve invalid/unavailable states; route animation labeledsimulation; CSV export plan."
+  },
+  "acceptance": [
+    "directed leg distance sum matches total and minutes+service match route",
+    "pickup/delivery conservation and every load bound",
+    "source pickup safety respects fixed current and scenario limits",
+    "tinycase independent exhaustive optimum oracle",
+    "changed capacity/deadline/exclusion accepted and reflected, no fake fixed return",
+    "invalid IDs/>5/horizon>10 reject",
+    "future labels absent from prepared RPC state and UI response",
+    "model weights unchanged and dispatch false",
+    "no original hypothesis/experiment content in operational HTML",
+    "road failure explicit and no default fabricated distance"
+  ],
+  "decision": "supported only if all engineering acceptance checks pass; no accuracy/effectiveness inference",
+  "budget": "15min acceptance plus bounded interactive requests"
+}
