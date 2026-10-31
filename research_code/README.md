@@ -111,3 +111,17 @@ python research_code/loss_consistent_stock.py --panel <PRIVATE_AUDITED_API_PANEL
 
 [동결 계획](../docs/H-0006-loss-consistent-action.md)·[결과](../docs/H-0006-results.md)를 따른다.
 완료 기록은 별도 재현 브랜치·새 실행ID로만 재현한다. 원본·개별 예측은 공개하지 않는다.
+
+## H-0007: 학습 전용 OD 관계와 동일 예산 비교
+
+`historical_od_gcn.py train`은과거원본/패널/고정prior만읽고세관계·각3seed를학습한다. API입력인자가없다.
+선택epoch·평균률을저장한뒤3월보조건수진단을한다. `evaluate`는그해시를확인한뒤공식9월을평가한다.
+자기관계·OD·치환은같은모수/손실/예산을사용하며9월의승자를선택하지않는다.
+
+```text
+python research_code/historical_od_gcn.py train --archive <PRIVATE_HISTORY_ARCHIVE> --history-model-dir <PRIVATE_H4_MODELS> --run-id <NEW_RUN_ID>
+python research_code/historical_od_gcn.py evaluate --panel <PRIVATE_AUDITED_API_PANEL> --run-id <SAME_RUN_ID>
+```
+
+환경은dislabCUDA학습·CPU평가,CUBLAS_WORKSPACE_CONFIG=:4096:8·OMP/MKL/OPENBLAS4스레드.
+[동결계획](../docs/H-0007-historical-od-gcn.md)·[결과](../docs/H-0007-results.md)를따른다.재현은별도브랜치·새실행ID로보존한다.

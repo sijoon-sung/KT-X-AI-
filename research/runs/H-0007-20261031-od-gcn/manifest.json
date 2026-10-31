@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0007-20261031-od-gcn",
+  "hypothesis_id": "H-0007",
+  "plan_sha256": "68500e2476dec802d04b52f934471539d45d68932f908953b059992a4bf5f59b",
+  "code_commit": "51a134936349cda702e1f14adc5c5d0afb9c4bbb",
+  "input_manifest_sha256": "634811a3b3abbb0fb2be39daec50c4ed87b455d04ecd9adf043b08e4a73bfbbb",
+  "started_at_utc": "2026-10-31T05:56:54.711225+00:00",
+  "finished_at_utc": "2026-10-31T06:04:59.021565+00:00",
+  "command": [
+    [
+      "python",
+      "research_code/historical_od_gcn.py",
+      "train",
+      "--archive",
+      "<PRIVATE_HISTORY_ARCHIVE>",
+      "--history-model-dir",
+      "<PRIVATE_H4_MODELS>",
+      "--run-id",
+      "H-0007-20261031-od-gcn"
+    ],
+    [
+      "python",
+      "research_code/historical_od_gcn.py",
+      "evaluate",
+      "--panel",
+      "<PRIVATE_AUDITED_API_PANEL>",
+      "--run-id",
+      "H-0007-20261031-od-gcn"
+    ]
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu118",
+    "device": "NVIDIA GeForce RTX 3080",
+    "cuda_peak_bytes": 165563392,
+    "cublas_workspace_config": ":4096:8",
+    "scipy": "1.15.3",
+    "compute_location": "dislab",
+    "evaluation_device": "CPU float64, 4 threads"
+  },
+  "seed": [
+    11,
+    29,
+    47
+  ],
+  "evaluation_scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "metrics": {
+    "worst_control_positive_brier_gain": -0.000978133267498559,
+    "positive_pairs": 131118,
+    "matched_training_ids": 1176,
+    "positive_dates": 14,
+    "ci_3day_lower": -0.001309730313519325,
+    "ci_3day_upper": -0.0006637982074926043,
+    "ci_7day_lower": -0.001146991291734705,
+    "ci_7day_upper": -0.0008694126503852837
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "1fe778f51b04cd2a9b001dfeeeafc682769cd618a91df058a68fe541ff0913ad",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "training.json",
+      "sha256": "dca620b4442102aa693a5487b23d22f4f13b05f1a23b8441aa269be191f740bd",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "calendar.npz",
+      "sha256": "cc196949d1e9f5ad1877b87e7a88d6ef89e61c7e4924801d92c9492d76115ca5",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "graph.npz",
+      "sha256": "e1a42c4f68f8e8b6ac6f06bbef8393bb749badb2b9f66720483e9acf5147041e",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "od-seed11.pt",
+      "sha256": "4d4e59cfb3d40b62aba2bdea1f20f7ebe326b577ee48ed39f6f17463ed67655a",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "od-seed29.pt",
+      "sha256": "a6545efcc1b76fba2b1c489532b06ec0578804106039b3b11f964fbae3e587b4",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "od-seed47.pt",
+      "sha256": "ec709a5545baf9e4ba3c9818defabf996e35986047576274c419be6cebb54a0c",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "od.npz",
+      "sha256": "27f1364ecb26922a81f28739a80f7f852b58aec10827bd469b46c34ec14d891f",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "permuted-seed11.pt",
+      "sha256": "e5c344dba49d837eaec699fdd0b951fc358df883187cd11642d64b21da9028a2",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "permuted-seed29.pt",
+      "sha256": "81aeeab20ef7ba2869cf3c6d98c7de50b63636204653df7a1a092937381d54e8",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "permuted-seed47.pt",
+      "sha256": "d96c1026a5a2d5455d0b977fe8f26ff2c9720da1e0bce0241aa2e8a1e83522fd",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "permuted.npz",
+      "sha256": "f546b598b3246ec970b26dedcdcb23b3b24259d2176df1ebcb53db43af07acfb",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "predictions-calendar.npz",
+      "sha256": "50935545e23857f9dfceb116ca7583f3cc0e51b5c723dc58b41f8bf5c9e7832e",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "predictions-od.npz",
+      "sha256": "3b0753e12462014648f9e86dc8c77ac520caa4df5599499222397d42204fbd7d",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "predictions-permuted.npz",
+      "sha256": "7bd52cc1d94534f39991d5d57f47e11635d49fb9b3613df986ee4fff06002486",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "predictions-self.npz",
+      "sha256": "07fcf6c5e14f84fe91e6830f9c24f080f4cbdecc9208d712f2748165e609161d",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "selection.json",
+      "sha256": "e484faacdb19a8d8e54f1d276cdd87a9abeca29c7e8527bcee1d8af2309360f5",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "self-seed11.pt",
+      "sha256": "47f3bd7792ea272aa425d8c9557c1c58277f267b5646e7db29f3e8c96246342b",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "self-seed29.pt",
+      "sha256": "7eb48c73a2cbac6f5ad1d25c2876e20a9c014f19188bae723d4e3dbb291beffd",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "self-seed47.pt",
+      "sha256": "b84f57b6eb66eea6fdb7752eb6766b7f44e9222352290f73ee593760ed52c365",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    },
+    {
+      "id": "self.npz",
+      "sha256": "84a95b87273247963418572d206dfed25e8ae828bd64c5082eff2a826bdbbe4f",
+      "availability": "private dislab model/graph/selection/prediction; not published"
+    }
+  ],
+  "limitations": [
+    "Official September repeatedly exposed, including H5/H6; not untouched independent evaluation.",
+    "Historical-only fitting and February count checkpoint selection; historical reused splits and existing calendar-prior shrinkage selection.",
+    "One small static-profile/calendar graph model and one undirected OD construction; no inference on all GCNs or learned/dynamic graphs.",
+    "No recent transactions at September inference; effective completed-flow rates omit exposure, capacity, operator movement and observation latency.",
+    "Mean-rate three-seed ensemble; block intervals omit fitting/selection uncertainty; auxiliary March counts are not inventory truth.",
+    "Fixed API evaluation cannot select winning model/threshold/calibration, establish usability or policy value, or finalize FM/architecture."
+  ]
+}

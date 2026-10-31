@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0007",
   "title": "과거 OD 관계 GCN의 추가 가치와 공식9월 검증",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "과거 전용 OD 관계의 작은 그래프 흐름 추정기가 자기/치환 관계와 달력 기준선보다 공식9월0대 위험을 개선하는가?",
     "hypothesis": "현재양수 공식9월쌍에서 사전 주후보OD-GCN의Brier가 자기관계·치환관계·H4달력 세대조군 각각보다0.002넘게 낮다. 최종GCN/FM아키텍처의확정이아님.",
@@ -76,6 +76,21 @@
     "plan_sha256": "68500e2476dec802d04b52f934471539d45d68932f908953b059992a4bf5f59b",
     "frozen_at_utc": "2026-10-31T05:54:52.894925+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "과거전용 세관계·각3seed학습후공식9월평가. OD현재양수Brier 0.120347, 자기 0.120283, 치환 0.120387, 고정달력 0.119369. 최소대조군대비감소 -0.000978, 두구간상한<=0.002로가설지지하지않음.채택없음,제한된한종류그래프/입력실험임.",
+    "limitations": [
+      "Official September repeatedly exposed, including H5/H6; not untouched independent evaluation.",
+      "Historical-only fitting and February count checkpoint selection; historical reused splits and existing calendar-prior shrinkage selection.",
+      "One small static-profile/calendar graph model and one undirected OD construction; no inference on all GCNs or learned/dynamic graphs.",
+      "No recent transactions at September inference; effective completed-flow rates omit exposure, capacity, operator movement and observation latency.",
+      "Mean-rate three-seed ensemble; block intervals omit fitting/selection uncertainty; auxiliary March counts are not inventory truth.",
+      "Fixed API evaluation cannot select winning model/threshold/calibration, establish usability or policy value, or finalize FM/architecture."
+    ],
+    "run_manifests": [
+      "research/runs/H-0007-20261031-od-gcn/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }
