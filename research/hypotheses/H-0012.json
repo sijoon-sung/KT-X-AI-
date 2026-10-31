@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0012",
   "title": "서울 미래 거래 예측 사전학습과 보완 기상의 다계절 이전",
-  "status": "running",
+  "status": "completed",
   "plan": {
     "question": "미래 대여/반납 건수 예측으로 서울에서 사전학습한 공유 모형이 보완 기상 아래 타슈 건수 예측을 개선하는가?",
     "hypothesis": "사전 주후보 weather_forecast_full이 동일 보완기상·용량의 weather_scratch 및 weather_ae 모두보다 세분할 macro Poisson deviance를1% 넘게 줄인다.",
@@ -84,6 +84,23 @@
     "plan_sha256": "bcdf20d2120fb9b3e39a4551498ee64c04a2813f93f44fc08c4d27bf2685a226",
     "frozen_at_utc": "2026-10-31T10:38:06.151750+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "서울 미래30분 건수 예측/AE 사전학습각2seed 및 보완54기상/동일구조5후보·3시간분할·각2seed 미세조정 완료. 주대조군최소macro count deviance상대감소 -0.214248%, not_supported. 재고API평가 아님.",
+    "limitations": [
+      "Historical completed-count diagnostics only. No inventory API loaded or measured inventory/stockout/operational gain established.",
+      "Three target count tests and source2024 were already used in H11, hence not untouched independent tests. Source train is chronological Jan-Aug, selectionSep, auxiliaryOct-Dec.",
+      "Source count/AE objectives matched rounds/batches/optimizer steps, not exact FLOPs or target information. AE uses station holdout while forecasting uses temporal holdout; source station counts/selection differ. Full transfer includes prediction-backbone initialization.",
+      "Weather archives revised, real-time receipt/version availability unverified. Nearby Gimpo/Cheongju airport values are geographic proxy features, not station-local truth.",
+      "KMA daily status is date-2 only, dash is categorical rather than fabricated zero rain. Nominal-hour amounts remain sparse; airport amount data empty; source412 generic accumulation excluded.",
+      "First record only supports historical record exposure, not measured opening, supply availability, capacity or latent demand. December2025 target records missing.",
+      "Weekly static profiles and calendar priors, without unavailable current transactions. Two seeds and block intervals omit fitting/selection/transfer uncertainty.",
+      "Research implementation adopted for reproducibility; live system model migration, new stock evaluation and new-context Flow Matching are separate experiments."
+    ],
+    "run_manifests": [
+      "research/runs/H-0012-20261031-forecast-transfer/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

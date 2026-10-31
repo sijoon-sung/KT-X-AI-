@@ -1,0 +1,106 @@
+{
+  "role": "post-fit serialized forecast acceptance, no fitting/selection",
+  "cpu_gpu_cases": 10,
+  "cpu_gpu_max_abs_error": 8.940696716308594e-08,
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "cases": [
+    {
+      "kind": "legacy_weather_scratch",
+      "max_abs_error": 7.450580596923828e-09
+    },
+    {
+      "kind": "legacy_weather_scratch",
+      "max_abs_error": 2.9802322387695312e-08
+    },
+    {
+      "kind": "weather_scratch",
+      "max_abs_error": 7.450580596923828e-09
+    },
+    {
+      "kind": "weather_scratch",
+      "max_abs_error": 2.9802322387695312e-08
+    },
+    {
+      "kind": "weather_ae",
+      "max_abs_error": 0.0
+    },
+    {
+      "kind": "weather_ae",
+      "max_abs_error": 0.0
+    },
+    {
+      "kind": "weather_forecast_encoder",
+      "max_abs_error": 9.313225746154785e-10
+    },
+    {
+      "kind": "weather_forecast_encoder",
+      "max_abs_error": 8.940696716308594e-08
+    },
+    {
+      "kind": "weather_forecast_full",
+      "max_abs_error": 3.725290298461914e-09
+    },
+    {
+      "kind": "weather_forecast_full",
+      "max_abs_error": 2.9802322387695312e-08
+    }
+  ],
+  "invalid_requests_rejected": 4,
+  "missing_weather_fallback_passed": true,
+  "test_coverage": [
+    {
+      "fold": "spring",
+      "primary_thermo_present": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "airport_thermo_present": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "daily_numeric": 0.38596490025520325,
+      "daily_dash": 0.6140350699424744,
+      "primary_weather_code_present": 0.33742690086364746,
+      "airport_weather_code_present": 0.3116959035396576
+    },
+    {
+      "fold": "summer",
+      "primary_thermo_present": [
+        0.9713450074195862,
+        0.9713450074195862,
+        0.9713450074195862
+      ],
+      "airport_thermo_present": [
+        0.9994152188301086,
+        0.9994152188301086,
+        0.9994152188301086
+      ],
+      "daily_numeric": 0.5964912176132202,
+      "daily_dash": 0.4035087823867798,
+      "primary_weather_code_present": 0.3719298243522644,
+      "airport_weather_code_present": 0.304678350687027
+    },
+    {
+      "fold": "winter",
+      "primary_thermo_present": [
+        0.8620689511299133,
+        0.8620689511299133,
+        0.8620689511299133
+      ],
+      "airport_thermo_present": [
+        0.9908046126365662,
+        0.9908046126365662,
+        0.9908046126365662
+      ],
+      "daily_numeric": 0.27586206793785095,
+      "daily_dash": 0.7241379022598267,
+      "primary_weather_code_present": 0.3252873420715332,
+      "airport_weather_code_present": 0.3379310369491577
+    }
+  ]
+}
