@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "H-0013",
+  "title": "실시간 재고 입력과 GCN·Flow Matching의 10분 재고 예측",
+  "status": "preregistered",
+  "plan": {
+    "question": "과거 거래만 학습한 서울 encoder+타슈 GCN+CFM이 최근 API 관측을 입력받을 때 10분 재고를 현재유지 및 동일GCN Poisson보다 개선하는가?",
+    "hypothesis": "최근관측 조건부 CFM의 fairCRPS가 recent GCN Poisson 및 현재유지 각각보다 1% 초과 개선된다.",
+    "prior_art": [
+      {
+        "title": "Lipman et al., Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "원문 Section3 CFM vector-field regression 확인",
+        "difference_to_test": "과거 완료건수의 2D log residual CFM; 독립 Gaussian coupling, 전체 도시 공동분포 아님"
+      },
+      {
+        "title": "Ferro, Fair scores for ensemble forecasts, QJRMS2014",
+        "url": "https://empslocal.ex.ac.uk/people/staff/ferro/Publications/ferro2013.pdf",
+        "verified_scope": "저자 원문 초록과 IID ensemble 공정점수 정의 확인",
+        "difference_to_test": "128 IID seed-mixture에 fairCRPS/M(M-1), pointmass 기준선 포함"
+      },
+      {
+        "title": "Liang et al., Reinforcement Learning Approach for Dynamic Bike Rebalancing",
+        "url": "https://www.cirrelt.ca/documentstravail/cirrelt-2024-04.pdf",
+        "verified_scope": "초록의 MDP action/reward/simulator 확인",
+        "difference_to_test": "이번에는 상태 예측만; action/cost 로그 부재로 RL 학습·정책효과를 주장하지 않음"
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-rolling-api-H0013-v1",
+      "observed_truth": "학습은 실제 완료대여/반납 10분 건수. 공식 평가 정답은 미래 9월 API 표시 재고. 현재/직전 API는 잠근 모형의 추론입력으로만 사용.",
+      "not_observed": "2·3월 재고, 잠재수요, 재배치행동, 실제 수용량/차량/비용; API 재고차이는 순거래 정답이 아님.",
+      "input_manifest_sha256": "330513d242622205a11f075b79d61b2a04ae6980a83918a1f039ce689f0329b3"
+    },
+    "evaluation": {
+      "design": "목표는 운영 API가 들어올 때마다 최근10분 관측과 현재 표시재고로 다음10분 표시재고/0대위험을 예측하는 것이다. 서울 예측 encoder+타슈 GCN+조건부 Flow Matching을 필수 주후보로 구현한다. API로 가중치를 갱신하는 온라인학습은 하지 않는다. 재배치행동/차량비용 로그가 없어 RL정책학습/효과를 했다고 하지 않고 예측상태를 향후정책의 입력으로 제공한다. API재고차이는 대여/반납/재배치/수리/서버조정의 합이지 재배치 정답이 아니다.\n\n과거학습:타슈2024-08-01~2026-02-01 train,2026-02 validation,2026-03 auxiliary count test. 원본H4 canonical hash/header/encoding/월일치/완료0<=duration<24h/완전중복규칙 유지,2025-12는누락. H12source-only서울예측encoder각11/29와H12winter의과거전용1318ID/OD/profile420/first를해시로고정해쓴다. sourceGCNbackbone나API학습가중치는승계하지않는다. encoder는전체미세조정한다.\n\n운영24시간을지원하도록원래07~21시로제한된정답을새로집계한다. 실제10분완료대여/반납건수,한날144칸이다. 원본월이존재하고월첫/마지막날아니며 도시전체의양channel기록이존재하는시간만노출지원으로간주한다. 기록없는시간을0노출로만들지않는다. 대여소첫training기록이전제외. 코호트/OD/420차원주간주간프로필은기존과거전용H12고정,밤의rates/prior는새24h과거로계산한다. 실제운영개시/공급노출은아니다.\n\n24h prior:month12×weekday7×hour24×half2=4032contexts. 10분counts합/노출을해당30분context에누적하며노출30단위는n10/3. mu30=(sum+.5)/(n30+1),weekly336은alpha32*mu계층평활,month-weekly는alpha32*weekly로평활,하한1e-6. outputprior10=prior30/3. ownlog6=log1p(mu30/weekly30/monthweekly30),neighborlog6=고정OD@ownlog. 공통calendar35=weekday7/hour24/half2/monthsincos2,추가10분phase3onehot. 기존24h가아닌420profile은source표현만이며24h정답을새로학습함을명시한다.\n\n최근feature:과거학습에서직전10분완료건수net=returns-rentals의asinh와presentmask. prev시각이정확히600초전이고prev기록범위유효/첫기록이후일때만present1. neighbor는OD가중asinhnet의유효관측가중평균과present가중비율이다. 추론에는현재API재고-10분전API재고를같은net의대리입력으로쓰며실측과거elapsed로600초단위정규화한다. 이대리는운영이동/수리/관측조정을포함하므로학습net과같다고확정하지않는다. fixedasinh로API분포맞춤정규화없음,API로graph/ID/profile/학습feature를만들지않는다. 누락이전관측은mask0/value0,관측0과구분한다.\n\nGCNmean:sourceencoder420->256SiLU->64LayerNorm,H12source가중치만초기화. own164=log6+calendar35+phase3+weather54+embed64+proxy2,neighbor72=log6+embed64+proxy2. own/neighbor선형합SiLU,추가256선형SiLU2,출력2를0초기화. lambda10=prior10*exp(2*tanh(raw/2)). 학습중graph@encodergradient유지,eval만cache. no_recent/recent두구성×11/29각16epoch+0,각epoch524288균등유효time/node표본,batch8192,AdamW.001wd.0001clip1,PCG64(seed+epoch). no_recent는proxy자기/이웃4열만0,구조/초기값/표본/예산동일. 각seed2월전체countdeviance최소/동점최초epoch선택.\n\n조건부FM:선택해고정한recentGCN의hidden256과centerlog1p(lambda10)에조건화한다. H9CountFlow(context_width256,width128),Gaussianindependentcoupling,log1p(count+U[0,1])-center residual,벡터장회귀(flow_loss수식H9),20epoch+0각524288과거exposure/batch8192,AdamW.001wd.0001clip1,각11/29. validation131072유효2월exposure를PCG64seed20261103로미리고정하고각평가마다동일Gaussian/U/t노이즈를seed20261103으로재현해flowloss최소/동점최초epoch선택한다. API/3월점수로고르지않는다. Heun16적분,역변환expm1+center후floor/하한0,비유한또는65535초과면수치실패로멈추고유리하게cap하지않는다. FM은대여소별대여/반납2D분포이며도시전체공동시나리오가아니다.\n\n모델선택후모든weights/context/feature/생성규칙/입력/codehash를model-lock(api_opened:false)에잠근뒤별도API평가를시작한다. trainingCLI에는APIpath/loader를두지않는다. 생성seed도고정한다. 3월보조건수는고정32768유효exposure/PCG64seed20261103/128표본의countmean-deviance와energy score(mean norm(sample-y)-.5mean norm(first64-second64))를보고한다. checkpoint는재선택하지않는다. 과거3월은실측재고정답아니다.\n\n재고연결은stock_future=max(0,stock_now+sampled_returns-sampled_rentals). 완료순흐름투영이며실제사건순서/물리수용량/운영자이동/잠재수요를복원한것이아니다. 동일투영을Poisson과FM에적용한다. 모든관측current재고는유지하고상한clip하지않는다. Poisson은선택GCN의두channel조건부독립분포,FM은학습joint분포. 각forecast128IIDparticles:각particle별seed모델을Bernoulli.5로독립선택해동일가중2seedmixture를표집한다. FM주후보/Poisson두구성은같은128개수,기본evalbatch256context. seed20261103+issue_scheduled_unix//600로각발행시각재현,과거/현재입력만알고미래유효성으로난수/예측표본을바꾸지않는다.\n\n공식API:고정9월2026-09-01~2026-10-01,KST,실제자료9/17~30. knownSHAobserved_panel6d20460e5cbc7e38bf413c23eb15173f3c05941c398bdf5375d375476eac6904. 현재/이전/미래유효값은유한비음수정수와collection지연0~120초,actualpast/futureelapsed480~720초. 현재관측유효인과거고정ID전체에예측을먼저발행하고600초뒤future관측을별도채점에join. 미래재고/미래수집시각/미래누락을예측입력·horizon·난수에쓰지않는다. prev누락/시간불량이면proxy마스크,trend는현재유지fallback. 미래GT유효성과9월양끝조건은채점때만적용하고예측은고치지않는다. 지표별표본을유리하게바꾸지않는다. APIID미지원은coverage로보고하고관측자체를0으로채우지않는다. ±30초strict경과부분집합도사전보조보고한다.\n\n다섯출력:현재유지point,최근추세point=max(0,floor(current+600*(current-prev)/past_elapsed+.5)),no_recent_GCN_Poisson,recent_GCN_Poisson,recent_GCN_CFM(주후보). point는pointmass. 주지표는CFM전체fairCRPS의recentPoisson및현재유지각각대비상대감소중최소. fairCRPS=mean|sample-y|-sum(sorted_sample*(2i-M-1))/(M*(M-1)),M128,i1..M. 일반CRPS(M²분모)·중앙값MAE·평균RMSE·표준/표본보정Brier·5~95포함률·현재0/양수·적중/±1도모두보조보고. CFM추가효과는생성head묶음효과이지상관만의인과효과가아니다. source전체새모델/분포/임계값/API보정/운영정책승자선택을하지않는다.\n\n불확실성:9월날짜별각후보fairCRPS합/관측쌍수,도시동기화3/7calendar-day movingblock각2000회PCG64seed20261103. 실제9/17~30의날짜축에빈날0합/0노출도포함,복제마다합산CFM/control두개중최소상대감소2.5/97.5분위수. 최소>=500ID/10000pair/10일/각1900유효복제,점추정과두구간하한>.01이면supported,두상한<=.01이면not_supported,나머지inconclusive. 반복노출된9월이므로독립시험아님,fit/selection/MC불확실성은CI에포함하지않는다.\n\n기상54는H12정의/단위/lag/QC를고정,기상청대전133Jul24~Sep26(추가Apr~Sep6파일)와GHCNhprimary/공항24~26를hash로고정한다. dailydate-2만,hourly<=issue-1h/maxage4h. 현재live입력에서archive가오래됐으면missingmask,모르는기상/강수는만들지않는다. sourceprior/conditioninggraph에API를학습재사용하지않고실시간관측은위상태/대리입력으로만사용한다.\n\n운영상황검증:9월실측API를virtualclock으로시간순재생,관측->예측발행ledger->다음관측정답채점->다음예측을검사한다. 실제HTTP연결도기존비공개credential을읽어확인,값/원본/인증정보는공개하지않는다. 새실제수집은10분경계에서최대6회·완료인과예측/정답1회차후정지한다. 모델잠금후snapshot+prev로예측이발행된것만다음snapshot과채점하며학습후과거시점예측을꾸미지않는다. 이live회차는별도기능/추가관측이며공식9월을대체하지않는다. 미래원본의해시는수집후runmanifest에기록한다. 수집실패/시간불량/모델미준비는그대로미실행보존,새가중치업데이트없음.\n\n관리자출력은예측재고중앙값/0대확률/범위,현재0대목록과현재양수중위험상위10참고목록. 자원조건미확인상태에트럭수/적재량/거점/재배치실측정답을지어넣지않는다. RLhandoff는현재관측·예측상태와향후실제action/cost/outcome로그schema만,미학습정책을학습됐다고표시하지않는다. 현장실행/보상/정책효과는이번결과밖이다.\n\n로컬RTX4060Laptop8GB/torch2.7.1+cu128/numpy1.26.4/scipy1.15.3/pandas2.2.3/Python3.12,CPU4threads/GPUfraction.55/float32/TF32off/deterministic. 연산전여유2GiB확인. 24h행×대여소×모든hidden배열을만들지않고proxy는chunk/작은4열cache,정적encoder만evalcache. 학습/val/생성/경계·count10->30reconciliation/미래비의존/stockproxy의의미/zero와missing/fairCRPSpairwise등가/정수투영/weightlock/저장로드/운영ledger/인증출력금지를검사한다. 중단/실패를보존하고API결과를본뒤예산/구조/판정기준을바꾸지않는다.\n",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_count",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "현재유지pointmass",
+        "최근API추세pointmass",
+        "no_recent_GCN_Poisson",
+        "recent_GCN_Poisson"
+      ],
+      "primary_metric": {
+        "name": "worst_control_fair_crps_relative_gain",
+        "unit": "fraction",
+        "direction": "higher"
+      },
+      "success_rule": "최소500ID/10000관측쌍/10일/각1900유효bootstrap; CFM vs recentPoisson와현재유지의최소상대감소점>1%,3/7일95%하한모두>1%이면supported.",
+      "failure_rule": "동일충분성에서두CI상한모두<=1%이면not_supported; 나머지inconclusive. 실패/미실행 보존.",
+      "exclusion_rule": "계획의 source range/first/hour support, API finite nonnegative integer/collection delay0..120s/actualelapsed480..720s only. 미래유효성은 채점에만. API오차기반코호트제외 금지.",
+      "uncertainty_plan": "도시동기화 3/7 calendar-day block 각2000 PCG64seed20261103,빈날포함9/17~30축;학습/선택/MC불확실성미포함,9월기노출공식재사용평가.",
+      "seed_plan": "GCN no_recent/recent×11/29×16epoch+0×524288;CFMrecent×11/29×20epoch+0×524288, batch8192. 생성128IID particles seed20261103+issue//600. 24h 전체구간."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "7dd06c0ac8ab7e081228bc53fc21f9a9e959130b3b6484a3bdd8145574730a18",
+    "frozen_at_utc": "2026-10-31T12:12:42.410449+00:00"
+  },
+  "result": null
+}
