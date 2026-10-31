@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "checked_on_kst": "2026-10-31",
+  "role": "Engineering environment and model-portability readiness; not predictive accuracy evidence",
+  "compute_policy": "Local GPU first for future runs; dislab auxiliary when required",
+  "local_environment": {
+    "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "device_memory_bytes": 8585216000,
+    "torch": "2.7.1+cu128",
+    "cuda_runtime": "12.8",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "cuda_forward_backward_passed": true,
+    "dependency_check_passed": true
+  },
+  "frozen_model_portability": {
+    "hypothesis_id": "H-0010",
+    "original_code_commit": "19997dbb223b922ecb31f7474e722a3e8cab196f",
+    "checked_contexts": 4,
+    "checked_station_contexts": 4768,
+    "two_seed_ensemble_max_abs_hourly_rate_error": 0.000003814697265625,
+    "absolute_and_relative_tolerance": 0.00002,
+    "all_locked_model_artifacts_verified": true,
+    "manual_prediction_cases": 4,
+    "invalid_input_cases": 3,
+    "cuda_peak_allocated_bytes": 36654080,
+    "new_training_or_api_evaluation": false
+  },
+  "training_assets": {
+    "historical_archive_bytes": 493887524,
+    "historical_archive_sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+    "h4_calendar_and_panel_hash_verified": true,
+    "h7_od_hash_verified": true,
+    "api_observations_in_training_input_folder": false,
+    "meaning": "Source availability and transfer integrity only; no new empirical result"
+  }
+}
