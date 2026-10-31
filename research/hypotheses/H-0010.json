@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "id": "H-0010",
+  "title": "넓은 과거 이력의 대여소별 계절 패턴과 GCN 잔차 학습",
+  "status": "preregistered",
+  "plan": {
+    "question": "더 넓은 과거 이력의 대여소별 계절 패턴을 계층 평활하고 작은 GCN으로 보완하면 공식9월 재고 분포 예측이 개선되는가?",
+    "hypothesis": "사전 주후보 seasonal_od가 같은 넓은 이력의 pooled_calendar 및 고정 H9full 대비 전체재고CRPS를 각각1% 넘게 줄인다.",
+    "prior_art": [
+      {
+        "title": "Lin, He, Peeta, TRC2018 author manuscript",
+        "url": "https://arxiv.org/pdf/1712.04997",
+        "verified_scope": "초록의 대여소 시간당 거래·시공간 관계와 recurrent/regular 비교 재확인. 전체 방법 재현 아님.",
+        "difference_to_test": "9월 최근거래가 없어 recurrent입력을 가정하지 않고 다운로드 이력의 대여소 계절 패턴과 고정OD의 보완 역할만 비교"
+      },
+      {
+        "title": "Gammelli et al., TRC2022",
+        "url": "https://arxiv.org/abs/2108.00858",
+        "verified_scope": "공개 초록의 대여/반납률·재고 결정·예측/운영효용 구분 확인",
+        "difference_to_test": "실현거래율 기반30분 재고 전이의 외부평가. 정책/잠재수요 효과로 확대하지 않음"
+      },
+      {
+        "title": "H4 historical source audit and fixed calendar",
+        "url": "https://github.com/sijoon-sung/KT-X-AI-/pull/8",
+        "verified_scope": "공개원본목록의2024-08~2026-03·2025-12월불일치와기존2025-08이후학습범위 확인",
+        "difference_to_test": "기존제한기간보다넓은과거로월별지역패턴 학습. API점수에맞춰선택안함"
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-seasonal-history-H0010-v1",
+      "input_manifest_sha256": "010c5c6ff02437814ef7bb142bf89c81bcc762f48e36b1a3229cf9df8e873af7",
+      "observed_truth": "학습/2월선택/3월보조:실제완료30분대여·반납건수. 공식9월:현재시작상태와30분뒤API표시재고정답 분리.",
+      "not_observed": [
+        "2/3월 실측재고",
+        "대여소 실제운영개시/노출·미충족수요",
+        "재배치·물리용량·동시기상·최근9월거래",
+        "미열람독립9월시험·정책효과"
+      ]
+    },
+    "evaluation": {
+      "design": "자료 범위 축을 넓혀 대여소별 계절 패턴을 학습하는 하나의 후보 패키지를 비교한다. 원본20CSV의 해시/인코딩/열/행폭/월일치/필수키/0<=완료기간<24h/완전중복 규칙은 H4와 동일. 2025-12 이름에 들어간 2025-01 행은 제외하고 2025-12 미관측으로 둔다. 학습 대여소1192개와 OD operator는 H4/H7에서 고정, API로 대상을 고르지 않는다.\n2024-08-01~2026-04-01 실제30분 완료 대여/반납을 집계한다. 원본 월이 있고 월의 첫/마지막 날짜를 제외한 07~21시 중, 도시 전체 수락 거래가 대여/반납 모두 존재하는 시간만 H4와 같은 기록 범위로 간주한다. 유효 시간의 두 반시간을 사용한다. 각 대여소의 첫 수락 거래 시각 이전 반시간은 학습 노출에서 제외한다(운영 개시 실측 아님). 첫 시각은 학습 구간만으로 계산, 검증/3월을 사용하지 않는다. 시작 이전 0을 관측으로 채우지 않는다. 이후 기록 0과 실제 가용/잠재 수요를 구분한다. 최근 기존 H4범위의 시간 집계와1192ID별 건수는 해시로 고정한 H4panel과 일치해야 진행한다.\n모든 신규 후보는 같은 넓은 학습 이력 사용. pooled_calendar: 대여소별 전체 평균 mu=(합+.5)/(노출+1), 요일×시각×반시간 r_w=(그룹합+alpha*mu)/(그룹노출+alpha). seasonal_profile: r_mw=(월×요일×시각×반시간합+alpha*r_w)/(해당노출+alpha). mu/r_w/r_mw 하한1e-6. alpha 후보8,32,128을 각 pooled/seasonal의 2월 실제거래 Poisson deviance 최소로 선택, 동점 작은alpha. 계절패턴은 과거 학습월에만 의존. 미관측 월/그룹은 상위prior로 되돌아간다. 날씨·최근거래·공급노출 추가 관측으로 해석하지 않는다.\nseasonal_self/seasonal_od: 선택한 동일 seasonal prior 위에 width32·1층 SiLU 잔차 GCN. 공통32입력=log1p(mu)2+log1p(r_w)2+log1p(r_mw)2+요일onehot7+시각onehot15+반시간onehot2+월sin/cos2. self는 동일 구조에 identity operator, od는 고정 H7 training OD operator. rate=prior*exp(2*tanh(raw/2)), output층0초기화. 학습은 유효 노출의 context별 합계/노출 충분통계로 Poisson NLL을 계산한다. 이 정적입력의 전체 목적은 원래 유효 건수 NLL과 상수항 외 동일하며 합성 등가 검증을 한다. epoch마다 train에 있는 context를 seed+epoch로 섞어32context minibatch, loss=sum(n*rate-countsum*log(rate))/(2*sum(n)), AdamW .001 weightdecay .0001, gradnorm1,20epoch+epoch0. 각11/29seed의 2월 전체 recorded-count deviance 최소/동점 최초 저장, 두seed평균 고정. 후보/예산/입력 추가 탐색 없음.\nwide pooled/seasonal 및 self/OD의 월12×요일7×시각15×반시간2 모두를 저장한다. 학습률은30분 건수 평균; 재고 과정에는2배해 시간률로 연결한다. 신규OD를 사전 주후보로 지정하고 API에서 서비스/배포 승자를 고르지 않는다. 모든 checkpoint/prior/출력/수치K와 selection manifest의 해시를 lock한 뒤 3월 보조건수 deviance를 보고하며 재선택하지 않는다. 3월은 이미 과거 연구에서 열람한 보조 자료, 실측 재고 정답 아님.\n동일 H5/H9 30분 현재유효/미래유효/시차0~120초/양시점9월 조건과 공통학습ID로 API 평가. 현재 API재고만 검증 시작상태, 미래재고는 정답이며 입력 아님. 신규4후보는 동일 무상한0반사 포아송 과정/정수PMF를 사용한다. K는 API 전 신규전체 시간률합에서 H7 tail규칙(1e-12 꼬리·평균오차bound1e-8,최대1024)으로 고정. 기존 H4calendar와 H9full의 동일표본 예측은 해시/현재/시간/valid/ID대응을 확인해 고정 참조로만 사용한다.\n주비교는 seasonal_od 전체재고CRPS의 pooled_calendar와 고정 H9full 각각 대비 상대감소 중 최소. H4calendar/seasonal_profile/seasonal_self/현재유지는 보조대조, 0/양수/전체 CRPS·중앙값MAE·평균RMSE·Brier·5~95포함률을 모두 보고. 그래프의 추가가치와 계절표현 효과는 보조대조에서 구분하며 주 패키지 효과를 GCN 단독 효과로 부르지 않는다. 실제API 지표를 보고 구조/보정/앙상블/경보/상한을 변경하지 않는다.\n학습/전처리/검사/분석은 dislab. GPUfloat32 TF32off deterministic,4CPUthreads,perprocess GPUmemory .35. 학습 artifact 저장/재로딩·예측 CLI까지 제공. 새 후보의 연구 구현을 보존하되 운영모델 성능 채택은 별도. 미관측 재배치/물리용량/서버관측과정·미충족수요를 학습했다고 주장하지 않는다.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_recorded_count_test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "official_evaluation",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "wide pooled_calendar primary",
+        "frozen H9full primary",
+        "seasonal_profile",
+        "seasonal_self",
+        "frozen H4calendar",
+        "current persistence"
+      ],
+      "primary_metric": {
+        "name": "worst_control_relative_crps_gain",
+        "direction": "higher",
+        "unit": "fraction"
+      },
+      "success_rule": "동일공통ID>=500·유효쌍>=10000·유효날짜>=10·각블록유효복제>=1900에서두주대조군최소상대CRPS감소의점추정과3/7일95%하한모두>.01이면supported.운영효용기준아님.",
+      "failure_rule": "동일충분성에서두구간상한모두<=.01이면not_supported,그외inconclusive.자료/수치/학습게이트실패는실패/미실행보존,유리한후보제외없음.",
+      "exclusion_rule": "원본/공개부모/기존모델/ID해시검사.월불일치/누락월/경계일/도시기록없는시간/대여소첫학습기록전 제외.2/3월로학습마스크/그래프/특성만들지않음.9월현재/정답누락·지연범위밖·미지원ID공통제외.오차기반표본제외·재고상한절단없음.",
+      "uncertainty_plan": "9/17~30의14일도시동기화3/7일이동블록각2000회PCG64seed20261031.날별pooled/H9full/OD CRPS합·pair수,복제마다1-OD/control의min2,2.5/97.5분위수.빈/부분날포함.학습/선택불확실성 미포함.9월반복노출명시,실패도보고.",
+      "seed_plan": "11/29 동일가중2seed,20epoch+0,alpha8/32/128과선택규칙고정.합성:노출/미관측월prior회귀·학습시각경계/정답비의존·충분통계NLL/gradient등가·그래프/실제최적화·저장로드/평가대응.모든checkpoint/선택파일/hash·코드/환경/시간기록.운영/시제품학습입력으로API재사용없음."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "6083732a5b9b736df06b4b7a7d0517e4b0a71b73f52b4efb6051ddaa31425e3d",
+    "frozen_at_utc": "2026-10-31T08:58:15.311491+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
