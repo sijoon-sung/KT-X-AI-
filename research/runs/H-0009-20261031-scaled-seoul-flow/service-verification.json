@@ -1,0 +1,29 @@
+{
+  "kind": "engineering verification only",
+  "matched_cases": 32,
+  "max_absolute_pzero_error": 0.0,
+  "max_absolute_mean_error": 0.0,
+  "dynamic_context_repeatable": true,
+  "missing_preserved": true,
+  "future_input_rejected": true,
+  "separate_truth_noninterference": true,
+  "latency_ms_median": 14.403400244191289,
+  "provenance": {
+    "model_run": "H-0009-20261031-scaled-seoul-flow",
+    "compute_location": "dislab GPU/CPU",
+    "new_training_at_request": false,
+    "api_tuning_or_calibration": false,
+    "deployment_choice": "user-requested fusion research candidate; no API winner selection",
+    "accuracy_hypothesis_decision": "not_supported",
+    "seoul_source_period": "2017-12..2018-11 city rental calendar patterns",
+    "cfm_distribution": "bivariate completed rental/return counts per station",
+    "monte_carlo_samples": 512,
+    "heun_steps": 16,
+    "weights_locked": true,
+    "selection_sha256": "cd0bbc21abc56955a6f0395b04cb32ae7a4cbf74e0ca818617e2f9b2cdcf95e2",
+    "checkpoint_forward_verified": true,
+    "checkpoint_forward_max_absolute_rate_error": 9.5367431640625e-06
+  },
+  "code_commit": "06d4f76aca542456e65ca6abacc8ee9ba51bdbec",
+  "recorded_at_utc": "2026-10-31T07:37:49.076877+00:00"
+}

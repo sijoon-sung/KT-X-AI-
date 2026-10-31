@@ -200,6 +200,11 @@
       "id": "small-seed29.pt",
       "sha256": "b52cd9db4107e5dfc3e679002c1310883f594882cbc8b8c2e7caecf989aef092",
       "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "service-verification.json",
+      "sha256": "598dc9e8a50353de57c0f70409e4362a2acec8e3fd2297962666ac5396f4a4ce",
+      "availability": "public aggregate engineering verification"
     }
   ],
   "limitations": [
@@ -209,5 +214,20 @@
     "CFM is joint rental/return per station only, not a citywide joint distribution; Gaussian residual flow/Heun16/dequantization/512 samples are approximations.",
     "Uniform event order and zero reflection omit capacity/operator moves/observation process; no February/March inventory truth.",
     "Block intervals exclude fitting, selection and Monte Carlo uncertainty; service candidate inclusion follows user request, not API ranking."
-  ]
+  ],
+  "auxiliary_service_verification": {
+    "role": "Post-evaluation engineering check; no new accuracy comparison or model selection",
+    "code_commit": "06d4f76aca542456e65ca6abacc8ee9ba51bdbec",
+    "recorded_at_utc": "2026-10-31T07:37:49.076877+00:00",
+    "command": [
+      "python",
+      "research_code/verify_advanced_service.py",
+      "--h9-artifacts",
+      "<PRIVATE_H9_ARTIFACTS>",
+      "--h7-artifacts",
+      "<PRIVATE_H7_ARTIFACTS>",
+      "--api-panel",
+      "<PRIVATE_AUDITED_API_PANEL>"
+    ]
+  }
 }
