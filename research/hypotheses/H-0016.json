@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0016",
   "title": "실제 예측·관측 결과와 재배치 수량·동선을 연결하는 결과 화면",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can the user follow recorded observed stock through an unchanged causal forecast, score and explicitly assumed shadow quantities/route without confusing field outcomes?",
     "hypothesis": "Evidence bundle and results UI preserve frozen model/data provenance and causal separation with zero engineering acceptance failures; optional OSRM failure remains explicit.",
@@ -54,6 +54,22 @@
     "plan_sha256": "9d57609f21b71d036ac459f17ee64b1fc7e75cef7b9737bd90d7caf2c8db62d8",
     "frozen_at_utc": "2026-10-31T16:08:46.488187+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislabCPU에서기존1296개실제예측/관측대응과점수를정확히재현,13개acceptance실패0.실제좌표+OSRM추정에서가정차량조건의4대이동/6.093분계획.브라우저10개정상상호작용검사통과.운영효과미검증.",
+    "limitations": [
+      "Model/weights unchanged, original H13 forecast reused; no new Tashu API collection.",
+      "1recorded1296station episode is not independent accuracy evidence.",
+      "All vehicle/depot/target/handling/parking conditions assumed; never dispatch.",
+      "OSRM currentcar estimate is not historical traffic or validated truck route.",
+      "H13 stationwise CFM samples, not H14 learned joint forecast.",
+      "No counterfactual relocation score or field benefit observed.",
+      "Supplementary missing-data browser injection test not executed after automatic review rejection; positive browser checks preserved."
+    ],
+    "run_manifests": [
+      "research/runs/H-0016-20261101-results-walkthrough/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

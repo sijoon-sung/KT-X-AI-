@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0016",
+  "started_at_utc": "2026-10-31T16:11:44.555162+00:00",
+  "finished_at_utc": "2026-10-31T16:11:47.010727+00:00",
+  "native_remote_finished_at_utc": "2026-10-31T16:09:30.504842+00:00",
+  "code_commit": "7536ab180f3a42a54e33f725f07172476b376613",
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "checks": [
+    {
+      "name": "frozen_input_hashes",
+      "passed": true
+    },
+    {
+      "name": "issued_before_target",
+      "passed": true
+    },
+    {
+      "name": "forecast_current_snapshot_hash",
+      "passed": true
+    },
+    {
+      "name": "unique_forecast_ids",
+      "passed": true
+    },
+    {
+      "name": "cached_current_matches_observation",
+      "passed": true
+    },
+    {
+      "name": "issued_before_future_capture",
+      "passed": true
+    },
+    {
+      "name": "exact_original_pair_count",
+      "passed": true
+    },
+    {
+      "name": "original_live_scores_reproduced",
+      "passed": true
+    },
+    {
+      "name": "future_labels_do_not_enter_selection",
+      "passed": true
+    },
+    {
+      "name": "no_dispatch_or_counterfactual_field_score",
+      "passed": true
+    },
+    {
+      "name": "h14_gate_fail_preserved",
+      "passed": true
+    },
+    {
+      "name": "h15_synthetic_scope_preserved",
+      "passed": true
+    },
+    {
+      "name": "real_station_shadow_capacity_deadline",
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "acceptance_failures": 0
+  },
+  "stations": 1296,
+  "scored_pairs": 1296,
+  "shadow_status": "shadow_plan",
+  "shadow_moved_bikes": 4,
+  "shadow_route_minutes": 6.093333333333333,
+  "shadow_assumptions": {
+    "vehicles": 1,
+    "capacity": 6,
+    "target_buffer": 2,
+    "handling_minutes_per_bike": 0.1,
+    "depot": "assumed at selected donor; not real operating base",
+    "parking": "unverified; assumed dropoff limit2"
+  },
+  "roads": {
+    "status": "ok",
+    "service": "table",
+    "response_sha256": "f591ce804df57c9445753f7b5e383a5757e913b6f723e6b9d56a0ffd45812b68",
+    "scope": "present OSM car estimate; no historical traffic or truck access verification"
+  },
+  "real_dispatch": false,
+  "field_benefit_observed": false,
+  "seconds": 2.4555652998387814,
+  "bundle_sha256": "c187f8f940044534a2340c89b209746ea34eaaedd002b3961bb4a76cd204d97c",
+  "scope": "Recorded forecast reconstruction and replay shadow constraints only, not new model superiority or actual relocation effectiveness."
+}

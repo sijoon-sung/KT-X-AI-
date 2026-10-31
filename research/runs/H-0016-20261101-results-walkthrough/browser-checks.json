@@ -1,0 +1,61 @@
+{
+  "checks": [
+    {
+      "name": "loaded_verified_bundle",
+      "passed": true
+    },
+    {
+      "name": "actual_pairs_displayed",
+      "passed": true
+    },
+    {
+      "name": "route_uses_actual_names",
+      "passed": true
+    },
+    {
+      "name": "no_desktop_horizontal_overflow",
+      "passed": true
+    },
+    {
+      "name": "timeline_advances",
+      "passed": true
+    },
+    {
+      "name": "station_search",
+      "passed": true
+    },
+    {
+      "name": "model_switch",
+      "passed": true
+    },
+    {
+      "name": "route_load_updates",
+      "passed": true
+    },
+    {
+      "name": "no_mobile_horizontal_overflow",
+      "passed": true
+    },
+    {
+      "name": "no_browser_exceptions",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "scope": "Browser display/interaction QA on local CPU; no local model training/inference/scoring.",
+  "supplementary_negative_browser_test": "not executed: automatic approval review rejected a later combined command to inject an unavailable-data response and relaunch browser. Existing10 positive browser checks completed before rejection. Missing-data HTTP handler/code reviewed separately.",
+  "assets": [
+    {
+      "id": "research_code/forecast_web/results.html",
+      "sha256": "9b2a2043669f2e1876dbbbcd5f324050f0dbc74834d40ad92f73cf3d6f792988"
+    },
+    {
+      "id": "research_code/forecast_web/results.css",
+      "sha256": "8721bb3c0bc45d447bb38a42ed871b05bb6794bbcca949f3b515b1b066748899"
+    },
+    {
+      "id": "research_code/forecast_web/results.js",
+      "sha256": "16a446bb172e2e49702fa22f07568308cb2cb2ad031b4202ebf67933c2101670"
+    }
+  ]
+}
