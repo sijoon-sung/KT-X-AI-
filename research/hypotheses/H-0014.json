@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "id": "H-0014",
+  "title": "주변 분포를 보존하는 Flow Matching과 구역 동시 부족 예측",
+  "status": "planned",
+  "plan": {
+    "question": "Can a conditional FM dependence template improve regional joint shortage forecasts while keeping each station marginal ensemble exactly unchanged?",
+    "hypothesis": "Under a common frozen marginal net-flow ensemble, FM+rank coupling reduces September regional-zero-fraction CRPS by >1% against independence, a historical-selected Gaussian copula and current-state persistence, with both 3/7-day lower bounds >1%. This is a proposed criterion, not an observed benefit.",
+    "prior_art": [
+      {
+        "title": "Schefzik, Thorarinsdottir & Gneiting, Ensemble Copula Coupling",
+        "url": "https://arxiv.org/html/1302.7149",
+        "verified_scope": "원문§3.1/§4.2–4.3, reordering and unchanged marginal samples; ECC-R definitions.",
+        "difference_to_test": "Use a learned conditional FM rank template for Tashu signed net flows; the rank-preservation result is not evidence of forecast/operational benefit."
+      },
+      {
+        "title": "Salinas et al., Low-rank Gaussian Copula Processes, NeurIPS2019",
+        "url": "https://proceedings.neurips.cc/paper/2019/file/0b105cf1504c4e241fcc6d519ea962fb-Paper.pdf",
+        "verified_scope": "Original abstract and §2–4 low-rank-plus-diagonal covariance and marginal transforms.",
+        "difference_to_test": "Mandatory conditional Gaussian dependence control; not a full reproduction of the original RNN model."
+      },
+      {
+        "title": "Scheuerer & Hamill, Variogram-Based Proper Scoring Rules",
+        "url": "https://repository.library.noaa.gov/view/noaa/22327/noaa_22327_DS1.pdf",
+        "verified_scope": "Original abstract and §2 equations3–4 and weighting discussion; dependence sensitivity and energy-score limitations.",
+        "difference_to_test": "Use VS0.5 with historical-only pair/scale definitions, alongside region aggregate CRPS and joint-zero Brier; no one score certifies a full joint law."
+      },
+      {
+        "title": "Kollovieh et al., Flow Matching with Gaussian Process Priors, ICLR2025",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/ee1a1ecc92f35702b5c29dad3dc909ea-Paper-Conference.pdf",
+        "verified_scope": "Original abstract/problem statement and distinction of flow-time vs physical series time; univariate forecasting setting.",
+        "difference_to_test": "Motivates examining structured conditional priors. Our graph/station covariance is a proposal, not a demonstrated multivariate extension of that paper."
+      },
+      {
+        "title": "Wei & Pearson, Flow Matching for Count Data, arXiv2026 preprint",
+        "url": "https://arxiv.org/html/2605.07746",
+        "verified_scope": "Original abstract and §2.1–2.3 local birth/death rates, count bridge and approximate generation.",
+        "difference_to_test": "Alternative for a future marginal-count-model hypothesis. Its latent birth/death path is not a measured bicycle rebalancing or physical-time simulator."
+      },
+      {
+        "title": "Lipman et al., Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "Original §3 conditional vector-field regression, also verified in H13.",
+        "difference_to_test": "Conditional whole-supported-cohort rank templates, not separate station-wise rental/return heads."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-dependence-flow-H0014-design-v1",
+      "observed_truth": "Historical completed 10min net-flow vectors for learning/internal selection; future September API displayed stock for external joint-zero evaluation.",
+      "not_observed": [
+        "Historical inventory truth in February/March",
+        "Latent demand and physical capacity",
+        "Operator actions/costs and counterfactual relocation outcomes"
+      ],
+      "input_manifest_sha256": "1050e1612644dde066ba66e2d5f4b17a1fd4a95107374a42a5058210c187b729"
+    },
+    "evaluation": {
+      "design": "Design proposal: docs/H-0014-dependence-flow-design.md; SHA256=06794993c16d488187632c19e0bac3611c9e530689c12ab6c408cdcdd175e52b. Whole-supported-cohort conditional FM rank template, common marginal net-flow samples, ECC reordering, fixed regional-zero-risk evaluation. Not preregistered: complete tensor/support/region/compute audit and pin executable config before freeze.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_count",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "Common-marginal independence",
+        "Conditional low-rank Gaussian template + same rank coupling",
+        "FM template with independent per-station member shuffles",
+        "Current-stock persistence reference"
+      ],
+      "primary_metric": {
+        "name": "worst_control_regional_zero_fraction_crps_relative_gain",
+        "unit": "fraction",
+        "direction": "higher"
+      },
+      "success_rule": "Proposed: exact marginal multiset invariant + historical validation gate + >=16 scored fixed regions/10000 region-issues/10 days/1900 valid bootstrap replicates; worst-control gain and 3/7-day95% lower bounds all >1%.",
+      "failure_rule": "With sufficiency, both upper bounds<=1% means not_supported; otherwise inconclusive. Invariant failure blocks release. Historical gate failure stops before API with external result unexecuted; preserve failure.",
+      "exclusion_rule": "Freeze historical support/region partition before API. Forecast complete current-supported regions without future information. Future missingness/timing applied only to score, never change region composition or forecast RNG. No error-based exclusions.",
+      "uncertainty_plan": "City-synchronized3/7calendar-day blocks,2000PCG64 replicates seed20261104; fixed equal-region weighting; exposed September not independent; fitted-model/selection/MC uncertainty excluded. Ordinary empirical-distribution CRPS/energy, not IID fair formulas after rank coupling.",
+      "seed_plan": "Proposed model seeds11/29; M128; shared marginal draws and documented distinct noise/tie/shuffle streams, one model-seed per entire scenario. Exact optimizer/budget/checkpoint schedule and derived hashes must pass historical-only audit and be frozen before any fit/comparison."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": null,
+    "frozen_at_utc": null
+  },
+  "result": null,
+  "withdrawal_reason": null,
+  "design_status": {
+    "experiment_executed": false,
+    "plan_frozen": false,
+    "scope": "design-only requested by user",
+    "required_before_freeze": [
+      "Historical tensor/support/region/edge audit",
+      "Executable config and checkpoint budget on dislab",
+      "Pin input/code hashes and publish frozen plan before learning"
+    ],
+    "api_selection_prohibited": true
+  }
+}
