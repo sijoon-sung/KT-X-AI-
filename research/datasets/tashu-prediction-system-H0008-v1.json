@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-frozen-prediction-system-H0008-v1",
+  "new_training": false,
+  "h7_manifest": "research/runs/H-0007-20261031-od-gcn/manifest.json",
+  "h7_manifest_sha256": "faaa21939acf1acc6536d327cc4a3d177cd9b00158961e0ea0ec2acb8e428bf6",
+  "h4_manifest": "research/runs/H-0004-20261031-historical/manifest.json",
+  "h4_manifest_sha256": "5b7afd0fcd15eaced73f7cb41f188a428ead1ace48e38ead777c7e27ad381b6c",
+  "api_manifest": "research/datasets/tashu-primary-v1.json",
+  "api_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875",
+  "station_metadata": {
+    "id": "audited API station display metadata CSV",
+    "sha256": "05a2fea061c2878bd1f26b0d6dd424568fddca3d830e21ee3c3b9edd28492398",
+    "role": "UI names and ID display only; not learned features or graphs"
+  },
+  "product_decision": "User explicitly requested GCN participation for competition demonstration even without proven superiority; not API-driven model selection.",
+  "evaluation_role": "September current-state replay and fixed-output engineering verification, no new accuracy comparison or parameter choice."
+}

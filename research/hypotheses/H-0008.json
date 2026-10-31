@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "H-0008",
+  "title": "공모전용 GCN 예측시스템 연결과 고정출력 인수검증",
+  "status": "preregistered",
+  "plan": {
+    "question": "고정된 과거전용GCN과정을 실제30분 예측서비스·화면으로 연결하고 기존 고정출력을 재현할 수 있는가?",
+    "hypothesis": "H7고정모델의 예측서비스가 사전64개 재생입력에서 확률/평균/분위수를 허용오차 내 재현하고 미래정답 비의존·누락/미지원입력 계약을 지킨다. 통합 인수검증이며 성능 우월성 가설이 아니다.",
+    "prior_art": [
+      {
+        "title": "H-0007 fixed historical-only GCN experiment",
+        "url": "https://github.com/sijoon-sung/KT-X-AI-/pull/12",
+        "verified_scope": "실행코드·모델/출력해시·공식9월 부정결과를 확인. GCN추가가치 미입증사실보존.",
+        "difference_to_test": "사용자의 공모전 시연 선택에 따른 서비스 연결. 통계가설/모형선택/가중치 변경이 아님."
+      },
+      {
+        "title": "PyTorch2.7 torch.load documentation",
+        "url": "https://docs.pytorch.org/docs/2.7/generated/torch.load.html",
+        "verified_scope": "weights_only=True와map_location=cpu의체크포인트로딩계약확인.",
+        "difference_to_test": "기존자산SHA검사뒤CPU에서GCN실제forward와저장된률출력일치확인.새학습없음."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-frozen-prediction-system-H0008-v1",
+      "input_manifest_sha256": "571c8d2baebdcad656c38eab3ed85fcf089156bb0ded5ec33bcebd7ec7e79fee",
+      "observed_truth": "기존H7고정예측출력은공학재현기준,공식재고정답은계속9월API.재생현재값은입력,미래API정답은별도조회만.새3월/10월재고평가없음.",
+      "not_observed": [
+        "생산환경/실시간API연결의운영성능",
+        "공모전평가점수·실제이용성",
+        "GCN우월성·새미열람평가"
+      ]
+    },
+    "evaluation": {
+      "design": "새학습/튜닝/확률보정/혼합가중치탐색없음. 사용자명시GCN시연선택을서비스기본모드로기록하고달력기준선을함께제시. H7OD3체크포인트·graph·exportedOD/calendar률과H4constant/calendar원본모두해시검사. same26feature·1층1762모수GCN을CPU실제forward,3seed평균출력이H7exported표와atol1e-6/rtol3e-5안에서일치해야시작. 서비스는검증된고정exported률캐시로결정적추론.수치K는H7전체후보의과거률에서동일규칙으로정해기존K와일치,0반사·상한없는30분PMF와평균/하위중앙값/P0/5~95%분위수. 시점·현재재고입력만사용.7~21시의임의분입력은해당시각률을30분고정한시나리오이며정시발행이외의실증성능은미검증표시. API연동을가장하지않고9월기록재생·수동현재상태·현재스냅샷JSON입력을지원. 누락/미지원ID/음수/비정수/무시간대/지원시간밖은명시오류,0대체없음. 재생현재조회와미래정답조회분리. 미래정답수정이동일입력예측/캐시를바꾸지않음. HTTP/CLI/화면·JSON내보내기를연결,서비스loopback만,모든모델/재생/검사연산dislab. 주검사는H7predictions-od.npz의finite현재행을시간/열순서로펴서linspace(0,n-1,64)정수인덱스의64개,미래값으로선택안함. 매칭열순서는고정훈련ID와APIID교집합. 확률오차<=1e-10,평균오차<=1e-8,중앙값/5/95분위수정확일치·finite·정수비음수. 각fixture의GCN/달력도동일API계약. 합성단위검사와실제HTTP왕복·UI예측/정답별도보기·수동입력·스냅샷/내보내기검사. 과거H7판정/수치는보존. 수동입력은예시/시나리오로표시,실시간/정확도보증안함.",
+      "periods": [
+        {
+          "role": "official_evaluation",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "동일입력의H7저장된고정출력",
+        "고정달력률참고출력·현재유지비교(새성능선택없음)"
+      ],
+      "primary_metric": {
+        "name": "acceptance_case_pass_fraction",
+        "direction": "higher",
+        "unit": "fraction"
+      },
+      "success_rule": "64fixture모두수치/분위수검사통과,checkpoint/cachegate통과,사전입력/미래비의존검사와HTTP연결통과면supported. 이는시제품통합인수지지이며성능우월성/운영검증아님.",
+      "failure_rule": "충분한fixture가있고재현/기능게이트중하나라도실패면not_supported. 자료/연결부족등으로끝내검사못하면inconclusive. 실패시도보존하고수치기준을API로조정하지않음.",
+      "exclusion_rule": "미래정답/관측품질/오차로fixture제외안함. finite현재만선택,64미만이면불확실. 중복ID·손상된모델/입력해시·미래라벨을스냅샷으로주는형식중단. 게시물에는개별실측/예측배열·모델·접속정보없음.",
+      "uncertainty_plan": "결정적재현/기능검사이므로새성능구간·반복API모형선택없음. 집계최대수치오차·통과수·응답시간·환경·해시보고. 기존9월노출공개,허용오차는사전고정. 시스템안정성과실증정확도구분.",
+      "seed_plan": "새학습/난수없음. fixture선택linspace결정적. dislabCPUfloat64과정·torchCPUfloat32forward·4스레드.코드/계획게시와실행시각·입력/가중치/검증해시기록. 원본/가중치/케이스별결과는비공개."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "f11f4b4898e87108b82639e5eb2fa781e681e691c58a757a7c402a168fd27f84",
+    "frozen_at_utc": "2026-10-31T06:33:00.212741+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
