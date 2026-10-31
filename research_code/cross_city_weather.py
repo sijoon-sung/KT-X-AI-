@@ -67,6 +67,24 @@ def embedding(profiles,encoder,device):
     with torch.no_grad():z=encoder['encoder'](x).cpu().numpy()
     return ((z-encoder['zmean'])/encoder['zstd']).astype('float32')
 
+def historical_source_catalog():
+    parent=json.loads((ROOT/'research/datasets/tashu-historical-H0004-v1.json').read_text(encoding='utf-8'))
+    path=ROOT/parent['source_catalog']
+    if hist.digest(path)!=parent['source_catalog_sha256']:raise ValueError('Historical source catalog hash differs.')
+    return json.loads(path.read_text(encoding='utf-8'))
+
+def resume_source(out,record,manifest,device):
+    lock=json.loads((out/'source-resume-lock.json').read_text(encoding='utf-8'))
+    if lock['plan_sha256']!=record['preregistration']['plan_sha256'] or lock['input_manifest_sha256']!=hist.digest(manifest):raise ValueError('Resume contract differs.')
+    for item in lock['artifacts']:
+        if hist.digest(out/item['id'])!=item['sha256']:raise ValueError('Completed source artifact changed.')
+    # This is the locally produced, hash-locked checkpoint from the recorded first attempt.
+    states=torch.load(out/'source_encoders.pt',map_location='cpu',weights_only=False);encoders={}
+    for name,saved in states.items():
+        encoder=ProfileAE().encoder.to(device);encoder.load_state_dict(saved['state_dict']);encoder.eval()
+        encoders[name]={**{k:saved[k] for k in ('mean','std','zmean','zstd')},'encoder':encoder}
+    return encoders,json.loads((out/'source-learning.json').read_text(encoding='utf-8')),json.loads((out/'source-audit.json').read_text(encoding='utf-8')),lock
+
 class ForecastGCN(nn.Module):
     def __init__(self,width,depth):
         super().__init__();self.own=nn.Linear(109,width);self.neighbor=nn.Linear(70,width,bias=False)
@@ -159,7 +177,10 @@ def uncertainty(folds):
 
 def run(args):
     start=now();clock=time.perf_counter();out=Path(args.out);out.mkdir(parents=True,exist_ok=True)
-    record=hist.load(ROOT/'research/hypotheses/H-0011.json') if hasattr(hist,'load') else json.loads((ROOT/'research/hypotheses/H-0011.json').read_text(encoding='utf-8'))
+    record=json.loads((ROOT/'research/hypotheses/H-0011.json').read_text(encoding='utf-8'))
+    canonical=json.dumps(record['plan'],sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode()
+    if hashlib.sha256(canonical).hexdigest()!=record['preregistration']['plan_sha256']:raise ValueError('Frozen plan changed.')
+    subprocess.run(['git','diff','--quiet','HEAD','--','research_code'],cwd=ROOT,check=True)
     manifest=ROOT/'research/datasets/tashu-cross-city-weather-H0011-v1.json';catalog=json.loads(manifest.read_text(encoding='utf-8'))
     if hist.digest(manifest)!=record['plan']['data']['input_manifest_sha256']:raise ValueError('Manifest changed.')
     for entry in catalog['sources']:
@@ -172,13 +193,18 @@ def run(args):
     torch.cuda.set_per_process_memory_fraction(.55);device=torch.device('cuda')
     code=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     environment=dict(python=platform.python_version(),packages=dict(torch=torch.__version__,numpy=np.__version__,pandas=data.pd.__version__),gpu=torch.cuda.get_device_name(),cuda=torch.version.cuda,initial_free_gpu_bytes=free,cpu_threads=4)
-    hist.write(out/'started.json',dict(started_at_utc=start,code_commit=code,plan_sha256=record['preregistration']['plan_sha256'],environment=environment))
+    hist.write(out/('started-resume.json' if args.resume_source else 'started.json'),dict(started_at_utc=start,code_commit=code,plan_sha256=record['preregistration']['plan_sha256'],environment=environment))
     # Cache entries belong to this exact manifest and implementation; never import older/API model artifacts.
     source=out/'source-profiles.npz'
-    source_audit=data.source_profiles(Path(args.source_dir)/'seoul-trips-2024.zip',source)
-    hist.write(out/'source-audit.json',source_audit)
-    encoders,pretraining=source_learning(source,out,device)
-    historical_catalog=json.loads((ROOT/'research/datasets/tashu-historical-H0004-v1.json').read_text(encoding='utf-8'))
+    source_provenance=None
+    if args.resume_source:
+        encoders,pretraining,source_audit,source_provenance=resume_source(out,record,manifest,device)
+        emit(stage='completed_source_artifacts_verified',original_code_commit=source_provenance['code_commit'])
+    else:
+        source_audit=data.source_profiles(Path(args.source_dir)/'seoul-trips-2024.zip',source)
+        hist.write(out/'source-audit.json',source_audit)
+        encoders,pretraining=source_learning(source,out,device)
+    historical_catalog=historical_source_catalog()
     events,ids,months,quality=hist.read_events(Path(args.history_dir)/'historical-trips-20260331.zip',historical_catalog)
     panel=data.target_panel(events,ids,months);weather_raw=data.lag_weather([Path(args.source_dir)/f'daejeon-{y}-ghcnh.psv' for y in (2024,2025,2026)],panel['times'])
     hist.write(out/'historical-quality.json',quality);folds=[]
@@ -202,8 +228,8 @@ def run(args):
         emit(stage='fold_test_complete',fold=name,stations=len(fold['ids']),deviance={k:v['deviance'] for k,v in scores.items()})
         del ctx,models,fold;torch.cuda.empty_cache()
     summary=uncertainty(folds)
-    report=dict(hypothesis_id='H-0011',started_at_utc=start,finished_at_utc=now(),code_commit=code,plan_sha256=record['preregistration']['plan_sha256'],input_manifest_sha256=hist.digest(manifest),environment=environment,source_audit=source_audit,pretraining=pretraining,historical_quality=quality,folds=folds,summary=summary,seconds=time.perf_counter()-clock,peak_gpu_bytes=torch.cuda.max_memory_allocated())
+    report=dict(hypothesis_id='H-0011',started_at_utc=start,finished_at_utc=now(),code_commit=code,plan_sha256=record['preregistration']['plan_sha256'],input_manifest_sha256=hist.digest(manifest),environment=environment,source_audit=source_audit,pretraining=pretraining,source_resume_provenance=source_provenance,historical_quality=quality,folds=folds,summary=summary,seconds=time.perf_counter()-clock,peak_gpu_bytes=torch.cuda.max_memory_allocated())
     hist.write(out/'results.json',report);emit(stage='experiment_complete',summary=summary,seconds=report['seconds'])
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--source-dir',required=True);parser.add_argument('--history-dir',required=True);parser.add_argument('--out',required=True);run(parser.parse_args())
+    parser=argparse.ArgumentParser();parser.add_argument('--source-dir',required=True);parser.add_argument('--history-dir',required=True);parser.add_argument('--out',required=True);parser.add_argument('--resume-source',action='store_true');run(parser.parse_args())

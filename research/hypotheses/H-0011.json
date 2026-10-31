@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0011",
   "title": "대여소 전이 임베딩·기상·모델 용량의 다계절 거래 예측 비교",
-  "status": "preregistered",
+  "status": "running",
   "plan": {
     "question": "서울 대여소 표현과 실제 기상을 사용한 큰 GCN이 여러 계절의 과거 기록 건수 예측을 개선하는가?",
     "hypothesis": "사전 주후보 large_weather_pretrained가 큰 달력/기상/무작위표현 세 대조군 모두에 대해 다계절 macro Poisson deviance를 1% 넘게 감소시킨다.",

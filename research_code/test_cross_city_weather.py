@@ -12,6 +12,10 @@ import cross_city_weather as m
 import historical_calendar as h
 
 class Semantics(unittest.TestCase):
+    def test_historical_manifest_resolves_hash_checked_member_catalog(self):
+        source=m.historical_source_catalog()
+        self.assertEqual(len(source['members']),20)
+        self.assertTrue(all('header' in x and 'sha256' in x for x in source['members']))
     def test_calendar_boundaries_and_slots(self):
         a=d.axes(np.array([h.stamp(x) for x in ['2024-02-01T07:00','2024-02-28T21:30','2024-02-29T21:30','2025-03-03T07:30']]))
         self.assertEqual(a['interior'].tolist(),[False,True,False,True]);self.assertEqual(int(a['weekly'][-1]),1)
