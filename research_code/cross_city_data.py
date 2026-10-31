@@ -36,7 +36,7 @@ def profile(weekly_sum,weekly_n,monthly_sum,monthly_n):
     return np.c_[np.log1p(weekly/base[:,None]).reshape(len(base),420),
         np.log1p(monthly/base[:,None]).reshape(len(base),24),(monthly_n>0)].astype('float32')
 
-def source_profiles(archive,out):
+def source_profiles(archive,out,month_callback=None):
     out=Path(out); stats={};valid_times=[];audit=[]
     dtype=np.dtype([('bike','S32'),('rent','i8'),('origin','i4'),('returned','i8'),('destination','i4')])
     with zipfile.ZipFile(archive) as z:
@@ -82,6 +82,7 @@ def source_profiles(archive,out):
                 d=stats.setdefault(int(station),dict(weekly=np.zeros((210,2)),monthly=np.zeros((12,2)),first=np.iinfo('i8').max,active=np.zeros(366,dtype=bool)))
                 d['weekly']+=weekly[i];d['monthly'][month-1]+=monthly[i];d['first']=min(d['first'],int(first[i]));d['active']|=activity[i]
             audit.append(dict(month=f'2024-{month:02}',rows=read,rejected=rejected,duplicates=before-len(events),accepted=len(events),eligible_hours=int(valid.sum())))
+            if month_callback is not None:month_callback(month,events,ids,hours,valid,first)
             print(json.dumps(dict(stage='seoul_source_month',**audit[-1])),flush=True)
     ids=np.array(sorted(stats));times=np.array(sorted(valid_times),dtype='i8');a=axes(times)
     wn=np.zeros((len(ids),210));mn=np.zeros((len(ids),12))
