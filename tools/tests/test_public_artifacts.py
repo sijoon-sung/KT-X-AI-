@@ -16,6 +16,14 @@ def digest(path):
 
 
 class PublishedArtifactTests(unittest.TestCase):
+    def test_nested_source_catalog_matches_frozen_manifest_bytes(self):
+        for path in (ROOT / 'research/datasets').glob('*.json'):
+            manifest = load(path)
+            if manifest.get('source_catalog'):
+                catalog = (ROOT / manifest['source_catalog']).resolve()
+                self.assertTrue(catalog.is_relative_to(ROOT.resolve()))
+                self.assertEqual(digest(catalog), manifest['source_catalog_sha256'])
+
     def test_frozen_input_manifests_match_actual_public_bytes(self):
         available = {digest(path) for path in (ROOT / 'research/datasets').glob('*.json')}
         for path in (ROOT / 'research/hypotheses').glob('H-*.json'):

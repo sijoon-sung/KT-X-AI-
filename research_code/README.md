@@ -1,5 +1,26 @@
 # 관측 기반 연구 실행
 
+현재 학습 경로는 [H-0004](../docs/H-0004-historical-calendar.md)의 다운로드 이력 기준선이다.
+API는 후속 외부 검증 전용이며 학습·튜닝·모형 선택에 사용하지 않는다.
+아래 H-0001~H-0003의 API 학습·진단 설명은 과거 재현 기록으로 구분한다.
+
+## H-0004 과거 이력 학습
+
+dislab에서 다운로드 이력 ZIP을 사용한다. 원본·내부 CSV 해시와 동결된 입력 계약을 확인한다.
+코드는 API 입력 경로를 받지 않으며 고정 평균·요일×시각 평활 평균 두 모델을 학습한다.
+
+```text
+python research_code/historical_calendar.py fit --archive PRIVATE_DOWNLOADED_HISTORY --run-id H-0004-20261031-historical
+python research_code/historical_calendar.py predict --model PRIVATE_CALENDAR_MODEL --station-id TRAINING_COHORT_ID --timestamp 2026-04-02T08:00:00+09:00
+```
+
+출력은 정시부터 1시간의 적격 기록 대여·반납 기대 건수다. 실측 재고·잠재 수요 예측으로 해석하지 않는다.
+학습 대여소와 07~21시 정시만 지원하며, 범위 밖 입력은 오류로 알린다.
+`artifacts/constant.npz`, `calendar.npz`, `selection.json`, `prepared_panel.npz`는 비공개 실행 폴더에 보관한다.
+완료 실행을 덮어쓰지 않는다. 파생 패널의 0/누락 의미와 평가 한계는 동결 계획을 따른다.
+
+## 이전 API 개발 코드
+
 이 폴더는 기존 `tashu/` 구현의 점수를 재사용하지 않는 새 연구 코드다.
 각 실행 전에 해당 가설의 동결 계획과 Draft PR을 확인한다.
 사용자의 최신 지정 계산 환경은 **dislab**이다. 아래 학습·분석 명령은 dislab에서 실행하고,
