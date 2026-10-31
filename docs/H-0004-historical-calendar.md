@@ -1,5 +1,7 @@
 # H-0004: 다운로드 이력으로 첫 예측 기준선 학습
 
+> 이 계획의 2·3월 정답은 거래 건수에 한정한다. 그 기간의 실측 재고 정답은 없으며 공식 재고 평가는 [9월 API](september-evaluation-contract.md)다. 이 동결 계획은 보조 거래 실험의 기록으로 보존한다.
+
 상태: 동결 계획에 따라 dislab에서 완료. [실행 결과](H-0004-results.md)를 별도로 기록했다.
 아래는 사전 계획이며 정확한 기준은 [가설 JSON](../research/hypotheses/H-0004.json)이다.
 [자료 계약](training-validation-contract.md)에 따라 다운로드 이력만 사용하며 API를 열지 않는다.
