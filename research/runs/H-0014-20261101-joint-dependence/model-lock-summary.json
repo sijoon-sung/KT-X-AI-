@@ -1,0 +1,108 @@
+{
+  "hypothesis_id": "H-0014",
+  "locked_at_utc": "2026-10-31T15:26:13.436392+00:00",
+  "native_remote_clock": "2026-10-31T15:24:01.843068+00:00",
+  "api_opened": false,
+  "plan_sha256": "8705cef8b650386e3a6a541b4fdf35fa4f3f686613387d8f4a024bb41d4654d8",
+  "input_manifest_sha256": "78613f5764c1b723ef1b66a4b46253e1aa234dadff50ced3c912c1f6507c4b59",
+  "config_sha256": "a32457fccc1e679fb20d6c99909d6a47a494d3a9aa94c59a6e3fc73e8b747306",
+  "code_commit": "9543b5fdd0ef29d980adc1d68f868c065d8381f3",
+  "selected_rank": 32,
+  "historical_gate_passed": false,
+  "gate_relative_gain": {
+    "independent": 0.0021220691270917857,
+    "gaussian": 0.0
+  },
+  "artifacts": [
+    {
+      "id": "flow-11.pt",
+      "sha256": "6808aba025d5c9bd8110c1b8d756e64dd8a8703fa5bee30725387c72d6b0cb9e"
+    },
+    {
+      "id": "flow-29.pt",
+      "sha256": "655def61ce4063474e7cf3b1a84573aaa279459d586ce5a01bfdf693dc23818a"
+    },
+    {
+      "id": "gaussian-32-11.pt",
+      "sha256": "10a8aa52de0bc2558ffd4a7fa1f016b6e789c9b2a8567f1cd17306a076217529"
+    },
+    {
+      "id": "gaussian-32-29.pt",
+      "sha256": "2c482947f768ca56a4dc51ff42a9e090f5767f635dcd8e1cbde646213f9e541b"
+    },
+    {
+      "id": "gaussian-8-11.pt",
+      "sha256": "2dc2fbb4655bbc691bdb35ea2d8ca0c9063e3a84375d4cf2238d75d3ca9d9022"
+    },
+    {
+      "id": "gaussian-8-29.pt",
+      "sha256": "08673ab208894cd7c009591cf7b53f9e0a90217ab3875f0f4c7b4289691d9d78"
+    }
+  ],
+  "data_artifacts": [
+    {
+      "id": "context.npz",
+      "bytes": 200047986,
+      "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+    },
+    {
+      "id": "counts.npy",
+      "bytes": 461574272,
+      "sha256": "3f2a7f79546fc2dbb39f27a943c5dfcddc5500c23416c8033c1fd75bd4c1662d"
+    },
+    {
+      "id": "dependence-layout.npz",
+      "bytes": 16278,
+      "sha256": "ed78d956ea61f72199588b361263e4603ed0133b7356025cbffeeb1d043092dd"
+    },
+    {
+      "id": "fixed-evaluation-issues.npz",
+      "bytes": 651,
+      "sha256": "1bb2875d64c9ad4d1fc5dab9127621bfdaa34bcb6b13bd0ee861b9f54b2c3d99"
+    },
+    {
+      "id": "recent-11.pt",
+      "bytes": 1273888,
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+    },
+    {
+      "id": "recent-29.pt",
+      "bytes": 1273888,
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+    },
+    {
+      "id": "time-features.npz",
+      "bytes": 1443221,
+      "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+    }
+  ],
+  "cache_lock": {
+    "api_opened": false,
+    "issue_times": 72744,
+    "seconds": 221.11886010039598,
+    "files": [
+      {
+        "id": "anchor-rates.npy",
+        "sha256": "e20ec99415d0a9b36d347bf1ec7da3a82235a940e22ae1bbc612069551db39ab"
+      },
+      {
+        "id": "pit-bounds.npy",
+        "sha256": "47be5cc1c39b0d451e0d5b60b6d473a890fe5fe5fc3997bb6e151610a259f61d"
+      }
+    ]
+  },
+  "numerical_code": [
+    {
+      "id": "joint_inventory_core.py",
+      "sha256": "6664a5e78bacd0cd581968bde3e7c982d66826afb3c728bcefedfc1b7822cdfa"
+    },
+    {
+      "id": "joint_inventory_fit.py",
+      "sha256": "47c8f93ea2b18d86581a145b1fd3f992ee6e500a01131e7c30ac5858c788af95"
+    },
+    {
+      "id": "joint_inventory_data.py",
+      "sha256": "f7e32f15e6c3d37566b486bdbbba67e25d77beee5f83f48b9832050b847e539b"
+    }
+  ]
+}

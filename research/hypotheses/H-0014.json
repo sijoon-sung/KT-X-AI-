@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0014",
   "title": "주변 분포를 보존하는 Flow Matching과 구역 동시 부족 예측",
-  "status": "preregistered",
+  "status": "withdrawn",
   "plan": {
     "question": "Can a conditional FM dependence template improve regional joint shortage forecasts while keeping each station marginal ensemble exactly unchanged?",
     "hypothesis": "With common historical-only fixed marginal samples, conditional graph FM improves September regional-zero-fraction CRPS by >1% vs independent/Gaussian/current-state persistence, with3/7day95%lower>1%. Historical completed-flow gate must pass before external evaluation.",
@@ -101,14 +101,35 @@
     "plan_sha256": "8705cef8b650386e3a6a541b4fdf35fa4f3f686613387d8f4a024bb41d4654d8",
     "frozen_at_utc": "2026-10-31T14:54:51.547224+00:00"
   },
-  "result": null,
-  "withdrawal_reason": null,
+  "result": {
+    "decision": "inconclusive",
+    "historical_stage_decision": "not_supported",
+    "primary_metric_status": "unexecuted",
+    "external_api_opened": false,
+    "adopt_code": true,
+    "summary": "과거 공동분포 학습을dislab에서완료했으나 Gaussian대비FM추가개선0%;두시드모두epoch0선택. 독립대비2월0.212%·3월약0.482%는Gaussian연결효과이며FM추가효과아님. 동결gate에따라API평가전철회.",
+    "limitations": [
+      "February52issues are selection data; gains are not independent test evidence.",
+      "March29issues are previously exposed completed-count auxiliary, not inventory truth.",
+      "No new official September stock/joint-zero forecast performance measured.",
+      "Same empirical marginal net flows deliberately preserved; this is dependence-only comparison.",
+      "Both selected flow checkpoints areepoch0: no learned FM correction adopted.",
+      "Small fixed learning budget/representation/selection rule does not invalidate the whole FM family.",
+      "No policy/routing/field benefit inferred from completed-net-flow scores."
+    ],
+    "run_manifests": [
+      "research/runs/H-0014-20261101-joint-dependence/manifest.json"
+    ]
+  },
+  "withdrawal_reason": "사전 동결한 historical_gate_failed: 고정2월 구역 완료순유출CRPS의 최소대조군개선0%, 요구>1%실패. 새9월공식재고평가전 철회하며 외부주지표는미실행으로보존한다.",
   "design_status": {
-    "experiment_executed": false,
-    "plan_frozen": false,
+    "experiment_executed": true,
+    "plan_frozen": true,
     "source_audit_completed": true,
     "engineering_tests_passed": 8,
-    "required_before_learning": "freeze and publish exact plan and implementation to existing DraftPR21",
-    "api_selection_prohibited": true
+    "required_before_learning": "satisfied: exact plan/source published at 9543b5fdd0ef29d980adc1d68f868c065d8381f3 before dislab fitting",
+    "api_selection_prohibited": true,
+    "historical_gate_passed": false,
+    "external_api_evaluation_executed": false
   }
 }
