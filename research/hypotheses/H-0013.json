@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0013",
   "title": "실시간 재고 입력과 GCN·Flow Matching의 10분 재고 예측",
-  "status": "preregistered",
+  "status": "running",
   "plan": {
     "question": "과거 거래만 학습한 서울 encoder+타슈 GCN+CFM이 최근 API 관측을 입력받을 때 10분 재고를 현재유지 및 동일GCN Poisson보다 개선하는가?",
     "hypothesis": "최근관측 조건부 CFM의 fairCRPS가 recent GCN Poisson 및 현재유지 각각보다 1% 초과 개선된다.",
@@ -78,5 +78,12 @@
     "plan_sha256": "7dd06c0ac8ab7e081228bc53fc21f9a9e959130b3b6484a3bdd8145574730a18",
     "frozen_at_utc": "2026-10-31T12:12:42.410449+00:00"
   },
-  "result": null
+  "result": null,
+  "execution_notes": [
+    {
+      "scope": "execution location deviation; frozen plan remains unchanged",
+      "detail": "제공된 채팅 AGENTS의 dislab-only 지침을 뒤늦게 대조했다. 로컬에서 이미 완료한 과거전용 학습은 재작성하지 않고 실행 위치 위반으로 보존한다. 로컬9월평가는 중단하고 부분점수를 결론에 합치지 않는다. 이후 고정된 동일 모델의 전체9월평가와 실제 새 예측은 dislab에서 실행한다. 가중치/구조/생성/표본/기준을 변경하지 않는다. 이는 환경 불일치 제약으로 공개한다.",
+      "before_remote_evaluation": true
+    }
+  ]
 }
