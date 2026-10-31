@@ -79,7 +79,7 @@ def run(args):
         http['manual_forecast']=request('/api/forecast',manual)['current_stock']==4
         snapshot=dict(observed_at=manual['issued_at'],stations=[dict(station_id=manual['station_id'],parking_count=0),dict(station_id='UNKNOWN',parking_count=None)])
         http['snapshot_missing_preserved']=[x['status'] for x in request('/api/snapshot/forecast',snapshot)['forecasts']]==['ok','unavailable']
-        with urllib.request.urlopen(base+'/') as response:http['web_page']=response.status==200 and b'forecast' in response.read()
+        with urllib.request.urlopen(base+'/') as response:http['web_page']=response.status==200 and '<title>타슈다음' in response.read().decode('utf-8')
     finally:server.shutdown();server.server_close();thread.join()
     h.write(artifacts/'case-verification.json',cases)
     enough=len(cases)==64
