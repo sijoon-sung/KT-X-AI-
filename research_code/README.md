@@ -97,3 +97,17 @@ python research_code/history_to_stock.py --panel <PRIVATE_AUDITED_API_PANEL> --r
 
 완료 기록에서의 재현은 별도 재현 브랜치·새 실행 ID가 필요하다. [동결 계획](../docs/H-0005-history-to-stock.md)과
 [결과](../docs/H-0005-results.md)를 따른다. 일반 모형군의 성능이나 최종 아키텍처의 증명으로 해석하지 않는다.
+
+## H-0006: 분포를 고정하고 손실에 맞는 점출력 확인
+
+`loss_consistent_stock.py`는 동일한 고정 과거율·0반사 과정의 전방 PMF를 계산한다.
+수량 중앙값/평균·같은0대확률·고정분위수와CRPS를 구분하며, 미래값은 별도 점수 함수에서만 사용한다.
+API를 이용한 학습·분포/구조/분위수 선택·보정은 없다. 음수 상태 확률·수치 질량·모형내 중앙값 최적성을 검사한다.
+
+```text
+python -m unittest discover -s research_code/tests -p test_loss_consistent_stock.py -v
+python research_code/loss_consistent_stock.py --panel <PRIVATE_AUDITED_API_PANEL> --rate-model-dir <PRIVATE_FROZEN_HISTORY_MODELS> --run-id <NEW_RUN_ID>
+```
+
+[동결 계획](../docs/H-0006-loss-consistent-action.md)·[결과](../docs/H-0006-results.md)를 따른다.
+완료 기록은 별도 재현 브랜치·새 실행ID로만 재현한다. 원본·개별 예측은 공개하지 않는다.

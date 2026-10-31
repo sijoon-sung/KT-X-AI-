@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0006",
   "title": "같은 재고 분포의 평균·중앙값과 수량 오차 진단",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "재고 분포를 바꾸지 않고 MAE에 맞는 중앙값을 내면 평균을 낸 경우의 수량 MAE를 0.01대 넘게 줄이는가?",
     "hypothesis": "공식9월 전체 공통 유효쌍에서 고정 달력 과정의 평균 출력 대비 동일 분포 하위중앙값 출력의 MAE 감소가 0.01대보다 크다. 점 예측 결정과 손실의 불일치 진단이며 구조·분포·학습 선택이 아니다.",
@@ -61,6 +61,22 @@
     "plan_sha256": "cf64c0b126b97a2a83b46328a9a676b518220e691085ca8314ff6693ef42976d",
     "frozen_at_utc": "2026-10-31T05:27:09.345783+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "같은 고정 재고 분포에서 평균→중앙값 MAE 0.632669→0.576346, 감소 0.056323대로 사전 가설 지지. 현재 유지 0.579567 대비 개선 0.003221대의 두 보조구간은0포함. 확률/모형을 개선하거나 운영모델을 채택한 결과가 아님.",
+    "limitations": [
+      "Same official September API reused after legacy work and H5; not untouched independent evaluation.",
+      "Point-action diagnosis within one frozen distribution, not learned architecture/distribution/hyperparameter selection or evidence of improved probabilities.",
+      "Effective historical completed-flow rates omit latent demand, exposure, capacity, operator movement and station changes.",
+      "MAE-optimal action under the model need not be optimal for the true data distribution; mean/median cannot identify individual process errors.",
+      "Conditional KST request clocks, daytime exact-ID paired observations Sep17..30, no October or missing-zero imputation.",
+      "Block intervals condition on frozen historical weights and omit coefficient uncertainty and repeated-evaluation selection uncertainty.",
+      "No operational adoption, probability recalibration, verified usability, policy effect or final GCN/FM architecture conclusion."
+    ],
+    "run_manifests": [
+      "research/runs/H-0006-20261031-loss-action/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

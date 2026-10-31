@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0006-20261031-loss-action",
+  "hypothesis_id": "H-0006",
+  "plan_sha256": "cf64c0b126b97a2a83b46328a9a676b518220e691085ca8314ff6693ef42976d",
+  "code_commit": "a85d3f691d83a63551ddad5093739bc60e2ecd23",
+  "input_manifest_sha256": "110b9073359b6148b7b5eba1a7d50d4517e72814f3716e5dd5a99f05d72903a3",
+  "started_at_utc": "2026-10-31T05:28:41.321359+00:00",
+  "finished_at_utc": "2026-10-31T05:29:38.519587+00:00",
+  "command": [
+    "python",
+    "research_code/loss_consistent_stock.py",
+    "--panel",
+    "<PRIVATE_AUDITED_API_PANEL>",
+    "--rate-model-dir",
+    "<PRIVATE_FROZEN_HISTORY_MODELS>",
+    "--run-id",
+    "H-0006-20261031-loss-action"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.15.3"
+    },
+    "compute_location": "dislab",
+    "device": "CPU; no fitting",
+    "threads": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    }
+  },
+  "seed": 20261031,
+  "evaluation_scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "metrics": {
+    "mean_to_median_mae_reduction": 0.05632308581877563,
+    "mean_mae": 0.6326692931688528,
+    "median_mae": 0.5763462073500771,
+    "persistence_mae": 0.5795668192663412,
+    "persistence_to_median_mae_reduction": 0.00322061191626409,
+    "matched_training_ids": 1176,
+    "valid_pairs": 237222,
+    "valid_dates": 14,
+    "ci_3day_lower": 0.05158967112056075,
+    "ci_3day_upper": 0.06448041405010109,
+    "ci_7day_lower": 0.05344972543062294,
+    "ci_7day_upper": 0.06122554139634944
+  },
+  "frozen_model_hashes": {
+    "constant": "f5475aebc9883a4d9bd1a341a1eaf212c01d3da0c035c682de3c11697805c1f6",
+    "calendar": "1bd63ba90fc7e6aab5117d0cc483af53d9ffd7903b447214195aa5eabef0ff76"
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "08d9f53215818c87de63d21980d42d941bce7f61ef030890d5047a390e5c291e",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "predictions.npz",
+      "sha256": "d4d00476aa003e5de9dea615e2d7d022293aaa953e2f59e774916f38568d6634",
+      "availability": "private dislab prediction artifact; not published"
+    }
+  ],
+  "limitations": [
+    "Same official September API reused after legacy work and H5; not untouched independent evaluation.",
+    "Point-action diagnosis within one frozen distribution, not learned architecture/distribution/hyperparameter selection or evidence of improved probabilities.",
+    "Effective historical completed-flow rates omit latent demand, exposure, capacity, operator movement and station changes.",
+    "MAE-optimal action under the model need not be optimal for the true data distribution; mean/median cannot identify individual process errors.",
+    "Conditional KST request clocks, daytime exact-ID paired observations Sep17..30, no October or missing-zero imputation.",
+    "Block intervals condition on frozen historical weights and omit coefficient uncertainty and repeated-evaluation selection uncertainty.",
+    "No operational adoption, probability recalibration, verified usability, policy effect or final GCN/FM architecture conclusion."
+  ]
+}

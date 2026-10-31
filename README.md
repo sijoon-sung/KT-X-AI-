@@ -16,6 +16,10 @@
 전체 재고 수량 MAE는 0.579567→0.632669대로 악화했습니다. API 학습·튜닝·보정은 없었습니다.
 [아키텍처 아이디어별 실험](docs/architecture-ideas-to-experiments.md)에서 GCN·사건 과정·FM의 역할을 분리하고 점진적으로 비교합니다.
 
+[H-0006 원인 진단](docs/H-0006-results.md)에서는 같은분포 중앙값으로 MAE가0.576346대까지 낮아졌습니다.
+현재 유지0.579567대 대비 차이의 두구간은0을 포함합니다. 평균은 RMSE에서 현재 유지보다 낮았습니다.
+[원인별 개선 계획](docs/failure-analysis-and-improvement-plan.md)에 손실/점출력·정보·공간·과정·결합 생성 문제를 나눴습니다.
+
 현재 연구 방향은 [큰 질문에서 모형군으로 좁혀 가는 연구 설계](docs/research-program.md)에서 정리합니다.
 [선행연구 비교](docs/research-evidence-map.md)와 [결정 기록](docs/research-decisions.md)을 근거로
 문제·관측 과정·의존성·확률 표현을 먼저 정하며, 최종 아키텍처는 열어 둡니다.

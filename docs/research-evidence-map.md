@@ -20,6 +20,8 @@
 | [Gat 외, Discrete Flow Matching, NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/file/f0d629a734b56a642701bba7bc8bb3ed-Paper-Conference.pdf) | 유한 이산 상태 공간의 확률 경로·표본 생성, 언어 중심 실험 | 서론·§2의 상태 공간과 probability velocity 설명 확인 | 정수 재고를 연속 dequantization과 이산 상태 중 어떻게 표현할까? 상태 범위·큰 대수·순서 정보를 어떻게 다룰까? |
 | [Scheuerer·Hamill, 2015](https://doi.org/10.1175/MWR-D-14-00269.1) | 다변량 예측 의존성을 평가하는 variogram 기반 proper score | 출판사 초록·설명 확인, 전체 구현 재현 미완료 | 결합 시나리오의 가치를 주변 Brier 외에 어떻게 검증할까? |
 | [Gammelli 외, TRC 2022](https://arxiv.org/abs/2108.00858) | 대여·반납률 예측과 재고 의사결정 성능 연결 | 이전 공개 출판 원문에서 방법·예측/의사결정 비교 확인 | 어떤 출력이 운영 판단에 필요한가? 예측 지표와 정책 효과를 어떻게 나눠 평가할까? |
+| [Gneiting, JASA2011 저자 원문](https://arxiv.org/pdf/0912.0902) | 점예측의 손실·요약 통계·Bayes action 일치 | §1.3 식3·Table5에서 제곱손실↔평균·절대손실↔중앙값과 일관성 설명 확인 | 같은분포 점출력의 차이를 H6로 진단. 이론적 최적성과 실제 성능을 구분 |
+| [Luo 외, Transportation2026](https://link.springer.com/article/10.1007/s11116-026-10753-7) | 거래와 상태 관측의 불일치로 재배치 추정 | Data and method의 같은기간 거래·10분 상태자료, 식1의 불일치 기반 식별 확인. 경로 최적화·타슈 재현 없음 | 과거 실측재고/동시9월거래가 없는 우리 자료로는 이 방법을 그대로 재현할 수 없음. API잔차를 학습 라벨로 쓰지 않음 |
 
 ## 문헌에서 옮겨 올 때 지킬 구분
 
