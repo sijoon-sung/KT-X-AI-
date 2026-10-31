@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0009-20261031-scaled-seoul-flow",
+  "hypothesis_id": "H-0009",
+  "plan_sha256": "26fbcba8134836e1097080fb8be4fbe7db6d58bb0e4691ca073860c2470e06f2",
+  "code_commit": "4ff082f7d85daa78f692e426185eee05c4299fb4",
+  "input_manifest_sha256": "c0350d694efdcd656b505eb586d7ee1068e51f03a9f4afbebdcf451255c27d24",
+  "started_at_utc": "2026-10-31T07:10:50.275656+00:00",
+  "finished_at_utc": "2026-10-31T07:30:52.477082+00:00",
+  "command": [
+    [
+      "python",
+      "research_code/scaled_seoul_flow.py",
+      "train",
+      "--archive",
+      "<PRIVATE_HISTORY_ARCHIVE>",
+      "--seoul",
+      "<PRIVATE_OFFICIAL_SEOUL_CSV>",
+      "--h4-artifacts",
+      "<PRIVATE_H4_ARTIFACTS>",
+      "--h7-artifacts",
+      "<PRIVATE_H7_ARTIFACTS>",
+      "--run-id",
+      "H-0009-20261031-scaled-seoul-flow"
+    ],
+    [
+      "python",
+      "research_code/scaled_seoul_flow.py",
+      "cache",
+      "--run-id",
+      "H-0009-20261031-scaled-seoul-flow"
+    ],
+    [
+      "python",
+      "research_code/scaled_seoul_flow.py",
+      "evaluate",
+      "--panel",
+      "<PRIVATE_AUDITED_API_PANEL>",
+      "--h7-artifacts",
+      "<PRIVATE_H7_ARTIFACTS>",
+      "--run-id",
+      "H-0009-20261031-scaled-seoul-flow"
+    ]
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "torch": "2.7.1+cu118",
+    "device": "NVIDIA GeForce RTX 3080",
+    "cuda_peak_bytes": 1194587648,
+    "compute_location": "dislab",
+    "threads": 4,
+    "evaluation_device": "CPU float64, 4 threads",
+    "scipy": "1.15.3"
+  },
+  "seed": [
+    11,
+    29
+  ],
+  "evaluation_scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "metrics": {
+    "worst_control_relative_crps_gain": -0.0037102793709806736,
+    "valid_pairs": 237222,
+    "ci_3day_lower": -0.007698496372696662,
+    "ci_3day_upper": -0.0026210812121213417,
+    "ci_7day_lower": -0.005849715081180706,
+    "ci_7day_upper": -0.0037102793709806736
+  },
+  "artifacts": [
+    {
+      "id": "training.json",
+      "sha256": "5be484ba8624a9235cb12612bf35b0d11afad3d5e8c1413c622f2ccb0b248a29",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "8c4ead0cca996e691d95d9f006f81158016e9125dd355d5ad8ff6e7c64236cc6",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "cfm-seed11.pt",
+      "sha256": "f7d1e7c7e3e3ec7c9fd821a64dee8f5785bc5b33cc59d450a2651856be4f1307",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "cfm-seed29.pt",
+      "sha256": "12e95c2ace4f4a95130ba40c42292cc1b7421faaca99580ba61070263faa0f40",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "cfm-september.npz",
+      "sha256": "eb8a070957c2022d88d5eec5d77fdab399fbf1c67e472e69a0fe0aba8adbc0cb",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "context.npz",
+      "sha256": "651d3c9a7d526152e4fedc4d73e49094e3589164325f067d3786711db1468b3b",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "generation-lock.json",
+      "sha256": "bda9e00698f5025b5ae5870baaee815ffb35f87e6104ead6e1a77ebe6d710b03",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "historical-halfhour.npz",
+      "sha256": "3c79065d2bb218eff25e099dea4264c04acb774344e5731b05a9e9511e1f7afe",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "large-seed11.pt",
+      "sha256": "f5b89b59007998c710a2eea239e11ed36c950279f7ea4c2ffc386bf7ccfc3d7b",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "large-seed29.pt",
+      "sha256": "4b7c719fe113bbaa427106b8a7a5d8f4377cb515808fe326c8e20f0918e5d670",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "large_seoul-seed11.pt",
+      "sha256": "ddf03185885b607359a176976f06670f89749a9433357f2641b66e46050c96af",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "large_seoul-seed29.pt",
+      "sha256": "0b38cbe4c97ae60531eb96a46bc62d9b911078d259153a2b19c291220521367c",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-calendar.npz",
+      "sha256": "bbb66c9cc74b432818e707f2acdfa7fe2553aee8e887021f82143aa474ed1287",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-h7_od.npz",
+      "sha256": "6b313a736648379491d1dc0eac8c0ded8aefa02f98b247c82c12d3b3d85bfa86",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-large.npz",
+      "sha256": "75658f1fb4b6f8206deb1f1f5585077c96f9680271437d9289789916ebd8c4b5",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-large_seoul.npz",
+      "sha256": "a915c7e9350ae37ab45613cc8ac02c75fd5d03cbcb2deef91e4cf6b493c55b5a",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-large_seoul_cfm.npz",
+      "sha256": "d0eab00ec59b2adc85cf447658bf2b2f43c6cc9a6d1f9db9966ecf3a54239c98",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "predictions-small.npz",
+      "sha256": "9120c0b96620987ca2437894348d3e1669bf07a019fa40e63cba423da6fa03c5",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "rates-large.npz",
+      "sha256": "17837c2116e15b3e24130ed3585f99ba6b72fba3bb418abc941c8ced52621de5",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "rates-large_seoul.npz",
+      "sha256": "1d5fc2f1bd634ef0a8a9da1de248f7e179c18d2ce25df513c01e65dfe950c41c",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "rates-small.npz",
+      "sha256": "9594486b0158987973080ba0638edc2ba48a41798c98c1688a54ab7baf49fe8f",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "selection.json",
+      "sha256": "cd0bbc21abc56955a6f0395b04cb32ae7a4cbf74e0ca818617e2f9b2cdcf95e2",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "small-seed11.pt",
+      "sha256": "41fc3547d1a95271145d2f853b1fe2b74c87af89434cfd5768dee7f0da7e75f5",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    },
+    {
+      "id": "small-seed29.pt",
+      "sha256": "b52cd9db4107e5dfc3e679002c1310883f594882cbc8b8c2e7caecf989aef092",
+      "availability": "private weights/counts/profiles/generation/predictions; not published"
+    }
+  ],
+  "limitations": [
+    "Official September repeatedly exposed, not an untouched independent test; no API training/tuning/model selection/calibration.",
+    "Seoul source is 2017-18 city aggregate rental patterns, not matched Seoul stations/current conditions/Daejeon weather.",
+    "Only calendar/static graph context available, no recent September transactions; counts are completed flow, not latent demand/exposure.",
+    "CFM is joint rental/return per station only, not a citywide joint distribution; Gaussian residual flow/Heun16/dequantization/512 samples are approximations.",
+    "Uniform event order and zero reflection omit capacity/operator moves/observation process; no February/March inventory truth.",
+    "Block intervals exclude fitting, selection and Monte Carlo uncertainty; service candidate inclusion follows user request, not API ranking."
+  ]
+}

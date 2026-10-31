@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0009",
   "title": "규모 확대·따릉이 과거 특성·GCN조건부 Flow Matching 융합",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "공통입력에서모델규모·서울과거패턴특성을늘리고GCN조건부FlowMatching의30분공동거래생성을붙이면공식9월재고분포예측이개선되는가?",
     "hypothesis": "고정full융합후보(large_seoul_cfm)의전체재고CRPS가small·large·large_seoul및기존H7OD/H4달력대비각각1%넘게감소한다. 모델우열은사전정의된전체비교로보고하고API로서비스승자를선택하지않는다.",
@@ -91,6 +91,21 @@
     "plan_sha256": "26fbcba8134836e1097080fb8be4fbe7db6d58bb0e4691ca073860c2470e06f2",
     "frozen_at_utc": "2026-10-31T07:05:43.179370+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "큰 GCN75,394모수+CFM50,818모수·각2시드 학습과 공식9월평가 완료. 다섯대조군대비최소상대CRPS감소 -0.003710, 사전 개선 가설을 지지하지 않았다. 사용자요청 융합연구후보의 시제품 연결 채택이며 API성능으로 승자를선택한것이아니다.",
+    "limitations": [
+      "Official September repeatedly exposed, not an untouched independent test; no API training/tuning/model selection/calibration.",
+      "Seoul source is 2017-18 city aggregate rental patterns, not matched Seoul stations/current conditions/Daejeon weather.",
+      "Only calendar/static graph context available, no recent September transactions; counts are completed flow, not latent demand/exposure.",
+      "CFM is joint rental/return per station only, not a citywide joint distribution; Gaussian residual flow/Heun16/dequantization/512 samples are approximations.",
+      "Uniform event order and zero reflection omit capacity/operator moves/observation process; no February/March inventory truth.",
+      "Block intervals exclude fitting, selection and Monte Carlo uncertainty; service candidate inclusion follows user request, not API ranking."
+    ],
+    "run_manifests": [
+      "research/runs/H-0009-20261031-scaled-seoul-flow/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

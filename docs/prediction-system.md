@@ -52,3 +52,13 @@ HTTP 서버는 loopback에만 연결한다. 개인 장비 연결 정보는 저�
 인수검증 결과는 [H-0008 기록](H-0008-prediction-system.md)에 연결한다.
 예측 계산·검증·서버는 dislab에서 수행하고 로컬 화면은 입력·표시만 담당한다.
 시제품 연결의 채택과 예측 성능·운영 적합성 판정은 구분한다.
+
+## H-0009 연구 모델 사용
+
+예측 모델 선택에서 `GCN + 따릉이 + FM`, 큰GCN+따릉이, 큰GCN, 작은GCN과 기존GCN을 선택할 수 있다.
+큰 모형은 같은 현재 상태의 기존 GCN 참고출력을 함께 보여 준다. 새 연구 경로의 기본값은 사용자 융합 요청에 따른 것이며 API 승자 선택이 아니다.
+공식 성능·제약은 [H-0009](H-0009-scaled-seoul-flow.md)를 따른다.
+따릉이 특성은 과거 도시 집계의 달력 패턴이며, CFM은 대여소별 대여·반납 쌍의 생성이다.
+서버는 `advanced_prediction_service.py`에서 H8의 기존 경로와 `/api/advanced/info`, `/api/advanced/forecast`,
+`/api/advanced/replay/forecast`, `/api/advanced/snapshot/forecast`를 제공한다.
+추가 입력 `model_variant`만 허용하며 미래 정답 필드를 받지 않는다. 가중치 학습이나 API 보정 기능은 없다.
