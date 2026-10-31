@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "H-0016",
+  "title": "실제 예측·관측 결과와 재배치 수량·동선을 연결하는 결과 화면",
+  "status": "preregistered",
+  "plan": {
+    "question": "Can the user follow recorded observed stock through an unchanged causal forecast, score and explicitly assumed shadow quantities/route without confusing field outcomes?",
+    "hypothesis": "Evidence bundle and results UI preserve frozen model/data provenance and causal separation with zero engineering acceptance failures; optional OSRM failure remains explicit.",
+    "prior_art": [
+      {
+        "title": "OSRM official API documentation",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "2026-11-01 original General options and Table/Route sections: static extracted profiles, directed seconds, GeoJSON and errors.",
+        "difference_to_test": "Wire actual station coordinates and a bounded road-time request to existing H15 shadow planner; not truck/legal/traffic verification or routing-method novelty."
+      }
+    ],
+    "data": {
+      "dataset_id": "H16-recorded-evidence-v1",
+      "observed_truth": "Previously issued H13 forecast and separately collected future API, recorded September metrics; H14/H15 saved results",
+      "not_observed": [
+        "Real relocation actions or counterfactual inventory",
+        "Real fleet, depot, parking capacity and measured travel/handling",
+        "New model superiority"
+      ],
+      "input_manifest_sha256": "03ed9c2a7abc731cb677e38b0380575220684ebd01e5cafa3c194345f09e0082"
+    },
+    "evaluation": {
+      "design": "Exact plan research/plans/H-0016-v1.json SHA256=84e08604d79345ce83ee933753f5389485f0b0139e863170f684900f58f75f9f",
+      "periods": [
+        {
+          "role": "engineering_acceptance",
+          "start": "2026-11-01T00:00:00+09:00",
+          "end": "2026-11-02T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "exact cached forecast/metrics oracles",
+        "H15 constraint checks",
+        "truth-independent plan-input selection"
+      ],
+      "primary_metric": {
+        "name": "acceptance_failures",
+        "unit": "count",
+        "direction": "lower"
+      },
+      "success_rule": "zero acceptance failures, complete linked evidence bundle, all checks reported; road availability not a prediction or field-effect success criterion",
+      "failure_rule": "any provenance or display semantic error is not_supported; missing road adapter is reported blocked and never replaced by invented values",
+      "exclusion_rule": "All original supported issued rows retained; invalid future is null and excluded only from displayed scoring. No best-example selection after truth.",
+      "uncertainty_plan": "Engineering deterministic evidence checks; reuse original score uncertainty as labeled, no new independent accuracy or causal claim.",
+      "seed_plan": "No fitting or new particle generation; use original128 cached particles, deterministic selection and routing tie-break."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "9d57609f21b71d036ac459f17ee64b1fc7e75cef7b9737bd90d7caf2c8db62d8",
+    "frozen_at_utc": "2026-10-31T16:08:46.488187+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
