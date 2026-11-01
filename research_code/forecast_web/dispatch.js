@@ -8,7 +8,7 @@ function stopAnimation(){clearInterval(animation);animation=null;if(vehicle&&map
 function controls(){return {automatic:$('automatic').checked,station_ids:ids.slice(),depot_id:depot,capacity:+$('capacity').value,target:+$('target').value,deadline_minutes:+$('deadline').value,budget:+$('budget').value,objective,...(info?.source_version?{source_version:info.source_version}:{})};}
 function candidates(){
  $('candidateCount').textContent=$('automatic').checked?`자동 ${ids.length}곳`:`수동 ${ids.length} / 29`;
- $('candidates').innerHTML=ids.slice(0,12).map(id=>{const s=stationById[id];return `<div class="candidate"><span class="candidate-icon">${id===depot?'⌂':'◉'}</span><div class="candidate-name">${esc(s.name)}<span>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대</span></div><button class="remove-candidate" data-id="${esc(id)}" aria-label="${esc(s.name)} 후보 제외">×</button></div>`;}).join('');
+ $('candidates').innerHTML=ids.map(id=>{const s=stationById[id];return `<div class="candidate"><span class="candidate-icon">${id===depot?'⌂':'◉'}</span><div class="candidate-name">${esc(s.name)}<span>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대</span></div><button class="remove-candidate" data-id="${esc(id)}" aria-label="${esc(s.name)} 후보 제외">×</button></div>`;}).join('');
  $('depot').innerHTML=info.stations.map(s=>s.id).sort((a,b)=>stationById[a].name.localeCompare(stationById[b].name,'ko')).map(id=>`<option value="${esc(id)}">${esc(stationById[id].name)}</option>`).join('');$('depot').value=depot;
  $('candidates').querySelectorAll('button').forEach(b=>b.onclick=()=>removeCandidate(b.dataset.id));
 }
@@ -72,7 +72,7 @@ function drawRoute(){
  r.stops.forEach((s,i)=>L.marker([stationById[s.station_id].lat,stationById[s.station_id].lon],{icon:icon(s.action,String(i+1))}).addTo(routeLayer).bindTooltip(`${esc(stationById[s.station_id].name)} · ${s.action==='pickup'?'수거':'배치'} ${s.bikes}대`).on('click',()=>selectStop(i)));
  L.marker([anchor.lat,anchor.lon],{icon:icon('depot','⌂'),zIndexOffset:200}).addTo(routeLayer).bindTooltip('출발 · 복귀 위치 (가정)');
 }
-function fit(){if(!map)return;const points=[stationById[depot],...(plan?.route.stops.length?plan.route.stops.map(s=>stationById[s.station_id]):ids.map(id=>stationById[id]))].filter(Boolean);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{padding:map.getSize().x<500?[35,55]:[90,100],maxZoom:15});}
+function fit(){if(!map)return;const points=[stationById[depot],...(plan?.route.stops.length?plan.route.stops.map(s=>stationById[s.station_id]):ids.map(id=>stationById[id]))].filter(Boolean);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{paddingTopLeft:[40,60],paddingBottomRight:[map.getSize().x>480?260:40,60],maxZoom:15});}
 function selectStop(i){
  const s=plan.route.stops[i];document.querySelectorAll('[data-stop]').forEach((el,j)=>el.classList.toggle('active',j===i));
  if(map)map.panTo([stationById[s.station_id].lat,stationById[s.station_id].lon]);
@@ -112,7 +112,7 @@ if(f.latest_forecast?.previous_proxy_present===0)$('feedDetails').innerHTML+='<p
 }
 async function refreshFeed(){
 try{const r=await fetch('/api/dispatch/info',{cache:'no-store'});if(!r.ok)return;const next=await r.json(),changed=next.source_version&&next.source_version!==info.source_version;info=next;stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));
-if(changed){ids=ids.filter(id=>stationById[id]);if(!ids.length)ids=info.default_ids.slice();if(!stationById[depot])depot=info.default_depot_id;candidates();drawBase();invalidate();}renderFeed();if(plan?.valid_until_utc&&Date.now()>Date.parse(plan.valid_until_utc)){generation++;$('previewRoute').disabled=true;$('export').disabled=true;$('summary').classList.add('stale');$('planState').textContent='유효시간 종료';if(line)line.setStyle({opacity:.25,dashArray:'6 6'});}}catch(e){$('feedTitle').textContent='관측 상태 확인 지연';}
+if(changed){ids=ids.filter(id=>stationById[id]);if(!ids.length)ids=info.default_ids.slice();if(!stationById[depot])depot=info.default_depot_id;candidates();drawBase();invalidate();}renderFeed();if(plan?.valid_until_utc&&Date.now()>Date.parse(plan.valid_until_utc)){$('previewRoute').disabled=true;$('export').disabled=true;$('summary').classList.add('stale');$('planState').textContent='유효시간 종료';if(line)line.setStyle({opacity:.25,dashArray:'6 6'});}}catch(e){$('feedTitle').textContent='관측 상태 확인 지연';}
 }
 
 async function init(){
