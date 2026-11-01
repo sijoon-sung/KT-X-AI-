@@ -5,21 +5,22 @@ let info,stationById={},ids=[],depot='',objective='balanced',plan=null,map=null,
 let generation=0,debounce=null,animation=null,toastTimer=null;
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
 function stopAnimation(){clearInterval(animation);animation=null;if(vehicle&&map){map.removeLayer(vehicle);vehicle=null;}$('previewRoute').textContent='▶ 경로 미리보기';}
-function controls(){return {station_ids:ids.slice(),depot_id:depot,capacity:+$('capacity').value,target:+$('target').value,deadline_minutes:+$('deadline').value,budget:+$('budget').value,objective,...(info?.source_version?{source_version:info.source_version}:{})};}
+function controls(){return {automatic:$('automatic').checked,station_ids:ids.slice(),depot_id:depot,capacity:+$('capacity').value,target:+$('target').value,deadline_minutes:+$('deadline').value,budget:+$('budget').value,objective,...(info?.source_version?{source_version:info.source_version}:{})};}
 function candidates(){
- $('candidateCount').textContent=`${ids.length} / 5`;
- $('candidates').innerHTML=ids.map(id=>{const s=stationById[id];return `<div class="candidate"><span class="candidate-icon">${id===depot?'⌂':'◉'}</span><div class="candidate-name">${esc(s.name)}<span>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대</span></div><button class="remove-candidate" data-id="${esc(id)}" aria-label="${esc(s.name)} 후보 제외">×</button></div>`;}).join('');
- $('depot').innerHTML=ids.map(id=>`<option value="${esc(id)}">${esc(stationById[id].name)}</option>`).join('');$('depot').value=depot;
+ $('candidateCount').textContent=$('automatic').checked?`자동 ${ids.length}곳`:`수동 ${ids.length} / 29`;
+ $('candidates').innerHTML=ids.slice(0,12).map(id=>{const s=stationById[id];return `<div class="candidate"><span class="candidate-icon">${id===depot?'⌂':'◉'}</span><div class="candidate-name">${esc(s.name)}<span>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대</span></div><button class="remove-candidate" data-id="${esc(id)}" aria-label="${esc(s.name)} 후보 제외">×</button></div>`;}).join('');
+ $('depot').innerHTML=info.stations.map(s=>s.id).sort((a,b)=>stationById[a].name.localeCompare(stationById[b].name,'ko')).map(id=>`<option value="${esc(id)}">${esc(stationById[id].name)}</option>`).join('');$('depot').value=depot;
  $('candidates').querySelectorAll('button').forEach(b=>b.onclick=()=>removeCandidate(b.dataset.id));
 }
 function addCandidate(id){
  if(ids.includes(id)){if(map)map.closePopup();return;}
- if(ids.length>=5){toast('방문 후보는 최대 5곳입니다. 기존 후보를 제외한 뒤 추가하세요.');return;}
+ if(ids.length>=29){toast('직접 지정 후보는 최대29곳입니다.');return;}
+ $('automatic').checked=false;
  ids.push(id);if(!depot)depot=id;candidates();invalidate();drawBase();if(map)map.closePopup();
 }
 function removeCandidate(id){
  if(ids.length<=1){toast('방문 후보를 최소 한 곳 남겨 주세요.');return;}
- ids=ids.filter(x=>x!==id);if(depot===id)depot=ids[0];candidates();invalidate();drawBase();
+ $('automatic').checked=false;ids=ids.filter(x=>x!==id);candidates();invalidate();drawBase();
 }
 function invalidate(){
  generation++;stopAnimation();$('summary').classList.add('stale');$('planState').textContent='다시 계산';$('planState').classList.add('busy');
@@ -33,7 +34,7 @@ async function calculate(){
  $('summary').classList.add('stale');$('previewRoute').disabled=true;$('export').disabled=true;stopAnimation();
  try{
   const response=await fetch('/api/dispatch/optimize',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),value=await response.json();
-  if(request!==generation)return;if(!response.ok)throw Error(value.error||'계산을 완료하지 못했습니다.');plan=value;
+  if(request!==generation)return;if(!response.ok){if(response.status===409)refreshFeed();throw Error(value.error||'계산을 완료하지 못했습니다.');}plan=value;if(body.automatic){ids=value.candidate_ids.slice();candidates();}
   renderPlan();$('mapBanner').hidden=true;if(value.geometry_status==='unavailable'){banner('도로시간은 계산했지만 경로선 조회가 실패했습니다. 점선은 방문 순서 연결입니다.');}
  }catch(e){if(request!==generation)return;banner(e.message);$('planState').textContent='계산 불가';$('calculationStatus').textContent='이전 경로는 새 조건의 결과가 아닙니다.';toast(e.message);}
  finally{if(request===generation){$('recalculate').disabled=false;$('planState').classList.remove('busy');}}
@@ -43,20 +44,21 @@ function renderPlan(){
  const r=plan.route;$('summary').classList.remove('stale');$('totalDistance').innerHTML=`${km(r.distance_meters)}<small>km</small>`;
  $('totalTime').innerHTML=`${mins(r.return_minutes)}<small>분</small>`;$('totalBikes').innerHTML=`${plan.moved_bikes}<small>대</small>`;$('totalStops').innerHTML=`${r.stops.length}<small>곳</small>`;
  $('planState').textContent=plan.status==='no_action'?'이동 없음':'계산 완료';$('planEmpty').hidden=r.stops.length>0;
- $('planEmpty').textContent='입력 조건에서 이동할 수량이 없습니다. 작업시간·목표 재고·방문 후보를 바꿔 보세요.';
+ $('planEmpty').textContent=plan.no_action_reason||'입력 조건에서 가능한 이동이 없습니다.';
+ const c=plan.coverage;$('coverage').hidden=!c;if(c){const until=new Date(plan.valid_until_utc).toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false});$('coverage').innerHTML=`<b>${c.scanned}곳 탐색 → 후보 ${c.shortlisted}곳</b><p>현재 0대 ${c.current_zero}곳 중 <strong>${c.zero_sites_supplied}곳 공급</strong> · 이번 계획 외 ${c.unserved_zero}곳</p><p>공급 가능 ${c.donors}곳 / 부족 후보 ${c.receivers}곳</p><small>${until} 예측까지 남은 ${mins(plan.parameters.effective_deadline)}분 안에 복귀 · 차량·주차 조건 가정</small>`;}
  $('itinerary').innerHTML=r.stops.map((s,i)=>`<div class="stop ${s.action}" data-stop="${i}" tabindex="0" role="button"><span class="stop-number">${i+1}</span><div class="stop-main"><div class="stop-name">${esc(stationById[s.station_id].name)}</div><div class="stop-action">${s.action==='pickup'?'수거':'배치'} ${s.bikes}대 <span class="load-label">작업 후 적재 ${s.vehicle_load_after} / ${plan.parameters.capacity}대</span></div><div class="stop-leg">이전 지점에서 ${km(s.leg_meters)}km · ${mins(s.leg_drive_minutes)}분 / 도착 +${mins(s.eta_minutes)}분</div></div></div>`).join('');
  $('itinerary').querySelectorAll('[data-stop]').forEach(el=>{const action=()=>selectStop(+el.dataset.stop);el.onclick=action;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();action();}};});
  $('returnLeg').innerHTML=r.stops.length?`<div class="return-leg">↩ ${esc(stationById[depot].name)} 복귀<br><strong>${km(r.return_leg_meters)}km · ${mins(r.return_leg_minutes)}분</strong> / 전체 ${mins(r.return_minutes)}분</div>`:'';
- $('comparison').hidden=false;$('alternatives').innerHTML=plan.alternatives.map(a=>`<div class="comparison-row ${a.objective===objective?'active':''}" data-mode="${a.objective}" role="button" tabindex="0"><span>${labels[a.objective]}<small>${a.moved_bikes}대 이동 · ${mins(a.return_minutes)}분</small></span><b>${km(a.distance_meters)} km</b></div>`).join('');
+ $('comparison').hidden=false;const names={no_action:'이동 없음',best_pair:'두 곳 이동',nearest_pair:'최근접 두 곳',legacy_fixed5:'기존 고정 후보'};$('alternatives').innerHTML=plan.alternatives.filter(a=>a.objective!=='best_pair').map(a=>`<div class="comparison-row ${a.objective===objective?'active':''}" ${names[a.objective]?'':`data-mode="${a.objective}" role="button" tabindex="0"`}><span>${names[a.objective]||labels[a.objective]}<small>${a.moved_bikes}대 이동 · ${mins(a.return_minutes)}분</small></span><b>${km(a.distance_meters)} km</b></div>`).join('');
  $('alternatives').querySelectorAll('[data-mode]').forEach(el=>{el.onclick=()=>setObjective(el.dataset.mode);el.onkeydown=e=>{if(e.key==='Enter')setObjective(el.dataset.mode);};});
  $('previewRoute').disabled=!r.stops.length;$('export').disabled=false;
  const date=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
- $('calculationStatus').textContent=`${date} 기록 · 선택 ${ids.length}곳 계산 완료`;$('conditionSummary').innerHTML=`적재 ${plan.parameters.capacity}대 · 목표 ${plan.parameters.target}대 · ${plan.parameters.deadline_minutes}분 제한 <span>설정 ›</span>`;drawBase();drawRoute();fit();
+ $('calculationStatus').textContent=`${date} 관측 · ${plan.parameters.automatic?'자동 후보':'수동 후보'} ${ids.length}곳 · 계획 계산 완료`;$('conditionSummary').innerHTML=`적재 ${plan.parameters.capacity}대 · 목표 ${plan.parameters.target}대 · ${plan.parameters.deadline_minutes}분 제한 <span>설정 ›</span>`;drawBase();drawRoute();fit();
 }
 function icon(type,text){return L.divIcon({className:'',html:`<div class="route-pin ${type}">${text}</div>`,iconSize:type==='depot'?[22,22]:[30,30],iconAnchor:type==='depot'?[11,11]:[15,15]});}
 function popup(s){
  const div=document.createElement('div');div.className='popup';div.innerHTML=`<h3>${esc(s.name)}</h3><p>${esc(s.id)}<br>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대<br>예측 범위 ${s.forecast.low}–${s.forecast.high}대</p>`;
- const b=document.createElement('button');b.textContent=ids.includes(s.id)?'방문 후보에서 제외':'방문 후보에 추가';b.onclick=()=>ids.includes(s.id)?removeCandidate(s.id):addCandidate(s.id);div.appendChild(b);return div;
+ const b=document.createElement('button');b.textContent=ids.includes(s.id)?'방문 후보에서 제외':'방문 후보에 추가';b.onclick=()=>ids.includes(s.id)?removeCandidate(s.id):addCandidate(s.id);div.appendChild(b);const start=document.createElement('button');start.textContent='차량 출발·복귀 위치로 설정';start.onclick=()=>{depot=s.id;candidates();invalidate();if(map)map.closePopup();};div.appendChild(start);return div;
 }
 function drawBase(){
  if(!map){fallback();return;}baseLayer.clearLayers();
@@ -70,7 +72,7 @@ function drawRoute(){
  r.stops.forEach((s,i)=>L.marker([stationById[s.station_id].lat,stationById[s.station_id].lon],{icon:icon(s.action,String(i+1))}).addTo(routeLayer).bindTooltip(`${esc(stationById[s.station_id].name)} · ${s.action==='pickup'?'수거':'배치'} ${s.bikes}대`).on('click',()=>selectStop(i)));
  L.marker([anchor.lat,anchor.lon],{icon:icon('depot','⌂'),zIndexOffset:200}).addTo(routeLayer).bindTooltip('출발 · 복귀 위치 (가정)');
 }
-function fit(){if(!map)return;const points=ids.map(id=>stationById[id]);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{padding:map.getSize().x<500?[35,55]:[90,100],maxZoom:15});}
+function fit(){if(!map)return;const points=[stationById[depot],...(plan?.route.stops.length?plan.route.stops.map(s=>stationById[s.station_id]):ids.map(id=>stationById[id]))].filter(Boolean);if(points.length)map.fitBounds(points.map(s=>[s.lat,s.lon]),{padding:map.getSize().x<500?[35,55]:[90,100],maxZoom:15});}
 function selectStop(i){
  const s=plan.route.stops[i];document.querySelectorAll('[data-stop]').forEach((el,j)=>el.classList.toggle('active',j===i));
  if(map)map.panTo([stationById[s.station_id].lat,stationById[s.station_id].lon]);
@@ -110,7 +112,7 @@ if(f.latest_forecast?.previous_proxy_present===0)$('feedDetails').innerHTML+='<p
 }
 async function refreshFeed(){
 try{const r=await fetch('/api/dispatch/info',{cache:'no-store'});if(!r.ok)return;const next=await r.json(),changed=next.source_version&&next.source_version!==info.source_version;info=next;stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));
-if(changed){ids=ids.filter(id=>stationById[id]);if(!ids.length)ids=info.default_ids.slice();if(!ids.includes(depot))depot=ids[0];candidates();drawBase();invalidate();}renderFeed();}catch(e){$('feedTitle').textContent='관측 상태 확인 지연';}
+if(changed){ids=ids.filter(id=>stationById[id]);if(!ids.length)ids=info.default_ids.slice();if(!stationById[depot])depot=info.default_depot_id;candidates();drawBase();invalidate();}renderFeed();if(plan?.valid_until_utc&&Date.now()>Date.parse(plan.valid_until_utc)){generation++;$('previewRoute').disabled=true;$('export').disabled=true;$('summary').classList.add('stale');$('planState').textContent='유효시간 종료';if(line)line.setStyle({opacity:.25,dashArray:'6 6'});}}catch(e){$('feedTitle').textContent='관측 상태 확인 지연';}
 }
 
 async function init(){
@@ -119,9 +121,9 @@ async function init(){
   $('recordTime').textContent=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+' 기준';
   if(window.L){map=L.map('map',{zoomControl:false}).setView([36.32,127.39],14);L.control.zoom({position:'topright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',keepBuffer:1}).addTo(map);baseLayer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);map.on('resize',fit);}
   candidates();drawBase();fit();$('recalculate').disabled=false;
-  ['capacity','target','deadline','budget'].forEach(id=>$(id).onchange=invalidate);$('depot').onchange=()=>{depot=$('depot').value;candidates();invalidate();};
+  ['capacity','target','deadline','budget','automatic'].forEach(id=>$(id).onchange=invalidate);$('depot').onchange=()=>{depot=$('depot').value;candidates();invalidate();};
   const tab=setting=>{$('controlScroll').className='control-scroll '+(setting?'view-settings':'view-route');$('settingsTab').classList.toggle('active',setting);$('routeTab').classList.toggle('active',!setting);};$('settingsTab').onclick=()=>tab(true);$('routeTab').onclick=()=>tab(false);$('conditionSummary').onclick=()=>tab(true);
-  $('restore').onclick=()=>{ids=info.default_ids.slice();depot=info.default_depot_id;candidates();invalidate();};
+  $('restore').onclick=()=>{$('automatic').checked=true;candidates();invalidate();};
   document.querySelectorAll('[data-objective]').forEach(b=>b.onclick=()=>setObjective(b.dataset.objective));$('recalculate').onclick=calculate;
   $('fitMap').onclick=fit;$('showAll').onclick=()=>{allVisible=!allVisible;$('showAll').classList.toggle('active',allVisible);drawBase();};
   $('search').oninput=()=>{const q=$('search').value.trim().toLowerCase();$('searchResults').hidden=!q;if(!q)return;const matches=info.stations.filter(s=>s.name.toLowerCase().includes(q)||s.id.toLowerCase().includes(q)).slice(0,8);$('searchResults').innerHTML=matches.map(s=>`<button data-id="${esc(s.id)}">${esc(s.name)}<small>${esc(s.id)} · 현재 ${s.current}대</small></button>`).join('')||'<button disabled>검색 결과가 없습니다.</button>';$('searchResults').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{const s=stationById[b.dataset.id];$('searchResults').hidden=true;if(map){map.setView([s.lat,s.lon],16);L.popup().setLatLng([s.lat,s.lon]).setContent(popup(s)).openOn(map);}else addCandidate(s.id);});};

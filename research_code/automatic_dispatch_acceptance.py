@@ -48,7 +48,11 @@ def run(folder,out):
     while len(seen)<3 and time.monotonic()-began<2100:
         status=a.read(folder/'status.json');version=status.get('source_version')
         if not version or version in seen:time.sleep(5);continue
-        state=a.read(folder/status['latest_state']);departure=datetime.fromisoformat(state['recorded_at_utc']).timestamp()+10
+        state=a.read(folder/status['latest_state'])
+        # Honor the frozen period; an early cached state is not a primary observation.
+        if datetime.fromisoformat(state['recorded_at_utc']).timestamp()<datetime.fromisoformat('2026-11-01T15:50:00+09:00').timestamp():
+            time.sleep(5);continue
+        departure=datetime.fromisoformat(state['recorded_at_utc']).timestamp()+10
         rawpath=folder/status['latest_state'];inputhash=hashlib.sha256(rawpath.read_bytes()).hexdigest();seen.add(version)
         try:
             result=a.optimize(state,dict(automatic=True),a.Roads(folder/'h19-roads'),departure)
