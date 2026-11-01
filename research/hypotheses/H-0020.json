@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0020",
   "title": "적재량을 늘려도 기존 실행 가능한 재배치 경로 보존",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can capacity-subproblem incumbent union eliminate capacity inversion in the fixed heuristic without changing forecasts or operational loss?",
     "hypothesis": "zero constraint violations and zero capacity-dominance violations on all120cases. Any failure=>not_supported; no outcome-based retuning.",
@@ -53,6 +53,21 @@
     "plan_sha256": "2bdc9071f2194d285c469f5888a55b031a1d2011a793707090f32898ddfba217",
     "frozen_at_utc": "2026-11-01T06:56:53.384056+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab CPU 합성120조건의 적재량 역전·제약 위반0. 실제16:00관측의 기능 예시는4대·0대3곳 공급·7.1332km·9.1817분으로 발행. 같은 상태의 기존 단일탐색2대를 보존·개선했으며 현장 효과·정확도 개선으로 해석하지 않는다.",
+    "limitations": [
+      "Synthetic inclusion/safety checks are not field benefit or independent prediction accuracy",
+      "Identical inputs except capacity required for dominance; no citywide or other-parameter monotonicity claim",
+      "Real fleet/depot/parking/handling unverified: one empty-start/return vehicle,capacity6,handling6sec/bike,drop<=3 assumed",
+      "10min fixed forecast only; no live traffic or intervention-induced demand model",
+      "Native remote clock139.523809sec behind; preserve native times and calibrated estimates with0.615766sec uncertainty",
+      "H19 original single-capacity experiment preserved and completed on its own pinned code"
+    ],
+    "run_manifests": [
+      "research/runs/H-0020-20261101-capacity-union/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }
