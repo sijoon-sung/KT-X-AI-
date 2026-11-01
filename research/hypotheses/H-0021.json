@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0021",
   "title": "운영 규모의 묶음 수거·배치와 상하차 제약",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can the same fixed forecasts support operator-controlled larger per-visit batches while respecting explicit handling,source,drop,vehicle and10min limits?",
     "hypothesis": "All72 synthetic conditions satisfy conservation/handling/expiry/source/drop limits and at least one bulk feasible delivery batch>=5bikes; no accuracy or real efficiency inference.",
@@ -53,6 +53,23 @@
     "plan_sha256": "2751b648368f3f93564db5aed61272d8726e184e5b19a54f5d478aef0c7c2a1c",
     "frozen_at_utc": "2026-11-01T09:36:05.405134+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab72조건의 수량·적재·공급지·주차·상하차·복귀 위반0, 합성 최대배치6대.18:40관측 참고 재생의 소규모3대/묶음6대 및 실제18:40:36발행 총6대 계획을 기록했다. 실제한곳6대나새정확도/운영효과는주장하지않는다.",
+    "limitations": [
+      "Changed operational assumptions, not same-resource algorithm/accuracy/field gain",
+      "One vehicle and assumed parking/handling, original10min prediction cutoff",
+      "Replay is not current issuance; actual-now response separately recorded",
+      "API is input only, frozen model weights unchanged",
+      "Capacity20,target6,drop10,handling20sec are operator scenario defaults, not verified fleet conditions",
+      "Live total6 is not a single-site6 delivery; largest synthetic delivery batch6 is a separate engineering result",
+      "GUI automation stopped because the current browser URL could not be verified; visual browser verification not claimed",
+      "Source conflict recovery verified by7JStransport tests/8server tests ondislab and actual authoritative HTTPmetadata/plan responses"
+    ],
+    "run_manifests": [
+      "research/runs/H-0021-20261101-bulk/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

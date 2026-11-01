@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0021-20261101-bulk",
+  "hypothesis_id": "H-0021",
+  "plan_sha256": "2751b648368f3f93564db5aed61272d8726e184e5b19a54f5d478aef0c7c2a1c",
+  "code_commit": "d1be346b36dd1e0c08b8dea7fa5de0e015d41a21",
+  "input_manifest_sha256": "6fe558867d9a9233c2a8f48a6c095edba1580f262a3bdcb20b8daf28be7fd019",
+  "started_at_utc": "2026-11-01T09:40:25.906272+00:00",
+  "finished_at_utc": "2026-11-01T09:40:36.531272+00:00",
+  "command": [
+    "python research_code/bulk_dispatch_acceptance.py --folder <private-live-input> --out <private-results>",
+    "node research_code/test_dispatch_sync.mjs"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "device": "dislab CPU"
+  },
+  "seed": 44,
+  "evaluation_scope": "12synthetic cases x2operating configurations x3handling speeds=72; one state replay plus separately actual-now RPC, no new inventory accuracy/field evaluation",
+  "metrics": {
+    "feasibility_violations": 0,
+    "synthetic_conditions": 72,
+    "maximum_synthetic_delivery_batch": 6,
+    "live_total_bikes": 6,
+    "replay_compact_total": 3,
+    "replay_bulk_total": 6,
+    "transport_regressions_passed": 7,
+    "live_rpc_status": 200
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "eaf8b35dd4c4f44d2500d1e42e02357f6d8ce65b1136268e00947010a5ad127a",
+      "availability": "research/runs/H-0021-20261101-bulk/summary.json"
+    },
+    {
+      "id": "engineering.json",
+      "sha256": "fde6dd6a7ad24e495565292da8ddf9e603077560d6e0cf2dc525642428092aa3",
+      "availability": "research/runs/H-0021-20261101-bulk/engineering.json"
+    },
+    {
+      "id": "reference-replay.json",
+      "sha256": "48786de304caee92b398e29feac2f78f6213441884d2bbd1951005530a898ab5",
+      "availability": "research/runs/H-0021-20261101-bulk/reference-replay.json"
+    },
+    {
+      "id": "live-now.json",
+      "sha256": "ed85bc72ea624787dec770691d9b8a7efa01b442dd0ec1c00d04144d2d9b8687",
+      "availability": "research/runs/H-0021-20261101-bulk/live-now.json"
+    }
+  ],
+  "limitations": [
+    "Changed operational assumptions, not same-resource algorithm/accuracy/field gain",
+    "One vehicle and assumed parking/handling, original10min prediction cutoff",
+    "Replay is not current issuance; actual-now response separately recorded",
+    "API is input only, frozen model weights unchanged",
+    "Capacity20,target6,drop10,handling20sec are operator scenario defaults, not verified fleet conditions",
+    "Live total6 is not a single-site6 delivery; largest synthetic delivery batch6 is a separate engineering result",
+    "GUI automation stopped because the current browser URL could not be verified; visual browser verification not claimed",
+    "Source conflict recovery verified by7JStransport tests/8server tests ondislab and actual authoritative HTTPmetadata/plan responses"
+  ]
+}

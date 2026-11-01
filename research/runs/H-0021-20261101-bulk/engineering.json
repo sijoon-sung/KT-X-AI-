@@ -1,0 +1,727 @@
+{
+  "cases": [
+    {
+      "case": 0,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.506659506465833,
+      "solver_seconds": 0.006980499718338251,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.839992839799166,
+      "solver_seconds": 0.006944300141185522,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.506659506465832,
+      "solver_seconds": 0.006521699950098991,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.147743348221781,
+      "solver_seconds": 0.07594550028443336,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.814410014888448,
+      "solver_seconds": 0.044307100120931864,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.1733261731325,
+      "solver_seconds": 0.013079599943011999,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.6594444637275534,
+      "solver_seconds": 0.0066581000573933125,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.9927777970608864,
+      "solver_seconds": 0.006436000112444162,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.659444463727553,
+      "solver_seconds": 0.006714799907058477,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.133071941691969,
+      "solver_seconds": 0.0769620998762548,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.799738608358636,
+      "solver_seconds": 0.04536530002951622,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.32611113039422,
+      "solver_seconds": 0.012890299782156944,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.5852143296145855,
+      "solver_seconds": 0.0067968000657856464,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.918547662947919,
+      "solver_seconds": 0.006711500231176615,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.585214329614585,
+      "solver_seconds": 0.006682899780571461,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.255429454470736,
+      "solver_seconds": 0.07827299972996116,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.922096121137404,
+      "solver_seconds": 0.04429220035672188,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.251880996281253,
+      "solver_seconds": 0.012401199899613857,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.48195601549988,
+      "solver_seconds": 0.006636600010097027,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.8152893488332125,
+      "solver_seconds": 0.0064085996709764,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.48195601549988,
+      "solver_seconds": 0.006445600185543299,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.098563228968874,
+      "solver_seconds": 0.07535930024459958,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.76522989563554,
+      "solver_seconds": 0.045599599834531546,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.148622682166547,
+      "solver_seconds": 0.012832100037485361,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.5541888361368614,
+      "solver_seconds": 0.006867100019007921,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.887522169470195,
+      "solver_seconds": 0.006457599811255932,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.554188836136861,
+      "solver_seconds": 0.006769699975848198,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.236082940448718,
+      "solver_seconds": 0.07664160011336207,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.902749607115384,
+      "solver_seconds": 0.04472440015524626,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.220855502803529,
+      "solver_seconds": 0.012454499956220388,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.8896041651935347,
+      "solver_seconds": 0.006547300145030022,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 4.222937498526867,
+      "solver_seconds": 0.0074165998958051205,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.889604165193535,
+      "solver_seconds": 0.006914099678397179,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.311475610557261,
+      "solver_seconds": 0.07789030019193888,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.978142277223927,
+      "solver_seconds": 0.04490600014105439,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 5,
+      "largest_delivery_batch": 4,
+      "minutes": 8.22293749852687,
+      "solver_seconds": 0.0130129000172019,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.258870055762277,
+      "solver_seconds": 0.006784900091588497,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.5922033890956104,
+      "solver_seconds": 0.00685900030657649,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.2588700557622765,
+      "solver_seconds": 0.007049100007861853,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.305180532266743,
+      "solver_seconds": 0.07882439997047186,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.971847198933409,
+      "solver_seconds": 0.04527779994532466,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 8.925536722428944,
+      "solver_seconds": 0.012597399763762951,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.07830232903471,
+      "solver_seconds": 0.0065772999078035355,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.411635662368043,
+      "solver_seconds": 0.006602399982511997,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.07830232903471,
+      "solver_seconds": 0.006488699931651354,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 4.949074229038531,
+      "solver_seconds": 0.0774043002165854,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.615740895705198,
+      "solver_seconds": 0.046218100003898144,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 8.744968995701377,
+      "solver_seconds": 0.013026700355112553,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.421450667705408,
+      "solver_seconds": 0.0066084000281989574,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.754784001038741,
+      "solver_seconds": 0.006523499730974436,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.4214506677054075,
+      "solver_seconds": 0.0067460001446306705,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.6275368027140065,
+      "solver_seconds": 0.07881070021539927,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 9.294203469380674,
+      "solver_seconds": 0.04555330006405711,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.088117334372075,
+      "solver_seconds": 0.012802300043404102,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.427691565947954,
+      "solver_seconds": 0.0065437001176178455,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.761024899281287,
+      "solver_seconds": 0.006983399856835604,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.427691565947954,
+      "solver_seconds": 0.006499199662357569,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 4.903138822554832,
+      "solver_seconds": 0.07645349996164441,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.569805489221496,
+      "solver_seconds": 0.04424550011754036,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 9.094358232614622,
+      "solver_seconds": 0.012875699903815985,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.8525566765209374,
+      "solver_seconds": 0.0064465999603271484,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 4.18589000985427,
+      "solver_seconds": 0.006516499910503626,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.852556676520936,
+      "solver_seconds": 0.006604299880564213,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.226664966800034,
+      "solver_seconds": 0.07645210018381476,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.893331633466701,
+      "solver_seconds": 0.043765599839389324,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 5,
+      "largest_delivery_batch": 4,
+      "minutes": 8.18589000985427,
+      "solver_seconds": 0.0124333999119699,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "compact",
+      "handling_seconds": 10,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 2.260047957267815,
+      "solver_seconds": 0.006460099946707487,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "compact",
+      "handling_seconds": 20,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 3.593381290601148,
+      "solver_seconds": 0.006485500372946262,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "compact",
+      "handling_seconds": 40,
+      "moved": 4,
+      "largest_delivery_batch": 2,
+      "minutes": 6.2600479572678145,
+      "solver_seconds": 0.006457800045609474,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "bulk",
+      "handling_seconds": 10,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 5.262852690887824,
+      "solver_seconds": 0.0763272000476718,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "bulk",
+      "handling_seconds": 20,
+      "moved": 11,
+      "largest_delivery_batch": 6,
+      "minutes": 8.92951935755449,
+      "solver_seconds": 0.044183799996972084,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "mode": "bulk",
+      "handling_seconds": 40,
+      "moved": 6,
+      "largest_delivery_batch": 5,
+      "minutes": 8.926714623934481,
+      "solver_seconds": 0.012984199915081263,
+      "violations": 0
+    }
+  ],
+  "conditions": 72,
+  "feasibility_violations": 0,
+  "max_bulk_delivery_batch": 6
+}
