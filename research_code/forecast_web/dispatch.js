@@ -5,7 +5,7 @@ let info,stationById={},ids=[],depot='',objective='balanced',plan=null,map=null,
 let generation=0,debounce=null,animation=null,toastTimer=null;
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
 function stopAnimation(){clearInterval(animation);animation=null;if(vehicle&&map){map.removeLayer(vehicle);vehicle=null;}$('previewRoute').textContent='▶ 경로 미리보기';}
-function controls(){return {station_ids:ids.slice(),depot_id:depot,capacity:+$('capacity').value,target:+$('target').value,deadline_minutes:+$('deadline').value,budget:+$('budget').value,objective};}
+function controls(){return {station_ids:ids.slice(),depot_id:depot,capacity:+$('capacity').value,target:+$('target').value,deadline_minutes:+$('deadline').value,budget:+$('budget').value,objective,...(info?.source_version?{source_version:info.source_version}:{})};}
 function candidates(){
  $('candidateCount').textContent=`${ids.length} / 5`;
  $('candidates').innerHTML=ids.map(id=>{const s=stationById[id];return `<div class="candidate"><span class="candidate-icon">${id===depot?'⌂':'◉'}</span><div class="candidate-name">${esc(s.name)}<span>현재 ${s.current}대 · 10분 예측 ${s.forecast.median}대</span></div><button class="remove-candidate" data-id="${esc(id)}" aria-label="${esc(s.name)} 후보 제외">×</button></div>`;}).join('');
@@ -97,6 +97,21 @@ function exportPlan(){
  lines.push([],['조건','차량·거점·주차·작업시간 가정. 실제 배차 없음.']);const csv='\ufeff'+lines.map(row=>row.map(x=>'"'+String(x).replaceAll('"','""')+'"').join(',')).join('\r\n');
  const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='타슈_재배치_작업표.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function renderFeed(){
+const f=info.feed;if(!f)return;$('feedBar').hidden=false;const live=info.mode==='live_observation_shadow',clock=t=>t?new Date(t).toLocaleTimeString('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false}):'대기';
+const ended=['failed','stopped'].includes(f.phase);document.querySelector('.record-badge').textContent=live?(ended?'수집 중지':'API 관측'):'기록 재생';
+$('feedTitle').textContent=ended?'수집 종료 · 마지막 관측 표시':live?'10분 주기 API 관측 · 고정 모델 예측':'API 수집기 가동 · 첫 관측 대기';
+$('feedSub').textContent=live?`관측 ${clock(f.latest_observation?.observed_at_utc)} · 예측 대상 ${clock(f.latest_forecast?.target_at_utc)} · 지원 ${f.latest_forecast?.stations??'—'}곳 / 현재 0대 ${f.latest_forecast?.current_zero??'—'}곳`:`다음 관측 ${clock(f.next_observation_at_utc)} · 지도는 기존 기록 재생입니다.`;
+if(live){$('recordTime').textContent=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+' 관측 기준';$('dataModeHelp').textContent='10분 주기의 실제 API 관측과 고정 예측입니다. 수량·동선은 관측 시점을 출발점으로 하는 가정 계획이며 실제 배차가 아닙니다.';}
+const score=f.latest_score,all=score?.groups?.all,metric=(v,d=3)=>typeof v==='number'?v.toFixed(d):'—';
+$('feedDetails').innerHTML=score?`<b>최근 관측으로 확인한 예측 · ${clock(score.target_at_utc)}</b><div class="feed-score"><span>채점 대여소</span><b>${score.pairs}곳</b></div><div class="feed-score"><span>GCN+FM 수량 오차 MAE</span><b>${metric(all?.recent_cfm?.median_mae)}대</b></div><div class="feed-score"><span>현재 유지 수량 오차 MAE</span><b>${metric(all?.persistence?.median_mae)}대</b></div><div class="feed-score"><span>0대 → 양수 관측</span><b>${score.zero_to_positive}곳</b></div><div class="feed-score"><span>양수 → 0대 관측</span><b>${score.positive_to_zero}곳</b></div><p>신규 회차의 진단값이며 기존 9월 공식 평가를 대체하지 않습니다. API로 모델을 학습하거나 보정하지 않았습니다.</p>`:`<b>첫 검증 점수 대기</b><p>예측을 먼저 발행한 뒤 다음 관측을 받아야 채점할 수 있습니다. 아직 관측되지 않은 정답의 점수는 표시하지 않습니다.</p>`;
+if(f.latest_forecast?.previous_proxy_present===0)$('feedDetails').innerHTML+='<p>초기 회차는 직전 10분 관측이 없어 해당 입력을 결측으로 표시했습니다.</p>';
+}
+async function refreshFeed(){
+try{const r=await fetch('/api/dispatch/info',{cache:'no-store'});if(!r.ok)return;const next=await r.json(),changed=next.source_version&&next.source_version!==info.source_version;info=next;stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));
+if(changed){ids=ids.filter(id=>stationById[id]);if(!ids.length)ids=info.default_ids.slice();if(!ids.includes(depot))depot=ids[0];candidates();drawBase();invalidate();}renderFeed();}catch(e){$('feedTitle').textContent='관측 상태 확인 지연';}
+}
+
 async function init(){
  try{
   const r=await fetch('/api/dispatch/info');if(!r.ok)throw Error('관측 기록을 불러오지 못했습니다.');info=await r.json();stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));ids=info.default_ids.slice();depot=info.default_depot_id;
@@ -109,8 +124,8 @@ async function init(){
   document.querySelectorAll('[data-objective]').forEach(b=>b.onclick=()=>setObjective(b.dataset.objective));$('recalculate').onclick=calculate;
   $('fitMap').onclick=fit;$('showAll').onclick=()=>{allVisible=!allVisible;$('showAll').classList.toggle('active',allVisible);drawBase();};
   $('search').oninput=()=>{const q=$('search').value.trim().toLowerCase();$('searchResults').hidden=!q;if(!q)return;const matches=info.stations.filter(s=>s.name.toLowerCase().includes(q)||s.id.toLowerCase().includes(q)).slice(0,8);$('searchResults').innerHTML=matches.map(s=>`<button data-id="${esc(s.id)}">${esc(s.name)}<small>${esc(s.id)} · 현재 ${s.current}대</small></button>`).join('')||'<button disabled>검색 결과가 없습니다.</button>';$('searchResults').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{const s=stationById[b.dataset.id];$('searchResults').hidden=true;if(map){map.setView([s.lat,s.lon],16);L.popup().setLatLng([s.lat,s.lon]).setContent(popup(s)).openOn(map);}else addCandidate(s.id);});};
-  $('previewRoute').onclick=preview;$('export').onclick=exportPlan;$('help').onclick=()=>$('helpDialog').showModal();$('closeHelp').onclick=()=>$('helpDialog').close();
-  document.querySelector('.rail-active').onclick=fit;await calculate();
+  $('previewRoute').onclick=preview;$('export').onclick=exportPlan;$('help').onclick=()=>$('helpDialog').showModal();$('closeHelp').onclick=()=>$('helpDialog').close();$('feedInspect').onclick=()=>$('helpDialog').showModal();
+  document.querySelector('.rail-active').onclick=fit;renderFeed();setInterval(refreshFeed,30000);await calculate();
  }catch(e){banner(e.message);$('planEmpty').textContent=e.message;$('calculationStatus').textContent='자료 연결 확인 필요';}
 }
 init();
