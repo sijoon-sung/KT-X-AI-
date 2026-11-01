@@ -68,7 +68,7 @@ def run(folder,out):
                 best_pair_net_value=bestpair['net_value'] if bestpair else None,violations=0))
         except Exception as exc:summaries.append(dict(source_version=version,input_sha256=inputhash,error=type(exc).__name__,violations=1))
         a.atomic(out/'shadow-progress.json',summaries);print(json.dumps(summaries[-1],ensure_ascii=False),flush=True)
-    failures=sum(r['violations'] for r in summaries);strict=sum('net_value'in r and r['legacy_net_value'] is not None and r['net_value']>r['legacy_net_value']+1e-8 for r in summaries)
+    failures=sum(r['violations'] for r in summaries);strict=int(sum('net_value'in r and r['legacy_net_value'] is not None and r['net_value']>r['legacy_net_value']+1e-8 for r in summaries))
     summary=dict(started_at_utc=started,finished_at_utc=datetime.now(timezone.utc).isoformat(),environment=dict(python=platform.python_version(),numpy=np.__version__,device='dislab CPU'),
         engineering=synthetic,states=summaries,acceptance_failures=failures,strict_legacy_improvements=strict,
         decision='supported' if failures==0 and len(summaries)==3 and strict else 'not_supported' if len(summaries)==3 else 'inconclusive',

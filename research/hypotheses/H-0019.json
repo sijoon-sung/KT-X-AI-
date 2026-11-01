@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0019",
   "title": "전체 대여소 자동 후보·수량·시간제약 재배치 연결",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can automatic citywide screening produce feasible useful local rebalancing plans beyond a stale fixed5 pool without changing the frozen forecast?",
     "hypothesis": "zero acceptance failures,3 live state comparisons completed,>=1 strict improvement versus legacy. Otherwise not_supported/inconclusive; do not retune on API.",
@@ -54,6 +54,24 @@
     "plan_sha256": "b43ef15870e6aa86a77f779d4387a70e55949da68d64d12e0b4cbf3233e7c656",
     "frozen_at_utc": "2026-11-01T06:40:32.758641+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab CPU 합성63검사·20소규모완전탐색대조·운영경계7검사통과. 사전15:50/16:00/16:10의3상태 모두 기존고정후보0대보다자동후보2대계획을산출,제약위반0. 기록직렬화오류는원본체크포인트에서복구했다. 제한탐색의적재량역전은H20에서별도개선하며현장효과는미검증.",
+    "limitations": [
+      "Marginal-model coverage proxy, not observed dispatch effect or lost demand",
+      "H19 beam heuristic can miss smaller-capacity incumbents; H20 separates this correction",
+      "No API learning,model selection,calibration or new inventory accuracy result",
+      "Original numpy.int32 strict-count summary could not serialize; this finalizer reads the already persisted engineering/three-state results and changes no routes or criteria.",
+      "Earlier auxiliary run opened cached06:40 state before the planned06:50 window; excluded by frozen period, preserved separately, not primary evidence.",
+      "Native remote OS clock behind139.523809sec; calibrated estimates and original times are preserved in public metadata.",
+      "Actual fleet/depot/parking/handling unverified;10minforecast only",
+      "New H20 preserves smaller-capacity incumbents; original H19 comparison remains pinned",
+      "Official September evaluation unchanged; no model accuracy or field benefit claim"
+    ],
+    "run_manifests": [
+      "research/runs/H-0019-20261101-automatic-rebalancing/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }
