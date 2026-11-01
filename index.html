@@ -636,6 +636,20 @@
             .step { min-height: auto; margin-bottom: 30px; }
             .nav-links { display: none; }
         }
+
+        .method-overview { background:#fff; padding:36px 0; border-bottom:1px solid var(--border-strong); scroll-margin-top:80px; }
+        .method-overview h2 { font-size:26px; color:var(--text-heading); line-height:1.4; margin:4px 0 10px; }
+        .method-path { font-size:14px; color:var(--text-muted); margin-bottom:20px; }
+        .method-cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+        .method-item { border:1px solid var(--border-subtle); border-radius:8px; padding:20px; background:var(--bg-page); }
+        .method-item small { font-family:var(--font-mono); color:var(--accent-blue); font-size:11px; }
+        .method-item h3 { color:var(--text-heading); font-size:16px; margin:6px 0 10px; }
+        .method-item p { font-size:13px; line-height:1.8; }
+        .method-note { margin-top:18px; font-size:12px; color:var(--text-muted); line-height:1.9; }
+        .method-archive { margin-top:12px; padding:12px 16px; background:#fffbeb; border-left:3px solid var(--accent-amber); font-size:12px; line-height:1.8; }
+        @media(max-width:900px) { .method-cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media(max-width:520px) { .method-cards { grid-template-columns:1fr; } .method-overview h2 { font-size:22px; } }
+
     </style>
 </head>
 <body>
@@ -649,6 +663,7 @@
                 <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); font-weight:400;">| Data Journalism</span>
             </div>
             <ul class="nav-links">
+                <li><a href="#sec-methods">사용한 방법</a></li>
                 <li><a href="#sec-story">스토리 5대 씬</a></li>
                 <li><a href="#sec-math">수학적 정합성 수식</a></li>
                 <li><a href="#sec-tables">OD 통행 매트릭스</a></li>
@@ -678,6 +693,23 @@
             </div>
         </div>
     </header>
+
+    <section id="sec-methods" class="method-overview" aria-labelledby="methods-heading">
+        <div class="container">
+            <span class="kicker">CURRENT DEVELOPMENT · 예측과 운영</span>
+            <h2 id="methods-heading">예측에서 재배치까지, 이렇게 연결합니다</h2>
+            <p class="method-path">과거 대여·반납 이력 학습 → 현재 API 관측 → 10분 뒤 재고 예측 → 수거·배치 수량과 방문 순서 → 다음 관측으로 예측 확인</p>
+            <div class="method-cards">
+                <article class="method-item"><small>01 · STATION RELATIONS</small><h3>GCN · 대여소 관계</h3><p>과거 이동으로 연결된 대여소의 패턴을 함께 읽습니다. 시간·날씨 정보와 결합해 대여와 반납을 예측합니다.</p></article>
+                <article class="method-item"><small>02 · COUNT BASELINE</small><h3>포아송 분포 · 거래 건수</h3><p>일정 시간의 대여·반납 건수를 확률로 표현하는 기준 모형입니다. 현재 재고에 예상 반납을 더하고 대여를 빼 미래 재고로 연결합니다.</p></article>
+                <article class="method-item"><small>03 · FUTURE SCENARIOS</small><h3>Flow Matching · 불확실성</h3><p>GCN의 거래 예측을 조건으로 여러 대여·반납 시나리오를 만듭니다. 재고의 예측 범위와 0대가 될 가능성을 계획에 전달합니다.</p></article>
+                <article class="method-item"><small>04 · REBALANCING</small><h3>최적화 · 수량과 동선</h3><p>여유·부족 대여소를 자동으로 찾고 적재량, 도로 거리, 남은 예측 시간 안에서 수거·배치 순서를 계산합니다. 공급지 보호와 0대 대여소를 함께 고려합니다.</p></article>
+            </div>
+            <p class="method-note">학습은 다운로드한 과거 이력으로 수행합니다. 재고 API는 고정 모델의 실시간 예측 입력과 별도 미래 평가에 사용하며 학습·튜닝에는 쓰지 않습니다. Flow Matching의 추가 성능 이득과 실제 배차 효과는 아직 확인되지 않았습니다. 차량·주차 조건은 가정이며 계획은 운영 검토용입니다.<br>방법 원문: <a href="https://arxiv.org/abs/1609.02907">GCN</a> · <a href="https://arxiv.org/abs/2210.02747">Flow Matching</a> · <a href="https://github.com/sijoon-sung/KT-X-AI-/pull/26">현재 재배치 구현</a></p>
+            <p class="method-archive"><strong>기존 시나리오 안내</strong> 아래의 10대 트럭·결품 감소·배차 완료 수치와 지도는 이전 기획의 시나리오입니다. 현재 파이프라인의 검증된 운영 성과로 해석하지 않습니다.</p>
+        </div>
+    </section>
+
 
     <!-- Bloomberg Style Tabular Metrics Strip -->
     <div class="metric-strip container" style="max-width:100%; padding:0;">
