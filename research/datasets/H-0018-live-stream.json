@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "H18-approved-live-stream-v1",
+  "endpoint": "https://bikeapp.tashu.or.kr:50041/v1/openapi/station",
+  "source": "new approved user credential; secret is not part of this public record",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "cohort": "unchanged H13 historical support; API matches at inference only",
+  "observations": "future unknown stream; private append-only per-snapshot hashes and causal issue ledger",
+  "purpose": "additional live functional validation, never official September replacement or API training/tuning"
+}

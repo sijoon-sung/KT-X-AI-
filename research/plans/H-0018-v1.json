@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0018",
+  "compute": "All API observation processing, inference, scoring and planning on dislab; local display/transport only",
+  "api": {
+    "interval_seconds": 600,
+    "request_timeout_seconds": 15,
+    "maximum_runtime_hours": 24,
+    "maximum_station_requests": 143,
+    "prior_connection_probe_requests": 1,
+    "request_budget_scope": "explicit small trial budget, not assertion of provider quota; 401/403/429 stop immediately;3consecutive transport failures stop",
+    "redirects": false
+  },
+  "clock": "Calibrate remote native clock to collecting computer by midpoint SSH roundtrip. Record offset/uncertainty; monotonic UTC anchor thereafter. Same clock for capture, issue and truth. Abort initialization if uncertainty>2seconds.",
+  "model": {
+    "parent": "H13 frozen recent_cfm and recent_poisson/no_recent/persistence/trend controls",
+    "weights_updated": false,
+    "horizon_seconds": 600,
+    "particles": 128,
+    "solver": "unchanged Heun16",
+    "device": "dislab cuda",
+    "gpu_memory_fraction": 0.3,
+    "minimum_free_gpu_bytes": 1073741824,
+    "weather": "existing archived features with original lag/missing masks; do not claim live weather",
+    "first_issue": "Missing previous snapshot explicitly masked; later issues use preceding10min snapshot. Do not invent a previous observation."
+  },
+  "score": {
+    "target": "separately captured future API displayed stock",
+    "delay_seconds": [
+      0,
+      120
+    ],
+    "elapsed_seconds": [
+      480,
+      720
+    ],
+    "groups": [
+      "all",
+      "current_zero",
+      "current_positive"
+    ],
+    "metrics": [
+      "original fairCRPS/CRPS",
+      "medianMAE",
+      "zeroBrier",
+      "exact/within1",
+      "observed0->positive and positive->0 counts"
+    ],
+    "scope": "small live diagnostic only; no new independent model superiority or latent-demand/relocation effect"
+  },
+  "serving": {
+    "atomic_source_versions": true,
+    "max_source_age_seconds": 720,
+    "planning": "Observation-time shadow plan only, not actual dispatch. Matching input version required. Unchanged H17 finite candidate optimizer; no claimed current-driving ETA.",
+    "ui": "Latest observation/forecast target/last score and explicit source time, no hypotheses. Update data display from private local transport. Preserve old recorded view until live forecast exists."
+  },
+  "success": "At least1causal issued-before-truth scored roundtrip plus all engineering acceptancechecks pass; service may continue bounded24h, no field/model superiority inference",
+  "failure": "Preserve auth/network/schema/lateissue/clock/hash failures; no fabricated snapshots or future backdating",
+  "stop": "24hours or143stationrequests orauth/ratelimit or3consecutiveAPIerrors, whicheverfirst. No reboot persistence or quota escalation."
+}
