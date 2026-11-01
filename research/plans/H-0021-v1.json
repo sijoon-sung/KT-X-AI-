@@ -1,0 +1,51 @@
+{
+  "hypothesis_id": "H-0021",
+  "purpose": "Operator-requested larger per-visit batches; compare assumed operational settings, not algorithm causal efficiency or model accuracy.",
+  "defaults": {
+    "capacity": 20,
+    "budget": 20,
+    "target": 6,
+    "drop_limit": 10,
+    "handling_seconds": 20,
+    "max_visits": 8,
+    "deadline_minutes": 10,
+    "objective": "balanced"
+  },
+  "limits": {
+    "capacity": [
+      1,
+      40
+    ],
+    "budget": [
+      1,
+      80
+    ],
+    "target": [
+      1,
+      12
+    ],
+    "drop_limit": [
+      1,
+      30
+    ],
+    "handling_seconds": [
+      5,
+      120
+    ],
+    "max_visits": [
+      2,
+      8
+    ],
+    "deadline_minutes": [
+      1,
+      10
+    ]
+  },
+  "policy": "All supported sites screened with unchanged H19 marginal loss/costs.12receiver+12donor+5legacy locations<=29. Supply capped by vehicle capacity,current-target,10percentile-target,minimum128samples. Delivery<=min(operator drop_limit,ceil(target-lower10percentile)). No unverified parking claim.",
+  "search": "Deterministic beam64/max8visits, integer quantities, empty-start/return, noaction and exhaustive feasible2stop fallback. Union subcapacities1..min(requested_capacity,budget,floor(effective_deadline_seconds/(2*handling_seconds))). This bound follows unavoidable pickup+drop handling. Legacy H17 route fallback omitted because it assumes6sec handling. No citywide optimum.",
+  "timing": "Calibrated current departure, original10min forecast expiry,30sec computation reserve; route driving+all pickups/drops+return must fit. No30/60min forecast assertion. Longer handling can reduce feasible volume; do not bypass it.",
+  "evaluation": "72seed44synthetic resource conditions, independent conservation/donor/drop/capacity/elapsed-handling checks. Gate zero failures and at least one bulk feasible delivery batch>=5bikes. Report all counts and solverlatency. One current-state full-horizon replay plus actual now RPC for integration only, no winner selection from API truth.",
+  "compute": "dislab CPU only; local UI/source/transport QA",
+  "resources": "One vehicle;20capacity,target6,drop10,20sec/bike are explicit scenario assumptions, not verified Tashu resources",
+  "separation": "H19/H20 frozen plans and results unchanged. Source-conflict UI repair is separate maintenance PR29. No model training/threshold/calibration/accuracy work."
+}
