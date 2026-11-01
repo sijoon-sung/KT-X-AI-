@@ -1,0 +1,12 @@
+{
+  "dataset_id": "H19-H18-locked-current-states-v1",
+  "parent": "H18 locked H13 station marginal CFM samples; unchanged historical support and weights",
+  "live": "First three distinct observations available strictly after execution code is published, starting with the latest valid state then next two; all failures retained; no future truth opened for planning",
+  "synthetic": "Seed42 generated geometric directed road matrices and integer stock scenarios for feasibility and small-oracle engineering checks",
+  "not_observed": [
+    "latent lost demand",
+    "actual dispatch effect",
+    "fleet/depot/parking verified constraints"
+  ],
+  "compute": "dislab CPU only; local code/transport/display QA"
+}

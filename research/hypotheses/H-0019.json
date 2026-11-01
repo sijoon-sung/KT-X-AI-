@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "H-0019",
+  "title": "전체 대여소 자동 후보·수량·시간제약 재배치 연결",
+  "status": "preregistered",
+  "plan": {
+    "question": "Can automatic citywide screening produce feasible useful local rebalancing plans beyond a stale fixed5 pool without changing the frozen forecast?",
+    "hypothesis": "zero acceptance failures,3 live state comparisons completed,>=1 strict improvement versus legacy. Otherwise not_supported/inconclusive; do not retune on API.",
+    "prior_art": [
+      {
+        "title": "OSRM API official documentation",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "Directed table durations(seconds),distances(meters),route geometries and profile assumptions checked2026-11-01",
+        "difference_to_test": "Operational candidate selection, bounded heuristic pickup/drop search and forecast-expiry constraints; no novel global VRP claim"
+      }
+    ],
+    "data": {
+      "dataset_id": "H19-H18-locked-current-states-v1",
+      "observed_truth": "Current API stock and model marginals are planning inputs; synthetic feasibility/oracle truth only; future field actions/effect unobserved",
+      "not_observed": [
+        "Actual relocation effect",
+        "Latent lost demand at zero stations",
+        "Verified fleet/depot/parking capacity"
+      ],
+      "input_manifest_sha256": "bd07ce90b4622169969dde448524a8884578340a76c9e77100af49706160b1e8"
+    },
+    "evaluation": {
+      "design": "Frozen detailed plan research/plans/H-0019-v1.json SHA256=0ee8a5e696af52f3b38da2050e8409abc91efee197a6ef28610e1fa482a3e8c9",
+      "periods": [
+        {
+          "role": "engineering_shadow",
+          "start": "2026-11-01T15:50:00+09:00",
+          "end": "2026-11-02T14:30:00+09:00"
+        }
+      ],
+      "baselines": [
+        "legacy fixed5 exact H17 where feasible",
+        "best feasible nearest donor/receiver pair with all integer quantities",
+        "noaction"
+      ],
+      "primary_metric": {
+        "name": "acceptance_failures",
+        "direction": "lower",
+        "unit": "count"
+      },
+      "success_rule": "zero acceptance failures,3 live state comparisons completed,>=1 strict improvement versus legacy. Otherwise not_supported/inconclusive; do not retune on API.",
+      "failure_rule": "Retain failures, no-action and beam oracle gaps; no fabricated roads or future benefit labels",
+      "exclusion_rule": "Missing/duplicate/expired/version-mismatched inputs reject, no absent-stock zero fill; keep all3 snapshots and failures",
+      "uncertainty_plan": "Engineering paired model-based proxies on3 states, not independent performance or field trial. Report all small-oracle gaps and latency.",
+      "seed_plan": "Synthetic seed42; frozen H13 samples and no new fit; deterministic beam tie breaks."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "b43ef15870e6aa86a77f779d4387a70e55949da68d64d12e0b4cbf3233e7c656",
+    "frozen_at_utc": "2026-11-01T06:40:32.758641+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
