@@ -106,6 +106,7 @@ if(live){$('recordTime').textContent=new Date(info.recorded_at_utc).toLocaleStri
 const score=f.latest_score,all=score?.groups?.all,metric=(v,d=3)=>typeof v==='number'?v.toFixed(d):'—';
 $('feedDetails').innerHTML=score?`<b>최근 관측으로 확인한 예측 · ${clock(score.target_at_utc)}</b><div class="feed-score"><span>채점 대여소</span><b>${score.pairs}곳</b></div><div class="feed-score"><span>GCN+FM 수량 오차 MAE</span><b>${metric(all?.recent_cfm?.median_mae)}대</b></div><div class="feed-score"><span>현재 유지 수량 오차 MAE</span><b>${metric(all?.persistence?.median_mae)}대</b></div><div class="feed-score"><span>0대 → 양수 관측</span><b>${score.zero_to_positive}곳</b></div><div class="feed-score"><span>양수 → 0대 관측</span><b>${score.positive_to_zero}곳</b></div><p>신규 회차의 진단값이며 기존 9월 공식 평가를 대체하지 않습니다. API로 모델을 학습하거나 보정하지 않았습니다.</p>`:`<b>첫 검증 점수 대기</b><p>예측을 먼저 발행한 뒤 다음 관측을 받아야 채점할 수 있습니다. 아직 관측되지 않은 정답의 점수는 표시하지 않습니다.</p>`;
 if(f.latest_forecast?.previous_proxy_present===0)$('feedDetails').innerHTML+='<p>초기 회차는 직전 10분 관측이 없어 해당 입력을 결측으로 표시했습니다.</p>';
+ const overdue=live&&Date.now()-Date.parse(info.recorded_at_utc)>720000;if(overdue){$('feedTitle').textContent='관측 갱신 지연 · 마지막 자료 표시';document.querySelector('.record-badge').textContent='연결 확인 필요';}
 }
 async function refreshFeed(){
 try{const r=await fetch('/api/dispatch/info',{cache:'no-store'});if(!r.ok)return;const next=await r.json(),changed=next.source_version&&next.source_version!==info.source_version;info=next;stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));

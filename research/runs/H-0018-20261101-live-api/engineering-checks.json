@@ -1,0 +1,8 @@
+{
+  "tests_run": 8,
+  "all_passed": true,
+  "code_commit": "fa19e76dab7fbe832ce6e8f133c1261e9f072f54",
+  "raw_success_log_sha256": "130b53d851d00f2ee153ca7e706459e92cd9464a0abb41bfb830d493e510ba1b",
+  "partial_native_stderr_attempt_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "scope": "Only final complete8tests counted. Earlier PowerShell native-stderr handling aborted a partial attempt; preserved separately."
+}

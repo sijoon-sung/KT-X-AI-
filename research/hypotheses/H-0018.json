@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0018",
   "title": "승인된 실시간 API의 고정 예측·다음 관측 검증 연결",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "Can the approved station API feed locked forecasts and later score them causally while keeping source times explicit and secrets private?",
     "hypothesis": "At least1causal issued-before-truth scored roundtrip plus all engineering acceptancechecks pass; service may continue bounded24h, no field/model superiority inference",
@@ -53,6 +53,20 @@
     "plan_sha256": "a8f8bf5dbd2ed12a2de42f840241ef53aefa0656880fd1878b91eddd1fc4ce56",
     "frozen_at_utc": "2026-11-01T05:30:06.000276+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "새승인키HTTP200/1378행. dislab에서실제추가관측→고정예측→다음관측1296개채점완료,기능8개/화면17개통과. 초기회차직전결측과0/양수그룹을구분. 수집기는상한있는시험으로계속실행하며새모델우월성/운영효과는검증하지않음.",
+    "limitations": [
+      "Checkpoint is not collector termination; service continues for bounded trial.",
+      "Single initial roundtrip has missing prior observation explicitly masked; later issuedforecast has actual prior input.",
+      "No new fit, test-based selection, calibration or officialSeptember replacement.",
+      "DisplayedAPIstock is not latent lost-demand/action/field benefit truth.",
+      "Planning is observation-time shadow under assumed fleet/depot/parking, not actualcurrentdispatch."
+    ],
+    "run_manifests": [
+      "research/runs/H-0018-20261101-live-api/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }
