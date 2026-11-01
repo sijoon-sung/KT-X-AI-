@@ -1,0 +1,9 @@
+{
+  "hypothesis_id": "H-0020",
+  "reason": "Feasible-set inclusion: increasing only truck capacity cannot invalidate a smaller-capacity route; a bounded heuristic should preserve these incumbents.",
+  "algorithm": "Run unchanged H19 deterministic beam64/max6visits+pair/legacy/noaction fallback for each integer subcapacity1..requested_capacity. Select the feasible candidate with minimum same H19 all-city marginal objective; deterministic tie byscore,meters,minutes,route ids/quantities. No API-fitted coefficients or model changes.",
+  "limits": "Monotone only when all other state,shortlist,depot,objective,deadline,budget are identical. No monotonic claim for time/target/budget/candidate changes, no citywide optimum.",
+  "testing": "20seed43 synthetic cases,capacities1..6. All120resultcertificates feasible; net value nondecreasing in capacity; none worse than directH19 atsamecapacity. Record warm latency and H19 monotonic failures without selecting model/policy fromAPI. One next post-publication API snapshot used only for integration example; no new accuracy scoring.",
+  "gate": "zero constraint violations and zero capacity-dominance violations on all120cases. Any failure=>not_supported; no outcome-based retuning.",
+  "operations": "All computations dislabCPU. Modelweights unchanged. Keep10minforecastcutoff andcalibratedissueguard. Show handling.1min/bike assumption explicitly in UI. H19primary3state experiment continues unchanged on pinned code."
+}
