@@ -35,7 +35,7 @@ base.search=capacity_search
 
 def rpc(folder,request):
     response=original_rpc(folder,request)
-    if response['status']==200:
+    if response['status']==200 and request.get('path')!='/api/dispatch/info':
         body=response['body'];body['planner']='capacity-incumbent-union'
         body['latest_departure_at_utc']=(datetime.fromisoformat(body['valid_until_utc'])-timedelta(minutes=body['route']['return_minutes'])).isoformat()
         body['proof'].update(capacity_subproblems=list(range(1,body['parameters']['capacity']+1)),

@@ -216,13 +216,15 @@ def optimize(state,body,roads,departure):
 def rpc(folder,request):
     folder=Path(folder);status=read(folder/'status.json');state=read(folder/status['latest_state']);body=dict(request.get('body') or {})
     version=body.pop('source_version',None);now=reference_now(status);age=now-datetime.fromisoformat(state['recorded_at_utc']).timestamp()
-    if version!=state['source_version']:return dict(status=409,body=dict(error='관측이 갱신됐습니다. 최신 자료로 다시 계산합니다.'))
-    if not 0<=age<=720:return dict(status=409,body=dict(error='관측이 오래돼 계획을 중지했습니다.'))
-    if now>=datetime.fromisoformat(state['target_at_utc']).timestamp():return dict(status=409,body=dict(error='예측 유효시간이 끝났습니다. 다음 API 관측을 기다립니다.'))
+    from live_api_service import live_info
+    if request.get('path')=='/api/dispatch/info':return dict(status=200,body=live_info(state,status))
+    if version!=state['source_version']:return dict(status=409,body=dict(code='source_changed',error='관측이 갱신됐습니다. 최신 자료로 다시 계산합니다.',current_info=live_info(state,status)))
+    if not 0<=age<=720:return dict(status=409,body=dict(code='observation_stale',error='관측이 오래돼 다음 자료를 기다립니다.'))
+    if now>=datetime.fromisoformat(state['target_at_utc']).timestamp():return dict(status=409,body=dict(code='forecast_expired',error='다음 API 관측과 예측을 기다립니다.'))
     result=optimize(state,body,Roads(folder/'h19-roads'),now)
     # Never present a route whose computation/road latency consumes its remaining horizon.
     if reference_now(status)+result['route']['return_minutes']*60>datetime.fromisoformat(state['target_at_utc']).timestamp():
-        return dict(status=409,body=dict(error='계산 중 예측 유효시간이 부족해졌습니다. 다음 관측으로 다시 계산하세요.'))
+        return dict(status=409,body=dict(code='forecast_expired',error='계산 중 예측 유효시간이 부족해 다음 관측을 기다립니다.'))
     result['observation_age_seconds']=age
     result['issued_at_utc']=datetime.fromtimestamp(reference_now(status),timezone.utc).isoformat()
     return dict(status=200,body=result)

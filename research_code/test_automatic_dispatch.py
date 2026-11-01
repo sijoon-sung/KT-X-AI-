@@ -13,14 +13,20 @@ class ServingBoundaries(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.folder=Path(self.tmp.name);self.now=1793515805.
         self.state=dict(source_version='synthetic-v1',recorded_at_utc='2026-11-01T06:50:00+00:00',target_at_utc='2026-11-01T07:00:00+00:00',
-            default_ids=['a'],default_depot_id='a',stations=[dict(id='a')])
+            model_label='Flow Matching + GCN',default_ids=['a'],default_depot_id='a',stations=[dict(id='a',name='Synthetic',lat=36.35,lon=127.38,current=6,samples=[6]*128,forecast=dict(median=6,low=6,high=6,p0=0))])
         a.atomic(self.folder/'state.json',self.state);a.atomic(self.folder/'status.json',dict(latest_state='state.json'))
         self.body=dict(source_version='synthetic-v1',automatic=True)
     def tearDown(self):self.tmp.cleanup()
     def request(self,body=None):return a.rpc(self.folder,dict(body=self.body if body is None else body))
     def test_wrong_version_does_not_call_solver(self):
         with patch.object(a,'reference_now',return_value=self.now),patch.object(a,'optimize') as solver:
-            self.assertEqual(self.request(dict(source_version='old'))['status'],409);solver.assert_not_called()
+            result=self.request(dict(source_version='old'));self.assertEqual(result['status'],409);solver.assert_not_called()
+            self.assertEqual(result['body']['current_info']['source_version'],'synthetic-v1')
+            self.assertNotIn('samples',result['body']['current_info']['stations'][0])
+    def test_authoritative_display_does_not_call_solver(self):
+        with patch.object(a,'reference_now',return_value=self.now),patch.object(a,'optimize') as solver:
+            result=a.rpc(self.folder,dict(path='/api/dispatch/info'));self.assertEqual(result['status'],200);solver.assert_not_called()
+            self.assertEqual(result['body']['source_version'],'synthetic-v1')
     def test_expired_does_not_call_solver(self):
         with patch.object(a,'reference_now',return_value=self.now+600),patch.object(a,'optimize') as solver:
             self.assertEqual(self.request()['status'],409);solver.assert_not_called()
