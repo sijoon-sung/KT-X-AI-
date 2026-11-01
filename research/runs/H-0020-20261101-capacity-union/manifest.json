@@ -40,6 +40,11 @@
       "id": "live-functional-example.json",
       "sha256": "f16458b194d19d897817f90496d1cb5e46e13e699c04a606150dc26e4db70dc7",
       "availability": "research/runs/H-0020-20261101-capacity-union/live-functional-example.json"
+    },
+    {
+      "id": "rolling-plan-issues.json",
+      "sha256": "e1f97d1f85bfc471066318ea13bbdad0794594d9d62d1251cf42ca70c1f5bdd5",
+      "availability": "research/runs/H-0020-20261101-capacity-union/rolling-plan-issues.json"
     }
   ],
   "limitations": [
@@ -49,5 +54,10 @@
     "10min fixed forecast only; no live traffic or intervention-induced demand model",
     "Native remote clock139.523809sec behind; preserve native times and calibrated estimates with0.615766sec uncertainty",
     "H19 original single-capacity experiment preserved and completed on its own pinned code"
-  ]
+  ],
+  "execution_notes": {
+    "serving_code_commit": "c55a14cd793d15311c67dc8875e49af427add7ec",
+    "source": "All logged rolling-plan issue metadata through the recorded checkpoint; no best-case filtering",
+    "watch": "New observation and impending latest-departure cutoff trigger remote replanning; actual dispatch false"
+  }
 }
