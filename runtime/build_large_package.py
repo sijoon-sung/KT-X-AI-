@@ -1,5 +1,5 @@
 """Build actual trained H22 weights/runtime on the compute host, no API data."""
-import argparse,ast,hashlib,importlib.metadata,json,shutil,subprocess,sys,zipfile
+import argparse,ast,hashlib,importlib.metadata,json,re,shutil,subprocess,sys,zipfile
 from pathlib import Path
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[1]
@@ -11,7 +11,7 @@ import torch
 def main():
     p=argparse.ArgumentParser();p.add_argument('--fit',required=True);p.add_argument('--out',required=True);a=p.parse_args()
     fit=Path(a.fit);out=Path(a.out);out.mkdir(parents=True,exist_ok=False)
-    bundle=out/'tashu-h22-100mb-v1';(bundle/'model').mkdir(parents=True);(bundle/'code').mkdir()
+    bundle=out/'tashu-h22-100mb-v1.0.1';(bundle/'model').mkdir(parents=True);(bundle/'code').mkdir()
     lock=json.loads((fit/'model-lock.json').read_text(encoding='utf-8'));sha=digest(fit/'model-lock.json')
     if lock['hypothesis_id']!='H-0022' or lock['api_opened'] is not False:raise ValueError('Wrong lock.')
     expected={'context.npz','time-features.npz','large-11.pt','large-29.pt'}
@@ -33,8 +33,17 @@ def main():
     shutil.copy2(ROOT/'runtime/run.py',bundle/'run.py')
     (bundle/'large_run.py').write_text((ROOT/'runtime/large_run.py').read_text(encoding='utf-8').replace('BUILD_REPLACES_WITH_LOCK_SHA',sha),encoding='utf-8')
     shutil.copy2(ROOT/'runtime/requirements.txt',bundle/'requirements.txt')
-    shutil.copy2(ROOT/'docs/model-card-h22.md',bundle/'MODEL_CARD.md')
-    shutil.copy2(ROOT/'docs/quickstart-h22.md',bundle/'README.md')
+    source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+    def linked_document(path):
+        def replace(match):
+            target=match.group(1)
+            if target.startswith(('https://','http://','#')):return match.group(0)
+            relative=target if target.startswith('docs/') else 'docs/'+target
+            if not (ROOT/relative.split('#')[0]).is_file():raise ValueError('Missing package documentation link: '+relative)
+            return '](https://github.com/sijoon-sung/KT-X-AI-/blob/'+source+'/'+relative+')'
+        return re.sub(r'\]\(([^)]+)\)',replace,path.read_text(encoding='utf-8'))
+    (bundle/'MODEL_CARD.md').write_text(linked_document(ROOT/'docs/model-card-h22.md'),encoding='utf-8')
+    (bundle/'README.md').write_text(linked_document(ROOT/'docs/quickstart-h22.md'),encoding='utf-8')
     weights=[];parameters=0
     for seed in (11,29):
         saved=torch.load(fit/f'large-{seed}.pt',map_location='cpu',weights_only=True);gcn=LargeForecaster();flow=CachedFlow()
@@ -46,11 +55,11 @@ def main():
         shutil.copy2(fit/f'large-{seed}.pt',out/f'large-{seed}.pt')
     total=sum(x['tensor_bytes'] for x in weights)
     if not 90_000_000<=total<=110_000_000:raise ValueError('Deployment weights outside frozen size range.')
-    report={'hypothesis_id':'H-0022','package_version':'1','model_lock_sha256':sha,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'all_loaded_parameters':parameters,'checkpoint_tensor_bytes':total,'checkpoint_file_bytes':sum(x['file_bytes'] for x in weights),'runtime_models':weights,'context_file_bytes':(fit/'context.npz').stat().st_size,'environment':{k:importlib.metadata.version(k) for k in ('torch','numpy','scipy','pandas')},'api_training':False,'raw_api_included':False,'raw_trip_events_included':False,'credentials_included':False}
+    report={'hypothesis_id':'H-0022','package_version':'1.0.1','model_lock_sha256':sha,'source_commit':source,'all_loaded_parameters':parameters,'checkpoint_tensor_bytes':total,'checkpoint_file_bytes':sum(x['file_bytes'] for x in weights),'runtime_models':weights,'context_file_bytes':(fit/'context.npz').stat().st_size,'environment':{k:importlib.metadata.version(k) for k in ('torch','numpy','scipy','pandas')},'api_training':False,'raw_api_included':False,'raw_trip_events_included':False,'credentials_included':False}
     write(bundle/'model-info.json',report)
     immutable=lambda f:f.is_file() and '__pycache__' not in f.parts and f.suffix!='.pyc'
     write(bundle/'package-manifest.json',{'model_lock_sha256':sha,'files':[{'path':f.relative_to(bundle).as_posix(),'sha256':digest(f),'bytes':f.stat().st_size} for f in sorted(bundle.rglob('*')) if immutable(f)]})
-    archive=out/'tashu-h22-100mb-v1.zip'
+    archive=out/'tashu-h22-100mb-v1.0.1.zip'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=1) as z:
         for f in sorted(bundle.rglob('*')):
             if immutable(f):z.write(f,f.relative_to(out).as_posix())

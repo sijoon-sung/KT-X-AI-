@@ -1,0 +1,12 @@
+{
+  "scope": "dislab CPU trained-model semantic checks, synthetic5stations",
+  "passed": 4,
+  "checks": [
+    "cached condition equals full conditional field",
+    "repeat forecast samples deterministic",
+    "separate Poisson and CFM output distributions",
+    "future label rejected"
+  ],
+  "cpu_five_station_seconds": 0.11198459984734654,
+  "parameters": 24245640
+}

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0022",
   "title": "약100MB GCN·Flow Matching 모델 확장",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "약100MB의 실제 GCN+Flow Matching 가중치가 기존 H13보다 과거 미래거래 분포 예측을 개선하는가?",
     "hypothesis": "March historical count energy score improves at least1% over locked H13 CFM while two-seed deployment FP32 weights total90–110MB. Size alone is not evidence of accuracy.",
@@ -106,6 +106,24 @@
     "plan_sha256": "661b9aeb25d3cc893485706eb3db2b8fa46184047b4a3ea2afe8b75e6b015ec5",
     "frozen_at_utc": "2026-11-02T11:07:02.432248+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "실제 가중치97.00MB 학습·실행·배포 준비 완료. 3월 energy score0.58%악화, 두 블록95%구간이1%개선기준을 통과하지 못했다. 별도 모델로 제공하며 기본H13은 유지한다. 9월2458501쌍의 FM fairCRPS0.180022, 기존FM보다0.15%높았다.",
+    "limitations": [
+      "Original September API repeatedly exposed, not independent unseen test.",
+      "Historical completed counts do not measure latent lost demand or February/March stock.",
+      "Historical warm-start, training budget and conditioning topology differ from H13; not a pure causal width ablation.",
+      "No matched XGBoost comparison or traffic-feature training.",
+      "No actual dispatch outcome or causal service improvement.",
+      "Installed matching dislab environment tested; fresh virtual environment installation not tested.",
+      "No H18 collection restart or fresh API calls during H22 checks."
+    ],
+    "run_manifests": [
+      "research/runs/H-0022-20261102-large/manifest.json"
+    ],
+    "optional_release": true,
+    "default_promoted": false
+  },
   "withdrawal_reason": null
 }

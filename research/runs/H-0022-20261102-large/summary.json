@@ -1,0 +1,25 @@
+{
+  "hypothesis_id": "H-0022",
+  "historical_decision": "not_supported",
+  "historical_relative_gain": -0.005828620898331138,
+  "external_api": {
+    "cfm_relative_gain_vs_persistence": 0.15090031078168697,
+    "cfm_relative_gain_vs_H13_cfm": -0.0014792775489209653,
+    "cfm_relative_gain_vs_same_GCN_poisson": -8.246036410186619e-05,
+    "poisson_relative_gain_vs_persistence": 0.15097032207806171
+  },
+  "coverage": {
+    "valid_pairs": 2458501,
+    "scored_ids": 1298,
+    "issued_origins": 1931,
+    "scored_origins": 1895
+  },
+  "size": {
+    "parameters": 24245640,
+    "checkpoint_file_bytes": 97004358,
+    "checkpoint_tensor_bytes": 96982560
+  },
+  "adoption": "Optional H22 release; keep H13 default based on historical rule before API was opened.",
+  "api_selected": false,
+  "default_promoted": false
+}

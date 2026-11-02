@@ -2,7 +2,7 @@
 
 가중치는 `large-11.pt`와 `large-29.pt` 두 개를 함께 사용한다. 정적 특징표는 가중치 크기에 포함하지 않는다.
 
-실행 묶음은 GitHub Releases의 `h22-100mb-v1`에서 받는다. Python3.12 환경에서 압축을 풀고 실행한다. 연구 연산은 dislab에서 수행한다.
+실행 묶음은 [GitHub Releases](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h22-100mb-v1.0.1)에서 받는다. Python3.12 환경에서 압축을 풀고 `tashu-h22-100mb-v1.0.1` 폴더에서 실행한다. 연구 연산은 dislab에서 수행한다.
 
 ```powershell
 python -m venv .venv
