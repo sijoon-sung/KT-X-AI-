@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "pr": "https://github.com/sijoon-sung/KT-X-AI-/pull/31",
+      "commit": "986fb7566570ef3dc0750069f63fe62ef1a28a04",
+      "role": "H1–H21 records and current dispatch/runtime"
+    },
+    {
+      "pr": "https://github.com/sijoon-sung/KT-X-AI-/pull/21",
+      "commit": "8d4638a5005bc288a60a85483219244ec7f4ca85",
+      "role": "H14 negative-result record"
+    },
+    {
+      "pr": "https://github.com/sijoon-sung/KT-X-AI-/pull/27",
+      "commit": "b83d9f15359d65aebbee338c877c9020c60525a1",
+      "role": "Current homepage and traffic example only; old website models/scripts are preserved on original branch"
+    }
+  ],
+  "manual_changes": [
+    "README.md",
+    "AGENTS.md",
+    "docs/github-integration.json",
+    "docs/github-maintenance.md",
+    "docs/research-workflow.md",
+    "tools/research.py",
+    "tools/tests/test_integration.py"
+  ],
+  "policy": "Imported numerical code, frozen plans and run evidence must equal a source PR Git blob. Preserve all source commit ancestry and original PR URLs."
+}
