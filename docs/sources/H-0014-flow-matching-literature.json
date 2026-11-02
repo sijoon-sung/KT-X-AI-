@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "checked_date_kst": "2026-10-31",
+  "scope": "design literature review; no performance reproduction or novelty claim",
+  "references": [
+    {
+      "id": "ecc2013",
+      "title": "Schefzik, Thorarinsdottir & Gneiting, Ensemble Copula Coupling",
+      "url": "https://arxiv.org/html/1302.7149",
+      "verified_scope": "원문§3.1/§4.2–4.3, reordering and unchanged marginal samples; ECC-R definitions.",
+      "difference_to_test": "Use a learned conditional FM rank template for Tashu signed net flows; the rank-preservation result is not evidence of forecast/operational benefit."
+    },
+    {
+      "id": "gaussian2019",
+      "title": "Salinas et al., Low-rank Gaussian Copula Processes, NeurIPS2019",
+      "url": "https://proceedings.neurips.cc/paper/2019/file/0b105cf1504c4e241fcc6d519ea962fb-Paper.pdf",
+      "verified_scope": "Original abstract and §2–4 low-rank-plus-diagonal covariance and marginal transforms.",
+      "difference_to_test": "Mandatory conditional Gaussian dependence control; not a full reproduction of the original RNN model."
+    },
+    {
+      "id": "variogram2015",
+      "title": "Scheuerer & Hamill, Variogram-Based Proper Scoring Rules",
+      "url": "https://repository.library.noaa.gov/view/noaa/22327/noaa_22327_DS1.pdf",
+      "verified_scope": "Original abstract and §2 equations3–4 and weighting discussion; dependence sensitivity and energy-score limitations.",
+      "difference_to_test": "Use VS0.5 with historical-only pair/scale definitions, alongside region aggregate CRPS and joint-zero Brier; no one score certifies a full joint law."
+    },
+    {
+      "id": "gpflow2025",
+      "title": "Kollovieh et al., Flow Matching with Gaussian Process Priors, ICLR2025",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/ee1a1ecc92f35702b5c29dad3dc909ea-Paper-Conference.pdf",
+      "verified_scope": "Original abstract/problem statement and distinction of flow-time vs physical series time; univariate forecasting setting.",
+      "difference_to_test": "Motivates examining structured conditional priors. Our graph/station covariance is a proposal, not a demonstrated multivariate extension of that paper."
+    },
+    {
+      "id": "countfm2026",
+      "title": "Wei & Pearson, Flow Matching for Count Data, arXiv2026 preprint",
+      "url": "https://arxiv.org/html/2605.07746",
+      "verified_scope": "Original abstract and §2.1–2.3 local birth/death rates, count bridge and approximate generation.",
+      "difference_to_test": "Alternative for a future marginal-count-model hypothesis. Its latent birth/death path is not a measured bicycle rebalancing or physical-time simulator."
+    },
+    {
+      "id": "fm2023",
+      "title": "Lipman et al., Flow Matching for Generative Modeling",
+      "url": "https://arxiv.org/html/2210.02747v2",
+      "verified_scope": "Original §3 conditional vector-field regression, also verified in H13.",
+      "difference_to_test": "Conditional whole-supported-cohort rank templates, not separate station-wise rental/return heads."
+    }
+  ]
+}

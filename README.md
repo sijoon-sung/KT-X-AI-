@@ -2,6 +2,8 @@
 
 GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대여소의 공급 수량과 방문 순서를 계산한다.
 
+홈페이지·실행 도구·연구 기록을 이 브랜치에 모았다. 새로 시작할 때는 아래 실행 안내를 따르면 된다.
+
 ## 실행
 
 [고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
@@ -51,7 +53,7 @@ python runtime/dispatch_server.py --stream-dir PRIVATE_EXISTING_STREAM --port 87
 
 이 명령은 API 수집을 재시작하지 않는다. H18의 기존 24시간·143회 시험 수집과 새 운영 수집을 구분한다. 수량·차량 적재·주차·상하차·복귀를 검사하며 실제 차량과 작업시간은 아직 가정값이다.
 
-홈페이지는 [maintenance/homepage-methods 브랜치](https://github.com/sijoon-sung/KT-X-AI-/tree/maintenance/homepage-methods)의 정적 파일이다. 홈페이지 폴더에서 `python -m http.server 8771 --bind 127.0.0.1`로 표시한다.
+홈페이지는 이 저장소의 `index.html`이다. 저장소 폴더에서 `python -m http.server 8771 --bind 127.0.0.1`로 표시한다.
 
 ## 교통 연계 예시
 
