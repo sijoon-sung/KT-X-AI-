@@ -12,10 +12,14 @@ python -m http.server 8771 --bind 127.0.0.1
 
 ## 현재 발표 근거
 
+모델·API 실행은 [계산 코드 브랜치의 빠른 실행 안내](https://github.com/sijoon-sung/KT-X-AI-/blob/maintenance/model-package-quickstart/docs/quickstart.md)를 따른다. [고정 모델 릴리즈](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)에는 가중치·필수 과거 특성·추론 코드·해시가 들어 있다. 홈페이지 서버는 모델을 로딩하지 않는다.
+
+`transport-example.html`은 가상 버스·철도·도로 입력의 특성 대응과 경로 변화를 보여준다. 계산 결과는 dislab에서 생성한 `assets/transport-example-result.json`을 표시한다. 버튼은 저장된 기본/혼잡 결과를 전환하며 로컬 모델 추론을 실행하지 않는다.
+
 - H13: 2026-09-17~30, 1,298개 대여소, 2,458,501쌍, 10분 후 API 재고. 현재 유지 대비 fairCRPS 감소 포아송15.49%·FM15.22%. 수량 MAE는 거의 같고 FM의 포아송 대비 추가 이득은 미확인이다.
 - H21: 실제 API 기반 미실행 재배치 계획 총6대 /4.288km /작업·복귀 포함8.69분. 72합성 조건 제약 위반0. 실제 자원과 현장 효과의 증거가 아니다.
 - GCN 대 XGBoost 동일 조건 직접 비교 미실행. 선택 이유와 설계상 기대를 성능 우위로 바꾸지 않는다.
-- 버스·도시철도·도로 연계는 [설계](design/transport-integration.md)·[이벤트 스키마](design/transport-event.schema.json) 단계다. 새 모델 학습·실 API 연결은 미실행이다.
+- 버스·도시철도·도로 연계는 [설계](design/transport-integration.md)·[가상 입력 예시](transport-example.html)를 제공한다. 새 모델 학습·실 API 연결은 미실행이다.
 
 [5분 발표 가이드·질의응답](design/presentation-guide.md) · [검증 범위](design/verification.md). 자세한 연구 근거는 페이지의 원 기록 링크를 사용한다. 9월은 반복 노출된 공식 평가이며 미열람 독립 시험이 아니다. API 학습·튜닝·선택·보정 금지와 dislab 연산 원칙을 유지한다. H13의 과거 로컬 학습 위치 위반은 원 기록에 보존했다.
 
