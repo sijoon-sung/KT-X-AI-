@@ -12,7 +12,7 @@ python -m http.server 8771 --bind 127.0.0.1
 
 ## 현재 발표 근거
 
-모델·API 실행은 [계산 코드 브랜치의 빠른 실행 안내](https://github.com/sijoon-sung/KT-X-AI-/blob/maintenance/model-package-quickstart/docs/quickstart.md)를 따른다. [고정 모델 릴리즈](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)에는 가중치·필수 과거 특성·추론 코드·해시가 들어 있다. 홈페이지 서버는 모델을 로딩하지 않는다.
+모델·API 실행은 [계산 코드 브랜치의 빠른 실행 안내](https://github.com/sijoon-sung/KT-X-AI-/blob/maintenance/model-package-quickstart/docs/quickstart.md)를 따른다. [고정 모델 릴리즈](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)에는 가중치·필수 과거 특성·추론 코드·해시가 들어 있다. 홈페이지 서버는 모델을 로딩하지 않는다.
 
 `transport-example.html`은 가상 버스·철도·도로 입력의 특성 대응과 경로 변화를 보여준다. 계산 결과는 dislab에서 생성한 `assets/transport-example-result.json`을 표시한다. 버튼은 저장된 기본/혼잡 결과를 전환하며 로컬 모델 추론을 실행하지 않는다.
 
