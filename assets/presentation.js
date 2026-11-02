@@ -38,7 +38,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener(
   const index = sections.findIndex(section => `#${section.id}` === link.getAttribute('href'));
   if (index >= 0) {event.preventDefault(); show(index);}
 }));
-document.getElementById('print').addEventListener('click', () => window.print());
 document.addEventListener('keydown', event => {
   if (controls.hidden || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName) || event.target.isContentEditable) return;
   if (event.key === 'Escape') present(false);
