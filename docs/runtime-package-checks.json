@@ -1,0 +1,21 @@
+{
+  "package_version": "1.0.1",
+  "source_commit": "4004f21f71938284a311e7f9e8751ba26bbc73af",
+  "archive_sha256": "08ebba6d9213076dd47baef6b58afbac2e34c3ad60d8a4c707a3d40053126fb3",
+  "archive_bytes": 200449072,
+  "archive_members": 32,
+  "bytecode_members": 0,
+  "original_model_lock_verified": true,
+  "strict_checkpoint_loads": 6,
+  "cpu_synthetic_stations": 5,
+  "verify_after_cpu": true,
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "gpu_synthetic_stations": 5,
+  "verify_after_gpu": true,
+  "http_checks_passed": 14,
+  "verify_after_http": true,
+  "github_asset_digest_verified": true,
+  "tashu_api_requests": 0,
+  "new_training": false,
+  "new_accuracy_experiment": false
+}

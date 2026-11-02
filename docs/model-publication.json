@@ -1,0 +1,92 @@
+{
+  "model_id": "H13-locked-v1",
+  "package_version": "1.0.1",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "source_commit": "4004f21f71938284a311e7f9e8751ba26bbc73af",
+  "gcn_parameters_per_seed": 317122,
+  "flow_parameters_per_seed": 67202,
+  "encoder_parameters_per_seed": 124352,
+  "fm_path_parameters": 768648,
+  "all_loaded_parameters": 1402892,
+  "checkpoint_file_bytes": 5639320,
+  "checkpoint_tensor_bytes": 5611568,
+  "context_file_bytes": 200047986,
+  "runtime_models": [
+    {
+      "name": "flow-11.pt",
+      "parameters": 67202,
+      "file_bytes": 271821,
+      "tensor_bytes": 268808,
+      "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e"
+    },
+    {
+      "name": "flow-29.pt",
+      "parameters": 67202,
+      "file_bytes": 271821,
+      "tensor_bytes": 268808,
+      "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e"
+    },
+    {
+      "name": "no_recent-11.pt",
+      "parameters": 317122,
+      "file_bytes": 1273951,
+      "tensor_bytes": 1268488,
+      "sha256": "7c9c81a5c7201dfb43c7307d300510a8583dddf58085609cf6958326e77cbb0f"
+    },
+    {
+      "name": "no_recent-29.pt",
+      "parameters": 317122,
+      "file_bytes": 1273951,
+      "tensor_bytes": 1268488,
+      "sha256": "3c4f8de7b60f3a16dfec0ae5f3f4f077b4c5b23687db5c7b04ab3f2ad584799c"
+    },
+    {
+      "name": "recent-11.pt",
+      "parameters": 317122,
+      "file_bytes": 1273888,
+      "tensor_bytes": 1268488,
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+    },
+    {
+      "name": "recent-29.pt",
+      "parameters": 317122,
+      "file_bytes": 1273888,
+      "tensor_bytes": 1268488,
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+    }
+  ],
+  "code_modules": [
+    "cross_city_data",
+    "cross_city_weather",
+    "dispatch_engine",
+    "forecast_transfer",
+    "forecast_transfer_data",
+    "historical_calendar",
+    "historical_od_gcn",
+    "history_to_stock",
+    "live_api_service",
+    "loss_consistent_stock",
+    "rolling_inventory_data",
+    "rolling_inventory_metrics",
+    "rolling_inventory_model",
+    "rolling_inventory_predict",
+    "scaled_flow_core",
+    "seasonal_history_core"
+  ],
+  "environment": {
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "2.3.3"
+  },
+  "raw_api_included": false,
+  "raw_trip_events_included": false,
+  "credentials_included": false,
+  "model_retrained": false,
+  "scope": "packaging existing historical-only fixed artifacts",
+  "archive": {
+    "name": "tashu-h13-runtime-v1.0.1.zip",
+    "bytes": 200449072,
+    "sha256": "08ebba6d9213076dd47baef6b58afbac2e34c3ad60d8a4c707a3d40053126fb3"
+  }
+}

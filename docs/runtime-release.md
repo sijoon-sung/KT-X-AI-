@@ -1,43 +1,38 @@
-# 고정 모델 실행 묶음
+# H13 모델 배포와 실행 검증
 
 ## 가설
 
-비실험 유지보수 목적: H13의 고정 가중치·추론 코드·필수 과거 특성·잠금 해시를 배포하고 API와 실행 방법을 정리한다. 새 학습이나 모형 선택은 하지 않는다.
+비실험 유지보수 목적: 기존 H13 모델의 원 가중치·필수 과거 특성·잠금 해시·추론 코드를 묶고 실행과 API 사용법을 정리한다. 새 학습·모델 선택·정확도 개선 실험은 수행하지 않는다.
 
 ## 실험
 
-- dislab에서 기존 잠금 해시와 파일, 파라미터 수를 확인한다.
-- 가중치 6개와 잠금 파일에 포함된 특성을 묶는다. 원본 거래·API 관측·인증정보·개인 경로는 포함하지 않는다.
-- 묶음 검증, 합성 입력 추론, 로컬 HTTP API를 확인한다. 합성 입력의 출력은 정확도 측정이 아니다.
-- 교통 연계는 별도 가상 입력의 시각 정합·대여소 특성 생성·도로 비용 예시로 한정한다. 현재 모델에 새 교통 특성을 주입하지 않는다.
-- GitHub 릴리즈의 파일과 SHA-256, 재현 명령을 기록한다. PR과 릴리즈는 기존 연구의 새 성능 결과가 아니다.
+계산은 dislab에서 수행했다. 원본 모델 잠금 SHA-256은 `767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09`다. 가중치6개와 잠금 대상8개를 원 해시에 대조하고 상태 사전을 strict 로딩했다. 원본 거래 행·재고 API·인증정보·개인 경로는 배포하지 않았다.
+
+최종 실행 코드·릴리즈 target은 `4004f21f71938284a311e7f9e8751ba26bbc73af`다. 패키지는 자동 생성 bytecode를 제외한32개 파일이다. 압축을 풀고 CPU 가상5대여소 예측→해시 검증→RTX3080 가상5대여소 예측→해시 검증→HTTP 검사14개→해시 검증을 확인했다. 예측 코드와 원 가중치는 바꾸지 않았다. CPU·GPU 출력의 새 정확도 비교를 수행한 것은 아니다.
+
+[API 검사](runtime-api-checks.json)는 health/model/predict 정상 경로와 만료·결측 허용 누락·미래 정답·중복ID·미지원 경로 거부, 키 오류 문구 비노출, 잠금 손상 거부, 출력 덮어쓰기 거부, 관리자 wrapper 표시·만료 자료 거부다. 실제 타슈 API 호출은0회다. [패키지 검사](runtime-package-checks.json)에 반복 실행과 업로드 확인을 기록했다.
+
+실행 환경은 Python3.12.10, torch2.7.1+cu118, numpy1.26.4, scipy1.15.3, pandas2.3.3이다. 이 버전의 기존 환경에서 실행했으며 별도의 새 가상환경 설치까지 검사한 것은 아니다. GitHub Research protocol run156은 최종 실행 코드4004f21에서 success였다.
 
 ## 결과
 
-첫 [h13-runtime-v1 릴리즈](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)를 게시했으나 재실행 검증에서 캐시 무결성 오류를 발견해 사용 대상에서 제외했다. 수정 v1.0.1을 준비한다. GitHub API에서 draft=false, prerelease=true, 첨부 3개 모두 uploaded 상태를 확인했다. 원 가중치 6개와 잠금 대상 8개를 포함하며, 원본 API·거래 행·인증정보는 포함하지 않았다.
+[h13-runtime-v1.0.1](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 게시했다. GitHub API에서 draft=false·prerelease=true, 첨부3개 모두 uploaded를 확인했다. GitHub가 보고한 ZIP digest가 전송 전 SHA-256과 일치했다.
 
 | 항목 | 확인값 |
 |---|---|
 | GCN / FM head, 시드당 | 317,122 / 67,202 파라미터 |
-| 두 시드 FM 경로 / 기준선 포함 로더 | 768,648 / 1,402,892 파라미터 |
-| 체크포인트 6개 | 5,639,320바이트 |
+| 두 시드 FM 경로 / 비교 기준선 포함 | 768,648 / 1,402,892 파라미터 |
+| 체크포인트6개 | 5,639,320바이트 |
 | 과거 특성 context.npz | 200,047,986바이트 |
-| 실행 ZIP | 200,635,923바이트 |
-| ZIP SHA-256 | `4be2bfccbcfe98b5becd2c63e4948b50d399f54a706f5572eb0543cb12db7ddb` |
-| 실행 코드 커밋·릴리즈 target | `c265cdbc64fd287cec95263a5161828e95e4249c` |
+| 실행 ZIP | 200,449,072바이트 |
+| ZIP SHA-256 | `08ebba6d9213076dd47baef6b58afbac2e34c3ad60d8a4c707a3d40053126fb3` |
 
-dislab CPU에서 원 잠금 파일·상태 사전 strict 로딩·단일 가상 입력 실행을 확인했다. ZIP을 다시 풀어 44개 항목의 파일 구성·해시 검증·가상 입력 5개 예측을 확인했다. 원래 H13 숫자 코드는 잠금에 맞는 정규 LF 바이트로 복사했다. CPU·GPU 차이의 새 정확도 실험을 수행하지 않았다.
+원 파일 감사는 [model-size-audit.json](model-size-audit.json), 최종 모델·배포 메타데이터는 [model-publication.json](model-publication.json), 실행은 [quickstart.md](quickstart.md), 관리자 경로는 [dispatch-runbook.md](dispatch-runbook.md)에 정리했다. PR31은 미병합이며 모델 파일은 실행용 prerelease로 제공한다.
 
-[API 검사](runtime-api-checks.json)는 정상 health/model/predict, 만료·결측 허용 누락·미래 정답·중복 ID·미지원 경로 거부, 키 오류 문구 비노출, 잠금 손상 거부, 출력 덮어쓰기 거부, 관리자 wrapper 표시·만료 자료 거부의 14개 항목이다. 실제 타슈 API 호출은 0회다. 검사는 첫 코드 `8092a0e`의 래퍼에서 실행했다. 최종 `c265cdb`는 같은 실행 코드와 검증 환경에 맞춘 pandas 2.3.3·산출물 기록을 포함하며, 최종 ZIP의 검증·예측 실행을 별도로 확인했다.
+교통 연계는 [가상 예시](../examples/transport/README.md)로 실행했다. 버스 ETA·전날 도시철도 하차량을 대여소별 입력 후보로 대응하고,18:02 제공 값은18:00 입력에서 제외했다. 같은3대 공급량에서 기본 순서420초, 혼잡 반영 시 같은 순서660초, 대안 순서450초를 계산했다. 마감600초를 지켰다. 홈페이지의 상태 전환도 실제 확인했다. 현재 H13에 새 교통 특성을 입력하거나 실제 교통의 추가 성능을 평가하지 않았다.
 
-GitHub가 보고한 ZIP digest가 위 SHA-256과 일치했고 크기·업로드 상태도 확인했다. 공개 메타데이터는 [model-publication.json](model-publication.json), 원 파일·크기 감사는 [model-size-audit.json](model-size-audit.json)에 보존했다. 라이브러리는 Python 3.12.10, torch 2.7.1+cu118, numpy 1.26.4, scipy 1.15.3, pandas 2.3.3이다. 별도 새 환경 설치까지 검사한 것은 아니며 이 버전의 기존 계산 환경에서 실행했다.
+### v1 배포 오류와 복구
 
-교통 예시는 가상 데이터의 발행 시각 대응·특성 후보와 두 경로를 계산했다. 기본 S→A→B→S 420초, 혼잡을 반영한 같은 경로 660초, S→B→A→S 450초다. 600초 마감과 같은3대 공급을 유지했다. 18:02 버스 제공 값은18:00 입력에서 제외했다. 현재 H13에 새 교통 특성을 주입하거나 예측 향상을 측정하지 않았다. [예시 코드와 결과](../examples/transport/README.md)를 제공하고 홈페이지에서 기본/혼잡 상태 전환을 실제 확인했다.
+첫 v1은 빌드 과정에서 import가 만든 pyc를 manifest·ZIP에 포함했다. 최초 CPU 실행은 통과했지만 이후 GPU 실행 전 검증에서 캐시 hash 변경으로 실패했다. 원 가중치와 특성은 손상되지 않았다. 원 자산과 [v1 메타데이터](releases/h13-runtime-v1.json)를 보존하고 릴리즈에 사용 중단·수정본 안내를 표시했다. v1.0.1은 빌드 시 bytecode 생성을 끄고 pyc·__pycache__를 manifest와 ZIP에서 제외했다.
 
-PR31의 실행 코드 커밋에 대한 Research protocol run155는 success였다. 최종 문서 커밋의 검사 상태는 PR에서 확인한다. API 수집 재시작·쿼터 연장·PR 병합은 수행하지 않았다. 실행 묶음은 코드가 고정된 prerelease이며 현장 배차나 상시 운영 완료를 뜻하지 않는다.
-
-### v1 캐시 검증 오류와 수정
-
-최초 CPU 실행 이후 GPU 재실행에서 package source mismatch가 발생했다. 빌드 시 import가 만든 __pycache__의 pyc까지 manifest와 ZIP에 포함한 것이 원인이었다. 체크포인트와 특성은 변하지 않았다. v1 원 파일과 해시는 [이전 배포 메타데이터](releases/h13-runtime-v1.json)에 보존한다.
-
-v1.0.1은 빌드 시 bytecode 생성을 끄고 manifest·ZIP 모두 pyc와 __pycache__를 제외한다. 압축 해제 후 CPU 실행→검증→GPU 실행→검증과 HTTP 경계를 다시 확인한 뒤 새 태그로 배포한다.
+수정본 HTTP 검사 과정에서는 도우미의 압축 해제 폴더 참조를 고쳤고, 별도 회차에서는 발행 마감 직전의 가상 입력이422로 거부됐다. 정상 회차의14검사와 분리해 보존했다. 최종 패키지는 반복 실행 후에도 검증을 통과했다. API 수집 재시작·쿼터 연장·PR 병합은 수행하지 않았다.
