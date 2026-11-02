@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>교통 데이터 연계 예시 · 타슈</title>
+<link rel="stylesheet" href="assets/presentation.css">
+<style>
+.example{max-width:1120px;padding:55px 0}.example h1{font-size:42px}.example section{padding:40px 0}.example .intro{margin-bottom:24px}.route-line{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:25px 0;font-size:25px;font-weight:650}.route-line span{display:inline-flex;justify-content:center;align-items:center;background:#e6eee8;border:1px solid #c4d3c8;min-width:60px;height:60px;border-radius:12px}.route-line b{font-size:18px;color:#6a7e70}.case-controls{display:flex;gap:10px;margin:20px 0}.case-controls button[aria-pressed=true]{background:#00775b;color:white;border-color:#00775b}.route-data{display:flex;gap:50px;border-block:1px solid #dce5df;padding:20px 0;margin-bottom:25px}.route-data strong{font-size:30px;display:block}.route-data small{font-size:12px;color:#52675d}.fixture-label{font-size:12px;color:#52675d}pre{background:#eef3ed;padding:20px;overflow:auto;font-size:12px;line-height:1.8}.example caption{margin-top:12px}.example th{white-space:nowrap}.example>p a{font-size:13px}.notice{color:#795d35;background:#f5f0e5;padding:15px 18px;font-size:13px}.example [hidden]{display:none}@media(max-width:800px){.example{margin:0 22px;padding:30px 0}.example h1{font-size:32px}.route-data{gap:30px}.route-line{gap:10px}}
+</style>
+<script src="assets/transport-example.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="index.html#transport"><span>↗</span> 타슈</a><a href="index.html#transport">기술 설명으로</a></header>
+<main class="example">
+<p class="eyebrow">교통 데이터 연계</p><span class="pill">가상 입력 예시</span>
+<h1>대여소 특성과<br>차량 이동시간에 연결</h1>
+<p class="intro">버스·철도 자료는 대여소별 특성으로 변환하고, 도로 속도는 차량 이동시간에 반영한다.</p>
+<p class="fixture-label">발행 시점 2026.11.02 18:00 KST · 아래 값은 구조 설명을 위한 가상 자료다.</p>
+<section>
+<p class="eyebrow">01 / 입력 대응</p><h2>버스·철도 → 대여소별 특성</h2>
+<div class="table-wrap"><table><thead><tr><th>교통 입력</th><th>대여소 대응</th><th>입력값</th></tr></thead><tbody>
+<tr><th>BUS-A 도착예정</th><td>대여소 A, 정류소까지 도보 3분</td><td>버스 도착 2분 전</td></tr>
+<tr><th>METRO-A 전날 같은 시간대 하차량</th><td>대여소 A, 역까지 도보 4분</td><td>1,200명 · 당일 15시 공개</td></tr>
+<tr><th>BUS-B 도착예정</th><td>대여소 B</td><td>18:02에 제공 → 18:00 입력에서 제외</td></tr>
+</tbody></table></div>
+<p class="note">입력이 없는 B에는 0을 넣지 않고 null과 결측 마스크를 기록했다. 버스 도착시간을 승객 수로 바꾸거나, 하차 인원으로 자전거 대여량을 임의 계산하지 않았다.</p>
+<details><summary>생성한 입력 후보 보기</summary><pre id="contexts">결과 불러오는 중</pre></details>
+<p class="note">이 특성은 후속 모델의 입력 후보다. 현재 H13 모델의 입력은 유지했다.</p>
+</section>
+<section>
+<p class="eyebrow">02 / 경로 비용</p><h2>도로 속도 → 방문 순서</h2>
+<p class="intro">S에서 3대를 싣고 A에 2대, B에 1대를 배치한다. 적재 4대, 상하차 대당 20초, 복귀까지 10분을 가정했다.</p>
+<div class="case-controls" role="group" aria-label="도로 상태"><button id="normal" aria-pressed="true">기본 이동시간</button><button id="congested" aria-pressed="false">S→A 혼잡 적용</button></div>
+<p id="case-description">도로 구간의 기본 이동시간을 사용했다.</p>
+<div id="route" class="route-line" aria-label="선택한 방문 순서"></div>
+<div class="route-data"><div><strong id="distance">—</strong><small>총 이동거리</small></div><div><strong id="duration">—</strong><small>상하차·복귀 포함</small></div><div><strong>3대</strong><small>동일 공급량</small></div></div>
+<p id="route-note" class="notice" hidden></p>
+<div class="table-wrap"><table><caption>같은 공급량에서 비교한 두 순서</caption><thead><tr><th>방문 순서</th><th>기본 시간</th><th>혼잡 반영 시간</th><th>10분 이내</th></tr></thead><tbody><tr><th>S → A → B → S</th><td>7.0분</td><td>11.0분</td><td>혼잡 시 초과</td></tr><tr><th>S → B → A → S</th><td>7.5분</td><td>7.5분</td><td>가능</td></tr></tbody></table></div>
+<p class="note">S→A 1km 구간의 속도를 30km/h에서 10km/h로 바꿨다. 두 순서를 완전 탐색한 가상 예시이며, 실제 교통량이나 도시 전체 최적화 결과는 아니다.</p>
+</section>
+<p id="load-error" class="notice" hidden>계산 결과를 불러오지 못했다. 아래 JSON에서 확인할 수 있다.</p>
+<p><a href="assets/transport-example-result.json">실행 결과 JSON</a> · <a href="https://github.com/sijoon-sung/KT-X-AI-/tree/maintenance/model-package-quickstart/examples/transport">입력과 실행 코드</a></p>
+</main>
+</body></html>

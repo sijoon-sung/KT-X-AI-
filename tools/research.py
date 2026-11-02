@@ -161,10 +161,13 @@ def history_errors(root, name):
 
 
 def pr_errors(title, changed, records, draft):
-    match = re.match(r'^\[(H-\d{4}|workflow|maintenance)\]\s+\S', title)
+    match = re.match(r'^\[(H-\d{4}|workflow|maintenance|integration)\]\s+\S', title)
     if not match:
-        return ['PR title must begin [H-0001], [workflow], or [maintenance].']
+        return ['PR title must begin [H-0001], [workflow], [maintenance], or [integration].']
     kind = match[1]
+    if kind == 'integration':
+        # Byte-level source provenance is checked by integration_errors below.
+        return []
     hypotheses = [p for p in changed if re.fullmatch(r'research/hypotheses/H-\d{4}\.json', p)]
     if kind.startswith('H-'):
         expected = 'research/hypotheses/' + kind + '.json'
@@ -183,6 +186,40 @@ def pr_errors(title, changed, records, draft):
     if kind == 'maintenance' and any(p.startswith(('src/', 'tashu/', 'scripts/', 'tests/')) and p.endswith('.py') for p in changed):
         return ['Model/data behavior changes need a hypothesis PR.']
     return []
+
+
+def integration_errors(root, changed):
+    """Consolidate existing PRs without treating it as a new experiment.
+
+    Every imported file (including every hypothesis/run/model implementation)
+    must have the same Git blob as an explicitly recorded source commit.
+    Existing frozen-plan/history validation still runs for every record.
+    """
+    try:
+        manifest = load(root / 'docs/github-integration.json')
+        sources = manifest['sources']
+        if not sources or not all(re.fullmatch(r'[0-9a-f]{40}', x['commit']) and
+                                  re.fullmatch(r'https://github.com/sijoon-sung/KT-X-AI-/pull/\d+', x['pr']) for x in sources):
+            return ['Invalid integration source commits/PR URLs.']
+        commits = [x['commit'] for x in sources]
+        for commit in commits:
+            subprocess.run(['git','merge-base','--is-ancestor',commit,'HEAD'],cwd=root,check=True,capture_output=True)
+        manual = {'README.md','AGENTS.md','docs/github-integration.json','docs/github-maintenance.md',
+                  'docs/research-workflow.md','tools/research.py','tools/tests/test_integration.py'}
+        errors=[]
+        for name in changed:
+            if name in manual: continue
+            blob=subprocess.run(['git','rev-parse','HEAD:'+name],cwd=root,text=True,capture_output=True)
+            if blob.returncode:
+                errors.append('Integration cannot delete an imported file: '+name);continue
+            matches=[]
+            for commit in commits:
+                source=subprocess.run(['git','rev-parse',commit+':'+name],cwd=root,text=True,capture_output=True)
+                matches.append(source.returncode==0 and source.stdout.strip()==blob.stdout.strip())
+            if not any(matches):errors.append('Integration file differs from all source PRs: '+name)
+        return errors
+    except (OSError,KeyError,ValueError,subprocess.CalledProcessError) as exc:
+        return ['Integration source verification failed: '+str(exc)]
 
 
 def check(root=ROOT, base_ref=None, title=None, draft=True):
@@ -210,6 +247,8 @@ def check(root=ROOT, base_ref=None, title=None, draft=True):
                 errors.extend(frozen_change_errors(json.loads(old.stdout), load(path)))
         if title:
             errors.extend(pr_errors(title, changed, records, draft))
+            if title.startswith('[integration] '):
+                errors.extend(integration_errors(root, changed))
     elif title:
         errors.append('--pr-title requires --base-ref.')
     return errors, records
