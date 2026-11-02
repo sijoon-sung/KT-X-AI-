@@ -1,0 +1,348 @@
+{
+  "started_at_utc": "2026-11-02T11:11:31.373279+00:00",
+  "finished_at_utc": "2026-11-02T11:14:39.603194+00:00",
+  "code_commit": "3fb897c7fd6cbb6feb63e6059a3bb0e940b5c918",
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "device": "dislab GPU",
+    "free_gpu_bytes": 9511632896,
+    "precision": "FP32",
+    "tf32": false,
+    "deterministic": true
+  },
+  "training": [
+    {
+      "gcn": {
+        "seed": 11,
+        "selected_epoch": 5,
+        "validation_deviance": 0.3486403033602983,
+        "trace": [
+          {
+            "epoch": 1,
+            "deviance": 0.3541701203212142
+          },
+          {
+            "epoch": 2,
+            "deviance": 0.35069464379921556
+          },
+          {
+            "epoch": 3,
+            "deviance": 0.34920940338633955
+          },
+          {
+            "epoch": 4,
+            "deviance": 0.35023321164771914
+          },
+          {
+            "epoch": 5,
+            "deviance": 0.3486403033602983
+          },
+          {
+            "epoch": 6,
+            "deviance": 0.3529918394051492
+          },
+          {
+            "epoch": 7,
+            "deviance": 0.35916152433492243
+          },
+          {
+            "epoch": 8,
+            "deviance": 0.3517546949442476
+          },
+          {
+            "epoch": 9,
+            "deviance": 0.3684944601263851
+          },
+          {
+            "epoch": 10,
+            "deviance": 0.3511958282906562
+          },
+          {
+            "epoch": 11,
+            "deviance": 0.3686522329226136
+          },
+          {
+            "epoch": 12,
+            "deviance": 0.37581137963570654
+          },
+          {
+            "epoch": 13,
+            "deviance": 0.36003541154786944
+          },
+          {
+            "epoch": 14,
+            "deviance": 0.36012263176962733
+          },
+          {
+            "epoch": 15,
+            "deviance": 0.36862543993629515
+          },
+          {
+            "epoch": 16,
+            "deviance": 0.3639009476173669
+          }
+        ],
+        "all_tensors_changed": true,
+        "seconds": 38.46167439967394
+      },
+      "flow": {
+        "seed": 11,
+        "selected_epoch": 19,
+        "validation_flow_loss": 0.37449088995344937,
+        "trace": [
+          {
+            "epoch": 1,
+            "flow_loss": 0.7265638643875718
+          },
+          {
+            "epoch": 2,
+            "flow_loss": 0.43494711769744754
+          },
+          {
+            "epoch": 3,
+            "flow_loss": 0.45533843780867755
+          },
+          {
+            "epoch": 4,
+            "flow_loss": 0.42351796897128224
+          },
+          {
+            "epoch": 5,
+            "flow_loss": 0.40524993534199893
+          },
+          {
+            "epoch": 6,
+            "flow_loss": 0.4022254296578467
+          },
+          {
+            "epoch": 7,
+            "flow_loss": 0.3923154154326767
+          },
+          {
+            "epoch": 8,
+            "flow_loss": 0.39136384217999876
+          },
+          {
+            "epoch": 9,
+            "flow_loss": 0.3914833557792008
+          },
+          {
+            "epoch": 10,
+            "flow_loss": 0.38559335214085877
+          },
+          {
+            "epoch": 11,
+            "flow_loss": 0.3828762178309262
+          },
+          {
+            "epoch": 12,
+            "flow_loss": 0.3805294039193541
+          },
+          {
+            "epoch": 13,
+            "flow_loss": 0.38034795550629497
+          },
+          {
+            "epoch": 14,
+            "flow_loss": 0.37657057237811387
+          },
+          {
+            "epoch": 15,
+            "flow_loss": 0.3776495698839426
+          },
+          {
+            "epoch": 16,
+            "flow_loss": 0.37565772980451584
+          },
+          {
+            "epoch": 17,
+            "flow_loss": 0.374912851722911
+          },
+          {
+            "epoch": 18,
+            "flow_loss": 0.3752174093388021
+          },
+          {
+            "epoch": 19,
+            "flow_loss": 0.37449088995344937
+          },
+          {
+            "epoch": 20,
+            "flow_loss": 0.3756221600342542
+          }
+        ],
+        "all_tensors_changed": true,
+        "seconds": 50.51168160000816
+      }
+    },
+    {
+      "gcn": {
+        "seed": 29,
+        "selected_epoch": 3,
+        "validation_deviance": 0.3483838851097971,
+        "trace": [
+          {
+            "epoch": 1,
+            "deviance": 0.35432622767984867
+          },
+          {
+            "epoch": 2,
+            "deviance": 0.3548467226792127
+          },
+          {
+            "epoch": 3,
+            "deviance": 0.3483838851097971
+          },
+          {
+            "epoch": 4,
+            "deviance": 0.3545371498912573
+          },
+          {
+            "epoch": 5,
+            "deviance": 0.34948866721242666
+          },
+          {
+            "epoch": 6,
+            "deviance": 0.3598995911888778
+          },
+          {
+            "epoch": 7,
+            "deviance": 0.3593311491422355
+          },
+          {
+            "epoch": 8,
+            "deviance": 0.3524666230659932
+          },
+          {
+            "epoch": 9,
+            "deviance": 0.36661207885481417
+          },
+          {
+            "epoch": 10,
+            "deviance": 0.3773361665662378
+          },
+          {
+            "epoch": 11,
+            "deviance": 0.37150876433588564
+          },
+          {
+            "epoch": 12,
+            "deviance": 0.37451974558643997
+          },
+          {
+            "epoch": 13,
+            "deviance": 0.36830387776717544
+          },
+          {
+            "epoch": 14,
+            "deviance": 0.3733596845995635
+          },
+          {
+            "epoch": 15,
+            "deviance": 0.3702363329939544
+          },
+          {
+            "epoch": 16,
+            "deviance": 0.36285484372638166
+          }
+        ],
+        "all_tensors_changed": true,
+        "seconds": 37.61346170026809
+      },
+      "flow": {
+        "seed": 29,
+        "selected_epoch": 18,
+        "validation_flow_loss": 0.37374445144087076,
+        "trace": [
+          {
+            "epoch": 1,
+            "flow_loss": 0.7444324055686593
+          },
+          {
+            "epoch": 2,
+            "flow_loss": 0.43665064009837806
+          },
+          {
+            "epoch": 3,
+            "flow_loss": 0.4245825167745352
+          },
+          {
+            "epoch": 4,
+            "flow_loss": 0.4213927777018398
+          },
+          {
+            "epoch": 5,
+            "flow_loss": 0.40926765464246273
+          },
+          {
+            "epoch": 6,
+            "flow_loss": 0.4049696451984346
+          },
+          {
+            "epoch": 7,
+            "flow_loss": 0.39971161098219454
+          },
+          {
+            "epoch": 8,
+            "flow_loss": 0.3929083892144263
+          },
+          {
+            "epoch": 9,
+            "flow_loss": 0.38928369199857116
+          },
+          {
+            "epoch": 10,
+            "flow_loss": 0.3889969391748309
+          },
+          {
+            "epoch": 11,
+            "flow_loss": 0.3850859282538295
+          },
+          {
+            "epoch": 12,
+            "flow_loss": 0.3830084968358278
+          },
+          {
+            "epoch": 13,
+            "flow_loss": 0.3791647329926491
+          },
+          {
+            "epoch": 14,
+            "flow_loss": 0.3810776125174016
+          },
+          {
+            "epoch": 15,
+            "flow_loss": 0.37622208311222494
+          },
+          {
+            "epoch": 16,
+            "flow_loss": 0.3749674544669688
+          },
+          {
+            "epoch": 17,
+            "flow_loss": 0.374973947647959
+          },
+          {
+            "epoch": 18,
+            "flow_loss": 0.37374445144087076
+          },
+          {
+            "epoch": 19,
+            "flow_loss": 0.3743611832614988
+          },
+          {
+            "epoch": 20,
+            "flow_loss": 0.3737858943641186
+          }
+        ],
+        "all_tensors_changed": true,
+        "seconds": 50.665964799933136
+      }
+    }
+  ],
+  "api_opened": false,
+  "peak_gpu_bytes": 589356544
+}

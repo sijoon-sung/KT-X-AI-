@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0022-20261102-large",
+  "hypothesis_id": "H-0022",
+  "plan_sha256": "661b9aeb25d3cc893485706eb3db2b8fa46184047b4a3ea2afe8b75e6b015ec5",
+  "code_commit": "3fb897c7fd6cbb6feb63e6059a3bb0e940b5c918",
+  "evaluation_code_commit": "a6bb8b98fbe4d75781412103e90d4e481947562f",
+  "input_manifest_sha256": "9ae9548c85efc98c1c2226b257a3dc7481c6816d466522b64eeb83d77878b618",
+  "started_at_utc": "2026-11-02T11:11:31.373279+00:00",
+  "finished_at_utc": "2026-11-02T11:29:53.424155+00:00",
+  "command": [
+    "python",
+    "research_code/large_inventory_fit.py",
+    "--data",
+    "PRIVATE_HISTORICAL_CACHE",
+    "--parent",
+    "PRIVATE_H13_FIT",
+    "--out",
+    "PRIVATE_H22_FIT"
+  ],
+  "evaluation_commands": [
+    [
+      "python",
+      "research_code/large_inventory_evaluate.py",
+      "historical",
+      "--fit",
+      "PRIVATE_H22_FIT",
+      "--data",
+      "PRIVATE_HISTORICAL_CACHE",
+      "--parent",
+      "PRIVATE_H13_FIT",
+      "--out",
+      "PRIVATE_HISTORICAL_RESULT"
+    ],
+    [
+      "python",
+      "research_code/large_inventory_evaluate.py",
+      "api",
+      "--fit",
+      "PRIVATE_H22_FIT",
+      "--panel",
+      "PRIVATE_SEPTEMBER_PANEL",
+      "--historical",
+      "PRIVATE_HISTORICAL_RESULT",
+      "--weather",
+      "PRIVATE_WEATHER",
+      "--reference",
+      "PRIVATE_H13_RESULT",
+      "--out",
+      "PRIVATE_API_RESULT"
+    ]
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "device": "dislab GPU",
+    "free_gpu_bytes": 9511632896,
+    "precision": "FP32",
+    "tf32": false,
+    "deterministic": true
+  },
+  "seed": [
+    11,
+    29
+  ],
+  "evaluation_scope": "March16384 historical exposures, then locked September1298stations/2458501pairs; API evaluation only",
+  "metrics": {
+    "March completed-count energy relative gain versus H13 CFM": -0.005828620898331138,
+    "checkpoint_file_bytes": 97004358,
+    "parameters": 24245640,
+    "september_cfm_fair_crps": 0.18002183969356297
+  },
+  "artifacts": [
+    {
+      "id": "api-checks.json",
+      "sha256": "c487b1d96e77899169c44a0b3ae710f843e50679da28758b69fe4a2c799e3009",
+      "availability": "public run summary"
+    },
+    {
+      "id": "execution-notes.json",
+      "sha256": "909396404d15649cddb291bdbb4c0625ff41797343461ff302cb9b90d0f005c1",
+      "availability": "public run summary"
+    },
+    {
+      "id": "fit-start.json",
+      "sha256": "6596c7aced057b1abeaea59ff0f91512d0295c3193f6a9cad4e4eb1d50cc19d7",
+      "availability": "public run summary"
+    },
+    {
+      "id": "historical.json",
+      "sha256": "787affdb3d5d8c002dd43d93f69885d68e00663bba1e0ead445497e84f26fe54",
+      "availability": "public run summary"
+    },
+    {
+      "id": "semantic-checks.json",
+      "sha256": "82c3e27ecb4a2a343308808e2f9712713af3ec0d1d53c3b806365d86b87d24cd",
+      "availability": "public run summary"
+    },
+    {
+      "id": "september.json",
+      "sha256": "1ab986e9f9344c09d2bd3ab30fa3473dd809278127f265ffa8eaab77f539f72e",
+      "availability": "public run summary"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "7e5f771900395a23ebbe6d4057caaeb15518bca5397e3c719cf281ef062cf4f8",
+      "availability": "public run summary"
+    },
+    {
+      "id": "training.json",
+      "sha256": "bb5e4a2648b94699e9f27ad9a77ea2d8d6e9bf059e0c581bfee13b5c377de280",
+      "availability": "public run summary"
+    }
+  ],
+  "limitations": [
+    "Original September API repeatedly exposed, not independent unseen test.",
+    "Historical completed counts do not measure latent lost demand or February/March stock.",
+    "Historical warm-start, training budget and conditioning topology differ from H13; not a pure causal width ablation.",
+    "No matched XGBoost comparison or traffic-feature training.",
+    "No actual dispatch outcome or causal service improvement.",
+    "Installed matching dislab environment tested; fresh virtual environment installation not tested.",
+    "No H18 collection restart or fresh API calls during H22 checks."
+  ]
+}

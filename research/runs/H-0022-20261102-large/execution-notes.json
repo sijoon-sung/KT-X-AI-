@@ -1,0 +1,27 @@
+{
+  "execution": "All training, preprocessing, historical/API scoring, inference and size auditing ran on dislab. Local actions were source edits, Git, file transfer, hashing and browser/display checks.",
+  "data_lineage": "Original H13 historical-only counts cache transferred readonly; context/time feature hashes verified before fitting. Historical counts SHA256 recorded at fit-start. No independent raw-trip rebuild in H22.",
+  "failures": [
+    {
+      "phase": "input transfer",
+      "detail": "First staging copy attempted while SCP still held the input file. Training did not start. Waited for completed transfer, copied input and ran the same published plan."
+    },
+    {
+      "phase": "HTTP test harness",
+      "detail": "First harness failed importing run from large_run because the helper lacked the package folder in sys.path. The actual CLI/HTTP checks before that import worked. Fixed helper path only; rerun passed14. No model or numerical code change."
+    },
+    {
+      "phase": "package docs",
+      "detail": "Initial v1 README had repository-relative links that do not resolve after extraction. v1.0.1 changes document links to commit-specific repository URLs and includes final results. Weights and inference code unchanged; earlier asset hashes preserved."
+    }
+  ],
+  "limitations": [
+    "Original September API repeatedly exposed, not independent unseen test.",
+    "Historical completed counts do not measure latent lost demand or February/March stock.",
+    "Historical warm-start, training budget and conditioning topology differ from H13; not a pure causal width ablation.",
+    "No matched XGBoost comparison or traffic-feature training.",
+    "No actual dispatch outcome or causal service improvement.",
+    "Installed matching dislab environment tested; fresh virtual environment installation not tested.",
+    "No H18 collection restart or fresh API calls during H22 checks."
+  ]
+}

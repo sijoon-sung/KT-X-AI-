@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "id": "H-0022",
+  "title": "약100MB GCN·Flow Matching 모델 확장",
+  "status": "completed",
+  "plan": {
+    "question": "약100MB의 실제 GCN+Flow Matching 가중치가 기존 H13보다 과거 미래거래 분포 예측을 개선하는가?",
+    "hypothesis": "March historical count energy score improves at least1% over locked H13 CFM while two-seed deployment FP32 weights total90–110MB. Size alone is not evidence of accuracy.",
+    "prior_art": [
+      {
+        "title": "Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/abs/2210.02747",
+        "verified_scope": "Author abstract reviewed2026-11-02: conditional vector-field regression and numerical ODE sampling; not a claim of OT coupling here",
+        "difference_to_test": "Widen historical GCN and cache a learned conditioning network once per station; retain independent Gaussian coupling and small repeated velocity network."
+      },
+      {
+        "title": "Semi-Supervised Classification with Graph Convolutional Networks",
+        "url": "https://arxiv.org/abs/1609.02907",
+        "verified_scope": "Author abstract reviewed2026-11-02: local graph structure and node feature encoding",
+        "difference_to_test": "Keep historical OD operator, not a new graph selected from API."
+      }
+    ],
+    "data": {
+      "dataset_id": "H22-historical-scale-v1",
+      "observed_truth": "Downloaded historical completed rentals and returns; September API displayed stock is external evaluation only",
+      "not_observed": [
+        "latent unmet demand",
+        "operator action effects",
+        "February/March measured stock"
+      ],
+      "input_manifest_sha256": "9ae9548c85efc98c1c2226b257a3dc7481c6816d466522b64eeb83d77878b618"
+    },
+    "architecture": {
+      "seeds": [
+        11,
+        29
+      ],
+      "gcn_width": 1280,
+      "gcn_hidden_layers": 4,
+      "weekly_encoder": "original420->256->64, initialize from historical H13 encoder per seed",
+      "flow_condition_width": 1280,
+      "flow_condition_layers": 3,
+      "flow_cached_width": 128,
+      "velocity_width": 128,
+      "particles": 128,
+      "heun_steps": 16,
+      "deployment": "two recent GCN plus two conditional FM; all weights used; no optimizer/padding/context counted toward90–110MB"
+    },
+    "training": {
+      "device": "dislab RTX3080 only",
+      "gcn_epochs": 16,
+      "flow_epochs": 20,
+      "exposures_per_epoch": 262144,
+      "batch_size": 1024,
+      "optimizer": "AdamW",
+      "lr": 0.0003,
+      "weight_decay": 0.0001,
+      "clip": 1.0,
+      "precision": "FP32; TF32 off; deterministic",
+      "selection": "fixed131072 February historical exposures seed20261103, lowest Poisson deviance for GCN and fixed-noise flow loss for FM; epochs1+ only",
+      "memory": "keep historical targets/recent proxies on CPU RAM; transfer minibatches only; if OOM reduce batch to512 then256, preserve examples/seeds/epochs and record failure",
+      "baseline": "Original frozen H13 selected on historical February; no retraining; budgets/conditioning topology differ so not pure causal width ablation"
+    },
+    "evaluation": {
+      "design": "Train Aug2024–Jan2026; February checkpoint selection; one fixed16384-exposure March historical count test after lock, matched H13/new IID draws. Then freeze all artifacts before full chronological September external replay; API outcome cannot select architecture/weights/adoption.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "external_api",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "locked H13 recent CFM",
+        "same new GCN Poisson",
+        "persistence and original H13 on identical September pairs"
+      ],
+      "primary_metric": {
+        "name": "March completed-count energy relative gain versus H13 CFM",
+        "direction": "higher",
+        "unit": "fraction"
+      },
+      "success_rule": "90–110million weight bytes, every deployed tensor trained, gain>0.01 and paired city-synchronized3/7day bootstrap2000replicate95% lower bounds>0.01. Use larger model as optional release regardless; default promotion only if historical criterion passes, never selected by API.",
+      "failure_rule": "If upper bounds<=0.01, not_supported; otherwise inconclusive; nonfinite/OOM failure preserved and not called trained. API never overrides historical decision.",
+      "exclusion_rule": "Unchanged H13 source support and missingness; fixed historical sample20261103. API all available September17–30 with original480–720sec/delay0–120sec causal joins; no zero fill; unsupported stations excluded with counts.",
+      "uncertainty_plan": "Paired per-day March sums, synchronized moving blocks3/7days,2000replicates seed20261103; finite fixed sample and reused historical/source limits. September all/current0/positive scores descriptive, already exposed test.",
+      "seed_plan": "Fit11,29; fixed sample/noise20261103;128 independent seed-mixture particles,16stepHeun"
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "661b9aeb25d3cc893485706eb3db2b8fa46184047b4a3ea2afe8b75e6b015ec5",
+    "frozen_at_utc": "2026-11-02T11:07:02.432248+00:00"
+  },
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "실제 가중치97.00MB 학습·실행·배포 준비 완료. 3월 energy score0.58%악화, 두 블록95%구간이1%개선기준을 통과하지 못했다. 별도 모델로 제공하며 기본H13은 유지한다. 9월2458501쌍의 FM fairCRPS0.180022, 기존FM보다0.15%높았다.",
+    "limitations": [
+      "Original September API repeatedly exposed, not independent unseen test.",
+      "Historical completed counts do not measure latent lost demand or February/March stock.",
+      "Historical warm-start, training budget and conditioning topology differ from H13; not a pure causal width ablation.",
+      "No matched XGBoost comparison or traffic-feature training.",
+      "No actual dispatch outcome or causal service improvement.",
+      "Installed matching dislab environment tested; fresh virtual environment installation not tested.",
+      "No H18 collection restart or fresh API calls during H22 checks."
+    ],
+    "run_manifests": [
+      "research/runs/H-0022-20261102-large/manifest.json"
+    ],
+    "optional_release": true,
+    "default_promoted": false
+  },
+  "withdrawal_reason": null
+}
