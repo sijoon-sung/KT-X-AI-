@@ -14,4 +14,30 @@
 
 ## 결과
 
-준비 중. 파라미터와 원 파일 확인 이후 실행·업로드 결과를 갱신한다. API 수집 재시작·쿼터 연장·PR 병합은 수행하지 않는다.
+첫 [h13-runtime-v1 릴리즈](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)를 게시했으나 재실행 검증에서 캐시 무결성 오류를 발견해 사용 대상에서 제외했다. 수정 v1.0.1을 준비한다. GitHub API에서 draft=false, prerelease=true, 첨부 3개 모두 uploaded 상태를 확인했다. 원 가중치 6개와 잠금 대상 8개를 포함하며, 원본 API·거래 행·인증정보는 포함하지 않았다.
+
+| 항목 | 확인값 |
+|---|---|
+| GCN / FM head, 시드당 | 317,122 / 67,202 파라미터 |
+| 두 시드 FM 경로 / 기준선 포함 로더 | 768,648 / 1,402,892 파라미터 |
+| 체크포인트 6개 | 5,639,320바이트 |
+| 과거 특성 context.npz | 200,047,986바이트 |
+| 실행 ZIP | 200,635,923바이트 |
+| ZIP SHA-256 | `4be2bfccbcfe98b5becd2c63e4948b50d399f54a706f5572eb0543cb12db7ddb` |
+| 실행 코드 커밋·릴리즈 target | `c265cdbc64fd287cec95263a5161828e95e4249c` |
+
+dislab CPU에서 원 잠금 파일·상태 사전 strict 로딩·단일 가상 입력 실행을 확인했다. ZIP을 다시 풀어 44개 항목의 파일 구성·해시 검증·가상 입력 5개 예측을 확인했다. 원래 H13 숫자 코드는 잠금에 맞는 정규 LF 바이트로 복사했다. CPU·GPU 차이의 새 정확도 실험을 수행하지 않았다.
+
+[API 검사](runtime-api-checks.json)는 정상 health/model/predict, 만료·결측 허용 누락·미래 정답·중복 ID·미지원 경로 거부, 키 오류 문구 비노출, 잠금 손상 거부, 출력 덮어쓰기 거부, 관리자 wrapper 표시·만료 자료 거부의 14개 항목이다. 실제 타슈 API 호출은 0회다. 검사는 첫 코드 `8092a0e`의 래퍼에서 실행했다. 최종 `c265cdb`는 같은 실행 코드와 검증 환경에 맞춘 pandas 2.3.3·산출물 기록을 포함하며, 최종 ZIP의 검증·예측 실행을 별도로 확인했다.
+
+GitHub가 보고한 ZIP digest가 위 SHA-256과 일치했고 크기·업로드 상태도 확인했다. 공개 메타데이터는 [model-publication.json](model-publication.json), 원 파일·크기 감사는 [model-size-audit.json](model-size-audit.json)에 보존했다. 라이브러리는 Python 3.12.10, torch 2.7.1+cu118, numpy 1.26.4, scipy 1.15.3, pandas 2.3.3이다. 별도 새 환경 설치까지 검사한 것은 아니며 이 버전의 기존 계산 환경에서 실행했다.
+
+교통 예시는 가상 데이터의 발행 시각 대응·특성 후보와 두 경로를 계산했다. 기본 S→A→B→S 420초, 혼잡을 반영한 같은 경로 660초, S→B→A→S 450초다. 600초 마감과 같은3대 공급을 유지했다. 18:02 버스 제공 값은18:00 입력에서 제외했다. 현재 H13에 새 교통 특성을 주입하거나 예측 향상을 측정하지 않았다. [예시 코드와 결과](../examples/transport/README.md)를 제공하고 홈페이지에서 기본/혼잡 상태 전환을 실제 확인했다.
+
+PR31의 실행 코드 커밋에 대한 Research protocol run155는 success였다. 최종 문서 커밋의 검사 상태는 PR에서 확인한다. API 수집 재시작·쿼터 연장·PR 병합은 수행하지 않았다. 실행 묶음은 코드가 고정된 prerelease이며 현장 배차나 상시 운영 완료를 뜻하지 않는다.
+
+### v1 캐시 검증 오류와 수정
+
+최초 CPU 실행 이후 GPU 재실행에서 package source mismatch가 발생했다. 빌드 시 import가 만든 __pycache__의 pyc까지 manifest와 ZIP에 포함한 것이 원인이었다. 체크포인트와 특성은 변하지 않았다. v1 원 파일과 해시는 [이전 배포 메타데이터](releases/h13-runtime-v1.json)에 보존한다.
+
+v1.0.1은 빌드 시 bytecode 생성을 끄고 manifest·ZIP 모두 pyc와 __pycache__를 제외한다. 압축 해제 후 CPU 실행→검증→GPU 실행→검증과 HTTP 경계를 다시 확인한 뒤 새 태그로 배포한다.

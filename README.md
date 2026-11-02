@@ -4,12 +4,12 @@ GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대
 
 ## 실행
 
-[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
+[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
 
 계산은 dislab에서 실행한다. 로컬에서는 홈페이지 표시와 HTTP 요청·응답 확인을 한다. 자세한 설치·다운로드·API 명령은 [빠른 실행 안내](docs/quickstart.md)에 정리했다.
 
 ```powershell
-# 모델 ZIP을 푼 계산 서버의 tashu-h13-runtime-v1 폴더에서
+# 모델 ZIP을 푼 계산 서버의 tashu-h13-runtime-v1.0.1 폴더에서
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe run.py verify

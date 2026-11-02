@@ -10,10 +10,13 @@ import subprocess
 import sys
 import zipfile
 
+sys.dont_write_bytecode = True
+
 ROOT = Path(__file__).resolve().parents[1]
 LOCK_SHA = '767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09'
 ALLOWED = {'context.npz', 'time-features.npz', 'flow-11.pt', 'flow-29.pt',
            'recent-11.pt', 'recent-29.pt', 'no_recent-11.pt', 'no_recent-29.pt'}
+PACKAGE = 'tashu-h13-runtime-v1.0.1'
 
 
 def digest(path):
@@ -35,7 +38,7 @@ def main():
     a = p.parse_args()
     fit, out = Path(a.fit_dir), Path(a.out)
     out.mkdir(parents=True, exist_ok=False)
-    bundle = out / 'tashu-h13-runtime-v1'
+    bundle = out / PACKAGE
     (bundle / 'model').mkdir(parents=True)
     (bundle / 'code').mkdir()
     lock_path = fit / 'model-lock.json'
@@ -83,7 +86,7 @@ def main():
         model.load_state_dict(state, strict=True)
         weights.append(dict(name=file.name, parameters=count(model), file_bytes=file.stat().st_size,
                             tensor_bytes=sum(v.numel() * v.element_size() for v in state.values()), sha256=digest(file)))
-    report = dict(model_id='H13-locked-v1', model_lock_sha256=LOCK_SHA,
+    report = dict(model_id='H13-locked-v1', package_version='1.0.1', model_lock_sha256=LOCK_SHA,
                   source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT).decode().strip(),
                   gcn_parameters_per_seed=count(gcn), flow_parameters_per_seed=count(flow),
                   encoder_parameters_per_seed=count(gcn.encoder),
@@ -97,16 +100,17 @@ def main():
                   raw_api_included=False, raw_trip_events_included=False, credentials_included=False,
                   model_retrained=False, scope='packaging existing historical-only fixed artifacts')
     write(bundle / 'model-info.json', report)
+    immutable = lambda f: f.is_file() and '__pycache__' not in f.parts and f.suffix != '.pyc'
     files = [dict(path=f.relative_to(bundle).as_posix(), bytes=f.stat().st_size, sha256=digest(f))
-             for f in sorted(bundle.rglob('*')) if f.is_file()]
+             for f in sorted(bundle.rglob('*')) if immutable(f)]
     write(bundle / 'package-manifest.json', dict(model_lock_sha256=LOCK_SHA, files=files))
-    archive = out / 'tashu-h13-runtime-v1.zip'
+    archive = out / (PACKAGE + '.zip')
     with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=1) as z:
         for file in sorted(bundle.rglob('*')):
-            if file.is_file():
+            if immutable(file):
                 z.write(file, file.relative_to(out).as_posix())
     report['archive'] = dict(name=archive.name, bytes=archive.stat().st_size, sha256=digest(archive))
-    (out / 'tashu-h13-runtime-v1.zip.sha256').write_text(report['archive']['sha256'] + '  ' + archive.name + '\n', encoding='ascii')
+    (out / (PACKAGE + '.zip.sha256')).write_text(report['archive']['sha256'] + '  ' + archive.name + '\n', encoding='ascii')
     write(out / 'model-publication.json', report)
     print(json.dumps(report, ensure_ascii=False))
 

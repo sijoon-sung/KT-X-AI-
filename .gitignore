@@ -69,3 +69,8 @@ data/local_sources.json
 research/private/
 research/runs/*/artifacts/
 research/runs/*/predictions/
+
+# Runtime observations, forecast outputs and account-bound credentials
+private/
+outputs/
+*.dpapi

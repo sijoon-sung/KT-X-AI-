@@ -4,16 +4,16 @@
 
 ## 1. 내려받기
 
-[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)에서 ZIP과 SHA-256 파일을 받는다.
+[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)에서 ZIP과 SHA-256 파일을 받는다.
 
 ```powershell
-$base = 'https://github.com/sijoon-sung/KT-X-AI-/releases/download/h13-runtime-v1'
-Invoke-WebRequest "$base/tashu-h13-runtime-v1.zip" -OutFile tashu-h13-runtime-v1.zip
-Invoke-WebRequest "$base/tashu-h13-runtime-v1.zip.sha256" -OutFile tashu-h13-runtime-v1.zip.sha256
-$expected = ((Get-Content tashu-h13-runtime-v1.zip.sha256) -split '\s+')[0]
-if ((Get-FileHash tashu-h13-runtime-v1.zip -Algorithm SHA256).Hash.ToLower() -ne $expected) { throw 'ZIP hash mismatch' }
-Expand-Archive tashu-h13-runtime-v1.zip -DestinationPath .
-Set-Location tashu-h13-runtime-v1
+$base = 'https://github.com/sijoon-sung/KT-X-AI-/releases/download/h13-runtime-v1.0.1'
+Invoke-WebRequest "$base/tashu-h13-runtime-v1.0.1.zip" -OutFile tashu-h13-runtime-v1.0.1.zip
+Invoke-WebRequest "$base/tashu-h13-runtime-v1.0.1.zip.sha256" -OutFile tashu-h13-runtime-v1.0.1.zip.sha256
+$expected = ((Get-Content tashu-h13-runtime-v1.0.1.zip.sha256) -split '\s+')[0]
+if ((Get-FileHash tashu-h13-runtime-v1.0.1.zip -Algorithm SHA256).Hash.ToLower() -ne $expected) { throw 'ZIP hash mismatch' }
+Expand-Archive tashu-h13-runtime-v1.0.1.zip -DestinationPath .
+Set-Location tashu-h13-runtime-v1.0.1
 ```
 
 ZIP에는 `run.py`, `code/`, `model/`, `requirements.txt`, `MODEL_CARD.md`, `model-info.json`, `package-manifest.json`이 들어 있다. 가중치만 복사하면 과거 특성 파일이 없어 실행되지 않는다.
@@ -39,6 +39,16 @@ GPU를 쓰려면 계산 서버의 CUDA에 맞는 PyTorch를 설치한 뒤 `--dev
 
 공식 대여소 API는 `https://bikeapp.tashu.or.kr:50041/v1/openapi/station`이며 인증 헤더는 `api-token`이다. 키를 명령행 인자나 문서에 넣지 않는다. 환경변수 `TASHU_API_KEY` 또는 기존 Windows 계정의 암호화 키 파일을 사용한다.
 
+암호화 파일이 없는 경우에는 계산 서버의 같은 Windows 계정에서 한 번 생성한다. 기존 파일은 덮어쓰지 않는다.
+
+```powershell
+New-Item -ItemType Directory -Force private | Out-Null
+if (Test-Path private/api-key.dpapi) { throw '기존 키 파일을 사용하세요.' }
+Read-Host '타슈 API 키' -AsSecureString | ConvertFrom-SecureString | Set-Content private/api-key.dpapi
+```
+
+이후 `$env:TASHU_CREDENTIAL_FILE`에는 생성한 `private/api-key.dpapi`의 절대 경로를 넣는다. 암호화 파일은 생성한 Windows 계정에 묶인다. 관측·예측 출력과 암호화 키 파일은 `.gitignore`에서 제외했다.
+
 ```powershell
 # 기존 암호화 키 파일이 있는 계산 서버에서 실행한다.
 $env:TASHU_CREDENTIAL_FILE = 'PRIVATE_ENCRYPTED_KEY_FILE'
@@ -51,6 +61,8 @@ $env:TASHU_CLOCK_UNCERTAINTY = 'VERIFIED_UNCERTAINTY_SECONDS'
 `capture`는 한 번 요청한 뒤 끝난다. `--wait`는 다음 10분 경계까지 기다리는 옵션이며 반복 수집이 아니다. 키가 이미 환경변수에 있으면 `--credential`을 생략한다. 기존 H18 시험 수집의 기한·143회 상한을 연장하거나 종료된 수집을 자동 재시작하지 않는다. 새 수집은 별도 운영 조건에 맞춰 실행한다.
 
 과거 dislab 시계 지연이 있었으므로 이전 실험의 보정값을 현재 기본값으로 복사하지 않는다. 동기화가 확인된 시스템은 offset=0과 측정한 uncertainty를 사용한다. 불확실성이 2초를 넘거나 보정값이 없으면 live 명령은 거부한다.
+
+Windows의 동기화 상태는 `w32tm /query /status`에서 확인한다. 동기화를 확인하지 못했다면 `verify`, `inspect`, `demo`부터 실행한다. 실제 API 예측에는 확인한 보정값을 사용한다.
 
 저장 형식:
 
