@@ -1,1797 +1,450 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>911만 건의 궤적: 대전 타슈는 왜 18시에 멈추는가? | KT-X-AI</title>
-    
-    <!-- Editorial Typography: Newsreader (NYT Serif) + Pretendard (Korean Sans) + JetBrains Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-
-    <!-- Leaflet GIS Mapping CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- KaTeX Mathematical Typesetting CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-
-    <style>
-        :root {
-            --bg-page: #f8f9fa;
-            --bg-card: #ffffff;
-            --bg-surface: #f1f5f9;
-            --border-subtle: #e2e8f0;
-            --border-strong: #cbd5e1;
-            --border-active: #2563eb;
-            --text-heading: #111827;
-            --text-body: #374151;
-            --text-muted: #64748b;
-            --accent-blue: #2563eb;
-            --accent-emerald: #059669;
-            --accent-rose: #e11d48;
-            --accent-amber: #d97706;
-            --accent-indigo: #4f46e5;
-            --font-serif: "Newsreader", Georgia, serif;
-            --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-            --font-mono: "JetBrains Mono", Consolas, Menlo, monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            word-break: keep-all;
-            overflow-wrap: break-word;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-body);
-            font-family: var(--font-sans);
-            line-height: 1.75;
-            font-size: 15px;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a { color: var(--accent-blue); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Sticky Engineering Top Navigation */
-        nav.top-nav {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-subtle);
-            z-index: 1000;
-            padding: 12px 0;
-        }
-        .nav-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            color: var(--text-heading);
-            font-size: 14px;
-        }
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-emerald);
-            box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
-            display: inline-block;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            font-size: 12px;
-            font-weight: 600;
-            transition: color 0.15s ease;
-        }
-        .nav-links a:hover {
-            color: var(--text-heading);
-            text-decoration: none;
-        }
-        .nav-git-btn {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-heading);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            padding: 5px 11px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .nav-git-btn:hover {
-            background: #e2e8f0;
-            text-decoration: none;
-        }
-
-        /* Publication Header (NYT The Upshot / Bloomberg Style) */
-        header.pub-header {
-            padding: 56px 0 32px;
-            background: #ffffff;
-            border-bottom: 2px solid var(--text-heading);
-        }
-        .kicker {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-            margin-bottom: 14px;
-            display: inline-block;
-        }
-        .headline {
-            font-family: var(--font-serif);
-            font-size: 44px;
-            font-weight: 700;
-            color: var(--text-heading);
-            line-height: 1.22;
-            letter-spacing: -0.025em;
-            margin-bottom: 16px;
-            max-width: 980px;
-        }
-        .dek {
-            font-size: 18px;
-            font-weight: 400;
-            color: var(--text-muted);
-            line-height: 1.68;
-            max-width: 900px;
-            margin-bottom: 24px;
-        }
-        .byline-block {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            font-size: 13px;
-            color: var(--text-muted);
-            padding-top: 18px;
-            border-top: 1px solid var(--border-subtle);
-        }
-        .badge-git {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            background: #eff6ff;
-            color: var(--accent-blue);
-            padding: 3px 8px;
-            border-radius: 4px;
-            border: 1px solid #bfdbfe;
-            font-weight: 600;
-        }
-
-        /* Bloomberg Style Tabular Metrics Strip */
-        .metric-strip {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            border-bottom: 1px solid var(--border-strong);
-            background: #ffffff;
-        }
-        .metric-cell {
-            padding: 16px 20px;
-            border-right: 1px solid var(--border-subtle);
-        }
-        .metric-cell:last-child {
-            border-right: none;
-        }
-        .metric-label {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 4px;
-        }
-        .metric-val {
-            font-family: var(--font-mono);
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 3px;
-        }
-        .metric-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* Scrollytelling Stage Layout (The Pudding / NYT Style) */
-        .scrolly-container {
-            position: relative;
-            display: flex;
-            max-width: 1320px;
-            margin: 0 auto;
-            padding: 36px 24px 80px;
-            gap: 36px;
-        }
-        .story-col {
-            flex: 0 0 460px;
-            z-index: 10;
-        }
-        .vis-col {
-            flex: 1;
-            position: sticky;
-            top: 70px;
-            height: calc(100vh - 90px);
-            max-height: 800px;
-            border: 1px solid var(--border-strong);
-            border-radius: 12px;
-            overflow: hidden;
-            background: #ffffff;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Sticky Visual Header */
-        .vis-header {
-            padding: 12px 18px;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 12px;
-            z-index: 500;
-        }
-        .vis-title {
-            font-weight: 700;
-            color: var(--text-heading);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .vis-status-badge {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 4px;
-            background: #eff6ff;
-            color: var(--accent-blue);
-            font-weight: 600;
-            border: 1px solid #bfdbfe;
-        }
-        .cfd-toggle-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #0f172a;
-            color: #38bdf8;
-            border: 1px solid #38bdf8;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2);
-        }
-        .cfd-toggle-btn:hover {
-            background: #1e293b;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
-        }
-        .cfd-toggle-btn.active {
-            background: #0284c7;
-            color: #ffffff;
-            border-color: #38bdf8;
-        }
-        .cfd-pulse {
-            width: 6px;
-            height: 6px;
-            background: #38bdf8;
-            border-radius: 50%;
-            animation: cfdPulseAnim 1.5s infinite;
-        }
-        @keyframes cfdPulseAnim {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1.5); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-
-        /* Leaflet Map Canvas */
-        #map {
-            width: 100%;
-            height: 100%;
-            background: #f8fafc;
-            z-index: 1;
-        }
-
-        /* Dynamic Overlay Panel inside Map */
-        .map-overlay-layer {
-            position: absolute;
-            top: 55px;
-            right: 16px;
-            width: 310px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 14px 16px;
-            z-index: 400;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-        }
-        .overlay-hdr {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 6px;
-        }
-        .overlay-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-family: var(--font-mono);
-        }
-        .overlay-val {
-            font-size: 18px;
-            font-weight: 800;
-            font-family: var(--font-mono);
-            color: var(--text-heading);
-        }
-        .overlay-content {
-            font-size: 12px;
-            color: var(--text-body);
-            line-height: 1.5;
-        }
-
-        /* Story Prose Steps */
-        .step {
-            min-height: 80vh;
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-        }
-        .step:first-child {
-            margin-top: 20px;
-        }
-        .step:last-child {
-            min-height: 60vh;
-            margin-bottom: 20px;
-        }
-        .step-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            transition: all 0.25s ease;
-            width: 100%;
-        }
-        .step.is-active .step-card {
-            border-color: var(--accent-blue);
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.12);
-        }
-        .step-tag {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-            margin-bottom: 8px;
-            display: inline-block;
-        }
-        .step-title {
-            font-family: var(--font-serif);
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-heading);
-            line-height: 1.32;
-            letter-spacing: -0.015em;
-            margin-bottom: 14px;
-        }
-        .step-prose {
-            font-size: 14px;
-            color: var(--text-body);
-            line-height: 1.8;
-            margin-bottom: 14px;
-        }
-        .stat-callout {
-            background: var(--bg-surface);
-            border-left: 3px solid var(--accent-blue);
-            padding: 10px 14px;
-            border-radius: 0 6px 6px 0;
-            font-size: 13px;
-            color: var(--text-heading);
-            line-height: 1.6;
-            margin-top: 14px;
-        }
-
-        /* Interactive Widgets inside Cards */
-        .interactive-widget {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-        }
-
-        /* Deep Dive Technical Appendix Section */
-        section.appendix-section {
-            padding: 60px 0 80px;
-            border-top: 2px solid var(--border-strong);
-            background: #ffffff;
-        }
-        .appendix-header {
-            margin-bottom: 36px;
-        }
-        .appendix-tag {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-blue);
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-        .appendix-title {
-            font-family: var(--font-serif);
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--text-heading);
-            letter-spacing: -0.015em;
-            margin-bottom: 12px;
-        }
-
-        /* Mathematical Formulation Cards & KaTeX */
-        .math-section-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin-top: 16px;
-        }
-        .math-card {
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-        }
-        .math-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-        .math-card-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-heading);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .math-badge {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-        .math-badge-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-        .math-badge-emerald { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-        .math-badge-amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-        .math-formula-box {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 14px 0;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            text-align: center;
-        }
-        .math-formula-box .katex-display {
-            margin: 8px 0;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-        .math-desc {
-            font-size: 14px;
-            color: var(--text-body);
-            line-height: 1.8;
-        }
-        .math-bullet-list {
-            list-style: none;
-            padding: 0;
-            margin: 14px 0 0 0;
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-        .math-bullet-list li {
-            position: relative;
-            padding-left: 18px;
-            margin-bottom: 6px;
-        }
-        .math-bullet-list li::before {
-            content: "•";
-            position: absolute;
-            left: 4px;
-            color: var(--accent-blue);
-            font-weight: bold;
-        }
-
-        /* Table Styling */
-        .table-wrap {
-            overflow-x: auto;
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            margin: 18px 0;
-        }
-        table.clean-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            text-align: left;
-        }
-        table.clean-table th {
-            background: var(--bg-surface);
-            color: var(--text-muted);
-            font-weight: 600;
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border-subtle);
-            font-family: var(--font-mono);
-            font-size: 11px;
-            text-transform: uppercase;
-        }
-        table.clean-table td {
-            padding: 11px 14px;
-            border-bottom: 1px solid var(--border-subtle);
-            color: var(--text-body);
-        }
-        table.clean-table tr:last-child td {
-            border-bottom: none;
-        }
-        table.clean-table td.num {
-            font-family: var(--font-mono);
-            font-weight: 600;
-        }
-
-        /* Retrospective Cards */
-        .retrospective-card {
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-            margin-bottom: 18px;
-        }
-        .retrospective-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .retrospective-tag {
-            font-family: var(--font-mono);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-        .tag-amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-        .tag-indigo { background: #eef2ff; color: #4f46e5; border: 1px solid #c7d2fe; }
-        .tag-emerald { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-
-        /* Footer */
-        footer.pub-footer {
-            padding: 48px 0;
-            background: #ffffff;
-            border-top: 1px solid var(--border-subtle);
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        @media (max-width: 992px) {
-            .metric-strip { grid-template-columns: 1fr 1fr; }
-            .scrolly-container { flex-direction: column; }
-            .story-col { flex: none; width: 100%; }
-            .vis-col { position: relative; top: 0; height: 500px; order: -1; }
-            .step { min-height: auto; margin-bottom: 30px; }
-            .nav-links { display: none; }
-        }
-
-        .method-overview { background:#fff; padding:36px 0; border-bottom:1px solid var(--border-strong); scroll-margin-top:80px; }
-        .method-overview h2 { font-size:26px; color:var(--text-heading); line-height:1.4; margin:4px 0 10px; }
-        .method-path { font-size:14px; color:var(--text-muted); margin-bottom:20px; }
-        .method-cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
-        .method-item { border:1px solid var(--border-subtle); border-radius:8px; padding:20px; background:var(--bg-page); }
-        .method-item small { font-family:var(--font-mono); color:var(--accent-blue); font-size:11px; }
-        .method-item h3 { color:var(--text-heading); font-size:16px; margin:6px 0 10px; }
-        .method-item p { font-size:13px; line-height:1.8; }
-        .method-note { margin-top:18px; font-size:12px; color:var(--text-muted); line-height:1.9; }
-        .method-archive { margin-top:12px; padding:12px 16px; background:#fffbeb; border-left:3px solid var(--accent-amber); font-size:12px; line-height:1.8; }
-        @media(max-width:900px) { .method-cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        @media(max-width:520px) { .method-cards { grid-template-columns:1fr; } .method-overview h2 { font-size:22px; } }
-
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="타슈의 10분 후 재고 확률 예측과 재배치 계획. GCN·포아송·Flow Matching의 역할과 실제 평가 결과.">
+<title>타슈 · 예측에서 재배치까지</title>
+<link rel="stylesheet" href="assets/presentation.css">
+<script src="assets/presentation.js" defer>
+</script>
 </head>
 <body>
-
-    <!-- Sticky Engineering Top Navigation -->
-    <nav class="top-nav">
-        <div class="container nav-inner">
-            <div class="nav-brand">
-                <span class="pulse-dot"></span>
-                <span>Tashu AI Optimization</span>
-                <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono); font-weight:400;">| Data Journalism</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#sec-methods">사용한 방법</a></li>
-                <li><a href="#sec-story">스토리 5대 씬</a></li>
-                <li><a href="#sec-math">수학적 정합성 수식</a></li>
-                <li><a href="#sec-tables">OD 통행 매트릭스</a></li>
-                <li><a href="#sec-manifest">실전 배차 지시서</a></li>
-                <li><a href="#sec-retrospective">한계점 & 회고</a></li>
-            </ul>
-            <a href="https://github.com/sijoon-sung/KT-X-AI-.git" target="_blank" class="nav-git-btn">
-                <span>GitHub (origin/성시준)</span>
-                <span style="font-size:10px;">↗</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Publication Header (The New York Times / Bloomberg Style) -->
-    <header class="pub-header">
-        <div class="container">
-            <span class="kicker">Urban Mobility AI & Investigative Data Journalism</span>
-            <h1 class="headline">911만 건의 궤적: 대전 타슈는 왜 18시에 멈추는가?</h1>
-            <p class="dek">
-                머신러닝의 단순 평균(MSE)이 유발한 결품의 역설, 그리고 비대칭 분위수 손실(Quantile 85%)과 10대 트럭 물리 제약 알고리즘이 밝혀낸 도시 자전거 자율 재배치 해법
-            </p>
-            <div class="byline-block">
-                <span>연구 / 데이터 시각화: <strong>성시준 (KT-X-AI Lab)</strong></span>
-                <span>분석 데이터: <strong>대전교통공사 타슈 9,116,462건 전수 이력</strong></span>
-                <span>기상 관측망: <strong>기상청 1시간 단위 강수·기온 결합</strong></span>
-                <span class="badge-git">Branch: 성시준</span>
-            </div>
-        </div>
-    </header>
-
-    <section id="sec-methods" class="method-overview" aria-labelledby="methods-heading">
-        <div class="container">
-            <span class="kicker">CURRENT DEVELOPMENT · 예측과 운영</span>
-            <h2 id="methods-heading">예측에서 재배치까지, 이렇게 연결합니다</h2>
-            <p class="method-path">과거 대여·반납 이력 학습 → 현재 API 관측 → 10분 뒤 재고 예측 → 수거·배치 수량과 방문 순서 → 다음 관측으로 예측 확인</p>
-            <div class="method-cards">
-                <article class="method-item"><small>01 · STATION RELATIONS</small><h3>GCN · 대여소 관계</h3><p>과거 이동으로 연결된 대여소의 패턴을 함께 읽습니다. 시간·날씨 정보와 결합해 대여와 반납을 예측합니다.</p></article>
-                <article class="method-item"><small>02 · COUNT BASELINE</small><h3>포아송 분포 · 거래 건수</h3><p>일정 시간의 대여·반납 건수를 확률로 표현하는 기준 모형입니다. 현재 재고에 예상 반납을 더하고 대여를 빼 미래 재고로 연결합니다.</p></article>
-                <article class="method-item"><small>03 · FUTURE SCENARIOS</small><h3>Flow Matching · 불확실성</h3><p>GCN의 거래 예측을 조건으로 여러 대여·반납 시나리오를 만듭니다. 재고의 예측 범위와 0대가 될 가능성을 계획에 전달합니다.</p></article>
-                <article class="method-item"><small>04 · REBALANCING</small><h3>최적화 · 수량과 동선</h3><p>여유·부족 대여소를 자동으로 찾고 적재량, 도로 거리, 남은 예측 시간 안에서 수거·배치 순서를 계산합니다. 공급지 보호와 0대 대여소를 함께 고려합니다.</p></article>
-            </div>
-            <p class="method-note">학습은 다운로드한 과거 이력으로 수행합니다. 재고 API는 고정 모델의 실시간 예측 입력과 별도 미래 평가에 사용하며 학습·튜닝에는 쓰지 않습니다. Flow Matching의 추가 성능 이득과 실제 배차 효과는 아직 확인되지 않았습니다. 차량·주차 조건은 가정이며 계획은 운영 검토용입니다.<br>방법 원문: <a href="https://arxiv.org/abs/1609.02907">GCN</a> · <a href="https://arxiv.org/abs/2210.02747">Flow Matching</a> · <a href="https://github.com/sijoon-sung/KT-X-AI-/pull/26">현재 재배치 구현</a></p>
-            <p class="method-archive"><strong>기존 시나리오 안내</strong> 아래의 10대 트럭·결품 감소·배차 완료 수치와 지도는 이전 기획의 시나리오입니다. 현재 파이프라인의 검증된 운영 성과로 해석하지 않습니다.</p>
-        </div>
-    </section>
-
-
-    <!-- Bloomberg Style Tabular Metrics Strip -->
-    <div class="metric-strip container" style="max-width:100%; padding:0;">
-        <div class="metric-cell">
-            <div class="metric-label">전수 분석 통행량</div>
-            <div class="metric-val" style="color:var(--accent-blue);">9,116,462</div>
-            <div class="metric-sub">1개년 1,200개 대여소 전수</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-label">18:00 퇴근 피크</div>
-            <div class="metric-val" style="color:var(--accent-rose);">627,088</div>
-            <div class="metric-sub">출근(39.3만) 대비 1.59배 폭증</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-label">생활권 슈퍼스테이션</div>
-            <div class="metric-val" style="color:var(--accent-emerald);">460 거점</div>
-            <div class="metric-sub">300m 보행 반경 공간 집약</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-label">피크 결품 방어율</div>
-            <div class="metric-val" style="color:var(--accent-blue);">-65.0%</div>
-            <div class="metric-sub">결품률 38.0% ➔ 13.3% 급감</div>
-        </div>
-        <div class="metric-cell">
-            <div class="metric-label">트럭 10대 실전 배차</div>
-            <div class="metric-val" style="color:var(--accent-amber);">48.5 분</div>
-            <div class="metric-sub">60분 골든타임 이내 완결</div>
-        </div>
-    </div>
-
-    <!-- Scrollytelling Stage: The 5 Scenes -->
-    <div id="sec-story" class="scrolly-container">
-        
-        <!-- Left Story Prose Column -->
-        <div class="story-col">
-
-            <!-- Scene 1: 도시의 호흡 (Intro) -->
-            <div class="step" data-step="1">
-                <div class="step-card">
-                    <span class="step-tag">SCENE 01 / URBAN CIRCULATION</span>
-                    <h2 class="step-title">대전의 하루는 911만 번의 이동으로 완성됩니다</h2>
-                    <p class="step-prose">
-                        "대전의 하루는 911만 번의 이동으로 완성됩니다. 하지만 이 거대한 흐름 속에는 치명적인 동맥경화가 숨어 있습니다."
-                    </p>
-                    <p class="step-prose">
-                        2023년 한 해 동안 대전 시민들이 타슈를 타고 이동한 9,116,462건의 전수 궤적을 분석하면, 자전거는 도시 전체에 무작위로 흩어지는 것이 아니라 소수의 <strong>고밀도 생활권 간선 축</strong>에 압도적으로 집중됩니다.
-                    </p>
-                    <p class="step-prose">
-                        전체 통행의 51.2%가 1km 이내 초단거리(보행 대체)이며, 특히 카이스트 학내 셔틀(연 7,205건)과 충남대-유성온천역 환승 축(연 5,689건), 둔산 행정타운 연결로 등 상위 10대 핵심 통행 회랑이 도시의 혈관 역할을 수행하고 있습니다.
-                    </p>
-                    <div class="stat-callout">
-                        <strong>데이터 시각화:</strong> 우측 지도에 대전 전역의 실제 위경도 기반 상위 10대 이동 회랑이 푸른색 궤적으로 부드럽게 펼쳐집니다.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scene 2: 18:00 위기의 시간 (The Problem) -->
-            <div class="step" data-step="2">
-                <div class="step-card">
-                    <span class="step-tag">SCENE 02 / 18:00 COMMUTE CRISIS</span>
-                    <h2 class="step-title">18:00, 위기의 시간: 1시간 만에 쏟아지는 결품 비상</h2>
-                    <p class="step-prose">
-                        "오후 6시 퇴근 시간. 불과 1시간 만에 특정 지역의 수요가 1.5배 폭증합니다. 붉게 물든 거점들은 자전거가 0대가 되어버린 '결품' 상태를 의미합니다. 시민들의 발이 묶이는 시간입니다."
-                    </p>
-                    <p class="step-prose">
-                        타슈 통행량은 18시에 <strong>627,088건</strong>으로 출근 피크인 08시(393,214건) 대비 1.59배 폭증합니다. 퇴근 인파가 지하철역과 주요 상권으로 쏟아져 나오면서, 갈마동 성원빌라, 유성온천역, 소제동 등 주요 주거·환승 거점 거치대가 0대로 완전 품절됩니다.
-                    </p>
-                    <p class="step-prose" style="font-size:13.5px; background:rgba(239, 246, 255, 0.6); padding:10px 12px; border-radius:6px; border:1px solid #bfdbfe;">
-                        🌊 <strong>도시 지형과 중력 유동:</strong> 대전 3차원 표고 GIS(28m~150m) 분석 결과, 자전거는 점성 유체처럼 고지대(카이스트·대덕대·송림마을)에서 평지(유성온천·시청역)로만 쏟아져 내리며(하강 통행이 오르막의 최대 2.0배), 퇴근길에는 오르막을 거슬러 올라가지 않습니다. 이 '중력 비대칭성'이 매일 저녁 환승 거점의 완전 고갈을 가속합니다.
-                    </p>
-                    <div class="interactive-widget">
-                        <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:6px; font-family:var(--font-mono);">
-                            24시간 대전시 요일별 시간대 통행량 (M-CURVE)
-                        </div>
-                        <svg viewBox="0 0 380 95" width="100%" height="95" style="overflow:visible; display:block;">\n<rect x="10" y="59" width="11" height="11" rx="2" fill="#cbd5e1"><title>0시: 120,888건</title></rect>\n<text x="15.5" y="85" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">00</text>\n<rect x="25" y="64" width="11" height="6" rx="2" fill="#cbd5e1"><title>1시: 70,051건</title></rect>\n<rect x="40" y="66" width="11" height="4" rx="2" fill="#cbd5e1"><title>2시: 42,652건</title></rect>\n<rect x="55" y="68" width="11" height="2" rx="2" fill="#cbd5e1"><title>3시: 27,615건</title></rect>\n<rect x="70" y="68" width="11" height="2" rx="2" fill="#cbd5e1"><title>4시: 27,681건</title></rect>\n<rect x="85" y="64" width="11" height="6" rx="2" fill="#cbd5e1"><title>5시: 70,727건</title></rect>\n<rect x="100" y="58" width="11" height="12" rx="2" fill="#cbd5e1"><title>6시: 130,541건</title></rect>\n<rect x="115" y="42" width="11" height="28" rx="2" fill="#cbd5e1"><title>7시: 285,595건</title></rect>\n<rect x="130" y="32" width="11" height="38" rx="2" fill="#2563eb"><title>8시: 393,736건</title></rect>\n<text x="135.5" y="85" fill="#2563eb" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">08</text>\n<rect x="145" y="47" width="11" height="23" rx="2" fill="#cbd5e1"><title>9시: 240,046건</title></rect>\n<rect x="160" y="48" width="11" height="22" rx="2" fill="#cbd5e1"><title>10시: 224,037건</title></rect>\n<rect x="175" y="43" width="11" height="27" rx="2" fill="#cbd5e1"><title>11시: 275,644건</title></rect>\n<rect x="190" y="40" width="11" height="30" rx="2" fill="#cbd5e1"><title>12시: 312,809건</title></rect>\n<text x="195.5" y="85" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">12</text>\n<rect x="205" y="41" width="11" height="29" rx="2" fill="#cbd5e1"><title>13시: 296,865건</title></rect>\n<rect x="220" y="39" width="11" height="31" rx="2" fill="#cbd5e1"><title>14시: 316,105건</title></rect>\n<rect x="235" y="34" width="11" height="36" rx="2" fill="#cbd5e1"><title>15시: 366,882건</title></rect>\n<rect x="250" y="26" width="11" height="44" rx="2" fill="#cbd5e1"><title>16시: 451,986건</title></rect>\n<rect x="265" y="14" width="11" height="56" rx="2" fill="#cbd5e1"><title>17시: 567,166건</title></rect>\n<rect x="280" y="8" width="11" height="62" rx="2" fill="#e11d48"><title>18시: 627,088건</title></rect>\n<text x="285.5" y="85" fill="#e11d48" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">18</text>\n<rect x="295" y="25" width="11" height="45" rx="2" fill="#cbd5e1"><title>19시: 455,980건</title></rect>\n<rect x="310" y="29" width="11" height="41" rx="2" fill="#cbd5e1"><title>20시: 416,133건</title></rect>\n<rect x="325" y="32" width="11" height="38" rx="2" fill="#cbd5e1"><title>21시: 390,479건</title></rect>\n<rect x="340" y="40" width="11" height="30" rx="2" fill="#cbd5e1"><title>22시: 312,592건</title></rect>\n<rect x="355" y="47" width="11" height="23" rx="2" fill="#cbd5e1"><title>23시: 241,605건</title></rect>\n<text x="360.5" y="85" fill="#64748b" font-size="9" text-anchor="middle" font-family="monospace" font-weight="600">23</text>\n</svg>
-                    </div>
-                    <div class="stat-callout" style="border-left-color: var(--accent-rose);">
-                        <strong>시각화 반응:</strong> 지도가 도심 품절 거점으로 줌인되며, 자전거가 0대가 된 상습 결품 대여소들이 붉은색 펄스 핀으로 깜빡입니다.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scene 3: 왜 기존 인공지능은 실패했는가? (The Insight) -->
-            <div class="step" data-step="3">
-                <div class="step-card">
-                    <span class="step-tag">SCENE 03 / ASYMMETRIC LOSS INSIGHT</span>
-                    <h2 class="step-title">왜 기존 인공지능은 실패했는가? 단순 평균(MSE)의 함정</h2>
-                    <p class="step-prose">
-                        "기존의 예측 모델(MSE 기반)은 '남는 것'과 '모자란 것'을 똑같은 1의 오차로 취급합니다. 하지만 현실에서 남는 자전거는 약간의 공간 낭비일 뿐이지만, 모자란 자전거는 시민의 민원과 이동 포기로 이어집니다."
-                    </p>
-                    <p class="step-prose">
-                        일반적인 머신러닝의 대칭 손실(MSE)은 결품의 사회적 비용을 반영하지 못하고 무난한 평균값에 안주합니다. 본 연구팀은 결품 오차에 <strong>5.67배 높은 비대칭 벌점</strong>을 부과하는 <strong>Quantile 85% 비대칭 손실(Pinball Loss)</strong> 모델을 도입하여, 피크 1시간 전 안전 재고(+3.6대)를 선제 확보하도록 유도했습니다.
-                    </p>
-
-                    <!-- Interactive Quantile Simulator -->
-                    <div class="interactive-widget">
-                        <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
-                            <span style="color:var(--text-muted); font-weight:600;">목표 분위수 ($	au$):</span>
-                            <strong id="qValDisplay" style="color:var(--accent-blue); font-family:var(--font-mono); font-size:14px;">0.85</strong>
-                        </div>
-                        <input type="range" id="qSlider" min="0.50" max="0.95" step="0.05" value="0.85" style="width:100%; accent-color:var(--accent-blue); cursor:pointer;" oninput="updateQLossSim(parseFloat(this.value))">
-                        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); font-family:var(--font-mono); margin-top:4px;">
-                            <span>0.50 (대칭 MSE)</span>
-                            <span style="color:var(--accent-blue); font-weight:700;">0.85 (최적 모델)</span>
-                            <span>0.95 (초보수적)</span>
-                        </div>
-                        <div style="margin-top:12px; font-size:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">결품 벌점 배수</div>
-                                <div id="qRatioDisplay" style="color:var(--accent-amber); font-weight:800; font-family:var(--font-mono); font-size:15px;">5.67 배</div>
-                            </div>
-                            <div style="background:#ffffff; padding:10px; border-radius:6px; border:1px solid var(--border-subtle);">
-                                <div style="color:var(--text-muted); font-size:10px; font-weight:600;">확보 안전 재고</div>
-                                <div id="qBufferDisplay" style="color:var(--accent-emerald); font-weight:800; font-family:var(--font-mono); font-size:15px;">+3.6 대</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-callout" style="border-left-color: var(--accent-blue);">
-                        <strong>인터랙션:</strong> 상단 슬라이더를 조작해 목표 분위수에 따른 결품 벌점 가중치와 안전 재고의 동적 변화를 확인해 보세요.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scene 4: 물리적 한계를 넘는 최적화 (The Solution) -->
-            <div class="step" data-step="4">
-                <div class="step-card">
-                    <span class="step-tag">SCENE 04 / 10-TRUCK PHYSICAL FLEET</span>
-                    <h2 class="step-title">물리적 한계를 넘는 최적화: 트럭 10대의 48.5분 실전 배차</h2>
-                    <p class="step-prose">
-                        "예측이 완벽해도 현실의 벽이 남습니다. 우리에게 주어진 시간은 단 60분, 동원할 수 있는 1톤 트럭은 10대, 트럭당 적재량은 18대뿐입니다. 이 혹독한 제약 조건 속에서 AI는 가장 효율적인 구출 경로를 찾아야 합니다."
-                    </p>
-                    <p class="step-prose">
-                        도심 실주행 속도(22km/h), 상하차 소요 시간(대당 40초), 그리고 외곽 주거지 잉여 거점(노은3동, 하기동 등)에서 중심 품절 거점(갈마동, 유성온천역, 소제동 등)으로 이어지는 <strong>우선순위 차량 경로(VRP)</strong>를 최적화했습니다.
-                    </p>
-                    <p class="step-prose" style="font-size:13.5px; background:rgba(254, 243, 199, 0.5); padding:10px 12px; border-radius:6px; border:1px solid #fde68a;">
-                        ❄️ <strong>열역학적 냉각 펌프:</strong> 트럭 10대의 재배치는 단순 물류가 아닙니다. 외력이 없으면 자전거가 외곽/저지대 싱크에 갇혀 도시 엔트로피가 극대화(시스템 사망)되는 열역학 제2법칙에 저항하여, 도시 시스템에 외부 음(-)의 엔트로피를 불어넣는 지능형 가역 복구 공정입니다.
-                    </p>
-                    <div class="stat-callout" style="border-left-color: var(--accent-amber);">
-                        <strong>실증 성과:</strong> 17:00부터 17:48.5분까지 단 48.5분 만에 176대의 자전거가 정확히 재배치되어, 퇴근 60분 골든타임 내에 Top 20 거점 결품률을 38.0%에서 13.3%로 65.0% 차단했습니다.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scene 5: 결과 및 결론 (Conclusion) -->
-            <div class="step" data-step="5">
-                <div class="step-card">
-                    <span class="step-tag">SCENE 05 / RESTORATION & 2028 TRAM</span>
-                    <h2 class="step-title">결품률 65% 차단, 그리고 2028 대전 트램과의 상생</h2>
-                    <p class="step-prose">
-                        "이 최적화 알고리즘을 통해 18시 피크타임의 결품률을 65% 낮추고, 176대의 자전거를 단 48.5분 만에 재배치하는 시나리오를 완성했습니다. 이것이 데이터가 도시의 맥박을 뛰게 하는 방법입니다."
-                    </p>
-                    <p class="step-prose">
-                        나아가 대전시가 2028년 개통 예정인 총연장 38.8km, 45개 정거장의 <strong>도시철도 2호선 무가선 트램 순환선</strong>과 타슈의 환승 시너지를 검증했습니다. 트램 500m 영향권 타슈 대여소는 총 357개소로, 연간 환산 <strong>231만 건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다.
-                    </p>
-                    <div class="stat-callout" style="border-left-color: var(--accent-indigo);">
-                        <strong>미래 비전:</strong> 우측 지도에 대전시를 순환하는 38.8km 트램 2호선 궤도가 뚜렷한 주황색 순환선으로 펼쳐지며, 357개 연계 타슈 스테이션과의 환승 네트워크를 조망합니다.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Right Sticky Visual Column -->
-        <div class="vis-col">
-            <div class="vis-header">
-                <div class="vis-title">
-                    <span id="visIcon">📍</span>
-                    <span id="visTitleText">대전시 전역 10대 핵심 생활권 이동 회랑</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <button id="btnToggleCFD" class="cfd-toggle-btn" onclick="toggleCFDFlowLayer()">
-                        <span class="cfd-pulse"></span> 🌊 CFD 유동 ON
-                    </button>
-                    <div class="vis-status-badge" id="visBadge">SCENE 01 : 9.11M OD FLOWS</div>
-                </div>
-            </div>
-
-            <!-- Leaflet Map Canvas -->
-            <div id="map"></div>
-
-            <!-- Floating CFD Turbo Spectrum Legend -->
-            <div id="cfdLegendBadge" style="display:none; position:absolute; bottom:18px; right:16px; background:rgba(15,23,42,0.92); color:#f8fafc; padding:10px 14px; border-radius:6px; font-size:11px; font-family:var(--font-mono); border:1px solid #38bdf8; z-index:450; box-shadow:0 4px 20px rgba(0,0,0,0.35); pointer-events:none;">
-                <div style="font-weight:700; margin-bottom:5px; display:flex; justify-content:space-between; gap:12px;">
-                    <span>🌊 Navier-Stokes CFD 스펙트럼</span>
-                    <span style="color:#38bdf8;">8.63M Trips</span>
-                </div>
-                <div style="height:8px; border-radius:3px; background:linear-gradient(to right, #30123b, #4662d7, #28bbec, #35f58c, #a2fc3c, #fb8022, #b82202); margin-bottom:4px;"></div>
-                <div style="display:flex; justify-content:space-between; font-size:10px; color:#94a3b8;">
-                    <span>3km/h (완류)</span>
-                    <span>10km/h (간선)</span>
-                    <span>20km/h (흡입 싱크)</span>
-                </div>
-            </div>
-
-            <!-- Floating Overlay HUD -->
-            <div class="map-overlay-layer">
-                <div class="overlay-hdr">
-                    <span class="overlay-title" id="overlayTitle">연간 총 분석 통행량</span>
-                    <span class="overlay-val" id="overlayValue">9,116,462 건</span>
-                </div>
-                <div class="overlay-content" id="overlayContent">
-                    대전시 전역의 911만 건 이동 중 51.2%가 1km 이내 초단거리 보행 대체 통행으로 확인되었습니다.
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Deep Dive Technical Appendix Section -->
-    <section id="sec-math" class="appendix-section">
-        <div class="container">
-            <div class="appendix-header">
-                <span class="appendix-tag">ENGINEERING APPENDIX / MATHEMATICAL RIGOR</span>
-                <h2 class="appendix-title">알고리즘 수학적 정식화 및 엔지니어링 증명 체계</h2>
-                <p style="font-size:16px; color:var(--text-muted); line-height:1.7; max-width:880px;">
-                    스토리텔링의 배경을 이루는 비대칭 손실 함수, 포아송 희소성 극복 우도 함수, 그리고 차량 경로 문제(VRP) 정수계획식의 엄밀한 수학적 정의입니다.
-                </p>
-            </div>
-
-            <!-- KaTeX Mathematical Formulations Cards -->
-            
-<div class="math-section-grid">
-    <!-- Card 1: Quantile Loss -->
-    <div class="math-card">
-        <div class="math-card-header">
-            <div class="math-card-title">
-                <span>01. 비대칭 분위수 손실 함수 (Asymmetric Quantile Pinball Loss)</span>
-            </div>
-            <span class="math-badge math-badge-blue">OBJECTIVE FUNCTION</span>
-        </div>
-        <p class="math-desc">
-            실제 수요 $y$와 모델 예측치 $\hat{y}$ 사이의 잔차 오차 $e = y - \hat{y}$에 대해, 시민의 결품 대기(과소 예측)와 단순 거치 잔여(과대 예측)의 사회적 비용 차이를 비대칭 가중치 $\tau = 0.85$로 수식화했습니다:
-        </p>
-        <div class="math-formula-box">
-            $$\mathcal{L}_{0.85}(y, \hat{y}) = \begin{cases} 0.85 \cdot (y - \hat{y}) & \text{if } y \ge \hat{y} \quad (\text{과소 예측: 결품 발생, 시민 헛걸음}) \\[8pt] (1 - 0.85) \cdot (\hat{y} - y) = 0.15 \cdot (\hat{y} - y) & \text{if } y < \hat{y} \quad (\text{과대 예측: 단순 유휴 잉여}) \end{cases}$$
-        </div>
-        <div class="math-formula-box">
-            $$\text{Asymmetric Penalty Ratio} = \frac{\tau}{1 - \tau} = \frac{0.85}{0.15} \approx \mathbf{5.67배}$$
-        </div>
-        <ul class="math-bullet-list">
-            <li><strong>과소 예측 벌점 ($y \ge \hat{y}$, 대여 거점 품절):</strong> 페널티 가중치 $\tau = 0.85$</li>
-            <li><strong>과대 예측 벌점 ($y < \hat{y}$, 단순 유휴 거치):</strong> 페널티 가중치 $1 - \tau = 0.15$</li>
-            <li><strong>비대칭 패널티 효과:</strong> 동일한 1대의 예측 오차라도 "자전거가 모자라 시민이 헛걸음하는 결품 상황"을 <strong>5.67배 더 엄격하게 회피</strong>하도록 유도하여, 모델 스스로 피크 1시간 전 <strong>+3.6대의 선제적 안전 재고(Safety Stock Buffer)</strong>를 축적하도록 최적화되었습니다.</li>
-        </ul>
-    </div>
-
-    <!-- Card 2: Poisson Demand & Super-Station Clustering -->
-    <div class="math-card">
-        <div class="math-card-header">
-            <div class="math-card-title">
-                <span>02. 포아송 영-대여 우도 및 공간 군집화 (Poisson Sparsity & Super-Station Likelihood)</span>
-            </div>
-            <span class="math-badge math-badge-emerald">DEMAND SPARSITY</span>
-        </div>
-        <p class="math-desc">
-            대전시 1,200개 개별 대여소의 시간당 대여량 $N_i(t)$는 대부분 0~1건에 수렴하는 극단적 포아송 희소성을 보이며, 특정 시구간 $\Delta t$ 동안 대여가 발생하지 않을 확률(영-대여 우도)은 다음과 같습니다:
-        </p>
-        <div class="math-formula-box">
-            $$P(N_i(t) = k) = \frac{\lambda_i(t)^k e^{-\lambda_i(t)}}{k!}, \qquad P\big(N_i(\Delta t) = 0 \mid \lambda_i\big) = \exp\big(-\lambda_i(t) \cdot \Delta t\big)$$
-        </div>
-        <p class="math-desc">
-            개별 대여소의 희소 강도($\lambda_i < 0.5$)로 인한 예측 불안정(초기 $R^2 = 0.72$)을 해결하기 위해, 보행 3분 반경($\le 300\text{m}$) 내 대여소를 460개 생활권 Super-Station 군집 $\mathcal{C}_k$로 집계했습니다:
-        </p>
-        <div class="math-formula-box">
-            $$\Lambda_{\mathcal{C}_k}(t) = \sum_{i \in \mathcal{C}_k} \lambda_i(t) \ge 5.0, \qquad \mathcal{C}_k = \big\{ i \;\big|\; \text{dist}(i, \text{centroid}_k) \le 300\text{m} \big\}$$
-        </div>
-        <ul class="math-bullet-list">
-            <li><strong>분산 안정화:</strong> 군집 집계를 통해 포아송 영-대여 과산포 현상을 상쇄하고 기저 모빌리티 통행 강도를 신뢰성 있게 확보</li>
-            <li><strong>예측력 비약:</strong> 460개 Super-Station 기반 시계열 모델 도입 후 결정계수 <strong>$R^2 = 0.88$ 달성</strong> (0.72 대비 +22.2% 정밀도 향상)</li>
-        </ul>
-    </div>
-
-    <!-- Card 3: VRP Constraints -->
-    <div class="math-card">
-        <div class="math-card-header">
-            <div class="math-card-title">
-                <span>03. 60분 골든타임 재배치 차량 경로 최적화 (Physical Rebalancing VRP Constraints)</span>
-            </div>
-            <span class="math-badge math-badge-amber">PHYSICAL CONSTRAINTS</span>
-        </div>
-        <p class="math-desc">
-            현업의 실질적 제약 조건(트럭 10대, 적재 18대, 퇴근 60분 골든타임)을 정수계획법(MILP) 기반 차량 경로 문제(VRP) 제약식 체계로 구성했습니다:
-        </p>
-        <div class="math-formula-box">
-            $$\min_{x, q} \; \sum_{k \in \mathcal{K}} \sum_{(i,j) \in \mathcal{E}} d_{ij} \cdot x_{ijk}$$
-        </div>
-        <div class="math-formula-box">
-            $$\text{s.t.} \quad T_k = \sum_{(i,j) \in \mathcal{E}} \left( \frac{d_{ij}}{v_{\text{urban}}} x_{ijk} \right) + \sum_{i \in \mathcal{V}} \tau_{\text{load}} \cdot |q_{ik}| \le T_{\max} = 60 \text{ min} \quad (\forall k \in \mathcal{K})$$
-        </div>
-        <div class="math-formula-box">
-            $$0 \le S_i(t) + \sum_{k \in \mathcal{K}} q_{ik} \le C_i, \qquad \sum_{i \in \mathcal{V}} |q_{ik}| \le 2 \cdot Q_{\text{truck}} = 36 \text{ 대} \quad (\forall k \in \mathcal{K})$$
-        </div>
-        <ul class="math-bullet-list">
-            <li><strong>물리 파라미터 실측값:</strong> 도심 주행 속도 $v_{\text{urban}} = 22 \text{ km/h}$, 상·하차 소요 시간 $\tau_{\text{load}} = 40 \text{ sec/대}$, 트럭 용량 $Q_{\text{truck}} = 18 \text{ 대}$, 트럭 대수 $|\mathcal{K}| = 10 \text{ 대}$</li>
-            <li><strong>외곽 $\rightarrow$ 중심 연계 최적화:</strong> 노은3동·송림마을 등 잉여 216대 회수 후, 갈마동·유성온천·소제동 등 품절 거점 176대 공급</li>
-            <li><strong>실전 배차 검증:</strong> 트럭 10대 동시 투입 시 <strong>실소요 시간 48.5분</strong>으로 60분 이내 전원 임무 완결, 피크 시간대 결품률 <strong>38.0% $\rightarrow$ 13.3%</strong> 대폭 차단(65.0% 개선)</li>
-        </ul>
-    </div>
-
-    <!-- Card 4: Urban Gravity Well & Thermodynamic Entropy -->
-    <div class="math-card">
-        <div class="math-card-header">
-            <div class="math-card-title">
-                <span>04. 도시 엔트로피와 물리 중력 포텐셜 유동 (Urban Gravity Well & Thermodynamic Entropy)</span>
-            </div>
-            <span class="math-badge" style="background:#f5f3ff; color:#7c3aed; border:1px solid #ddd6fe;">PHYSICS-INFORMED MOBILITY</span>
-        </div>
-        <p class="math-desc">
-            "자전거는 점성 유체(Fluid)이며, 중력장을 따라 아래로만 흐른다." 대전시 3차원 표고 GIS 데이터(<code>elevation_nodes.json</code>)와 911만 건의 통행 궤적을 결합하여, 도시 공간을 <strong>'중력 포텐셜 장(Urban Potential Field)'</strong>으로 정식화했습니다:
-        </p>
-        <div class="math-formula-box">
-            $$\Phi(\mathbf{x}) = g \cdot h(\mathbf{x}) - \sum_{k \in \mathcal{T}} \frac{w_k}{\|\mathbf{x} - \mathbf{c}_k\|^\gamma}, \qquad \mathbf{J}(\mathbf{x}, t) = -\mu \cdot \nabla \Phi(\mathbf{x})$$
-        </div>
-        <div class="math-formula-box">
-            $$\frac{\partial \rho_i(t)}{\partial t} + \nabla \cdot \mathbf{J}_i(t) = \sigma_i(t) - \kappa_i(t), \qquad S(t) = -\sum_{i=1}^N p_i(t) \ln p_i(t)$$
-        </div>
-        <div class="math-formula-box">
-            $$\left( \frac{dS}{dt} \right)_{\text{natural}} > 0 \quad (\text{자연 방치 시 비가역적 엔트로피 극대화}), \qquad \Delta S_{\text{truck}} < 0 \quad (\text{외부 음의 엔트로피 주입})$$
-        </div>
-
-        <!-- Navier-Stokes CFD Animated Fluid Simulation -->
-        <div style="margin: 24px 0 16px 0; text-align: center; background: #0b0f19; border-radius: 8px; padding: 12px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
-            <div style="font-size: 11px; font-weight: 700; color: #38bdf8; font-family: var(--font-mono); margin-bottom: 8px; letter-spacing: 0.05em;">
-                LIVE CFD PARTICLE STREAMLINE ANIMATION (WINDY / EARTH.NULLSCHOOL STYLE)
-            </div>
-            <img src="tashu_navier_stokes_animated.gif" alt="대전 타슈 863만 건 나비에-스토크스 전산유체역학(CFD) 입자 유동 애니메이션" style="max-width: 100%; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
-            <div style="font-size: 12px; color: #94a3b8; margin-top: 8px; font-family: var(--font-mono);">
-                [그림 4-1] 전산유체역학(CFD) 863만 건 입자 유동 애니메이션: 고지대(카이스트) 분출 ➔ 유성온천역/시청역 거대 흡입 싱크 수렴 (속도 스펙트럼 매핑)
-            </div>
-        </div>
-
-        <!-- Navier-Stokes CFD Spectral Master Map -->
-        <div style="margin: 24px 0 16px 0; text-align: center;">
-            <img src="tashu_cfd_spectral_map.png" alt="대전 타슈 863만 건 나비에-스토크스 유체 유선장 및 모멘텀 스펙트럼 고해상도 지도" style="max-width: 100%; border-radius: 8px; border: 1px solid #1e293b; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono);">
-                [그림 4-2] 전산유체역학(CFD) Turbo 스펙트럼 모멘텀 플럭스 및 나비에-스토크스 유선장 (Esri 무워터마크 베이스맵 중첩)
-            </div>
-        </div>
-
-        <!-- Urban Gravity Well Infographic -->
-        <div style="margin: 20px 0; text-align: center;">
-            <img src="urban_gravity_well_analysis.png" alt="대전 타슈 도시 중력 포텐셜 유동 및 지형 비대칭성 실증 인포그래픽" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border-subtle); box-shadow: 0 4px 16px rgba(0,0,0,0.06);">
-            <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; font-family: var(--font-mono);">
-                [그림 4-3] 대전시 3차원 표고 GIS(28m~150m)와 863만 건 통행 결합: 중력장 하강 쏠림(r = +0.220) 및 5대 일방통행 회랑 실증 인포그래픽
-            </div>
-        </div>
-
-        <ul class="math-bullet-list">
-            <li><strong>중력 비대칭성 실측 검증:</strong> 대전 전역 1,424개 대여소 표고(28m ~ 150m) 전수 분석 결과, 고도 $h$와 자전거 순유출량(Net Drain) 간 상관계수 <strong>$r = +0.220$</strong> 성립 (고도가 높을수록 자전거가 자연 방출되어 바닥남).</li>
-            <li><strong>비가역적 중력 하강 회랑:</strong> 장동 대덕대 ➔ 신성동 ($\Delta h = -25\text{m}$) 하강 1,400건 vs 역상승 701건으로 <strong>2.0배 일방통행 쏠림</strong> 확인. 카이스트 학사식당 ➔ 서쪽 쪽문 ($\Delta h = -18\text{m}$) 역시 하강 5,725건으로 극단적 편향 발생.</li>
-            <li><strong>물리학적 재정의:</strong> 아무런 외력이 없으면 자전거는 저지대와 외곽 블랙홀로 쏠려 도시 시스템의 공간 엔트로피가 극대화(시스템 사망)됩니다. 따라서 트럭 10대의 재배치는 단순 물류가 아니라, <strong>"열역학 제2법칙에 저항하여 도시 시스템에 음(-)의 엔트로피를 불어넣는 지능형 가역 냉각 펌프"</strong>로 엄밀히 규명됩니다.</li>
-        </ul>
-    </div>
+<a class="skip" href="#main">본문으로 이동</a>
+<header>
+<a class="brand" href="#overview">
+<span>↗</span> 타슈 <small>Forecast & Dispatch</small>
+</a>
+<nav aria-label="주 메뉴">
+<a href="#sec-methods">기술</a>
+<a href="#results">성능</a>
+<a href="#dispatch">재배치</a>
+<a href="#transport">교통 연계</a>
+</nav>
+<button id="present" aria-pressed="false">발표 모드 ↗</button>
+</header>
+<main id="main">
+<section id="overview" class="hero slide" data-title="문제와 목표">
+  <div>
+<p class="eyebrow">DAEJEON · SHARED MOBILITY</p>
+<span class="pill">예측·재배치 연결 시제품</span>
+<h1>지금 몇 대에서,<br>
+<em>다음에 어디로.</em>
+</h1>
+<p class="lead">10분 후 자전거 재고의 불확실성을 예측하고,<br>어디에 몇 대를 어떤 순서로 옮길지 계산합니다.</p>
+<div class="actions">
+<a class="button primary" href="#results">실제 평가 보기 ↓</a>
+<a href="#dispatch">재배치 결과 보기 ↗</a>
 </div>
-
-
-            <!-- Real OD Flows Table -->
-            <div id="sec-tables" style="margin-top:56px;">
-                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">911만 건 이동 데이터 기반 대전시 최다 빈도 통행 회랑 Top 8</h3>
-                <div class="table-wrap">
-                    <table class="clean-table">
-                        <thead>
-                            <tr>
-                                <th>순위</th>
-                                <th>출발 대여소</th>
-                                <th>도착 대여소</th>
-                                <th class="num">연간 통행량</th>
-                                <th class="num">평균 거리</th>
-                                <th class="num">평균 소요</th>
-                                <th>통행 성격 및 라스트마일 분석</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1위</td>
-                                <td><strong>카이스트 본원 (창의학습관)</strong></td>
-                                <td><strong>카이스트 정보전자동</strong></td>
-                                <td class="num" style="color:var(--accent-blue);">7,205 건</td>
-                                <td class="num">0.68 km</td>
-                                <td class="num">11.6 분</td>
-                                <td>캠퍼스 내부 주요 건물 간 셔틀 대체 통행</td>
-                            </tr>
-                            <tr>
-                                <td>2위</td>
-                                <td><strong>충남대 기초교양관</strong></td>
-                                <td><strong>충남대 도서관 앞</strong></td>
-                                <td class="num" style="color:var(--accent-blue);">6,488 건</td>
-                                <td class="num">0.52 km</td>
-                                <td class="num">8.2 분</td>
-                                <td>강의실 이동 및 학생 일상 라스트마일</td>
-                            </tr>
-                            <tr>
-                                <td>3위</td>
-                                <td><strong>유성온천역 4번출구</strong></td>
-                                <td><strong>유성온천역 6번출구</strong></td>
-                                <td class="num" style="color:var(--accent-blue);">5,689 건</td>
-                                <td class="num">0.14 km</td>
-                                <td class="num">4.5 분</td>
-                                <td>도시철도 1호선 교차점 단거리 환승 통행</td>
-                            </tr>
-                            <tr>
-                                <td>4위</td>
-                                <td><strong>봉명동 온천교 입구</strong></td>
-                                <td><strong>유성온천역 6번출구</strong></td>
-                                <td class="num">5,412 건</td>
-                                <td class="num">0.42 km</td>
-                                <td class="num">3.8 분</td>
-                                <td>주거지 ↔ 도시철도 1호선 출퇴근 연계</td>
-                            </tr>
-                            <tr>
-                                <td>5위</td>
-                                <td><strong>카이스트 정보전자동</strong></td>
-                                <td><strong>카이스트 북측 기숙사</strong></td>
-                                <td class="num">5,320 건</td>
-                                <td class="num">0.85 km</td>
-                                <td class="num">9.1 분</td>
-                                <td>연구동 ↔ 기숙사 야간 귀가 통행</td>
-                            </tr>
-                            <tr>
-                                <td>6위</td>
-                                <td><strong>카이스트 동쪽 쪽문</strong></td>
-                                <td><strong>카이스트 정보전자동</strong></td>
-                                <td class="num">5,145 건</td>
-                                <td class="num">0.71 km</td>
-                                <td class="num">7.7 분</td>
-                                <td>원룸촌 ↔ 학내 등교 통행 유입</td>
-                            </tr>
-                            <tr>
-                                <td>7위</td>
-                                <td><strong>만년동 한밭수목원</strong></td>
-                                <td><strong>만년동 한밭수목원</strong></td>
-                                <td class="num" style="color:var(--accent-emerald);">5,136 건</td>
-                                <td class="num">0.65 km</td>
-                                <td class="num">30.0 분</td>
-                                <td style="color:var(--accent-emerald); font-weight:600;">갑천변·수목원 시민 주말 레저·여가 순환 통행</td>
-                            </tr>
-                            <tr>
-                                <td>8위</td>
-                                <td><strong>유성온천역 4번출구</strong></td>
-                                <td><strong>봉명동 온천교 입구</strong></td>
-                                <td class="num" style="color:var(--accent-rose);">4,964 건</td>
-                                <td class="num">0.38 km</td>
-                                <td class="num">3.1 분</td>
-                                <td>도시철도 하차 후 주거지역 귀가 통행</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Dispatch Manifest Table -->
-            <div id="sec-manifest" style="margin-top:56px;">
-                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">퇴근 피크(17:00 ➔ 18:00) 트럭 10대 실전 재배치 배차 지시서 (Dispatch Manifest)</h3>
-                <div class="table-wrap">
-                    <table class="clean-table">
-                        <thead>
-                            <tr>
-                                <th>작업 유형</th>
-                                <th>거점 대여소명</th>
-                                <th>소속 자치구 / 동</th>
-                                <th class="num">작업 전 재고</th>
-                                <th class="num">트럭 적재 / 투하량</th>
-                                <th>상태 진단 및 배차 목적</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span style="color:var(--accent-emerald); font-weight:700;">[회수] Pickup 1</span></td>
-                                <td><strong>노은3동 행정복지센터</strong></td>
-                                <td>유성구 지족동</td>
-                                <td class="num">148 대</td>
-                                <td class="num" style="color:var(--accent-emerald); font-weight:700;">-141 대 수거</td>
-                                <td>주거단지 방치 과다 재고 회수하여 시내 결품지 공급</td>
-                            </tr>
-                            <tr>
-                                <td><span style="color:var(--accent-emerald); font-weight:700;">[회수] Pickup 2</span></td>
-                                <td><strong>송림마을 5단지(오시오)</strong></td>
-                                <td>유성구 하기동</td>
-                                <td class="num">109 대</td>
-                                <td class="num" style="color:var(--accent-emerald); font-weight:700;">-75 대 수거</td>
-                                <td>아파트 단지 포화 반납분 집중 회수</td>
-                            </tr>
-                            <tr>
-                                <td><span style="color:var(--accent-rose); font-weight:700;">[공급] Drop-off 1</span></td>
-                                <td><strong>갈마동 성원빌라 앞</strong></td>
-                                <td>서구 갈마동</td>
-                                <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                                <td class="num" style="color:var(--accent-blue); font-weight:700;">+11 대 투하</td>
-                                <td>인근 5개 대여소 0대 품절 비상 즉시 해소</td>
-                            </tr>
-                            <tr>
-                                <td><span style="color:var(--accent-rose); font-weight:700;">[공급] Drop-off 2</span></td>
-                                <td><strong>유성온천역 6번출구</strong></td>
-                                <td>유성구 봉명동</td>
-                                <td class="num" style="color:var(--accent-rose); font-weight:700;">1 대 (소진임박)</td>
-                                <td class="num" style="color:var(--accent-blue); font-weight:700;">+16 대 투하</td>
-                                <td>퇴근길 쏟아지는 지하철 환승 시민 결품 차단</td>
-                            </tr>
-                            <tr>
-                                <td><span style="color:var(--accent-rose); font-weight:700;">[공급] Drop-off 3</span></td>
-                                <td><strong>소제동 우송중학교 입구</strong></td>
-                                <td>동구 소제동</td>
-                                <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                                <td class="num" style="color:var(--accent-blue); font-weight:700;">+10 대 투하</td>
-                                <td>동구 주거지역 학생 및 직장인 퇴근 수요 보급</td>
-                            </tr>
-                            <tr>
-                                <td><span style="color:var(--accent-rose); font-weight:700;">[공급] Drop-off 4</span></td>
-                                <td><strong>도마동 정철어학원</strong></td>
-                                <td>서구 도마동</td>
-                                <td class="num" style="color:var(--accent-rose); font-weight:700;">0 대 (완전품절)</td>
-                                <td class="num" style="color:var(--accent-blue); font-weight:700;">+10 대 투하</td>
-                                <td>도마네거리 생활권 0대 결품 즉시 차단</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Retrospective & Future Work -->
-            <div id="sec-retrospective" style="margin-top:56px;">
-                <h3 style="font-size:18px; color:var(--text-heading); margin-bottom:14px;">엔지니어링 회고, 한계점, 그리고 2028 트램 확장성</h3>
-                
-                <div class="retrospective-card">
-                    <div class="retrospective-header">
-                        <span class="retrospective-tag tag-amber">LIMITATION & PRACTICAL CHALLENGES</span>
-                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">1. 실제 현장 적용 시 추가 고려 변수 (한계점)</h4>
-                    </div>
-                    <ul class="math-bullet-list" style="margin-top:0;">
-                        <li><strong>실시간 돌발 교통 상황의 변동성:</strong> 본 연구는 대전 도심 실주행 속도를 평균 22km/h로 가정하였으나, 기상 악화(우천, 강설)나 도로 공사, 퇴근길 국지적 정체로 인한 통행 속도 지연을 실시간으로 반영하기 위해선 지자체 지능형교통체계(ITS) 및 실시간 TPEG 데이터 피드 연동이 보완되어야 합니다.</li>
-                        <li><strong>고장 및 배터리 방전 자전거 선별:</strong> 단말기 고장, 타이어 펑크, 체인 이탈 등 물리적 수리가 필요한 자전거는 단순 재배치 대상에서 제외하고 정비 센터로 입고시키는 필터링 로직이 현장 프로세스에 결합되어야 합니다.</li>
-                        <li><strong>기사님의 현실적 근로 여건 (휴먼 팩터):</strong> 1톤 트럭의 도로변 안전 주정차 공간 확보, 상하차 시 작업 피로도, 기사님의 필수 휴게 시간 등 물리적·인간공학적 제약을 라우팅 목적함수에 추가 반영할 필요가 있습니다.</li>
-                    </ul>
-                </div>
-
-                <div class="retrospective-card">
-                    <div class="retrospective-header">
-                        <span class="retrospective-tag tag-indigo">FUTURE WORK & MULTI-MODAL INFRASTRUCTURE</span>
-                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">2. 2028 대전 도시철도 2호선 트램과의 상생 시너지 확장성</h4>
-                    </div>
-                    <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
-                        <p style="margin-bottom:10px;">
-                            대전시가 추진 중인 총연장 38.8km, 45개 정거장의 <strong>도시철도 2호선 무가선 트램 순환선</strong>은 타슈와 상호 잠식 관계가 아닌 완벽한 보완재입니다. 본 연구팀의 공간 분석 결과, 트램 영향권 500m 이내에 속한 타슈 대여소는 총 <strong>357개소(전체의 29.8%)</strong>이며, 연간 환산 <strong>2,317,782건(전체 통행의 42.4%)</strong>이 트램 축과 직접 연계됩니다.
-                        </p>
-                        <p>
-                            향후 트램 개통 시점에 맞춰 정거장 주변 대여소 거치 용량을 선제적으로 2.5배 확충하고, 트램 하차 승객의 귀가 통행을 흡수하는 <strong>'트램 연계형 라스트마일 피더(Feeder) 재배치 모형'</strong>으로 확장할 수 있는 토대를 마련했습니다.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="retrospective-card">
-                    <div class="retrospective-header">
-                        <span class="retrospective-tag tag-emerald">ENGINEERING RETROSPECTIVE</span>
-                        <h4 style="font-size:15px; font-weight:700; color:var(--text-heading);">3. 프로젝트 회고 및 엔지니어링 교훈 (Key Takeaways)</h4>
-                    </div>
-                    <div style="font-size:14px; color:var(--text-body); line-height:1.8;">
-                        <p>
-                            "머신러닝 지표($R^2$, RMSE)의 단순 상승이 실제 현장의 문제 해결로 직결되지 않는다는 점을 깊이 체감했습니다. 결품과 잉여가 사회에 미치는 비용의 차이를 파악하여 <strong>비대칭 손실(Quantile 85%)</strong>을 목적함수에 부여하고, 트럭 10대와 60분이라는 <strong>현장의 물리적 제약(VRP)</strong>을 수식에 녹여내는 것이야말로 진정한 데이터 엔지니어의 역할임을 배웠습니다."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="pub-footer">
-        <div class="container footer-inner">
-            <div>
-                <strong>대전 타슈 AI 재배치 최적화 프로젝트 (KT-X-AI Lab)</strong><br>
-                연구 및 엔지니어링: 성시준 | 데이터: 대전교통공사, 대전광역시, 기상청 기상자료개방포털
-            </div>
-            <div>
-                <a href="https://github.com/sijoon-sung/KT-X-AI-.git" target="_blank" style="font-family:var(--font-mono); font-size:12px;">GitHub Repository (origin/성시준) ➔</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- KaTeX JS + Auto-render Extension -->
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-
-    <!-- Embedded Scrollytelling GIS Engine -->
-    <script>
-        // Data injected from Python pipeline
-        const topStationsData = [{"id": "ST0000", "name": "두드림", "gu": "유성구", "dong": "지족동", "lat": 36.37321853637695, "lon": 127.31674194335938, "cap": 10}, {"id": "ST0001", "name": "타슈관제센터 정비대기", "gu": "유성구", "dong": "외삼동", "lat": 36.40660858154297, "lon": 127.30645751953125, "cap": 10}, {"id": "ST0003", "name": "탄방동 한사랑병원", "gu": "서구", "dong": "탄방동", "lat": 36.348445892333984, "lon": 127.39005279541016, "cap": 10}, {"id": "ST0004", "name": "탄방동_한가람아파트(2동)", "gu": "서구", "dong": "탄방동", "lat": 36.348201751708984, "lon": 127.39041137695312, "cap": 10}, {"id": "ST0005", "name": "둔산동 목련아파트(103동)", "gu": "서구", "dong": "둔산동", "lat": 36.35003662109375, "lon": 127.3904037475586, "cap": 10}, {"id": "ST0006", "name": "둔산동 크로바아파트(103동)", "gu": "서구", "dong": "둔산동", "lat": 36.352481842041016, "lon": 127.39038848876953, "cap": 10}, {"id": "ST0007", "name": "둔산동 한마루아파트 5동", "gu": "서구", "dong": "둔산동", "lat": 36.35458755493164, "lon": 127.39046478271484, "cap": 10}, {"id": "ST0008", "name": "둔산동 농협 둔산중앙지점", "gu": "서구", "dong": "둔산동", "lat": 36.358917236328125, "lon": 127.39004516601562, "cap": 10}, {"id": "ST0010", "name": "둔산동 샤크존", "gu": "서구", "dong": "둔산동", "lat": 36.348854064941406, "lon": 127.38643646240234, "cap": 10}, {"id": "ST0011", "name": "탄방동 공무원연금공단 대전지부", "gu": "서구", "dong": "탄방동", "lat": 36.34702682495117, "lon": 127.38692474365234, "cap": 10}, {"id": "ST0012", "name": "둔산동 시청역 8번출구", "gu": "서구", "dong": "둔산동", "lat": 36.350582122802734, "lon": 127.3869400024414, "cap": 10}, {"id": "ST0013", "name": "둔산동 세이브존", "gu": "서구", "dong": "둔산동", "lat": 36.35195541381836, "lon": 127.39541625976562, "cap": 10}, {"id": "ST0014", "name": "둔산동 가람아파트 상가", "gu": "서구", "dong": "둔산동", "lat": 36.35587692260742, "lon": 127.39830780029297, "cap": 10}, {"id": "ST0015", "name": "둔산동 수정타운아파트(1동)", "gu": "서구", "dong": "둔산동", "lat": 36.358280181884766, "lon": 127.39542388916016, "cap": 10}, {"id": "ST0016", "name": "둔산동 문정어린이공원", "gu": "서구", "dong": "둔산동", "lat": 36.34998321533203, "lon": 127.39912414550781, "cap": 10}, {"id": "ST0017", "name": "월평동 한아름아파트(108동)", "gu": "서구", "dong": "월평동", "lat": 36.363319396972656, "lon": 127.37448120117188, "cap": 10}, {"id": "ST0018", "name": "월평동 다모아아파트 육교밑(111동)", "gu": "서구", "dong": "월평동", "lat": 36.36308670043945, "lon": 127.36675262451172, "cap": 10}, {"id": "ST0019", "name": "월평동 은평공원 테니스장 입구", "gu": "서구", "dong": "월평동", "lat": 36.35866928100586, "lon": 127.3636474609375, "cap": 10}, {"id": "ST0020", "name": "만년동 기업은행", "gu": "서구", "dong": "만년동", "lat": 36.36857986450195, "lon": 127.37997436523438, "cap": 10}, {"id": "ST0021", "name": "둔산동 선사유적지 건너편(정부청사)", "gu": "서구", "dong": "둔산동", "lat": 36.361061096191406, "lon": 127.37968444824219, "cap": 10}, {"id": "ST0022", "name": "봉명동 유성한가족 요양병원 소공원", "gu": "유성구", "dong": "봉명동", "lat": 36.355079650878906, "lon": 127.35021209716797, "cap": 10}, {"id": "ST0023", "name": "덕명동 한밭대학교 남문", "gu": "유성구", "dong": "덕명동", "lat": 36.34754180908203, "lon": 127.30135345458984, "cap": 10}, {"id": "ST0024", "name": "덕명동 화산어린이공원", "gu": "유성구", "dong": "덕명동", "lat": 36.34912109375, "lon": 127.2987289428711, "cap": 10}, {"id": "ST0025", "name": "둔산동 큰마을네거리", "gu": "서구", "dong": "둔산동", "lat": 36.34870910644531, "lon": 127.37713623046875, "cap": 10}, {"id": "ST0026", "name": "미호동 넷제로 공판장", "gu": "대덕구", "dong": "미호동", "lat": 36.466407775878906, "lon": 127.46830749511719, "cap": 10}, {"id": "ST0027", "name": "신탄진동 과선교 버스정류장", "gu": "대덕구", "dong": "신탄진동", "lat": 36.442447662353516, "lon": 127.42960357666016, "cap": 10}, {"id": "ST0029", "name": "오정동 한일방전", "gu": "대덕구", "dong": "오정동", "lat": 36.352176666259766, "lon": 127.41398620605469, "cap": 10}, {"id": "ST0030", "name": "삼성동 동구 보건지소", "gu": "동구", "dong": "삼성동", "lat": 36.342620849609375, "lon": 127.42042541503906, "cap": 10}, {"id": "ST0031", "name": "도룡동 우성아파트", "gu": "유성구", "dong": "도룡동", "lat": 36.388465881347656, "lon": 127.38147735595703, "cap": 10}, {"id": "ST0032", "name": "관저동 관저더샵(109동)", "gu": "서구", "dong": "관저동", "lat": 36.29356384277344, "lon": 127.32833862304688, "cap": 10}, {"id": "ST0033", "name": "사정동 송원칼국수", "gu": "중구", "dong": "사정동", "lat": 36.295833587646484, "lon": 127.38939666748047, "cap": 10}, {"id": "ST0034", "name": "안영동 농협하나로마트", "gu": "중구", "dong": "안영동", "lat": 36.28828430175781, "lon": 127.3793716430664, "cap": 5}, {"id": "ST0035", "name": "문화동 다이소", "gu": "중구", "dong": "문화동", "lat": 36.315528869628906, "lon": 127.40823364257812, "cap": 10}, {"id": "ST0036", "name": "문화동 홈플러스", "gu": "중구", "dong": "문화동", "lat": 36.320762634277344, "lon": 127.40711975097656, "cap": 10}, {"id": "ST0037", "name": "문화동 서대전 KT", "gu": "중구", "dong": "문화동", "lat": 36.321224212646484, "lon": 127.41375732421875, "cap": 10}, {"id": "ST0038", "name": "문화동 서대전공원 야외공연장 뒤편", "gu": "중구", "dong": "문화동", "lat": 36.320465087890625, "lon": 127.41068267822266, "cap": 10}, {"id": "ST0039", "name": "유천동 문화초네거리", "gu": "중구", "dong": "유천동", "lat": 36.31309509277344, "lon": 127.39946746826172, "cap": 10}, {"id": "ST0040", "name": "산성동 머티네거리", "gu": "중구", "dong": "산성동", "lat": 36.30921936035156, "lon": 127.38802337646484, "cap": 10}, {"id": "ST0041", "name": "대사동 대전중앙교회", "gu": "중구", "dong": "대사동", "lat": 36.318199157714844, "lon": 127.41686248779297, "cap": 10}, {"id": "ST0042", "name": "오류동 하나은행", "gu": "중구", "dong": "오류동", "lat": 36.32643508911133, "lon": 127.40736389160156, "cap": 10}, {"id": "ST0043", "name": "대흥동 중구청(중구청역 1번출구)", "gu": "중구", "dong": "대흥동", "lat": 36.32551956176758, "lon": 127.42074584960938, "cap": 10}, {"id": "ST0045", "name": "대사동 민제한의원", "gu": "중구", "dong": "대사동", "lat": 36.31776428222656, "lon": 127.42559051513672, "cap": 10}, {"id": "ST0046", "name": "대사동 보문산 공영주차장", "gu": "중구", "dong": "대사동", "lat": 36.31196212768555, "lon": 127.42053985595703, "cap": 10}, {"id": "ST0047", "name": "부사동 청란여고 방면 부사오거리 정류장", "gu": "중구", "dong": "부사동", "lat": 36.3133544921875, "lon": 127.43407440185547, "cap": 5}, {"id": "ST0048", "name": "대성동 대전남부여성가족원", "gu": "동구", "dong": "대성동", "lat": 36.30228042602539, "lon": 127.45978546142578, "cap": 10}, {"id": "ST0049", "name": "가오동 가오31호어린이공원", "gu": "동구", "dong": "가오동", "lat": 36.307579040527344, "lon": 127.45499420166016, "cap": 10}, {"id": "ST0050", "name": "선화동 선화참좋은아파트(유안타증권)", "gu": "중구", "dong": "선화동", "lat": 36.33173370361328, "lon": 127.42235565185547, "cap": 10}, {"id": "ST0051", "name": "목동 한사랑아파트 109동", "gu": "중구", "dong": "목동", "lat": 36.333187103271484, "lon": 127.41223907470703, "cap": 10}, {"id": "ST0052", "name": "신흥동 신흥마을 102동", "gu": "동구", "dong": "신흥동", "lat": 36.32121276855469, "lon": 127.44470977783203, "cap": 10}, {"id": "ST0053", "name": "판암동 판암역 4번출구", "gu": "동구", "dong": "판암동", "lat": 36.3175048828125, "lon": 127.45984649658203, "cap": 10}, {"id": "ST0054", "name": "용운동 대전대 후문", "gu": "동구", "dong": "용운동", "lat": 36.335166931152344, "lon": 127.45646667480469, "cap": 10}, {"id": "ST0055", "name": "대동 대동역 4번출구", "gu": "동구", "dong": "대동", "lat": 36.32963943481445, "lon": 127.44232940673828, "cap": 10}, {"id": "ST0056", "name": "대동 이스트시티(103동) 화병원 건너편", "gu": "동구", "dong": "대동", "lat": 36.32806396484375, "lon": 127.4394302368164, "cap": 10}, {"id": "ST0057", "name": "천동 천동초등학교", "gu": "동구", "dong": "천동", "lat": 36.31675338745117, "lon": 127.44401550292969, "cap": 10}, {"id": "ST0058", "name": "천동 위드힐아파트 상가", "gu": "동구", "dong": "천동", "lat": 36.31643295288086, "lon": 127.44388580322266, "cap": 5}, {"id": "ST0059", "name": "천동 휴먼시아 입구(201동)", "gu": "동구", "dong": "천동", "lat": 36.316444396972656, "lon": 127.44799041748047, "cap": 10}, {"id": "ST0060", "name": "효동 현대아파트 건너편(103동)", "gu": "동구", "dong": "효동", "lat": 36.318477630615234, "lon": 127.4426040649414, "cap": 10}, {"id": "ST0062", "name": "홍도동 새마을금고 본점 건너편", "gu": "동구", "dong": "홍도동", "lat": 36.34676742553711, "lon": 127.42501831054688, "cap": 10}, {"id": "ST0063", "name": "홍도동 새마을금고 홍도지점", "gu": "동구", "dong": "홍도동", "lat": 36.34645462036133, "lon": 127.43047332763672, "cap": 10}, {"id": "ST0064", "name": "삼성동 한밭자이 정류장(104동)", "gu": "동구", "dong": "삼성동", "lat": 36.34104919433594, "lon": 127.42523193359375, "cap": 10}, {"id": "ST0065", "name": "정동 대전역(대한통운 건너편)", "gu": "동구", "dong": "정동", "lat": 36.33232879638672, "lon": 127.43197631835938, "cap": 10}, {"id": "ST0066", "name": "삼성동 삼성네거리(KT&G 동대전지사)", "gu": "동구", "dong": "삼성동", "lat": 36.33637237548828, "lon": 127.43017578125, "cap": 10}, {"id": "ST0067", "name": "삼성동 솔브릿지 국제대학", "gu": "동구", "dong": "삼성동", "lat": 36.33919143676758, "lon": 127.43318176269531, "cap": 10}, {"id": "ST0068", "name": "비래동 가양비래공원네거리(명석고등학교)", "gu": "대덕구", "dong": "비래동", "lat": 36.353363037109375, "lon": 127.45403289794922, "cap": 10}, {"id": "ST0069", "name": "용전동 대전복합버스터미널", "gu": "동구", "dong": "용전동", "lat": 36.34868621826172, "lon": 127.4348373413086, "cap": 10}, {"id": "ST0071", "name": "용전동 천주교회", "gu": "동구", "dong": "용전동", "lat": 36.34934616088867, "lon": 127.43234252929688, "cap": 10}, {"id": "ST0072", "name": "용전동 한국통신 용전지점", "gu": "동구", "dong": "용전동", "lat": 36.35285186767578, "lon": 127.43228149414062, "cap": 10}, {"id": "ST0073", "name": "용전동 한전 대전세종충남지역본부 건너편", "gu": "동구", "dong": "용전동", "lat": 36.35734176635742, "lon": 127.43421173095703, "cap": 10}, {"id": "ST0074", "name": "용전동 롯데하이마트 용전점", "gu": "동구", "dong": "용전동", "lat": 36.35529327392578, "lon": 127.43663787841797, "cap": 10}, {"id": "ST0075", "name": "용전동 홈플러스 용전점", "gu": "동구", "dong": "용전동", "lat": 36.354061126708984, "lon": 127.43794250488281, "cap": 10}, {"id": "ST0076", "name": "용전동 용전네거리 몽벨", "gu": "동구", "dong": "용전동", "lat": 36.358516693115234, "lon": 127.43242645263672, "cap": 5}, {"id": "ST0077", "name": "용전동 동대전새마을금고 용전지점", "gu": "동구", "dong": "용전동", "lat": 36.35372543334961, "lon": 127.43276977539062, "cap": 10}, {"id": "ST0078", "name": "삼성동 솔랑마을 아파트 상가", "gu": "동구", "dong": "삼성동", "lat": 36.342777252197266, "lon": 127.42359161376953, "cap": 10}, {"id": "ST0079", "name": "오정동 한남육교 아래", "gu": "대덕구", "dong": "오정동", "lat": 36.35076141357422, "lon": 127.41920471191406, "cap": 10}, {"id": "ST0080", "name": "오정동 한남대학교 정문", "gu": "대덕구", "dong": "오정동", "lat": 36.35150909423828, "lon": 127.42138671875, "cap": 10}, {"id": "ST0081", "name": "오정동 한남대학교 사회과학대학", "gu": "대덕구", "dong": "오정동", "lat": 36.35151672363281, "lon": 127.42272186279297, "cap": 10}, {"id": "ST0082", "name": "소제동 대전역 동광장 휠타이어", "gu": "동구", "dong": "소제동", "lat": 36.333744049072266, "lon": 127.43942260742188, "cap": 10}, {"id": "ST0083", "name": "대동 대동역 1번출구", "gu": "동구", "dong": "대동", "lat": 36.32915115356445, "lon": 127.44292449951172, "cap": 10}, {"id": "ST0084", "name": "판암동 신흥역 3번출구", "gu": "동구", "dong": "판암동", "lat": 36.32011032104492, "lon": 127.44832611083984, "cap": 10}, {"id": "ST0086", "name": "덕명동 유성숲오투그란데 3차(501동)", "gu": "유성구", "dong": "덕명동", "lat": 36.34608840942383, "lon": 127.30111694335938, "cap": 10}];
-        const topFlowsData = [{"src_id": "ST1058", "src_name": "어은동 카이스트 학사식당", "src_lat": 36.37349, "src_lon": 127.35951, "dst_id": "ST0375", "dst_name": "구성동 카이스트 창의학습관", "dst_lat": 36.3706, "dst_lon": 127.36298, "trips": 7205}, {"src_id": "ST0375", "src_name": "구성동 카이스트 창의학습관", "src_lat": 36.3706, "src_lon": 127.36298, "dst_id": "ST1058", "dst_name": "어은동 카이스트 학사식당", "dst_lat": 36.37349, "dst_lon": 127.35951, "trips": 6104}, {"src_id": "ST1058", "src_name": "어은동 카이스트 학사식당", "src_lat": 36.37349, "src_lon": 127.35951, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5725}, {"src_id": "ST0375", "src_name": "구성동 카이스트 창의학습관", "src_lat": 36.3706, "src_lon": 127.36298, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5675}, {"src_id": "ST1341", "src_name": "구성동 카이스트 정보전자동 (1410)", "src_lat": 36.36816, "src_lon": 127.36461, "dst_id": "ST0373", "dst_name": "구성동 카이스트 서쪽 쪽문", "dst_lat": 36.36417, "dst_lon": 127.35897, "trips": 5153}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST1341", "dst_name": "구성동 카이스트 정보전자동 (1410)", "dst_lat": 36.36816, "dst_lon": 127.36461, "trips": 5145}, {"src_id": "ST1026", "src_name": "만년동 한밭수목원(서원)", "src_lat": 36.3692, "src_lon": 127.3876, "dst_id": "ST1027", "dst_name": "만년동 한밭수목원(동원)", "dst_lat": 36.36924, "dst_lon": 127.38846, "trips": 5136}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST0375", "dst_name": "구성동 카이스트 창의학습관", "dst_lat": 36.3706, "dst_lon": 127.36298, "trips": 5132}, {"src_id": "ST1032", "src_name": "둔산동 정부청사역 4번출구", "src_lat": 36.35798, "src_lon": 127.38203, "dst_id": "ST1033", "dst_name": "둔산동 정부청사 입구(남문)", "dst_lat": 36.35968, "dst_lon": 127.38532, "trips": 4964}, {"src_id": "ST1027", "src_name": "만년동 한밭수목원(동원)", "src_lat": 36.36924, "src_lon": 127.38846, "dst_id": "ST1026", "dst_name": "만년동 한밭수목원(서원)", "dst_lat": 36.3692, "dst_lon": 127.3876, "trips": 4918}, {"src_id": "ST0373", "src_name": "구성동 카이스트 서쪽 쪽문", "src_lat": 36.36417, "src_lon": 127.35897, "dst_id": "ST1058", "dst_name": "어은동 카이스트 학사식당", "dst_lat": 36.37349, "dst_lon": 127.35951, "trips": 4858}, {"src_id": "ST1172", "src_name": "월평동 다모아아파트 상가", "src_lat": 36.36276, "src_lon": 127.3679, "dst_id": "ST1056", "dst_name": "월평동 백합네거리", "dst_lat": 36.36235, "dst_lon": 127.37636, "trips": 4647}];
-        const tramLoopCoords = [[36.3212, 127.4042], [36.3235, 127.419], [36.3291, 127.4428], [36.3402, 127.4485], [36.3516, 127.4371], [36.3625, 127.4208], [36.3615, 127.3872], [36.3742, 127.382], [36.3755, 127.3685], [36.368, 127.352], [36.3538, 127.3415], [36.341, 127.3425], [36.332, 127.346], [36.315, 127.342], [36.312, 127.365], [36.3155, 127.378], [36.3185, 127.395], [36.3212, 127.4042]];
-        const dispatchPickups = [{"name": "노은3동 행정복지센터", "lat": 36.3812, "lon": 127.3185, "stock": 148, "amt": 141, "desc": "주거단지 야간 누적 잉여 재고 회수"}, {"name": "송림마을 5단지", "lat": 36.3895, "lon": 127.323, "stock": 109, "amt": 75, "desc": "외곽 아파트 단지 반납 포화분 수거"}];
-        const dispatchDropoffs = [{"name": "갈마동 성원빌라 앞", "lat": 36.3512, "lon": 127.3712, "stock": 0, "amt": 11, "zero_cnt": 5, "desc": "18시 퇴근 즉시 품절 위험 1위 거점"}, {"name": "유성온천역 6번출구", "lat": 36.3535, "lon": 127.3408, "stock": 1, "amt": 16, "zero_cnt": 2, "desc": "지하철 환승 퇴근 인파 라스트마일 공급"}, {"name": "소제동 우송중학교 입구", "lat": 36.3325, "lon": 127.4385, "stock": 0, "amt": 10, "zero_cnt": 3, "desc": "동구 학생·직장인 하교 퇴근길 긴급 투하"}, {"name": "도마동 정철어학원", "lat": 36.3158, "lon": 127.3792, "stock": 0, "amt": 10, "zero_cnt": 4, "desc": "서남부 주거 밀집지 0대 결품 방어"}, {"name": "용문동 둔산더샵 1단지", "lat": 36.3425, "lon": 127.392, "stock": 0, "amt": 9, "zero_cnt": 4, "desc": "지하철 용문역 연계 통행량 폭증 완충"}];
-
-        let map = null;
-        let flowLayerGroup = null;
-        let stationLayerGroup = null;
-        let tramLayerGroup = null;
-        let dispatchLayerGroup = null;
-
-        // Interactive Quantile Loss Simulator
-        function updateQLossSim(qVal) {
-            const valEl = document.getElementById('qValDisplay');
-            const ratioEl = document.getElementById('qRatioDisplay');
-            const bufEl = document.getElementById('qBufferDisplay');
-            if (!valEl || !ratioEl || !bufEl) return;
-
-            valEl.innerText = qVal.toFixed(2);
-            const penaltyRatio = (qVal / (1.0 - qVal)).toFixed(2);
-            ratioEl.innerText = penaltyRatio + ' 배';
-            const buffer = ((qVal - 0.5) / 0.35 * 3.6).toFixed(1);
-            const sign = buffer > 0 ? '+' : '';
-            bufEl.innerText = sign + buffer + ' 대';
-        }
-
-        // Initialize Leaflet Map
-        function initLeafletMap() {
-            const mapContainer = document.getElementById('map');
-            if (!mapContainer) return;
-
-            if (typeof L === 'undefined') {
-                setTimeout(initLeafletMap, 150);
-                return;
-            }
-
-            // Center of Daejeon
-            map = L.map('map', {
-                center: [36.3504, 127.3845],
-                zoom: 12.5,
-                zoomControl: false,
-                attributionControl: false
-            });
-
-            // Esri World Light Gray Canvas (Zero Watermark, 100% Free Open GIS)
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                maxZoom: 16,
-                attribution: 'Tiles &copy; Esri'
-            }).addTo(map);
-
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                maxZoom: 16,
-                opacity: 0.85
-            }).addTo(map);
-
-            // Layer Groups
-            flowLayerGroup = L.layerGroup().addTo(map);
-            stationLayerGroup = L.layerGroup().addTo(map);
-            tramLayerGroup = L.layerGroup().addTo(map);
-            dispatchLayerGroup = L.layerGroup().addTo(map);
-
-            // Populate Base Station Markers
-            populateBaseStations();
-
-            // Initial Scene 1 View
-            onEnterScene(1);
-        }
-
-        // ==========================================
-        // Navier-Stokes CFD Fluid Particle Simulator
-        // ==========================================
-        let cfdCanvas = null;
-        let cfdCtx = null;
-        let cfdActive = false;
-        let cfdParticles = [];
-        let cfdAnimId = null;
-
-        function toggleCFDFlowLayer() {
-            const btn = document.getElementById('btnToggleCFD');
-            const legend = document.getElementById('cfdLegendBadge');
-            cfdActive = !cfdActive;
-            if (cfdActive) {
-                if (btn) {
-                    btn.classList.add('active');
-                    btn.innerHTML = '<span class="cfd-pulse" style="background:#ffffff;"></span> 🌊 CFD 유동 작동중';
-                }
-                if (legend) legend.style.display = 'block';
-                startCFDAnimation();
-            } else {
-                if (btn) {
-                    btn.classList.remove('active');
-                    btn.innerHTML = '<span class="cfd-pulse"></span> 🌊 CFD 유동 ON';
-                }
-                if (legend) legend.style.display = 'none';
-                stopCFDAnimation();
-            }
-        }
-
-        function initCFDCanvas() {
-            const mapEl = document.getElementById('map');
-            if (!mapEl || cfdCanvas) return;
-            cfdCanvas = document.createElement('canvas');
-            cfdCanvas.id = 'cfdMapCanvas';
-            cfdCanvas.style.position = 'absolute';
-            cfdCanvas.style.top = '0';
-            cfdCanvas.style.left = '0';
-            cfdCanvas.style.width = '100%';
-            cfdCanvas.style.height = '100%';
-            cfdCanvas.style.pointerEvents = 'none';
-            cfdCanvas.style.zIndex = '350';
-            mapEl.appendChild(cfdCanvas);
-            cfdCtx = cfdCanvas.getContext('2d');
-            resizeCFDCanvas();
-
-            map.on('resize move zoom', resizeCFDCanvas);
-        }
-
-        function resizeCFDCanvas() {
-            if (!cfdCanvas || !map) return;
-            const size = map.getSize();
-            cfdCanvas.width = size.x;
-            cfdCanvas.height = size.y;
-        }
-
-        function initCFDParticles() {
-            cfdParticles = [];
-            const n = 1200;
-            const hubs = [
-                { lat: 36.368, lon: 127.359 }, // KAIST
-                { lat: 36.353, lon: 127.341 }, // Yuseong Spa
-                { lat: 36.358, lon: 127.362 }, // Galma
-                { lat: 36.354, lon: 127.387 }, // City Hall / Dunsan
-                { lat: 36.321, lon: 127.404 }  // Seodaejeon
-            ];
-            for (let i = 0; i < n; i++) {
-                const hub = hubs[Math.floor(Math.random() * hubs.length)];
-                cfdParticles.push({
-                    lat: hub.lat + (Math.random() - 0.5) * 0.038,
-                    lon: hub.lon + (Math.random() - 0.5) * 0.038,
-                    age: Math.floor(Math.random() * 35),
-                    maxAge: 30 + Math.floor(Math.random() * 25)
-                });
-            }
-        }
-
-        function getTurboColor(norm, alpha) {
-            let r, g, b;
-            if (norm < 0.25) {
-                const t = norm / 0.25;
-                r = Math.floor(48 + (40 - 48) * t);
-                g = Math.floor(18 + (187 - 18) * t);
-                b = Math.floor(59 + (236 - 59) * t);
-            } else if (norm < 0.5) {
-                const t = (norm - 0.25) / 0.25;
-                r = Math.floor(40 + (53 - 40) * t);
-                g = Math.floor(187 + (245 - 187) * t);
-                b = Math.floor(236 + (140 - 236) * t);
-            } else if (norm < 0.75) {
-                const t = (norm - 0.5) / 0.25;
-                r = Math.floor(53 + (251 - 53) * t);
-                g = Math.floor(245 + (128 - 245) * t);
-                b = Math.floor(140 + (34 - 140) * t);
-            } else {
-                const t = (norm - 0.75) / 0.25;
-                r = Math.floor(251 + (184 - 251) * t);
-                g = Math.floor(128 + (34 - 128) * t);
-                b = Math.floor(34 + (2 - 34) * t);
-            }
-            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-        }
-
-        function startCFDAnimation() {
-            initCFDCanvas();
-            if (cfdParticles.length === 0) initCFDParticles();
-            if (cfdAnimId) cancelAnimationFrame(cfdAnimId);
-
-            function loop() {
-                if (!cfdActive || !cfdCtx || !map) return;
-                
-                // Dim previous trails
-                cfdCtx.fillStyle = 'rgba(11, 15, 25, 0.18)';
-                cfdCtx.fillRect(0, 0, cfdCanvas.width, cfdCanvas.height);
-
-                for (let i = 0; i < cfdParticles.length; i++) {
-                    const p = cfdParticles[i];
-                    const pt = map.latLngToContainerPoint([p.lat, p.lon]);
-
-                    let u = 0, v = 0, speed = 8.0;
-                    const d_kaist = Math.hypot(p.lon - 127.359, p.lat - 36.368);
-                    const d_yuseong = Math.hypot(p.lon - 127.341, p.lat - 36.353);
-
-                    if (d_kaist < 0.02) {
-                        u = -0.55; v = -0.80; speed = 16.0;
-                    } else if (d_yuseong < 0.022) {
-                        u = (127.341 - p.lon) * 20.0;
-                        v = (36.353 - p.lat) * 20.0;
-                        speed = 19.0;
-                    } else if (p.lon >= 127.37 && p.lon <= 127.41 && p.lat >= 36.34 && p.lat <= 36.37) {
-                        u = -(p.lat - 36.354) * 25.0 + 0.35;
-                        v = (p.lon - 127.387) * 25.0 - 0.45;
-                        speed = 12.0;
-                    } else {
-                        u = 0.45; v = -0.65; speed = 9.0;
-                    }
-
-                    const mag = Math.hypot(u, v) || 1e-4;
-                    const norm_u = u / mag;
-                    const norm_v = v / mag;
-                    const norm_speed = Math.min(1.0, speed / 20.0);
-
-                    // Step size
-                    const step = 0.0006 + norm_speed * 0.0014;
-                    p.lon += norm_u * step;
-                    p.lat += norm_v * step;
-                    p.age++;
-
-                    const nextPt = map.latLngToContainerPoint([p.lat, p.lon]);
-
-                    if (pt.x >= 0 && pt.x <= cfdCanvas.width && pt.y >= 0 && pt.y <= cfdCanvas.height) {
-                        cfdCtx.beginPath();
-                        cfdCtx.moveTo(pt.x, pt.y);
-                        cfdCtx.lineTo(nextPt.x, nextPt.y);
-                        cfdCtx.strokeStyle = getTurboColor(norm_speed, 0.85);
-                        cfdCtx.lineWidth = 1.8;
-                        cfdCtx.stroke();
-                    }
-
-                    // Respawn
-                    if (p.age > p.maxAge || p.lon < 127.32 || p.lon > 127.45 || p.lat < 36.31 || p.lat > 36.41) {
-                        const hubs = [
-                            { lat: 36.368, lon: 127.359 },
-                            { lat: 36.353, lon: 127.341 },
-                            { lat: 36.358, lon: 127.362 },
-                            { lat: 36.354, lon: 127.387 },
-                            { lat: 36.321, lon: 127.404 }
-                        ];
-                        const h = hubs[Math.floor(Math.random() * hubs.length)];
-                        p.lat = h.lat + (Math.random() - 0.5) * 0.038;
-                        p.lon = h.lon + (Math.random() - 0.5) * 0.038;
-                        p.age = 0;
-                    }
-                }
-
-                cfdAnimId = requestAnimationFrame(loop);
-            }
-
-            loop();
-        }
-
-        function stopCFDAnimation() {
-            if (cfdAnimId) cancelAnimationFrame(cfdAnimId);
-            if (cfdCtx && cfdCanvas) {
-                cfdCtx.clearRect(0, 0, cfdCanvas.width, cfdCanvas.height);
-            }
-        }
-
-        function populateBaseStations(customFilter = null) {
-            if (!stationLayerGroup) return;
-            stationLayerGroup.clearLayers();
-
-            topStationsData.forEach(st => {
-                let radius = 4.0;
-                let fillColor = '#2563eb';
-                let fillOpacity = 0.7;
-                let weight = 1.2;
-
-                if (customFilter) {
-                    const style = customFilter(st);
-                    radius = style.radius;
-                    fillColor = style.fillColor;
-                    fillOpacity = style.fillOpacity;
-                    weight = style.weight;
-                }
-
-                const marker = L.circleMarker([st.lat, st.lon], {
-                    radius: radius,
-                    fillColor: fillColor,
-                    fillOpacity: fillOpacity,
-                    color: '#ffffff',
-                    weight: weight
-                });
-
-                marker.on('click', () => {
-                    const titleEl = document.getElementById('overlayTitle');
-                    const valEl = document.getElementById('overlayValue');
-                    const contentEl = document.getElementById('overlayContent');
-                    if (titleEl) titleEl.innerText = st.name;
-                    if (valEl) valEl.innerText = st.cap + '대 거치대';
-                    if (contentEl) contentEl.innerHTML = `소속: ${st.gu} ${st.dong}<br>실측 좌표: ${st.lat.toFixed(4)}° N, ${st.lon.toFixed(4)}° E<br>1개년 전수 분석 거점`;
-                });
-
-                stationLayerGroup.addLayer(marker);
-            });
-        }
-
-        function renderFlowArcs() {
-            if (!flowLayerGroup) return;
-            flowLayerGroup.clearLayers();
-            topFlowsData.forEach((fl, idx) => {
-                const latlngs = [
-                    [fl.src_lat, fl.src_lon],
-                    [fl.dst_lat, fl.dst_lon]
-                ];
-                const poly = L.polyline(latlngs, {
-                    color: idx < 3 ? '#2563eb' : '#4f46e5',
-                    weight: Math.max(3.0, (fl.trips / 7205) * 6.0),
-                    opacity: 0.85,
-                    dashArray: '8, 6'
-                });
-                poly.bindPopup(`<strong>회랑 #${idx + 1}</strong><br>출발: ${fl.src_name}<br>도착: ${fl.dst_name}<br>연간 통행량: <strong>${fl.trips.toLocaleString()}건</strong>`);
-                flowLayerGroup.addLayer(poly);
-            });
-        }
-
-        // Scene Transition Engine
-        function onEnterScene(sceneNum) {
-            if (!map) return;
-
-            const iconEl = document.getElementById('visIcon');
-            const titleEl = document.getElementById('visTitleText');
-            const badgeEl = document.getElementById('visBadge');
-            const overlayTitle = document.getElementById('overlayTitle');
-            const overlayVal = document.getElementById('overlayValue');
-            const overlayContent = document.getElementById('overlayContent');
-
-            // Reset dynamic layers
-            flowLayerGroup.clearLayers();
-            tramLayerGroup.clearLayers();
-            dispatchLayerGroup.clearLayers();
-
-            if (sceneNum === 1) {
-                if (iconEl) iconEl.innerText = "📍";
-                if (titleEl) titleEl.innerText = "대전시 전역 10대 핵심 생활권 이동 회랑";
-                if (badgeEl) badgeEl.innerText = "SCENE 01 : 9.11M OD FLOWS";
-                if (overlayTitle) overlayTitle.innerText = "연간 총 분석 통행량";
-                if (overlayVal) overlayVal.innerText = "9,116,462 건";
-                if (overlayContent) overlayContent.innerHTML = "대전 전역의 911만 건 이동 중 51.2%가 1km 이내 초단거리 보행 대체 통행으로 확인되었습니다.";
-
-                map.flyTo([36.3504, 127.3845], 12.5, { duration: 1.2 });
-                populateBaseStations();
-                renderFlowArcs();
-
-            } else if (sceneNum === 2) {
-                if (iconEl) iconEl.innerText = "🚨";
-                if (titleEl) titleEl.innerText = "18:00 퇴근길 피크타임 재고 0대 결품 거점 비상";
-                if (badgeEl) badgeEl.innerText = "SCENE 02 : 18:00 STOCKOUT";
-                if (overlayTitle) overlayTitle.innerText = "18시 피크 결품 위험도";
-                if (overlayVal) overlayVal.innerText = "38.0% 품절";
-                if (overlayContent) overlayContent.innerHTML = "출근(39.3만) 대비 1.59배 폭증하는 퇴근 인파로 인해 둔산동·유성온천역 등 주요 환승지가 0대로 고갈됩니다.";
-
-                map.flyTo([36.350, 127.370], 13.5, { duration: 1.2 });
-
-                // Highlight deficit stations in red
-                populateBaseStations((st) => {
-                    const isDeficit = (st.name.includes("성원빌라") || st.name.includes("유성온천") || st.name.includes("우송중") || st.name.includes("정철어학원") || st.name.includes("둔산더샵"));
-                    return {
-                        radius: isDeficit ? 9.0 : 4.0,
-                        fillColor: isDeficit ? '#e11d48' : '#cbd5e1',
-                        fillOpacity: isDeficit ? 0.95 : 0.4,
-                        weight: isDeficit ? 2.5 : 1.0
-                    };
-                });
-
-            } else if (sceneNum === 3) {
-                if (iconEl) iconEl.innerText = "⚖️";
-                if (titleEl) titleEl.innerText = "비대칭 손실(Q85) vs 기존 평균(MSE) 오차 분석";
-                if (badgeEl) badgeEl.innerText = "SCENE 03 : ASYMMETRIC LOSS";
-                if (overlayTitle) overlayTitle.innerText = "안전 재고 확보량";
-                if (overlayVal) overlayVal.innerText = "+3.6 대 완충";
-                if (overlayContent) overlayContent.innerHTML = "MSE는 결품과 잉여에 동일 벌점을 주지만, Q85는 헛걸음 결품에 5.67배 높은 벌점으로 안전 재고를 선제 비축합니다.";
-
-                map.flyTo([36.353, 127.360], 13, { duration: 1.2 });
-                populateBaseStations();
-
-            } else if (sceneNum === 4) {
-                if (iconEl) iconEl.innerText = "🚚";
-                if (titleEl) titleEl.innerText = "트럭 10대 물리 제약 실전 배차 (골든타임 48.5분)";
-                if (badgeEl) badgeEl.innerText = "SCENE 04 : 10-TRUCK VRP";
-                if (overlayTitle) overlayTitle.innerText = "재배치 소요 시간";
-                if (overlayVal) overlayVal.innerText = "48.5 분 / 176대";
-                if (overlayContent) overlayContent.innerHTML = "외곽 잉여 거점(노은3동, 하기동 등)에서 수거(-216대)하여 갈마동·유성온천 등 0대 결품 거점에 집중 투하 완료했습니다.";
-
-                map.flyTo([36.353, 127.365], 12.8, { duration: 1.2 });
-                populateBaseStations();
-
-                // Draw Pickup Pins (Green)
-                dispatchPickups.forEach(p => {
-                    const m = L.circleMarker([p.lat, p.lon], {
-                        radius: 8.5,
-                        fillColor: '#059669',
-                        fillOpacity: 1,
-                        color: '#ffffff',
-                        weight: 2.5
-                    }).bindPopup(`<strong>[잉여 회수] ${p.name}</strong><br>현재 재고: ${p.stock}대<br>트럭 수거: <strong>-${p.amt}대</strong><br>${p.desc}`);
-                    dispatchLayerGroup.addLayer(m);
-                });
-
-                // Draw Dropoff Pins (Rose)
-                dispatchDropoffs.forEach(d => {
-                    const m = L.circleMarker([d.lat, d.lon], {
-                        radius: 8.5,
-                        fillColor: '#e11d48',
-                        fillOpacity: 1,
-                        color: '#ffffff',
-                        weight: 2.5
-                    }).bindPopup(`<strong>[긴급 공급] ${d.name}</strong><br>배차 전 재고: <strong>${d.stock}대 (0대 품절)</strong><br>트럭 투하: <strong>+${d.amt}대</strong><br>${d.desc}`);
-                    dispatchLayerGroup.addLayer(m);
-                });
-
-            } else if (sceneNum === 5) {
-                if (iconEl) iconEl.innerText = "🚇";
-                if (titleEl) titleEl.innerText = "결품률 65% 차단 및 2028 대전 트램 2호선 상생 시너지";
-                if (badgeEl) badgeEl.innerText = "SCENE 05 : 2028 TRAM SYNERGY";
-                if (overlayTitle) overlayTitle.innerText = "트램 연계 통행량";
-                if (overlayVal) overlayVal.innerText = "2,317,782 건 (42.4%)";
-                if (overlayContent) overlayContent.innerHTML = "트럭 재배치로 결품률이 13.3%로 급감하며 정상화되었고, 38.8km 트램 순환선 357개 연계 거점의 지속 가능성을 완성합니다.";
-
-                map.flyTo([36.3504, 127.3845], 12.2, { duration: 1.2 });
-
-                // Stations restored to calm emerald/blue
-                populateBaseStations((st) => {
-                    const isRestored = (st.name.includes("성원빌라") || st.name.includes("유성온천") || st.name.includes("우송중") || st.name.includes("정철어학원"));
-                    return {
-                        radius: isRestored ? 7.5 : 4.0,
-                        fillColor: isRestored ? '#059669' : '#2563eb',
-                        fillOpacity: isRestored ? 0.95 : 0.6,
-                        weight: isRestored ? 2.0 : 1.0
-                    };
-                });
-
-                // Draw Tram Loop
-                const tramPoly = L.polyline(tramLoopCoords, {
-                    color: '#d97706',
-                    weight: 4.5,
-                    opacity: 0.9,
-                    dashArray: '10, 8'
-                }).bindPopup("<strong>대전 도시철도 2호선 트램 순환선 (2028 개통 예정)</strong><br>총연장 38.8km / 45개 정거장<br>타슈 357개 대여소 환승 연계");
-                tramLayerGroup.addLayer(tramPoly);
-            }
-        }
-
-        // Setup Intersection Observer for Scrollytelling Steps
-        function setupScrollObserver() {
-            const steps = document.querySelectorAll('.step');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -40% 0px',
-                threshold: 0.2
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const stepNum = parseInt(entry.target.getAttribute('data-step'));
-                        steps.forEach(s => s.classList.remove('is-active'));
-                        entry.target.classList.add('is-active');
-                        if (stepNum) onEnterScene(stepNum);
-                    }
-                });
-            }, observerOptions);
-
-            steps.forEach(step => observer.observe(step));
-        }
-
-        // KaTeX Safe Auto-render
-        function renderMathSafe() {
-            if (window.renderMathInElement) {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: '$$', right: '$$', display: true},
-                        {left: '$', right: '$', display: false}
-                    ],
-                    throwOnError: false
-                });
-            } else {
-                setTimeout(renderMathSafe, 120);
-            }
-        }
-
-        // Bootstrap on DOM Ready
-        function bootstrap() {
-            initLeafletMap();
-            setupScrollObserver();
-            renderMathSafe();
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', bootstrap);
-        } else {
-            bootstrap();
-        }
-    </script>
+<p class="small">GCN · 포아송 분포 · Conditional Flow Matching<br>과거 대여·반납 이력으로 학습 / 재고 API로 미래 관측 평가</p>
+</div>
+  <figure class="network">
+<figcaption>대여소 관계 → 미래 재고 → 재배치<br>
+<small>구조 설명도 · 실제 지도·실시간 재고 아님</small>
+</figcaption>
+<svg viewBox="0 0 520 370" role="img" aria-label="연결된 대여소의 패턴으로 미래 재고를 예측하고 공급·부족 대여소를 연결하는 구조 설명도">
+<defs>
+<pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse">
+<path d="M35 0H0V35" fill="none" stroke="#dce5df"/>
+</pattern>
+</defs>
+<rect width="520" height="370" fill="url(#grid)"/>
+<g stroke="#b5cbbb" stroke-width="2" fill="none">
+<path d="M70 80L185 62 278 135 425 84M70 80L122 218 278 135 360 265 460 220M122 218L215 310 360 265M185 62L122 218M278 135L460 220"/>
+</g>
+<path d="M70 80L185 62 278 135 360 265 460 220" stroke="#00775b" stroke-width="5" fill="none" stroke-dasharray="9 6"/>
+<g fill="white" stroke="#9cb6a5" stroke-width="2">
+<circle cx="70" cy="80" r="15"/>
+<circle cx="185" cy="62" r="15"/>
+<circle cx="425" cy="84" r="15"/>
+<circle cx="122" cy="218" r="15"/>
+<circle cx="215" cy="310" r="15"/>
+<circle cx="460" cy="220" r="15"/>
+</g>
+<circle cx="278" cy="135" r="29" fill="#00775b"/>
+<circle cx="360" cy="265" r="29" fill="#dd9b4a"/>
+<g font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">
+<text x="278" y="140" fill="white">공급</text>
+<text x="360" y="270" fill="#152f28">부족</text>
+</g>
+<g font-family="system-ui,sans-serif" font-size="13" fill="#3e5e50">
+<text x="296" y="90">GCN 관계 표현</text>
+<text x="29" y="260">여러 미래 재고 가능성</text>
+</g>
+</svg>
+<div class="legend">● 과거 이동 관계 <span>● 재배치 판단</span>
+</div>
+</figure>
+  <div class="stats">
+<div>
+<strong>10<small>분</small>
+</strong>
+<p>다음 재고 예측</p>
+</div>
+<div>
+<strong>1,298<small>곳</small>
+</strong>
+<p>9월 평가 대여소</p>
+</div>
+<div>
+<strong>245.8<small>만 쌍</small>
+</strong>
+<p>예측–관측 대응 표본</p>
+</div>
+<div>
+<strong>15.22<small>%</small>
+</strong>
+<p>FM 확률예측 오차 감소*</p>
+</div>
+</div>
+<p class="note full">* 현재 재고 유지 대비 fairCRPS 감소. 수량 MAE 개선율이 아닙니다. 평가 표본은 2,458,501쌍이며, 9월 자료는 반복 노출된 평가 자료입니다.</p>
+</section>
+<section id="problem" class="slide" data-title="해결한 문제">
+<p class="eyebrow">01 / THE PROBLEM</p>
+<h2>0대라는 관측만으로는<br>다음 행동을 정할 수 없습니다.</h2>
+<p class="intro">빈 대여소의 위험, 공급할 대여소의 여유, 차량이 도착할 시간을 함께 봅니다.</p>
+<div class="three">
+<article>
+<span class="number">01</span>
+<h3>현재 상태 → 미래 위험</h3>
+<p>현재 재고에 고정 모델의 대여·반납 시나리오를 연결해 10분 후 재고 분포와 0대 확률을 계산합니다.</p>
+</article>
+<article>
+<span class="number">02</span>
+<h3>위험 목록 → 이동 수량</h3>
+<p>목표 재고 부족과 0대 위험을 대리 목적함수에 반영하고, 공급지 안전 재고·차량 적재·추가 주차를 확인합니다.</p>
+</article>
+<article>
+<span class="number">03</span>
+<h3>이동 수량 → 방문 순서</h3>
+<p>도로 거리·이동시간에 상하차·복귀를 포함합니다. 새 관측이나 출발 마감에 맞춰 계획을 다시 계산합니다.</p>
+</article>
+</div>
+<aside>
+<b>0대에서 대여 0건은, 수요 0이라는 뜻이 아닙니다.</b>
+<p>자전거가 없어서 포기한 이용자는 현재 자료로 관측할 수 없습니다. 잠재 수요를 복원했다고 주장하지 않으며, 빈 대여소를 공급 후보에 포함하고 미처리 대여소도 보여줍니다.</p>
+</aside>
+</section>
+<section id="sec-methods" class="slide ink" data-title="핵심 기술">
+<p class="eyebrow">02 / THE METHOD</p>
+<h2>관계를 읽고, 횟수를 예측하고,<br>가능한 미래를 생성합니다.</h2>
+<p class="intro">GCN은 조건 표현, 포아송과 Flow Matching은 확률 출력에 각각 다른 역할을 맡습니다.</p>
+<div class="pipeline">
+<div>
+<small>HISTORY</small>
+<b>과거 거래 이력</b>
+<span>대여·반납 / OD 관계</span>
+</div>
+<div>
+<small>CONTEXT</small>
+<b>GCN</b>
+<span>대여소 관계 + 시간·기상</span>
+</div>
+<div>
+<small>PROBABILITY</small>
+<b>포아송 / Flow Matching</b>
+<span>대여·반납 건수 시나리오</span>
+</div>
+<div>
+<small>INVENTORY</small>
+<b>현재 API와 결합</b>
+<span>다음 재고 / 0대 확률</span>
+</div>
+</div>
+<div class="two">
+<article>
+<p class="eyebrow">COUNT MODEL</p>
+<h3>포아송 분포</h3>
+<p>10분 동안의 완료 대여·반납 횟수를 비음수 정수로 다룹니다. GCN이 조건부 평균 λ를 추정하고 포아송 표본을 생성하는 확률 기준선입니다.</p>
+<code>R, D ~ Poisson(λ)</code>
+<p class="note">조건부 평균과 분산이 같다는 가정이 있습니다. 재고 자체를 포아송 변수로 둔다는 뜻은 아닙니다.</p>
+</article>
+<article>
+<p class="eyebrow">GENERATIVE MODEL</p>
+<h3>Conditional Flow Matching</h3>
+<p>GCN 표현과 예상 거래량을 조건으로, 잡음에서 대여·반납 건수의 로그 잔차를 만드는 속도장을 학습합니다. ODE로 여러 표본을 생성해 재고의 불확실성을 전달합니다.</p>
+<code>noise → count residual → samples</code>
+<p class="note">현재 구현은 대여소별 2차원 건수 생성입니다. 도시 전체의 공동 이동 궤적이나 최적 수송 경로가 아닙니다.</p>
+</article>
+</div>
+<div class="formula">미래 재고 표본 = max(0, 현재 재고 + 생성 반납 − 생성 대여)</div>
+<p class="note">두 확률 출력은 비교 가능한 별도 경로입니다. 점수를 혼합한 앙상블로 설명하지 않습니다. 과거 이력에서 학습·선택하며, API 입력으로 가중치를 갱신하지 않습니다. 기상은 관측 이력·결측 마스크를 사용하며 실시간 전 항목 수신은 미완료입니다.</p>
+</section>
+<section id="comparison" class="slide" data-title="GCN 선택 이유">
+<p class="eyebrow">03 / WHY A GRAPH?</p>
+<h2>왜 GCN을 썼나요?</h2>
+<p class="intro">대여소를 독립된 표의 행으로만 보지 않고, 과거 이동으로 연결된 관계를 학습하기 위해서입니다.</p>
+<div class="two">
+<div>
+<h3>기대하는 이득</h3>
+<p>출근·환승처럼 연결된 대여소의 패턴을 이웃 집계와 학습 가능한 공유 변환으로 표현합니다. 이 표현을 건수 예측과 FM의 조건 입력으로 함께 사용할 수 있습니다.</p>
+<p>다른 교통수단과도 관계를 정의할 수 있다는 점이 확장 설계의 장점입니다. 관계가 잘못되면 불필요한 정보도 전파됩니다.</p>
+<aside class="amber">
+<b>현재 증거의 범위</b>
+<p>동일 조건의 GCN 대 XGBoost 직접 비교는 미실행입니다. GCN의 추가 정확도·속도·새 대여소 일반화 이득은 아직 입증하지 않았습니다. H7의 제한된 OD-GCN 비교도 우위를 지지하지 못했습니다.</p>
+</aside>
+</div>
+<div class="table-wrap">
+<table>
+<caption>모형의 설계 차이 · 성능 순위 아님</caption>
+<thead>
+<tr>
+<th scope="col">관점</th>
+<th scope="col">XGBoost</th>
+<th scope="col">GCN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">관계 정보</th>
+<td>OD 이웃 집계 등을 표 특성으로 제공</td>
+<td>그래프 이웃 집계와 표현 변환을 학습</td>
+</tr>
+<tr>
+<th scope="row">거래 건수</th>
+<td>count:poisson 사용 가능</td>
+<td>포아송 평균을 출력하도록 학습</td>
+</tr>
+<tr>
+<th scope="row">FM 연결</th>
+<td>예측값·특성을 조건으로 사용 가능</td>
+<td>학습한 대여소 표현을 조건으로 사용</td>
+</tr>
+<tr>
+<th scope="row">관리할 점</th>
+<td>관계 특성 구성·시차</td>
+<td>그래프 품질·추가 학습 비용</td>
+</tr>
+<tr>
+<th scope="row">프로젝트 결론</th>
+<td colspan="2">동일 입력·예산 비교 전에는 우열 미정</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<details>
+<summary>공정한 비교를 위한 후속 설계</summary>
+<p>같은 과거 시간 분할·대여소·기상·달력과 정해진 탐색 예산으로 자기 특성 XGBoost → OD 집계 추가 XGBoost → 같은 입력의 GCN을 비교합니다. 관계 정보와 학습 표현의 이득을 분리하고, 선택은 과거 거래 내부에서 끝냅니다. 고정 모델만 9월 재고에서 평가합니다. 새 가설 PR·사전 계획 후 dislab에서 수행할 후속 비교이며 아직 결과가 없습니다.</p>
+</details>
+<p class="sources">원문: <a href="https://arxiv.org/abs/1609.02907">GCN</a> · <a href="https://arxiv.org/abs/1603.02754">XGBoost</a> · <a href="https://xgboost.readthedocs.io/en/stable/parameter.html">XGBoost 목적함수</a>
+</p>
+</section>
+<section id="results" class="slide tint" data-title="정확한 평가 결과">
+<p class="eyebrow">04 / MEASURED RESULTS</p>
+<h2>확률예측은 개선됐고,<br>수량 오차는 거의 같았습니다.</h2>
+<p class="intro">2026.09.17–09.30 · 1,298개 대여소 · 2,458,501쌍 · 10분 후 API 표시 재고</p>
+<div class="two">
+<figure class="chart">
+<figcaption>확률예측 오차 fairCRPS <small>낮을수록 좋음</small>
+</figcaption>
+<div class="bar">
+<span>현재 유지</span>
+<div>
+<i style="width:100%">
+</i>
+</div>
+<b>0.212015</b>
+</div>
+<div class="bar">
+<span>GCN + 포아송</span>
+<div>
+<i class="poisson" style="width:84.5084%">
+</i>
+</div>
+<b>0.179170</b>
+</div>
+<div class="bar">
+<span>GCN + FM</span>
+<div>
+<i class="fm" style="width:84.7845%">
+</i>
+</div>
+<b>0.179756</b>
+</div>
+<p>현재 유지 대비 <b>포아송 15.49% / FM 15.22%</b> 감소</p>
+<p class="note">fairCRPS는 표본으로 예측한 확률분포와 실측의 차이를 평가하는 점수입니다. 적중률이나 MAE와 다릅니다.</p>
+</figure>
+<div class="table-wrap">
+<table>
+<caption>같은 표본에서 비교 · 낮을수록 좋음</caption>
+<thead>
+<tr>
+<th scope="col">모델</th>
+<th scope="col">재고 MAE, 대</th>
+<th scope="col">0대 Brier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">현재 유지</th>
+<td>0.212015</td>
+<td>0.061430</td>
+</tr>
+<tr>
+<th scope="row">GCN + 포아송</th>
+<td>0.212039</td>
+<td>0.052824</td>
+</tr>
+<tr>
+<th scope="row">GCN + FM</th>
+<td>0.211982</td>
+<td>0.053544</td>
+</tr>
+</tbody>
+</table>
+<p class="note">MAE는 예측분포 중앙값의 수량 오차, Brier는 예측한 0대 확률의 오차입니다.</p>
+</div>
+</div>
+<aside>
+<b>FM의 추가 이득은 아직 확인되지 않았습니다.</b>
+<p>FM의 fairCRPS는 같은 GCN·포아송 대비 0.327% 높았습니다. 두 기준선 모두를 이겨야 한다는 사전 기준을 통과하지 못했습니다. FM 연구 경로를 보존한 시제품이며, ‘FM이 포아송보다 우수하다’는 결론은 아닙니다.</p>
+</aside>
+<p class="note">9월은 반복 노출된 평가 자료로 미열람 독립 시험이 아닙니다. 대응 표본 수가 독립 표본 수를 뜻하지 않습니다. 과거 거래·대여량 점수와 구분합니다. H13 학습의 로컬 실행 위치 위반·dislab 전체 평가 전환은 원 기록에 공개했습니다.</p>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/blob/hypothesis/H-0021-bulk-rebalancing/docs/H-0013-rolling-api-flow.md">평가 조건·불확실성·전체 기록 ↗</a>
+</section>
+<section id="dispatch" class="slide" data-title="재배치 연결 결과">
+<p class="eyebrow">05 / FROM FORECAST TO ACTION</p>
+<h2>어디에, 몇 대를,<br>어떤 순서로 옮길 것인가.</h2>
+<p class="intro">전체 지원 대여소에서 후보를 찾고, 예측 위험 감소와 거리·시간·작업 부담을 함께 계산합니다.</p>
+<div class="two">
+<article class="dispatch-result">
+<span class="pill">실제 API 입력 기반 · 미실행 계획</span>
+<p class="note date">2026.11.01 18:40 관측 / 18:40:36 발행 KST</p>
+<div class="route-stats">
+<div>
+<strong>6<small>대</small>
+</strong>
+<span>총 이동</span>
+</div>
+<div>
+<strong>4.288<small>km</small>
+</strong>
+<span>계획 거리</span>
+</div>
+<div>
+<strong>8.69<small>분</small>
+</strong>
+<span>작업·복귀 포함</span>
+</div>
+</div>
+<div class="sequence">수거 4 + 1 + 1대 <b>→</b> 배치 1 + 1 + 1 + 3대</div>
+<p class="note">수거·배치 표시는 합계를 나눈 요약이며, 방문 순서는 운영 화면에서 확인합니다. 최고 적재 5대 / 복귀 적재 0대. 총 6대이며 한 대여소에 6대를 배치한 결과가 아닙니다. 실제 배차·품절 감소는 미측정입니다.</p>
+</article>
+<div>
+<h3>현실 제약을 계산에 포함</h3>
+<ul>
+<li>차량 적재·중간 적재량·출발 및 복귀</li>
+<li>공급지 안전 재고·추가 주차 한도</li>
+<li>수거·배치 각각 대당 20초 작업 가정</li>
+<li>10분 예측 만료와 출발 마감 준수</li>
+<li>새 관측 수신·만료 임박 시 계획 갱신</li>
+</ul>
+<p class="note">기본 가정: 1차량, 적재 20대, 이동한도 20대, 목표 재고 6대, 추가 주차 10대. 실제 자원 확인값은 아닙니다. 후보 최대 29곳·방문 최대 8회의 제한 탐색이며 도시 전체 최적을 보장하지 않습니다.</p>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/blob/hypothesis/H-0021-bulk-rebalancing/docs/H-0021-bulk-rebalancing.md">72개 합성 조건 · 제약 위반 0건 근거 ↗</a>
+</div>
+</div>
+<div class="demo">
+<div>
+<b>관리자 시연 화면</b>
+<p class="note">조건 변경 → 수량·동선 재계산. 로컬 서버와 dislab 연결이 필요합니다. API 수집은 기한·요청 상한이 있는 시험 운영입니다.</p>
+</div>
+<a id="dispatch-link" class="button primary" href="http://127.0.0.1:8770/dispatch?mode=bulk">이 컴퓨터에서 열기 ↗</a>
+</div>
+</section>
+<section id="transport" class="slide ink" data-title="다른 교통량과 통합">
+<p class="eyebrow">06 / CONNECTED MOBILITY</p>
+<h2>환승 흐름은 예측에,<br>도로 혼잡은 차량 동선에.</h2>
+<p class="intro">아래는 후속 연계 설계이며, 현재 모델에 연결된 기능은 아닙니다.</p>
+<div class="three">
+<article>
+<p class="eyebrow">DEMAND CONTEXT · 설계</p>
+<h3>버스·도시철도</h3>
+<p>정류소 도착예정정보, 역별 과거 시간대 승하차를 주변 환승 맥락으로 집계합니다. 도보 접근 관계와 노선 관계는 자전거 OD와 별도 채널로 유지합니다.</p>
+<p class="note">버스 도착예정시간은 승객 수가 아닙니다. 도시철도 사후 집계량을 실시간 관측으로 취급하지 않습니다.</p>
+</article>
+<article>
+<p class="eyebrow">ROUTE COST · 설계</p>
+<h3>도로 소통정보</h3>
+<p>도로 링크 속도·폐쇄 정보를 구간 이동시간과 차량 진입 조건에 반영합니다. 자전거 수요 특성과 재배치 차량 비용을 분리해 효과를 평가합니다.</p>
+<p class="note">현재는 OSRM 추정 시간입니다. 실시간 혼잡·현장 작업시간 연계는 미완료입니다.</p>
+</article>
+<article>
+<p class="eyebrow">AS-OF JOIN · 설계</p>
+<h3>그때 알 수 있었던 정보만</h3>
+<p>관측·제공·수신 시각과 버전을 보존합니다. 늦게 온 값·미래 값은 차단하고, 누락·만료는 0 대신 마스크로 전달합니다.</p>
+<p class="note">새 특성은 과거 자료로만 선택·재학습합니다. 기존 H13 모델에 바로 주입하지 않습니다.</p>
+</article>
+</div>
+<div class="formula">정류소·역·도로 링크 → 대여소 매핑·시각 정합 → 관계별 표현 / 경로 비용 → 확률 예측 / 재배치</div>
+<p class="note">대전교통공사 공식 포털은 역 주변 타슈·버스 정류소·도착정보 활용을 안내합니다. 이는 자료 종류 확인 근거이며 이용 승인·과거 보존 범위·실제 연결은 별도 확인이 필요합니다. 도로 링크 데이터의 대전 커버리지와 이용 조건은 미확인입니다.</p>
+<p class="sources">
+<a href="https://www.djtc.kr/kor/stationTourList.do?area=104&menuCode=2">공식 활용 안내 ↗</a> · <a href="design/transport-integration.md">연계 구조·시각 계약</a> · <a href="design/transport-event.schema.json" download>표준 이벤트 스키마 ↓</a>
+</p>
+</section>
+<section id="readiness" class="slide" data-title="완료 범위와 다음 단계">
+<p class="eyebrow">07 / READY TO PRESENT</p>
+<h2>지금 발표할 수 있는 것,<br>다음에 검증할 것.</h2>
+<p class="intro">현재 발표 범위는 ‘확률 예측을 재배치 계획에 연결한 연구 시제품’입니다.</p>
+<div class="two">
+<article>
+<span class="pill">구현·기록 완료</span>
+<h3>연결된 시제품</h3>
+<ul>
+<li>과거 거래 학습과 재고 API 평가 분리</li>
+<li>GCN·포아송·FM 예측 경로</li>
+<li>고정 모델의 API 수신·다음 관측 채점</li>
+<li>후보·수량·동선·마감 재계산</li>
+<li>관측 갱신 충돌·재시도 복구</li>
+</ul>
+</article>
+<article>
+<span class="pill warn">추가 검증 필요</span>
+<h3>현장 적용까지의 과제</h3>
+<ul>
+<li>GCN 대 XGBoost 동일 조건 비교</li>
+<li>FM의 추가 가치와 결합 예측 검증</li>
+<li>30·60분 예측의 별도 평가</li>
+<li>실제 차량·거점·주차·작업시간 확인</li>
+<li>재배치 행동·비용·현장 결과 기록</li>
+</ul>
+</article>
+</div>
+<details>
+<summary>발표에서 “정확도 35.7% 향상”, “품절 65% 감소”라고 해도 되나요?</summary>
+<p>현재 검증 근거로 사용할 수 없습니다. 10분 후 재고 분포의 fairCRPS 감소 15.22%(FM)와 15.49%(포아송)를 현재 유지 대비 결과로 사용합니다. 수량 MAE는 거의 같고 FM의 추가 이득은 미확인입니다. 이전 홈페이지 수치는 별도 기획 기록입니다.</p>
+</details>
+<details>
+<summary>이제 프로젝트가 끝난 건가요?</summary>
+<p>예측–계획 연결은 설명·시연 가능한 시제품입니다. 상시 운영이나 현장 효과 검증 완료 단계는 아닙니다. PR은 미병합이며 수집은 상한이 있는 시험 운영입니다. 발표 전에는 로컬 화면·원격 연결·관측 신선도를 확인하고, 연결이 안 되면 이 페이지의 날짜가 명시된 기록 사례를 사용합니다.</p>
+</details>
+<div class="actions">
+<button id="print">인쇄 / PDF 저장</button>
+<a href="design/presentation-guide.md">5분 발표 대본·질의응답 ↗</a>
+</div>
+</section>
+</main>
+<footer>
+<div>
+<b>타슈 · Forecast & Dispatch</b>
+<p>근거 기준 2026.11.02 · 연구 시제품 · 운영 배포 아님</p>
+</div>
+<div>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/pull/27">홈페이지 PR</a>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/pull/30">재배치 PR</a>
+<a href="https://arxiv.org/abs/2210.02747">FM 원문</a>
+<a href="archive-concept.html">이전 기획 기록</a>
+</div>
+</footer>
+<div id="presentation-controls" hidden>
+<button id="previous" aria-label="이전 장">←</button>
+<span id="slide-status" role="status" aria-live="polite">
+</span>
+<button id="next" aria-label="다음 장">→</button>
+<button id="exit">종료 Esc</button>
+</div>
+<noscript>
+<p>모든 결과는 JavaScript 없이도 볼 수 있습니다. 발표 모드·인쇄 버튼은 JavaScript가 필요합니다.</p>
+</noscript>
 </body>
 </html>
