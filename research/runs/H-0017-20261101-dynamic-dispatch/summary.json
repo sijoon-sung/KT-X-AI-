@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0017",
+  "started_at_utc": "2026-10-31T16:54:26.805547+00:00",
+  "finished_at_utc": "2026-10-31T16:54:31.167197+00:00",
+  "native_remote_finished_at_utc": "2026-10-31T16:52:14.428742+00:00",
+  "code_commit": "f11f71663897230f7969bc5ad680930041f74113",
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4"
+  },
+  "checks": [
+    {
+      "name": "tiny_independent_optimum_oracle",
+      "passed": true
+    },
+    {
+      "name": "directed_distance_and_handling_oracle",
+      "passed": true
+    },
+    {
+      "name": "capacity_changes_exact_quantity",
+      "passed": true
+    },
+    {
+      "name": "reject_unknown",
+      "passed": true
+    },
+    {
+      "name": "reject_too_many",
+      "passed": true
+    },
+    {
+      "name": "reject_unsupported_horizon",
+      "passed": true
+    },
+    {
+      "name": "reject_nan",
+      "passed": true
+    },
+    {
+      "name": "future_truth_and_samples_not_in_ui_response",
+      "passed": true
+    },
+    {
+      "name": "default_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "default_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "default_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "default_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "default_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "capacity1_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "capacity1_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "capacity1_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "capacity1_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "capacity1_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "deadline3_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "deadline3_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "deadline3_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "deadline3_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "deadline3_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "exclude_one_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "exclude_one_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "exclude_one_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "exclude_one_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "exclude_one_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "distance_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "distance_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "distance_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "distance_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "distance_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "time_complete_and_no_dispatch",
+      "passed": true
+    },
+    {
+      "name": "time_distance_conservation",
+      "passed": true
+    },
+    {
+      "name": "time_time_and_load",
+      "passed": true
+    },
+    {
+      "name": "time_bike_and_source_bounds",
+      "passed": true
+    },
+    {
+      "name": "time_input_file_unchanged",
+      "passed": true
+    },
+    {
+      "name": "candidate_exclusion_changes_route_domain",
+      "passed": true
+    },
+    {
+      "name": "operational_ui_without_research_sections",
+      "passed": true
+    },
+    {
+      "name": "minimal_correct_model_attribution",
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "acceptance_failures": 0
+  },
+  "seconds": 4.361649699974805,
+  "cases": {
+    "default": {
+      "moved_bikes": 4,
+      "distance_meters": 4785.2,
+      "return_minutes": 6.005,
+      "peak_load": 4,
+      "complete_search": true
+    },
+    "capacity1": {
+      "moved_bikes": 2,
+      "distance_meters": 4294.5,
+      "return_minutes": 5.12,
+      "peak_load": 1,
+      "complete_search": true
+    },
+    "deadline3": {
+      "moved_bikes": 2,
+      "distance_meters": 2382.0,
+      "return_minutes": 2.9316666666666666,
+      "peak_load": 2,
+      "complete_search": true
+    },
+    "exclude_one": {
+      "moved_bikes": 2,
+      "distance_meters": 3175.7,
+      "return_minutes": 3.881666666666667,
+      "peak_load": 2,
+      "complete_search": true
+    },
+    "distance": {
+      "moved_bikes": 4,
+      "distance_meters": 4785.2,
+      "return_minutes": 6.005,
+      "peak_load": 4,
+      "complete_search": true
+    },
+    "time": {
+      "moved_bikes": 4,
+      "distance_meters": 4785.2,
+      "return_minutes": 6.005,
+      "peak_load": 4,
+      "complete_search": true
+    }
+  },
+  "field_benefit_observed": false,
+  "dispatch_allowed": false
+}

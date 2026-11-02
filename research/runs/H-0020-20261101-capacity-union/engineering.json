@@ -1,0 +1,1107 @@
+{
+  "hypothesis_id": "H-0020",
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "device": "dislab CPU"
+  },
+  "cases": [
+    {
+      "case": 0,
+      "capacity": 1,
+      "net_value": 3.940339357728355,
+      "direct_net_value": 3.940339357728355,
+      "moved": 2,
+      "solver_seconds": 0.0012962999753654003,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "capacity": 2,
+      "net_value": 4.930339357728355,
+      "direct_net_value": 4.930339357728355,
+      "moved": 3,
+      "solver_seconds": 0.002517999615520239,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "capacity": 3,
+      "net_value": 4.9502702961522385,
+      "direct_net_value": 4.9502702961522385,
+      "moved": 3,
+      "solver_seconds": 0.004152999725192785,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "capacity": 4,
+      "net_value": 4.9502702961522385,
+      "direct_net_value": 4.9502702961522385,
+      "moved": 3,
+      "solver_seconds": 0.006065899971872568,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "capacity": 5,
+      "net_value": 4.9502702961522385,
+      "direct_net_value": 4.9502702961522385,
+      "moved": 3,
+      "solver_seconds": 0.007919800002127886,
+      "violations": 0
+    },
+    {
+      "case": 0,
+      "capacity": 6,
+      "net_value": 4.9502702961522385,
+      "direct_net_value": 4.9502702961522385,
+      "moved": 3,
+      "solver_seconds": 0.010628500021994114,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 1,
+      "net_value": 3.9461599305533763,
+      "direct_net_value": 3.9461599305533763,
+      "moved": 2,
+      "solver_seconds": 0.0010232003405690193,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 2,
+      "net_value": 4.936159930553376,
+      "direct_net_value": 4.936159930553376,
+      "moved": 3,
+      "solver_seconds": 0.0023324000649154186,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 3,
+      "net_value": 4.953090400320876,
+      "direct_net_value": 4.953090400320876,
+      "moved": 3,
+      "solver_seconds": 0.003998099826276302,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 4,
+      "net_value": 4.953090400320876,
+      "direct_net_value": 4.953090400320876,
+      "moved": 3,
+      "solver_seconds": 0.006238400004804134,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 5,
+      "net_value": 4.953090400320876,
+      "direct_net_value": 4.953090400320876,
+      "moved": 3,
+      "solver_seconds": 0.007995800115168095,
+      "violations": 0
+    },
+    {
+      "case": 1,
+      "capacity": 6,
+      "net_value": 4.953090400320876,
+      "direct_net_value": 4.953090400320876,
+      "moved": 3,
+      "solver_seconds": 0.011789300013333559,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 1,
+      "net_value": 3.9436584845070257,
+      "direct_net_value": 3.9436584845070257,
+      "moved": 2,
+      "solver_seconds": 0.0010867002420127392,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 2,
+      "net_value": 4.933658484507026,
+      "direct_net_value": 4.933658484507026,
+      "moved": 3,
+      "solver_seconds": 0.0023852000012993813,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 3,
+      "net_value": 4.941316982136293,
+      "direct_net_value": 4.941316982136293,
+      "moved": 3,
+      "solver_seconds": 0.004158100113272667,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 4,
+      "net_value": 4.941316982136293,
+      "direct_net_value": 4.941316982136293,
+      "moved": 3,
+      "solver_seconds": 0.006404300220310688,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 5,
+      "net_value": 4.941316982136293,
+      "direct_net_value": 4.941316982136293,
+      "moved": 3,
+      "solver_seconds": 0.00792980007827282,
+      "violations": 0
+    },
+    {
+      "case": 2,
+      "capacity": 6,
+      "net_value": 4.941316982136293,
+      "direct_net_value": 4.941316982136293,
+      "moved": 3,
+      "solver_seconds": 0.010410899762064219,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 1,
+      "net_value": 3.9438374256319895,
+      "direct_net_value": 3.9438374256319895,
+      "moved": 2,
+      "solver_seconds": 0.0010279999114573002,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 2,
+      "net_value": 4.933837425631989,
+      "direct_net_value": 4.933837425631989,
+      "moved": 3,
+      "solver_seconds": 0.0023644003085792065,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 3,
+      "net_value": 4.93819632564394,
+      "direct_net_value": 4.93819632564394,
+      "moved": 3,
+      "solver_seconds": 0.004321199841797352,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 4,
+      "net_value": 4.93819632564394,
+      "direct_net_value": 4.93819632564394,
+      "moved": 3,
+      "solver_seconds": 0.006082499865442514,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 5,
+      "net_value": 4.93819632564394,
+      "direct_net_value": 4.93819632564394,
+      "moved": 3,
+      "solver_seconds": 0.009286300279200077,
+      "violations": 0
+    },
+    {
+      "case": 3,
+      "capacity": 6,
+      "net_value": 4.93819632564394,
+      "direct_net_value": 4.93819632564394,
+      "moved": 3,
+      "solver_seconds": 0.010172499809414148,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 1,
+      "net_value": 3.9269350787087878,
+      "direct_net_value": 3.9269350787087878,
+      "moved": 2,
+      "solver_seconds": 0.0010425001382827759,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 2,
+      "net_value": 4.9169350787087875,
+      "direct_net_value": 4.9169350787087875,
+      "moved": 3,
+      "solver_seconds": 0.002373100258409977,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 3,
+      "net_value": 4.941241944844001,
+      "direct_net_value": 4.941241944844001,
+      "moved": 3,
+      "solver_seconds": 0.004426699597388506,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 4,
+      "net_value": 4.941241944844001,
+      "direct_net_value": 4.941241944844001,
+      "moved": 3,
+      "solver_seconds": 0.00601219991222024,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 5,
+      "net_value": 4.941241944844001,
+      "direct_net_value": 4.941241944844001,
+      "moved": 3,
+      "solver_seconds": 0.008122599683701992,
+      "violations": 0
+    },
+    {
+      "case": 4,
+      "capacity": 6,
+      "net_value": 4.941241944844001,
+      "direct_net_value": 4.941241944844001,
+      "moved": 3,
+      "solver_seconds": 0.0100467000156641,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 1,
+      "net_value": 3.9390982835999853,
+      "direct_net_value": 3.9390982835999853,
+      "moved": 2,
+      "solver_seconds": 0.00107150012627244,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 2,
+      "net_value": 4.929098283599985,
+      "direct_net_value": 4.929098283599985,
+      "moved": 3,
+      "solver_seconds": 0.0027343998663127422,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 3,
+      "net_value": 4.936193496552903,
+      "direct_net_value": 4.936193496552903,
+      "moved": 3,
+      "solver_seconds": 0.004247399978339672,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 4,
+      "net_value": 4.936193496552903,
+      "direct_net_value": 4.936193496552903,
+      "moved": 3,
+      "solver_seconds": 0.005802599713206291,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 5,
+      "net_value": 4.936193496552903,
+      "direct_net_value": 4.936193496552903,
+      "moved": 3,
+      "solver_seconds": 0.008093700278550386,
+      "violations": 0
+    },
+    {
+      "case": 5,
+      "capacity": 6,
+      "net_value": 4.936193496552903,
+      "direct_net_value": 4.936193496552903,
+      "moved": 3,
+      "solver_seconds": 0.009914000052958727,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 1,
+      "net_value": 3.9389472161618784,
+      "direct_net_value": 3.9389472161618784,
+      "moved": 2,
+      "solver_seconds": 0.0011180997826159,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 2,
+      "net_value": 4.928947216161878,
+      "direct_net_value": 4.928947216161878,
+      "moved": 3,
+      "solver_seconds": 0.0024731000885367393,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 3,
+      "net_value": 4.942942576316519,
+      "direct_net_value": 4.942942576316519,
+      "moved": 3,
+      "solver_seconds": 0.004029700066894293,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 4,
+      "net_value": 4.942942576316519,
+      "direct_net_value": 4.942942576316519,
+      "moved": 3,
+      "solver_seconds": 0.0058108000084757805,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 5,
+      "net_value": 4.942942576316519,
+      "direct_net_value": 4.942942576316519,
+      "moved": 3,
+      "solver_seconds": 0.008615400176495314,
+      "violations": 0
+    },
+    {
+      "case": 6,
+      "capacity": 6,
+      "net_value": 4.942942576316519,
+      "direct_net_value": 4.942942576316519,
+      "moved": 3,
+      "solver_seconds": 0.010201800148934126,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 1,
+      "net_value": 3.957272151747392,
+      "direct_net_value": 3.957272151747392,
+      "moved": 2,
+      "solver_seconds": 0.001038499642163515,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 2,
+      "net_value": 4.947272151747392,
+      "direct_net_value": 4.947272151747392,
+      "moved": 3,
+      "solver_seconds": 0.0023674997501075268,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 3,
+      "net_value": 4.9499757978808425,
+      "direct_net_value": 4.9499757978808425,
+      "moved": 3,
+      "solver_seconds": 0.003949299920350313,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 4,
+      "net_value": 4.9499757978808425,
+      "direct_net_value": 4.9499757978808425,
+      "moved": 3,
+      "solver_seconds": 0.005832199938595295,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 5,
+      "net_value": 4.9499757978808425,
+      "direct_net_value": 4.9499757978808425,
+      "moved": 3,
+      "solver_seconds": 0.008135499898344278,
+      "violations": 0
+    },
+    {
+      "case": 7,
+      "capacity": 6,
+      "net_value": 4.9499757978808425,
+      "direct_net_value": 4.9499757978808425,
+      "moved": 3,
+      "solver_seconds": 0.010087000206112862,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 1,
+      "net_value": 3.948907223007039,
+      "direct_net_value": 3.948907223007039,
+      "moved": 2,
+      "solver_seconds": 0.001033799722790718,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 2,
+      "net_value": 4.938907223007038,
+      "direct_net_value": 4.938907223007038,
+      "moved": 3,
+      "solver_seconds": 0.0023222998715937138,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 3,
+      "net_value": 4.938911826163205,
+      "direct_net_value": 4.938911826163205,
+      "moved": 3,
+      "solver_seconds": 0.003984099719673395,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 4,
+      "net_value": 4.938911826163205,
+      "direct_net_value": 4.938911826163205,
+      "moved": 3,
+      "solver_seconds": 0.005886300001293421,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 5,
+      "net_value": 4.938911826163205,
+      "direct_net_value": 4.938911826163205,
+      "moved": 3,
+      "solver_seconds": 0.00841089989989996,
+      "violations": 0
+    },
+    {
+      "case": 8,
+      "capacity": 6,
+      "net_value": 4.938911826163205,
+      "direct_net_value": 4.938911826163205,
+      "moved": 3,
+      "solver_seconds": 0.01013300009071827,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 1,
+      "net_value": 3.9422669340035497,
+      "direct_net_value": 3.9422669340035497,
+      "moved": 2,
+      "solver_seconds": 0.0010453001596033573,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 2,
+      "net_value": 4.932266934003549,
+      "direct_net_value": 4.932266934003549,
+      "moved": 3,
+      "solver_seconds": 0.0023588999174535275,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 3,
+      "net_value": 4.945055946111552,
+      "direct_net_value": 4.945055946111552,
+      "moved": 3,
+      "solver_seconds": 0.0040882001630961895,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 4,
+      "net_value": 4.945055946111552,
+      "direct_net_value": 4.945055946111552,
+      "moved": 3,
+      "solver_seconds": 0.005933799780905247,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 5,
+      "net_value": 4.945055946111552,
+      "direct_net_value": 4.945055946111552,
+      "moved": 3,
+      "solver_seconds": 0.008065799716860056,
+      "violations": 0
+    },
+    {
+      "case": 9,
+      "capacity": 6,
+      "net_value": 4.945055946111552,
+      "direct_net_value": 4.945055946111552,
+      "moved": 3,
+      "solver_seconds": 0.010877999942749739,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 1,
+      "net_value": 3.9387695157545526,
+      "direct_net_value": 3.9387695157545526,
+      "moved": 2,
+      "solver_seconds": 0.0010353000834584236,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 2,
+      "net_value": 4.928769515754552,
+      "direct_net_value": 4.928769515754552,
+      "moved": 3,
+      "solver_seconds": 0.0023683002218604088,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 3,
+      "net_value": 4.930947526630359,
+      "direct_net_value": 4.930947526630359,
+      "moved": 3,
+      "solver_seconds": 0.004323699977248907,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 4,
+      "net_value": 4.930947526630359,
+      "direct_net_value": 4.930947526630359,
+      "moved": 3,
+      "solver_seconds": 0.006395699921995401,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 5,
+      "net_value": 4.930947526630359,
+      "direct_net_value": 4.930947526630359,
+      "moved": 3,
+      "solver_seconds": 0.007869199849665165,
+      "violations": 0
+    },
+    {
+      "case": 10,
+      "capacity": 6,
+      "net_value": 4.930947526630359,
+      "direct_net_value": 4.930947526630359,
+      "moved": 3,
+      "solver_seconds": 0.010014900006353855,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 1,
+      "net_value": 3.9393377616441745,
+      "direct_net_value": 3.9393377616441745,
+      "moved": 2,
+      "solver_seconds": 0.00107849994674325,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 2,
+      "net_value": 4.929337761644175,
+      "direct_net_value": 4.929337761644175,
+      "moved": 3,
+      "solver_seconds": 0.002398899756371975,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 3,
+      "net_value": 4.931973806494339,
+      "direct_net_value": 4.931973806494339,
+      "moved": 3,
+      "solver_seconds": 0.004056899808347225,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 4,
+      "net_value": 4.931973806494339,
+      "direct_net_value": 4.931973806494339,
+      "moved": 3,
+      "solver_seconds": 0.006062899716198444,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 5,
+      "net_value": 4.931973806494339,
+      "direct_net_value": 4.931973806494339,
+      "moved": 3,
+      "solver_seconds": 0.007904500234872103,
+      "violations": 0
+    },
+    {
+      "case": 11,
+      "capacity": 6,
+      "net_value": 4.931973806494339,
+      "direct_net_value": 4.931973806494339,
+      "moved": 3,
+      "solver_seconds": 0.010279200039803982,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 1,
+      "net_value": 3.9417117812603433,
+      "direct_net_value": 3.9417117812603433,
+      "moved": 2,
+      "solver_seconds": 0.0010454999282956123,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 2,
+      "net_value": 4.9317117812603435,
+      "direct_net_value": 4.9317117812603435,
+      "moved": 3,
+      "solver_seconds": 0.0024791997857391834,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 3,
+      "net_value": 4.93917587234084,
+      "direct_net_value": 4.93917587234084,
+      "moved": 3,
+      "solver_seconds": 0.004100400023162365,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 4,
+      "net_value": 4.93917587234084,
+      "direct_net_value": 4.93917587234084,
+      "moved": 3,
+      "solver_seconds": 0.006091500166803598,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 5,
+      "net_value": 4.93917587234084,
+      "direct_net_value": 4.93917587234084,
+      "moved": 3,
+      "solver_seconds": 0.007760200183838606,
+      "violations": 0
+    },
+    {
+      "case": 12,
+      "capacity": 6,
+      "net_value": 4.93917587234084,
+      "direct_net_value": 4.93917587234084,
+      "moved": 3,
+      "solver_seconds": 0.01016659988090396,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 1,
+      "net_value": 3.9234884803940577,
+      "direct_net_value": 3.9234884803940577,
+      "moved": 2,
+      "solver_seconds": 0.0010486999526619911,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 2,
+      "net_value": 4.913488480394057,
+      "direct_net_value": 4.913488480394057,
+      "moved": 3,
+      "solver_seconds": 0.0023268000222742558,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 3,
+      "net_value": 4.93548756651576,
+      "direct_net_value": 4.93548756651576,
+      "moved": 3,
+      "solver_seconds": 0.004015899728983641,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 4,
+      "net_value": 4.93548756651576,
+      "direct_net_value": 4.93548756651576,
+      "moved": 3,
+      "solver_seconds": 0.006135999690741301,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 5,
+      "net_value": 4.93548756651576,
+      "direct_net_value": 4.93548756651576,
+      "moved": 3,
+      "solver_seconds": 0.007772199809551239,
+      "violations": 0
+    },
+    {
+      "case": 13,
+      "capacity": 6,
+      "net_value": 4.93548756651576,
+      "direct_net_value": 4.93548756651576,
+      "moved": 3,
+      "solver_seconds": 0.010167500004172325,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 1,
+      "net_value": 3.935203981040851,
+      "direct_net_value": 3.935203981040851,
+      "moved": 2,
+      "solver_seconds": 0.0010442999191582203,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 2,
+      "net_value": 4.925203981040851,
+      "direct_net_value": 4.925203981040851,
+      "moved": 3,
+      "solver_seconds": 0.0023509999737143517,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 3,
+      "net_value": 4.9355396440204045,
+      "direct_net_value": 4.9355396440204045,
+      "moved": 3,
+      "solver_seconds": 0.0040293000638484955,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 4,
+      "net_value": 4.9355396440204045,
+      "direct_net_value": 4.9355396440204045,
+      "moved": 3,
+      "solver_seconds": 0.006269899662584066,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 5,
+      "net_value": 4.9355396440204045,
+      "direct_net_value": 4.9355396440204045,
+      "moved": 3,
+      "solver_seconds": 0.007767600007355213,
+      "violations": 0
+    },
+    {
+      "case": 14,
+      "capacity": 6,
+      "net_value": 4.9355396440204045,
+      "direct_net_value": 4.9355396440204045,
+      "moved": 3,
+      "solver_seconds": 0.010123599786311388,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 1,
+      "net_value": 3.951137144361918,
+      "direct_net_value": 3.951137144361918,
+      "moved": 2,
+      "solver_seconds": 0.0010406002402305603,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 2,
+      "net_value": 4.941137144361917,
+      "direct_net_value": 4.941137144361917,
+      "moved": 3,
+      "solver_seconds": 0.002355900127440691,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 3,
+      "net_value": 4.951868842198294,
+      "direct_net_value": 4.951868842198294,
+      "moved": 3,
+      "solver_seconds": 0.004039099905639887,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 4,
+      "net_value": 4.951868842198294,
+      "direct_net_value": 4.951868842198294,
+      "moved": 3,
+      "solver_seconds": 0.006054299883544445,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 5,
+      "net_value": 4.951868842198294,
+      "direct_net_value": 4.951868842198294,
+      "moved": 3,
+      "solver_seconds": 0.008768400177359581,
+      "violations": 0
+    },
+    {
+      "case": 15,
+      "capacity": 6,
+      "net_value": 4.951868842198294,
+      "direct_net_value": 4.951868842198294,
+      "moved": 3,
+      "solver_seconds": 0.010504100006073713,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 1,
+      "net_value": 3.944527475082462,
+      "direct_net_value": 3.944527475082462,
+      "moved": 2,
+      "solver_seconds": 0.0010720002464950085,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 2,
+      "net_value": 4.934527475082462,
+      "direct_net_value": 4.934527475082462,
+      "moved": 3,
+      "solver_seconds": 0.002412599977105856,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 3,
+      "net_value": 4.934985548417035,
+      "direct_net_value": 4.934985548417035,
+      "moved": 3,
+      "solver_seconds": 0.004129699897021055,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 4,
+      "net_value": 4.934985548417035,
+      "direct_net_value": 4.934985548417035,
+      "moved": 3,
+      "solver_seconds": 0.00620940001681447,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 5,
+      "net_value": 4.934985548417035,
+      "direct_net_value": 4.934985548417035,
+      "moved": 3,
+      "solver_seconds": 0.008335799910128117,
+      "violations": 0
+    },
+    {
+      "case": 16,
+      "capacity": 6,
+      "net_value": 4.934985548417035,
+      "direct_net_value": 4.934985548417035,
+      "moved": 3,
+      "solver_seconds": 0.010473700240254402,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 1,
+      "net_value": 3.9356516866027618,
+      "direct_net_value": 3.9356516866027618,
+      "moved": 2,
+      "solver_seconds": 0.0010603000409901142,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 2,
+      "net_value": 4.9256516866027615,
+      "direct_net_value": 4.9256516866027615,
+      "moved": 3,
+      "solver_seconds": 0.0023478996008634567,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 3,
+      "net_value": 4.940504660567241,
+      "direct_net_value": 4.940504660567241,
+      "moved": 3,
+      "solver_seconds": 0.004103200044482946,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 4,
+      "net_value": 4.940504660567241,
+      "direct_net_value": 4.940504660567241,
+      "moved": 3,
+      "solver_seconds": 0.006057700142264366,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 5,
+      "net_value": 4.940504660567241,
+      "direct_net_value": 4.940504660567241,
+      "moved": 3,
+      "solver_seconds": 0.008031500037759542,
+      "violations": 0
+    },
+    {
+      "case": 17,
+      "capacity": 6,
+      "net_value": 4.940504660567241,
+      "direct_net_value": 4.940504660567241,
+      "moved": 3,
+      "solver_seconds": 0.01041109999641776,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 1,
+      "net_value": 3.9247729528946826,
+      "direct_net_value": 3.9247729528946826,
+      "moved": 2,
+      "solver_seconds": 0.001072899904102087,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 2,
+      "net_value": 4.914772952894682,
+      "direct_net_value": 4.914772952894682,
+      "moved": 3,
+      "solver_seconds": 0.0023819999769330025,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 3,
+      "net_value": 4.937099092552903,
+      "direct_net_value": 4.937099092552903,
+      "moved": 3,
+      "solver_seconds": 0.004186199977993965,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 4,
+      "net_value": 4.937099092552903,
+      "direct_net_value": 4.937099092552903,
+      "moved": 3,
+      "solver_seconds": 0.0060097998939454556,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 5,
+      "net_value": 4.937099092552903,
+      "direct_net_value": 4.937099092552903,
+      "moved": 3,
+      "solver_seconds": 0.007988499943166971,
+      "violations": 0
+    },
+    {
+      "case": 18,
+      "capacity": 6,
+      "net_value": 4.937099092552903,
+      "direct_net_value": 4.937099092552903,
+      "moved": 3,
+      "solver_seconds": 0.011283999774605036,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 1,
+      "net_value": 3.9267635690072615,
+      "direct_net_value": 3.9267635690072615,
+      "moved": 2,
+      "solver_seconds": 0.0011551999486982822,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 2,
+      "net_value": 4.916763569007261,
+      "direct_net_value": 4.916763569007261,
+      "moved": 3,
+      "solver_seconds": 0.0023747002705931664,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 3,
+      "net_value": 4.925691442832937,
+      "direct_net_value": 4.925691442832937,
+      "moved": 3,
+      "solver_seconds": 0.004233499988913536,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 4,
+      "net_value": 4.925691442832937,
+      "direct_net_value": 4.925691442832937,
+      "moved": 3,
+      "solver_seconds": 0.005967600271105766,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 5,
+      "net_value": 4.925691442832937,
+      "direct_net_value": 4.925691442832937,
+      "moved": 3,
+      "solver_seconds": 0.007845799904316664,
+      "violations": 0
+    },
+    {
+      "case": 19,
+      "capacity": 6,
+      "net_value": 4.925691442832937,
+      "direct_net_value": 4.925691442832937,
+      "moved": 3,
+      "solver_seconds": 0.00989140011370182,
+      "violations": 0
+    }
+  ],
+  "result_count": 120,
+  "capacity_or_constraint_violations": 0,
+  "direct_capacity_inversions": 0,
+  "maximum_solver_seconds": 0.011789300013333559,
+  "median_solver_seconds": 0.005114649655297399,
+  "decision": "supported",
+  "limitations": [
+    "Synthetic engineering checks, no field effect or accuracy gain",
+    "Capacity inclusion only under identical other inputs",
+    "Marginal loss and resources assumed; no global optimum"
+  ],
+  "private_artifact_sha256": "b9051a53f7a1f808f356975410b5986a5f065665a48b08f3d080ca3f75e324f1",
+  "native_started_at_utc": "2026-11-01T06:56:31.458756+00:00",
+  "native_finished_at_utc": "2026-11-01T06:56:32.109987+00:00",
+  "started_at_utc": "2026-11-01T06:58:50.982565+00:00",
+  "finished_at_utc": "2026-11-01T06:58:51.633796+00:00",
+  "time_note": "Native OS clock preserved; public UTC estimates add H18 offset139.523809sec, uncertainty0.615766sec. Serving uses original monotonic calibrated clock."
+}

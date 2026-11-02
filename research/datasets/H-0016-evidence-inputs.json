@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "H16-recorded-evidence-v1",
+  "scope": "Read-only presentation of H13 causal forecast/observed truth and H14/H15 completed results, plus replay shadow planning with assumed resources. Not new forecast accuracy or field benefit evaluation.",
+  "inputs": [
+    {
+      "id": "forecast",
+      "sha256": "b3a2a2dff60c61980262ca5d7d1025de2cf6746d61fe3d31d9fb3836b5cf0854"
+    },
+    {
+      "id": "current",
+      "sha256": "d84f3c265ba7756c939a003028f6d824230c1fb78a1ffe13ffb1feec09ef7e6c"
+    },
+    {
+      "id": "truth",
+      "sha256": "de1e727e406b45ce7820020784e9349572b9fb2d48bb6df82a1ac3c1321986ef"
+    },
+    {
+      "id": "live_score",
+      "sha256": "20896e18d13206b18b1737e8ce99a2ed3c9c0367d1308f09c6378c5f48529e87"
+    },
+    {
+      "id": "september_score",
+      "sha256": "ea08ede36ac1c6e4242fe56021c65b79ec3e5e0b5d8b4315567581469f5b59b8"
+    },
+    {
+      "id": "h14_fit",
+      "sha256": "57ed66d5c4cf79d16c479aa270a3f30a3756027ca07dbd9374f7156aab8a24ea"
+    },
+    {
+      "id": "h15_acceptance",
+      "sha256": "b3cb4e694ff0c182c366e53adeada75bd7d20d0f9945ddd5382559dd199ccdec"
+    }
+  ],
+  "api_learning": false,
+  "individual_records_public": false
+}

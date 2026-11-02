@@ -1,0 +1,85 @@
+{
+  "serving_code_commit": "c55a14cd793d15311c67dc8875e49af427add7ec",
+  "checkpoint_at_utc": "2026-11-01T07:14:08.140272+00:00",
+  "issues": [
+    {
+      "source_version": "H18-1793516400",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:06:43.797272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:10:00+00:00",
+      "valid_until_utc": "2026-11-01T07:10:00+00:00",
+      "moved_bikes": 0,
+      "distance_meters": 0.0,
+      "minutes": 0.0,
+      "private_artifact_sha256": "236353b351f678efa2da3f449ffa9845b317f2f9b8068e2d0e20b0ebdff86977",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    },
+    {
+      "source_version": "H18-1793517000",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:10:09.734272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:10:59.300000+00:00",
+      "valid_until_utc": "2026-11-01T07:20:00+00:00",
+      "moved_bikes": 4,
+      "distance_meters": 7908.0,
+      "minutes": 9.011666666666667,
+      "private_artifact_sha256": "2d557aef1f69980e0d32913b75938a5ffa58fdb3fac6315b2006f1df36905fc3",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    },
+    {
+      "source_version": "H18-1793517000",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:10:45.765272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:11:50.800000+00:00",
+      "valid_until_utc": "2026-11-01T07:20:00+00:00",
+      "moved_bikes": 4,
+      "distance_meters": 6528.8,
+      "minutes": 8.153333333333332,
+      "private_artifact_sha256": "cb5d7eea6bef885006602aa40db115ae259abb6ac1d651bec6491c7e84878755",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    },
+    {
+      "source_version": "H18-1793517000",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:11:41.625272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:12:12.700000+00:00",
+      "valid_until_utc": "2026-11-01T07:20:00+00:00",
+      "moved_bikes": 5,
+      "distance_meters": 5827.9,
+      "minutes": 7.788333333333332,
+      "private_artifact_sha256": "47b0a11ee41e40f91d23bc8e430b7e014d0870e769c0ad66f3a7b7b8e19e367e",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    },
+    {
+      "source_version": "H18-1793517000",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:12:12.594272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:13:22.700000+00:00",
+      "valid_until_utc": "2026-11-01T07:20:00+00:00",
+      "moved_bikes": 5,
+      "distance_meters": 5626.7,
+      "minutes": 6.621666666666667,
+      "private_artifact_sha256": "16d7822c92a4f9389a3e46fdcbff4cf0e7fd667693191c002bbe957d6d464029",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    },
+    {
+      "source_version": "H18-1793517000",
+      "status": 200,
+      "issued_at_utc": "2026-11-01T07:13:13.422272+00:00",
+      "latest_departure_at_utc": "2026-11-01T07:14:37.600000+00:00",
+      "valid_until_utc": "2026-11-01T07:20:00+00:00",
+      "moved_bikes": 3,
+      "distance_meters": 4272.3,
+      "minutes": 5.373333333333334,
+      "private_artifact_sha256": "a9e83f69bc5c346f9dd04bcdaa387c39d5e226a19b390c2a897cf449a53b4be8",
+      "certificate_violations": 0,
+      "issued_within_departure_window": true
+    }
+  ],
+  "meaning": "Automatic renewed observation and expiring-departure replans; shadow only, no actual dispatch"
+}

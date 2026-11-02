@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Proposed transport context event (not an active integration)",
+  "description": "Design contract. Timestamp ordering and as-of availability require semantic validation outside JSON Schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "source_version",
+    "entity_id",
+    "kind",
+    "observed_at",
+    "published_at",
+    "received_at",
+    "window_start",
+    "window_end",
+    "value",
+    "unit",
+    "quality",
+    "purpose"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entity_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "bus_eta",
+        "metro_boardings",
+        "metro_alightings",
+        "road_speed",
+        "road_closure"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "window_start": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "window_end": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "unit": {
+      "enum": [
+        "seconds",
+        "persons",
+        "km_per_hour",
+        "closed_0_or_1"
+      ]
+    },
+    "quality": {
+      "enum": [
+        "observed",
+        "missing",
+        "stale",
+        "unavailable"
+      ]
+    },
+    "purpose": {
+      "enum": [
+        "demand_context",
+        "routing_cost"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "quality": {
+            "const": "observed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "value": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "bus_eta"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unit": {
+            "const": "seconds"
+          },
+          "purpose": {
+            "const": "demand_context"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "metro_boardings",
+              "metro_alightings"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unit": {
+            "const": "persons"
+          },
+          "purpose": {
+            "const": "demand_context"
+          },
+          "value": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "window_start": {
+            "type": "string"
+          },
+          "window_end": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "road_speed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unit": {
+            "const": "km_per_hour"
+          },
+          "purpose": {
+            "const": "routing_cost"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "road_closure"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unit": {
+            "const": "closed_0_or_1"
+          },
+          "value": {
+            "enum": [
+              0,
+              1,
+              null
+            ]
+          },
+          "purpose": {
+            "const": "routing_cost"
+          }
+        }
+      }
+    }
+  ]
+}

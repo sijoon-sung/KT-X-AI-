@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-scaled-seoul-flow-H0009-v1",
+  "source_catalog": "docs/sources/seoul-uci560-source-v1.json",
+  "source_catalog_sha256": "f69a66d6b3903e5b40b20a0b02663c6f29211e7269fe48df261a0640d7405839",
+  "h4_manifest": "research/runs/H-0004-20261031-historical/manifest.json",
+  "h7_manifest": "research/runs/H-0007-20261031-od-gcn/manifest.json",
+  "historical_source_catalog": "docs/sources/tashu-historical-trips-source-v1.json",
+  "api_manifest": "research/datasets/tashu-primary-v1.json",
+  "history_archive_sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+  "historical_panel_sha256": "69b75ae9e0255e6b9e100c6e69764677a83d794554a8377388d69bb5a4130f89",
+  "seoul_csv_sha256": "373339b71a8935d69e9af0abf26a70744632119862eeb3919efb389a7b749c60",
+  "role": "Historical Tashu30minute completed counts for training/Febselection; Seoul2017-18 calendar profiles; SeptemberAPI evaluation only.",
+  "h4_manifest_sha256": "5b7afd0fcd15eaced73f7cb41f188a428ead1ace48e38ead777c7e27ad381b6c",
+  "h7_manifest_sha256": "faaa21939acf1acc6536d327cc4a3d177cd9b00158961e0ea0ec2acb8e428bf6",
+  "historical_source_catalog_sha256": "e8c04e3b6839760001b025e9e489b0044b330470489434853b5182dcf0554438",
+  "api_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875"
+}

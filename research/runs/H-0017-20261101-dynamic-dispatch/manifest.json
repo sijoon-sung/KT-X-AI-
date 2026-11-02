@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0017",
+  "plan_sha256": "4a89e0e6c9181824d115d8647e2f7afa320df37e53847efc79310417e8f6a822",
+  "input_manifest_sha256": "7f3357c147b1b1a4406658bb8620aea141c6508c2f1e9203c599c1d0c12c84b6",
+  "code_commit": "f11f71663897230f7969bc5ad680930041f74113",
+  "started_at_utc": "2026-10-31T16:54:26.805547+00:00",
+  "finished_at_utc": "2026-10-31T16:54:31.167197+00:00",
+  "command": [
+    "python",
+    "research_code/dispatch_acceptance.py",
+    "--state",
+    "PRIVATE_VERIFIED_STATE",
+    "--cache",
+    "PRIVATE_ROADS",
+    "--out",
+    "PRIVATE_ACCEPTANCE",
+    "--collector-start",
+    "2026-10-31T16:54:26.805547+00:00"
+  ],
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4"
+  },
+  "evaluation_scope": "Deterministic constrained planning and operational interface acceptance, not forecast superiority or field effect.",
+  "metrics": {
+    "acceptance_failures": 0
+  },
+  "artifacts": [
+    {
+      "id": "browser-checks.json",
+      "sha256": "46092a0f124a23091f0175c7789a8c37096237bd2a810d69b3c5e7a4f47da8ed"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "a0aa59f3398d1d64f487c05ae3158691c5640026ac1b3c57eea688cc728c5666"
+    }
+  ],
+  "limitations": [
+    "Recorded Oct31 current state and frozen H13 stationwise predictions; no new model fit or superiority test.",
+    "Exact finite search restricted to<=5selectedstations, onevehicle, onevisit, integercaps, fixedcar-roadmatrix and policyobjective.",
+    "Realfleet/depot/parking/handling/traffic/truckaccess unverified, resourcesassumed.",
+    "No actual dispatch or measured field improvement."
+  ]
+}

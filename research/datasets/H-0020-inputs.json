@@ -1,0 +1,7 @@
+{
+  "dataset_id": "H20-synthetic-capacity-oracles-v1",
+  "synthetic": "20 independent seed43 geometric directed road matrices; four sites with stocks8,7,0,1 and128constant marginals; target2,budget6,deadline8min; capacities1..6",
+  "live": "One post-publication observation-time functional example only; actual serving clock/expiry still checked. Not a new accuracy/field-effect experiment.",
+  "parent": "Unchanged H19 candidate policy, source/drop bounds, fixed H13 weights/samples, H19 marginal loss/costs; no model training/selection",
+  "compute": "dislab CPU only"
+}

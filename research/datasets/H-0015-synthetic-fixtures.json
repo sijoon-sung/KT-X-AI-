@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "id": "H15-synthetic-rebalancing-v1",
+  "truth_scope": "Fictional inputs and exact constraint/oracle checks only; no real Tashu fleet, stock, road or operating benefit",
+  "main": {
+    "mode": "synthetic_shadow",
+    "forecast": {
+      "id": "H15-synthetic-contract",
+      "source_kind": "synthetic",
+      "horizon_minutes": 10,
+      "supported_horizons": [
+        10
+      ],
+      "station_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "current_inventory": [
+        18,
+        14,
+        2,
+        1
+      ],
+      "stock_scenarios": [
+        [
+          12,
+          13,
+          14,
+          15
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          0,
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          1,
+          1,
+          2
+        ]
+      ]
+    },
+    "stations": [
+      {
+        "id": "A",
+        "target_buffer": 6,
+        "pickup_limit": 20,
+        "dropoff_limit": 0,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "B",
+        "target_buffer": 4,
+        "pickup_limit": 20,
+        "dropoff_limit": 0,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "C",
+        "target_buffer": 5,
+        "pickup_limit": 0,
+        "dropoff_limit": 20,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "D",
+        "target_buffer": 5,
+        "pickup_limit": 0,
+        "dropoff_limit": 20,
+        "loss_weight": 1.0
+      }
+    ],
+    "fleet": {
+      "vehicle_count": 1,
+      "capacity": 6,
+      "initial_load": 0,
+      "depot": "DEPOT",
+      "max_route_minutes": 10
+    },
+    "policy": {
+      "workload_budget": 10,
+      "source_lower_quantile": 0.1,
+      "risk_alpha": 0.75,
+      "risk_weight": 1.0,
+      "travel_unit_weight": 0.01,
+      "handling_unit_cost": 0.001,
+      "handling_minutes_per_bike": 0.1,
+      "max_stops": 8
+    },
+    "road_matrix": {
+      "ids": [
+        "DEPOT",
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "duration_minutes": [
+        [
+          0,
+          1,
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          2,
+          1,
+          4
+        ],
+        [
+          2,
+          2,
+          0,
+          3,
+          1
+        ],
+        [
+          1,
+          3,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          4,
+          3,
+          2,
+          0
+        ]
+      ],
+      "basis": "synthetic directed minutes; not a real road/truck route"
+    }
+  },
+  "dependence_case_one": {
+    "mode": "synthetic_shadow",
+    "forecast": {
+      "id": "H15-synthetic-contract",
+      "source_kind": "synthetic",
+      "horizon_minutes": 10,
+      "supported_horizons": [
+        10
+      ],
+      "station_ids": [
+        "S",
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "current_inventory": [
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      "stock_scenarios": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ]
+      ]
+    },
+    "stations": [
+      {
+        "id": "S",
+        "target_buffer": 5,
+        "pickup_limit": 5,
+        "dropoff_limit": 0,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "A",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "B",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "C",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "D",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      }
+    ],
+    "fleet": {
+      "vehicle_count": 1,
+      "capacity": 1,
+      "initial_load": 0,
+      "depot": "DEPOT",
+      "max_route_minutes": 10
+    },
+    "policy": {
+      "workload_budget": 1,
+      "source_lower_quantile": 0.1,
+      "risk_alpha": 0.75,
+      "risk_weight": 1.0,
+      "travel_unit_weight": 0.01,
+      "handling_unit_cost": 0.001,
+      "handling_minutes_per_bike": 0.1,
+      "max_stops": 8
+    },
+    "road_matrix": {
+      "ids": [
+        "DEPOT",
+        "S",
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "duration_minutes": [
+        [
+          0,
+          0.5,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0.5,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0.5,
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "basis": "synthetic directed minutes; not a real road/truck route"
+    }
+  },
+  "dependence_case_two": {
+    "mode": "synthetic_shadow",
+    "forecast": {
+      "id": "H15-synthetic-contract",
+      "source_kind": "synthetic",
+      "horizon_minutes": 10,
+      "supported_horizons": [
+        10
+      ],
+      "station_ids": [
+        "S",
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "current_inventory": [
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      "stock_scenarios": [
+        [
+          10,
+          10,
+          10,
+          10
+        ],
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          1
+        ]
+      ]
+    },
+    "stations": [
+      {
+        "id": "S",
+        "target_buffer": 5,
+        "pickup_limit": 5,
+        "dropoff_limit": 0,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "A",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "B",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "C",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      },
+      {
+        "id": "D",
+        "target_buffer": 1,
+        "pickup_limit": 0,
+        "dropoff_limit": 1,
+        "loss_weight": 1.0
+      }
+    ],
+    "fleet": {
+      "vehicle_count": 1,
+      "capacity": 1,
+      "initial_load": 0,
+      "depot": "DEPOT",
+      "max_route_minutes": 10
+    },
+    "policy": {
+      "workload_budget": 1,
+      "source_lower_quantile": 0.1,
+      "risk_alpha": 0.75,
+      "risk_weight": 1.0,
+      "travel_unit_weight": 0.01,
+      "handling_unit_cost": 0.001,
+      "handling_minutes_per_bike": 0.1,
+      "max_stops": 8
+    },
+    "road_matrix": {
+      "ids": [
+        "DEPOT",
+        "S",
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "duration_minutes": [
+        [
+          0,
+          0.5,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0.5,
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          0.5,
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          0.5,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "basis": "synthetic directed minutes; not a real road/truck route"
+    }
+  },
+  "expected": {
+    "main_pickups": {
+      "A": 6,
+      "B": 4
+    },
+    "main_deliveries": {
+      "C": 5,
+      "D": 5
+    },
+    "main_route": [
+      "DEPOT",
+      "A",
+      "C",
+      "B",
+      "D",
+      "DEPOT"
+    ],
+    "main_route_minutes": 7.0,
+    "main_peak_load": 6,
+    "case_one_destination": "A",
+    "case_two_destination": "C",
+    "expected_only_both_destination": "A"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0016",
+  "compute": "dislab CPU only; no model fit/inference or new Tashu API collection",
+  "forecast": "unchanged issued H13 recent_cfm as frozen research reference, companions unchanged; no model winner selection",
+  "display": [
+    "original causal timestamps",
+    "per-station current/forecast/interval/p0/observed future",
+    "original live and official September metrics",
+    "H14 negative result",
+    "H15 synthetic route",
+    "new real-station replay shadow quantities/ETA/load under assumptions"
+  ],
+  "shadow": {
+    "mode": "replay_shadow",
+    "buffer": 2,
+    "dropoff_limit": 2,
+    "pickup_limit": 6,
+    "vehicle_capacity": 6,
+    "initial_load": 0,
+    "workload_budget": 6,
+    "deadline_minutes": 10,
+    "service_minutes_per_bike": 0.1,
+    "risk_alpha": 0.9,
+    "risk_weight": 1.0,
+    "travel_cost_per_bike_minute": 0.01,
+    "handling_cost_per_bike": 0.01,
+    "max_stops": 5,
+    "selection": "Before opening future truth, anchor is maximum current stock among donors min(all128 terminal scenarios)>=3,current>=3; ties lexicalID. Keep anchor+nearest other donor and nearest3 current<2 deficit stations by haversine distance/lexID. Depot assumed at anchor. Never choose a better case by observed future or route outcome.",
+    "source": "H13 stationwise CFM cached particles; not H14 learned joint scenarios",
+    "resources": "hypothetical, not confirmed; destination parking space and depot unverified"
+  },
+  "roads": {
+    "table": "https://router.project-osrm.org/table/v1/driving/",
+    "route": "https://router.project-osrm.org/route/v1/driving/",
+    "table_attempts": 2,
+    "route_attempts": 1,
+    "timeout_seconds": 20,
+    "fallback": "No fabricated road times: unavailable table blocks real-station shadow plan; preserve error and H15 synthetic example. Missing route geometry labeled separately.",
+    "scope": "queried present OSM car estimates, not historical traffic or truck access verification"
+  },
+  "truth_boundary": "Select candidates and compute plan before loading future snapshot. Truth only joins displayed forecast-score comparison; never score relocation counterfactual against observed no-action API.",
+  "acceptance": [
+    "input hashes match frozen manifest",
+    "forecast was issued before target observation",
+    "all station forecasts preserve cached values",
+    "scored row count and aggregate scores match H13 report",
+    "truth permutation does not change candidate/plan input selection",
+    "no weights or API acquisition performed",
+    "shadow quantity/route constraint validation or explicit blocked result",
+    "no false actual dispatch or measured field benefit",
+    "H14 gate fail and primary unexecuted preserved",
+    "UI data source missing fails explicitly, no fabricated data"
+  ],
+  "success": "zero acceptance failures, complete linked evidence bundle, all checks reported; road availability not a prediction or field-effect success criterion",
+  "failure": "any provenance or display semantic error is not_supported; missing road adapter is reported blocked and never replaced by invented values",
+  "budget_minutes": 15
+}

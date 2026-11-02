@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-primary-stock-v1-20260917-20261030",
+  "source": "User-provided archived primary Tashu API stock and daily metadata",
+  "public_raw_data": false,
+  "files": [
+    {
+      "id": "tashu/data/stock_20260917.csv.gz",
+      "bytes": 194679,
+      "sha256": "ac1f478ab082bb4b1e2f4b310f4f164d13c4a7fd605347f4300a4776f5f39223"
+    },
+    {
+      "id": "tashu/data/stock_20260918.csv.gz",
+      "bytes": 586849,
+      "sha256": "83077eae3aa20497b9e6897f3079723a3ae2ad9903684e9a692d647a6ab33f84"
+    },
+    {
+      "id": "tashu/data/stock_20260919.csv.gz",
+      "bytes": 583910,
+      "sha256": "99081693dcd98bad7590e54617b1b096fc8d6dac38167c65e615677bc1763bb2"
+    },
+    {
+      "id": "tashu/data/stock_20260920.csv.gz",
+      "bytes": 585592,
+      "sha256": "a4e2b40cb6cab311b8fa0a35ef5c11af017b4724f27327adbad037820fe71c83"
+    },
+    {
+      "id": "tashu/data/stock_20260921.csv.gz",
+      "bytes": 584910,
+      "sha256": "bef38a2fae1c36acdcaaf34a524331f647d90d105e40a7b80f50e2725bb9000b"
+    },
+    {
+      "id": "tashu/data/stock_20260922.csv.gz",
+      "bytes": 584973,
+      "sha256": "9abd793b96d854bc6486896e3c3e70749e96c08c121563045a7e2b8a25972f21"
+    },
+    {
+      "id": "tashu/data/stock_20260923.csv.gz",
+      "bytes": 585850,
+      "sha256": "6aab9ef0d5b6c4e58baca0761edca27d75e1c9b1549771ebc513285093a22bdb"
+    },
+    {
+      "id": "tashu/data/stock_20260924.csv.gz",
+      "bytes": 586942,
+      "sha256": "3d834aa4fb5b2024578aeae21d6bf8d5d7b211968f4c4fb0233eb40bae563b2e"
+    },
+    {
+      "id": "tashu/data/stock_20260925.csv.gz",
+      "bytes": 591857,
+      "sha256": "392bd9bc338d9a4e9ad0fcf78c5dee027b6f4efe4ffddfcb771cb441e3213f6b"
+    },
+    {
+      "id": "tashu/data/stock_20260926.csv.gz",
+      "bytes": 587500,
+      "sha256": "f6b3d9adbc1de3eabe478ce959d1db190cd2b69daf706582bb6e6945694b76d5"
+    },
+    {
+      "id": "tashu/data/stock_20260927.csv.gz",
+      "bytes": 586829,
+      "sha256": "36298d891ce6b292854c6e21a2ec24f7612c088b8a49754f171aa10fc8dfc344"
+    },
+    {
+      "id": "tashu/data/stock_20260928.csv.gz",
+      "bytes": 585885,
+      "sha256": "0ac0ea72c1c5b62981d824f30157feb65f4300ffb0d8a5ed07d5b3b84caeef91"
+    },
+    {
+      "id": "tashu/data/stock_20260929.csv.gz",
+      "bytes": 586903,
+      "sha256": "661147cf6da6e47eab09a430535198f62135ee9872200ccf3042d80c1495def1"
+    },
+    {
+      "id": "tashu/data/stock_20260930.csv.gz",
+      "bytes": 588649,
+      "sha256": "38029286f33299d430f73b32dae001ba1af6ba4cffff0f022daab6451ad311e9"
+    },
+    {
+      "id": "tashu/data/stock_20261001.csv.gz",
+      "bytes": 588462,
+      "sha256": "3aa4c1aa3c7822b652cd42915af4120da5374aa9dd5ad713dc1b6153ea61f33c"
+    },
+    {
+      "id": "tashu/data/stock_20261002.csv.gz",
+      "bytes": 587054,
+      "sha256": "9eecccb38a13b63fe6b8e5791c58fc72bb83aa479878ee2388fc945a435f29d4"
+    },
+    {
+      "id": "tashu/data/stock_20261003.csv.gz",
+      "bytes": 587643,
+      "sha256": "55954821e6a2ee11d3e6b1f796ef2dff09dd4d34463f65bf86b6f73300793eee"
+    },
+    {
+      "id": "tashu/data/stock_20261004.csv.gz",
+      "bytes": 588037,
+      "sha256": "66b8b016897a1d776fc02a57b6741e8a2b9900b047465a239c87745d817a308a"
+    },
+    {
+      "id": "tashu/data/stock_20261005.csv.gz",
+      "bytes": 589156,
+      "sha256": "aecc511388388fee6cbd5be80a009fba5b7c0b0203f7936c49d8e7ee2eff9e96"
+    },
+    {
+      "id": "tashu/data/stock_20261006.csv.gz",
+      "bytes": 585250,
+      "sha256": "0960d078af04b26a075693950594ad49bbdcb1ff592b5a3c2bcacb794d1e0cca"
+    },
+    {
+      "id": "tashu/data/stock_20261007.csv.gz",
+      "bytes": 587010,
+      "sha256": "289ad149738a319dacf58817cb3e0915da81f482d5877c45baca8468bf03779f"
+    },
+    {
+      "id": "tashu/data/stock_20261008.csv.gz",
+      "bytes": 587770,
+      "sha256": "05e5f466f5f73e87b6064fd9b33cf87fe9c6bb6dfb9848093dab8ba95dd4f950"
+    },
+    {
+      "id": "tashu/data/stock_20261009.csv.gz",
+      "bytes": 586664,
+      "sha256": "c44cc5cd6f8166ecf40a3ed484fb34e03117e86e01a9d50f95ace4c8884ebb97"
+    },
+    {
+      "id": "tashu/data/stock_20261010.csv.gz",
+      "bytes": 586917,
+      "sha256": "8a2b9fb50a2c92217bfd6475f5feaa842b06fddc6115d7661afcc27feddbb24c"
+    },
+    {
+      "id": "tashu/data/stock_20261011.csv.gz",
+      "bytes": 585796,
+      "sha256": "23bcacc3288ebd3f1d76247bf342e2601dcdee7e883af026e6cc401cde0662ca"
+    },
+    {
+      "id": "tashu/data/stock_20261012.csv.gz",
+      "bytes": 586764,
+      "sha256": "1728800e8a098342b4726bf8ca409243434761ccf1ada9772c7f79a2a845d5e2"
+    },
+    {
+      "id": "tashu/data/stock_20261013.csv.gz",
+      "bytes": 591362,
+      "sha256": "d8c626257b806ea298b43daa543ad0b8dafd208d41adc1b1897551c938d8d358"
+    },
+    {
+      "id": "tashu/data/stock_20261014.csv.gz",
+      "bytes": 587688,
+      "sha256": "aeb9cc8a27edc04f66a0f985fc4b14670c5f929d7c5dfd7dc617be9de25318b3"
+    },
+    {
+      "id": "tashu/data/stock_20261015.csv.gz",
+      "bytes": 589411,
+      "sha256": "9fde7e4c50c9131b07cdc53399584a479c1be33d55dd77dcbca82a6e67cc32aa"
+    },
+    {
+      "id": "tashu/data/stock_20261016.csv.gz",
+      "bytes": 590347,
+      "sha256": "435f565a1eda481cf75c96ab58ac827225be803dd856c15d9e0607970290fe52"
+    },
+    {
+      "id": "tashu/data/stock_20261017.csv.gz",
+      "bytes": 585703,
+      "sha256": "bbc78ade539f51f874adc5c360e5bf4ef9dcf2f3d5513bd9aaaaa29cc070e6b7"
+    },
+    {
+      "id": "tashu/data/stock_20261018.csv.gz",
+      "bytes": 590998,
+      "sha256": "fc7c78585d18f50426d3aea57ed30b748692f8b50b07f23f1de0cd4b4317cca1"
+    },
+    {
+      "id": "tashu/data/stock_20261019.csv.gz",
+      "bytes": 587851,
+      "sha256": "e8c0f34b2acd08e2a1d248ff052fe30bdeafdc7c4abbea9fd6e1a9eed71118db"
+    },
+    {
+      "id": "tashu/data/stock_20261020.csv.gz",
+      "bytes": 590093,
+      "sha256": "23f3ad65b35e4cdaca6ba87cd21b53e7dd1beafcf815fe9f4c81549591d8912c"
+    },
+    {
+      "id": "tashu/data/stock_20261021.csv.gz",
+      "bytes": 586719,
+      "sha256": "5e839fce963043a6e93e9de15496814f6a91ddd5a96f9a63fd0917d699abf65d"
+    },
+    {
+      "id": "tashu/data/stock_20261022.csv.gz",
+      "bytes": 589065,
+      "sha256": "a639fd999617a4d9572ddbe9ae7049f17f6d0e71446d965e118e99da59071407"
+    },
+    {
+      "id": "tashu/data/stock_20261023.csv.gz",
+      "bytes": 588225,
+      "sha256": "bf81d34d16a02cc76a00c8aeff3fb382172f9ec620f654f1429acaa8809f8fb2"
+    },
+    {
+      "id": "tashu/data/stock_20261024.csv.gz",
+      "bytes": 590022,
+      "sha256": "472a13fd6483da3c3a527f8e811b0378f639403458082faec9ab192214107306"
+    },
+    {
+      "id": "tashu/data/stock_20261025.csv.gz",
+      "bytes": 586470,
+      "sha256": "3b5514cac4305571528045a6767c123893e3174323c58f3c8d29cd15e991475a"
+    },
+    {
+      "id": "tashu/data/stock_20261026.csv.gz",
+      "bytes": 586170,
+      "sha256": "be3c94c43ee1a50137b9fd29f35cbc116637c45bf37b433d41dcacad16406329"
+    },
+    {
+      "id": "tashu/data/stock_20261027.csv.gz",
+      "bytes": 587010,
+      "sha256": "35adf7a44f7987dcd00d7b6a9a33b7e1d5fe639ab2bf1913a11523b7fe413594"
+    },
+    {
+      "id": "tashu/data/stock_20261028.csv.gz",
+      "bytes": 588202,
+      "sha256": "599a7766071621b96d3e6f7df0a7e08274621c028e27be0b63ca879bd956931c"
+    },
+    {
+      "id": "tashu/data/stock_20261029.csv.gz",
+      "bytes": 587585,
+      "sha256": "15643a22552d4504a33591fe5eb97697b6f73d98f94b6c8e7e463e4fcc04b564"
+    },
+    {
+      "id": "tashu/data/stock_20261030.csv.gz",
+      "bytes": 413307,
+      "sha256": "d5e248d25dd0062d5fe652baa1dab64179d68b84c8f42c1fc7ffb4004c1ffe8e"
+    },
+    {
+      "id": "tashu/meta/stations_20260917.json.gz",
+      "bytes": 57479,
+      "sha256": "2d8638dad34461e1cedaa39cb381c9d8bbd3bae9acd38a2e9eda4c8ef1478c49"
+    },
+    {
+      "id": "tashu/meta/stations_20260918.json.gz",
+      "bytes": 57468,
+      "sha256": "417c94b3d57e686eb4d3697916c1c04f7cf0dc8f5e06a336aeaea5a5a28a73e0"
+    },
+    {
+      "id": "tashu/meta/stations_20260919.json.gz",
+      "bytes": 57478,
+      "sha256": "b3ad26663b0065964b7a5cc838fbef900a8a0f339df03563ac74366ddc4933a2"
+    },
+    {
+      "id": "tashu/meta/stations_20260920.json.gz",
+      "bytes": 57482,
+      "sha256": "2b453659ec9bed00fd1c91e70c7ab59227d529e3df73da66a579b0f0b6ca96ab"
+    },
+    {
+      "id": "tashu/meta/stations_20260921.json.gz",
+      "bytes": 57482,
+      "sha256": "9c0c4c8363dca256106ff20cdbb9f09fe3f1efe558b39d10b0d3841e817c5afe"
+    },
+    {
+      "id": "tashu/meta/stations_20260922.json.gz",
+      "bytes": 57561,
+      "sha256": "7a336860179bdc191f634951f1b27b6e0a92ecd6ec36d0af69ea6ba199306179"
+    },
+    {
+      "id": "tashu/meta/stations_20260923.json.gz",
+      "bytes": 57620,
+      "sha256": "8565ea196444632d74dda275ae12e60315ac0d4bdd3ed6a784301e190688113d"
+    },
+    {
+      "id": "tashu/meta/stations_20260924.json.gz",
+      "bytes": 57585,
+      "sha256": "235b9c4136ecce963476eb1ed12a247a1f87d63d867df98310585b17454ab64a"
+    },
+    {
+      "id": "tashu/meta/stations_20260925.json.gz",
+      "bytes": 57601,
+      "sha256": "5b801c437c51a32989162118adb738332eb538c80530c29ca5c81519f5ac8d25"
+    },
+    {
+      "id": "tashu/meta/stations_20260926.json.gz",
+      "bytes": 57728,
+      "sha256": "026ff87c341e16905b1fbcad2ce6af4a0d0c2af4c4f0929c544c4db48d39c9f8"
+    },
+    {
+      "id": "tashu/meta/stations_20260927.json.gz",
+      "bytes": 57632,
+      "sha256": "e40239eef424a89efbe2af28484c6a806d62520165af18581546a6cc2349d7d2"
+    },
+    {
+      "id": "tashu/meta/stations_20260928.json.gz",
+      "bytes": 57626,
+      "sha256": "6a31afbad216833e71de1959a271d6b32feb2f76f6225e31aa0f7c8dcb0efe0e"
+    },
+    {
+      "id": "tashu/meta/stations_20260929.json.gz",
+      "bytes": 57622,
+      "sha256": "b4822905c16888699b5417b32ca40fab40a7a01635471cf71cdc2a38ba67d6c3"
+    },
+    {
+      "id": "tashu/meta/stations_20260930.json.gz",
+      "bytes": 57660,
+      "sha256": "91adb40583317a67ea91654a8c14f1df87a9edd9b9a0b8183a8e5a67ccc12bee"
+    },
+    {
+      "id": "tashu/meta/stations_20261001.json.gz",
+      "bytes": 57629,
+      "sha256": "b1ba58ccad80b4f230b3c05ab3994521b2ef34c9971ce1c806de86e073b91321"
+    },
+    {
+      "id": "tashu/meta/stations_20261002.json.gz",
+      "bytes": 57626,
+      "sha256": "dfaa8137952e0a29a4e6ced437d3ed758822b227015f98d180452055f431b1b8"
+    },
+    {
+      "id": "tashu/meta/stations_20261003.json.gz",
+      "bytes": 57596,
+      "sha256": "27a8e700d1c0fa85409245758ec4bbf08305d2b7476223db9acd7909e5694515"
+    },
+    {
+      "id": "tashu/meta/stations_20261004.json.gz",
+      "bytes": 57615,
+      "sha256": "57d9584130c077335b0c1137348853618d94cd0c386ff6b35bf9d520554fbeb9"
+    },
+    {
+      "id": "tashu/meta/stations_20261005.json.gz",
+      "bytes": 57627,
+      "sha256": "8cb4105146c194accded060d9067b8c08613739e1e213bee265ed4dd51307f83"
+    },
+    {
+      "id": "tashu/meta/stations_20261006.json.gz",
+      "bytes": 57622,
+      "sha256": "e0cb00619dc005b1d0f9dfe81e3cd4b03b512b40207525b9387e53b208fed011"
+    },
+    {
+      "id": "tashu/meta/stations_20261007.json.gz",
+      "bytes": 57543,
+      "sha256": "eba8e0d2489221e8588be76d3821d5d39c96fac24f5ff67411f143b527923461"
+    },
+    {
+      "id": "tashu/meta/stations_20261008.json.gz",
+      "bytes": 57526,
+      "sha256": "83161e068ae88797d6ed32bb607afdd02ac0f7144b0f9401ef9aa9f38a9f856e"
+    },
+    {
+      "id": "tashu/meta/stations_20261009.json.gz",
+      "bytes": 57527,
+      "sha256": "4667d70d9e07a798fdb87cd8a8118819ec2d7f9137b26aa1fda206b0231bbc83"
+    },
+    {
+      "id": "tashu/meta/stations_20261010.json.gz",
+      "bytes": 57553,
+      "sha256": "6c98a9232a285b3fba4440211b0a935aaa16b43df77f70c8117c07edfa408709"
+    },
+    {
+      "id": "tashu/meta/stations_20261011.json.gz",
+      "bytes": 57574,
+      "sha256": "453f622a59234de2bf63b26b48c351134d93b7a914d8855c9a34aab3184e397a"
+    },
+    {
+      "id": "tashu/meta/stations_20261012.json.gz",
+      "bytes": 57546,
+      "sha256": "fb9ad1f1fee6ed4eed2f8b1bae940a9b91839708da31e0e9ce12475c8957a2bf"
+    },
+    {
+      "id": "tashu/meta/stations_20261013.json.gz",
+      "bytes": 57702,
+      "sha256": "034cbff780a95d2d415fa8e47f3bffde6e1471779b2224b3723b9b4428d5a239"
+    },
+    {
+      "id": "tashu/meta/stations_20261014.json.gz",
+      "bytes": 57658,
+      "sha256": "8dc715b660721341d0eb903682034e3858c88d8d4d4fa5b1cbd3cfd19ce7d2ec"
+    },
+    {
+      "id": "tashu/meta/stations_20261015.json.gz",
+      "bytes": 57601,
+      "sha256": "6966f589f94989455e4ec98cb7dac23c6adfd336cc3b5c176799e39b86e6cf18"
+    },
+    {
+      "id": "tashu/meta/stations_20261016.json.gz",
+      "bytes": 57734,
+      "sha256": "80180b80ff8afd7c6cb67f657f189f432e52835bb1367515e9f699b9bedb1eba"
+    },
+    {
+      "id": "tashu/meta/stations_20261017.json.gz",
+      "bytes": 57725,
+      "sha256": "3b72472a6fcbceaeba2b178700b9a78285ab26a59a7933a0774b75093e98f1f0"
+    },
+    {
+      "id": "tashu/meta/stations_20261018.json.gz",
+      "bytes": 57698,
+      "sha256": "e99a0b0bbb1295c056b6655fb57d3b7e2dba2f8a2f77193f005625b1399b4020"
+    },
+    {
+      "id": "tashu/meta/stations_20261019.json.gz",
+      "bytes": 57706,
+      "sha256": "b610dd2dfa1a5cdbb9fc7942db70bcdc5d20393503b6464354489ef29b46affc"
+    },
+    {
+      "id": "tashu/meta/stations_20261020.json.gz",
+      "bytes": 57701,
+      "sha256": "998b2ea0140906c641fb4407565e8b78dc5b3cae1d1d1ecb4b0952eec96bace0"
+    },
+    {
+      "id": "tashu/meta/stations_20261021.json.gz",
+      "bytes": 57733,
+      "sha256": "18fad0835850e7ddfabebd6fe681980100cbe55e7bcba522fa13efdd6c504a6a"
+    },
+    {
+      "id": "tashu/meta/stations_20261022.json.gz",
+      "bytes": 57686,
+      "sha256": "ffe5eca9e3561993429864611391f8eb523f0568bc1f4ec5a425969f644784fe"
+    },
+    {
+      "id": "tashu/meta/stations_20261023.json.gz",
+      "bytes": 57695,
+      "sha256": "1486e72601a57100cfbde0e5452a55f1cbc917890ec3729882ca8f32ec93bb57"
+    },
+    {
+      "id": "tashu/meta/stations_20261024.json.gz",
+      "bytes": 57729,
+      "sha256": "7c944ee057c0f0a5c143c42f59df8d1ab6f3a13bbe4066bae19d97733bfa48c5"
+    },
+    {
+      "id": "tashu/meta/stations_20261025.json.gz",
+      "bytes": 57708,
+      "sha256": "8d0013485e0ea2882caa1e4f6e627be0995d4a547b3c6ac001c4ac0e2149d17b"
+    },
+    {
+      "id": "tashu/meta/stations_20261026.json.gz",
+      "bytes": 57672,
+      "sha256": "ba83326bc1795ee9a758922163644516ea797560a48d46012bd7bc49e329de20"
+    },
+    {
+      "id": "tashu/meta/stations_20261027.json.gz",
+      "bytes": 57671,
+      "sha256": "ec43662e1968890193de2af617ec9ebe4ccd5f9e22ffdf4050693ca345326c36"
+    },
+    {
+      "id": "tashu/meta/stations_20261028.json.gz",
+      "bytes": 57714,
+      "sha256": "4c66cdda0f35c9a12c12198d3f20cba5380b6176dc598528924a205aab03721a"
+    },
+    {
+      "id": "tashu/meta/stations_20261029.json.gz",
+      "bytes": 57690,
+      "sha256": "0e664d0222ba10c2a7894c0f83255db76cf8bad9cb32cadc923133859dd5d95e"
+    },
+    {
+      "id": "tashu/meta/stations_20261030.json.gz",
+      "bytes": 57650,
+      "sha256": "6d250b60fa3ccd52f97450d8d86612c3b9ad3ff6b0d19d8e371802159a725fb1"
+    }
+  ],
+  "derived_files": [
+    {
+      "id": "observed_panel.npz",
+      "sha256": "6d20460e5cbc7e38bf413c23eb15173f3c05941c398bdf5375d375476eac6904"
+    },
+    {
+      "id": "stations.csv",
+      "sha256": "05a2fea061c2878bd1f26b0d6dd424568fddca3d830e21ee3c3b9edd28492398"
+    }
+  ],
+  "audit_code_sha256": "0146043c59d63c3e5c2237d4daf7d4f91499528cac36b81b4f5c06407be5ec9c",
+  "audit": {
+    "raw_rows": 8529628,
+    "invalid_rows": 0,
+    "duplicate_keys": 0,
+    "off_schedule_rows": 17862,
+    "extra_poll_rows": 0,
+    "station_ids": 1383,
+    "scheduled_slots": 6208,
+    "retained_cells": 8511766,
+    "all_station_missing_slots": 24,
+    "reproduced_panel_exactly": true,
+    "reproduced_request_timestamps_exactly": true
+  },
+  "observation_contract": {
+    "timezone": "Asia/Seoul conditional interpretation; OS timezone not independently proven",
+    "timestamp": "Collector request clock; not the server inventory update time",
+    "grid_seconds": 600,
+    "accepted_request_delay_seconds": [
+      0,
+      120
+    ],
+    "multiple_polls": "earliest valid request per slot",
+    "missing": "NaN, never filled",
+    "scope": "API-reported parking_count; not transactions, latent demand or verified usability"
+  }
+}

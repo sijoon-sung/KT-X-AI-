@@ -1,0 +1,337 @@
+{
+  "hypothesis_id": "H-0004",
+  "decision": "supported",
+  "metrics": {
+    "calendar_deviance_improvement_percent": 11.347981666248232,
+    "constant_mean_poisson_deviance": 1.4331037237428585,
+    "calendar_mean_poisson_deviance": 1.2704753759141982,
+    "eligible_stations": 1192,
+    "evaluation_cells": 1037040,
+    "ci_3day_lower": 10.110860977634466,
+    "ci_3day_upper": 12.914360686775138,
+    "ci_7day_lower": 10.5366934367344,
+    "ci_7day_upper": 12.983149241658465
+  },
+  "scope": {
+    "learning_source": "downloaded historical completed trips; no API data",
+    "source_archive_sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+    "source_quality": {
+      "source_rows": 9320018,
+      "invalid_width": 0,
+      "missing_key": 0,
+      "invalid_datetime": 0,
+      "filename_month_mismatch": 203545,
+      "invalid_duration": 8,
+      "duplicate_completed_trips": 2,
+      "accepted_completed_trips": 9116463
+    },
+    "source_hour_masks": {
+      "candidate_hours": 5832,
+      "missing_source_month_hours": 744,
+      "boundary_date_hours": 336,
+      "out_of_scope_hours": 1782,
+      "unknown_city_record_hours": 0,
+      "eligible_record_hours": 2970
+    },
+    "source_station_count": 1425,
+    "selected_training_station_count": 1192,
+    "excluded_training_station_count": 233,
+    "periods": {
+      "train": {
+        "hours": 2145,
+        "dates": 143,
+        "cells": 5113680
+      },
+      "validation": {
+        "hours": 390,
+        "dates": 26,
+        "cells": 929760
+      },
+      "test": {
+        "hours": 435,
+        "dates": 29,
+        "cells": 1037040
+      }
+    },
+    "target": "accepted recorded transaction counts conditional on source scope, not verified actual demand/stock"
+  },
+  "selected_alpha": 16,
+  "validation_candidates": [
+    {
+      "alpha": 1,
+      "validation_deviance": 1.0896456423241512
+    },
+    {
+      "alpha": 4,
+      "validation_deviance": 1.0735631312923326
+    },
+    {
+      "alpha": 16,
+      "validation_deviance": 1.0722912045304207
+    },
+    {
+      "alpha": 64,
+      "validation_deviance": 1.107818426968173
+    }
+  ],
+  "bootstraps": [
+    {
+      "block_days": 3,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        10.110860977634466,
+        12.914360686775138
+      ]
+    },
+    {
+      "block_days": 7,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        10.5366934367344,
+        12.983149241658465
+      ]
+    }
+  ],
+  "secondary": {
+    "rentals": {
+      "training_peak_threshold": 2.0,
+      "peak_test_cells": 106756,
+      "models": {
+        "constant": {
+          "deviance": 1.4495343506822609,
+          "mae": 0.861120224318997,
+          "peak_mae": 2.1581907066857604
+        },
+        "calendar": {
+          "deviance": 1.3061481030980457,
+          "mae": 0.8053939146481515,
+          "peak_mae": 2.0110502113947106
+        }
+      }
+    },
+    "returns": {
+      "training_peak_threshold": 2.0,
+      "peak_test_cells": 105786,
+      "models": {
+        "constant": {
+          "deviance": 1.4166730968034558,
+          "mae": 0.8483708920197921,
+          "peak_mae": 2.1484906603105545
+        },
+        "calendar": {
+          "deviance": 1.2348026487303487,
+          "mae": 0.7792789985310359,
+          "peak_mae": 1.9659185384499072
+        }
+      }
+    }
+  },
+  "daily_test_scores": [
+    {
+      "day_index": 0,
+      "constant_deviance_sum": 0.0,
+      "calendar_deviance_sum": 0.0,
+      "evaluation_cells": 0
+    },
+    {
+      "day_index": 1,
+      "constant_deviance_sum": 56058.88272640079,
+      "calendar_deviance_sum": 55113.06613191383,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 2,
+      "constant_deviance_sum": 44174.33472731584,
+      "calendar_deviance_sum": 38319.75472592891,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 3,
+      "constant_deviance_sum": 46132.52632433574,
+      "calendar_deviance_sum": 39558.486304689955,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 4,
+      "constant_deviance_sum": 46223.32150720358,
+      "calendar_deviance_sum": 44510.92830577351,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 5,
+      "constant_deviance_sum": 40547.95241621634,
+      "calendar_deviance_sum": 36546.866642663335,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 6,
+      "constant_deviance_sum": 40927.24182624972,
+      "calendar_deviance_sum": 37800.51788260852,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 7,
+      "constant_deviance_sum": 42938.60338144385,
+      "calendar_deviance_sum": 38450.451269488454,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 8,
+      "constant_deviance_sum": 44014.257295632124,
+      "calendar_deviance_sum": 37958.750437699506,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 9,
+      "constant_deviance_sum": 45292.48182981358,
+      "calendar_deviance_sum": 39023.68195196775,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 10,
+      "constant_deviance_sum": 48095.650470421744,
+      "calendar_deviance_sum": 41187.64225565692,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 11,
+      "constant_deviance_sum": 48049.84007169827,
+      "calendar_deviance_sum": 41285.09325598051,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 12,
+      "constant_deviance_sum": 50673.05027557993,
+      "calendar_deviance_sum": 43926.45439060557,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 13,
+      "constant_deviance_sum": 48783.9259166148,
+      "calendar_deviance_sum": 44127.85330706692,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 14,
+      "constant_deviance_sum": 41770.91285060337,
+      "calendar_deviance_sum": 37607.910392177095,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 15,
+      "constant_deviance_sum": 50048.821021528085,
+      "calendar_deviance_sum": 43861.895194308236,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 16,
+      "constant_deviance_sum": 52296.8315564573,
+      "calendar_deviance_sum": 45015.33672757448,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 17,
+      "constant_deviance_sum": 47318.244456258624,
+      "calendar_deviance_sum": 44196.89132967253,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 18,
+      "constant_deviance_sum": 49391.571466801266,
+      "calendar_deviance_sum": 42047.093803470896,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 19,
+      "constant_deviance_sum": 51336.82541239473,
+      "calendar_deviance_sum": 44802.13633372868,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 20,
+      "constant_deviance_sum": 56421.13187825106,
+      "calendar_deviance_sum": 50371.29611993318,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 21,
+      "constant_deviance_sum": 58552.42198888989,
+      "calendar_deviance_sum": 51763.021388816414,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 22,
+      "constant_deviance_sum": 56223.04551926883,
+      "calendar_deviance_sum": 49047.0088177061,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 23,
+      "constant_deviance_sum": 57389.71453861109,
+      "calendar_deviance_sum": 49168.04792157641,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 24,
+      "constant_deviance_sum": 60495.5683063792,
+      "calendar_deviance_sum": 51117.267831728765,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 25,
+      "constant_deviance_sum": 60915.06521790113,
+      "calendar_deviance_sum": 50584.03237677857,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 26,
+      "constant_deviance_sum": 61418.14413735023,
+      "calendar_deviance_sum": 53181.393644414544,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 27,
+      "constant_deviance_sum": 64657.944770861475,
+      "calendar_deviance_sum": 58133.25702171318,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 28,
+      "constant_deviance_sum": 67673.12515654044,
+      "calendar_deviance_sum": 61084.48902539926,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 29,
+      "constant_deviance_sum": 48364.44862327054,
+      "calendar_deviance_sum": 47743.159047016874,
+      "evaluation_cells": 35760
+    },
+    {
+      "day_index": 30,
+      "constant_deviance_sum": 0.0,
+      "calendar_deviance_sum": 0.0,
+      "evaluation_cells": 0
+    }
+  ],
+  "coefficient_count": {
+    "constant": 2384,
+    "calendar": 400512
+  },
+  "limitations": [
+    "Historical recorded completed-trip counts only; no API training, tuning or evaluation.",
+    "Zero count is no accepted record in assumed-covered city hours; complete station recording is not independently proven.",
+    "Missing months, month boundaries, nights and unknown city hours are masked; duration>=24h trips are excluded.",
+    "Recurring training stations and daytime source scope restrict generalization; operation and station changes remain uncertain.",
+    "Naive clocks conditionally interpreted as KST; no independent source-clock verification.",
+    "Retrospective historical periods were summarized in legacy work; not untouched independent external test.",
+    "Bootstrap is conditional on training cohort and validation-selected alpha; model-selection uncertainty is excluded.",
+    "Poisson deviance compares mean forecasts; not Poisson distribution fit, uncertainty calibration, inventory or policy validation."
+  ],
+  "elapsed_seconds": 179.7785676997155,
+  "selection_saved_before_test": true,
+  "api_used": false,
+  "reloaded_coefficients_identical": true
+}

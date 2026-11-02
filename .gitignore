@@ -59,3 +59,18 @@ models/
 scratch/
 tmp/
 temp/
+
+# Private research inputs, credentials, and large run outputs
+.env
+.env.*
+raw/
+data/raw/
+data/local_sources.json
+research/private/
+research/runs/*/artifacts/
+research/runs/*/predictions/
+
+# Runtime observations, forecast outputs and account-bound credentials
+private/
+outputs/
+*.dpapi

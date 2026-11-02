@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="타슈의 10분 후 재고 확률 예측과 재배치 계획. GCN·포아송·Flow Matching의 역할과 실제 평가 결과.">
+<title>타슈 재고 예측 및 재배치 계획</title>
+<link rel="stylesheet" href="assets/presentation.css">
+<script src="assets/presentation.js?v=3" defer>
+</script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header>
+<a class="brand" href="#overview">
+<span>↗</span> 타슈 <small>재고 예측 · 재배치</small>
+</a>
+<nav aria-label="주 메뉴">
+<a href="#sec-methods">기술</a>
+<a href="#results">성능</a>
+<a href="#dispatch">재배치</a>
+<a href="#transport">교통 연계</a>
+</nav>
+<button id="present" aria-pressed="false">발표 모드 ↗</button>
+</header>
+<main id="main">
+<section id="overview" class="hero slide" data-title="문제와 목표">
+  <div>
+<p class="eyebrow">대전 공공자전거 타슈</p>
+<span class="pill">연구 시제품</span>
+<h1>타슈 재고 예측과<br>
+<em>재배치 계획</em>
+</h1>
+<p class="lead">10분 후 재고를 예측하고,<br>대여소별 이동 수량과 방문 순서를 계산한다.</p>
+<div class="actions">
+<a class="button primary" href="#results">평가 결과 ↓</a>
+<a href="#dispatch">재배치 계획 사례 ↗</a>
+</div>
+<p class="small">GCN · 포아송 분포 · Conditional Flow Matching<br>과거 대여·반납 이력으로 학습 / 재고 API로 미래 관측 평가</p>
+</div>
+  <figure class="network">
+<figcaption>대여소 관계 → 미래 재고 → 재배치<br>
+<small>모델 구조 설명도</small>
+</figcaption>
+<svg viewBox="0 0 520 370" role="img" aria-label="연결된 대여소의 패턴으로 미래 재고를 예측하고 공급·부족 대여소를 연결하는 구조 설명도">
+<defs>
+<pattern id="grid" width="35" height="35" patternUnits="userSpaceOnUse">
+<path d="M35 0H0V35" fill="none" stroke="#dce5df"/>
+</pattern>
+</defs>
+<rect width="520" height="370" fill="url(#grid)"/>
+<g stroke="#b5cbbb" stroke-width="2" fill="none">
+<path d="M70 80L185 62 278 135 425 84M70 80L122 218 278 135 360 265 460 220M122 218L215 310 360 265M185 62L122 218M278 135L460 220"/>
+</g>
+<path d="M70 80L185 62 278 135 360 265 460 220" stroke="#00775b" stroke-width="5" fill="none" stroke-dasharray="9 6"/>
+<g fill="white" stroke="#9cb6a5" stroke-width="2">
+<circle cx="70" cy="80" r="15"/>
+<circle cx="185" cy="62" r="15"/>
+<circle cx="425" cy="84" r="15"/>
+<circle cx="122" cy="218" r="15"/>
+<circle cx="215" cy="310" r="15"/>
+<circle cx="460" cy="220" r="15"/>
+</g>
+<circle cx="278" cy="135" r="29" fill="#00775b"/>
+<circle cx="360" cy="265" r="29" fill="#dd9b4a"/>
+<g font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">
+<text x="278" y="140" fill="white">공급</text>
+<text x="360" y="270" fill="#152f28">부족</text>
+</g>
+<g font-family="system-ui,sans-serif" font-size="13" fill="#3e5e50">
+<text x="296" y="90">GCN 관계 표현</text>
+<text x="29" y="260">여러 미래 재고 가능성</text>
+</g>
+</svg>
+<div class="legend">● 과거 이동 관계 <span>● 재배치 판단</span>
+</div>
+</figure>
+  <div class="stats">
+<div>
+<strong>10<small>분</small>
+</strong>
+<p>다음 재고 예측</p>
+</div>
+<div>
+<strong>1,298<small>곳</small>
+</strong>
+<p>9월 평가 대여소</p>
+</div>
+<div>
+<strong>245.8<small>만 쌍</small>
+</strong>
+<p>예측–관측 대응 표본</p>
+</div>
+<div>
+<strong>15.22<small>%</small>
+</strong>
+<p>FM fairCRPS 감소</p>
+</div>
+</div>
+<p class="note full">2026년 9월 API 평가 · 현재 재고 유지 대비 fairCRPS 감소율</p>
+</section>
+<section id="problem" class="slide" data-title="예측과 재배치 조건">
+<p class="eyebrow">01 / 목적</p>
+<h2>재고 예측과<br>재배치 조건</h2>
+<p class="intro">대여소별 재고 부족 가능성, 공급 가능한 수량, 차량 이동시간을 계산한다.</p>
+<div class="three">
+<article>
+<span class="number">01</span>
+<h3>10분 후 재고 예측</h3>
+<p>현재 재고와 대여·반납 예측으로 10분 후 재고 분포와 0대 확률을 계산한다.</p>
+</article>
+<article>
+<span class="number">02</span>
+<h3>이동 수량 계산</h3>
+<p>목표 재고 부족과 0대 위험을 목적함수에 반영한다. 공급지 안전 재고, 차량 적재량, 추가 주차 한도 안에서 이동 수량을 정한다.</p>
+</article>
+<article>
+<span class="number">03</span>
+<h3>방문 순서 계산</h3>
+<p>도로 이동시간, 상하차, 복귀시간을 포함해 방문 순서를 정한다. 새 관측이 들어오거나 출발 마감이 가까워지면 다시 계산한다.</p>
+</article>
+</div>
+<aside>
+<b>0대 대여소 처리</b>
+<p>빈 대여소도 공급 후보에 포함하고, 이번 계획에서 처리하지 못한 대여소를 표시한다. 자전거가 없어 포기한 이용자는 거래 기록에 남지 않으므로 미충족 수요는 별도 관측이 필요하다.</p>
+</aside>
+</section>
+<section id="sec-methods" class="slide ink" data-title="예측 모델">
+<p class="eyebrow">02 / 예측 모델</p>
+<h2>GCN·포아송 분포·<br>Flow Matching의 역할</h2>
+<p class="intro">GCN으로 대여소 특징을 학습하고, 포아송과 Flow Matching으로 대여·반납 건수를 예측한다.</p>
+<div class="pipeline">
+<div>
+<small>학습 자료</small>
+<b>과거 거래 이력</b>
+<span>대여·반납 / OD 관계</span>
+</div>
+<div>
+<small>조건 입력</small>
+<b>GCN</b>
+<span>대여소 관계 + 시간·기상</span>
+</div>
+<div>
+<small>확률 예측</small>
+<b>포아송 / Flow Matching</b>
+<span>대여·반납 건수 시나리오</span>
+</div>
+<div>
+<small>재고 계산</small>
+<b>현재 API와 결합</b>
+<span>다음 재고 / 0대 확률</span>
+</div>
+</div>
+<div class="two">
+<article>
+<p class="eyebrow">건수 분포</p>
+<h3>포아송 분포</h3>
+<p>GCN이 10분 동안의 대여·반납 건수 평균 λ를 추정한다. 이 평균을 이용해 포아송 분포에서 건수 표본을 생성한다.</p>
+<code>R, D ~ Poisson(λ)</code>
+<p class="note">대여·반납 건수의 조건부 평균과 분산이 같다고 가정한다.</p>
+</article>
+<article>
+<p class="eyebrow">조건부 생성 모델</p>
+<h3>Conditional Flow Matching</h3>
+<p>GCN 표현과 예상 거래량을 조건으로 대여·반납 건수의 로그 잔차를 생성하는 속도장을 학습한다. ODE를 풀어 여러 건수 표본을 만들고, 각 표본에서 미래 재고를 계산한다.</p>
+<code>noise → count residual → samples</code>
+<p class="note">대여소별 대여·반납 2차원 건수를 생성한다. 도시 전체의 공동 이동 궤적은 모델링하지 않았다.</p>
+</article>
+</div>
+<div class="formula">미래 재고 표본 = max(0, 현재 재고 + 생성 반납 − 생성 대여)</div>
+<p class="note">포아송과 FM은 별도로 평가했다. 과거 거래 이력으로 학습하고, API는 고정 모델의 입력과 평가에 사용했다. 기상은 관측 이력과 결측 마스크를 사용했다.</p>
+</section>
+<section id="comparison" class="slide" data-title="GCN 선택 이유">
+<p class="eyebrow">03 / 모델 선택</p>
+<h2>GCN 사용 목적과<br>XGBoost 비교</h2>
+<p class="intro">과거 이동으로 연결된 대여소의 관계 정보를 예측에 반영하기 위해 GCN을 사용했다.</p>
+<div class="two">
+<div>
+<h3>대여소 관계 정보의 활용</h3>
+<p>과거 OD로 연결된 대여소의 패턴을 집계해 특징을 학습한다. 이 특징을 대여·반납 건수 예측과 FM의 조건 입력에 사용한다.</p>
+<p>버스 정류소나 도시철도역과의 관계를 추가할 수 있도록 구조를 설계했다.</p>
+<aside class="amber">
+<b>모델 비교 현황</b>
+<p>GCN과 XGBoost의 동일 조건 비교는 진행 전이다. 앞선 정적 OD-GCN 비교에서는 우위를 확인하지 못했다.</p>
+</aside>
+</div>
+<div class="table-wrap">
+<table>
+<caption>입력과 학습 방식 비교</caption>
+<thead>
+<tr>
+<th scope="col">관점</th>
+<th scope="col">XGBoost</th>
+<th scope="col">GCN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">관계 정보</th>
+<td>OD 이웃 집계 등을 표 특성으로 제공</td>
+<td>그래프 이웃 집계와 표현 변환을 학습</td>
+</tr>
+<tr>
+<th scope="row">거래 건수</th>
+<td>count:poisson 사용 가능</td>
+<td>포아송 평균을 출력하도록 학습</td>
+</tr>
+<tr>
+<th scope="row">FM 연결</th>
+<td>예측값·특성을 조건으로 사용 가능</td>
+<td>학습한 대여소 표현을 조건으로 사용</td>
+</tr>
+<tr>
+<th scope="row">관리할 점</th>
+<td>관계 특성 구성·시차</td>
+<td>그래프 품질·추가 학습 비용</td>
+</tr>
+<tr>
+<th scope="row">프로젝트 결론</th>
+<td colspan="2">동일 입력·예산 비교 전에는 우열 미정</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<details>
+<summary>동일 조건 비교 계획</summary>
+<p>대여소 자체 특성만 사용하는 XGBoost, OD 집계를 추가한 XGBoost, 같은 입력을 사용하는 GCN을 비교할 계획이다. 학습 자료, 시간 분할, 탐색 예산을 맞춰 관계 정보와 학습 방식의 효과를 구분한다. 모델 선택은 과거 거래 자료에서 끝내고, 고정한 모델로 9월 재고를 평가한다.</p>
+</details>
+<p class="sources">원문: <a href="https://arxiv.org/abs/1609.02907">GCN</a> · <a href="https://arxiv.org/abs/1603.02754">XGBoost</a> · <a href="https://xgboost.readthedocs.io/en/stable/parameter.html">XGBoost 목적함수</a>
+</p>
+</section>
+<section id="results" class="slide tint" data-title="9월 API 평가">
+<p class="eyebrow">04 / 평가 결과</p>
+<h2>9월 API 재고<br>예측 평가</h2>
+<p class="intro">2026.09.17–09.30 · 1,298개 대여소 · 2,458,501쌍 · 10분 후 API 표시 재고</p>
+<div class="two">
+<figure class="chart">
+<figcaption>확률예측 오차 fairCRPS <small>낮을수록 좋음</small>
+</figcaption>
+<div class="bar">
+<span>현재 유지</span>
+<div>
+<i style="width:100%">
+</i>
+</div>
+<b>0.212015</b>
+</div>
+<div class="bar">
+<span>GCN + 포아송</span>
+<div>
+<i class="poisson" style="width:84.5084%">
+</i>
+</div>
+<b>0.179170</b>
+</div>
+<div class="bar">
+<span>GCN + FM</span>
+<div>
+<i class="fm" style="width:84.7845%">
+</i>
+</div>
+<b>0.179756</b>
+</div>
+<p>현재 유지 대비 fairCRPS가 <b>포아송 15.49%, FM 15.22% 감소했다.</b></p>
+<p class="note">fairCRPS는 예측분포와 실측의 차이를 평가하는 점수다.</p>
+</figure>
+<div class="table-wrap">
+<table>
+<caption>같은 표본에서 비교 · 낮을수록 좋음</caption>
+<thead>
+<tr>
+<th scope="col">모델</th>
+<th scope="col">재고 MAE, 대</th>
+<th scope="col">0대 Brier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">현재 유지</th>
+<td>0.212015</td>
+<td>0.061430</td>
+</tr>
+<tr>
+<th scope="row">GCN + 포아송</th>
+<td>0.212039</td>
+<td>0.052824</td>
+</tr>
+<tr>
+<th scope="row">GCN + FM</th>
+<td>0.211982</td>
+<td>0.053544</td>
+</tr>
+</tbody>
+</table>
+<p class="note">MAE는 재고 예측 중앙값의 절대오차, Brier는 0대 확률의 제곱오차다.</p>
+</div>
+</div>
+<p class="note">FM의 fairCRPS는 포아송보다 0.327% 높았다. 재고 MAE는 현재 유지 0.212015대, 포아송 0.212039대, FM 0.211982대로 거의 같았다.</p>
+<details>
+<summary>평가 조건</summary>
+<p>9월 API 자료는 개발 과정에서 반복 사용했다. 예측–관측쌍은 시간·공간적으로 독립된 표본이 아니다. 평가 기간, 불확실성 구간, 실행 환경은 평가 기록에 정리했다.</p>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/blob/hypothesis/H-0021-bulk-rebalancing/docs/H-0013-rolling-api-flow.md">평가 기록</a>
+</details>
+</section>
+<section id="dispatch" class="slide" data-title="재배치 계획 사례">
+<p class="eyebrow">05 / 재배치 계획</p>
+<h2>이동 수량과<br>방문 순서 계산</h2>
+<p class="intro">지원 대여소 전체에서 후보를 찾고, 재고 부족 위험과 거리·시간·작업 비용으로 수량과 방문 순서를 정한다.</p>
+<div class="two">
+<article class="dispatch-result">
+<span class="pill">API 관측 기반 계획</span>
+<p class="note date">2026.11.01 18:40 관측 / 18:40:36 발행 KST</p>
+<div class="route-stats">
+<div>
+<strong>6<small>대</small>
+</strong>
+<span>총 이동</span>
+</div>
+<div>
+<strong>4.288<small>km</small>
+</strong>
+<span>계획 거리</span>
+</div>
+<div>
+<strong>8.69<small>분</small>
+</strong>
+<span>작업·복귀 포함</span>
+</div>
+</div>
+<div class="sequence">수거 4 + 1 + 1대 <b>→</b> 배치 1 + 1 + 1 + 3대</div>
+<p class="note">총 6대 이동을 계획했다. 최고 적재량은 5대, 복귀 시 적재량은 0대였다. 수거·배치 수량은 합계 요약이다. 계획을 발행했으며 현장 배차는 수행하지 않았다.</p>
+</article>
+<div>
+<h3>계산에 반영한 조건</h3>
+<ul>
+<li>차량 적재·중간 적재량·출발 및 복귀</li>
+<li>공급지 안전 재고·추가 주차 한도</li>
+<li>수거·배치 각각 대당 20초 작업 가정</li>
+<li>10분 예측 만료와 출발 마감 준수</li>
+<li>새 관측 수신·만료 임박 시 계획 갱신</li>
+</ul>
+<p class="note">가정값: 차량 1대, 적재 20대, 이동한도 20대, 목표 재고 6대, 추가 주차 10대. 후보 최대 29곳·방문 최대 8회로 탐색 범위를 제한했다. 도시 전체 최적해는 보장하지 않는다.</p>
+<a href="https://github.com/sijoon-sung/KT-X-AI-/blob/hypothesis/H-0021-bulk-rebalancing/docs/H-0021-bulk-rebalancing.md">72개 합성 조건에서 제약 위반 0건</a>
+</div>
+</div>
+<div class="demo">
+<div>
+<b>재배치 플래너</b>
+<p class="note">차량 조건과 후보를 바꾸면 수량과 경로를 다시 계산한다. 로컬 서버와 계산 서버 연결이 필요하다. API 수집에는 기간·요청 상한이 있다.</p>
+</div>
+<a id="dispatch-link" class="button primary" href="http://127.0.0.1:8770/dispatch?mode=bulk">플래너 열기 ↗</a>
+</div>
+</section>
+<section id="transport" class="slide ink" data-title="다른 교통량과 통합">
+<p class="eyebrow">06 / 교통 데이터 연계</p>
+<h2>버스·도시철도·도로<br>데이터 연계 설계</h2>
+<p class="intro">버스·철도 정보는 예측 입력에, 도로 소통정보는 차량 이동시간에 반영하도록 설계했다. 데이터 수신과 모델 연결은 구현 전이다.</p>
+<div class="actions"><a class="button primary" href="transport-example.html">교통 연계 예시 보기 ↗</a></div>
+<div class="three">
+<article>
+<p class="eyebrow">수요 관련 입력 · 설계</p>
+<h3>버스·도시철도</h3>
+<p>정류소 도착예정정보와 역별 과거 시간대 승하차를 대여소 주변 특성으로 집계할 계획이다. 도보 접근 관계와 노선 관계는 자전거 OD와 구분한다.</p>
+<p class="note">버스 도착예정정보에는 승객 수가 포함되지 않는다. 도시철도 사후 집계량은 과거 패턴으로 사용한다.</p>
+</article>
+<article>
+<p class="eyebrow">경로 비용 · 설계</p>
+<h3>도로 소통정보</h3>
+<p>도로 링크 속도와 폐쇄 정보를 구간 이동시간과 차량 진입 조건에 반영할 계획이다. 수요 예측과 경로 비용의 효과는 나누어 평가한다.</p>
+<p class="note">현재 경로 계산은 OSRM 추정 시간을 사용한다. 실시간 혼잡과 현장 작업시간 연계는 후속 작업이다.</p>
+</article>
+<article>
+<p class="eyebrow">시각 정합 · 설계</p>
+<h3>예측 시점의 자료 확인</h3>
+<p>관측·제공·수신 시각과 버전을 저장한다. 예측 시점에 이용할 수 있었던 자료만 입력에 포함하고, 결측과 만료는 마스크로 구분하도록 설계했다.</p>
+<p class="note">추가 특성을 사용하는 모델은 과거 자료로 새로 학습·선택할 계획이다.</p>
+</article>
+</div>
+<div class="formula">정류소·역·도로 링크 → 대여소 매핑·시각 정합 → 관계별 표현 / 경로 비용 → 확률 예측 / 재배치</div>
+<p class="note">대전교통공사 공식 포털에서 타슈·버스 정류소·도착정보 항목을 확인했다. 이용 승인과 과거 자료 확보가 남아 있다. 도로 링크 데이터는 대전 제공 범위와 이용 조건을 확인할 예정이다.</p>
+<p class="sources">
+<a href="https://www.djtc.kr/kor/stationTourList.do?area=104&menuCode=2">공식 활용 안내 ↗</a> · <a href="design/transport-integration.md">연계 구조·시각 계약</a> · <a href="design/transport-event.schema.json" download>표준 이벤트 스키마 ↓</a>
+</p>
+</section>
+<section id="readiness" class="slide" data-title="완료 범위와 다음 단계">
+<p class="eyebrow">07 / 진행 상태</p>
+<h2>구현 범위와<br>남은 작업</h2>
+<p class="intro">재고 확률 예측, 이동 수량 계산, 경로 재계산을 구현했다.</p>
+<div class="two">
+<article>
+<h3>구현한 기능</h3>
+<ul>
+<li>과거 거래 학습과 재고 API 평가 분리</li>
+<li>GCN·포아송·FM 예측 경로</li>
+<li>고정 모델의 API 수신·다음 관측 채점</li>
+<li>후보·수량·동선·마감 재계산</li>
+<li>관측 갱신 충돌·재시도 복구</li>
+</ul>
+</article>
+<article>
+<h3>후속 작업</h3>
+<ul>
+<li>GCN 대 XGBoost 동일 조건 비교</li>
+<li>FM의 추가 가치와 결합 예측 검증</li>
+<li>30·60분 예측의 별도 평가</li>
+<li>실제 차량·거점·주차·작업시간 확인</li>
+<li>재배치 행동·비용·현장 결과 기록</li>
+</ul>
+</article>
+</div>
+</section>
+</main>
+<div id="presentation-controls" hidden>
+<button id="previous" aria-label="이전 장">←</button>
+<span id="slide-status" role="status" aria-live="polite">
+</span>
+<button id="next" aria-label="다음 장">→</button>
+<button id="exit">종료 Esc</button>
+</div>
+</body>
+</html>

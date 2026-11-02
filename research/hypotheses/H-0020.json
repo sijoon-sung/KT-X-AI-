@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "H-0020",
+  "title": "적재량을 늘려도 기존 실행 가능한 재배치 경로 보존",
+  "status": "completed",
+  "plan": {
+    "question": "Can capacity-subproblem incumbent union eliminate capacity inversion in the fixed heuristic without changing forecasts or operational loss?",
+    "hypothesis": "zero constraint violations and zero capacity-dominance violations on all120cases. Any failure=>not_supported; no outcome-based retuning.",
+    "prior_art": [
+      {
+        "title": "OSRM API official reference",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "Directed route/table units and profile checked2026-11-01; no claim source proves our solver",
+        "difference_to_test": "Engineering feasible-set inclusion guarantee for bounded pickup/delivery planner; not a novel globalVRP solver"
+      }
+    ],
+    "data": {
+      "dataset_id": "H20-synthetic-capacity-oracles-v1",
+      "observed_truth": "Synthetic route/stock/vehicle feasibility and incumbent ordering; actual field effect unobserved",
+      "not_observed": [
+        "True lost demand",
+        "Actual dispatch effect",
+        "Global route optimum"
+      ],
+      "input_manifest_sha256": "d2b1fac376f24a59a30b4d25fd944ce562fdc46d91776c1a9c37cf1b6eb7609f"
+    },
+    "evaluation": {
+      "design": "research/plans/H-0020-v1.json SHA256=f551cdc9bf2f49f0af27e74c3b8d67a4a84b426ebfdce4fad8c7f1bc1c1fd21e",
+      "periods": [
+        {
+          "role": "engineering_only",
+          "start": "2026-11-01T06:55:00+00:00",
+          "end": "2026-11-01T08:00:00+00:00"
+        }
+      ],
+      "baselines": [
+        "unchanged H19 direct requested-capacity search",
+        "smaller-capacity feasible incumbents"
+      ],
+      "primary_metric": {
+        "name": "capacity_or_constraint_violations",
+        "direction": "lower",
+        "unit": "count"
+      },
+      "success_rule": "zero constraint violations and zero capacity-dominance violations on all120cases. Any failure=>not_supported; no outcome-based retuning.",
+      "failure_rule": "Preserve failure/latency; no changes based on API accuracy or field claims",
+      "exclusion_rule": "No discarded synthetic cases; private livefunctional example logged separately, not primaryperformance",
+      "uncertainty_plan": "Constructive finite-union inclusion argument plus120seeded engineering checks; no statisticalpopulation/fieldgain claim",
+      "seed_plan": "Seed43 fixed20synthetic cases; originalH13samples unchanged for optionalintegration."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "2bdc9071f2194d285c469f5888a55b031a1d2011a793707090f32898ddfba217",
+    "frozen_at_utc": "2026-11-01T06:56:53.384056+00:00"
+  },
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab CPU 합성120조건의 적재량 역전·제약 위반0. 실제16:00관측의 기능 예시는4대·0대3곳 공급·7.1332km·9.1817분으로 발행. 같은 상태의 기존 단일탐색2대를 보존·개선했으며 현장 효과·정확도 개선으로 해석하지 않는다.",
+    "limitations": [
+      "Synthetic inclusion/safety checks are not field benefit or independent prediction accuracy",
+      "Identical inputs except capacity required for dominance; no citywide or other-parameter monotonicity claim",
+      "Real fleet/depot/parking/handling unverified: one empty-start/return vehicle,capacity6,handling6sec/bike,drop<=3 assumed",
+      "10min fixed forecast only; no live traffic or intervention-induced demand model",
+      "Native remote clock139.523809sec behind; preserve native times and calibrated estimates with0.615766sec uncertainty",
+      "H19 original single-capacity experiment preserved and completed on its own pinned code"
+    ],
+    "run_manifests": [
+      "research/runs/H-0020-20261101-capacity-union/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}

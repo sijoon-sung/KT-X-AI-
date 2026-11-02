@@ -1,0 +1,214 @@
+{
+  "start_time_source": "Engineering checkpoint filesystem creation time, approximate run start",
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "device": "dislab CPU"
+  },
+  "engineering": {
+    "checks": 63,
+    "violations": 0,
+    "oracle_cases": [
+      {
+        "case": 0,
+        "beam": 2.976478510335991,
+        "exact": 2.976478510335991,
+        "gap": 0.0
+      },
+      {
+        "case": 1,
+        "beam": 2.9586928169293283,
+        "exact": 2.9586928169293283,
+        "gap": 0.0
+      },
+      {
+        "case": 2,
+        "beam": 4.943948865415514,
+        "exact": 4.943948865415514,
+        "gap": 0.0
+      },
+      {
+        "case": 3,
+        "beam": 4.943137005251131,
+        "exact": 4.943137005251131,
+        "gap": 0.0
+      },
+      {
+        "case": 4,
+        "beam": 4.949473912374501,
+        "exact": 4.949473912374501,
+        "gap": 0.0
+      },
+      {
+        "case": 5,
+        "beam": 3.942377097066226,
+        "exact": 3.942377097066226,
+        "gap": 0.0
+      },
+      {
+        "case": 6,
+        "beam": 3.9300753945667695,
+        "exact": 3.9300753945667695,
+        "gap": 0.0
+      },
+      {
+        "case": 7,
+        "beam": 3.9606007597936985,
+        "exact": 3.9606007597936985,
+        "gap": 0.0
+      },
+      {
+        "case": 8,
+        "beam": 4.947198653117385,
+        "exact": 4.947198653117385,
+        "gap": 0.0
+      },
+      {
+        "case": 9,
+        "beam": 4.941001106013445,
+        "exact": 4.941001106013445,
+        "gap": 0.0
+      },
+      {
+        "case": 10,
+        "beam": 3.9556780726079896,
+        "exact": 3.9556780726079896,
+        "gap": 0.0
+      },
+      {
+        "case": 11,
+        "beam": 4.92569288668552,
+        "exact": 4.92569288668552,
+        "gap": 0.0
+      },
+      {
+        "case": 12,
+        "beam": 3.92176012450445,
+        "exact": 3.92176012450445,
+        "gap": 0.0
+      },
+      {
+        "case": 13,
+        "beam": 4.941191181881375,
+        "exact": 4.941191181881375,
+        "gap": 0.0
+      },
+      {
+        "case": 14,
+        "beam": 4.9526485182801805,
+        "exact": 4.9526485182801805,
+        "gap": 0.0
+      },
+      {
+        "case": 15,
+        "beam": 3.954151926182533,
+        "exact": 3.954151926182533,
+        "gap": 0.0
+      },
+      {
+        "case": 16,
+        "beam": 3.9433840238522744,
+        "exact": 3.9433840238522744,
+        "gap": 0.0
+      },
+      {
+        "case": 17,
+        "beam": 4.949542211185933,
+        "exact": 4.949542211185933,
+        "gap": 0.0
+      },
+      {
+        "case": 18,
+        "beam": 2.954161606842423,
+        "exact": 2.954161606842423,
+        "gap": 0.0
+      },
+      {
+        "case": 19,
+        "beam": 4.922051737000636,
+        "exact": 4.922051737000636,
+        "gap": 0.0
+      }
+    ],
+    "maximum_oracle_gap": 0.0
+  },
+  "states": [
+    {
+      "source_version": "H18-1793515800",
+      "input_sha256": "507cb92608ad20886fc17f87b8ca25059b8b85b5677f257bdb33b6b5f2060bf9",
+      "recorded_at_utc": "2026-11-01T06:50:00+00:00",
+      "moved_bikes": 2,
+      "km": 3.1016999999999997,
+      "minutes": 3.6950000000000003,
+      "zero_sites_supplied": 1,
+      "unserved_zero": 545,
+      "risk_before": 2347.0,
+      "risk_after": 2343.171875,
+      "net_value": 3.715074000000186,
+      "solver_seconds": 0.021481700241565704,
+      "total_seconds": 1.1077557997778058,
+      "legacy_net_value": 0.0,
+      "legacy_moved": 0,
+      "best_pair_net_value": 3.715074,
+      "violations": 0
+    },
+    {
+      "source_version": "H18-1793516400",
+      "input_sha256": "7820d84523a00a9136ff88bf9fcd10416c4bbdb697760a3dec741d895ddee19b",
+      "recorded_at_utc": "2026-11-01T07:00:00+00:00",
+      "moved_bikes": 2,
+      "km": 5.741,
+      "minutes": 8.123333333333333,
+      "zero_sites_supplied": 1,
+      "unserved_zero": 543,
+      "risk_before": 2360.2109375,
+      "risk_after": 2356.2578125,
+      "net_value": 3.7608949999998913,
+      "solver_seconds": 0.018261199817061424,
+      "total_seconds": 2.2484997999854386,
+      "legacy_net_value": 0.0,
+      "legacy_moved": 0,
+      "best_pair_net_value": 3.760895,
+      "violations": 0
+    },
+    {
+      "source_version": "H18-1793517000",
+      "input_sha256": "f7ff5dea5ee4fb73e42f08d363297fb7f0bbc81f1028a57f258094536e05548f",
+      "recorded_at_utc": "2026-11-01T07:10:00+00:00",
+      "moved_bikes": 2,
+      "km": 5.4537,
+      "minutes": 6.315,
+      "zero_sites_supplied": 1,
+      "unserved_zero": 546,
+      "risk_before": 2361.328125,
+      "risk_after": 2357.46875,
+      "net_value": 3.675764000000072,
+      "solver_seconds": 0.022906499914824963,
+      "total_seconds": 1.8183761998079717,
+      "legacy_net_value": 0.0,
+      "legacy_moved": 0,
+      "best_pair_net_value": 3.675764,
+      "violations": 0
+    }
+  ],
+  "acceptance_failures": 0,
+  "strict_legacy_improvements": 3,
+  "primary_summary_serialization_failures": 1,
+  "decision": "supported",
+  "execution_notes": [
+    "Original numpy.int32 strict-count summary could not serialize; this finalizer reads the already persisted engineering/three-state results and changes no routes or criteria.",
+    "Earlier auxiliary run opened cached06:40 state before the planned06:50 window; excluded by frozen period, preserved separately, not primary evidence.",
+    "Native remote OS clock behind139.523809sec; calibrated estimates and original times are preserved in public metadata."
+  ],
+  "limitations": [
+    "Marginal-model coverage proxy, not observed dispatch effect or lost demand",
+    "H19 beam heuristic can miss smaller-capacity incumbents; H20 separates this correction",
+    "No API learning,model selection,calibration or new inventory accuracy result"
+  ],
+  "private_artifact_sha256": "19c3ac178318576a576fda95851d548467d8ad1da13d0f16b82450ed66e9e926",
+  "native_started_at_utc": "2026-11-01T06:46:43.896537+00:00",
+  "native_finished_at_utc": "2026-11-01T07:07:53.699602+00:00",
+  "started_at_utc": "2026-11-01T06:49:03.420346+00:00",
+  "finished_at_utc": "2026-11-01T07:10:13.223411+00:00",
+  "time_note": "Native OS clock preserved; public UTC estimates add H18 offset139.523809sec, uncertainty0.615766sec. Serving uses original monotonic calibrated clock."
+}

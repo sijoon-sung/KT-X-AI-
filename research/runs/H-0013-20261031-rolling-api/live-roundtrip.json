@@ -1,0 +1,149 @@
+{
+  "score": {
+    "hypothesis_id": "H-0013",
+    "scope": "single live functional observation, not official accuracy test",
+    "forecast_metadata": {
+      "hypothesis_id": "H-0013",
+      "scope": "live additional observation; not official September",
+      "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+      "snapshot_sha256": "d84f3c265ba7756c939a003028f6d824230c1fb78a1ffe13ffb1feec09ef7e6c",
+      "previous_sha256": "9c1c4230c18f5f1927e7e5157c02873de971839beb231ac35c19fa116a020109",
+      "issued_at_utc": "2026-10-31T12:31:11.695711+00:00",
+      "input_api_only": true,
+      "weights_updated": false,
+      "primary_weather_present": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "airport_weather_present": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_report_present": false,
+      "api_rows": 1378,
+      "matched_rows": 1296,
+      "supported_valid": 1296,
+      "recent_proxy_present": 1296,
+      "remote_os_issued_at_unix_seconds": 1793449675.9783165,
+      "issue_clock_basis": "collector confirmation after remote forecast received; same clock as API observations",
+      "collector_confirmed_at_unix_seconds": 1793449871.6957114,
+      "original_forecast_sha256": "38948af5b7dbbea46e842d8d84f1b7f64bb5d4aa3d6053e1ba728da6ecee9afa"
+    },
+    "forecast_sha256": "b3a2a2dff60c61980262ca5d7d1025de2cf6746d61fe3d31d9fb3836b5cf0854",
+    "truth_snapshot_sha256": "de1e727e406b45ce7820020784e9349572b9fb2d48bb6df82a1ac3c1321986ef",
+    "issued_before_truth": true,
+    "pairs": 1296,
+    "strict_elapsed_pairs": 1296,
+    "metrics": {
+      "persistence": {
+        "fair_crps": 0.23070987654320987,
+        "crps": 0.23070987654320987,
+        "median_abs": 0.23070987654320987,
+        "mean_sq": 0.37114197530864196,
+        "brier": 0.06481481481481481,
+        "fair_brier": 0.06481481481481481,
+        "coverage_5_95": 0.8225308641975309,
+        "median_exact": 0.8225308641975309,
+        "median_within1": 0.9621913580246914,
+        "observed_zero": 0.4513888888888889,
+        "predicted_zero": 0.4498456790123457
+      },
+      "recent_trend": {
+        "fair_crps": 0.39737654320987653,
+        "crps": 0.39737654320987653,
+        "median_abs": 0.39737654320987653,
+        "mean_sq": 0.8140432098765432,
+        "brier": 0.07947530864197531,
+        "fair_brier": 0.07947530864197531,
+        "coverage_5_95": 0.7322530864197531,
+        "median_exact": 0.7322530864197531,
+        "median_within1": 0.9182098765432098,
+        "observed_zero": 0.4513888888888889,
+        "predicted_zero": 0.4722222222222222
+      },
+      "no_recent_poisson": {
+        "fair_crps": 0.20073272090988628,
+        "crps": 0.20198049663025655,
+        "median_abs": 0.23148148148148148,
+        "mean_sq": 0.35831084074797453,
+        "brier": 0.05711779182339892,
+        "fair_brier": 0.056778181047681536,
+        "coverage_5_95": 0.9444444444444444,
+        "median_exact": 0.8225308641975309,
+        "median_within1": 0.9614197530864198,
+        "observed_zero": 0.4513888888888889,
+        "predicted_zero": 0.4420331790123457
+      },
+      "recent_poisson": {
+        "fair_crps": 0.2002911935270244,
+        "crps": 0.2015160454644097,
+        "median_abs": 0.2337962962962963,
+        "mean_sq": 0.3561839350947627,
+        "brier": 0.05708237636236497,
+        "fair_brier": 0.05675074578351317,
+        "coverage_5_95": 0.9444444444444444,
+        "median_exact": 0.8186728395061729,
+        "median_within1": 0.9621913580246914,
+        "observed_zero": 0.4513888888888889,
+        "predicted_zero": 0.4434799382716049
+      },
+      "recent_cfm": {
+        "fair_crps": 0.19950800692014192,
+        "crps": 0.20114305284288195,
+        "median_abs": 0.23148148148148148,
+        "mean_sq": 0.3563604472595968,
+        "brier": 0.0568327256190924,
+        "fair_brier": 0.056302478249246626,
+        "coverage_5_95": 0.9691358024691358,
+        "median_exact": 0.8194444444444444,
+        "median_within1": 0.9629629629629629,
+        "observed_zero": 0.4513888888888889,
+        "predicted_zero": 0.42710141782407407
+      }
+    }
+  },
+  "issue_clock_audit": {
+    "original_forecast_sha256": "38948af5b7dbbea46e842d8d84f1b7f64bb5d4aa3d6053e1ba728da6ecee9afa",
+    "normalized_forecast_sha256": "b3a2a2dff60c61980262ca5d7d1025de2cf6746d61fe3d31d9fb3836b5cf0854",
+    "remote_os_issued_at_unix_seconds": 1793449675.9783165,
+    "collector_confirmed_at_unix_seconds": 1793449871.6957114,
+    "target_scheduled_at_unix_seconds": 1793450400,
+    "prediction_values_changed": false,
+    "truth_had_arrived": false
+  },
+  "collection_events": [
+    {
+      "scheduled_at_unix_seconds": 1793448600,
+      "http_status": 200,
+      "observed_at_utc": "2026-10-31T12:10:00.445521+00:00",
+      "capture_succeeded": true
+    },
+    {
+      "scheduled_at_unix_seconds": 1793449200,
+      "http_status": 200,
+      "observed_at_utc": "2026-10-31T12:20:00.437019+00:00",
+      "capture_succeeded": true
+    },
+    {
+      "scheduled_at_unix_seconds": 1793449800,
+      "http_status": 200,
+      "observed_at_utc": "2026-10-31T12:30:00.515105+00:00",
+      "capture_succeeded": true,
+      "predict_exit_code": 0,
+      "target_scheduled_at_unix_seconds": 1793450400
+    },
+    {
+      "scheduled_at_unix_seconds": 1793450400,
+      "http_status": 200,
+      "observed_at_utc": "2026-10-31T12:40:00.533440+00:00",
+      "capture_succeeded": true,
+      "score_exit_code": 0,
+      "causal_roundtrip_completed": true
+    }
+  ],
+  "collection_stopped_after_one_completed_roundtrip": true,
+  "official_september_replacement": false
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-historical-events-H0004-v1",
+  "role": "historical learning and internal evaluation; no API files",
+  "source_archive": {
+    "id": "downloaded Tashu trip history publication20260331",
+    "bytes": 493887524,
+    "sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b"
+  },
+  "source_catalog": "docs/sources/tashu-historical-trips-source-v1.json",
+  "source_catalog_sha256": "e8c04e3b6839760001b025e9e489b0044b330470489434853b5182dcf0554438",
+  "time_interpretation": "Naive source clock conditionally Asia/Seoul; no source OS timezone evidence",
+  "target": "Hourly counts of accepted recorded completed-trip events, rentals and returns separately; not demand or measured stock",
+  "excluded_data": [
+    "All API archives/panels/statistics and API-trained models/features",
+    "Legacy reconstructed inventory, exposures, policy outputs and pretrained weights"
+  ],
+  "availability": "Raw archive and derived event/panel/model arrays remain private on dislab"
+}

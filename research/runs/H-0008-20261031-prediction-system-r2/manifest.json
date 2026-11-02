@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0008-20261031-prediction-system-r2",
+  "hypothesis_id": "H-0008",
+  "plan_sha256": "f11f4b4898e87108b82639e5eb2fa781e681e691c58a757a7c402a168fd27f84",
+  "code_commit": "ca4b5c384b3d07d970f4ec49cf48d07384cc5fd3",
+  "input_manifest_sha256": "571c8d2baebdcad656c38eab3ed85fcf089156bb0ded5ec33bcebd7ec7e79fee",
+  "started_at_utc": "2026-10-31T06:43:14.391579+00:00",
+  "finished_at_utc": "2026-10-31T06:43:21.630140+00:00",
+  "command": [
+    "python",
+    "research_code/prediction_acceptance.py",
+    "--h7-artifacts",
+    "<PRIVATE_H7_ARTIFACTS>",
+    "--h4-artifacts",
+    "<PRIVATE_H4_ARTIFACTS>",
+    "--station-metadata",
+    "<PRIVATE_DISPLAY_METADATA>",
+    "--panel",
+    "<PRIVATE_AUDITED_PANEL>",
+    "--run-id",
+    "H-0008-20261031-prediction-system-r2"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "torch": "2.7.1+cu118",
+    "compute_location": "dislab",
+    "device": "CPU",
+    "threads": 4
+  },
+  "seed": [
+    11,
+    29,
+    47
+  ],
+  "evaluation_scope": {
+    "cases": 64,
+    "selection": "linspace over finite current H7 cells, no future-label selection",
+    "official_month": "2026-09",
+    "kind": "engineering acceptance; no new accuracy comparison"
+  },
+  "metrics": {
+    "acceptance_case_pass_fraction": 1.0,
+    "acceptance_cases": 64,
+    "passed_cases": 64,
+    "max_absolute_pzero_error": 0.0,
+    "max_absolute_mean_error": 0.0,
+    "checkpoint_forward_max_absolute_rate_error": 7.62939453125e-06,
+    "model_startup_seconds": 0.2830670000985265,
+    "prediction_latency_ms_median": 9.525650180876255,
+    "prediction_latency_ms_max": 10.985699947923422
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "e5fa7f65371c143377319ed0fef4de7e513f0709fa45ef4aa36d57972b5563de",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "case-verification.json",
+      "sha256": "b7813a8854217aac0bbe49f7cd11ac833e1f55f339dd9a9722a589041d6a4dda",
+      "availability": "private engineering verification details; not published"
+    },
+    {
+      "id": "tests-0.txt",
+      "sha256": "1c485fdd956f5259f0214e15d8a1afd4d6bc8ff35410298a920671e9de17bb2a",
+      "availability": "private engineering verification details; not published"
+    },
+    {
+      "id": "tests-1.txt",
+      "sha256": "62496d257bc5c5d78cbb3e9c05495bea832973b92aefb2f3034c3b8b3b4bdf8e",
+      "availability": "private engineering verification details; not published"
+    }
+  ],
+  "limitations": [
+    "Engineering acceptance only; no new model accuracy evidence or GCN superiority claim.",
+    "GCN is the user-requested competition demonstration path; H7 negative result and non-adoption for performance remain unchanged.",
+    "September was previously exposed; February/March have no measured inventory truth.",
+    "Replay/manual/current snapshot only; live API polling and operational deployment not implemented.",
+    "Non-clock-hour scenarios hold current-hour rates fixed and have no empirical validation; API displayed inventory is not guaranteed usable bikes.",
+    "Web UI interactions verified separately; inference and tests on dislab CPU; local browser is presentation only."
+  ]
+}

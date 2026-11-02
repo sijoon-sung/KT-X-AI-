@@ -1,0 +1,1016 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0015",
+  "scope": "synthetic engineering acceptance only; no real operating improvement or dispatch",
+  "started_at_utc": "2026-10-31T15:23:50.525433+00:00",
+  "finished_at_utc": "2026-10-31T15:23:50.727197+00:00",
+  "native_remote_finished_at_utc": "2026-10-31T15:21:35.250864+00:00",
+  "clock_basis": "collector reference plus remote monotonic elapsed",
+  "code_commit": "a364386a60fd42cf920a1995843beaf943fb7090",
+  "plan_sha256": "c05fcfdeb44fdd0fa5f0837ccec65bcd5273790e01517e836bd76701de8eb4e6",
+  "input_manifest_sha256": "332774db5d84289bdd7bc929d8d7bf9e9a9c2eba34418c619945ac75afe823c8",
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "tests_run": 13,
+  "metrics": {
+    "acceptance_constraint_violations": 0
+  },
+  "decision": "supported",
+  "outputs": {
+    "capacity_fallback": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "A",
+          "pickup": 1,
+          "deliver": 0,
+          "net_station_change": -1,
+          "current_inventory": 18,
+          "target_buffer": 6,
+          "safe_pickup_limit": 6,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "C",
+          "pickup": 0,
+          "deliver": 1,
+          "net_station_change": 1,
+          "current_inventory": 2,
+          "target_buffer": 5,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 5
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "A",
+          "destination": "C",
+          "bikes": 1
+        }
+      ],
+      "total_moved_bikes": 1,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "A",
+          "C",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "A",
+            "action": "pickup",
+            "bikes": 1,
+            "eta_minutes": 1.0,
+            "completion_minutes": 1.1,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "C",
+            "action": "deliver",
+            "bikes": 1,
+            "eta_minutes": 2.1,
+            "completion_minutes": 2.2,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 3.2,
+        "peak_load": 1,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 7.25,
+        "cvar_weighted_buffer_shortfall": 9.0,
+        "scenario_losses": [
+          9.0,
+          8.0,
+          7.0,
+          5.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 16.261,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 10,
+          "moved_bikes": 10,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 9,
+          "moved_bikes": 9,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 8,
+          "moved_bikes": 8,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 7,
+          "moved_bikes": 7,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 6,
+          "moved_bikes": 6,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 5,
+          "moved_bikes": 5,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 4,
+          "moved_bikes": 4,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 3,
+          "moved_bikes": 3,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 2,
+          "moved_bikes": 2,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.014855499844998121,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "time_fallback": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "no_action",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [],
+      "transfers": [],
+      "total_moved_bikes": 0,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "DEPOT"
+        ],
+        "stops": [],
+        "return_minutes": 0.0,
+        "peak_load": 0,
+        "final_load": 0
+      },
+      "deadline_minutes": 1.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "no feasible transfer arc or zero budget",
+        "objective": null,
+        "gap": null
+      },
+      "attempts": [
+        {
+          "workload_budget": 10,
+          "moved_bikes": 10,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 9,
+          "moved_bikes": 9,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 8,
+          "moved_bikes": 8,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 7,
+          "moved_bikes": 7,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 6,
+          "moved_bikes": 6,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 5,
+          "moved_bikes": 5,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 4,
+          "moved_bikes": 4,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 3,
+          "moved_bikes": 3,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 2,
+          "moved_bikes": 2,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 0,
+          "moved_bikes": 0,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.012174500152468681,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "expected_only_dependence_case_one": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "S",
+          "pickup": 1,
+          "deliver": 0,
+          "net_station_change": -1,
+          "current_inventory": 10,
+          "target_buffer": 5,
+          "safe_pickup_limit": 5,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "A",
+          "pickup": 0,
+          "deliver": 1,
+          "net_station_change": 1,
+          "current_inventory": 1,
+          "target_buffer": 1,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 1
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "S",
+          "destination": "A",
+          "bikes": 1
+        }
+      ],
+      "total_moved_bikes": 1,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "S",
+          "A",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "S",
+            "action": "pickup",
+            "bikes": 1,
+            "eta_minutes": 0.5,
+            "completion_minutes": 0.6,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "A",
+            "action": "deliver",
+            "bikes": 1,
+            "eta_minutes": 1.6,
+            "completion_minutes": 1.7000000000000002,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 2.2,
+        "peak_load": 1,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 2.0,
+        "cvar_weighted_buffer_shortfall": 3.0,
+        "scenario_losses": [
+          3.0,
+          3.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 1.5,
+        "cvar_weighted_buffer_shortfall": 2.0,
+        "scenario_losses": [
+          2.0,
+          2.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 1.511,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.0012636003084480762,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "expected_only_dependence_case_two": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "S",
+          "pickup": 1,
+          "deliver": 0,
+          "net_station_change": -1,
+          "current_inventory": 10,
+          "target_buffer": 5,
+          "safe_pickup_limit": 5,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "A",
+          "pickup": 0,
+          "deliver": 1,
+          "net_station_change": 1,
+          "current_inventory": 1,
+          "target_buffer": 1,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 1
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "S",
+          "destination": "A",
+          "bikes": 1
+        }
+      ],
+      "total_moved_bikes": 1,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "S",
+          "A",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "S",
+            "action": "pickup",
+            "bikes": 1,
+            "eta_minutes": 0.5,
+            "completion_minutes": 0.6,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "A",
+            "action": "deliver",
+            "bikes": 1,
+            "eta_minutes": 1.6,
+            "completion_minutes": 1.7000000000000002,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 2.2,
+        "peak_load": 1,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 2.0,
+        "cvar_weighted_buffer_shortfall": 3.0,
+        "scenario_losses": [
+          3.0,
+          3.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 1.5,
+        "cvar_weighted_buffer_shortfall": 3.0,
+        "scenario_losses": [
+          2.0,
+          3.0,
+          0.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 1.511,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.0011637001298367977,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "joint_case_one": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "S",
+          "pickup": 1,
+          "deliver": 0,
+          "net_station_change": -1,
+          "current_inventory": 10,
+          "target_buffer": 5,
+          "safe_pickup_limit": 5,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "A",
+          "pickup": 0,
+          "deliver": 1,
+          "net_station_change": 1,
+          "current_inventory": 1,
+          "target_buffer": 1,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 1
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "S",
+          "destination": "A",
+          "bikes": 1
+        }
+      ],
+      "total_moved_bikes": 1,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "S",
+          "A",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "S",
+            "action": "pickup",
+            "bikes": 1,
+            "eta_minutes": 0.5,
+            "completion_minutes": 0.6,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "A",
+            "action": "deliver",
+            "bikes": 1,
+            "eta_minutes": 1.6,
+            "completion_minutes": 1.7000000000000002,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 2.2,
+        "peak_load": 1,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 2.0,
+        "cvar_weighted_buffer_shortfall": 3.0,
+        "scenario_losses": [
+          3.0,
+          3.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 1.5,
+        "cvar_weighted_buffer_shortfall": 2.0,
+        "scenario_losses": [
+          2.0,
+          2.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 3.511,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.0016378997825086117,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "joint_case_two": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "S",
+          "pickup": 1,
+          "deliver": 0,
+          "net_station_change": -1,
+          "current_inventory": 10,
+          "target_buffer": 5,
+          "safe_pickup_limit": 5,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "C",
+          "pickup": 0,
+          "deliver": 1,
+          "net_station_change": 1,
+          "current_inventory": 1,
+          "target_buffer": 1,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 1
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "S",
+          "destination": "C",
+          "bikes": 1
+        }
+      ],
+      "total_moved_bikes": 1,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "S",
+          "C",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "S",
+            "action": "pickup",
+            "bikes": 1,
+            "eta_minutes": 0.5,
+            "completion_minutes": 0.6,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "C",
+            "action": "deliver",
+            "bikes": 1,
+            "eta_minutes": 3.6,
+            "completion_minutes": 3.7,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 4.2,
+        "peak_load": 1,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 2.0,
+        "cvar_weighted_buffer_shortfall": 3.0,
+        "scenario_losses": [
+          3.0,
+          3.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 1.5,
+        "cvar_weighted_buffer_shortfall": 2.0,
+        "scenario_losses": [
+          2.0,
+          2.0,
+          1.0,
+          1.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 3.531,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.0017173998057842255,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "main": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "shadow_plan",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [
+        {
+          "station_id": "A",
+          "pickup": 6,
+          "deliver": 0,
+          "net_station_change": -6,
+          "current_inventory": 18,
+          "target_buffer": 6,
+          "safe_pickup_limit": 6,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "B",
+          "pickup": 4,
+          "deliver": 0,
+          "net_station_change": -4,
+          "current_inventory": 14,
+          "target_buffer": 4,
+          "safe_pickup_limit": 4,
+          "allowed_dropoff_limit": 0
+        },
+        {
+          "station_id": "C",
+          "pickup": 0,
+          "deliver": 5,
+          "net_station_change": 5,
+          "current_inventory": 2,
+          "target_buffer": 5,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 5
+        },
+        {
+          "station_id": "D",
+          "pickup": 0,
+          "deliver": 5,
+          "net_station_change": 5,
+          "current_inventory": 1,
+          "target_buffer": 5,
+          "safe_pickup_limit": 0,
+          "allowed_dropoff_limit": 5
+        }
+      ],
+      "transfers": [
+        {
+          "origin": "A",
+          "destination": "C",
+          "bikes": 5
+        },
+        {
+          "origin": "A",
+          "destination": "D",
+          "bikes": 1
+        },
+        {
+          "origin": "B",
+          "destination": "D",
+          "bikes": 4
+        }
+      ],
+      "total_moved_bikes": 10,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "A",
+          "C",
+          "B",
+          "D",
+          "DEPOT"
+        ],
+        "stops": [
+          {
+            "station_id": "A",
+            "action": "pickup",
+            "bikes": 6,
+            "eta_minutes": 1.0,
+            "completion_minutes": 1.6,
+            "vehicle_load_after": 6
+          },
+          {
+            "station_id": "C",
+            "action": "deliver",
+            "bikes": 5,
+            "eta_minutes": 2.6,
+            "completion_minutes": 3.1,
+            "vehicle_load_after": 1
+          },
+          {
+            "station_id": "B",
+            "action": "pickup",
+            "bikes": 4,
+            "eta_minutes": 4.1,
+            "completion_minutes": 4.5,
+            "vehicle_load_after": 5
+          },
+          {
+            "station_id": "D",
+            "action": "deliver",
+            "bikes": 5,
+            "eta_minutes": 5.5,
+            "completion_minutes": 6.0,
+            "vehicle_load_after": 0
+          }
+        ],
+        "return_minutes": 7.0,
+        "peak_load": 6,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 0.0,
+        "cvar_weighted_buffer_shortfall": 0.0,
+        "scenario_losses": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "optimal quantity MILP only; coupled routing is a heuristic",
+        "objective": 0.13999999999999999,
+        "gap": 0.0
+      },
+      "attempts": [
+        {
+          "workload_budget": 10,
+          "moved_bikes": 10,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.0014885999262332916,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    },
+    "road_fallback": {
+      "hypothesis_id": "H-0015",
+      "mode": "synthetic_shadow",
+      "forecast_id": "H15-synthetic-contract",
+      "status": "no_action",
+      "dispatch_allowed": false,
+      "operating_assumptions_confirmed": false,
+      "quantity_actions": [],
+      "transfers": [],
+      "total_moved_bikes": 0,
+      "route": {
+        "sequence": [
+          "DEPOT",
+          "DEPOT"
+        ],
+        "stops": [],
+        "return_minutes": 0.0,
+        "peak_load": 0,
+        "final_load": 0
+      },
+      "deadline_minutes": 10.0,
+      "forecast_horizon_minutes": 10,
+      "objective_before": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "objective_after": {
+        "mean_weighted_buffer_shortfall": 8.25,
+        "cvar_weighted_buffer_shortfall": 10.0,
+        "scenario_losses": [
+          10.0,
+          9.0,
+          8.0,
+          6.0
+        ],
+        "scope": "terminal exogenous-scenario surrogate, not latent demand or measured relocation benefit"
+      },
+      "quantity_solver": {
+        "status": "no feasible transfer arc or zero budget",
+        "objective": null,
+        "gap": null
+      },
+      "attempts": [
+        {
+          "workload_budget": 10,
+          "moved_bikes": 10,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 9,
+          "moved_bikes": 9,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 8,
+          "moved_bikes": 8,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 7,
+          "moved_bikes": 7,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 6,
+          "moved_bikes": 6,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 5,
+          "moved_bikes": 5,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 4,
+          "moved_bikes": 4,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 3,
+          "moved_bikes": 3,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 2,
+          "moved_bikes": 2,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 1,
+          "moved_bikes": 1,
+          "route_feasible": false
+        },
+        {
+          "workload_budget": 0,
+          "moved_bikes": 0,
+          "route_feasible": true
+        }
+      ],
+      "road_matrix_basis": "synthetic directed minutes; not a real road/truck route",
+      "seconds": 0.012242499738931656,
+      "limitations": [
+        "One vehicle, one visit per station and at most8stops; no globally optimal combined quantity/route claim.",
+        "Endpoint stock plus planned moves assumes exogenous completed flows; not an action-dependent physical simulator.",
+        "Confirm source bikes and destination allowed space at each visit; replan on changes.",
+        "Synthetic/road-profile assumptions do not establish actual truck legality or field savings."
+      ]
+    }
+  },
+  "seconds": 0.2021161001175642,
+  "log": "test_capacity_fallback_preserves_feasibility (test_rebalancing_pipeline.Acceptance.test_capacity_fallback_preserves_feasibility) ... ok\ntest_collector_clock_metadata_does_not_use_remote_wall_clock (test_rebalancing_pipeline.Acceptance.test_collector_clock_metadata_does_not_use_remote_wall_clock) ... ok\ntest_deadline_prevents_unsafe_route (test_rebalancing_pipeline.Acceptance.test_deadline_prevents_unsafe_route) ... ok\ntest_expected_only_decision_unchanged_under_same_margins (test_rebalancing_pipeline.Acceptance.test_expected_only_decision_unchanged_under_same_margins) ... ok\ntest_future_dated_collector_metadata_is_rejected (test_rebalancing_pipeline.Acceptance.test_future_dated_collector_metadata_is_rejected) ... ok\ntest_joint_dependency_changes_cvar_decision (test_rebalancing_pipeline.Acceptance.test_joint_dependency_changes_cvar_decision) ... ok\ntest_main_exact_quantities_and_route (test_rebalancing_pipeline.Acceptance.test_main_exact_quantities_and_route) ... ok\ntest_nonfinite_forecast_is_rejected (test_rebalancing_pipeline.Acceptance.test_nonfinite_forecast_is_rejected) ... ok\ntest_stale_collector_metadata_is_rejected (test_rebalancing_pipeline.Acceptance.test_stale_collector_metadata_is_rejected) ... ok\ntest_unknown_api_forecast_lineage_is_rejected (test_rebalancing_pipeline.Acceptance.test_unknown_api_forecast_lineage_is_rejected) ... ok\ntest_unknown_capacity_is_rejected (test_rebalancing_pipeline.Acceptance.test_unknown_capacity_is_rejected) ... ok\ntest_unreachable_road_returns_no_action (test_rebalancing_pipeline.Acceptance.test_unreachable_road_returns_no_action) ... ok\ntest_unsupported_prediction_horizon_is_rejected (test_rebalancing_pipeline.Acceptance.test_unsupported_prediction_horizon_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.148s\n\nOK\n"
+}

@@ -1,0 +1,254 @@
+{
+  "compact": {
+    "parameters": {
+      "automatic": true,
+      "station_ids": [
+        "ST0322",
+        "ST0321",
+        "ST1510",
+        "ST1366",
+        "ST0869"
+      ],
+      "depot_id": "ST0322",
+      "objective": "balanced",
+      "capacity": 6,
+      "target": 2,
+      "budget": 6,
+      "deadline_minutes": 10,
+      "drop_limit": 3,
+      "handling_seconds": 20,
+      "max_visits": 8,
+      "effective_deadline": 9.333333333333334
+    },
+    "source_version": "H18-1793526000",
+    "recorded_at_utc": "2026-11-01T09:40:00+00:00",
+    "departure_at_utc": "2026-11-01T09:40:10+00:00",
+    "valid_until_utc": "2026-11-01T09:50:00+00:00",
+    "moved_bikes": 3,
+    "route": {
+      "stops": [
+        {
+          "station_id": "ST0322",
+          "action": "pickup",
+          "bikes": 1,
+          "leg_meters": 0.0,
+          "leg_drive_minutes": 0.0,
+          "eta_minutes": 0.0,
+          "completion_minutes": 0.3333333333333333,
+          "vehicle_load_after": 1,
+          "name": "태평동 버드내초등학교"
+        },
+        {
+          "station_id": "ST0320",
+          "action": "pickup",
+          "bikes": 1,
+          "leg_meters": 374.2,
+          "leg_drive_minutes": 0.4083333333333333,
+          "eta_minutes": 0.7416666666666667,
+          "completion_minutes": 1.075,
+          "vehicle_load_after": 2,
+          "name": "태평동 삼부프라자"
+        },
+        {
+          "station_id": "ST1516",
+          "action": "deliver",
+          "bikes": 1,
+          "leg_meters": 1512.6,
+          "leg_drive_minutes": 1.7216666666666667,
+          "eta_minutes": 2.796666666666667,
+          "completion_minutes": 3.1300000000000003,
+          "vehicle_load_after": 1,
+          "name": "용두동 301-3"
+        },
+        {
+          "station_id": "ST0874",
+          "action": "pickup",
+          "bikes": 1,
+          "leg_meters": 1632.9,
+          "leg_drive_minutes": 1.8616666666666668,
+          "eta_minutes": 4.991666666666667,
+          "completion_minutes": 5.325,
+          "vehicle_load_after": 2,
+          "name": "유천동 새서울종합시장"
+        },
+        {
+          "station_id": "ST0036",
+          "action": "deliver",
+          "bikes": 1,
+          "leg_meters": 1301.7,
+          "leg_drive_minutes": 1.355,
+          "eta_minutes": 6.68,
+          "completion_minutes": 7.013333333333333,
+          "vehicle_load_after": 1,
+          "name": "문화동 홈플러스"
+        },
+        {
+          "station_id": "ST0521",
+          "action": "deliver",
+          "bikes": 1,
+          "leg_meters": 246.8,
+          "leg_drive_minutes": 0.22666666666666666,
+          "eta_minutes": 7.239999999999999,
+          "completion_minutes": 7.573333333333332,
+          "vehicle_load_after": 0,
+          "name": "문화동 BMK컨벤션"
+        }
+      ],
+      "return_minutes": 9.151666666666666,
+      "return_leg_minutes": 1.5783333333333334,
+      "return_leg_meters": 1544.0,
+      "distance_meters": 6612.2,
+      "peak_load": 2
+    },
+    "coverage": {
+      "scanned": 1296,
+      "current_zero": 541,
+      "receivers": 877,
+      "donors": 289,
+      "shortlisted": 26,
+      "selection": "Automatic regional shortlist from all supported stations; no citywide optimum",
+      "delivery_sites": 3,
+      "zero_sites_supplied": 3,
+      "unserved_receivers": 874,
+      "unserved_zero": 538,
+      "reason": "차량 1대·남은 10분 예측·적재량 안에서 가까운 공급/부족 후보를 선택합니다. 나머지는 후속 작업 대상입니다."
+    },
+    "certificate": {
+      "handling_accounted": true,
+      "violations": 0,
+      "bike_conservation": true,
+      "intermediate_capacity": true,
+      "donor_bounds": true,
+      "return_before_forecast": true
+    },
+    "solver_seconds": 0.19819709984585643,
+    "seconds": 3.291720099747181
+  },
+  "bulk": {
+    "parameters": {
+      "automatic": true,
+      "station_ids": [
+        "ST0322",
+        "ST0321",
+        "ST1510",
+        "ST1366",
+        "ST0869"
+      ],
+      "depot_id": "ST0322",
+      "objective": "balanced",
+      "capacity": 20,
+      "target": 6,
+      "budget": 20,
+      "deadline_minutes": 10,
+      "drop_limit": 10,
+      "handling_seconds": 20,
+      "max_visits": 8,
+      "effective_deadline": 9.333333333333334
+    },
+    "source_version": "H18-1793526000",
+    "recorded_at_utc": "2026-11-01T09:40:00+00:00",
+    "departure_at_utc": "2026-11-01T09:40:10+00:00",
+    "valid_until_utc": "2026-11-01T09:50:00+00:00",
+    "moved_bikes": 6,
+    "route": {
+      "stops": [
+        {
+          "station_id": "ST0322",
+          "action": "pickup",
+          "bikes": 4,
+          "leg_meters": 0.0,
+          "leg_drive_minutes": 0.0,
+          "eta_minutes": 0.0,
+          "completion_minutes": 1.3333333333333333,
+          "vehicle_load_after": 4,
+          "name": "태평동 버드내초등학교"
+        },
+        {
+          "station_id": "ST0313",
+          "action": "pickup",
+          "bikes": 1,
+          "leg_meters": 708.1,
+          "leg_drive_minutes": 0.8366666666666667,
+          "eta_minutes": 2.17,
+          "completion_minutes": 2.5033333333333334,
+          "vehicle_load_after": 5,
+          "name": "유천동 서대전농협 본점 주차장"
+        },
+        {
+          "station_id": "ST0521",
+          "action": "deliver",
+          "bikes": 1,
+          "leg_meters": 865.3,
+          "leg_drive_minutes": 0.7966666666666666,
+          "eta_minutes": 3.3,
+          "completion_minutes": 3.6333333333333333,
+          "vehicle_load_after": 4,
+          "name": "문화동 BMK컨벤션"
+        },
+        {
+          "station_id": "ST0408",
+          "action": "pickup",
+          "bikes": 1,
+          "leg_meters": 299.0,
+          "leg_drive_minutes": 0.4716666666666667,
+          "eta_minutes": 4.105,
+          "completion_minutes": 4.4383333333333335,
+          "vehicle_load_after": 5,
+          "name": "오류동 서대전역"
+        },
+        {
+          "station_id": "ST0036",
+          "action": "deliver",
+          "bikes": 1,
+          "leg_meters": 324.0,
+          "leg_drive_minutes": 0.5,
+          "eta_minutes": 4.9383333333333335,
+          "completion_minutes": 5.2716666666666665,
+          "vehicle_load_after": 4,
+          "name": "문화동 홈플러스"
+        },
+        {
+          "station_id": "ST0509",
+          "action": "deliver",
+          "bikes": 4,
+          "leg_meters": 150.4,
+          "leg_drive_minutes": 0.14,
+          "eta_minutes": 5.411666666666666,
+          "completion_minutes": 6.744999999999999,
+          "vehicle_load_after": 0,
+          "name": "문화동 세이백화점"
+        }
+      ],
+      "return_minutes": 8.69,
+      "return_leg_minutes": 1.945,
+      "return_leg_meters": 1941.2,
+      "distance_meters": 4288.0,
+      "peak_load": 5
+    },
+    "coverage": {
+      "scanned": 1296,
+      "current_zero": 541,
+      "receivers": 1162,
+      "donors": 112,
+      "shortlisted": 28,
+      "selection": "Automatic regional shortlist from all supported stations; no citywide optimum",
+      "delivery_sites": 3,
+      "zero_sites_supplied": 3,
+      "unserved_receivers": 1159,
+      "unserved_zero": 538,
+      "reason": "차량 1대·남은 10분 예측·적재량 안에서 가까운 공급/부족 후보를 선택합니다. 나머지는 후속 작업 대상입니다."
+    },
+    "certificate": {
+      "handling_accounted": true,
+      "violations": 0,
+      "bike_conservation": true,
+      "intermediate_capacity": true,
+      "donor_bounds": true,
+      "return_before_forecast": true
+    },
+    "solver_seconds": 0.9951931000687182,
+    "seconds": 2.865638699848205
+  },
+  "scope": "Observation-time replay with fixed marginals, NOT a live issued dispatch or new accuracy/field comparison",
+  "input_sha256": "da573fadb80c6b39adef5e7e0cf22f8de22226d59788e1260ddf6ff27ebefd2c"
+}

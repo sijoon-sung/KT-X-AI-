@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "H-0021",
+  "title": "운영 규모의 묶음 수거·배치와 상하차 제약",
+  "status": "completed",
+  "plan": {
+    "question": "Can the same fixed forecasts support operator-controlled larger per-visit batches while respecting explicit handling,source,drop,vehicle and10min limits?",
+    "hypothesis": "All72 synthetic conditions satisfy conservation/handling/expiry/source/drop limits and at least one bulk feasible delivery batch>=5bikes; no accuracy or real efficiency inference.",
+    "prior_art": [
+      {
+        "title": "OSRM official API reference",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "Previously checked directed table/route units and car-profile limits; no measured truck or traffic inference",
+        "difference_to_test": "Operator batch/resource assumptions and handling-aware feasible quantity search, not novel VRP global optimization"
+      }
+    ],
+    "data": {
+      "dataset_id": "H21-batch-operating-scenarios-v1",
+      "observed_truth": "Synthetic physical feasibility checks; actual API current stock is input, no action/outcome truth",
+      "not_observed": [
+        "True lost demand",
+        "Actual vehicle/parking/handling parameters",
+        "Actual relocation effect"
+      ],
+      "input_manifest_sha256": "6fe558867d9a9233c2a8f48a6c095edba1580f262a3bdcb20b8daf28be7fd019"
+    },
+    "evaluation": {
+      "design": "research/plans/H-0021-v1.json SHA256=54efd58bd99010ddde5c512eb16ceebde0220b8b39da0742482f4691dfd5d8d7",
+      "periods": [
+        {
+          "role": "engineering_and_shadow",
+          "start": "2026-11-01T09:35:00+00:00",
+          "end": "2026-11-01T12:00:00+00:00"
+        }
+      ],
+      "baselines": [
+        "compact cap6/target2/budget6/drop3 under same handling value",
+        "bulk cap20/target6/budget20/drop10; changed operational policy explicitly, not same-resource improvement claim"
+      ],
+      "primary_metric": {
+        "name": "feasibility_violations",
+        "direction": "lower",
+        "unit": "count"
+      },
+      "success_rule": "Zero violations in72synthetic conditions plus>=1bulk delivery batch5bikes or more.",
+      "failure_rule": "Preserve runtime,zero-action and failure; no relaxed time/source bounds or outcome-based tuning",
+      "exclusion_rule": "Keep all72conditions; reject missing/stale/mismatched input without zero fill; integration replay separated from actual now issuance",
+      "uncertainty_plan": "Finite engineering checks and assumed operational scenarios, no statistical field benefit or prediction-accuracy claim",
+      "seed_plan": "Seed44; unchanged H13 actual state marginals for one integration snapshot; no fitting."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "2751b648368f3f93564db5aed61272d8726e184e5b19a54f5d478aef0c7c2a1c",
+    "frozen_at_utc": "2026-11-01T09:36:05.405134+00:00"
+  },
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislab72조건의 수량·적재·공급지·주차·상하차·복귀 위반0, 합성 최대배치6대.18:40관측 참고 재생의 소규모3대/묶음6대 및 실제18:40:36발행 총6대 계획을 기록했다. 실제한곳6대나새정확도/운영효과는주장하지않는다.",
+    "limitations": [
+      "Changed operational assumptions, not same-resource algorithm/accuracy/field gain",
+      "One vehicle and assumed parking/handling, original10min prediction cutoff",
+      "Replay is not current issuance; actual-now response separately recorded",
+      "API is input only, frozen model weights unchanged",
+      "Capacity20,target6,drop10,handling20sec are operator scenario defaults, not verified fleet conditions",
+      "Live total6 is not a single-site6 delivery; largest synthetic delivery batch6 is a separate engineering result",
+      "GUI automation stopped because the current browser URL could not be verified; visual browser verification not claimed",
+      "Source conflict recovery verified by7JStransport tests/8server tests ondislab and actual authoritative HTTPmetadata/plan responses"
+    ],
+    "run_manifests": [
+      "research/runs/H-0021-20261101-bulk/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}

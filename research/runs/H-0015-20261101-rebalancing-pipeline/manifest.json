@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0015",
+  "plan_sha256": "c05fcfdeb44fdd0fa5f0837ccec65bcd5273790e01517e836bd76701de8eb4e6",
+  "input_manifest_sha256": "332774db5d84289bdd7bc929d8d7bf9e9a9c2eba34418c619945ac75afe823c8",
+  "code_commit": "a364386a60fd42cf920a1995843beaf943fb7090",
+  "started_at_utc": "2026-10-31T15:23:50.525433+00:00",
+  "finished_at_utc": "2026-10-31T15:23:50.727197+00:00",
+  "command": [
+    "python",
+    "research_code/rebalancing_acceptance.py",
+    "--out",
+    "PRIVATE_ACCEPTANCE",
+    "--collector-start",
+    "2026-10-31T15:23:50.525433+00:00"
+  ],
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "evaluation_scope": "synthetic engineering acceptance only; no real operating improvement or dispatch",
+  "metrics": {
+    "acceptance_constraint_violations": 0
+  },
+  "artifacts": [
+    {
+      "id": "earlier-acceptance.json",
+      "sha256": "4cc3c21d20ea161b6ebb693782daffb18c8c794da699836095dc9b76bd758e83"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "d3bd685f05cfa5ba4d28a263f4cd8b551e1fb0f44a23eed4ace6f892566aa47b"
+    }
+  ],
+  "limitations": [
+    "All executed stock/road/fleet cases are synthetic.",
+    "13engineeringassertions do not validate prediction quality or field savings.",
+    "One vehicle,<=8visits;2stage quantity/routing heuristic, exact route for fixed small allocation.",
+    "Only terminal10minute planning, no arrival-stock trajectory/counterfactual demand model.",
+    "No real API adapter or truck-road profile run in this acceptance; lineage/freshness fields are contract checks.",
+    "All outputdispatch_allowed=false; no messages or actual rebalancing."
+  ]
+}

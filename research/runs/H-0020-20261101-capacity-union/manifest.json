@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0020-20261101-capacity-union",
+  "hypothesis_id": "H-0020",
+  "plan_sha256": "2bdc9071f2194d285c469f5888a55b031a1d2011a793707090f32898ddfba217",
+  "code_commit": "530a958f9e7c3932accf87afb151cab386a92536",
+  "input_manifest_sha256": "d2b1fac376f24a59a30b4d25fd944ce562fdc46d91776c1a9c37cf1b6eb7609f",
+  "started_at_utc": "2026-11-01T06:58:50.982565+00:00",
+  "finished_at_utc": "2026-11-01T07:00:12.312272+00:00",
+  "command": [
+    "python research_code/monotone_dispatch_acceptance.py --out <private-summary>",
+    "python research_code/monotone_dispatch.py watch --folder <private-live-folder> --out <private-plan-log>"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "device": "dislab CPU"
+  },
+  "seed": 43,
+  "evaluation_scope": "20synthetic cases x capacities1..6; separately first post-publication observation16:00KST functional shadow plan, no new accuracy or field outcome evaluation",
+  "metrics": {
+    "capacity_or_constraint_violations": 0,
+    "synthetic_conditions": 120,
+    "direct_synthetic_inversions": 0,
+    "median_synthetic_solver_seconds": 0.005114649655297399,
+    "maximum_synthetic_solver_seconds": 0.011789300013333559,
+    "serving_boundary_tests_passed": 7,
+    "live_functional_moved_bikes": 4,
+    "live_functional_distance_meters": 7133.2,
+    "live_functional_minutes": 9.181666666666667,
+    "live_functional_zero_sites_supplied": 3
+  },
+  "artifacts": [
+    {
+      "id": "engineering.json",
+      "sha256": "62a9c782c38b1efc05b2637b532de21e851c045530e3ac695606698e6103f800",
+      "availability": "research/runs/H-0020-20261101-capacity-union/engineering.json"
+    },
+    {
+      "id": "live-functional-example.json",
+      "sha256": "f16458b194d19d897817f90496d1cb5e46e13e699c04a606150dc26e4db70dc7",
+      "availability": "research/runs/H-0020-20261101-capacity-union/live-functional-example.json"
+    },
+    {
+      "id": "rolling-plan-issues.json",
+      "sha256": "e1f97d1f85bfc471066318ea13bbdad0794594d9d62d1251cf42ca70c1f5bdd5",
+      "availability": "research/runs/H-0020-20261101-capacity-union/rolling-plan-issues.json"
+    }
+  ],
+  "limitations": [
+    "Synthetic inclusion/safety checks are not field benefit or independent prediction accuracy",
+    "Identical inputs except capacity required for dominance; no citywide or other-parameter monotonicity claim",
+    "Real fleet/depot/parking/handling unverified: one empty-start/return vehicle,capacity6,handling6sec/bike,drop<=3 assumed",
+    "10min fixed forecast only; no live traffic or intervention-induced demand model",
+    "Native remote clock139.523809sec behind; preserve native times and calibrated estimates with0.615766sec uncertainty",
+    "H19 original single-capacity experiment preserved and completed on its own pinned code"
+  ],
+  "execution_notes": {
+    "serving_code_commit": "c55a14cd793d15311c67dc8875e49af427add7ec",
+    "source": "All logged rolling-plan issue metadata through the recorded checkpoint; no best-case filtering",
+    "watch": "New observation and impending latest-departure cutoff trigger remote replanning; actual dispatch false"
+  }
+}

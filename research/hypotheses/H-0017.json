@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "id": "H-0017",
+  "title": "지도 중심 동적 재배치 수량·거리·방문 순서 계산",
+  "status": "completed",
+  "plan": {
+    "question": "Can an operator dynamically select candidates/resources and receive a bounded optimal quantity/route with actual directed road distances without research clutter?",
+    "hypothesis": "Exact small-candidate integer/route enumeration yields zero acceptance failures and dynamic controls really change computed feasible plans; product omits research sections while keeping source date/assumptions.",
+    "prior_art": [
+      {
+        "title": "Onfleet official Map & Sidebar",
+        "url": "https://support.onfleet.com/hc/en-us/articles/360023669612-Map-Sidebar",
+        "verified_scope": "Original map/sidebar interaction description and screenshot inspected2026-11-01.",
+        "difference_to_test": "Borrow spatial hierarchy and selectable task list; original localbike UI, no Onfleet assets copied."
+      },
+      {
+        "title": "OSRM official API",
+        "url": "https://project-osrm.org/docs/v5.24.0/api/",
+        "verified_scope": "Original Table units:seconds/meters, directed rows and RouteGeoJSON; profile limitations.",
+        "difference_to_test": "Live bounded road metadata for fixed recorded forecasts, not verified truck traffic."
+      },
+      {
+        "title": "Leaflet official quick start",
+        "url": "https://leafletjs.com/examples/quick-start/",
+        "verified_scope": "Pinned1.9.4 official CSS/JSintegrity, map/markers/events and attribution.",
+        "difference_to_test": "Interactive planning view with directOSMtiles obeyingnormalbrowsercache/attribution, not new routing method."
+      }
+    ],
+    "data": {
+      "dataset_id": "H17-fixed-prediction-dispatch-v1",
+      "observed_truth": "Previously frozen current snapshot and H13predictions; engineering exact-route oracles and directed road metadata",
+      "not_observed": [
+        "Actual relocation/field benefit",
+        "Real fleet/depot/parking/truck restrictions",
+        "New model performance"
+      ],
+      "input_manifest_sha256": "7f3357c147b1b1a4406658bb8620aea141c6508c2f1e9203c599c1d0c12c84b6"
+    },
+    "evaluation": {
+      "design": "Exact engineering config research/plans/H-0017-v1.json SHA256=a018fbd63e9bd8729e505bbb0deea476a2608e7d6aa5ebbf137bbd733b969572",
+      "periods": [
+        {
+          "role": "engineering_acceptance",
+          "start": "2026-11-01T00:00:00+09:00",
+          "end": "2026-11-02T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "Independent tiny exhaustive-route oracle",
+        "zero-action reference",
+        "default versuschangedresource/candidate contract"
+      ],
+      "primary_metric": {
+        "name": "acceptance_failures",
+        "direction": "lower",
+        "unit": "count"
+      },
+      "success_rule": "supported only if all engineering acceptance checks pass; no accuracy/effectiveness inference",
+      "failure_rule": "Any failed acceptance marksnot_supported, blockedroadsreportedwithoutfabrication; preservefailures.",
+      "exclusion_rule": "All fixed engineering fixtures tested; no outcome-based case/model selection; UI candidate decision is not training cohort selection.",
+      "uncertainty_plan": "Deterministic finite candidate engineering optimum; no population confidence interval or field causal effect.",
+      "seed_plan": "No training/new particles; reuse frozen128stationwiseparticles and deterministic tie-break."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "4a89e0e6c9181824d115d8647e2f7afa320df37e53847efc79310417e8f6a822",
+    "frozen_at_utc": "2026-10-31T16:46:42.493466+00:00"
+  },
+  "result": {
+    "decision": "supported",
+    "adopt_code": true,
+    "summary": "dislabCPU기능검사41개실패0,브라우저19개통과.고정예측+실제좌표도로추정에서기본4대/4.7852km/6.005분;적재1대면2대/4.2945km;3분제한이면2대/2.382km.동적계산과선택후보내완전탐색이며실제운영효과미검증.",
+    "limitations": [
+      "Recorded Oct31 current state and frozen H13 stationwise predictions; no new model fit or superiority test.",
+      "Exact finite search restricted to<=5selectedstations, onevehicle, onevisit, integercaps, fixedcar-roadmatrix and policyobjective.",
+      "Realfleet/depot/parking/handling/traffic/truckaccess unverified, resourcesassumed.",
+      "No actual dispatch or measured field improvement."
+    ],
+    "run_manifests": [
+      "research/runs/H-0017-20261101-dynamic-dispatch/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}

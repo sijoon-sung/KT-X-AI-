@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "id": "H-0014",
+  "title": "주변 분포를 보존하는 Flow Matching과 구역 동시 부족 예측",
+  "status": "withdrawn",
+  "plan": {
+    "question": "Can a conditional FM dependence template improve regional joint shortage forecasts while keeping each station marginal ensemble exactly unchanged?",
+    "hypothesis": "With common historical-only fixed marginal samples, conditional graph FM improves September regional-zero-fraction CRPS by >1% vs independent/Gaussian/current-state persistence, with3/7day95%lower>1%. Historical completed-flow gate must pass before external evaluation.",
+    "prior_art": [
+      {
+        "title": "Schefzik, Thorarinsdottir & Gneiting, Ensemble Copula Coupling",
+        "url": "https://arxiv.org/html/1302.7149",
+        "verified_scope": "원문§3.1/§4.2–4.3, reordering and unchanged marginal samples; ECC-R definitions.",
+        "difference_to_test": "Use a learned conditional FM rank template for Tashu signed net flows; the rank-preservation result is not evidence of forecast/operational benefit."
+      },
+      {
+        "title": "Salinas et al., Low-rank Gaussian Copula Processes, NeurIPS2019",
+        "url": "https://proceedings.neurips.cc/paper/2019/file/0b105cf1504c4e241fcc6d519ea962fb-Paper.pdf",
+        "verified_scope": "Original abstract and §2–4 low-rank-plus-diagonal covariance and marginal transforms.",
+        "difference_to_test": "Mandatory conditional Gaussian dependence control; not a full reproduction of the original RNN model."
+      },
+      {
+        "title": "Scheuerer & Hamill, Variogram-Based Proper Scoring Rules",
+        "url": "https://repository.library.noaa.gov/view/noaa/22327/noaa_22327_DS1.pdf",
+        "verified_scope": "Original abstract and §2 equations3–4 and weighting discussion; dependence sensitivity and energy-score limitations.",
+        "difference_to_test": "Use VS0.5 with historical-only pair/scale definitions, alongside region aggregate CRPS and joint-zero Brier; no one score certifies a full joint law."
+      },
+      {
+        "title": "Kollovieh et al., Flow Matching with Gaussian Process Priors, ICLR2025",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/ee1a1ecc92f35702b5c29dad3dc909ea-Paper-Conference.pdf",
+        "verified_scope": "Original abstract/problem statement and distinction of flow-time vs physical series time; univariate forecasting setting.",
+        "difference_to_test": "Motivates examining structured conditional priors. Our graph/station covariance is a proposal, not a demonstrated multivariate extension of that paper."
+      },
+      {
+        "title": "Wei & Pearson, Flow Matching for Count Data, arXiv2026 preprint",
+        "url": "https://arxiv.org/html/2605.07746",
+        "verified_scope": "Original abstract and §2.1–2.3 local birth/death rates, count bridge and approximate generation.",
+        "difference_to_test": "Alternative for a future marginal-count-model hypothesis. Its latent birth/death path is not a measured bicycle rebalancing or physical-time simulator."
+      },
+      {
+        "title": "Lipman et al., Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "Original §3 conditional vector-field regression, also verified in H13.",
+        "difference_to_test": "Conditional whole-supported-cohort rank templates, not separate station-wise rental/return heads."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-dependence-flow-H0014-design-v1",
+      "observed_truth": "Historical completed 10min net-flow vectors for learning/internal selection; future September API displayed stock for external joint-zero evaluation.",
+      "not_observed": [
+        "Historical inventory truth in February/March",
+        "Latent demand and physical capacity",
+        "Operator actions/costs and counterfactual relocation outcomes"
+      ],
+      "input_manifest_sha256": "78613f5764c1b723ef1b66a4b46253e1aa234dadff50ced3c912c1f6507c4b59"
+    },
+    "evaluation": {
+      "design": "Exact frozen execution is research/plans/H-0014-v1.json SHA256=a32457fccc1e679fb20d6c99909d6a47a494d3a9aa94c59a6e3fc73e8b747306. Historical-only tensor/layout audited in docs/sources/H-0014-historical-tensor-audit.json. Two-stage historical gate then unchanged official September joint-risk evaluation. Individual empirical margins must remain identical.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "auxiliary_count",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-09-01T00:00:00+09:00",
+          "end": "2026-10-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "Common-marginal independence",
+        "Conditional low-rank Gaussian template + same rank coupling",
+        "FM template with independent per-station member shuffles",
+        "Current-stock persistence reference"
+      ],
+      "primary_metric": {
+        "name": "worst_control_regional_zero_fraction_crps_relative_gain",
+        "unit": "fraction",
+        "direction": "higher"
+      },
+      "success_rule": "Exact marginal multiset invariant and historical gate pass; official>=16regions/10000region-issues/10days/1900validbootstrap each; worst3controlrelativegain point and both3/7day95%lower>.01.",
+      "failure_rule": "With sufficient official data both95%upper<=1% means not_supported; otherwise inconclusive. Exact marginal-invariant/numeric/resource failures stop and are preserved. If historical ensemble outflow CRPS does not improve both independent/Gaussian >1%, withdraw with reason historical_gate_failed and leave September primary unexecuted; do not invent an external primary value.",
+      "exclusion_rule": "Freeze historical support/region partition before API. Forecast complete current-supported regions without future information. Future missingness/timing applied only to score, never change region composition or forecast RNG. No error-based exclusions.",
+      "uncertainty_plan": "City-synchronized3/7calendar-day blocks,2000PCG64 replicates seed20261104; fixed equal-region weighting; exposed September not independent; fitted-model/selection/MC uncertainty excluded. Ordinary empirical-distribution CRPS/energy, not IID fair formulas after rank coupling.",
+      "seed_plan": "Frozen config: seeds11/29,Gaussianrank8/32×16epochs+0,FM20epochs with checkpoints0/2/4/8/12/16/20,epoch1024globalissue samples/batch16;52fixedFebselection/29Marchaux;128globalparticlesHeun16; randomstreams20261104.",
+      "config_sha256": "a32457fccc1e679fb20d6c99909d6a47a494d3a9aa94c59a6e3fc73e8b747306"
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "8705cef8b650386e3a6a541b4fdf35fa4f3f686613387d8f4a024bb41d4654d8",
+    "frozen_at_utc": "2026-10-31T14:54:51.547224+00:00"
+  },
+  "result": {
+    "decision": "inconclusive",
+    "historical_stage_decision": "not_supported",
+    "primary_metric_status": "unexecuted",
+    "external_api_opened": false,
+    "adopt_code": true,
+    "summary": "과거 공동분포 학습을dislab에서완료했으나 Gaussian대비FM추가개선0%;두시드모두epoch0선택. 독립대비2월0.212%·3월약0.482%는Gaussian연결효과이며FM추가효과아님. 동결gate에따라API평가전철회.",
+    "limitations": [
+      "February52issues are selection data; gains are not independent test evidence.",
+      "March29issues are previously exposed completed-count auxiliary, not inventory truth.",
+      "No new official September stock/joint-zero forecast performance measured.",
+      "Same empirical marginal net flows deliberately preserved; this is dependence-only comparison.",
+      "Both selected flow checkpoints areepoch0: no learned FM correction adopted.",
+      "Small fixed learning budget/representation/selection rule does not invalidate the whole FM family.",
+      "No policy/routing/field benefit inferred from completed-net-flow scores."
+    ],
+    "run_manifests": [
+      "research/runs/H-0014-20261101-joint-dependence/manifest.json"
+    ]
+  },
+  "withdrawal_reason": "사전 동결한 historical_gate_failed: 고정2월 구역 완료순유출CRPS의 최소대조군개선0%, 요구>1%실패. 새9월공식재고평가전 철회하며 외부주지표는미실행으로보존한다.",
+  "design_status": {
+    "experiment_executed": true,
+    "plan_frozen": true,
+    "source_audit_completed": true,
+    "engineering_tests_passed": 8,
+    "required_before_learning": "satisfied: exact plan/source published at 9543b5fdd0ef29d980adc1d68f868c065d8381f3 before dislab fitting",
+    "api_selection_prohibited": true,
+    "historical_gate_passed": false,
+    "external_api_evaluation_executed": false
+  }
+}

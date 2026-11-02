@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "H-0003",
+  "title": "재고의 조건부 변동과 포아송 관측 가정 진단",
+  "status": "completed",
+  "plan": {
+    "question": "같은 대여소와 현재 2~10대 재고를 조건으로 보았을 때 30분 뒤 관측 재고의 변동이 포아송 평균=분산 기준보다 실질적으로 작은가?",
+    "hypothesis": "적격 대여소별 관측쌍 가중 조건부 분산/평균 비율의 중앙값이 0.8 미만이다. 0.8은 사전 진단 기준이며 현장 허용 오차가 아니다. 네트워크나 최종 모형군을 정하는 가설이 아니다.",
+    "prior_art": [
+      {
+        "title": "Salinas et al., DeepAR, arXiv v3 (2019), §3.1",
+        "url": "https://arxiv.org/pdf/1704.04110",
+        "verified_scope": "원문의 Gaussian/NB likelihood, 평균·분산 모수화 확인. NB2의 Var=mu+alpha*mu^2를 확인했으며 타슈 실험 근거로 쓰지 않는다.",
+        "difference_to_test": "현재 API 재고의 조건부 변동이 직접 Poisson/NB2 관측 분포의 분산 제약과 맞는지 선행 자료 진단."
+      },
+      {
+        "title": "Shmueli et al. (2005), A useful distribution for fitting discrete data: revival of the Conway–Maxwell–Poisson distribution",
+        "url": "https://doi.org/10.1111/j.1467-9876.2005.00474.x",
+        "verified_scope": "대학 보관 출판 PDF의 요약·서론·§2에서 과산포/저산포와 분포 정의 확인. 모형 구현·타슈 적합성은 검증하지 않음.",
+        "difference_to_test": "분산 유연성이 필요한지 자료로 먼저 판단하며, 이번 진단에서 CMP를 학습하거나 채택하지 않음."
+      }
+    ],
+    "data": {
+      "dataset_id": "tashu-primary-stock-v1-20260917-20261030",
+      "observed_truth": "재감사된 API parking_count와 요청 시각. 한국 시간 조건부 해석. 현재와 10/30/60분 뒤가 모두 유효하고 실제 요청 시간 차이가 각각 목표 ±120초인 공통 관측쌍. 기존 개발 기간만 분석하며 해당 기간은 H-0001 관측 요약 및 H-0002 학습에 이미 쓰였다.",
+      "not_observed": [
+        "물리적 실제 재고와 이용 성공",
+        "개별 대여·반납·미충족 수요",
+        "운영자 이동의 원인과 정책 인과 효과",
+        "관측 사이의 짧은 사건과 서버 갱신 시각"
+      ],
+      "input_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875"
+    },
+    "evaluation": {
+      "design": "모형 학습 없는 개발 자료 구조 진단. 기간 내 첫 1시간 이후의 매 정시를 현재 시각으로 두고 60분 뒤 목표가 기간 종료 미만인 경우만 사용한다. 10/30/60분(격자 1/3/6칸)의 공통 완전 관측쌍을 사용한다. 주 분석층은 (대여소 ID, 정확한 현재 재고 b=2..10). 원래 관측쌍 n>=30, 서로 다른 날짜>=14인 층이 적격이다. 미래 재고 평균 mu_g와 ddof=1 분산 s2_g를 계산하고, 대여소마다 r_i=sum_g(n_g*s2_g)/sum_g(n_g*mu_g)를 구한다. 분모 0 대여소는 비율을 만들지 않고 수를 보고한다. 주 지표는 유한 r_i의 중앙값이다. 층별 표본 수·합·제곱합의 날짜별 충분통계만으로 계산한다. 현재 재고 범위 밖도 보조 요약에서 보존한다.",
+      "periods": [
+        {
+          "role": "development_diagnostic",
+          "start": "2026-09-18T00:00:00+09:00",
+          "end": "2026-10-16T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "조건부 Poisson 관측 분포의 분산/평균 기준 1.0. 대여·반납 사건률 모형을 이 기준과 혼동하지 않음.",
+        "NB2는 Var=mu+alpha*mu^2로 분산이 평균 이상이라는 구조적 비교 기준. 이번에 적합·성능 순위 비교하지 않음."
+      ],
+      "primary_metric": {
+        "name": "median_station_conditional_fano_30min",
+        "direction": "lower",
+        "unit": "dimensionless variance-to-mean ratio"
+      },
+      "success_rule": "적격 대여소>=100개, 적격 층 관측쌍 합>=10000개, 각 블록 길이의 유효 부트스트랩 복제>=1900회이며 3일/7일 이동 블록 95% 백분위 구간 상한이 모두 0.8 미만이면 supported. 해석은 이 기간·현재 2~10대·적격 층의 실질적 저산포 진단에 한정한다.",
+      "failure_rule": "같은 자료·복제 충분성 조건에서 두 구간 하한이 모두 0.8 이상이면 not_supported. 나머지, 계산 불능, 자료 또는 복제 부족은 inconclusive. 지지하지 않음도 Poisson 적합을 입증하지 않는다.",
+      "exclusion_rule": "현재와 세 목표의 재고·요청 시각이 모두 유효한 공통 관측쌍을 사용한다. 격자·누락 계약은 기존 감사 그대로이며 누락 0 대체·보간 없음. 음수·비정수·시간 계약 불일치 등 입력 손상이 발견되면 중단한다. 원본 ID 그대로, 미래 자료로 대여소를 선택하지 않으며 메타데이터·거리 그래프를 사용하지 않는다. 현재 0/1/11대 이상은 주 분석 범위 밖으로 수를 보고하고 보조 상태 요약에는 포함한다. 큰 재고와 큰 변화는 제거하지 않는다.",
+      "uncertainty_plan": "28개 달력 날짜를 도시 전체 동기화해 3일과 7일 연속 이동 블록을 각각 복원 추출하고 길이 28일로 자른다. 각 2000회, seed20261031을 블록마다 새로 설정한 NumPy default_rng/PCG64. 원래 적격 층과 원래 유한 대여소 집합을 고정한다. 복제의 각 층 n<2는 분산 기여와 분모 기여에서 함께 제외한다. 원래 대여소의 95% 이상이 유한 비율이면 해당 복제를 유효로 보고 그 유한 비율의 중앙값을 계산한다. 유효 복제의 2.5/97.5 백분위 구간. 제외 대여소·복제 수를 보고한다. 10/60분의 점 추정, 최소 층 표본 n>=60 민감도는 보조이며 판정을 바꾸지 않는다. 모든 공통 관측쌍에서 현재 대수 층(0,1,2,3,4,5,6..10,11..20,21+)별 미래 0대/동일 재고 비율과 절대 변화 평균·95백분위를 보조 보고한다. 시계열 의존성·유한 표본·관측 선택 때문에 정식 분포 적합도 검정이나 연중 일반화로 설명하지 않는다.",
+      "seed_plan": "관측 충분통계와 점 추정은 결정적. 부트스트랩 seed20261031, NumPy default_rng/PCG64, 2000회씩. dislab CPU에서 OMP_NUM_THREADS/MKL_NUM_THREADS/OPENBLAS_NUM_THREADS=4로 실행하고 실제 Python·NumPy 버전과 실행 위치를 manifest에 기록. GPU는 이 진단에 필요하지 않다."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "d6277ee4f9bc39379dc7372914d91475231643ff56b2d7a6d78fd6c74ead370e",
+    "frozen_at_utc": "2026-10-30T18:47:12.915438+00:00"
+  },
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "30분 조건부 분산/평균 비율의 대여소 중앙값 0.448967. 3일 블록 95% 구간 0.382655~0.472587, 7일 블록 0.388835~0.469501. 적격 1,111개 대여소·192,147쌍에서 사전 0.8 미만 가설을 지지했다. 직접 Poisson/NB2 재고 분포의 제약을 검토할 개발 자료 진단이며 사건 과정 기각·예측 성능·GCN/CFM/CMP 채택을 뜻하지 않는다.",
+    "limitations": [
+      "Development-period diagnostic, already used by H-0001/H-0002; not independent forecast validation.",
+      "Primary population: observed current stock 2..10 with sufficiently repeated station-state strata.",
+      "Coarse conditioning omits time and other history; finite dependent samples and complete-case selection limit inference.",
+      "Block intervals are diagnostic, not a formal goodness-of-fit rejection of every Poisson process or annual behavior.",
+      "Observation likelihood and rental/return event intensities are different quantities; operator actions are unobserved.",
+      "No GCN, flow matching, CMP or other final architecture is selected by this diagnostic."
+    ],
+    "run_manifests": [
+      "research/runs/H-0003-20261031-structure/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}

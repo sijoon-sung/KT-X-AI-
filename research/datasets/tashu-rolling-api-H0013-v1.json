@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "id": "tashu-rolling-api-H0013-v1",
+  "sources": [
+    {
+      "id": "cheongju-airport-2024-ghcnh.psv",
+      "bytes": 6955902,
+      "sha256": "ad39432453fe225314e27c0fef37ae0f4987f4790da0dffd3d064aee9a0ea78a",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "cheongju-airport-2025-ghcnh.psv",
+      "bytes": 7431269,
+      "sha256": "69b66d108e97dfb64f543b9e3841643b857c91bc7c68f58da2003d483047acb2",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "cheongju-airport-2026-ghcnh.psv",
+      "bytes": 5679650,
+      "sha256": "94acfbed478fd8c2d44d0f5e1cf73ff8e4c50d5eedd87293688fdbbfa751f1c3",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "daejeon-2024-ghcnh.psv",
+      "bytes": 7385506,
+      "sha256": "be88e64ab764ff1d9ac3b9523e8c909104b52069495bf5078902ee02fae573c4",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "daejeon-2025-ghcnh.psv",
+      "bytes": 7326061,
+      "sha256": "d2215df66ab5947456febf25a5ef38e3a40c39e93ebb77cdb004d0409fb338a9",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "daejeon-2026-ghcnh.psv",
+      "bytes": 5118009,
+      "sha256": "f52b24c497c71ca50a40ded97b5157b763032575871678d7d729d374e147c652",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202407.html",
+      "bytes": 110275,
+      "sha256": "8fd25283252f6dea69dcf7d4776e2b4b9941359cdc4a8c664a9df960896f39bc",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202408.html",
+      "bytes": 110246,
+      "sha256": "340f14cae3698aa50f2c6e0dca68de9bf339ede5b6631306a6146db88ef5d97b",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202409.html",
+      "bytes": 109359,
+      "sha256": "21f8487ad29aedb345f498fe3b9b69b6c91c7fa769a04ba782d3896bd55017c6",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202410.html",
+      "bytes": 110245,
+      "sha256": "ab320ea5b88a9b28807deaf74042bb5522325b5925d0d13f84ec415462cd004b",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202411.html",
+      "bytes": 109320,
+      "sha256": "dc30ddbc88e25965ce0e298aedfe5cefc045e2e47fd821a52b9f7057d01dae1e",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202412.html",
+      "bytes": 110198,
+      "sha256": "8020d82813751d5a3da254c5b9980579a6b971c3907e4eb5d02071d5d9d60aad",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202501.html",
+      "bytes": 110207,
+      "sha256": "872c432abce64d97d0ce4659da1bb44b7c517b1f70f017b42b4cf6143af87189",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202502.html",
+      "bytes": 107572,
+      "sha256": "902f3ce777332cfe5f43395827bc569da6d8095b711364a5c9db8943d359eb31",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202503.html",
+      "bytes": 112039,
+      "sha256": "e52984e7bc21d2f2351f7e88039bc4594a2ea34458f2703f2854501dc87db2c5",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202504.html",
+      "bytes": 109333,
+      "sha256": "7b2c12739fe06c393ee7fc6a5df7f9840c9a208615de4995a48b23aeb6c2aed2",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202505.html",
+      "bytes": 110240,
+      "sha256": "9ce83d2a8407f67691b1773f44395404d9118eabd4b89b1630d0a425440512cb",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202506.html",
+      "bytes": 109370,
+      "sha256": "e4a8842ca78cb311c71082f0517e6f96a3f2c760986b7c1e73513b6d0ca08864",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202507.html",
+      "bytes": 110245,
+      "sha256": "2b6eca8a2fd6f94b513761e4bc0f6126b82c20ffa2dc7dd3cafe3b3652eb65c5",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202508.html",
+      "bytes": 112096,
+      "sha256": "59b998dbb80d52fd2e75656f3e614ab9a55b8031f11c935e66ba26e0a2c1c775",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202509.html",
+      "bytes": 109391,
+      "sha256": "ef687f9c6cfca3c807d14904d104c2d558cd7ac3843f8f77c72569caf7949703",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202510.html",
+      "bytes": 110251,
+      "sha256": "f3fc020070c146a33f30d6c30a7f5f55fcda58225fb5fcf46261ece35e272ea8",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202511.html",
+      "bytes": 111152,
+      "sha256": "1329e16263e0c746ce55513cd274fbf77052110425de4725c2a36f268af3c759",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202512.html",
+      "bytes": 110193,
+      "sha256": "c81ece4e53d80d03508e929abd763b631057fa1e02f7f0f93c7d935fd849a8b1",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202601.html",
+      "bytes": 110214,
+      "sha256": "48ff591f29a852d45b5122966f5d5803b2c3ced93299ef309b8de619b8e12ba0",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202602.html",
+      "bytes": 107550,
+      "sha256": "5b0e0aa29ed829e14da2014cbd7b564421caab1c4a74fb075725141058162d05",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202603.html",
+      "bytes": 110192,
+      "sha256": "2574dc3acffec7cae676aa8f6bd7d502ec9319489684c7dc916c248872400af5",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202604.html",
+      "bytes": 109334,
+      "sha256": "adebd6fde5ee13e3ff77c9699d78c5941f1c4782bd9d71075a0af1ac0721a349",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202605.html",
+      "bytes": 112089,
+      "sha256": "73836dfc5274d98654f027ce07b132c2f2412b27b63e10f8cbc65be5f4b14a59",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202606.html",
+      "bytes": 109363,
+      "sha256": "fb790721c48525712983883513291372576c93f9d18dc41322e8e74c090ef445",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202607.html",
+      "bytes": 110260,
+      "sha256": "22c41d192751d4f0d602a04e231bfaf07cc43939f91e7e0e97ebb88205048516",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202608.html",
+      "bytes": 112100,
+      "sha256": "c10bc228e1ba0a93f4d0206467bd584c8358f2f1eabb835d3699d4eeaa7f4d29",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "kma-calendar-133-202609.html",
+      "bytes": 109349,
+      "sha256": "42b4760beb080d81ae2f8b21625e4e88b65d514d5917955f11868d3f15b3e828",
+      "role": "past-only lagged weather; no API stock"
+    },
+    {
+      "id": "historical-trips-20260331.zip",
+      "bytes": 493887524,
+      "sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+      "role": "historical only; context IDs/OD/profiles/first only; encoder weights only"
+    },
+    {
+      "id": "H12-winter-historical-context.npz",
+      "bytes": 130183673,
+      "sha256": "59b73ff03b85ae73dc5037cc08027d7cc600556a1fac1b0c0417d0753aab45f9",
+      "role": "historical only; context IDs/OD/profiles/first only; encoder weights only"
+    },
+    {
+      "id": "H12-Seoul-source_forecast-11.pt",
+      "bytes": 1257693,
+      "sha256": "ec0d5412d1878228c0edc125a7955040f4496fca43fde41270f0f45a7b87b235",
+      "role": "historical only; context IDs/OD/profiles/first only; encoder weights only"
+    },
+    {
+      "id": "H12-Seoul-source_forecast-29.pt",
+      "bytes": 1257693,
+      "sha256": "504306c06f428664c45b767c02e92b76a54d2421bef27d2d3ea9beb3c8cf0d39",
+      "role": "historical only; context IDs/OD/profiles/first only; encoder weights only"
+    },
+    {
+      "id": "observed_panel.npz",
+      "sha256": "6d20460e5cbc7e38bf413c23eb15173f3c05941c398bdf5375d375476eac6904",
+      "role": "September API evaluation only; current/previous inputs, future truth; never fit/select"
+    }
+  ],
+  "source_catalog": "docs/sources/tashu-historical-trips-source-v1.json",
+  "source_catalog_sha256": "e8c04e3b6839760001b025e9e489b0044b330470489434853b5182dcf0554438",
+  "live_protocol": "new bounded 10min observations; hash after collection; additional functional observation only; no API training",
+  "parent_provenance": "H12 source-only encoders and past-only winter context; no target weights or API statistics reused"
+}

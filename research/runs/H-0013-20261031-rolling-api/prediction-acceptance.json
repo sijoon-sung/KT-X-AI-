@@ -1,0 +1,28 @@
+{
+  "hypothesis_id": "H-0013",
+  "started_at_utc": "2026-10-31T12:27:19.827004+00:00",
+  "finished_at_utc": "2026-10-31T12:27:24.195107+00:00",
+  "scope": "engineering acceptance on fixed models/synthetic inputs, no empirical selection",
+  "device": "NVIDIA GeForce RTX 3080",
+  "code_hashes_verified": [
+    "rolling_inventory_model.py",
+    "rolling_inventory_data.py",
+    "rolling_inventory_fit.py",
+    "rolling_inventory_predict.py",
+    "rolling_inventory_metrics.py",
+    "rolling_inventory_evaluate.py",
+    "forecast_transfer.py",
+    "forecast_transfer_data.py",
+    "cross_city_data.py",
+    "cross_city_weather.py",
+    "scaled_flow_core.py",
+    "historical_calendar.py"
+  ],
+  "cpu_gpu_rate_checks": 16,
+  "max_absolute_rate_error": 1.4901161193847656e-07,
+  "tolerance_absolute": 2e-05,
+  "tolerance_relative": 2e-05,
+  "repeated_generation_identical": true,
+  "tamper_rejected": true,
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09"
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "run_id": "TODO",
+  "hypothesis_id": "H-0000",
+  "plan_sha256": "TODO",
+  "code_commit": "TODO",
+  "input_manifest_sha256": "TODO",
+  "started_at_utc": "TODO",
+  "finished_at_utc": "TODO",
+  "command": ["TODO: 실행 명령과 인자. 인증정보는 포함하지 않음"],
+  "environment": {"python": "TODO", "packages": {"TODO": "version"}},
+  "seed": 42,
+  "evaluation_scope": "TODO: split, timestamps, stations and sample count",
+  "metrics": {"TODO_primary_metric": 0.0},
+  "artifacts": [{"id": "TODO: artifact identifier", "sha256": "TODO", "availability": "private or public URL"}],
+  "limitations": ["TODO"]
+}

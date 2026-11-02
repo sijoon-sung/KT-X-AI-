@@ -1,0 +1,231 @@
+{
+  "hypothesis_id": "H-0009",
+  "decision": "not_supported",
+  "metrics": {
+    "worst_control_relative_crps_gain": -0.0037102793709806736,
+    "valid_pairs": 237222,
+    "ci_3day_lower": -0.007698496372696662,
+    "ci_3day_upper": -0.0026210812121213417,
+    "ci_7day_lower": -0.005849715081180706,
+    "ci_7day_upper": -0.0037102793709806736
+  },
+  "scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "groups": {
+    "small": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.4487367984861359,
+        "brier": 0.1245957860015973,
+        "median_mae": 0.5763967928775577,
+        "mean_rmse": 1.1437400628099232,
+        "coverage_5_95": 0.9317474770468169
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19660109587636715,
+        "brier": 0.13298902769910512,
+        "median_mae": 0.24982093040790168,
+        "mean_rmse": 0.6074945454816207,
+        "coverage_5_95": 0.9700765286888337
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6527713825227053,
+        "brier": 0.11780376265566184,
+        "median_mae": 0.8406702359706524,
+        "mean_rmse": 1.4380813885654014,
+        "coverage_5_95": 0.9007306395765646
+      }
+    },
+    "large": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.44914179671967486,
+        "brier": 0.12555947629325204,
+        "median_mae": 0.5765274721568826,
+        "mean_rmse": 1.1349486823133361,
+        "coverage_5_95": 0.9279240542614091
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19837542719097037,
+        "brier": 0.13403127769719522,
+        "median_mae": 0.2518095453517304,
+        "mean_rmse": 0.6150918347088697,
+        "coverage_5_95": 0.967503581391842
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6520682818130537,
+        "brier": 0.11870388044703724,
+        "median_mae": 0.8392974267453744,
+        "mean_rmse": 1.4227852384576454,
+        "coverage_5_95": 0.8958953004164188
+      }
+    },
+    "large_seoul": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.4500434277648156,
+        "brier": 0.12519355658741887,
+        "median_mae": 0.5767255988061816,
+        "mean_rmse": 1.1418941247136436,
+        "coverage_5_95": 0.9289062565866573
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19757459735423338,
+        "brier": 0.1333845542562877,
+        "median_mae": 0.25114981527557867,
+        "mean_rmse": 0.613413843581218,
+        "coverage_5_95": 0.9690115358516173
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.654347587238606,
+        "brier": 0.11856519422178141,
+        "median_mae": 0.8401897527418051,
+        "mean_rmse": 1.4333863749492162,
+        "coverage_5_95": 0.8964520508244482
+      }
+    },
+    "h7_od": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.45330082512865255,
+        "brier": 0.1258044035192205,
+        "median_mae": 0.5749087352775037,
+        "mean_rmse": 1.141714041043522,
+        "coverage_5_95": 0.9174444191516807
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19629673934556657,
+        "brier": 0.13254832550599743,
+        "median_mae": 0.24733280554927242,
+        "mean_rmse": 0.6092812548546035,
+        "coverage_5_95": 0.963422679635075
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6612750278920303,
+        "brier": 0.12034705137470196,
+        "median_mae": 0.8399914580759316,
+        "mean_rmse": 1.4345526843809027,
+        "coverage_5_95": 0.8802376485303315
+      }
+    },
+    "calendar": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.45304629140944863,
+        "brier": 0.12539596472960887,
+        "median_mae": 0.5763462073500771,
+        "mean_rmse": 1.1497787753317348,
+        "coverage_5_95": 0.9233882186306498
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.1964760244484987,
+        "brier": 0.1328438865707888,
+        "median_mae": 0.24857686797858705,
+        "mean_rmse": 0.6069626207266092,
+        "coverage_5_95": 0.9667307547312071
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6606694370158844,
+        "brier": 0.11936891810720342,
+        "median_mae": 0.8415854421208377,
+        "mean_rmse": 1.4469479708632762,
+        "coverage_5_95": 0.888314342805717
+      }
+    },
+    "large_seoul_cfm": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.4504017373725589,
+        "brier": 0.1256018127075538,
+        "median_mae": 0.5744829737545422,
+        "mean_rmse": 1.1352552026636413,
+        "coverage_5_95": 0.9384205512136311
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.1973515440955166,
+        "brier": 0.13379106965259505,
+        "median_mae": 0.24788886375631455,
+        "mean_rmse": 0.6104831451164571,
+        "coverage_5_95": 0.9770036944884265
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6551763503735755,
+        "brier": 0.11897485897963958,
+        "median_mae": 0.8387711832090178,
+        "mean_rmse": 1.424832464454293,
+        "coverage_5_95": 0.9071980963712076
+      }
+    }
+  },
+  "persistence": {
+    "crps": 0.5795668363571167,
+    "median_mae": 0.5795668363571167,
+    "brier": 0.1622530793939854
+  },
+  "control_relative_crps_gains": {
+    "small": -0.0037102793709806736,
+    "large": -0.0028052180003868,
+    "large_seoul": -0.0007961667377809345,
+    "h7_od": 0.006395505137831714,
+    "calendar": 0.00583727112887833
+  },
+  "bootstraps": [
+    {
+      "block_days": 3,
+      "valid_replicates": 2000,
+      "interval": [
+        -0.007698496372696662,
+        -0.0026210812121213417
+      ]
+    },
+    {
+      "block_days": 7,
+      "valid_replicates": 2000,
+      "interval": [
+        -0.005849715081180706,
+        -0.0037102793709806736
+      ]
+    }
+  ],
+  "numerical_contract": {
+    "cutoff": 149,
+    "maximum_expected_attempts": 78.33915710449219,
+    "tail_probability_bound": 4.2872346501978707e-13,
+    "mean_error_bound": 9.834393501183707e-11
+  },
+  "api_training_or_selection": false,
+  "elapsed_evaluation_seconds": 474.0547251999378,
+  "limitations": [
+    "Official September repeatedly exposed, not an untouched independent test; no API training/tuning/model selection/calibration.",
+    "Seoul source is 2017-18 city aggregate rental patterns, not matched Seoul stations/current conditions/Daejeon weather.",
+    "Only calendar/static graph context available, no recent September transactions; counts are completed flow, not latent demand/exposure.",
+    "CFM is joint rental/return per station only, not a citywide joint distribution; Gaussian residual flow/Heun16/dequantization/512 samples are approximations.",
+    "Uniform event order and zero reflection omit capacity/operator moves/observation process; no February/March inventory truth.",
+    "Block intervals exclude fitting, selection and Monte Carlo uncertainty; service candidate inclusion follows user request, not API ranking."
+  ]
+}

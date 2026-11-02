@@ -1,0 +1,53 @@
+{
+  "hypothesis_id": "H-0019",
+  "compute": "All candidate search, routing, comparisons and engineering calculations on dislab CPU",
+  "model": "Unchanged H13 recent CFM,128 marginal samples; no fitting, normalization, calibration, threshold/model/distribution selection using API",
+  "automatic_candidates": {
+    "demand": 12,
+    "supply": 12,
+    "legacy_extra": 5,
+    "selection": "All supported sites scanned. Receivers ranked by frozen marginal benefit/(1+air km from depot); donors by air depot-to-donor + nearest shortlisted receiver distance. Add legacy default ids, unique pool<=29; shortlist is a heuristic, not citywide optimality."
+  },
+  "policy": {
+    "target": "Operator stock target1..5",
+    "source": "H17 conservative bound: min(current-target, empirical10percentile-target, allsample minimum,6), floored/clipped at0",
+    "drop": "min(3,ceil(target-empirical10percentile)); assumed parking acceptance, not verified capacity",
+    "station_loss": "E[max(target-(sample+net),0)] +2*P(sample+net<=0); additive marginal loss, not joint city scenario",
+    "costs": {
+      "balanced": [
+        0.03,
+        0.0,
+        0.01
+      ],
+      "distance": [
+        0.5,
+        0.0,
+        0.01
+      ],
+      "time": [
+        0,
+        0.07,
+        0.01
+      ]
+    },
+    "cost_order": "km,minutes,moved bikes; fixed operational preferences, not API-trained parameters",
+    "search": "Deterministic beam width64, max6 unique station visits, all integer quantities, donor-first load constraints; always include noaction, exhaustive feasible2stop quantities and feasible legacy H17 as fallback; no global optimality claim",
+    "resources": "One empty-start/empty-return vehicle; capacity1..12, moved budget1..12; handling.1min/bike; road directed OSRM driving estimates; confirmed real resources absent",
+    "time": "Departure at calibrated remote calculation start. Effective allowed route=min(operator1..10min,target-minus-departure-minus30sec). Never extend forecast horizon; reject expired source/clock/version. Issuance must still allow route completion before target."
+  },
+  "evaluation": {
+    "live_snapshots": 3,
+    "fixed_departure": "For paired offline diagnostic comparisons, obs+10sec, deadline=min(10,remaining forecast horizon minus30sec); same state/resources/depot/all-city loss. Separately actual serving uses current calibrated clock.",
+    "baseline": [
+      "legacy fixed5 exact H17 where feasible",
+      "best feasible nearest donor/receiver pair with all integer quantities",
+      "noaction"
+    ],
+    "primary": "acceptance failures: feasible conservation/capacity/current source/donor safety/deadline and no selected score worse than feasible fallback under same all-city loss; require>=1 strict improvement over legacy on3states to support practical expansion",
+    "oracle": "At least20 seeded small cases <=4 candidate sites; exhaustive enumeration with same marginal objective; preserve beam gaps, no exactness assertion",
+    "latency": "Report cold road latency separately from warm solver; default3snapshots; no latency tuning",
+    "success": "zero acceptance failures,3 live state comparisons completed,>=1 strict improvement versus legacy. Otherwise not_supported/inconclusive; do not retune on API.",
+    "limits": "Benefits are model-based marginal coverage proxies, not observed shortage prevention, lost demand reduction, or true fleet optimum"
+  },
+  "operations": "Bounded watcher reacts once per new H18 state and saves default shadow plans; private cached routing; changed constraints/source version recompute. UI automatic mode default, manual override, unserved/covered counts and actionable noaction reason. No actual dispatch or operator messages."
+}

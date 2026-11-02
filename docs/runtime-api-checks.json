@@ -1,0 +1,26 @@
+{
+  "scope": "synthetic packaging/API engineering checks on dislab CPU; not accuracy",
+  "checks": [
+    "HTTP health",
+    "HTTP model sizes",
+    "HTTP synthetic live-form input",
+    "HTTP three locked model outputs",
+    "Expired input rejected",
+    "Missing weather consent rejected",
+    "Future label rejected",
+    "Duplicate station rejected",
+    "Unknown GET rejected",
+    "Capture credential redaction without API call",
+    "Altered lock rejected",
+    "Output overwrite rejected",
+    "Dispatch wrapper static page",
+    "Expired dispatch input refused"
+  ],
+  "passed": 14,
+  "api_requests_to_tashu": 0,
+  "weights_updated": false,
+  "other_processes_modified": false,
+  "package_version": "1.0.1",
+  "source_commit": "4004f21f71938284a311e7f9e8751ba26bbc73af",
+  "archive_sha256": "08ebba6d9213076dd47baef6b58afbac2e34c3ad60d8a4c707a3d40053126fb3"
+}

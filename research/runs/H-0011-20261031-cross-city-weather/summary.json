@@ -1,0 +1,5531 @@
+{
+  "hypothesis_id": "H-0011",
+  "started_at_utc": "2026-10-31T10:08:25.064279+00:00",
+  "finished_at_utc": "2026-10-31T10:12:14.346804+00:00",
+  "code_commit": "cc3223d01830954abd203be77ed9ec05c67aaa5e",
+  "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
+  "input_manifest_sha256": "b6740834808554b02ff598e34942edd6ec954e50a3eed11e349d18ba0465e9c5",
+  "environment": {
+    "python": "3.12.14",
+    "packages": {
+      "torch": "2.7.1+cu128",
+      "numpy": "1.26.4",
+      "pandas": "2.2.3"
+    },
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "initial_free_gpu_bytes": 7440695296,
+    "cpu_threads": 4
+  },
+  "source_audit": {
+    "months": [
+      {
+        "month": "2024-01",
+        "rows": 1983338,
+        "rejected": 7541,
+        "duplicates": 65,
+        "accepted": 1975732,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-02",
+        "rows": 2031699,
+        "rejected": 8097,
+        "duplicates": 154,
+        "accepted": 2023448,
+        "eligible_hours": 405
+      },
+      {
+        "month": "2024-03",
+        "rows": 3151893,
+        "rejected": 16013,
+        "duplicates": 291,
+        "accepted": 3135589,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-04",
+        "rows": 4601429,
+        "rejected": 22045,
+        "duplicates": 515,
+        "accepted": 4578869,
+        "eligible_hours": 420
+      },
+      {
+        "month": "2024-05",
+        "rows": 4790037,
+        "rejected": 20321,
+        "duplicates": 476,
+        "accepted": 4769240,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-06",
+        "rows": 4857825,
+        "rejected": 18594,
+        "duplicates": 491,
+        "accepted": 4838740,
+        "eligible_hours": 420
+      },
+      {
+        "month": "2024-07",
+        "rows": 3723139,
+        "rejected": 15572,
+        "duplicates": 302,
+        "accepted": 3707265,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-08",
+        "rows": 3998271,
+        "rejected": 16234,
+        "duplicates": 315,
+        "accepted": 3981722,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-09",
+        "rows": 4250688,
+        "rejected": 17852,
+        "duplicates": 483,
+        "accepted": 4232353,
+        "eligible_hours": 420
+      },
+      {
+        "month": "2024-10",
+        "rows": 4686675,
+        "rejected": 19860,
+        "duplicates": 485,
+        "accepted": 4666330,
+        "eligible_hours": 435
+      },
+      {
+        "month": "2024-11",
+        "rows": 3499025,
+        "rejected": 16870,
+        "duplicates": 243,
+        "accepted": 3481912,
+        "eligible_hours": 420
+      },
+      {
+        "month": "2024-12",
+        "rows": 2277919,
+        "rejected": 10821,
+        "duplicates": 107,
+        "accepted": 2266991,
+        "eligible_hours": 435
+      }
+    ],
+    "stations": 2753,
+    "source_train": 2467,
+    "source_validation": 286,
+    "input_shape": [
+      2753,
+      456
+    ]
+  },
+  "pretraining": {
+    "stations": 2753,
+    "train": 2467,
+    "validation": 286,
+    "selected_epoch": 63,
+    "validation_mse": 0.44073283672332764,
+    "trace": [
+      {
+        "epoch": 1,
+        "validation_mse": 0.8607398271560669
+      },
+      {
+        "epoch": 2,
+        "validation_mse": 0.7417696118354797
+      },
+      {
+        "epoch": 3,
+        "validation_mse": 0.6762497425079346
+      },
+      {
+        "epoch": 4,
+        "validation_mse": 0.6442550420761108
+      },
+      {
+        "epoch": 5,
+        "validation_mse": 0.6237754821777344
+      },
+      {
+        "epoch": 6,
+        "validation_mse": 0.6023675799369812
+      },
+      {
+        "epoch": 7,
+        "validation_mse": 0.5853118300437927
+      },
+      {
+        "epoch": 8,
+        "validation_mse": 0.5782653093338013
+      },
+      {
+        "epoch": 9,
+        "validation_mse": 0.5713717341423035
+      },
+      {
+        "epoch": 10,
+        "validation_mse": 0.5624747276306152
+      },
+      {
+        "epoch": 11,
+        "validation_mse": 0.549944281578064
+      },
+      {
+        "epoch": 12,
+        "validation_mse": 0.5406866669654846
+      },
+      {
+        "epoch": 13,
+        "validation_mse": 0.533661425113678
+      },
+      {
+        "epoch": 14,
+        "validation_mse": 0.5292264223098755
+      },
+      {
+        "epoch": 15,
+        "validation_mse": 0.5222006440162659
+      },
+      {
+        "epoch": 16,
+        "validation_mse": 0.5200516581535339
+      },
+      {
+        "epoch": 17,
+        "validation_mse": 0.513012707233429
+      },
+      {
+        "epoch": 18,
+        "validation_mse": 0.5085174441337585
+      },
+      {
+        "epoch": 19,
+        "validation_mse": 0.5002371668815613
+      },
+      {
+        "epoch": 20,
+        "validation_mse": 0.4930116534233093
+      },
+      {
+        "epoch": 21,
+        "validation_mse": 0.4908823072910309
+      },
+      {
+        "epoch": 22,
+        "validation_mse": 0.49447521567344666
+      },
+      {
+        "epoch": 23,
+        "validation_mse": 0.48854967951774597
+      },
+      {
+        "epoch": 24,
+        "validation_mse": 0.4819699823856354
+      },
+      {
+        "epoch": 25,
+        "validation_mse": 0.48191195726394653
+      },
+      {
+        "epoch": 26,
+        "validation_mse": 0.4785662591457367
+      },
+      {
+        "epoch": 27,
+        "validation_mse": 0.4780748188495636
+      },
+      {
+        "epoch": 28,
+        "validation_mse": 0.47750604152679443
+      },
+      {
+        "epoch": 29,
+        "validation_mse": 0.47080516815185547
+      },
+      {
+        "epoch": 30,
+        "validation_mse": 0.471407026052475
+      },
+      {
+        "epoch": 31,
+        "validation_mse": 0.46970081329345703
+      },
+      {
+        "epoch": 32,
+        "validation_mse": 0.46573805809020996
+      },
+      {
+        "epoch": 33,
+        "validation_mse": 0.4642890393733978
+      },
+      {
+        "epoch": 34,
+        "validation_mse": 0.4631800651550293
+      },
+      {
+        "epoch": 35,
+        "validation_mse": 0.4597879648208618
+      },
+      {
+        "epoch": 36,
+        "validation_mse": 0.459035724401474
+      },
+      {
+        "epoch": 37,
+        "validation_mse": 0.4604080021381378
+      },
+      {
+        "epoch": 38,
+        "validation_mse": 0.45910388231277466
+      },
+      {
+        "epoch": 39,
+        "validation_mse": 0.45299220085144043
+      },
+      {
+        "epoch": 40,
+        "validation_mse": 0.4522080421447754
+      },
+      {
+        "epoch": 41,
+        "validation_mse": 0.4512600302696228
+      },
+      {
+        "epoch": 42,
+        "validation_mse": 0.45033591985702515
+      },
+      {
+        "epoch": 43,
+        "validation_mse": 0.4518319070339203
+      },
+      {
+        "epoch": 44,
+        "validation_mse": 0.44832149147987366
+      },
+      {
+        "epoch": 45,
+        "validation_mse": 0.4513203203678131
+      },
+      {
+        "epoch": 46,
+        "validation_mse": 0.4477064311504364
+      },
+      {
+        "epoch": 47,
+        "validation_mse": 0.44210731983184814
+      },
+      {
+        "epoch": 48,
+        "validation_mse": 0.4458503723144531
+      },
+      {
+        "epoch": 49,
+        "validation_mse": 0.4491191506385803
+      },
+      {
+        "epoch": 50,
+        "validation_mse": 0.44798147678375244
+      },
+      {
+        "epoch": 51,
+        "validation_mse": 0.44365137815475464
+      },
+      {
+        "epoch": 52,
+        "validation_mse": 0.4468044936656952
+      },
+      {
+        "epoch": 53,
+        "validation_mse": 0.44717279076576233
+      },
+      {
+        "epoch": 54,
+        "validation_mse": 0.4431546926498413
+      },
+      {
+        "epoch": 55,
+        "validation_mse": 0.4444889724254608
+      },
+      {
+        "epoch": 56,
+        "validation_mse": 0.44118016958236694
+      },
+      {
+        "epoch": 57,
+        "validation_mse": 0.44307222962379456
+      },
+      {
+        "epoch": 58,
+        "validation_mse": 0.4433174133300781
+      },
+      {
+        "epoch": 59,
+        "validation_mse": 0.4458131790161133
+      },
+      {
+        "epoch": 60,
+        "validation_mse": 0.44674259424209595
+      },
+      {
+        "epoch": 61,
+        "validation_mse": 0.4428058862686157
+      },
+      {
+        "epoch": 62,
+        "validation_mse": 0.4435440003871918
+      },
+      {
+        "epoch": 63,
+        "validation_mse": 0.44073283672332764
+      },
+      {
+        "epoch": 64,
+        "validation_mse": 0.4420797526836395
+      },
+      {
+        "epoch": 65,
+        "validation_mse": 0.44520100951194763
+      },
+      {
+        "epoch": 66,
+        "validation_mse": 0.4421623945236206
+      },
+      {
+        "epoch": 67,
+        "validation_mse": 0.4440547227859497
+      },
+      {
+        "epoch": 68,
+        "validation_mse": 0.4419337809085846
+      },
+      {
+        "epoch": 69,
+        "validation_mse": 0.44384443759918213
+      },
+      {
+        "epoch": 70,
+        "validation_mse": 0.4430925250053406
+      },
+      {
+        "epoch": 71,
+        "validation_mse": 0.44388148188591003
+      },
+      {
+        "epoch": 72,
+        "validation_mse": 0.44232797622680664
+      },
+      {
+        "epoch": 73,
+        "validation_mse": 0.44490495324134827
+      },
+      {
+        "epoch": 74,
+        "validation_mse": 0.44611313939094543
+      },
+      {
+        "epoch": 75,
+        "validation_mse": 0.4416501224040985
+      },
+      {
+        "epoch": 76,
+        "validation_mse": 0.443800687789917
+      },
+      {
+        "epoch": 77,
+        "validation_mse": 0.4447591304779053
+      },
+      {
+        "epoch": 78,
+        "validation_mse": 0.4420658051967621
+      },
+      {
+        "epoch": 79,
+        "validation_mse": 0.4460439085960388
+      },
+      {
+        "epoch": 80,
+        "validation_mse": 0.44550877809524536
+      },
+      {
+        "epoch": 81,
+        "validation_mse": 0.4484177231788635
+      },
+      {
+        "epoch": 82,
+        "validation_mse": 0.4444236159324646
+      },
+      {
+        "epoch": 83,
+        "validation_mse": 0.44278955459594727
+      },
+      {
+        "epoch": 84,
+        "validation_mse": 0.4429914951324463
+      },
+      {
+        "epoch": 85,
+        "validation_mse": 0.44544437527656555
+      },
+      {
+        "epoch": 86,
+        "validation_mse": 0.4482886493206024
+      },
+      {
+        "epoch": 87,
+        "validation_mse": 0.4427257478237152
+      },
+      {
+        "epoch": 88,
+        "validation_mse": 0.4471891224384308
+      },
+      {
+        "epoch": 89,
+        "validation_mse": 0.446597158908844
+      },
+      {
+        "epoch": 90,
+        "validation_mse": 0.44587963819503784
+      },
+      {
+        "epoch": 91,
+        "validation_mse": 0.44760662317276
+      },
+      {
+        "epoch": 92,
+        "validation_mse": 0.44566184282302856
+      },
+      {
+        "epoch": 93,
+        "validation_mse": 0.4482899606227875
+      },
+      {
+        "epoch": 94,
+        "validation_mse": 0.44315844774246216
+      },
+      {
+        "epoch": 95,
+        "validation_mse": 0.4491059482097626
+      },
+      {
+        "epoch": 96,
+        "validation_mse": 0.44575291872024536
+      },
+      {
+        "epoch": 97,
+        "validation_mse": 0.4488541781902313
+      },
+      {
+        "epoch": 98,
+        "validation_mse": 0.4490649998188019
+      },
+      {
+        "epoch": 99,
+        "validation_mse": 0.4492686092853546
+      },
+      {
+        "epoch": 100,
+        "validation_mse": 0.44737574458122253
+      }
+    ],
+    "encoder_parameters": 133440,
+    "autoencoder_parameters": 264188,
+    "seconds": 5.77094180000131
+  },
+  "source_resume_provenance": {
+    "plan_sha256": "fd2d8647350c51a9702439569ebbdebe062d01db6ac8f01e475d45b9b5afdb01",
+    "input_manifest_sha256": "b6740834808554b02ff598e34942edd6ec954e50a3eed11e349d18ba0465e9c5",
+    "code_commit": "3664fbd48daf86fa22889c6dff550c9bc704f93e",
+    "started_at_utc": "2026-10-31T10:01:50.681054+00:00",
+    "failure": "KeyError members in target source manifest wrapper; before target learning; source pretraining complete",
+    "artifacts": [
+      {
+        "id": "source-profiles.npz",
+        "sha256": "1425eb44c54a3c5ff2ceac21c2c9456e8f4fe08eb64626338db51f30b734668d"
+      },
+      {
+        "id": "source_encoders.pt",
+        "sha256": "06820605b0f4227c8ecca423775606b433462181192c7fd5b07640e538460a3c"
+      },
+      {
+        "id": "source-learning.json",
+        "sha256": "0070766c9d78071b0c450edb30099c46e554b9f7cecb85fb2915e703b78baa44"
+      },
+      {
+        "id": "source-audit.json",
+        "sha256": "112c983fdb030b85bfc86da56c0b88207971c0e741cf4483cbc4b2fa6b00f64e"
+      }
+    ]
+  },
+  "historical_quality": {
+    "source_rows": 9320018,
+    "invalid_width": 0,
+    "missing_key": 0,
+    "invalid_datetime": 0,
+    "filename_month_mismatch": 203545,
+    "invalid_duration": 8,
+    "duplicate_completed_trips": 2,
+    "accepted_completed_trips": 9116463
+  },
+  "folds": [
+    {
+      "name": "spring",
+      "train_end": "2025-03-01",
+      "validation_end": "2025-04-01",
+      "test_end": "2025-06-01",
+      "stations": 1174,
+      "training": [
+        {
+          "kind": "small_calendar",
+          "seed": 11,
+          "selected_epoch": 1,
+          "validation_deviance": 0.7481771728081044,
+          "parameters": 5826,
+          "seconds": 2.3633755999981076,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7481771728081044
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7598853808269732
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8078350053250073
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8402013444963109
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8419993237698715
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8505612939077456
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8485023902293085
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8619443133392429
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8583690933707044
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8592663327523531
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8552818590535214
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.866914242389926
+            }
+          ]
+        },
+        {
+          "kind": "small_calendar",
+          "seed": 29,
+          "selected_epoch": 0,
+          "validation_deviance": 0.7495922253001175,
+          "parameters": 5826,
+          "seconds": 1.5253771999996388,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7498951029315553
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7635884145378143
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8146103025781745
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8382425346676431
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8481344477060649
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8603581538311775
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8665278617715853
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8770727667362683
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8766584764199489
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.872520572504004
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8644201272714588
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8552245554412122
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 11,
+          "selected_epoch": 0,
+          "validation_deviance": 0.7495922253001175,
+          "parameters": 178178,
+          "seconds": 2.83220060000167,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8128117103263721
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8947948949495936
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8424243126827443
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8066691435274675
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8032717764472045
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7598009495566078
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8088130758966883
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7898025659522271
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8140997425250758
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8207847369853289
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7539602190521619
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7522097253671614
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 29,
+          "selected_epoch": 0,
+          "validation_deviance": 0.7495922253001175,
+          "parameters": 178178,
+          "seconds": 2.807542899998225,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7933195809918878
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8848837503670817
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8360207882889401
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8278135489706845
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7936569347599645
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8150850018483524
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7734885690738815
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8179624119501874
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8129483349826562
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7570719455321184
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7598492866767016
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7593264940256631
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 11,
+          "selected_epoch": 6,
+          "validation_deviance": 0.7352353621542662,
+          "parameters": 178178,
+          "seconds": 2.796947499999078,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7846247522281791
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8101938669500254
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7696483029144557
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7533306406129189
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7528661524608278
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7352353621542662
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7367400360065286
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.75903179980933
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7396938070171409
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7684270386706255
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7839107404441941
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8125030763002788
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 29,
+          "selected_epoch": 9,
+          "validation_deviance": 0.7370945075290903,
+          "parameters": 178178,
+          "seconds": 2.8256068999980926,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.757664889446024
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8112560275571452
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7782803620839033
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7682088640528683
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7373673865654619
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7505802051681114
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7412394788456085
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7383232986478783
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7370945075290903
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8218152509052911
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7419672976792606
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7567782615371176
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 11,
+          "selected_epoch": 12,
+          "validation_deviance": 0.7240033894813381,
+          "parameters": 178178,
+          "seconds": 2.805989300002693,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7309785777982111
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7347500638576047
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7710759053840059
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7693511370785796
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.777707287584847
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7705334974292336
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7939533029980946
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7596466916632901
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7494907156884195
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.738322600620202
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7344797601595989
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7240033894813381
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 29,
+          "selected_epoch": 11,
+          "validation_deviance": 0.725176743926624,
+          "parameters": 178178,
+          "seconds": 2.874376799998572,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7383639533147806
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7384112376888247
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7727037982347289
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7790933039924677
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7584866536776405
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8206321261469145
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8229464031988412
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7926062651612026
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7464222005443429
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7520665280490878
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.725176743926624
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7308190561746454
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 11,
+          "selected_epoch": 11,
+          "validation_deviance": 0.7274183742408115,
+          "parameters": 178178,
+          "seconds": 2.9259338000010757,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7382509288393954
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7650443270599986
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.797889515291573
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7965824818045655
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7766566003538853
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7817543742625177
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7961827453134359
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7677271482043401
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7712179970594303
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7434162008834122
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7274183742408115
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7326821076003295
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 29,
+          "selected_epoch": 11,
+          "validation_deviance": 0.7306681038002045,
+          "parameters": 178178,
+          "seconds": 2.944037000001117,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7495922253001175
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7454973439517953
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7589145933910167
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.788849415902057
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.78686604130744
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7812264464925712
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7976044887066963
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8056086973924855
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7580883536922042
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7359746045790416
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7351371476895628
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7306681038002045
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7317178503014451
+            }
+          ]
+        }
+      ],
+      "test": {
+        "small_calendar": {
+          "deviance": 0.9843939422595565,
+          "mae": 0.4536235606120395,
+          "channel_exposures": 4015080,
+          "daily": {
+            "20180": [
+              60476.85009765625,
+              70440
+            ],
+            "20181": [
+              67092.2529296875,
+              70440
+            ],
+            "20182": [
+              67809.611328125,
+              70440
+            ],
+            "20183": [
+              44431.12109375,
+              70440
+            ],
+            "20184": [
+              73348.111328125,
+              70440
+            ],
+            "20185": [
+              70837.828125,
+              70440
+            ],
+            "20186": [
+              72482.375,
+              70440
+            ],
+            "20187": [
+              69689.78125,
+              70440
+            ],
+            "20188": [
+              68303.900390625,
+              70440
+            ],
+            "20189": [
+              75756.94921875,
+              70440
+            ],
+            "20190": [
+              53293.3134765625,
+              70440
+            ],
+            "20191": [
+              42619.6220703125,
+              70440
+            ],
+            "20192": [
+              42363.869384765625,
+              70440
+            ],
+            "20193": [
+              60993.884765625,
+              70440
+            ],
+            "20194": [
+              68853.26953125,
+              70440
+            ],
+            "20195": [
+              73780.8955078125,
+              70440
+            ],
+            "20196": [
+              77067.69921875,
+              70440
+            ],
+            "20197": [
+              62743.24609375,
+              70440
+            ],
+            "20198": [
+              71942.94140625,
+              70440
+            ],
+            "20199": [
+              74437.037109375,
+              70440
+            ],
+            "20200": [
+              41140.171875,
+              70440
+            ],
+            "20201": [
+              75099.408203125,
+              70440
+            ],
+            "20202": [
+              72858.341796875,
+              70440
+            ],
+            "20203": [
+              75243.892578125,
+              70440
+            ],
+            "20204": [
+              73328.3720703125,
+              70440
+            ],
+            "20205": [
+              72646.59814453125,
+              70440
+            ],
+            "20206": [
+              72742.60278320312,
+              70440
+            ],
+            "20207": [
+              76527.93603515625,
+              70440
+            ],
+            "20210": [
+              77793.3984375,
+              70440
+            ],
+            "20211": [
+              50469.341796875,
+              70440
+            ],
+            "20212": [
+              70842.26953125,
+              70440
+            ],
+            "20213": [
+              57593.849609375,
+              70440
+            ],
+            "20214": [
+              68745.037109375,
+              70440
+            ],
+            "20215": [
+              74280.0625,
+              70440
+            ],
+            "20216": [
+              76671.85546875,
+              70440
+            ],
+            "20217": [
+              44364.40625,
+              70440
+            ],
+            "20218": [
+              41092.1640625,
+              70440
+            ],
+            "20219": [
+              72908.2080078125,
+              70440
+            ],
+            "20220": [
+              77638.078125,
+              70440
+            ],
+            "20221": [
+              80336.8828125,
+              70440
+            ],
+            "20222": [
+              82242.15451049805,
+              70440
+            ],
+            "20223": [
+              67082.859375,
+              70440
+            ],
+            "20224": [
+              50313.974609375,
+              70440
+            ],
+            "20225": [
+              69579.173828125,
+              70440
+            ],
+            "20226": [
+              77199.80078125,
+              70440
+            ],
+            "20227": [
+              77512.7890625,
+              70440
+            ],
+            "20228": [
+              75862.12890625,
+              70440
+            ],
+            "20229": [
+              75774.8125,
+              70440
+            ],
+            "20230": [
+              68928.703125,
+              70440
+            ],
+            "20231": [
+              80141.87890625,
+              70440
+            ],
+            "20232": [
+              62268.4443359375,
+              70440
+            ],
+            "20233": [
+              82518.7451171875,
+              70440
+            ],
+            "20234": [
+              83479.736328125,
+              70440
+            ],
+            "20235": [
+              83500.28735351562,
+              70440
+            ],
+            "20236": [
+              87010.078125,
+              70440
+            ],
+            "20237": [
+              86515.291015625,
+              70440
+            ],
+            "20238": [
+              91842.15625,
+              70440
+            ]
+          }
+        },
+        "large_calendar": {
+          "deviance": 0.9845803561783015,
+          "mae": 0.4552963914907984,
+          "channel_exposures": 4015080,
+          "daily": {
+            "20180": [
+              60413.537841796875,
+              70440
+            ],
+            "20181": [
+              66969.171875,
+              70440
+            ],
+            "20182": [
+              67858.3291015625,
+              70440
+            ],
+            "20183": [
+              44735.333984375,
+              70440
+            ],
+            "20184": [
+              73216.88671875,
+              70440
+            ],
+            "20185": [
+              70734.26171875,
+              70440
+            ],
+            "20186": [
+              72261.890625,
+              70440
+            ],
+            "20187": [
+              69575.65625,
+              70440
+            ],
+            "20188": [
+              68138.7578125,
+              70440
+            ],
+            "20189": [
+              75729.5625,
+              70440
+            ],
+            "20190": [
+              53277.18359375,
+              70440
+            ],
+            "20191": [
+              42868.421875,
+              70440
+            ],
+            "20192": [
+              42535.596435546875,
+              70440
+            ],
+            "20193": [
+              60904.637939453125,
+              70440
+            ],
+            "20194": [
+              68763.767578125,
+              70440
+            ],
+            "20195": [
+              73576.603515625,
+              70440
+            ],
+            "20196": [
+              77022.6171875,
+              70440
+            ],
+            "20197": [
+              62606.333984375,
+              70440
+            ],
+            "20198": [
+              71760.6875,
+              70440
+            ],
+            "20199": [
+              74302.001953125,
+              70440
+            ],
+            "20200": [
+              41560.59765625,
+              70440
+            ],
+            "20201": [
+              74974.984375,
+              70440
+            ],
+            "20202": [
+              72613.76953125,
+              70440
+            ],
+            "20203": [
+              75197.63671875,
+              70440
+            ],
+            "20204": [
+              73095.423828125,
+              70440
+            ],
+            "20205": [
+              72438.4423828125,
+              70440
+            ],
+            "20206": [
+              72613.38439941406,
+              70440
+            ],
+            "20207": [
+              76244.642578125,
+              70440
+            ],
+            "20210": [
+              78054.4384765625,
+              70440
+            ],
+            "20211": [
+              50672.3203125,
+              70440
+            ],
+            "20212": [
+              70954.43359375,
+              70440
+            ],
+            "20213": [
+              57605.5703125,
+              70440
+            ],
+            "20214": [
+              68802.841796875,
+              70440
+            ],
+            "20215": [
+              74458.041015625,
+              70440
+            ],
+            "20216": [
+              76752.974609375,
+              70440
+            ],
+            "20217": [
+              44325.767578125,
+              70440
+            ],
+            "20218": [
+              41233.912109375,
+              70440
+            ],
+            "20219": [
+              72978.474609375,
+              70440
+            ],
+            "20220": [
+              77805.404296875,
+              70440
+            ],
+            "20221": [
+              80347.947265625,
+              70440
+            ],
+            "20222": [
+              82444.00888061523,
+              70440
+            ],
+            "20223": [
+              67195.7685546875,
+              70440
+            ],
+            "20224": [
+              50099.32421875,
+              70440
+            ],
+            "20225": [
+              69621.513671875,
+              70440
+            ],
+            "20226": [
+              77220.421875,
+              70440
+            ],
+            "20227": [
+              77641.0078125,
+              70440
+            ],
+            "20228": [
+              75857.96875,
+              70440
+            ],
+            "20229": [
+              75927.962890625,
+              70440
+            ],
+            "20230": [
+              68909.583984375,
+              70440
+            ],
+            "20231": [
+              80408.14453125,
+              70440
+            ],
+            "20232": [
+              62194.5166015625,
+              70440
+            ],
+            "20233": [
+              82554.01953125,
+              70440
+            ],
+            "20234": [
+              83654.380859375,
+              70440
+            ],
+            "20235": [
+              83506.84936523438,
+              70440
+            ],
+            "20236": [
+              87202.9384765625,
+              70440
+            ],
+            "20237": [
+              86551.91796875,
+              70440
+            ],
+            "20238": [
+              92196.28125,
+              70440
+            ]
+          }
+        },
+        "large_weather": {
+          "deviance": 0.9153548689798834,
+          "mae": 0.4549572956146733,
+          "channel_exposures": 4015080,
+          "daily": {
+            "20180": [
+              59029.58837890625,
+              70440
+            ],
+            "20181": [
+              64393.796875,
+              70440
+            ],
+            "20182": [
+              63669.2119140625,
+              70440
+            ],
+            "20183": [
+              36915.6123046875,
+              70440
+            ],
+            "20184": [
+              67984.13671875,
+              70440
+            ],
+            "20185": [
+              66391.8046875,
+              70440
+            ],
+            "20186": [
+              65334.150390625,
+              70440
+            ],
+            "20187": [
+              65594.55859375,
+              70440
+            ],
+            "20188": [
+              63491.42578125,
+              70440
+            ],
+            "20189": [
+              69675.10546875,
+              70440
+            ],
+            "20190": [
+              57256.7646484375,
+              70440
+            ],
+            "20191": [
+              42622.23095703125,
+              70440
+            ],
+            "20192": [
+              33095.99267578125,
+              70440
+            ],
+            "20193": [
+              58964.65380859375,
+              70440
+            ],
+            "20194": [
+              67341.3310546875,
+              70440
+            ],
+            "20195": [
+              66585.599609375,
+              70440
+            ],
+            "20196": [
+              69458.205078125,
+              70440
+            ],
+            "20197": [
+              60207.6015625,
+              70440
+            ],
+            "20198": [
+              70580.60546875,
+              70440
+            ],
+            "20199": [
+              68931.59765625,
+              70440
+            ],
+            "20200": [
+              33133.615234375,
+              70440
+            ],
+            "20201": [
+              74410.09765625,
+              70440
+            ],
+            "20202": [
+              67735.390625,
+              70440
+            ],
+            "20203": [
+              67631.2412109375,
+              70440
+            ],
+            "20204": [
+              67597.52734375,
+              70440
+            ],
+            "20205": [
+              68172.259765625,
+              70440
+            ],
+            "20206": [
+              65265.61828613281,
+              70440
+            ],
+            "20207": [
+              69035.08349609375,
+              70440
+            ],
+            "20210": [
+              70241.2607421875,
+              70440
+            ],
+            "20211": [
+              47176.79296875,
+              70440
+            ],
+            "20212": [
+              66231.919921875,
+              70440
+            ],
+            "20213": [
+              60115.65625,
+              70440
+            ],
+            "20214": [
+              68093.2734375,
+              70440
+            ],
+            "20215": [
+              69083.25390625,
+              70440
+            ],
+            "20216": [
+              69976.228515625,
+              70440
+            ],
+            "20217": [
+              39486.490234375,
+              70440
+            ],
+            "20218": [
+              32624.466796875,
+              70440
+            ],
+            "20219": [
+              68832.517578125,
+              70440
+            ],
+            "20220": [
+              72119.59765625,
+              70440
+            ],
+            "20221": [
+              72703.68603515625,
+              70440
+            ],
+            "20222": [
+              74863.3337097168,
+              70440
+            ],
+            "20223": [
+              69062.9609375,
+              70440
+            ],
+            "20224": [
+              47087.115234375,
+              70440
+            ],
+            "20225": [
+              67913.20703125,
+              70440
+            ],
+            "20226": [
+              71059.01953125,
+              70440
+            ],
+            "20227": [
+              73944.53125,
+              70440
+            ],
+            "20228": [
+              70748.080078125,
+              70440
+            ],
+            "20229": [
+              73068.392578125,
+              70440
+            ],
+            "20230": [
+              72623.021484375,
+              70440
+            ],
+            "20231": [
+              70127.8046875,
+              70440
+            ],
+            "20232": [
+              62133.498046875,
+              70440
+            ],
+            "20233": [
+              74440.55322265625,
+              70440
+            ],
+            "20234": [
+              76033.54296875,
+              70440
+            ],
+            "20235": [
+              73632.39892578125,
+              70440
+            ],
+            "20236": [
+              77340.91015625,
+              70440
+            ],
+            "20237": [
+              75851.45703125,
+              70440
+            ],
+            "20238": [
+              78103.2578125,
+              70440
+            ]
+          }
+        },
+        "large_weather_random": {
+          "deviance": 0.9334783656630129,
+          "mae": 0.43768725839133343,
+          "channel_exposures": 4015080,
+          "daily": {
+            "20180": [
+              59908.099609375,
+              70440
+            ],
+            "20181": [
+              65696.291015625,
+              70440
+            ],
+            "20182": [
+              65679.76171875,
+              70440
+            ],
+            "20183": [
+              34151.6953125,
+              70440
+            ],
+            "20184": [
+              71076.1484375,
+              70440
+            ],
+            "20185": [
+              67289.015625,
+              70440
+            ],
+            "20186": [
+              67368.5703125,
+              70440
+            ],
+            "20187": [
+              66299.791015625,
+              70440
+            ],
+            "20188": [
+              65934.046875,
+              70440
+            ],
+            "20189": [
+              70752.400390625,
+              70440
+            ],
+            "20190": [
+              53228.0361328125,
+              70440
+            ],
+            "20191": [
+              39524.89501953125,
+              70440
+            ],
+            "20192": [
+              30803.18603515625,
+              70440
+            ],
+            "20193": [
+              61714.681884765625,
+              70440
+            ],
+            "20194": [
+              68105.4580078125,
+              70440
+            ],
+            "20195": [
+              68103.3642578125,
+              70440
+            ],
+            "20196": [
+              73023.83203125,
+              70440
+            ],
+            "20197": [
+              61287.970703125,
+              70440
+            ],
+            "20198": [
+              74650.00390625,
+              70440
+            ],
+            "20199": [
+              70303.791015625,
+              70440
+            ],
+            "20200": [
+              31691.4189453125,
+              70440
+            ],
+            "20201": [
+              76627.013671875,
+              70440
+            ],
+            "20202": [
+              70851.92578125,
+              70440
+            ],
+            "20203": [
+              68795.375,
+              70440
+            ],
+            "20204": [
+              67395.6591796875,
+              70440
+            ],
+            "20205": [
+              66478.42919921875,
+              70440
+            ],
+            "20206": [
+              66549.98510742188,
+              70440
+            ],
+            "20207": [
+              72110.6787109375,
+              70440
+            ],
+            "20210": [
+              74925.7578125,
+              70440
+            ],
+            "20211": [
+              47326.638671875,
+              70440
+            ],
+            "20212": [
+              65850.203125,
+              70440
+            ],
+            "20213": [
+              59464.59375,
+              70440
+            ],
+            "20214": [
+              70830.90625,
+              70440
+            ],
+            "20215": [
+              71625.517578125,
+              70440
+            ],
+            "20216": [
+              69803.822265625,
+              70440
+            ],
+            "20217": [
+              37642.6923828125,
+              70440
+            ],
+            "20218": [
+              30202.19140625,
+              70440
+            ],
+            "20219": [
+              73868.67578125,
+              70440
+            ],
+            "20220": [
+              72960.478515625,
+              70440
+            ],
+            "20221": [
+              73877.62255859375,
+              70440
+            ],
+            "20222": [
+              75485.11779785156,
+              70440
+            ],
+            "20223": [
+              69960.818359375,
+              70440
+            ],
+            "20224": [
+              46978.796875,
+              70440
+            ],
+            "20225": [
+              71861.890625,
+              70440
+            ],
+            "20226": [
+              73186.59765625,
+              70440
+            ],
+            "20227": [
+              76766.13671875,
+              70440
+            ],
+            "20228": [
+              74475.48046875,
+              70440
+            ],
+            "20229": [
+              73795.439453125,
+              70440
+            ],
+            "20230": [
+              72593.05078125,
+              70440
+            ],
+            "20231": [
+              72995.056640625,
+              70440
+            ],
+            "20232": [
+              64057.58984375,
+              70440
+            ],
+            "20233": [
+              78401.9521484375,
+              70440
+            ],
+            "20234": [
+              76020.26220703125,
+              70440
+            ],
+            "20235": [
+              77285.59912109375,
+              70440
+            ],
+            "20236": [
+              79910.318359375,
+              70440
+            ],
+            "20237": [
+              78438.771484375,
+              70440
+            ],
+            "20238": [
+              81996.87109375,
+              70440
+            ]
+          }
+        },
+        "large_weather_pretrained": {
+          "deviance": 0.9245886489380348,
+          "mae": 0.44562508984682436,
+          "channel_exposures": 4015080,
+          "daily": {
+            "20180": [
+              59029.1748046875,
+              70440
+            ],
+            "20181": [
+              64891.568359375,
+              70440
+            ],
+            "20182": [
+              64739.73046875,
+              70440
+            ],
+            "20183": [
+              36078.658203125,
+              70440
+            ],
+            "20184": [
+              69862.8125,
+              70440
+            ],
+            "20185": [
+              66757.994140625,
+              70440
+            ],
+            "20186": [
+              66331.58984375,
+              70440
+            ],
+            "20187": [
+              65572.1328125,
+              70440
+            ],
+            "20188": [
+              64860.515625,
+              70440
+            ],
+            "20189": [
+              70100.107421875,
+              70440
+            ],
+            "20190": [
+              55415.72265625,
+              70440
+            ],
+            "20191": [
+              40727.259765625,
+              70440
+            ],
+            "20192": [
+              32693.0908203125,
+              70440
+            ],
+            "20193": [
+              59630.42822265625,
+              70440
+            ],
+            "20194": [
+              67520.4912109375,
+              70440
+            ],
+            "20195": [
+              67815.966796875,
+              70440
+            ],
+            "20196": [
+              71593.228515625,
+              70440
+            ],
+            "20197": [
+              60886.654296875,
+              70440
+            ],
+            "20198": [
+              72604.890625,
+              70440
+            ],
+            "20199": [
+              69509.349609375,
+              70440
+            ],
+            "20200": [
+              33043.455078125,
+              70440
+            ],
+            "20201": [
+              75178.34765625,
+              70440
+            ],
+            "20202": [
+              69427.8828125,
+              70440
+            ],
+            "20203": [
+              67901.986328125,
+              70440
+            ],
+            "20204": [
+              67112.251953125,
+              70440
+            ],
+            "20205": [
+              66990.7958984375,
+              70440
+            ],
+            "20206": [
+              66028.05883789062,
+              70440
+            ],
+            "20207": [
+              70411.5146484375,
+              70440
+            ],
+            "20210": [
+              72921.09765625,
+              70440
+            ],
+            "20211": [
+              46833.5,
+              70440
+            ],
+            "20212": [
+              65988.626953125,
+              70440
+            ],
+            "20213": [
+              60381.59765625,
+              70440
+            ],
+            "20214": [
+              69676.7578125,
+              70440
+            ],
+            "20215": [
+              70117.095703125,
+              70440
+            ],
+            "20216": [
+              69776.4453125,
+              70440
+            ],
+            "20217": [
+              38394.0439453125,
+              70440
+            ],
+            "20218": [
+              31891.5380859375,
+              70440
+            ],
+            "20219": [
+              71469.341796875,
+              70440
+            ],
+            "20220": [
+              72404.984375,
+              70440
+            ],
+            "20221": [
+              72901.27587890625,
+              70440
+            ],
+            "20222": [
+              74995.26678466797,
+              70440
+            ],
+            "20223": [
+              69939.259765625,
+              70440
+            ],
+            "20224": [
+              47925.6806640625,
+              70440
+            ],
+            "20225": [
+              70258.28125,
+              70440
+            ],
+            "20226": [
+              72063.3984375,
+              70440
+            ],
+            "20227": [
+              75296.91015625,
+              70440
+            ],
+            "20228": [
+              72829.88671875,
+              70440
+            ],
+            "20229": [
+              73036.548828125,
+              70440
+            ],
+            "20230": [
+              72552.482421875,
+              70440
+            ],
+            "20231": [
+              71285.41796875,
+              70440
+            ],
+            "20232": [
+              62667.1103515625,
+              70440
+            ],
+            "20233": [
+              76507.6064453125,
+              70440
+            ],
+            "20234": [
+              75457.57763671875,
+              70440
+            ],
+            "20235": [
+              75173.9453125,
+              70440
+            ],
+            "20236": [
+              78632.80859375,
+              70440
+            ],
+            "20237": [
+              77501.0673828125,
+              70440
+            ],
+            "20238": [
+              80702.201171875,
+              70440
+            ]
+          }
+        }
+      },
+      "weather": {
+        "mean": [
+          13.000288009643555,
+          1.8508379459381104,
+          63.749446868896484,
+          1.5387301445007324
+        ],
+        "std": [
+          12.249992370605469,
+          1.2499258518218994,
+          19.45456886291504,
+          3.034200429916382
+        ],
+        "training_present_fraction": [
+          0.9994913339614868,
+          0.9915225505828857,
+          0.9994913339614868,
+          0.053407933562994
+        ]
+      }
+    },
+    {
+      "name": "summer",
+      "train_end": "2025-07-01",
+      "validation_end": "2025-08-01",
+      "test_end": "2025-10-01",
+      "stations": 1254,
+      "training": [
+        {
+          "kind": "small_calendar",
+          "seed": 11,
+          "selected_epoch": 2,
+          "validation_deviance": 0.8185152572830162,
+          "parameters": 5826,
+          "seconds": 1.6943245000002207,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.825878659195746
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8185152572830162
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8207619677735271
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.826386796088723
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8345494999693509
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8375133480907074
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.839356177688294
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8339583394201773
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8363732410453216
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8306496724848301
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8301256847341382
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8361162562844874
+            }
+          ]
+        },
+        {
+          "kind": "small_calendar",
+          "seed": 29,
+          "selected_epoch": 2,
+          "validation_deviance": 0.8181300585253625,
+          "parameters": 5826,
+          "seconds": 1.629151000001002,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8265248994166942
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8181300585253625
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8228015913015133
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8325130075854965
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8352226297185215
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8315050969440893
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8336642607162826
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8283491981549845
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8332232939364149
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8278097417645718
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8325706374658564
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8316804812960595
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 11,
+          "selected_epoch": 5,
+          "validation_deviance": 0.8238318522967882,
+          "parameters": 178178,
+          "seconds": 3.096343999997771,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8343320608965105
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8350777583571651
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.839904480590272
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.830110897283864
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.8238318522967882
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8740686323162432
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8376174071634562
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8268660867121762
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8836496209614865
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.882311401467889
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8914031242266127
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8264205664359682
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 29,
+          "selected_epoch": 1,
+          "validation_deviance": 0.8220027145175668,
+          "parameters": 178178,
+          "seconds": 3.1177028000020073,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8220027145175668
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8355096047174903
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8301147865981159
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8290070642478551
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.829928245419256
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8295624511620286
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8261403755826183
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8320571155062421
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8376202939387065
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8643277897223138
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8696522260232772
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8331773418451759
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 11,
+          "selected_epoch": 8,
+          "validation_deviance": 0.7945016008041509,
+          "parameters": 178178,
+          "seconds": 3.272646599998552,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8119383955537681
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8033910774315295
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.803289255273928
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.8048870858224945
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7971490270287379
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.854241106977786
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8072078311329034
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7945016008041509
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7945073358643147
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8698762254607096
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.8875010875757919
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8578646490354429
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 29,
+          "selected_epoch": 11,
+          "validation_deviance": 0.794874719861959,
+          "parameters": 178178,
+          "seconds": 3.360288500000024,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8095400125489239
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8040803740172253
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7978243811613183
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.799727670126572
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7995537824221113
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8014295821259899
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.8317475941212259
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.8081740889641652
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8256659866587839
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7982761986356304
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.794874719861959
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.9055708782900466
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 11,
+          "selected_epoch": 8,
+          "validation_deviance": 0.7854797550138408,
+          "parameters": 178178,
+          "seconds": 3.3675485999992816,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8051667315452621
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8145294200082723
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8190270149530124
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7998525766398101
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7945314433468075
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7969607904848164
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.791085190465224
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7854797550138408
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7876531503642368
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7876198965036023
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7893431930179746
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7861830549210916
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 29,
+          "selected_epoch": 8,
+          "validation_deviance": 0.7862326591186938,
+          "parameters": 178178,
+          "seconds": 3.229545899997902,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8066187123618215
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8165509163779354
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.8036254835818484
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7988340077556417
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7988985453087476
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7906935307017544
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7926478023557375
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7862326591186938
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7887566933800345
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7907664940580945
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7892746372527453
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7935940756461507
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 11,
+          "selected_epoch": 8,
+          "validation_deviance": 0.7883221276326674,
+          "parameters": 178178,
+          "seconds": 3.1642308000009507,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.8054811635811381
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8049686226775468
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.808394151645768
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7992972129988634
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7947107689302279
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8005355420126858
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.793808636894982
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7883221276326674
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7902059816632753
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7906746928148889
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7945235940034991
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7917075281871001
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 29,
+          "selected_epoch": 6,
+          "validation_deviance": 0.78858364798736,
+          "parameters": 178178,
+          "seconds": 3.180425999998988,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.831008472242273
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.813567055966883
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.8130678721052402
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7976856691489532
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7938233804841748
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.794960367126918
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.78858364798736
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7934583551385567
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7898182309067879
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7961802243596354
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8028558693001361
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.795593409638009
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8118228797875534
+            }
+          ]
+        }
+      ],
+      "test": {
+        "small_calendar": {
+          "deviance": 0.8838030500862153,
+          "mae": 0.4480057798050624,
+          "channel_exposures": 4288680,
+          "daily": {
+            "20302": [
+              57775.5673828125,
+              75240
+            ],
+            "20303": [
+              54465.166015625,
+              75240
+            ],
+            "20304": [
+              61679.79296875,
+              75240
+            ],
+            "20305": [
+              63778.146484375,
+              75240
+            ],
+            "20306": [
+              56893.720703125,
+              75240
+            ],
+            "20307": [
+              65131.669921875,
+              75240
+            ],
+            "20308": [
+              68881.26831054688,
+              75240
+            ],
+            "20309": [
+              54413.818359375,
+              75240
+            ],
+            "20310": [
+              64827.408203125,
+              75240
+            ],
+            "20311": [
+              60248.421875,
+              75240
+            ],
+            "20312": [
+              69267.3515625,
+              75240
+            ],
+            "20313": [
+              61514.154296875,
+              75240
+            ],
+            "20314": [
+              64769.5869140625,
+              75240
+            ],
+            "20315": [
+              60647.2001953125,
+              75240
+            ],
+            "20316": [
+              62114.5185546875,
+              75240
+            ],
+            "20317": [
+              59978.634765625,
+              75240
+            ],
+            "20318": [
+              62781.31640625,
+              75240
+            ],
+            "20319": [
+              65680.8046875,
+              75240
+            ],
+            "20320": [
+              63437.044921875,
+              75240
+            ],
+            "20321": [
+              63367.689453125,
+              75240
+            ],
+            "20322": [
+              65868.72375488281,
+              75240
+            ],
+            "20323": [
+              64448.705078125,
+              75240
+            ],
+            "20324": [
+              59530.03125,
+              75240
+            ],
+            "20325": [
+              63392.26171875,
+              75240
+            ],
+            "20326": [
+              60204.12890625,
+              75240
+            ],
+            "20327": [
+              65723.2568359375,
+              75240
+            ],
+            "20328": [
+              66378.888671875,
+              75240
+            ],
+            "20329": [
+              68809.6150970459,
+              75240
+            ],
+            "20330": [
+              65734.611328125,
+              75240
+            ],
+            "20333": [
+              73493.71484375,
+              75240
+            ],
+            "20334": [
+              68697.82421875,
+              75240
+            ],
+            "20335": [
+              68377.162109375,
+              75240
+            ],
+            "20336": [
+              76667.9248046875,
+              75240
+            ],
+            "20337": [
+              68240.79370117188,
+              75240
+            ],
+            "20338": [
+              60804.83203125,
+              75240
+            ],
+            "20339": [
+              71594.533203125,
+              75240
+            ],
+            "20340": [
+              60233.67578125,
+              75240
+            ],
+            "20341": [
+              74192.9765625,
+              75240
+            ],
+            "20342": [
+              73134.001953125,
+              75240
+            ],
+            "20343": [
+              61641.546875,
+              75240
+            ],
+            "20344": [
+              70370.625,
+              75240
+            ],
+            "20345": [
+              71416.17578125,
+              75240
+            ],
+            "20346": [
+              76992.33203125,
+              75240
+            ],
+            "20347": [
+              64415.6015625,
+              75240
+            ],
+            "20348": [
+              59167.1484375,
+              75240
+            ],
+            "20349": [
+              72058.77734375,
+              75240
+            ],
+            "20350": [
+              68944.578125,
+              75240
+            ],
+            "20351": [
+              73890.29614257812,
+              75240
+            ],
+            "20352": [
+              76092.8828125,
+              75240
+            ],
+            "20353": [
+              77747.42578125,
+              75240
+            ],
+            "20354": [
+              81423.4765625,
+              75240
+            ],
+            "20355": [
+              63910.826171875,
+              75240
+            ],
+            "20356": [
+              50596.203125,
+              75240
+            ],
+            "20357": [
+              83884.7041015625,
+              75240
+            ],
+            "20358": [
+              87213.38903808594,
+              75240
+            ],
+            "20359": [
+              51675.923828125,
+              75240
+            ],
+            "20360": [
+              81725.59765625,
+              75240
+            ]
+          }
+        },
+        "large_calendar": {
+          "deviance": 0.8752077298186738,
+          "mae": 0.459957888958549,
+          "channel_exposures": 4288680,
+          "daily": {
+            "20302": [
+              58486.921875,
+              75240
+            ],
+            "20303": [
+              57595.9140625,
+              75240
+            ],
+            "20304": [
+              61360.5703125,
+              75240
+            ],
+            "20305": [
+              62896.65234375,
+              75240
+            ],
+            "20306": [
+              59831.646484375,
+              75240
+            ],
+            "20307": [
+              64322.5283203125,
+              75240
+            ],
+            "20308": [
+              68175.34521484375,
+              75240
+            ],
+            "20309": [
+              57073.236328125,
+              75240
+            ],
+            "20310": [
+              64450.57421875,
+              75240
+            ],
+            "20311": [
+              63166.767578125,
+              75240
+            ],
+            "20312": [
+              67465.8046875,
+              75240
+            ],
+            "20313": [
+              61948.27734375,
+              75240
+            ],
+            "20314": [
+              63891.595703125,
+              75240
+            ],
+            "20315": [
+              62972.7861328125,
+              75240
+            ],
+            "20316": [
+              62310.119140625,
+              75240
+            ],
+            "20317": [
+              59913.0390625,
+              75240
+            ],
+            "20318": [
+              61857.23046875,
+              75240
+            ],
+            "20319": [
+              64272.541015625,
+              75240
+            ],
+            "20320": [
+              62759.08984375,
+              75240
+            ],
+            "20321": [
+              62395.666015625,
+              75240
+            ],
+            "20322": [
+              65132.815185546875,
+              75240
+            ],
+            "20323": [
+              63732.40625,
+              75240
+            ],
+            "20324": [
+              59833.5625,
+              75240
+            ],
+            "20325": [
+              62081.59765625,
+              75240
+            ],
+            "20326": [
+              60387.17578125,
+              75240
+            ],
+            "20327": [
+              64832.603515625,
+              75240
+            ],
+            "20328": [
+              65046.501953125,
+              75240
+            ],
+            "20329": [
+              67394.892578125,
+              75240
+            ],
+            "20330": [
+              64743.265625,
+              75240
+            ],
+            "20333": [
+              70729.4140625,
+              75240
+            ],
+            "20334": [
+              67716.65234375,
+              75240
+            ],
+            "20335": [
+              66675.99609375,
+              75240
+            ],
+            "20336": [
+              75234.271484375,
+              75240
+            ],
+            "20337": [
+              67464.70666503906,
+              75240
+            ],
+            "20338": [
+              61167.11328125,
+              75240
+            ],
+            "20339": [
+              68903.3828125,
+              75240
+            ],
+            "20340": [
+              60134.47265625,
+              75240
+            ],
+            "20341": [
+              72330.072265625,
+              75240
+            ],
+            "20342": [
+              70658.671875,
+              75240
+            ],
+            "20343": [
+              63481.0458984375,
+              75240
+            ],
+            "20344": [
+              68387.89819335938,
+              75240
+            ],
+            "20345": [
+              70280.197265625,
+              75240
+            ],
+            "20346": [
+              73381.671875,
+              75240
+            ],
+            "20347": [
+              64966.759765625,
+              75240
+            ],
+            "20348": [
+              59980.80859375,
+              75240
+            ],
+            "20349": [
+              69595.626953125,
+              75240
+            ],
+            "20350": [
+              68328.54296875,
+              75240
+            ],
+            "20351": [
+              71170.89056396484,
+              75240
+            ],
+            "20352": [
+              74115.080078125,
+              75240
+            ],
+            "20353": [
+              73898.8125,
+              75240
+            ],
+            "20354": [
+              77393.38671875,
+              75240
+            ],
+            "20355": [
+              64118.806640625,
+              75240
+            ],
+            "20356": [
+              55387.763671875,
+              75240
+            ],
+            "20357": [
+              82041.8798828125,
+              75240
+            ],
+            "20358": [
+              83494.15536499023,
+              75240
+            ],
+            "20359": [
+              54335.763671875,
+              75240
+            ],
+            "20360": [
+              77780.9609375,
+              75240
+            ]
+          }
+        },
+        "large_weather": {
+          "deviance": 0.9214668643309246,
+          "mae": 0.46566025906426917,
+          "channel_exposures": 4288680,
+          "daily": {
+            "20302": [
+              62241.380859375,
+              75240
+            ],
+            "20303": [
+              53980.259765625,
+              75240
+            ],
+            "20304": [
+              65631.603515625,
+              75240
+            ],
+            "20305": [
+              66476.4453125,
+              75240
+            ],
+            "20306": [
+              60495.990234375,
+              75240
+            ],
+            "20307": [
+              67920.0048828125,
+              75240
+            ],
+            "20308": [
+              74065.85546875,
+              75240
+            ],
+            "20309": [
+              58697.630859375,
+              75240
+            ],
+            "20310": [
+              67070.544921875,
+              75240
+            ],
+            "20311": [
+              61283.0546875,
+              75240
+            ],
+            "20312": [
+              75545.953125,
+              75240
+            ],
+            "20313": [
+              69315.326171875,
+              75240
+            ],
+            "20314": [
+              68044.830078125,
+              75240
+            ],
+            "20315": [
+              70325.90234375,
+              75240
+            ],
+            "20316": [
+              66509.44921875,
+              75240
+            ],
+            "20317": [
+              62083.26953125,
+              75240
+            ],
+            "20318": [
+              64991.771484375,
+              75240
+            ],
+            "20319": [
+              68319.87109375,
+              75240
+            ],
+            "20320": [
+              66135.3125,
+              75240
+            ],
+            "20321": [
+              65431.478515625,
+              75240
+            ],
+            "20322": [
+              70572.1875,
+              75240
+            ],
+            "20323": [
+              67491.83984375,
+              75240
+            ],
+            "20324": [
+              61572.439453125,
+              75240
+            ],
+            "20325": [
+              65277.61328125,
+              75240
+            ],
+            "20326": [
+              67922.9375,
+              75240
+            ],
+            "20327": [
+              69358.8095703125,
+              75240
+            ],
+            "20328": [
+              68699.818359375,
+              75240
+            ],
+            "20329": [
+              72615.26927185059,
+              75240
+            ],
+            "20330": [
+              68488.12109375,
+              75240
+            ],
+            "20333": [
+              73099.625,
+              75240
+            ],
+            "20334": [
+              72551.314453125,
+              75240
+            ],
+            "20335": [
+              69386.802734375,
+              75240
+            ],
+            "20336": [
+              76065.2568359375,
+              75240
+            ],
+            "20337": [
+              72621.03271484375,
+              75240
+            ],
+            "20338": [
+              66755.654296875,
+              75240
+            ],
+            "20339": [
+              75850.37890625,
+              75240
+            ],
+            "20340": [
+              64852.87109375,
+              75240
+            ],
+            "20341": [
+              75529.80859375,
+              75240
+            ],
+            "20342": [
+              73705.98828125,
+              75240
+            ],
+            "20343": [
+              59150.55859375,
+              75240
+            ],
+            "20344": [
+              73163.4921875,
+              75240
+            ],
+            "20345": [
+              74763.34765625,
+              75240
+            ],
+            "20346": [
+              77831.986328125,
+              75240
+            ],
+            "20347": [
+              71480.72265625,
+              75240
+            ],
+            "20348": [
+              63405.283203125,
+              75240
+            ],
+            "20349": [
+              73765.62109375,
+              75240
+            ],
+            "20350": [
+              73984.201171875,
+              75240
+            ],
+            "20351": [
+              79903.3818359375,
+              75240
+            ],
+            "20352": [
+              78036.935546875,
+              75240
+            ],
+            "20353": [
+              76240.0703125,
+              75240
+            ],
+            "20354": [
+              75905.390625,
+              75240
+            ],
+            "20355": [
+              66374.626953125,
+              75240
+            ],
+            "20356": [
+              53759.6337890625,
+              75240
+            ],
+            "20357": [
+              87001.4326171875,
+              75240
+            ],
+            "20358": [
+              84827.8893737793,
+              75240
+            ],
+            "20359": [
+              53696.615234375,
+              75240
+            ],
+            "20360": [
+              81601.66796875,
+              75240
+            ]
+          }
+        },
+        "large_weather_random": {
+          "deviance": 0.8660147032420232,
+          "mae": 0.4421123967631066,
+          "channel_exposures": 4288680,
+          "daily": {
+            "20302": [
+              58405.533203125,
+              75240
+            ],
+            "20303": [
+              51336.400390625,
+              75240
+            ],
+            "20304": [
+              61506.775390625,
+              75240
+            ],
+            "20305": [
+              62294.51953125,
+              75240
+            ],
+            "20306": [
+              56283.19921875,
+              75240
+            ],
+            "20307": [
+              64054.8642578125,
+              75240
+            ],
+            "20308": [
+              68047.28369140625,
+              75240
+            ],
+            "20309": [
+              53856.71875,
+              75240
+            ],
+            "20310": [
+              63906.806640625,
+              75240
+            ],
+            "20311": [
+              56671.2265625,
+              75240
+            ],
+            "20312": [
+              72912.455078125,
+              75240
+            ],
+            "20313": [
+              65793.5625,
+              75240
+            ],
+            "20314": [
+              64297.4365234375,
+              75240
+            ],
+            "20315": [
+              62037.473388671875,
+              75240
+            ],
+            "20316": [
+              61759.3212890625,
+              75240
+            ],
+            "20317": [
+              59558.62890625,
+              75240
+            ],
+            "20318": [
+              60866.740234375,
+              75240
+            ],
+            "20319": [
+              64293.58203125,
+              75240
+            ],
+            "20320": [
+              62119.572265625,
+              75240
+            ],
+            "20321": [
+              61325.998046875,
+              75240
+            ],
+            "20322": [
+              64513.85302734375,
+              75240
+            ],
+            "20323": [
+              63126.3125,
+              75240
+            ],
+            "20324": [
+              59784.818359375,
+              75240
+            ],
+            "20325": [
+              61451.23046875,
+              75240
+            ],
+            "20326": [
+              63958.34375,
+              75240
+            ],
+            "20327": [
+              65373.62890625,
+              75240
+            ],
+            "20328": [
+              64480.5078125,
+              75240
+            ],
+            "20329": [
+              67641.90690612793,
+              75240
+            ],
+            "20330": [
+              65278.78125,
+              75240
+            ],
+            "20333": [
+              68780.421875,
+              75240
+            ],
+            "20334": [
+              68504.443359375,
+              75240
+            ],
+            "20335": [
+              65205.0390625,
+              75240
+            ],
+            "20336": [
+              71907.7197265625,
+              75240
+            ],
+            "20337": [
+              67588.07507324219,
+              75240
+            ],
+            "20338": [
+              62743.0078125,
+              75240
+            ],
+            "20339": [
+              72003.96875,
+              75240
+            ],
+            "20340": [
+              60968.296875,
+              75240
+            ],
+            "20341": [
+              71889.63671875,
+              75240
+            ],
+            "20342": [
+              68972.712890625,
+              75240
+            ],
+            "20343": [
+              54780.71484375,
+              75240
+            ],
+            "20344": [
+              69410.16345214844,
+              75240
+            ],
+            "20345": [
+              70153.2392578125,
+              75240
+            ],
+            "20346": [
+              73078.39453125,
+              75240
+            ],
+            "20347": [
+              66397.048828125,
+              75240
+            ],
+            "20348": [
+              58585.8203125,
+              75240
+            ],
+            "20349": [
+              71017.796875,
+              75240
+            ],
+            "20350": [
+              70079.2421875,
+              75240
+            ],
+            "20351": [
+              76555.56018066406,
+              75240
+            ],
+            "20352": [
+              73579.0234375,
+              75240
+            ],
+            "20353": [
+              73410.91796875,
+              75240
+            ],
+            "20354": [
+              72924.12109375,
+              75240
+            ],
+            "20355": [
+              62613.12109375,
+              75240
+            ],
+            "20356": [
+              46220.1611328125,
+              75240
+            ],
+            "20357": [
+              82872.50390625,
+              75240
+            ],
+            "20358": [
+              80973.18493652344,
+              75240
+            ],
+            "20359": [
+              48503.43359375,
+              75240
+            ],
+            "20360": [
+              77404.6796875,
+              75240
+            ]
+          }
+        },
+        "large_weather_pretrained": {
+          "deviance": 0.8820862093639534,
+          "mae": 0.4420076506276407,
+          "channel_exposures": 4288680,
+          "daily": {
+            "20302": [
+              58629.541015625,
+              75240
+            ],
+            "20303": [
+              50828.05078125,
+              75240
+            ],
+            "20304": [
+              62389.65625,
+              75240
+            ],
+            "20305": [
+              62991.359375,
+              75240
+            ],
+            "20306": [
+              56313.8359375,
+              75240
+            ],
+            "20307": [
+              64713.9326171875,
+              75240
+            ],
+            "20308": [
+              69267.419921875,
+              75240
+            ],
+            "20309": [
+              54217.6416015625,
+              75240
+            ],
+            "20310": [
+              64511.6171875,
+              75240
+            ],
+            "20311": [
+              57394.08203125,
+              75240
+            ],
+            "20312": [
+              73785.796875,
+              75240
+            ],
+            "20313": [
+              65846.17578125,
+              75240
+            ],
+            "20314": [
+              64917.0615234375,
+              75240
+            ],
+            "20315": [
+              63266.2333984375,
+              75240
+            ],
+            "20316": [
+              62302.080078125,
+              75240
+            ],
+            "20317": [
+              60066.197265625,
+              75240
+            ],
+            "20318": [
+              61488.796875,
+              75240
+            ],
+            "20319": [
+              64903.40234375,
+              75240
+            ],
+            "20320": [
+              62817.58203125,
+              75240
+            ],
+            "20321": [
+              61898.646484375,
+              75240
+            ],
+            "20322": [
+              65123.59814453125,
+              75240
+            ],
+            "20323": [
+              63970.916015625,
+              75240
+            ],
+            "20324": [
+              59873.853515625,
+              75240
+            ],
+            "20325": [
+              62318.904296875,
+              75240
+            ],
+            "20326": [
+              64916.0859375,
+              75240
+            ],
+            "20327": [
+              66061.6572265625,
+              75240
+            ],
+            "20328": [
+              65166.3974609375,
+              75240
+            ],
+            "20329": [
+              68533.45439147949,
+              75240
+            ],
+            "20330": [
+              65882.79296875,
+              75240
+            ],
+            "20333": [
+              70045.4609375,
+              75240
+            ],
+            "20334": [
+              70121.357421875,
+              75240
+            ],
+            "20335": [
+              66934.14453125,
+              75240
+            ],
+            "20336": [
+              73900.337890625,
+              75240
+            ],
+            "20337": [
+              69656.58325195312,
+              75240
+            ],
+            "20338": [
+              64014.1748046875,
+              75240
+            ],
+            "20339": [
+              74249.1171875,
+              75240
+            ],
+            "20340": [
+              62811.2109375,
+              75240
+            ],
+            "20341": [
+              73923.943359375,
+              75240
+            ],
+            "20342": [
+              70746.13671875,
+              75240
+            ],
+            "20343": [
+              54565.5537109375,
+              75240
+            ],
+            "20344": [
+              71925.70251464844,
+              75240
+            ],
+            "20345": [
+              71748.431640625,
+              75240
+            ],
+            "20346": [
+              75564.853515625,
+              75240
+            ],
+            "20347": [
+              66884.00390625,
+              75240
+            ],
+            "20348": [
+              59626.71484375,
+              75240
+            ],
+            "20349": [
+              72806.587890625,
+              75240
+            ],
+            "20350": [
+              71077.228515625,
+              75240
+            ],
+            "20351": [
+              79225.41955566406,
+              75240
+            ],
+            "20352": [
+              75450.4453125,
+              75240
+            ],
+            "20353": [
+              76083.3125,
+              75240
+            ],
+            "20354": [
+              74979.1640625,
+              75240
+            ],
+            "20355": [
+              63304.181640625,
+              75240
+            ],
+            "20356": [
+              47388.4365234375,
+              75240
+            ],
+            "20357": [
+              86542.2275390625,
+              75240
+            ],
+            "20358": [
+              84171.44430541992,
+              75240
+            ],
+            "20359": [
+              50232.482421875,
+              75240
+            ],
+            "20360": [
+              80610.0703125,
+              75240
+            ]
+          }
+        }
+      },
+      "weather": {
+        "mean": [
+          14.783137321472168,
+          1.9699087142944336,
+          60.77322006225586,
+          1.5387301445007324
+        ],
+        "std": [
+          11.09394359588623,
+          1.2592934370040894,
+          21.1092586517334,
+          3.034200429916382
+        ],
+        "training_present_fraction": [
+          0.9988108277320862,
+          0.9937297105789185,
+          0.9987027049064636,
+          0.03405405580997467
+        ]
+      }
+    },
+    {
+      "name": "winter",
+      "train_end": "2026-02-01",
+      "validation_end": "2026-03-01",
+      "test_end": "2026-04-01",
+      "stations": 1318,
+      "training": [
+        {
+          "kind": "small_calendar",
+          "seed": 11,
+          "selected_epoch": 2,
+          "validation_deviance": 0.7084868823121547,
+          "parameters": 5826,
+          "seconds": 1.614574500003073,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7123682166884314
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7084868823121547
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.712476859789016
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.716275101239373
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7172035205114222
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7186461416794945
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7196407926810362
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7184486063513458
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7180865902895316
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7159188122847846
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7198339298492155
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7166716176838936
+            }
+          ]
+        },
+        {
+          "kind": "small_calendar",
+          "seed": 29,
+          "selected_epoch": 2,
+          "validation_deviance": 0.7086416709451359,
+          "parameters": 5826,
+          "seconds": 1.58382630000051,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7128865878121231
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7086416709451359
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7139793994746678
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7145068822939161
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7164034724147407
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7197060440863196
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7136935380751843
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7156471836349388
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7180638423982165
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7176066778925188
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7193115006392625
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7138469103676657
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 11,
+          "selected_epoch": 1,
+          "validation_deviance": 0.7124375366291681,
+          "parameters": 178178,
+          "seconds": 2.975209399999585,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7124375366291681
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7201331101689866
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7348926520292863
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7239629138792022
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7571443007598196
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7565192557333007
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7387096231816126
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7725166972391031
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.8227864193863444
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7718520383752091
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7927179646387178
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.8052175495208115
+            }
+          ]
+        },
+        {
+          "kind": "large_calendar",
+          "seed": 29,
+          "selected_epoch": 1,
+          "validation_deviance": 0.713244729123502,
+          "parameters": 178178,
+          "seconds": 2.9506077999976696,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.713244729123502
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7164138465626946
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7277764747951806
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.750614974855064
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.759492888735786
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.8227050448775705
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.742616408940192
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7519140839683403
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.794316521951055
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.8243100797391152
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7522431717759036
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7530552088956899
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 11,
+          "selected_epoch": 1,
+          "validation_deviance": 0.7067620778602365,
+          "parameters": 178178,
+          "seconds": 2.9469872000008763,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7067620778602365
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.708258860990939
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7227589228121596
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7129012119315031
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7330909054259197
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7139843770898384
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7299582870149143
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7477121503282338
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7576722651918335
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7187947016440265
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7520415783614938
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7546488284897718
+            }
+          ]
+        },
+        {
+          "kind": "large_weather",
+          "seed": 29,
+          "selected_epoch": 3,
+          "validation_deviance": 0.7029143186381974,
+          "parameters": 178178,
+          "seconds": 3.0068462999988697,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7078585628887859
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7136773655755126
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7029143186381974
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.715964199775787
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7446847220347701
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7603555863889051
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7159942972488911
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7082326857645982
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7294917733320202
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7524615940892377
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7378701502829413
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7423560312205143
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 11,
+          "selected_epoch": 1,
+          "validation_deviance": 0.7033820339781891,
+          "parameters": 178178,
+          "seconds": 2.994051000001491,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7033820339781891
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7148303636349267
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7124199173913467
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7137566179483532
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7331914646514849
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7269433436062192
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7340833231501206
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7288209133475473
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7249172262494042
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7134693335588839
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7097619601833343
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7376382732098216
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_random",
+          "seed": 29,
+          "selected_epoch": 9,
+          "validation_deviance": 0.6951608204766473,
+          "parameters": 178178,
+          "seconds": 3.022719299999153,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7025329905694331
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7117081630684968
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7144437872219223
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7074034464247501
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7124861605199578
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.7312603560993493
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7547947410089831
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7062151395951276
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.6951608204766473
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7042482596585493
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7101765717788826
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7118764178603824
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 11,
+          "selected_epoch": 1,
+          "validation_deviance": 0.7038617117433417,
+          "parameters": 178178,
+          "seconds": 3.1307882000000973,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7038617117433417
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7172427268303033
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7122486959788165
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.716029831151694
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7432394249235803
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.722529317013443
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7355181853180567
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7279716980020841
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.7270192484378648
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7112446939002252
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7106023972574632
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7361068700056661
+            }
+          ]
+        },
+        {
+          "kind": "large_weather_pretrained",
+          "seed": 29,
+          "selected_epoch": 9,
+          "validation_deviance": 0.6955976252064,
+          "parameters": 178178,
+          "seconds": 3.1462542999979632,
+          "trace": [
+            {
+              "epoch": 0,
+              "validation_deviance": 0.7152408231014844
+            },
+            {
+              "epoch": 1,
+              "validation_deviance": 0.7043429255397406
+            },
+            {
+              "epoch": 2,
+              "validation_deviance": 0.7114130978305805
+            },
+            {
+              "epoch": 3,
+              "validation_deviance": 0.7156840436352184
+            },
+            {
+              "epoch": 4,
+              "validation_deviance": 0.7134557448594534
+            },
+            {
+              "epoch": 5,
+              "validation_deviance": 0.7142245802692502
+            },
+            {
+              "epoch": 6,
+              "validation_deviance": 0.726522308607277
+            },
+            {
+              "epoch": 7,
+              "validation_deviance": 0.7442138899857375
+            },
+            {
+              "epoch": 8,
+              "validation_deviance": 0.7088545912838387
+            },
+            {
+              "epoch": 9,
+              "validation_deviance": 0.6955976252064
+            },
+            {
+              "epoch": 10,
+              "validation_deviance": 0.7117222314808398
+            },
+            {
+              "epoch": 11,
+              "validation_deviance": 0.7192228021967165
+            },
+            {
+              "epoch": 12,
+              "validation_deviance": 0.7172573357508585
+            }
+          ]
+        }
+      ],
+      "test": {
+        "small_calendar": {
+          "deviance": 0.9614653169313484,
+          "mae": 0.45191295568488044,
+          "channel_exposures": 2293320,
+          "daily": {
+            "20514": [
+              46296.078125,
+              79080
+            ],
+            "20515": [
+              66110.04296875,
+              79080
+            ],
+            "20516": [
+              68610.8046875,
+              79080
+            ],
+            "20517": [
+              66476.982421875,
+              79080
+            ],
+            "20518": [
+              57701.181396484375,
+              79080
+            ],
+            "20519": [
+              62200.1982421875,
+              79080
+            ],
+            "20520": [
+              62188.22265625,
+              79080
+            ],
+            "20521": [
+              62936.580078125,
+              79080
+            ],
+            "20522": [
+              68897.80859375,
+              79080
+            ],
+            "20523": [
+              72602.92456054688,
+              79080
+            ],
+            "20524": [
+              72691.7578125,
+              79080
+            ],
+            "20525": [
+              78859.765625,
+              79080
+            ],
+            "20526": [
+              78473.517578125,
+              79080
+            ],
+            "20527": [
+              61653.0888671875,
+              79080
+            ],
+            "20528": [
+              77224.984375,
+              79080
+            ],
+            "20529": [
+              83212.09375,
+              79080
+            ],
+            "20530": [
+              47862.02734375,
+              79080
+            ],
+            "20531": [
+              76022.0,
+              79080
+            ],
+            "20532": [
+              80360.7734375,
+              79080
+            ],
+            "20533": [
+              89500.12573242188,
+              79080
+            ],
+            "20534": [
+              86368.73046875,
+              79080
+            ],
+            "20535": [
+              88668.99609375,
+              79080
+            ],
+            "20536": [
+              90817.025390625,
+              79080
+            ],
+            "20537": [
+              90672.275390625,
+              79080
+            ],
+            "20538": [
+              92863.38793945312,
+              79080
+            ],
+            "20539": [
+              94939.125,
+              79080
+            ],
+            "20540": [
+              104877.76171875,
+              79080
+            ],
+            "20541": [
+              104074.26171875,
+              79080
+            ],
+            "20542": [
+              71785.1103515625,
+              79080
+            ]
+          }
+        },
+        "large_calendar": {
+          "deviance": 0.9731231427035913,
+          "mae": 0.4506111627670255,
+          "channel_exposures": 2293320,
+          "daily": {
+            "20514": [
+              44414.408203125,
+              79080
+            ],
+            "20515": [
+              66811.11328125,
+              79080
+            ],
+            "20516": [
+              69512.044921875,
+              79080
+            ],
+            "20517": [
+              66850.65234375,
+              79080
+            ],
+            "20518": [
+              57879.00109863281,
+              79080
+            ],
+            "20519": [
+              62837.646484375,
+              79080
+            ],
+            "20520": [
+              62477.525390625,
+              79080
+            ],
+            "20521": [
+              63407.62109375,
+              79080
+            ],
+            "20522": [
+              69879.66796875,
+              79080
+            ],
+            "20523": [
+              73748.98828125,
+              79080
+            ],
+            "20524": [
+              73247.4052734375,
+              79080
+            ],
+            "20525": [
+              80122.25,
+              79080
+            ],
+            "20526": [
+              79932.84375,
+              79080
+            ],
+            "20527": [
+              61925.3896484375,
+              79080
+            ],
+            "20528": [
+              78468.33740234375,
+              79080
+            ],
+            "20529": [
+              84839.251953125,
+              79080
+            ],
+            "20530": [
+              46390.3046875,
+              79080
+            ],
+            "20531": [
+              76653.3046875,
+              79080
+            ],
+            "20532": [
+              81705.83203125,
+              79080
+            ],
+            "20533": [
+              91406.82861328125,
+              79080
+            ],
+            "20534": [
+              87115.857421875,
+              79080
+            ],
+            "20535": [
+              90379.40625,
+              79080
+            ],
+            "20536": [
+              92673.1953125,
+              79080
+            ],
+            "20537": [
+              92634.724609375,
+              79080
+            ],
+            "20538": [
+              93873.53295898438,
+              79080
+            ],
+            "20539": [
+              96937.744140625,
+              79080
+            ],
+            "20540": [
+              107405.4140625,
+              79080
+            ],
+            "20541": [
+              105396.578125,
+              79080
+            ],
+            "20542": [
+              72755.8720703125,
+              79080
+            ]
+          }
+        },
+        "large_weather": {
+          "deviance": 0.9199978744312285,
+          "mae": 0.4399591054126768,
+          "channel_exposures": 2293320,
+          "daily": {
+            "20514": [
+              25385.6611328125,
+              79080
+            ],
+            "20515": [
+              68850.51171875,
+              79080
+            ],
+            "20516": [
+              68629.41015625,
+              79080
+            ],
+            "20517": [
+              65075.935546875,
+              79080
+            ],
+            "20518": [
+              64746.015625,
+              79080
+            ],
+            "20519": [
+              63313.208984375,
+              79080
+            ],
+            "20520": [
+              61390.26953125,
+              79080
+            ],
+            "20521": [
+              64956.5859375,
+              79080
+            ],
+            "20522": [
+              69567.58984375,
+              79080
+            ],
+            "20523": [
+              72229.65258789062,
+              79080
+            ],
+            "20524": [
+              73154.2861328125,
+              79080
+            ],
+            "20525": [
+              76284.46875,
+              79080
+            ],
+            "20526": [
+              74089.037109375,
+              79080
+            ],
+            "20527": [
+              64904.6416015625,
+              79080
+            ],
+            "20528": [
+              76439.9365234375,
+              79080
+            ],
+            "20529": [
+              78126.89453125,
+              79080
+            ],
+            "20530": [
+              42603.392578125,
+              79080
+            ],
+            "20531": [
+              75308.5703125,
+              79080
+            ],
+            "20532": [
+              79972.25,
+              79080
+            ],
+            "20533": [
+              82130.150390625,
+              79080
+            ],
+            "20534": [
+              74830.97265625,
+              79080
+            ],
+            "20535": [
+              76884.8984375,
+              79080
+            ],
+            "20536": [
+              79677.6171875,
+              79080
+            ],
+            "20537": [
+              82586.349609375,
+              79080
+            ],
+            "20538": [
+              83617.43212890625,
+              79080
+            ],
+            "20539": [
+              92340.4375,
+              79080
+            ],
+            "20540": [
+              101568.87890625,
+              79080
+            ],
+            "20541": [
+              100880.09375,
+              79080
+            ],
+            "20542": [
+              70304.349609375,
+              79080
+            ]
+          }
+        },
+        "large_weather_random": {
+          "deviance": 0.9156700782735292,
+          "mae": 0.4406840207714689,
+          "channel_exposures": 2293320,
+          "daily": {
+            "20514": [
+              29196.609375,
+              79080
+            ],
+            "20515": [
+              66630.76953125,
+              79080
+            ],
+            "20516": [
+              67930.3671875,
+              79080
+            ],
+            "20517": [
+              64374.521484375,
+              79080
+            ],
+            "20518": [
+              62060.42175292969,
+              79080
+            ],
+            "20519": [
+              62369.9111328125,
+              79080
+            ],
+            "20520": [
+              61608.15234375,
+              79080
+            ],
+            "20521": [
+              63523.509765625,
+              79080
+            ],
+            "20522": [
+              69077.97265625,
+              79080
+            ],
+            "20523": [
+              71923.4326171875,
+              79080
+            ],
+            "20524": [
+              72847.5634765625,
+              79080
+            ],
+            "20525": [
+              75452.1171875,
+              79080
+            ],
+            "20526": [
+              74511.48828125,
+              79080
+            ],
+            "20527": [
+              63211.37109375,
+              79080
+            ],
+            "20528": [
+              75733.7236328125,
+              79080
+            ],
+            "20529": [
+              78222.810546875,
+              79080
+            ],
+            "20530": [
+              43152.83984375,
+              79080
+            ],
+            "20531": [
+              75722.80859375,
+              79080
+            ],
+            "20532": [
+              77742.02734375,
+              79080
+            ],
+            "20533": [
+              83165.8271484375,
+              79080
+            ],
+            "20534": [
+              77866.740234375,
+              79080
+            ],
+            "20535": [
+              79588.6171875,
+              79080
+            ],
+            "20536": [
+              80875.0078125,
+              79080
+            ],
+            "20537": [
+              82128.439453125,
+              79080
+            ],
+            "20538": [
+              85035.53857421875,
+              79080
+            ],
+            "20539": [
+              89133.8046875,
+              79080
+            ],
+            "20540": [
+              98432.8203125,
+              79080
+            ],
+            "20541": [
+              98538.7578125,
+              79080
+            ],
+            "20542": [
+              69866.56640625,
+              79080
+            ]
+          }
+        },
+        "large_weather_pretrained": {
+          "deviance": 0.9172831599629576,
+          "mae": 0.440893632614234,
+          "channel_exposures": 2293320,
+          "daily": {
+            "20514": [
+              27583.68505859375,
+              79080
+            ],
+            "20515": [
+              66928.48828125,
+              79080
+            ],
+            "20516": [
+              67933.2578125,
+              79080
+            ],
+            "20517": [
+              64357.91015625,
+              79080
+            ],
+            "20518": [
+              62885.723388671875,
+              79080
+            ],
+            "20519": [
+              62485.904296875,
+              79080
+            ],
+            "20520": [
+              61622.044921875,
+              79080
+            ],
+            "20521": [
+              63614.26953125,
+              79080
+            ],
+            "20522": [
+              69252.638671875,
+              79080
+            ],
+            "20523": [
+              72019.59228515625,
+              79080
+            ],
+            "20524": [
+              73038.466796875,
+              79080
+            ],
+            "20525": [
+              75326.55078125,
+              79080
+            ],
+            "20526": [
+              74639.36328125,
+              79080
+            ],
+            "20527": [
+              63250.4697265625,
+              79080
+            ],
+            "20528": [
+              76122.0615234375,
+              79080
+            ],
+            "20529": [
+              78612.12890625,
+              79080
+            ],
+            "20530": [
+              43014.31640625,
+              79080
+            ],
+            "20531": [
+              75921.29296875,
+              79080
+            ],
+            "20532": [
+              77730.2373046875,
+              79080
+            ],
+            "20533": [
+              83659.8125,
+              79080
+            ],
+            "20534": [
+              78189.150390625,
+              79080
+            ],
+            "20535": [
+              79993.34375,
+              79080
+            ],
+            "20536": [
+              81218.76171875,
+              79080
+            ],
+            "20537": [
+              82348.63671875,
+              79080
+            ],
+            "20538": [
+              85440.8876953125,
+              79080
+            ],
+            "20539": [
+              89076.16015625,
+              79080
+            ],
+            "20540": [
+              98641.80859375,
+              79080
+            ],
+            "20541": [
+              98784.689453125,
+              79080
+            ],
+            "20542": [
+              69932.189453125,
+              79080
+            ]
+          }
+        }
+      },
+      "weather": {
+        "mean": [
+          16.020977020263672,
+          1.9294992685317993,
+          62.966407775878906,
+          1.5387301445007324
+        ],
+        "std": [
+          11.445960998535156,
+          1.238680124282837,
+          20.8243408203125,
+          3.034200429916382
+        ],
+        "training_present_fraction": [
+          0.995766818523407,
+          0.9925051927566528,
+          0.9956974387168884,
+          0.021859819069504738
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "macro_deviance": {
+      "small_calendar": 0.9432207697590401,
+      "large_calendar": 0.9443037429001889,
+      "large_weather": 0.9189398692473455,
+      "large_weather_random": 0.9050543823928551,
+      "large_weather_pretrained": 0.9079860060883153
+    },
+    "relative_gain_by_control": {
+      "large_calendar": 0.0384598039401316,
+      "large_weather": 0.01192010873138194,
+      "large_weather_random": -0.003239168554390437
+    },
+    "worst_control_macro_count_deviance_gain": -0.003239168554390437,
+    "intervals": [
+      {
+        "block_days": 3,
+        "valid_replicates": 2000,
+        "interval": [
+          -0.005855701717172907,
+          -0.001231494287858359
+        ]
+      },
+      {
+        "block_days": 7,
+        "valid_replicates": 2000,
+        "interval": [
+          -0.006039942728156428,
+          -0.0010961354869164892
+        ]
+      }
+    ],
+    "decision": "not_supported",
+    "sufficient": true
+  },
+  "seconds": 229.28499340000053,
+  "peak_gpu_bytes": 596413952
+}

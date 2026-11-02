@@ -1,0 +1,12 @@
+{
+  "dataset_id": "H21-batch-operating-scenarios-v1",
+  "synthetic": "12seed44 directed geometric four-station cases; stock30,20,0,0;128constant marginal samples; compact/bulk settings x handling10,20,40sec =72conditions",
+  "live": "One current H18 state only. Fixed samples and observed stock, no future truth. Reference obs+10sec full-horizon plan is explicitly replay; actual CLI uses calibrated current departure and expiry.",
+  "model": "Unchanged H13 weights,GCN/CFM generation and September accuracy evidence; API is planning/inference input only",
+  "not_observed": [
+    "actual fleet capacity and parking capacity",
+    "measured handling speed",
+    "latent demand",
+    "field relocation effect"
+  ]
+}

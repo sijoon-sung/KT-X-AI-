@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "name": "api_feed_status_visible",
+      "passed": true
+    },
+    {
+      "name": "future_score_not_invented",
+      "passed": true
+    },
+    {
+      "name": "actual_live_version_received",
+      "passed": true
+    },
+    {
+      "name": "live_model_source_time_visible",
+      "passed": true
+    },
+    {
+      "name": "next_prediction_target_visible",
+      "passed": true
+    },
+    {
+      "name": "source_version_in_plan_request",
+      "passed": true
+    },
+    {
+      "name": "live_plan_recomputed",
+      "passed": true
+    },
+    {
+      "name": "no_hypothesis_content",
+      "passed": true
+    },
+    {
+      "name": "no_browser_exceptions",
+      "passed": true
+    },
+    {
+      "name": "live_version_loaded",
+      "passed": true
+    },
+    {
+      "name": "actual_rpc_rejects_stale_source_version",
+      "passed": true
+    },
+    {
+      "name": "actual_future_score_visible",
+      "passed": true
+    },
+    {
+      "name": "observed_truth_not_replaced_by_zero",
+      "passed": true
+    },
+    {
+      "name": "model_and_persistence_comparison_visible",
+      "passed": true
+    },
+    {
+      "name": "current_zero_recovery_diagnostic_visible",
+      "passed": true
+    },
+    {
+      "name": "second_issue_has_previous_observation",
+      "passed": true
+    },
+    {
+      "name": "no_browser_exceptions",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "scope": "Local display-only QA; actual API/inference/scoring/planning ondislab. Final source versions and delayed observed score validated.",
+  "earlier_failed_attempt": "Initial browser reached ERR_CONNECTION_REFUSED because previous local preview server had ended; not counted as passed. Managed foreground preview restored after automatic approval rejected background launch.",
+  "score_publication_order_attempt": "One intermediate browser assertion assumed the next forecast was already published when the prior score appeared. Corrected the wait to respect score-before-next-forecast ordering; final8scored-display checks passed. No model/scoring changes.",
+  "assets": [
+    {
+      "id": "research_code/forecast_web/dispatch.html",
+      "sha256": "0ceb37a4d0b9c3330f522019a47cbd80b61ee0c4d1183db12bd6623f0eb59922",
+      "hash_basis": "canonical Git blob"
+    },
+    {
+      "id": "research_code/forecast_web/dispatch.css",
+      "sha256": "e4d931d2249cebf75d7b0a27eea1ffb7ff15e89bf858680e24079f5e776d4923",
+      "hash_basis": "canonical Git blob"
+    },
+    {
+      "id": "research_code/forecast_web/dispatch.js",
+      "sha256": "37b45e5169ad52ae20c06620b1d44961d6c717c3a18184e7901f10cfdc076abd",
+      "hash_basis": "canonical Git blob"
+    }
+  ]
+}

@@ -1,0 +1,509 @@
+{
+  "hypothesis_id": "H-0003",
+  "decision": "supported",
+  "metrics": {
+    "median_station_conditional_fano_30min": 0.44896690672153633,
+    "eligible_stations": 1111,
+    "eligible_pairs": 192147,
+    "eligible_strata": 3034,
+    "common_pairs": 921327,
+    "bootstrap_3day_valid": 2000,
+    "ci_3day_lower": 0.38265508566750817,
+    "ci_3day_upper": 0.4725866212540326,
+    "bootstrap_7day_valid": 2000,
+    "ci_7day_lower": 0.38883474075200364,
+    "ci_7day_upper": 0.46950129660458906
+  },
+  "bootstraps": [
+    {
+      "block_days": 3,
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "minimum_station_coverage": 0.9990999099909991,
+      "interval": [
+        0.38265508566750817,
+        0.4725866212540326
+      ]
+    },
+    {
+      "block_days": 7,
+      "valid_replicates": 2000,
+      "requested_replicates": 2000,
+      "minimum_station_coverage": 0.9981998199819982,
+      "interval": [
+        0.38883474075200364,
+        0.46950129660458906
+      ]
+    }
+  ],
+  "scope": {
+    "period": {
+      "role": "development_diagnostic",
+      "start": "2026-09-18T00:00:00+09:00",
+      "end": "2026-10-16T00:00:00+09:00"
+    },
+    "candidate_station_origins": 926610,
+    "common_complete_pairs": 921327,
+    "station_ids": 1383,
+    "eligible_stations": 1111,
+    "eligible_strata": 3034,
+    "undefined_mean_station_count": 0,
+    "daily_common_pairs": [
+      {
+        "day_index": 0,
+        "pairs": 31602
+      },
+      {
+        "day_index": 1,
+        "pairs": 32976
+      },
+      {
+        "day_index": 2,
+        "pairs": 32976
+      },
+      {
+        "day_index": 3,
+        "pairs": 32976
+      },
+      {
+        "day_index": 4,
+        "pairs": 33007
+      },
+      {
+        "day_index": 5,
+        "pairs": 33048
+      },
+      {
+        "day_index": 6,
+        "pairs": 33048
+      },
+      {
+        "day_index": 7,
+        "pairs": 33048
+      },
+      {
+        "day_index": 8,
+        "pairs": 33048
+      },
+      {
+        "day_index": 9,
+        "pairs": 33048
+      },
+      {
+        "day_index": 10,
+        "pairs": 33048
+      },
+      {
+        "day_index": 11,
+        "pairs": 33048
+      },
+      {
+        "day_index": 12,
+        "pairs": 33048
+      },
+      {
+        "day_index": 13,
+        "pairs": 33026
+      },
+      {
+        "day_index": 14,
+        "pairs": 33000
+      },
+      {
+        "day_index": 15,
+        "pairs": 33000
+      },
+      {
+        "day_index": 16,
+        "pairs": 33000
+      },
+      {
+        "day_index": 17,
+        "pairs": 33000
+      },
+      {
+        "day_index": 18,
+        "pairs": 32958
+      },
+      {
+        "day_index": 19,
+        "pairs": 32935
+      },
+      {
+        "day_index": 20,
+        "pairs": 32952
+      },
+      {
+        "day_index": 21,
+        "pairs": 32952
+      },
+      {
+        "day_index": 22,
+        "pairs": 32952
+      },
+      {
+        "day_index": 23,
+        "pairs": 32952
+      },
+      {
+        "day_index": 24,
+        "pairs": 32976
+      },
+      {
+        "day_index": 25,
+        "pairs": 33024
+      },
+      {
+        "day_index": 26,
+        "pairs": 33017
+      },
+      {
+        "day_index": 27,
+        "pairs": 31662
+      }
+    ]
+  },
+  "horizon_diagnostics": [
+    {
+      "horizon_minutes": 10,
+      "n30": {
+        "count": 1111,
+        "median": 0.16342139300510536,
+        "mean": 0.2174159139976413,
+        "quantiles_10_25_50_75_90": [
+          0.046860683336093154,
+          0.08885149416937173,
+          0.16342139300510536,
+          0.27699603129634276,
+          0.4780701754385965
+        ],
+        "share_below_1": 0.9936993699369937
+      },
+      "n60_sensitivity": {
+        "count": 860,
+        "median": 0.1683508190300333,
+        "mean": 0.2289747718920895,
+        "quantiles_10_25_50_75_90": [
+          0.04195807391329188,
+          0.08624893933155164,
+          0.1683508190300333,
+          0.3089281005123568,
+          0.5111928344921973
+        ],
+        "share_below_1": 0.9883720930232558
+      }
+    },
+    {
+      "horizon_minutes": 30,
+      "n30": {
+        "count": 1111,
+        "median": 0.44896690672153633,
+        "mean": 0.5392098863594338,
+        "quantiles_10_25_50_75_90": [
+          0.16029411764705867,
+          0.26314554015373864,
+          0.44896690672153633,
+          0.689590460038602,
+          1.0337301587301588
+        ],
+        "share_below_1": 0.8910891089108911
+      },
+      "n60_sensitivity": {
+        "count": 860,
+        "median": 0.45751787864149224,
+        "mean": 0.5326702829913762,
+        "quantiles_10_25_50_75_90": [
+          0.13899457870854268,
+          0.24855474749939227,
+          0.45751787864149224,
+          0.7039653173097196,
+          1.0329034331065368
+        ],
+        "share_below_1": 0.8906976744186047
+      }
+    },
+    {
+      "horizon_minutes": 60,
+      "n30": {
+        "count": 1111,
+        "median": 0.754531490015361,
+        "mean": 0.9038744181966242,
+        "quantiles_10_25_50_75_90": [
+          0.30232558139534876,
+          0.49838902358365605,
+          0.754531490015361,
+          1.1269047045013363,
+          1.6510344827586207
+        ],
+        "share_below_1": 0.6858685868586859
+      },
+      "n60_sensitivity": {
+        "count": 860,
+        "median": 0.7706645073246468,
+        "mean": 0.868838469699386,
+        "quantiles_10_25_50_75_90": [
+          0.26766840321647806,
+          0.453056231371799,
+          0.7706645073246468,
+          1.1081964727716769,
+          1.6173745007680491
+        ],
+        "share_below_1": 0.6767441860465117
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "current_stock": "0",
+      "horizon_minutes": 10,
+      "pairs": 425155,
+      "zero_share": 0.9385212451929297,
+      "unchanged_share": 0.9385212451929297,
+      "mean_absolute_change": 0.07452105730772018,
+      "p95_absolute_change": 1.0
+    },
+    {
+      "current_stock": "0",
+      "horizon_minutes": 30,
+      "pairs": 425155,
+      "zero_share": 0.8703766861497572,
+      "unchanged_share": 0.8703766861497572,
+      "mean_absolute_change": 0.17750467360019684,
+      "p95_absolute_change": 1.0
+    },
+    {
+      "current_stock": "0",
+      "horizon_minutes": 60,
+      "pairs": 425155,
+      "zero_share": 0.8142559772318331,
+      "unchanged_share": 0.8142559772318331,
+      "mean_absolute_change": 0.2832896113395691,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "1",
+      "horizon_minutes": 10,
+      "pairs": 183578,
+      "zero_share": 0.133599886696663,
+      "unchanged_share": 0.792284478532286,
+      "mean_absolute_change": 0.225958451628685,
+      "p95_absolute_change": 1.0
+    },
+    {
+      "current_stock": "1",
+      "horizon_minutes": 30,
+      "pairs": 183578,
+      "zero_share": 0.23498458420943685,
+      "unchanged_share": 0.6276514615041018,
+      "mean_absolute_change": 0.4340716302394867,
+      "p95_absolute_change": 1.0
+    },
+    {
+      "current_stock": "1",
+      "horizon_minutes": 60,
+      "pairs": 183578,
+      "zero_share": 0.2975138633169552,
+      "unchanged_share": 0.5225898528146075,
+      "mean_absolute_change": 0.6027193069458008,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "2",
+      "horizon_minutes": 10,
+      "pairs": 96171,
+      "zero_share": 0.04061515425648064,
+      "unchanged_share": 0.7506212891620135,
+      "mean_absolute_change": 0.3125578463077545,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "2",
+      "horizon_minutes": 30,
+      "pairs": 96171,
+      "zero_share": 0.10226575578916722,
+      "unchanged_share": 0.5639537906437492,
+      "mean_absolute_change": 0.6088218092918396,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "2",
+      "horizon_minutes": 60,
+      "pairs": 96171,
+      "zero_share": 0.1561489430285637,
+      "unchanged_share": 0.4468914745609383,
+      "mean_absolute_change": 0.8503291010856628,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "3",
+      "horizon_minutes": 10,
+      "pairs": 57393,
+      "zero_share": 0.013712473646611956,
+      "unchanged_share": 0.7368668652971617,
+      "mean_absolute_change": 0.35725611448287964,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "3",
+      "horizon_minutes": 30,
+      "pairs": 57393,
+      "zero_share": 0.048246301813810046,
+      "unchanged_share": 0.545658878260415,
+      "mean_absolute_change": 0.7231195569038391,
+      "p95_absolute_change": 3.0
+    },
+    {
+      "current_stock": "3",
+      "horizon_minutes": 60,
+      "pairs": 57393,
+      "zero_share": 0.08825118045754708,
+      "unchanged_share": 0.42625407279633404,
+      "mean_absolute_change": 1.0323035717010498,
+      "p95_absolute_change": 3.0
+    },
+    {
+      "current_stock": "4",
+      "horizon_minutes": 10,
+      "pairs": 38147,
+      "zero_share": 0.00642252339633523,
+      "unchanged_share": 0.7304375180223871,
+      "mean_absolute_change": 0.3801085352897644,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "4",
+      "horizon_minutes": 30,
+      "pairs": 38147,
+      "zero_share": 0.024956090911474035,
+      "unchanged_share": 0.5343277321938815,
+      "mean_absolute_change": 0.7944006323814392,
+      "p95_absolute_change": 3.0
+    },
+    {
+      "current_stock": "4",
+      "horizon_minutes": 60,
+      "pairs": 38147,
+      "zero_share": 0.05358219519228249,
+      "unchanged_share": 0.4148687970220463,
+      "mean_absolute_change": 1.158859133720398,
+      "p95_absolute_change": 4.0
+    },
+    {
+      "current_stock": "5",
+      "horizon_minutes": 10,
+      "pairs": 26777,
+      "zero_share": 0.0035104754079994024,
+      "unchanged_share": 0.7284236471598761,
+      "mean_absolute_change": 0.3939201533794403,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "5",
+      "horizon_minutes": 30,
+      "pairs": 26777,
+      "zero_share": 0.014975538708593196,
+      "unchanged_share": 0.5311274601336968,
+      "mean_absolute_change": 0.8438211679458618,
+      "p95_absolute_change": 3.0
+    },
+    {
+      "current_stock": "5",
+      "horizon_minutes": 60,
+      "pairs": 26777,
+      "zero_share": 0.03566493632595138,
+      "unchanged_share": 0.4067670015311648,
+      "mean_absolute_change": 1.273854374885559,
+      "p95_absolute_change": 5.0
+    },
+    {
+      "current_stock": "6..10",
+      "horizon_minutes": 10,
+      "pairs": 62586,
+      "zero_share": 0.0009586808551433227,
+      "unchanged_share": 0.709104272521011,
+      "mean_absolute_change": 0.42630940675735474,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "6..10",
+      "horizon_minutes": 30,
+      "pairs": 62586,
+      "zero_share": 0.005943821301888601,
+      "unchanged_share": 0.5084044354967565,
+      "mean_absolute_change": 0.9335793852806091,
+      "p95_absolute_change": 4.0
+    },
+    {
+      "current_stock": "6..10",
+      "horizon_minutes": 60,
+      "pairs": 62586,
+      "zero_share": 0.01690473907902726,
+      "unchanged_share": 0.3828971335442431,
+      "mean_absolute_change": 1.4593039751052856,
+      "p95_absolute_change": 5.0
+    },
+    {
+      "current_stock": "11..20",
+      "horizon_minutes": 10,
+      "pairs": 26550,
+      "zero_share": 0.00026365348399246707,
+      "unchanged_share": 0.671563088512241,
+      "mean_absolute_change": 0.5140489935874939,
+      "p95_absolute_change": 2.0
+    },
+    {
+      "current_stock": "11..20",
+      "horizon_minutes": 30,
+      "pairs": 26550,
+      "zero_share": 0.002071563088512241,
+      "unchanged_share": 0.46203389830508473,
+      "mean_absolute_change": 1.13932204246521,
+      "p95_absolute_change": 4.0
+    },
+    {
+      "current_stock": "11..20",
+      "horizon_minutes": 60,
+      "pairs": 26550,
+      "zero_share": 0.006064030131826742,
+      "unchanged_share": 0.33691148775894536,
+      "mean_absolute_change": 1.8491525650024414,
+      "p95_absolute_change": 7.0
+    },
+    {
+      "current_stock": "21+",
+      "horizon_minutes": 10,
+      "pairs": 4970,
+      "zero_share": 0.0,
+      "unchanged_share": 0.5309859154929577,
+      "mean_absolute_change": 0.9738430380821228,
+      "p95_absolute_change": 4.0
+    },
+    {
+      "current_stock": "21+",
+      "horizon_minutes": 30,
+      "pairs": 4970,
+      "zero_share": 0.001006036217303823,
+      "unchanged_share": 0.3523138832997988,
+      "mean_absolute_change": 2.227163076400757,
+      "p95_absolute_change": 9.0
+    },
+    {
+      "current_stock": "21+",
+      "horizon_minutes": 60,
+      "pairs": 4970,
+      "zero_share": 0.006639839034205231,
+      "unchanged_share": 0.2442655935613682,
+      "mean_absolute_change": 4.000402450561523,
+      "p95_absolute_change": 19.0
+    }
+  ],
+  "elapsed_seconds": 1.838777500204742,
+  "limitations": [
+    "Development-period diagnostic, already used by H-0001/H-0002; not independent forecast validation.",
+    "Primary population: observed current stock 2..10 with sufficiently repeated station-state strata.",
+    "Coarse conditioning omits time and other history; finite dependent samples and complete-case selection limit inference.",
+    "Block intervals are diagnostic, not a formal goodness-of-fit rejection of every Poisson process or annual behavior.",
+    "Observation likelihood and rental/return event intensities are different quantities; operator actions are unobserved.",
+    "No GCN, flow matching, CMP or other final architecture is selected by this diagnostic."
+  ]
+}

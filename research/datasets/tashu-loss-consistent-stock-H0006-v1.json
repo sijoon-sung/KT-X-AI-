@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-loss-consistent-stock-H0006-v1",
+  "parent_manifest": "research/datasets/tashu-history-to-stock-H0005-v1.json",
+  "parent_manifest_sha256": "4e68d5afc327f52a895697544139f66a802a687a2c8357face166283cc2b2a66",
+  "learning": {
+    "source_run_manifest": "research/runs/H-0004-20261031-historical/manifest.json",
+    "source_run_manifest_sha256": "5b7afd0fcd15eaced73f7cb41f188a428ead1ace48e38ead777c7e27ad381b6c",
+    "role": "frozen historical recorded-flow priors; not validated stock models",
+    "model_artifacts": [
+      {
+        "id": "constant.npz",
+        "sha256": "f5475aebc9883a4d9bd1a341a1eaf212c01d3da0c035c682de3c11697805c1f6",
+        "role": "secondary fixed-rate prior"
+      },
+      {
+        "id": "calendar.npz",
+        "sha256": "1bd63ba90fc7e6aab5117d0cc483af53d9ffd7903b447214195aa5eabef0ff76",
+        "role": "primary rate prior"
+      }
+    ],
+    "new_training": false,
+    "api_used_in_learning": false
+  },
+  "evaluation": {
+    "api_manifest": "research/datasets/tashu-primary-v1.json",
+    "api_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875",
+    "role": "OFFICIAL SEPTEMBER STOCK EVALUATION ONLY",
+    "period": {
+      "start": "2026-09-01T00:00:00+09:00",
+      "end": "2026-10-01T00:00:00+09:00"
+    },
+    "available_source_files": [
+      {
+        "id": "tashu/data/stock_20260917.csv.gz",
+        "bytes": 194679,
+        "sha256": "ac1f478ab082bb4b1e2f4b310f4f164d13c4a7fd605347f4300a4776f5f39223"
+      },
+      {
+        "id": "tashu/data/stock_20260918.csv.gz",
+        "bytes": 586849,
+        "sha256": "83077eae3aa20497b9e6897f3079723a3ae2ad9903684e9a692d647a6ab33f84"
+      },
+      {
+        "id": "tashu/data/stock_20260919.csv.gz",
+        "bytes": 583910,
+        "sha256": "99081693dcd98bad7590e54617b1b096fc8d6dac38167c65e615677bc1763bb2"
+      },
+      {
+        "id": "tashu/data/stock_20260920.csv.gz",
+        "bytes": 585592,
+        "sha256": "a4e2b40cb6cab311b8fa0a35ef5c11af017b4724f27327adbad037820fe71c83"
+      },
+      {
+        "id": "tashu/data/stock_20260921.csv.gz",
+        "bytes": 584910,
+        "sha256": "bef38a2fae1c36acdcaaf34a524331f647d90d105e40a7b80f50e2725bb9000b"
+      },
+      {
+        "id": "tashu/data/stock_20260922.csv.gz",
+        "bytes": 584973,
+        "sha256": "9abd793b96d854bc6486896e3c3e70749e96c08c121563045a7e2b8a25972f21"
+      },
+      {
+        "id": "tashu/data/stock_20260923.csv.gz",
+        "bytes": 585850,
+        "sha256": "6aab9ef0d5b6c4e58baca0761edca27d75e1c9b1549771ebc513285093a22bdb"
+      },
+      {
+        "id": "tashu/data/stock_20260924.csv.gz",
+        "bytes": 586942,
+        "sha256": "3d834aa4fb5b2024578aeae21d6bf8d5d7b211968f4c4fb0233eb40bae563b2e"
+      },
+      {
+        "id": "tashu/data/stock_20260925.csv.gz",
+        "bytes": 591857,
+        "sha256": "392bd9bc338d9a4e9ad0fcf78c5dee027b6f4efe4ffddfcb771cb441e3213f6b"
+      },
+      {
+        "id": "tashu/data/stock_20260926.csv.gz",
+        "bytes": 587500,
+        "sha256": "f6b3d9adbc1de3eabe478ce959d1db190cd2b69daf706582bb6e6945694b76d5"
+      },
+      {
+        "id": "tashu/data/stock_20260927.csv.gz",
+        "bytes": 586829,
+        "sha256": "36298d891ce6b292854c6e21a2ec24f7612c088b8a49754f171aa10fc8dfc344"
+      },
+      {
+        "id": "tashu/data/stock_20260928.csv.gz",
+        "bytes": 585885,
+        "sha256": "0ac0ea72c1c5b62981d824f30157feb65f4300ffb0d8a5ed07d5b3b84caeef91"
+      },
+      {
+        "id": "tashu/data/stock_20260929.csv.gz",
+        "bytes": 586903,
+        "sha256": "661147cf6da6e47eab09a430535198f62135ee9872200ccf3042d80c1495def1"
+      },
+      {
+        "id": "tashu/data/stock_20260930.csv.gz",
+        "bytes": 588649,
+        "sha256": "38029286f33299d430f73b32dae001ba1af6ba4cffff0f022daab6451ad311e9"
+      },
+      {
+        "id": "tashu/meta/stations_20260917.json.gz",
+        "bytes": 57479,
+        "sha256": "2d8638dad34461e1cedaa39cb381c9d8bbd3bae9acd38a2e9eda4c8ef1478c49"
+      },
+      {
+        "id": "tashu/meta/stations_20260918.json.gz",
+        "bytes": 57468,
+        "sha256": "417c94b3d57e686eb4d3697916c1c04f7cf0dc8f5e06a336aeaea5a5a28a73e0"
+      },
+      {
+        "id": "tashu/meta/stations_20260919.json.gz",
+        "bytes": 57478,
+        "sha256": "b3ad26663b0065964b7a5cc838fbef900a8a0f339df03563ac74366ddc4933a2"
+      },
+      {
+        "id": "tashu/meta/stations_20260920.json.gz",
+        "bytes": 57482,
+        "sha256": "2b453659ec9bed00fd1c91e70c7ab59227d529e3df73da66a579b0f0b6ca96ab"
+      },
+      {
+        "id": "tashu/meta/stations_20260921.json.gz",
+        "bytes": 57482,
+        "sha256": "9c0c4c8363dca256106ff20cdbb9f09fe3f1efe558b39d10b0d3841e817c5afe"
+      },
+      {
+        "id": "tashu/meta/stations_20260922.json.gz",
+        "bytes": 57561,
+        "sha256": "7a336860179bdc191f634951f1b27b6e0a92ecd6ec36d0af69ea6ba199306179"
+      },
+      {
+        "id": "tashu/meta/stations_20260923.json.gz",
+        "bytes": 57620,
+        "sha256": "8565ea196444632d74dda275ae12e60315ac0d4bdd3ed6a784301e190688113d"
+      },
+      {
+        "id": "tashu/meta/stations_20260924.json.gz",
+        "bytes": 57585,
+        "sha256": "235b9c4136ecce963476eb1ed12a247a1f87d63d867df98310585b17454ab64a"
+      },
+      {
+        "id": "tashu/meta/stations_20260925.json.gz",
+        "bytes": 57601,
+        "sha256": "5b801c437c51a32989162118adb738332eb538c80530c29ca5c81519f5ac8d25"
+      },
+      {
+        "id": "tashu/meta/stations_20260926.json.gz",
+        "bytes": 57728,
+        "sha256": "026ff87c341e16905b1fbcad2ce6af4a0d0c2af4c4f0929c544c4db48d39c9f8"
+      },
+      {
+        "id": "tashu/meta/stations_20260927.json.gz",
+        "bytes": 57632,
+        "sha256": "e40239eef424a89efbe2af28484c6a806d62520165af18581546a6cc2349d7d2"
+      },
+      {
+        "id": "tashu/meta/stations_20260928.json.gz",
+        "bytes": 57626,
+        "sha256": "6a31afbad216833e71de1959a271d6b32feb2f76f6225e31aa0f7c8dcb0efe0e"
+      },
+      {
+        "id": "tashu/meta/stations_20260929.json.gz",
+        "bytes": 57622,
+        "sha256": "b4822905c16888699b5417b32ca40fab40a7a01635471cf71cdc2a38ba67d6c3"
+      },
+      {
+        "id": "tashu/meta/stations_20260930.json.gz",
+        "bytes": 57660,
+        "sha256": "91adb40583317a67ea91654a8c14f1df87a9edd9b9a0b8183a8e5a67ccc12bee"
+      }
+    ],
+    "audited_panel": {
+      "id": "observed_panel.npz",
+      "sha256": "6d20460e5cbc7e38bf413c23eb15173f3c05941c398bdf5375d375476eac6904"
+    },
+    "panel_scope": "Both forecast origin and target must be September; no October outcomes/parameters.",
+    "observation_contract": {
+      "timezone": "Asia/Seoul conditional interpretation; OS timezone not independently proven",
+      "timestamp": "Collector request clock; not the server inventory update time",
+      "grid_seconds": 600,
+      "accepted_request_delay_seconds": [
+        0,
+        120
+      ],
+      "multiple_polls": "earliest valid request per slot",
+      "missing": "NaN, never filled",
+      "scope": "API-reported parking_count; not transactions, latent demand or verified usability"
+    },
+    "raw_reaudit_this_run": false
+  },
+  "action_contract": {
+    "distribution": "Exactly the frozen H5 calendar-rate reflected process, same historical cutoff; constant rates only retained for cutoff compatibility.",
+    "mean": "Expected stock for squared error; retained under MAE as a diagnostic comparator.",
+    "median": "Smallest integer k with predictive CDF(k)>=0.5, fixed by absolute-loss Bayes action, not an API-selected threshold.",
+    "probability": "Same P(X=0), no recalibration, refitting or distribution selection."
+  },
+  "privacy": "Only aggregate scores/manifest are public; inputs, transition tables and per-station forecasts stay private."
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "id": "H15-functional-pipeline-v1",
+  "fixture": "research/datasets/H-0015-synthetic-fixtures.json",
+  "fixture_sha256": "1069caadaa677574538b23f5273ffc31b206d6b73e39077bb14acc76cdfc936c",
+  "api_data_included": false,
+  "real_operating_conditions_known": false,
+  "scope": "engineering acceptance of planning contracts; not a field-effect or prediction superiority test"
+}

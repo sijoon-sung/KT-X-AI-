@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0005-20261031-september",
+  "hypothesis_id": "H-0005",
+  "plan_sha256": "e6078c1d18a7787b69916e714763e32c113b93dfcc9999a983caa9e5eda6d40f",
+  "code_commit": "a288e40e0300b5a36ab7e77ab25ac9b408db4045",
+  "input_manifest_sha256": "4e68d5afc327f52a895697544139f66a802a687a2c8357face166283cc2b2a66",
+  "started_at_utc": "2026-10-31T04:39:44.036643+00:00",
+  "finished_at_utc": "2026-10-31T04:40:17.408439+00:00",
+  "command": [
+    "python",
+    "research_code/history_to_stock.py",
+    "--panel",
+    "<PRIVATE_AUDITED_API_PANEL>",
+    "--rate-model-dir",
+    "<PRIVATE_FROZEN_HISTORY_MODELS>",
+    "--run-id",
+    "H-0005-20261031-september"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.15.3"
+    },
+    "compute_location": "dislab",
+    "device": "CPU; no API training or fitting",
+    "threads": {
+      "OMP_NUM_THREADS": "4",
+      "MKL_NUM_THREADS": "4",
+      "OPENBLAS_NUM_THREADS": "4"
+    }
+  },
+  "seed": 20261031,
+  "evaluation_scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "metrics": {
+    "positive_brier_reduction": 0.030564729446908138,
+    "positive_brier_persistence": 0.14993364755411157,
+    "positive_brier_calendar": 0.11936891810720342,
+    "positive_pairs": 131118,
+    "matched_training_ids": 1176,
+    "positive_dates": 14,
+    "ci_3day_lower": 0.02092739081352295,
+    "ci_3day_upper": 0.03606894519141628,
+    "ci_7day_lower": 0.025101411808428044,
+    "ci_7day_upper": 0.03504816526498746
+  },
+  "artifacts": [
+    {
+      "id": "summary.json",
+      "sha256": "893f623d5c47ad2a9cc59efff619061ae4a0fee87c63530364a2670a52f602dc",
+      "availability": "public aggregate"
+    },
+    {
+      "id": "kernel_calendar.npz",
+      "sha256": "574fdd1a2865563765887ca6e4ad440a6fe25ba1ba26bd1786589d8d53ae0c3e",
+      "availability": "private dislab transition/prediction artifact; not published"
+    },
+    {
+      "id": "kernel_constant.npz",
+      "sha256": "106f1edd723bbe7257b57d6a6753e3464f2a32de47dd385a34600af7801f0c35",
+      "availability": "private dislab transition/prediction artifact; not published"
+    },
+    {
+      "id": "predictions.npz",
+      "sha256": "f3acc8cb0d6084ba78b08ebd8301b8d4e60354115dad43db84d398f5559b54d4",
+      "availability": "private dislab transition/prediction artifact; not published"
+    }
+  ],
+  "limitations": [
+    "Official September API evaluation, previously exposed in legacy experiments; not an untouched independent test.",
+    "Frozen historical completed-flow priors are effective rates, not identified latent demand or empty/non-full exposure-corrected intensities.",
+    "Independent memoryless attempted events, no physical upper capacity, operator rebalancing or state-correction component.",
+    "Past-to-September drift, source recording assumptions, station-ID changes and unmatched stations limit transfer.",
+    "Current API stock is an evaluation initial condition; request clocks are not server update times and KST is conditional.",
+    "Daytime exact-ID complete pairs over about two weeks; block intervals exclude rate-estimation uncertainty.",
+    "Primary current-positive empty-risk score does not establish all-stock, joint dependence, operational usefulness or final GCN/FM architecture."
+  ]
+}

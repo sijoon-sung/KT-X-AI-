@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "H17-fixed-prediction-dispatch-v1",
+  "inputs": [
+    {
+      "id": "h16_bundle",
+      "sha256": "c187f8f940044534a2340c89b209746ea34eaaedd002b3961bb4a76cd204d97c"
+    },
+    {
+      "id": "h13_forecast",
+      "sha256": "b3a2a2dff60c61980262ca5d7d1025de2cf6746d61fe3d31d9fb3836b5cf0854"
+    }
+  ],
+  "scope": "Existing fixed forecast/current-state only. User-selected planning candidates/resources are decision inputs; no learning, model selection or future truth use."
+}

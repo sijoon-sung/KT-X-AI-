@@ -1,0 +1,476 @@
+{
+  "hypothesis_id": "H-0005",
+  "decision": "supported",
+  "metrics": {
+    "positive_brier_reduction": 0.030564729446908138,
+    "positive_brier_persistence": 0.14993364755411157,
+    "positive_brier_calendar": 0.11936891810720342,
+    "positive_pairs": 131118,
+    "matched_training_ids": 1176,
+    "positive_dates": 14,
+    "ci_3day_lower": 0.02092739081352295,
+    "ci_3day_upper": 0.03606894519141628,
+    "ci_7day_lower": 0.025101411808428044,
+    "ci_7day_upper": 0.03504816526498746
+  },
+  "scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "groups": {
+    "positive": {
+      "pairs": 131118,
+      "observed_zero_share": 0.14993364755411157,
+      "models": {
+        "persistence": {
+          "brier": 0.14993364755411157,
+          "count_mean_mae": 0.8492426872253418,
+          "predicted_zero_mean": 0.0
+        },
+        "constant": {
+          "brier": 0.11998030029599199,
+          "count_mean_mae": 0.864883551463522,
+          "predicted_zero_mean": 0.07850069354577084
+        },
+        "calendar": {
+          "brier": 0.11936891810720342,
+          "count_mean_mae": 0.8685832661980416,
+          "predicted_zero_mean": 0.0775074003357894
+        }
+      }
+    },
+    "zero": {
+      "pairs": 106104,
+      "observed_zero_share": 0.822523184799819,
+      "models": {
+        "persistence": {
+          "brier": 0.17747681520018097,
+          "count_mean_mae": 0.24631494283676147,
+          "predicted_zero_mean": 1.0
+        },
+        "constant": {
+          "brier": 0.13603604768064198,
+          "count_mean_mae": 0.3520142108505269,
+          "predicted_zero_mean": 0.816772744401085
+        },
+        "calendar": {
+          "brier": 0.1328438865707888,
+          "count_mean_mae": 0.34113864101962943,
+          "predicted_zero_mean": 0.8228552533119313
+        }
+      }
+    },
+    "all": {
+      "pairs": 237222,
+      "observed_zero_share": 0.4507676353795179,
+      "models": {
+        "persistence": {
+          "brier": 0.1622530793939854,
+          "count_mean_mae": 0.5795668363571167,
+          "predicted_zero_mean": 0.44727723398335734
+        },
+        "constant": {
+          "brier": 0.1271616705757338,
+          "count_mean_mae": 0.6354887713992732,
+          "predicted_zero_mean": 0.4087129743795562
+        },
+        "calendar": {
+          "brier": 0.12539596472960887,
+          "count_mean_mae": 0.6326692931688528,
+          "predicted_zero_mean": 0.4108845263703924
+        }
+      }
+    }
+  },
+  "reliability_bins": {
+    "persistence": [
+      {
+        "bin": 0,
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 131118,
+        "predicted_mean": 0.0,
+        "observed_mean": 0.14993364755411157
+      },
+      {
+        "bin": 1,
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 2,
+        "lower": 0.2,
+        "upper": 0.3,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 3,
+        "lower": 0.3,
+        "upper": 0.4,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 4,
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 5,
+        "lower": 0.5,
+        "upper": 0.6,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 6,
+        "lower": 0.6,
+        "upper": 0.7,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 7,
+        "lower": 0.7,
+        "upper": 0.8,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 8,
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 0,
+        "predicted_mean": null,
+        "observed_mean": null
+      },
+      {
+        "bin": 9,
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 106104,
+        "predicted_mean": 1.0,
+        "observed_mean": 0.822523184799819
+      }
+    ],
+    "constant": [
+      {
+        "bin": 0,
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 89424,
+        "predicted_mean": 0.018889648544835515,
+        "observed_mean": 0.07900563607085347
+      },
+      {
+        "bin": 1,
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 21270,
+        "predicted_mean": 0.15006975721553545,
+        "observed_mean": 0.275223319228961
+      },
+      {
+        "bin": 2,
+        "lower": 0.2,
+        "upper": 0.3,
+        "count": 16360,
+        "predicted_mean": 0.25346656289082153,
+        "observed_mean": 0.3245721271393643
+      },
+      {
+        "bin": 3,
+        "lower": 0.3,
+        "upper": 0.4,
+        "count": 5327,
+        "predicted_mean": 0.32270267045752266,
+        "observed_mean": 0.3915900131406045
+      },
+      {
+        "bin": 4,
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 2625,
+        "predicted_mean": 0.45164602986963076,
+        "observed_mean": 0.5855238095238096
+      },
+      {
+        "bin": 5,
+        "lower": 0.5,
+        "upper": 0.6,
+        "count": 4679,
+        "predicted_mean": 0.5516325901234029,
+        "observed_mean": 0.631331481085702
+      },
+      {
+        "bin": 6,
+        "lower": 0.6,
+        "upper": 0.7,
+        "count": 10632,
+        "predicted_mean": 0.6529197797476007,
+        "observed_mean": 0.6839729119638827
+      },
+      {
+        "bin": 7,
+        "lower": 0.7,
+        "upper": 0.8,
+        "count": 18847,
+        "predicted_mean": 0.752603766591027,
+        "observed_mean": 0.7577863851010771
+      },
+      {
+        "bin": 8,
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 31428,
+        "predicted_mean": 0.853709507532698,
+        "observed_mean": 0.8455517373043147
+      },
+      {
+        "bin": 9,
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 36630,
+        "predicted_mean": 0.941457249217795,
+        "observed_mean": 0.9281463281463281
+      }
+    ],
+    "calendar": [
+      {
+        "bin": 0,
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 90312,
+        "predicted_mean": 0.0185744677104729,
+        "observed_mean": 0.07798520683851537
+      },
+      {
+        "bin": 1,
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 20491,
+        "predicted_mean": 0.14740841206354058,
+        "observed_mean": 0.27646283734322386
+      },
+      {
+        "bin": 2,
+        "lower": 0.2,
+        "upper": 0.3,
+        "count": 15636,
+        "predicted_mean": 0.24823232343171756,
+        "observed_mean": 0.33358915323612176
+      },
+      {
+        "bin": 3,
+        "lower": 0.3,
+        "upper": 0.4,
+        "count": 5747,
+        "predicted_mean": 0.3344820583348116,
+        "observed_mean": 0.3878545327997216
+      },
+      {
+        "bin": 4,
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 2967,
+        "predicted_mean": 0.4551692174756798,
+        "observed_mean": 0.5480283114256825
+      },
+      {
+        "bin": 5,
+        "lower": 0.5,
+        "upper": 0.6,
+        "count": 4966,
+        "predicted_mean": 0.5557860427569796,
+        "observed_mean": 0.6018928715263794
+      },
+      {
+        "bin": 6,
+        "lower": 0.6,
+        "upper": 0.7,
+        "count": 10055,
+        "predicted_mean": 0.6562494440736341,
+        "observed_mean": 0.6688214818498259
+      },
+      {
+        "bin": 7,
+        "lower": 0.7,
+        "upper": 0.8,
+        "count": 17610,
+        "predicted_mean": 0.7538854715072997,
+        "observed_mean": 0.7588302101078932
+      },
+      {
+        "bin": 8,
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 29373,
+        "predicted_mean": 0.8541277836009888,
+        "observed_mean": 0.8442447145337555
+      },
+      {
+        "bin": 9,
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 40065,
+        "predicted_mean": 0.9458592227392786,
+        "observed_mean": 0.9304380381879446
+      }
+    ]
+  },
+  "numerical_contract": {
+    "cutoff": 106,
+    "maximum_expected_attempts": 48.521876023273975,
+    "tail_probability_bound": 3.0930637433854046e-13,
+    "mean_error_bound": 4.8349841912193956e-11
+  },
+  "bootstraps": [
+    {
+      "block_days": 3,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        0.02092739081352295,
+        0.03606894519141628
+      ]
+    },
+    {
+      "block_days": 7,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        0.025101411808428044,
+        0.03504816526498746
+      ]
+    }
+  ],
+  "daily_positive_scores": [
+    {
+      "day_index": 0,
+      "persistence_loss": 934.0,
+      "calendar_loss": 713.1344798601225,
+      "pairs": 4332
+    },
+    {
+      "day_index": 1,
+      "persistence_loss": 1698.0,
+      "calendar_loss": 1330.5805240717655,
+      "pairs": 9505
+    },
+    {
+      "day_index": 2,
+      "persistence_loss": 1584.0,
+      "calendar_loss": 1256.87171862756,
+      "pairs": 9683
+    },
+    {
+      "day_index": 3,
+      "persistence_loss": 1440.0,
+      "calendar_loss": 1146.7460923891047,
+      "pairs": 9776
+    },
+    {
+      "day_index": 4,
+      "persistence_loss": 1652.0,
+      "calendar_loss": 1291.1594073345905,
+      "pairs": 9220
+    },
+    {
+      "day_index": 5,
+      "persistence_loss": 1617.0,
+      "calendar_loss": 1284.08444250766,
+      "pairs": 9408
+    },
+    {
+      "day_index": 6,
+      "persistence_loss": 1660.0,
+      "calendar_loss": 1315.4878523488842,
+      "pairs": 9349
+    },
+    {
+      "day_index": 7,
+      "persistence_loss": 1135.0,
+      "calendar_loss": 921.8402916623558,
+      "pairs": 9786
+    },
+    {
+      "day_index": 8,
+      "persistence_loss": 494.0,
+      "calendar_loss": 474.23115470019616,
+      "pairs": 10976
+    },
+    {
+      "day_index": 9,
+      "persistence_loss": 1115.0,
+      "calendar_loss": 927.3803195049087,
+      "pairs": 10304
+    },
+    {
+      "day_index": 10,
+      "persistence_loss": 1362.0,
+      "calendar_loss": 1089.1078197942009,
+      "pairs": 10242
+    },
+    {
+      "day_index": 11,
+      "persistence_loss": 1723.0,
+      "calendar_loss": 1339.187647914089,
+      "pairs": 9522
+    },
+    {
+      "day_index": 12,
+      "persistence_loss": 1618.0,
+      "calendar_loss": 1274.6696080023416,
+      "pairs": 9495
+    },
+    {
+      "day_index": 13,
+      "persistence_loss": 1627.0,
+      "calendar_loss": 1286.932445662519,
+      "pairs": 9520
+    }
+  ],
+  "actual_elapsed_seconds": {
+    "min": 1799,
+    "max": 1801
+  },
+  "current_zero_recovery_share": 0.177476815200181,
+  "learned_from_api": false,
+  "api_parameter_selection": false,
+  "official_evaluation_month": "2026-09",
+  "kernel_finished_before_api_open": "2026-10-31T04:40:16.426664+00:00",
+  "frozen_rate_hashes_unchanged": true,
+  "elapsed_seconds": 33.279850100167096,
+  "limitations": [
+    "Official September API evaluation, previously exposed in legacy experiments; not an untouched independent test.",
+    "Frozen historical completed-flow priors are effective rates, not identified latent demand or empty/non-full exposure-corrected intensities.",
+    "Independent memoryless attempted events, no physical upper capacity, operator rebalancing or state-correction component.",
+    "Past-to-September drift, source recording assumptions, station-ID changes and unmatched stations limit transfer.",
+    "Current API stock is an evaluation initial condition; request clocks are not server update times and KST is conditional.",
+    "Daytime exact-ID complete pairs over about two weeks; block intervals exclude rate-estimation uncertainty.",
+    "Primary current-positive empty-risk score does not establish all-stock, joint dependence, operational usefulness or final GCN/FM architecture."
+  ]
+}

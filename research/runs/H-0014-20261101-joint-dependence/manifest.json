@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0014",
+  "plan_sha256": "8705cef8b650386e3a6a541b4fdf35fa4f3f686613387d8f4a024bb41d4654d8",
+  "input_manifest_sha256": "78613f5764c1b723ef1b66a4b46253e1aa234dadff50ced3c912c1f6507c4b59",
+  "code_commit": "9543b5fdd0ef29d980adc1d68f868c065d8381f3",
+  "started_at_utc": "2026-10-31T14:56:34.686949+00:00",
+  "finished_at_utc": "2026-10-31T15:26:47.159454+00:00",
+  "command": [
+    "python",
+    "research_code/joint_inventory_fit.py",
+    "--data",
+    "PRIVATE_AUDITED_HISTORY",
+    "--out",
+    "PRIVATE_FIT",
+    "--collector-start",
+    "2026-10-31T14:56:34.686949+00:00"
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "device": "dislab",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "free_gpu_bytes": 9511632896,
+    "total_gpu_bytes": 10736893952,
+    "memory_fraction": 0.3,
+    "threads": 4,
+    "deterministic": true,
+    "tf32": false
+  },
+  "evaluation_scope": "Historical completed-net-flow vector learning and source-only joint-distribution selection/auxiliary. Predefined historical gate failed; no new September API evaluation.",
+  "metrics": {
+    "historical_worst_control_outflow_crps_relative_gain": 0.0,
+    "validation_independent_outflow_crps": 0.030376743084492425,
+    "validation_gaussian_outflow_crps": 0.030312281535811225,
+    "validation_flow_outflow_crps": 0.030312281535811225,
+    "auxiliary_independent_outflow_crps": 0.036466016612246396,
+    "auxiliary_gaussian_outflow_crps": 0.03629031654804834,
+    "auxiliary_flow_outflow_crps": 0.03629031654804834
+  },
+  "primary_metric_status": "unexecuted",
+  "primary_metric_not_observed": "worst_control_regional_zero_fraction_crps_relative_gain",
+  "external_api_opened": false,
+  "stopping_rule": "withdraw after historical outflow CRPS fails >1% against both independent/Gaussian; freeze rule unchanged",
+  "artifacts": [
+    {
+      "id": "model-lock-summary.json",
+      "sha256": "3b3423a1e2e2c803c170e28edbdca4936459441650ba5bdd2171ca97efb92768"
+    },
+    {
+      "id": "training-and-historical-summary.json",
+      "sha256": "34345ffb924c091bacee05a54dcd6f916239fce17cee2d21794ffd2e6268fd63"
+    }
+  ],
+  "limitations": [
+    "February52issues are selection data; gains are not independent test evidence.",
+    "March29issues are previously exposed completed-count auxiliary, not inventory truth.",
+    "No new official September stock/joint-zero forecast performance measured.",
+    "Same empirical marginal net flows deliberately preserved; this is dependence-only comparison.",
+    "Both selected flow checkpoints areepoch0: no learned FM correction adopted.",
+    "Small fixed learning budget/representation/selection rule does not invalidate the whole FM family.",
+    "No policy/routing/field benefit inferred from completed-net-flow scores."
+  ]
+}

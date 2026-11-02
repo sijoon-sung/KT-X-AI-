@@ -1,0 +1,57 @@
+{
+  "role": "Preregistered auxiliary contrasts; interval calculation added after fitting. Descriptive, no multiplicity adjustment, not a replacement for H12 primary full-transfer hypothesis.",
+  "comparisons": [
+    {
+      "candidate": "weather_forecast_encoder",
+      "control": "weather_scratch",
+      "macro_relative_gain": 0.01848583062216469,
+      "intervals": [
+        {
+          "block_observed_days": 3,
+          "interval": [
+            0.015686371710747958,
+            0.022218482891021307
+          ]
+        },
+        {
+          "block_observed_days": 7,
+          "interval": [
+            0.014802711603054195,
+            0.02201722056185144
+          ]
+        }
+      ],
+      "per_fold_gain": {
+        "spring": 0.023357734400339725,
+        "summer": 0.0009947614053388287,
+        "winter": 0.03013009891462226
+      }
+    },
+    {
+      "candidate": "weather_scratch",
+      "control": "legacy_weather_scratch",
+      "macro_relative_gain": 0.02426488538018079,
+      "intervals": [
+        {
+          "block_observed_days": 3,
+          "interval": [
+            0.012474052830636692,
+            0.03153596586835451
+          ]
+        },
+        {
+          "block_observed_days": 7,
+          "interval": [
+            0.01164025315703716,
+            0.031983484174343574
+          ]
+        }
+      ],
+      "per_fold_gain": {
+        "spring": 0.04553266274378742,
+        "summer": 0.0276064532767758,
+        "winter": -0.0019831875583367076
+      }
+    }
+  ]
+}

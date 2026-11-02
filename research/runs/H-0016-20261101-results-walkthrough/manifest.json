@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0016",
+  "plan_sha256": "9d57609f21b71d036ac459f17ee64b1fc7e75cef7b9737bd90d7caf2c8db62d8",
+  "input_manifest_sha256": "03ed9c2a7abc731cb677e38b0380575220684ebd01e5cafa3c194345f09e0082",
+  "code_commit": "7536ab180f3a42a54e33f725f07172476b376613",
+  "started_at_utc": "2026-10-31T16:11:44.555162+00:00",
+  "finished_at_utc": "2026-10-31T16:11:47.010727+00:00",
+  "command": [
+    "python",
+    "research_code/results_walkthrough.py",
+    "--inputs",
+    "PRIVATE_VERIFIED_INPUTS",
+    "--out",
+    "PRIVATE_BUNDLE",
+    "--collector-start",
+    "2026-10-31T16:11:44.555162+00:00"
+  ],
+  "environment": {
+    "device": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3"
+  },
+  "evaluation_scope": "Recorded forecast reconstruction and replay shadow constraints only, not new model superiority or actual relocation effectiveness.",
+  "metrics": {
+    "acceptance_failures": 0
+  },
+  "artifacts": [
+    {
+      "id": "browser-checks.json",
+      "sha256": "e6064822fc9f1116ca7d80a0eacfcbeec84f169b27e67fb1b51397f3eba3df7e"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "1891aebb16903a0d5e33c3d6214093d12fb4bff3b9e5ebd6bc691c0fe36dc33f"
+    }
+  ],
+  "limitations": [
+    "Model/weights unchanged, original H13 forecast reused; no new Tashu API collection.",
+    "1recorded1296station episode is not independent accuracy evidence.",
+    "All vehicle/depot/target/handling/parking conditions assumed; never dispatch.",
+    "OSRM currentcar estimate is not historical traffic or validated truck route.",
+    "H13 stationwise CFM samples, not H14 learned joint forecast.",
+    "No counterfactual relocation score or field benefit observed.",
+    "Supplementary missing-data browser injection test not executed after automatic review rejection; positive browser checks preserved."
+  ]
+}

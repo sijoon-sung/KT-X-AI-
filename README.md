@@ -1,81 +1,79 @@
-# Multimodal Transit Continuous Flow Matching (Transit-CFM)
-## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
+# 타슈 재고 예측과 재배치
 
-This repository contains the core methodology implementation of **Multimodal Transit Continuous Flow Matching (Transit-CFM)**, a graph-informed continuous generative framework designed for city-wide bike-sharing demand modeling and counterfactual transit policy simulations.
+GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대여소의 공급 수량과 방문 순서를 계산한다.
 
----
+홈페이지·실행 도구·연구 기록을 이 브랜치에 모았다. 새로 시작할 때는 아래 실행 안내를 따르면 된다.
 
-### 1. Proposed Methodology (`tashu/multimodal_transit_flow_matching.py`)
+## 실행
 
-The proposed method models joint spatial velocity fields along Optimal Transport (OT) displacement trajectories, conditioned on multimodal transit connectivity and meteorological forcing:
+[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
 
-1. **Optimal Transport Continuous Flow Matching (OT-CFM):**
-   - Straight displacement paths: $\mathbf{x}_t = (1 - t)\mathbf{x}_0 + t\mathbf{x}_1$ for $t \in [0, 1]$.
-   - Target velocity field: $\mathbf{u}_t = \mathbf{x}_1 - \mathbf{x}_0$.
-   - Objective: $\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{x}_1} \| v_\theta(\mathbf{x}_t, t, \mathbf{C}, \tilde{\mathbf{A}}) - (\mathbf{x}_1 - \mathbf{x}_0) \|^2$.
+계산은 dislab에서 실행한다. 로컬에서는 홈페이지 표시와 HTTP 요청·응답 확인을 한다. 자세한 설치·다운로드·API 명령은 [빠른 실행 안내](docs/quickstart.md)에 정리했다.
 
-2. **Multimodal Transit & External Conditioning ($\mathbf{C} \in \mathbb{R}^{B \times N \times 36}$):**
-   - **Metro Line 1 Coupling (22 Stations):** Geodesic distance decay $e^{-d / 500\text{m}}$ and commuter rush waves (08h inflow / 18h outflow).
-   - **Bus Transit Coupling (159 Hubs):** Last-mile feeder index $e^{-d / 300\text{m}}$ and transfer wave intensity.
-   - **6-Class Urban Functional Typologies:** One-hot embeddings for Subway Hub, Bus Transit, Residential Origin, Campus/Research, Civic/Commercial, and Park/Leisure.
-   - **Hourly Dynamic Weather:** Real-time temperature, precipitation, wind speed, relative humidity, and rain-transit suppression interactions.
-
-3. **High-Capacity Residual GCN Backbone:**
-   - 6 Residual GCN Blocks with LayerNorm and 2x FFN Expansion (dim 512).
-   - Continuous sinusoidal time embedding with per-block AdaLN/FiLM modulation.
-   - Dense Jumping Knowledge (JK) multi-scale skip connections.
-
-4. **Numerical ODE Inference & What-If Policy Engine:**
-   - Supports Euler, Midpoint (Runge-Kutta 2nd order), and Classical RK4 solvers.
-   - Solves forward and counterfactual trajectories: $\hat{\mathbf{x}}_1 = \mathbf{x}_0 + \int_0^1 v_\theta(\mathbf{x}_t, t, \mathbf{C}, \tilde{\mathbf{A}}) dt$.
-
----
-
-### 2. Method Code Structure
-
-```
-├── tashu/
-│   ├── multimodal_transit_flow_matching.py   # [Main Proposed Method] Full Transit-CFM pipeline
-│   ├── flow_matching_st.py                   # [Foundation Method] Scaled ST-CFM architecture
-│   └── data/
-│       ├── multimodal_transit_benchmark_results.json # Benchmark metrics & policy simulation results
-│       └── flow_matching_benchmark_results.json      # Pure ST-CFM benchmark results
-├── .gitignore                                # Strict exclusion of *.pt checkpoints & raw datasets
-└── README.md                                 # Methodology documentation
+```powershell
+# 모델 ZIP을 푼 계산 서버의 tashu-h13-runtime-v1.0.1 폴더에서
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe run.py verify
+.\.venv\Scripts\python.exe run.py demo --device cpu --out outputs/demo.json
 ```
 
----
+`demo`는 가상 재고를 입력한 설치 확인이다. API 키 없이 실행하며 실제 타슈 관측·정확도 결과가 아니다.
 
-### 3. How to Run the Methodology Code
+| 실행 명령 | 용도 |
+|---|---|
+| `run.py verify` | 원 잠금 해시·모든 파일 검증 |
+| `run.py inspect --device cpu` | 파라미터 수·시드·대여소 수 확인 |
+| `run.py demo --device cpu` | 가상 5개 대여소 예측 |
+| `run.py capture ...` | 공식 재고 API 한 번 수신 |
+| `run.py predict ...` | 현재·직전 관측으로 10분 예측 |
+| `run.py serve ...` | `/health`, `/api/model`, `/api/predict` 서버 |
 
-#### Requirements
-- Python >= 3.10
-- PyTorch >= 2.0 (CUDA enabled)
-- NumPy, SciPy, LightGBM, XGBoost
+실시간 명령은 현재 확인한 시계 보정·불확실성이 필요하다. API 키는 환경변수 `TASHU_API_KEY` 또는 기존 암호화 키 파일을 사용한다. 키와 원본 API 응답은 저장소에 올리지 않는다. 명령별 필수 인자와 요청 예시는 [API 사용법](docs/quickstart.md)에 있다.
 
-#### Execution Command
-```bash
-cd tashu
+## 모델 크기
 
-# Run full 10-epoch training and 2026 held-out evaluation
-python multimodal_transit_flow_matching.py --epochs 10 --batch-size 16 --solver midpoint --run-policy-sim
+| 구성 | 파라미터 |
+|---|---:|
+| GCN 1개, encoder 포함 | 317,122 |
+| FM head 1개 | 67,202 |
+| 두 시드의 GCN + FM 예측 경로 | 768,648 |
+| 비교 기준선까지 로딩한 전체 | 1,402,892 |
 
-# Fast smoke-test mode (3 epochs, quick verification)
-python multimodal_transit_flow_matching.py --fast --run-policy-sim
+시드 11·29, 표본 128개, Heun 16단계다. 가중치 외에 약 200MB의 대여소별 과거 특성 파일이 필요하다. 학습 대여소는 1,318개이며 실제 입력·평가에 대응되는 대여소 수는 관측마다 다르다. 모델 구조와 원 파일 해시는 [모델 카드](docs/model-card-h13.md)와 릴리즈의 `model-info.json`에 있다.
+
+## API와 재배치
+
+모델 API는 재고 분포를 반환한다. 관리자 UI·H21 계산기를 시작하는 방법과 요청 형식은 [재배치 실행 안내](docs/dispatch-runbook.md)에 정리했다.
+
+```powershell
+# 저장소 폴더, 계산 서버에서. 이미 발행된 관측 스트림 필요.
+python runtime/dispatch_server.py --stream-dir PRIVATE_EXISTING_STREAM --port 8770
 ```
 
----
+이 명령은 API 수집을 재시작하지 않는다. H18의 기존 24시간·143회 시험 수집과 새 운영 수집을 구분한다. 수량·차량 적재·주차·상하차·복귀를 검사하며 실제 차량과 작업시간은 아직 가정값이다.
 
-### 4. Empirical Evaluation Summary (Held-Out 2026 Data)
+홈페이지는 이 저장소의 `index.html`이다. 저장소 폴더에서 `python -m http.server 8771 --bind 127.0.0.1`로 표시한다.
 
-| Period | Model | MAE | WAPE | Zero-Demand Pred | Peak MAE ($y \ge 3$) | Rainy Hours MAE |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Feb 2026** (Winter) | Historical Smoothed Mean | 0.5281 | 1.1622 | 0.3731 | 2.0950 | 0.5120 |
-| | **Multimodal Transit-CFM (Proposed)** | **0.3395** | **0.7471** | **0.0787** | **2.1458** | **0.1171** |
-| **Mar 2026** (Spring) | Historical Smoothed Mean | 0.5264 | 0.9311 | 0.2778 | 2.5899 | 0.5230 |
-| | **Multimodal Transit-CFM (Proposed)** | **0.3809** | **0.6738** | **0.0811** | **2.1855** | **0.0568** |
+## 교통 연계 예시
 
-- **Inference Latency:** 12.7 ms per city-wide hour (1,283 stations simultaneously on RTX 3080).
-- **Counterfactual Policy Simulation:**
-  - *Subway Hub 50% Bike Supply Expansion:* +3.60% station catchment inflow.
-  - *Commuter Transit Disruption Shock:* +10.74% subway catchment surge, +11.18% city-wide last-mile absorption.
+[가상 입력과 실행 코드](examples/transport/README.md)로 버스 ETA·과거 도시철도 하차량을 대여소 특성에 대응하고, 도로 혼잡에 따라 같은 공급량의 방문 순서를 바꾸는 과정을 보여준다.
+
+```powershell
+python examples/transport/example.py --out private/transport-example.json
+```
+
+현재 H13에 새로운 교통 특성을 넣어 재예측한 결과는 아니다. 새 예측 입력을 쓰는 모델은 과거 자료로 별도 학습·선택해야 한다.
+
+## 평가와 자료
+
+2026-09-17~30의 1,298개 대여소·2,458,501쌍에서 현재 유지 대비 fairCRPS가 포아송 15.49%, FM 15.22% 감소했다. 재고 MAE는 현재 유지 0.212015대, 포아송 0.212039대, FM 0.211982대였다. FM fairCRPS는 포아송보다 0.327% 높았다.
+
+- [H13 평가·실행 이력](docs/H-0013-rolling-api-flow.md)
+- [H21 재배치 계획·운영 가정](docs/H-0021-bulk-rebalancing.md)
+- [학습과 API 사용 계약](docs/training-validation-contract.md)
+- [9월 평가 기간·정답](docs/september-evaluation-contract.md)
+- [배포·검증 기록](docs/runtime-release.md)
+- [기존 연구 기록](https://github.com/sijoon-sung/KT-X-AI-/blob/f218c83b015fffbac6fe1db686cdbe22f36a992e/README.md)
+
+다운로드한 과거 거래로 학습·내부 선택하고, API는 고정 모델의 당시 입력과 미래 평가 정답으로 분리한다. API 학습·튜닝·보정·모델 선택은 하지 않는다. 9월 자료는 반복 사용한 평가 자료다. 2·3월 거래 기록에는 실측 재고 정답이 없다. H13 로컬 학습 위치 위반과 dislab 평가 전환은 원 기록에 보존했다.

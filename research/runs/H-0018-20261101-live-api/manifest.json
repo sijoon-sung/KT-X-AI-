@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0018",
+  "plan_sha256": "a8f8bf5dbd2ed12a2de42f840241ef53aefa0656880fd1878b91eddd1fc4ce56",
+  "input_manifest_sha256": "175be68f68e1ec43f23a0321b1e863d6d8f3e1dbd89f3a182b95dcf48a7b0754",
+  "code_commit": "fa19e76dab7fbe832ce6e8f133c1261e9f072f54",
+  "started_at_utc": "2026-11-01T05:34:58.953272+00:00",
+  "finished_at_utc": "2026-11-01T05:51:20.719272+00:00",
+  "command": [
+    "python",
+    "research_code/live_api_service.py",
+    "run",
+    "--fit",
+    "PRIVATE_FROZEN_H13",
+    "--weather",
+    "PRIVATE_ARCHIVE",
+    "--defaults",
+    "PRIVATE_OPERATOR_DEFAULTS",
+    "--credential",
+    "PRIVATE_ACCOUNT_BOUND_DPAPI",
+    "--out",
+    "PRIVATE_LIVE_RUN",
+    "--clock-offset",
+    "PRIVATE_CALIBRATION",
+    "--clock-uncertainty",
+    "PRIVATE_UNCERTAINTY"
+  ],
+  "environment": {
+    "device": "dislab CUDA",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "python": "3.12.10"
+  },
+  "evaluation_scope": "First verified additional-live roundtrip checkpoint; bounded collector continues. Not new model superiority, September replacement or relocation effectiveness.",
+  "metrics": {
+    "acceptance_failures": 0,
+    "causal_roundtrips": 1,
+    "first_checkpoint_scored_pairs": 1296
+  },
+  "artifacts": [
+    {
+      "id": "browser-checks.json",
+      "sha256": "d20721388a41967e12da0159bd7d9fc2f8fbf7452f5f0c1fb9b488c2e8214151"
+    },
+    {
+      "id": "engineering-checks.json",
+      "sha256": "44dcd8e58047eb5c47f99d0f998cc0f837442521be895cf953428dd8dc8c0536"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "38cfc8be6c5cca56633550daaa81d2a4b377d8b269680d7f8d2954b6970df152"
+    }
+  ],
+  "limitations": [
+    "Checkpoint is not collector termination; service continues for bounded trial.",
+    "Single initial roundtrip has missing prior observation explicitly masked; later issuedforecast has actual prior input.",
+    "No new fit, test-based selection, calibration or officialSeptember replacement.",
+    "DisplayedAPIstock is not latent lost-demand/action/field benefit truth.",
+    "Planning is observation-time shadow under assumed fleet/depot/parking, not actualcurrentdispatch."
+  ]
+}

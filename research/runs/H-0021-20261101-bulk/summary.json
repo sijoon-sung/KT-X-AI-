@@ -1,0 +1,30 @@
+{
+  "hypothesis_id": "H-0021",
+  "started_at_utc": "2026-11-01T09:40:25.906272+00:00",
+  "finished_at_utc": "2026-11-01T09:40:36.531272+00:00",
+  "native_started_at_utc": "2026-11-01T09:38:06.373843+00:00",
+  "native_finished_at_utc": "2026-11-01T09:38:16.995906+00:00",
+  "clock": {
+    "offset_seconds": 139.5238094329834,
+    "uncertainty_seconds": 0.6157654523849487
+  },
+  "environment": {
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "device": "dislab CPU"
+  },
+  "conditions": 72,
+  "feasibility_violations": 0,
+  "max_bulk_delivery_batch": 6,
+  "decision": "supported",
+  "live_rpc_status": 200,
+  "live_moved": 6,
+  "replay_compact_moved": 3,
+  "replay_bulk_moved": 6,
+  "limitations": [
+    "Changed operational assumptions, not same-resource algorithm/accuracy/field gain",
+    "One vehicle and assumed parking/handling, original10min prediction cutoff",
+    "Replay is not current issuance; actual-now response separately recorded",
+    "API is input only, frozen model weights unchanged"
+  ]
+}

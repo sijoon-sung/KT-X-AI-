@@ -1,0 +1,27 @@
+{
+  "mode": "synthetic shadow only for executed acceptance",
+  "vehicle_count": 1,
+  "max_stops": 8,
+  "allocation": "integer source-to-destination flow plus per-node per-scenario shortage slacks and scenario CVaR; safe pickup and operator drop caps; total work budget",
+  "objective": "mean total weighted buffer shortfall + risk_weight*CVaR_alpha(total shortfall) + transfer travel-time proxy*unitweight + positive handling unit cost",
+  "routing": "exact permutations for selected<=8stops; same vehicle, pickup-before-assigned-delivery, cumulative load0..capacity, service+directed travel+return within min(shift,forecast horizon)",
+  "fallback": "decrease total movement budget by1 and re-solve until a feasible route or no action; preserve rejected attempts; no global optimality claim for the coupled2-stage heuristic",
+  "solver": "SciPy1.15.3 milp/HiGHS,integer transfer variables,60sec allocation limit,deterministic smallcases",
+  "horizon": "terminal inventory target at validated10min deadline, not an ETA-specific stock trajectory; confirm source stock at each actual visit and replan; no physical/counterfactual effect claim",
+  "cases": [
+    "main exact quantities/route/peak load",
+    "same marginals but changed joint dependence switches CVaR destination",
+    "expected-only objective gives same destination",
+    "capacity fallback",
+    "time/deadline fallback",
+    "missing capacity reject",
+    "unsupported horizon reject",
+    "nonfinite forecast reject",
+    "unreachable road fallback",
+    "unknown or stale operational metadata reject"
+  ],
+  "success": "all acceptance assertions pass, zero constraint violations; positive virtual routing example; no real dispatch",
+  "failure": "any unsafe result or failed acceptance assertion meansnot_supported; preservelogs",
+  "compute": "dislab CPU, fixed inputs, no random learning, no GPU requirement, no new API evaluation",
+  "outputs": "per-station pickup/dropoff/net and donor retention, per-stop ETA/load, unserved buffers/scenario loss, assumptions/gates, dispatch_allowed=false"
+}

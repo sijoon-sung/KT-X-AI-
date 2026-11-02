@@ -1,0 +1,232 @@
+{
+  "hypothesis_id": "H-0001",
+  "decision": "not_supported",
+  "metrics": {
+    "mean_daily_abs_zero_share_shift_pp": 1.2437785768866603,
+    "eligible_dates": 42,
+    "eligible_station_days": 57800,
+    "candidate_station_days": 58086,
+    "ci_3day_lower_pp": 1.1553513067049426,
+    "ci_3day_upper_pp": 1.3141108195367401,
+    "ci_7day_lower_pp": 1.1580944688166572,
+    "ci_7day_upper_pp": 1.3041106698494167
+  },
+  "daily": [
+    {
+      "date": "2026-09-18",
+      "eligible_stations": 1374,
+      "abs_shift_pp": 1.453582403364063
+    },
+    {
+      "date": "2026-09-19",
+      "eligible_stations": 1374,
+      "abs_shift_pp": 1.332955954498895
+    },
+    {
+      "date": "2026-09-20",
+      "eligible_stations": 1374,
+      "abs_shift_pp": 1.264556040756914
+    },
+    {
+      "date": "2026-09-21",
+      "eligible_stations": 1374,
+      "abs_shift_pp": 1.3973125235861772
+    },
+    {
+      "date": "2026-09-22",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.4081087642631709
+    },
+    {
+      "date": "2026-09-23",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.3885526775868098
+    },
+    {
+      "date": "2026-09-24",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.0846176605072755
+    },
+    {
+      "date": "2026-09-25",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 0.6145942602006509
+    },
+    {
+      "date": "2026-09-26",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.0328411199870897
+    },
+    {
+      "date": "2026-09-27",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.2053175179536835
+    },
+    {
+      "date": "2026-09-28",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.4446999650340244
+    },
+    {
+      "date": "2026-09-29",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.4473896554506578
+    },
+    {
+      "date": "2026-09-30",
+      "eligible_stations": 1377,
+      "abs_shift_pp": 1.432932569461255
+    },
+    {
+      "date": "2026-10-01",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.4077441077441075
+    },
+    {
+      "date": "2026-10-02",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.3727272727272728
+    },
+    {
+      "date": "2026-10-03",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.2235690235690235
+    },
+    {
+      "date": "2026-10-04",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.2393939393939395
+    },
+    {
+      "date": "2026-10-05",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.2404040404040404
+    },
+    {
+      "date": "2026-10-06",
+      "eligible_stations": 1372,
+      "abs_shift_pp": 1.367292948925602
+    },
+    {
+      "date": "2026-10-07",
+      "eligible_stations": 1372,
+      "abs_shift_pp": 1.3895637620127415
+    },
+    {
+      "date": "2026-10-08",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.4202476329206117
+    },
+    {
+      "date": "2026-10-09",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.2843597421164794
+    },
+    {
+      "date": "2026-10-10",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.3406706050551644
+    },
+    {
+      "date": "2026-10-11",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.2051199050470718
+    },
+    {
+      "date": "2026-10-12",
+      "eligible_stations": 1373,
+      "abs_shift_pp": 1.3305548811739634
+    },
+    {
+      "date": "2026-10-13",
+      "eligible_stations": 1376,
+      "abs_shift_pp": 1.0709383074935401
+    },
+    {
+      "date": "2026-10-14",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.3494949494949495
+    },
+    {
+      "date": "2026-10-15",
+      "eligible_stations": 1375,
+      "abs_shift_pp": 1.4232323232323234
+    },
+    {
+      "date": "2026-10-16",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.3982891520962588
+    },
+    {
+      "date": "2026-10-17",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.3717669809040367
+    },
+    {
+      "date": "2026-10-18",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 0.6714473719549862
+    },
+    {
+      "date": "2026-10-19",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.2972363226170334
+    },
+    {
+      "date": "2026-10-20",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 0.889332044154379
+    },
+    {
+      "date": "2026-10-21",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.2935433620712808
+    },
+    {
+      "date": "2026-10-22",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.2623210592753742
+    },
+    {
+      "date": "2026-10-23",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.2918647436413935
+    },
+    {
+      "date": "2026-10-24",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 0.3669459887733999
+    },
+    {
+      "date": "2026-10-25",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.0686084924663604
+    },
+    {
+      "date": "2026-10-26",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.367738296672307
+    },
+    {
+      "date": "2026-10-27",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.3173797437756827
+    },
+    {
+      "date": "2026-10-28",
+      "eligible_stations": 1379,
+      "abs_shift_pp": 1.261649611903419
+    },
+    {
+      "date": "2026-10-29",
+      "eligible_stations": 1378,
+      "abs_shift_pp": 1.2078025049723162
+    }
+  ],
+  "limitations": [
+    "Asia/Seoul is a conditional interpretation; source OS timezone is not independently proven.",
+    "Complete-case station-days are selectively represented; missing calendar dates remain missing.",
+    "Ten-minute polls are a reference, not continuous-time truth, user failures or unmet demand.",
+    "Short one-season period; block bootstrap is descriptive and cannot establish annual generalization."
+  ]
+}

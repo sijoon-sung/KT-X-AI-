@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "dataset_id": "tashu-seasonal-history-H0010-v1",
+  "historical_source_catalog": "docs/sources/tashu-historical-trips-source-v1.json",
+  "h4_manifest": "research/runs/H-0004-20261031-historical/manifest.json",
+  "h7_manifest": "research/runs/H-0007-20261031-od-gcn/manifest.json",
+  "h9_manifest": "research/runs/H-0009-20261031-scaled-seoul-flow/manifest.json",
+  "api_manifest": "research/datasets/tashu-primary-v1.json",
+  "history_archive_sha256": "b43e78c373050d0aae2208db037538187066c565b7d5833f462b2ea94d42560b",
+  "role": "Downloaded completed trips for historical fitting/February selection; September API evaluation only; no API-derived training features.",
+  "historical_source_catalog_sha256": "e8c04e3b6839760001b025e9e489b0044b330470489434853b5182dcf0554438",
+  "h4_manifest_sha256": "5b7afd0fcd15eaced73f7cb41f188a428ead1ace48e38ead777c7e27ad381b6c",
+  "h7_manifest_sha256": "faaa21939acf1acc6536d327cc4a3d177cd9b00158961e0ea0ec2acb8e428bf6",
+  "h9_manifest_sha256": "e1a9bab29c8a1a2948d39bc7de963a5b3ace67fdf231d04532d4aa36ce07ee97",
+  "api_manifest_sha256": "1961ed3f99c549eb2470517a51567b12ad4132beb0df778fab1fa9f7dc800875"
+}

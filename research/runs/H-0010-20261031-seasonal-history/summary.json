@@ -1,0 +1,229 @@
+{
+  "hypothesis_id": "H-0010",
+  "decision": "not_supported",
+  "metrics": {
+    "worst_control_relative_crps_gain": 0.002434915410858274,
+    "valid_pairs": 237222,
+    "ci_3day_lower": -0.0009041273502732539,
+    "ci_3day_upper": 0.004110003829519093,
+    "ci_7day_lower": 0.0024349154108579407,
+    "ci_7day_upper": 0.003855691971538011
+  },
+  "scope": {
+    "trained_ids": 1192,
+    "api_ids": 1383,
+    "matched_ids": 1176,
+    "unmatched_trained_ids": 16,
+    "unmatched_api_ids": 207,
+    "candidate_origins": 202,
+    "candidate_cells": 237552,
+    "missing_current_or_target": 330,
+    "invalid_timing_with_observed_values": 0,
+    "valid_pairs": 237222,
+    "period_start": "2026-09-01T00:00:00+09:00",
+    "period_end_exclusive": "2026-10-01T00:00:00+09:00",
+    "source_dates": "2026-09-17..2026-09-30"
+  },
+  "groups": {
+    "pooled_calendar": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.454437271530416,
+        "brier": 0.12561740412423136,
+        "median_mae": 0.5753260658792186,
+        "mean_rmse": 1.147099339656929,
+        "coverage_5_95": 0.9159057760241461
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19600627938508824,
+        "brier": 0.1323675034505402,
+        "median_mae": 0.2462301138505617,
+        "mean_rmse": 0.6063311575452099,
+        "coverage_5_95": 0.9629514438663952
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.66356616299145,
+        "brier": 0.1201550531204129,
+        "median_mae": 0.8416388291462652,
+        "mean_rmse": 1.4433100277667008,
+        "coverage_5_95": 0.877835232386095
+      }
+    },
+    "seasonal_profile": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.45310414887822686,
+        "brier": 0.12563573139022566,
+        "median_mae": 0.5746600231007242,
+        "mean_rmse": 1.1433110960372526,
+        "coverage_5_95": 0.9162303664921466
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19627321348597052,
+        "brier": 0.13263805875014265,
+        "median_mae": 0.24673904848073588,
+        "mean_rmse": 0.6067276309134778,
+        "coverage_5_95": 0.9621314936288924
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6609382339684505,
+        "brier": 0.11996927108579278,
+        "median_mae": 0.8400219649476044,
+        "mean_rmse": 1.437726211679058,
+        "coverage_5_95": 0.8790860141246816
+      }
+    },
+    "seasonal_self": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.44941263228647477,
+        "brier": 0.12505543892739807,
+        "median_mae": 0.5742258306565159,
+        "mean_rmse": 1.137085322762712,
+        "coverage_5_95": 0.9238308419961049
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19649241278547727,
+        "brier": 0.13277382173561084,
+        "median_mae": 0.24796426147930334,
+        "mean_rmse": 0.6078253842600618,
+        "coverage_5_95": 0.9653735957174093
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6540820672224397,
+        "brier": 0.11880952845375903,
+        "median_mae": 0.8382449396726612,
+        "mean_rmse": 1.4283878138718207,
+        "coverage_5_95": 0.8902133955673516
+      }
+    },
+    "seasonal_od": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.44930504724115317,
+        "brier": 0.12501392537589562,
+        "median_mae": 0.5743185707902303,
+        "mean_rmse": 1.137449752751875,
+        "coverage_5_95": 0.9244884538533525
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.19651760341942026,
+        "brier": 0.13280904846163405,
+        "median_mae": 0.24828470180200557,
+        "mean_rmse": 0.6077045355047367,
+        "coverage_5_95": 0.9658636809168363
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6538670367411543,
+        "brier": 0.11870591472984257,
+        "median_mae": 0.8381534190576427,
+        "mean_rmse": 1.4289542683133314,
+        "coverage_5_95": 0.8910065742308455
+      }
+    },
+    "h4_calendar": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.45304629140944863,
+        "brier": 0.12539596472960887,
+        "median_mae": 0.5763462073500771,
+        "mean_rmse": 1.1497787753317348,
+        "coverage_5_95": 0.9233882186306498
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.1964760244484987,
+        "brier": 0.1328438865707888,
+        "median_mae": 0.24857686797858705,
+        "mean_rmse": 0.6069626207266092,
+        "coverage_5_95": 0.9667307547312071
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6606694370158844,
+        "brier": 0.11936891810720342,
+        "median_mae": 0.8415854421208377,
+        "mean_rmse": 1.4469479708632762,
+        "coverage_5_95": 0.888314342805717
+      }
+    },
+    "h9_full": {
+      "all": {
+        "pairs": 237222,
+        "crps": 0.4504017373725589,
+        "brier": 0.1256018127075538,
+        "median_mae": 0.5744829737545422,
+        "mean_rmse": 1.1352552026636413,
+        "coverage_5_95": 0.9384205512136311
+      },
+      "zero": {
+        "pairs": 106104,
+        "crps": 0.1973515440955166,
+        "brier": 0.13379106965259505,
+        "median_mae": 0.24788886375631455,
+        "mean_rmse": 0.6104831451164571,
+        "coverage_5_95": 0.9770036944884265
+      },
+      "positive": {
+        "pairs": 131118,
+        "crps": 0.6551763503735755,
+        "brier": 0.11897485897963958,
+        "median_mae": 0.8387711832090178,
+        "mean_rmse": 1.424832464454293,
+        "coverage_5_95": 0.9071980963712076
+      }
+    }
+  },
+  "control_relative_crps_gains": {
+    "pooled_calendar": 0.01129358133847369,
+    "h9_full": 0.002434915410858274
+  },
+  "bootstraps": [
+    {
+      "block_days": 3,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        -0.0009041273502732539,
+        0.004110003829519093
+      ]
+    },
+    {
+      "block_days": 7,
+      "requested_replicates": 2000,
+      "valid_replicates": 2000,
+      "interval": [
+        0.0024349154108579407,
+        0.003855691971538011
+      ]
+    }
+  ],
+  "persistence": {
+    "crps": 0.5795668363571167,
+    "median_mae": 0.5795668363571167
+  },
+  "api_training_or_selection": false,
+  "numerical_contract": {
+    "cutoff": 155,
+    "maximum_expected_attempts": 82.58446311950684,
+    "tail_probability_bound": 4.147460150226612e-13,
+    "mean_error_bound": 9.939957304246181e-11
+  },
+  "elapsed_evaluation_seconds": 663.8724759998731,
+  "limitations": [
+    "Repeatedly exposed September official evaluation, not an untouched independent test; no API fitting/selection/calibration.",
+    "February and March are completed-count data, not measured inventory; March was already used in prior research.",
+    "First historical record is only a conservative record-support proxy, not physical opening date or measured supply exposure.",
+    "Static calendar/OD inputs omit current weather, recent transactions, operator moves and observation process.",
+    "Poisson zero-reflection has no measured physical parking cap; completed flows are not identified latent demand.",
+    "Primary comparison is a seasonality-plus-GCN package; graph effect is a separate auxiliary contrast; intervals omit fit/selection uncertainty."
+  ]
+}

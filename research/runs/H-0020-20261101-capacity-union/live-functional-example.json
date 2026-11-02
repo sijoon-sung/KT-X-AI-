@@ -1,0 +1,178 @@
+{
+  "source_version": "H18-1793516400",
+  "recorded_at_utc": "2026-11-01T07:00:00+00:00",
+  "departure_at_utc": "2026-11-01T07:00:09.719272+00:00",
+  "issued_at_utc": "2026-11-01T07:00:12.312272+00:00",
+  "valid_until_utc": "2026-11-01T07:10:00+00:00",
+  "parameters": {
+    "automatic": true,
+    "station_ids": [
+      "ST0322",
+      "ST0321",
+      "ST1510",
+      "ST1366",
+      "ST0869"
+    ],
+    "depot_id": "ST0322",
+    "capacity": 6,
+    "target": 2,
+    "deadline_minutes": 10,
+    "budget": 6,
+    "objective": "balanced",
+    "effective_deadline": 9.338012131055196
+  },
+  "moved_bikes": 4,
+  "route": {
+    "stops": [
+      {
+        "station_id": "ST0322",
+        "action": "pickup",
+        "bikes": 2,
+        "leg_meters": 0.0,
+        "leg_drive_minutes": 0.0,
+        "eta_minutes": 0.0,
+        "completion_minutes": 0.2,
+        "vehicle_load_after": 2,
+        "name": "태평동 버드내초등학교"
+      },
+      {
+        "station_id": "ST0320",
+        "action": "pickup",
+        "bikes": 1,
+        "leg_meters": 374.2,
+        "leg_drive_minutes": 0.4083333333333333,
+        "eta_minutes": 0.6083333333333334,
+        "completion_minutes": 0.7083333333333334,
+        "vehicle_load_after": 3,
+        "name": "태평동 삼부프라자"
+      },
+      {
+        "station_id": "ST0870",
+        "action": "deliver",
+        "bikes": 1,
+        "leg_meters": 1155.5,
+        "leg_drive_minutes": 1.76,
+        "eta_minutes": 2.4683333333333333,
+        "completion_minutes": 2.5683333333333334,
+        "vehicle_load_after": 2,
+        "name": "가장동 큰손부추해물칼국수"
+      },
+      {
+        "station_id": "ST0874",
+        "action": "pickup",
+        "bikes": 1,
+        "leg_meters": 2210.2,
+        "leg_drive_minutes": 2.7733333333333334,
+        "eta_minutes": 5.341666666666667,
+        "completion_minutes": 5.441666666666666,
+        "vehicle_load_after": 3,
+        "name": "유천동 새서울종합시장"
+      },
+      {
+        "station_id": "ST0509",
+        "action": "deliver",
+        "bikes": 1,
+        "leg_meters": 1452.1,
+        "leg_drive_minutes": 1.495,
+        "eta_minutes": 6.9366666666666665,
+        "completion_minutes": 7.036666666666666,
+        "vehicle_load_after": 2,
+        "name": "문화동 세이백화점"
+      },
+      {
+        "station_id": "ST0521",
+        "action": "deliver",
+        "bikes": 2,
+        "leg_meters": 397.2,
+        "leg_drive_minutes": 0.36666666666666664,
+        "eta_minutes": 7.403333333333332,
+        "completion_minutes": 7.603333333333333,
+        "vehicle_load_after": 0,
+        "name": "문화동 BMK컨벤션"
+      }
+    ],
+    "return_minutes": 9.181666666666667,
+    "return_leg_minutes": 1.5783333333333334,
+    "return_leg_meters": 1544.0,
+    "distance_meters": 7133.2,
+    "peak_load": 3
+  },
+  "risk_before": 2360.2109375,
+  "risk_after": 2350.84375,
+  "objective_value": 2351.097746,
+  "coverage": {
+    "scanned": 1296,
+    "current_zero": 544,
+    "receivers": 900,
+    "donors": 287,
+    "shortlisted": 26,
+    "selection": "Automatic regional shortlist from all supported stations; no citywide optimum",
+    "delivery_sites": 3,
+    "zero_sites_supplied": 3,
+    "unserved_receivers": 897,
+    "unserved_zero": 541,
+    "reason": "차량 1대·남은 10분 예측·적재량 안에서 가까운 공급/부족 후보를 선택합니다. 나머지는 후속 작업 대상입니다."
+  },
+  "certificate": {
+    "violations": 0,
+    "bike_conservation": true,
+    "intermediate_capacity": true,
+    "donor_bounds": true,
+    "return_before_forecast": true
+  },
+  "seconds": 2.595249000005424,
+  "solver_seconds": 0.11614249972626567,
+  "proof": {
+    "complete_search": false,
+    "method": "H19 beam64/max6 visits and feasible fallbacks at each integer subcapacity; heuristic",
+    "expanded": 44399,
+    "capacity_subproblems": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "capacity_inclusion": "All other inputs fixed; every smaller-capacity feasible incumbent retained"
+  },
+  "controls": {
+    "no_action": {
+      "net_value": 0.0,
+      "moved_bikes": 0,
+      "km": 0.0,
+      "minutes": 0.0
+    },
+    "best_pair": {
+      "net_value": 3.760895,
+      "moved_bikes": 2,
+      "km": 5.741,
+      "minutes": 8.123333333333333
+    },
+    "nearest_pair": {
+      "net_value": 2.7172615,
+      "moved_bikes": 1,
+      "km": 3.1016999999999997,
+      "minutes": 3.495
+    },
+    "legacy_fixed5": {
+      "net_value": 0.0,
+      "moved_bikes": 0,
+      "km": 0.0,
+      "minutes": 0.0
+    },
+    "direct_capacity": {
+      "net_value": 3.760895,
+      "moved_bikes": 2,
+      "km": 5.741,
+      "minutes": 8.123333333333333
+    },
+    "smaller_capacity": {
+      "net_value": 9.113191500000001,
+      "moved_bikes": 4,
+      "km": 7.1331999999999995,
+      "minutes": 9.181666666666667
+    }
+  },
+  "private_artifact_sha256": "de880386470c50bc67278917213aebf1c0c51b842bf09c0aca36d30a25b03c04"
+}

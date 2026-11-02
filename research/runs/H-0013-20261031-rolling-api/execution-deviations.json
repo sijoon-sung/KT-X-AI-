@@ -1,0 +1,38 @@
+{
+  "execution_location": [
+    {
+      "scope": "execution location deviation; frozen plan remains unchanged",
+      "detail": "제공된 채팅 AGENTS의 dislab-only 지침을 뒤늦게 대조했다. 로컬에서 이미 완료한 과거전용 학습은 재작성하지 않고 실행 위치 위반으로 보존한다. 로컬9월평가는 중단하고 부분점수를 결론에 합치지 않는다. 이후 고정된 동일 모델의 전체9월평가와 실제 새 예측은 dislab에서 실행한다. 가중치/구조/생성/표본/기준을 변경하지 않는다. 이는 환경 불일치 제약으로 공개한다.",
+      "before_remote_evaluation": true
+    }
+  ],
+  "clock_comparison": {
+    "collector_before_remote_call": 1793450539.78937,
+    "collector_after_remote_call": 1793450542.02285,
+    "remote_report_unix_seconds": 1793450404.8655298,
+    "collector_minus_remote_seconds_bounds": [
+      134.92384028434753,
+      137.1573202610016
+    ],
+    "clock_basis": "collector time also used for live API observations; native remote reports preserved"
+  },
+  "clock_correction": {
+    "original_forecast_sha256": "38948af5b7dbbea46e842d8d84f1b7f64bb5d4aa3d6053e1ba728da6ecee9afa",
+    "normalized_forecast_sha256": "b3a2a2dff60c61980262ca5d7d1025de2cf6746d61fe3d31d9fb3836b5cf0854",
+    "remote_os_issued_at_unix_seconds": 1793449675.9783165,
+    "collector_confirmed_at_unix_seconds": 1793449871.6957114,
+    "target_scheduled_at_unix_seconds": 1793450400,
+    "prediction_values_changed": false,
+    "truth_had_arrived": false
+  },
+  "local_partial_replay": "Interrupted after discovering dislab-only instruction; private ledger retained, never combined with full remote results.",
+  "pre_experiment_test_fixes": [
+    "Corrected synthetic Brier expected event label and minimum-sample fixture; score implementation unchanged."
+  ],
+  "tool_wrapper_errors": [
+    "Initial unittest invocation used wrong relative interpreter path.",
+    "One private publisher stdout encoding and one SSH wrapper interpolation failed; corrected before affected work."
+  ],
+  "numerical_model_or_scoring_source_changed_after_fit": false,
+  "frozen_plan_rewritten": false
+}

@@ -1,0 +1,115 @@
+{
+  "scope": "synthetic engineering example; not Daejeon observations or a model accuracy experiment",
+  "issue_at": "2026-11-02T09:00:00Z",
+  "candidate_contexts": [
+    {
+      "station_id": "A",
+      "next_bus_eta_seconds": 120,
+      "walk_to_bus_seconds": 180,
+      "previous_day_same_hour_metro_alightings": 1200,
+      "bus_present": true,
+      "metro_present": true
+    },
+    {
+      "station_id": "B",
+      "next_bus_eta_seconds": null,
+      "walk_to_bus_seconds": null,
+      "previous_day_same_hour_metro_alightings": null,
+      "bus_present": false,
+      "metro_present": false
+    }
+  ],
+  "rejected_events": [
+    {
+      "id": "bus-published-later",
+      "reason": "not available at issue time"
+    }
+  ],
+  "accepted_events": [
+    "bus-on-time",
+    "metro-previous-day",
+    "road-congestion"
+  ],
+  "routes": [
+    {
+      "path": [
+        "S",
+        "A",
+        "B",
+        "S"
+      ],
+      "meters": 2800,
+      "baseline_seconds": 420,
+      "traffic_seconds": 660.0,
+      "handling_seconds": 120,
+      "loads": [
+        3,
+        1,
+        0
+      ],
+      "baseline_feasible": true,
+      "traffic_feasible": false
+    },
+    {
+      "path": [
+        "S",
+        "B",
+        "A",
+        "S"
+      ],
+      "meters": 3000,
+      "baseline_seconds": 450,
+      "traffic_seconds": 450,
+      "handling_seconds": 120,
+      "loads": [
+        3,
+        2,
+        0
+      ],
+      "baseline_feasible": true,
+      "traffic_feasible": true
+    }
+  ],
+  "baseline_plan": {
+    "path": [
+      "S",
+      "A",
+      "B",
+      "S"
+    ],
+    "meters": 2800,
+    "baseline_seconds": 420,
+    "traffic_seconds": 660.0,
+    "handling_seconds": 120,
+    "loads": [
+      3,
+      1,
+      0
+    ],
+    "baseline_feasible": true,
+    "traffic_feasible": false
+  },
+  "traffic_plan": {
+    "path": [
+      "S",
+      "B",
+      "A",
+      "S"
+    ],
+    "meters": 3000,
+    "baseline_seconds": 450,
+    "traffic_seconds": 450,
+    "handling_seconds": 120,
+    "loads": [
+      3,
+      2,
+      0
+    ],
+    "baseline_feasible": true,
+    "traffic_feasible": true
+  },
+  "model_weights_changed": false,
+  "current_h13_accepts_these_features": false,
+  "predicted_demand_change": null,
+  "real_operator_action": false
+}

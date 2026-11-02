@@ -1,0 +1,23 @@
+name: 연구 질문과 선행연구
+description: 가설 PR을 만들기 전 질문과 관련 연구를 정리합니다.
+title: "[question] "
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 답하려는 질문
+      description: 자료로 반증하거나 확인할 수 있는 질문을 적습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 선행연구와 관측 가능한 자료
+      description: 원문 링크, 이미 연구된 내용, 아직 확인하지 않은 부분을 구분합니다.
+    validations:
+      required: true
+  - type: input
+    id: hypothesis_pr
+    attributes:
+      label: 연결할 가설 PR
+      description: 이슈는 가설 PR을 대체하지 않습니다. 생성 후 URL을 연결합니다.

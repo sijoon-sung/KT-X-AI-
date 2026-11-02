@@ -1,0 +1,21 @@
+name: 자료 품질과 정답 정의
+description: 누락·중복·시각·출처·정답 해석 문제를 기록합니다.
+title: "[data] "
+body:
+  - type: textarea
+    id: observation
+    attributes:
+      label: 관측한 문제와 재현 방법
+      description: 자료 식별자·기간·스키마·해시를 적습니다. 토큰·원본·개인 경로는 올리지 않습니다.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: 영향을 받는 정답·가설·PR
+    validations:
+      required: true
+  - type: textarea
+    id: resolution
+    attributes:
+      label: 처리 방안과 남은 불확실성

@@ -1,0 +1,62 @@
+{
+  "hypothesis_id": "H-0008",
+  "decision": "not_supported",
+  "metrics": {
+    "acceptance_case_pass_fraction": 1.0,
+    "acceptance_cases": 64,
+    "passed_cases": 64,
+    "max_absolute_pzero_error": 0.0,
+    "max_absolute_mean_error": 0.0,
+    "checkpoint_forward_max_absolute_rate_error": 7.62939453125e-06,
+    "model_startup_seconds": 0.32303280010819435,
+    "prediction_latency_ms_median": 9.674250148236752,
+    "prediction_latency_ms_max": 11.624300386756659
+  },
+  "tests": [
+    {
+      "suite": "research_code/tests",
+      "passed": true,
+      "tests": 8
+    },
+    {
+      "suite": "tools/tests",
+      "passed": true,
+      "tests": 14
+    }
+  ],
+  "http_checks": {
+    "health": true,
+    "replay_future_label_noninterference": true,
+    "manual_forecast": true,
+    "snapshot_missing_preserved": true,
+    "web_page": false
+  },
+  "provenance": {
+    "model_run": "H-0007-20261031-od-gcn",
+    "gcn_role": "competition demonstration requested by user; superiority not established",
+    "gcn_checkpoint_forward_verified": true,
+    "forward_max_absolute_rate_error": 7.62939453125e-06,
+    "gcn_export_sha256": "27f1364ecb26922a81f28739a80f7f852b58aec10827bd469b46c34ec14d891f",
+    "calendar_export_sha256": "cc196949d1e9f5ad1877b87e7a88d6ef89e61c7e4924801d92c9492d76115ca5",
+    "numerical_contract": {
+      "cutoff": 117,
+      "maximum_expected_attempts": 55.79689979553223,
+      "tail_probability_bound": 2.9453932063646353e-13,
+      "mean_error_bound": 5.144333519091448e-11
+    },
+    "new_training": false,
+    "api_tuning_or_calibration": false,
+    "compute_location": "dislab CPU"
+  },
+  "new_training": false,
+  "api_model_selection_or_calibration": false,
+  "elapsed_seconds": 6.853684199973941,
+  "limitations": [
+    "Engineering acceptance only; no new model accuracy evidence or GCN superiority claim.",
+    "GCN is the user-requested competition demonstration path; H7 negative result and non-adoption for performance remain unchanged.",
+    "September was previously exposed; February/March have no measured inventory truth.",
+    "Replay/manual/current snapshot only; live API polling and operational deployment not implemented.",
+    "Non-clock-hour scenarios hold current-hour rates fixed and have no empirical validation; API displayed inventory is not guaranteed usable bikes.",
+    "Web UI interactions verified separately; inference and tests on dislab CPU; local browser is presentation only."
+  ]
+}

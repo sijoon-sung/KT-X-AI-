@@ -1,0 +1,2048 @@
+{
+  "hypothesis_id": "H-0014",
+  "started_at_utc": "2026-10-31T14:56:34.686949+00:00",
+  "finished_at_utc": "2026-10-31T15:26:47.159454+00:00",
+  "native_remote_started_at_utc": "2026-10-31T14:54:23.093987+00:00",
+  "native_remote_finished_at_utc": "2026-10-31T15:24:35.566425+00:00",
+  "clock_basis": "collector launch plus remote monotonic elapsed; not synchronized remote OS",
+  "plan_sha256": "8705cef8b650386e3a6a541b4fdf35fa4f3f686613387d8f4a024bb41d4654d8",
+  "input_manifest_sha256": "78613f5764c1b723ef1b66a4b46253e1aa234dadff50ced3c912c1f6507c4b59",
+  "code_commit": "9543b5fdd0ef29d980adc1d68f868c065d8381f3",
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "device": "dislab",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "free_gpu_bytes": 9511632896,
+    "total_gpu_bytes": 10736893952,
+    "memory_fraction": 0.3,
+    "threads": 4,
+    "deterministic": true,
+    "tf32": false
+  },
+  "cache": {
+    "api_opened": false,
+    "issue_times": 72744,
+    "seconds": 221.11886010039598,
+    "files": [
+      {
+        "id": "anchor-rates.npy",
+        "sha256": "e20ec99415d0a9b36d347bf1ec7da3a82235a940e22ae1bbc612069551db39ab"
+      },
+      {
+        "id": "pit-bounds.npy",
+        "sha256": "47be5cc1c39b0d451e0d5b60b6d473a890fe5fe5fc3997bb6e151610a259f61d"
+      }
+    ]
+  },
+  "gaussian_training": [
+    {
+      "rank": 8,
+      "seed": 11,
+      "selected_epoch": 10,
+      "selection_crps": 0.030352246293617997,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030402519690390182,
+              "variogram": 0.17453486966200465,
+              "energy": 0.261927191771859,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.501375399995595
+        },
+        {
+          "epoch": 1,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039752770471913,
+              "variogram": 0.17453903879986005,
+              "energy": 0.2619254420463524,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.384034199640155
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03040233054645718,
+              "variogram": 0.17454958677761415,
+              "energy": 0.2619253897168058,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.738828500267118
+        },
+        {
+          "epoch": 3,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030397840587673728,
+              "variogram": 0.1745481186923734,
+              "energy": 0.2619264799663808,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.797127999830991
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030410983439467017,
+              "variogram": 0.17454199835652195,
+              "energy": 0.2619261658331282,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.719648700207472
+        },
+        {
+          "epoch": 5,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039824715874467,
+              "variogram": 0.17455375174010676,
+              "energy": 0.2619265668812227,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.80565349990502
+        },
+        {
+          "epoch": 6,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.0303991327765992,
+              "variogram": 0.17454964580357116,
+              "energy": 0.2619256902400365,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.269864900037646
+        },
+        {
+          "epoch": 7,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039384735267695,
+              "variogram": 0.1745420813973714,
+              "energy": 0.2619265141050165,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.401936499867588
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030385998763307453,
+              "variogram": 0.1745468811090915,
+              "energy": 0.2619258215825669,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.070911900140345
+        },
+        {
+          "epoch": 9,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030402537367393265,
+              "variogram": 0.17455332753065098,
+              "energy": 0.2619269702863768,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.607670200057328
+        },
+        {
+          "epoch": 10,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030352246293617997,
+              "variogram": 0.17444881867702342,
+              "energy": 0.2619514929867991,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.317952099721879
+        },
+        {
+          "epoch": 11,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030483703094755843,
+              "variogram": 0.17433927080221806,
+              "energy": 0.26209127908973484,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.39477019989863
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030655467587560298,
+              "variogram": 0.17431061158032504,
+              "energy": 0.2621915994121387,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.974769599735737
+        },
+        {
+          "epoch": 13,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030396478279969358,
+              "variogram": 0.17439701277941635,
+              "energy": 0.2620684203418506,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.775299500208348
+        },
+        {
+          "epoch": 14,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03036029109772173,
+              "variogram": 0.17445307072015953,
+              "energy": 0.26201183531267325,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.0792629001662135
+        },
+        {
+          "epoch": 15,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030358622977863993,
+              "variogram": 0.17442715766970188,
+              "energy": 0.26203743915703426,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.376450000330806
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030396705134842272,
+              "variogram": 0.17443707842838677,
+              "energy": 0.2620529150512892,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.93382090004161
+        }
+      ],
+      "parameters": 28168,
+      "seconds": 99.96391369961202
+    },
+    {
+      "rank": 8,
+      "seed": 29,
+      "selected_epoch": 11,
+      "selection_crps": 0.030345802436760272,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030361062404289648,
+              "variogram": 0.174542502719897,
+              "energy": 0.2619265956303264,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.944426799658686
+        },
+        {
+          "epoch": 1,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030380676806912157,
+              "variogram": 0.1745265849541861,
+              "energy": 0.2619279309246631,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.249198500066996
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030397013303929375,
+              "variogram": 0.17453338495185708,
+              "energy": 0.26192695763756135,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.37882660003379
+        },
+        {
+          "epoch": 3,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030389857653080787,
+              "variogram": 0.17454631616873947,
+              "energy": 0.2619276530970812,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.282789399847388
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039974793630654,
+              "variogram": 0.17454814866830942,
+              "energy": 0.26192658448724104,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.403737999964505
+        },
+        {
+          "epoch": 5,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030374397935416558,
+              "variogram": 0.17454498446360825,
+              "energy": 0.26192656834267247,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.3584047998301685
+        },
+        {
+          "epoch": 6,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039340189219922,
+              "variogram": 0.17453743123455606,
+              "energy": 0.26192707180715574,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.265688799787313
+        },
+        {
+          "epoch": 7,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03037377865107517,
+              "variogram": 0.17453884551531,
+              "energy": 0.2619263035862627,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.458387000020593
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03040330454932713,
+              "variogram": 0.17453086745745328,
+              "energy": 0.26192550307519513,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.412420799955726
+        },
+        {
+          "epoch": 9,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030393235728370226,
+              "variogram": 0.1745414207296025,
+              "energy": 0.2619249643203593,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.327817099634558
+        },
+        {
+          "epoch": 10,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.0303812660403483,
+              "variogram": 0.17436208265744482,
+              "energy": 0.26204584188370894,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.804499499965459
+        },
+        {
+          "epoch": 11,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030345802436760272,
+              "variogram": 0.17437362773855397,
+              "energy": 0.26202986386087646,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.743535699788481
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030432794504339486,
+              "variogram": 0.1743307982099574,
+              "energy": 0.26209291526482015,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.75573719991371
+        },
+        {
+          "epoch": 13,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030455617872255255,
+              "variogram": 0.17431822319749157,
+              "energy": 0.2621053660440337,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.874063299968839
+        },
+        {
+          "epoch": 14,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03047545559435007,
+              "variogram": 0.17434726099648354,
+              "energy": 0.26210297775373353,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.647826499771327
+        },
+        {
+          "epoch": 15,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03046818857838205,
+              "variogram": 0.17435482490573492,
+              "energy": 0.2620895756672266,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.144644200336188
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030436405326836197,
+              "variogram": 0.17438168545204957,
+              "energy": 0.2620601313316163,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.36327000008896
+        }
+      ],
+      "parameters": 28168,
+      "seconds": 100.58303739968687
+    },
+    {
+      "rank": 32,
+      "seed": 11,
+      "selected_epoch": 16,
+      "selection_crps": 0.030356393907775038,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030374008452115266,
+              "variogram": 0.17453421856854565,
+              "energy": 0.2619294856800039,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.755550500005484
+        },
+        {
+          "epoch": 1,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03040577402665803,
+              "variogram": 0.17453665009004873,
+              "energy": 0.2619276654790738,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.740334199741483
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039973733010469,
+              "variogram": 0.17454051757741953,
+              "energy": 0.2619277504632121,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.76030379999429
+        },
+        {
+          "epoch": 3,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.0303987350440298,
+              "variogram": 0.1745281767890273,
+              "energy": 0.26192555362221015,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.804173199925572
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030395966825346774,
+              "variogram": 0.17453927587803858,
+              "energy": 0.2619273729301971,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.37975599989295
+        },
+        {
+          "epoch": 5,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030396217838790575,
+              "variogram": 0.17453577347168825,
+              "energy": 0.2619270195870592,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.315520799718797
+        },
+        {
+          "epoch": 6,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039209379397097,
+              "variogram": 0.17454117594888693,
+              "energy": 0.26192639698365977,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.400684799998999
+        },
+        {
+          "epoch": 7,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030384713645183213,
+              "variogram": 0.17452945578811122,
+              "energy": 0.26192686752419986,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.27693559974432
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030401490888810667,
+              "variogram": 0.17452997479882315,
+              "energy": 0.26192655613174315,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.36634310008958
+        },
+        {
+          "epoch": 9,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030401066640736638,
+              "variogram": 0.17456618872103644,
+              "energy": 0.2619255050387921,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.289235999807715
+        },
+        {
+          "epoch": 10,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03040259039840252,
+              "variogram": 0.1745261839407933,
+              "energy": 0.26192486112356295,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.381032899953425
+        },
+        {
+          "epoch": 11,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030410887983650364,
+              "variogram": 0.17452325995196608,
+              "energy": 0.26192646943393566,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.097142099868506
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03062572661910413,
+              "variogram": 0.1742624732071694,
+              "energy": 0.2622311873241149,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.869522899854928
+        },
+        {
+          "epoch": 13,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030402190898132803,
+              "variogram": 0.17437603288640052,
+              "energy": 0.2620532602060544,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.358883399982005
+        },
+        {
+          "epoch": 14,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030373590685609027,
+              "variogram": 0.17440354352486065,
+              "energy": 0.2620222384744442,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.672266899608076
+        },
+        {
+          "epoch": 15,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030376931049958554,
+              "variogram": 0.17438949832815653,
+              "energy": 0.2620430945407447,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.670888100285083
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.897939499933273
+        }
+      ],
+      "parameters": 29728,
+      "seconds": 98.14142300002277
+    },
+    {
+      "rank": 32,
+      "seed": 29,
+      "selected_epoch": 7,
+      "selection_crps": 0.030351734249761987,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030412920249771633,
+              "variogram": 0.17451424205609103,
+              "energy": 0.2619267348166549,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.922604000195861
+        },
+        {
+          "epoch": 1,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039788301248113,
+              "variogram": 0.17454143278013606,
+              "energy": 0.26192531874512637,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.3679096000269055
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030400447945628684,
+              "variogram": 0.1745259742037511,
+              "energy": 0.2619260229547089,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.841812700033188
+        },
+        {
+          "epoch": 3,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03039864665901438,
+              "variogram": 0.17453237274091885,
+              "energy": 0.26192606186900197,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.661359699908644
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030404234359689374,
+              "variogram": 0.1745312493816923,
+              "energy": 0.2619258552791849,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.284017499536276
+        },
+        {
+          "epoch": 5,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030411847844917846,
+              "variogram": 0.1745259668282861,
+              "energy": 0.2619272934949592,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.366866700351238
+        },
+        {
+          "epoch": 6,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030410994045668868,
+              "variogram": 0.17453430390861843,
+              "energy": 0.2619258674637939,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.804416600149125
+        },
+        {
+          "epoch": 7,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 4.77150070015341
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.0304317026547823,
+              "variogram": 0.17430273194506749,
+              "energy": 0.2620728340716727,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.015679200179875
+        },
+        {
+          "epoch": 9,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03038829205984093,
+              "variogram": 0.17434761945769595,
+              "energy": 0.2620523460446432,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.430037199985236
+        },
+        {
+          "epoch": 10,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030491496885415765,
+              "variogram": 0.17433210861672904,
+              "energy": 0.26208479256424916,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.340809400193393
+        },
+        {
+          "epoch": 11,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030480421653749926,
+              "variogram": 0.17435261292650245,
+              "energy": 0.2620685532709285,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.375803499948233
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03055693184773349,
+              "variogram": 0.1743352258284355,
+              "energy": 0.26211264852341465,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.374237800016999
+        },
+        {
+          "epoch": 13,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030546372784557713,
+              "variogram": 0.17435294139277155,
+              "energy": 0.2621179673624096,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.400004099588841
+        },
+        {
+          "epoch": 14,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030562359866147294,
+              "variogram": 0.17433564955234124,
+              "energy": 0.2621292414835312,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.375100499950349
+        },
+        {
+          "epoch": 15,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.03052663758908079,
+              "variogram": 0.17435057497970202,
+              "energy": 0.2621141029257611,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.312745700124651
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030462814180210945,
+              "variogram": 0.174389937665642,
+              "energy": 0.2621006026806727,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 5.386526700109243
+        }
+      ],
+      "parameters": 29728,
+      "seconds": 101.49305139994249
+    }
+  ],
+  "rank_selection": {
+    "8": {
+      "scores": {
+        "independent": {
+          "regional_outflow_crps": 0.030376743084492425,
+          "variogram": 0.1745267959748016,
+          "energy": 0.26193496823152496,
+          "region_issues": 4316,
+          "issue_times": 52
+        },
+        "gaussian": {
+          "regional_outflow_crps": 0.03034154993905159,
+          "variogram": 0.17434192984882776,
+          "energy": 0.26197375379674737,
+          "region_issues": 4316,
+          "issue_times": 52
+        }
+      },
+      "seconds": 5.255255300085992
+    },
+    "32": {
+      "scores": {
+        "independent": {
+          "regional_outflow_crps": 0.030376743084492425,
+          "variogram": 0.1745267959748016,
+          "energy": 0.26193496823152496,
+          "region_issues": 4316,
+          "issue_times": 52
+        },
+        "gaussian": {
+          "regional_outflow_crps": 0.030312281535811225,
+          "variogram": 0.17444247999823762,
+          "energy": 0.2619786338187031,
+          "region_issues": 4316,
+          "issue_times": 52
+        }
+      },
+      "seconds": 5.385240699630231
+    }
+  },
+  "selected_rank": 32,
+  "flow_training": [
+    {
+      "seed": 11,
+      "selected_epoch": 0,
+      "selection_crps": 0.030356393907775038,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030406098105047904,
+              "variogram": 0.1744790745265933,
+              "energy": 0.2619241561079971,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 75.11164690041915
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.03040299814794033,
+              "variogram": 0.17452741874682345,
+              "energy": 0.2619269183504158,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.03040496324144988,
+              "variogram": 0.17449169480422816,
+              "energy": 0.26193010608022765,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 83.16095849964768
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.0304294547292234,
+              "variogram": 0.1745406117362289,
+              "energy": 0.2619276516479213,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030404812986923664,
+              "variogram": 0.17450427017051134,
+              "energy": 0.2619302304984915,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 75.37280549993739
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030403212039677652,
+              "variogram": 0.1745286059351508,
+              "energy": 0.26192644465167336,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030396617339060277,
+              "variogram": 0.17449706992636144,
+              "energy": 0.2619299898319222,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 82.8936048001051
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030413255523596805,
+              "variogram": 0.17454279477122012,
+              "energy": 0.2619277124850631,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030405297336808176,
+              "variogram": 0.17448126670203135,
+              "energy": 0.2619291517714833,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 76.02133239991963
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030404261464427436,
+              "variogram": 0.1745351124989426,
+              "energy": 0.26192757034385256,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030400541633745025,
+              "variogram": 0.17449233010256415,
+              "energy": 0.2619300693548402,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 83.39905440015718
+        },
+        {
+          "epoch": 20,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030356393907775038,
+              "variogram": 0.17440245223029033,
+              "energy": 0.2620343527511481,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.03041475099805775,
+              "variogram": 0.17453393027949163,
+              "energy": 0.2619293909097731,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030401288192508622,
+              "variogram": 0.17448888443884567,
+              "energy": 0.26192890880213054,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 77.70889370003715
+        }
+      ],
+      "parameters": 78017,
+      "seconds": 583.5251178001054
+    },
+    {
+      "seed": 29,
+      "selected_epoch": 0,
+      "selection_crps": 0.030351734249761987,
+      "trace": [
+        {
+          "epoch": 0,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030359873920448924,
+              "variogram": 0.17452014747026373,
+              "energy": 0.2619254036926935,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 84.51399079989642
+        },
+        {
+          "epoch": 2,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030409088464736365,
+              "variogram": 0.17452163301479778,
+              "energy": 0.2619296723556076,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030372857679214462,
+              "variogram": 0.1745145432211398,
+              "energy": 0.2619295804705511,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 78.16699369996786
+        },
+        {
+          "epoch": 4,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.0304004090562219,
+              "variogram": 0.17454535767477936,
+              "energy": 0.261923869609571,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.03037809773216213,
+              "variogram": 0.17450630828840535,
+              "energy": 0.2619287048402439,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 85.21763690002263
+        },
+        {
+          "epoch": 8,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030410827881839873,
+              "variogram": 0.17453959889061846,
+              "energy": 0.26192622232604407,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.03038108573491684,
+              "variogram": 0.1745046407772165,
+              "energy": 0.2619283221797587,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 55.81399779999629
+        },
+        {
+          "epoch": 12,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.03040270176352195,
+              "variogram": 0.1745304947093133,
+              "energy": 0.2619248144587688,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030373894730062086,
+              "variogram": 0.17450269369806806,
+              "energy": 0.2619277374001159,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 55.76442199992016
+        },
+        {
+          "epoch": 16,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.03040169063894552,
+              "variogram": 0.1745329202035165,
+              "energy": 0.2619244639846915,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030376816738671947,
+              "variogram": 0.1745010422648997,
+              "energy": 0.2619284787449205,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 56.02228690031916
+        },
+        {
+          "epoch": 20,
+          "selection": {
+            "independent": {
+              "regional_outflow_crps": 0.030376743084492425,
+              "variogram": 0.1745267959748016,
+              "energy": 0.26193496823152496,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "gaussian": {
+              "regional_outflow_crps": 0.030351734249761987,
+              "variogram": 0.17444197334333597,
+              "energy": 0.26194804417880907,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow": {
+              "regional_outflow_crps": 0.030411884966624326,
+              "variogram": 0.1745400887670225,
+              "energy": 0.26192520393087976,
+              "region_issues": 4316,
+              "issue_times": 52
+            },
+            "flow_shuffle": {
+              "regional_outflow_crps": 0.030374235896221617,
+              "variogram": 0.17449696723191338,
+              "energy": 0.26192741795743063,
+              "region_issues": 4316,
+              "issue_times": 52
+            }
+          },
+          "selection_seconds": 56.09232910024002
+        }
+      ],
+      "parameters": 78017,
+      "seconds": 495.4115260997787
+    }
+  ],
+  "validation": {
+    "independent": {
+      "regional_outflow_crps": 0.030376743084492425,
+      "variogram": 0.1745267959748016,
+      "energy": 0.26193496823152496,
+      "region_issues": 4316,
+      "issue_times": 52
+    },
+    "gaussian": {
+      "regional_outflow_crps": 0.030312281535811225,
+      "variogram": 0.17444247999823762,
+      "energy": 0.2619786338187031,
+      "region_issues": 4316,
+      "issue_times": 52
+    },
+    "flow": {
+      "regional_outflow_crps": 0.030312281535811225,
+      "variogram": 0.17444247999823762,
+      "energy": 0.2619786338187031,
+      "region_issues": 4316,
+      "issue_times": 52
+    },
+    "flow_shuffle": {
+      "regional_outflow_crps": 0.030399386736210177,
+      "variogram": 0.17448000354157955,
+      "energy": 0.26192381056713326,
+      "region_issues": 4316,
+      "issue_times": 52
+    }
+  },
+  "validation_seconds": 60.484948000404984,
+  "auxiliary": {
+    "independent": {
+      "regional_outflow_crps": 0.036466016612246396,
+      "variogram": 0.19783824470907269,
+      "energy": 0.3026386933000271,
+      "region_issues": 2407,
+      "issue_times": 29
+    },
+    "gaussian": {
+      "regional_outflow_crps": 0.03629031654804834,
+      "variogram": 0.19783554959661126,
+      "energy": 0.302696526304418,
+      "region_issues": 2407,
+      "issue_times": 29
+    },
+    "flow": {
+      "regional_outflow_crps": 0.03629031654804834,
+      "variogram": 0.19783554959661126,
+      "energy": 0.302696526304418,
+      "region_issues": 2407,
+      "issue_times": 29
+    },
+    "flow_shuffle": {
+      "regional_outflow_crps": 0.03645596981642897,
+      "variogram": 0.19777053068969416,
+      "energy": 0.3026394897279819,
+      "region_issues": 2407,
+      "issue_times": 29
+    }
+  },
+  "auxiliary_seconds": 33.71882549999282,
+  "historical_gate_passed": false,
+  "gate_relative_gain": {
+    "independent": 0.0021220691270917857,
+    "gaussian": 0.0
+  },
+  "api_opened": false,
+  "peak_gpu_bytes": 703186944,
+  "seconds": 1812.4727158001624
+}

@@ -1,0 +1,147 @@
+{
+  "hypothesis_id": "H-0013",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "gcn_parameters": 317122,
+  "flow_parameters": 67202,
+  "encoder_parameters": 124352,
+  "files": [
+    {
+      "name": "context.npz",
+      "bytes": 200047986,
+      "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+    },
+    {
+      "name": "flow-11.pt",
+      "bytes": 271821,
+      "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e",
+      "parameters": 67202,
+      "tensor_bytes": 268808
+    },
+    {
+      "name": "flow-29.pt",
+      "bytes": 271821,
+      "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e",
+      "parameters": 67202,
+      "tensor_bytes": 268808
+    },
+    {
+      "name": "no_recent-11.pt",
+      "bytes": 1273951,
+      "sha256": "7c9c81a5c7201dfb43c7307d300510a8583dddf58085609cf6958326e77cbb0f",
+      "parameters": 317122,
+      "tensor_bytes": 1268488
+    },
+    {
+      "name": "no_recent-29.pt",
+      "bytes": 1273951,
+      "sha256": "3c4f8de7b60f3a16dfec0ae5f3f4f077b4c5b23687db5c7b04ab3f2ad584799c",
+      "parameters": 317122,
+      "tensor_bytes": 1268488
+    },
+    {
+      "name": "recent-11.pt",
+      "bytes": 1273888,
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1",
+      "parameters": 317122,
+      "tensor_bytes": 1268488
+    },
+    {
+      "name": "recent-29.pt",
+      "bytes": 1273888,
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e",
+      "parameters": 317122,
+      "tensor_bytes": 1268488
+    },
+    {
+      "name": "time-features.npz",
+      "bytes": 1443221,
+      "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+    }
+  ],
+  "context": [
+    {
+      "name": "station_ids",
+      "shape": [
+        1318
+      ],
+      "dtype": "<U6",
+      "bytes": 31632
+    },
+    {
+      "name": "first",
+      "shape": [
+        1318
+      ],
+      "dtype": "int64",
+      "bytes": 10544
+    },
+    {
+      "name": "profiles",
+      "shape": [
+        1318,
+        420
+      ],
+      "dtype": "float32",
+      "bytes": 2214240
+    },
+    {
+      "name": "prior",
+      "shape": [
+        4032,
+        1318,
+        2
+      ],
+      "dtype": "float32",
+      "bytes": 42513408
+    },
+    {
+      "name": "log",
+      "shape": [
+        4032,
+        1318,
+        6
+      ],
+      "dtype": "float32",
+      "bytes": 127540224
+    },
+    {
+      "name": "neighbor",
+      "shape": [
+        4032,
+        1318,
+        6
+      ],
+      "dtype": "float32",
+      "bytes": 127540224
+    },
+    {
+      "name": "graph_indptr",
+      "shape": [
+        1319
+      ],
+      "dtype": "int32",
+      "bytes": 5276
+    },
+    {
+      "name": "graph_indices",
+      "shape": [
+        11862
+      ],
+      "dtype": "int32",
+      "bytes": 47448
+    },
+    {
+      "name": "graph_data",
+      "shape": [
+        11862
+      ],
+      "dtype": "float32",
+      "bytes": 47448
+    }
+  ],
+  "python": "3.12.10",
+  "torch": "2.7.1+cu118",
+  "numpy": "1.26.4",
+  "device": "dislab CPU",
+  "new_training": false
+}
