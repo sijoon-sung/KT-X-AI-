@@ -1,0 +1,27 @@
+{
+  "scope": "synthetic engineering example; not Daejeon observations or a model accuracy experiment",
+  "issue_at": "2026-11-02T09:00:00Z",
+  "stations": ["A", "B"],
+  "connections": [
+    {"station_id": "A", "entity_id": "BUS-A", "kind": "bus_eta", "walk_seconds": 180},
+    {"station_id": "A", "entity_id": "METRO-A", "kind": "metro_alightings", "walk_seconds": 240},
+    {"station_id": "B", "entity_id": "BUS-B", "kind": "bus_eta", "walk_seconds": 120}
+  ],
+  "events": [
+    {"id": "bus-on-time", "entity_id": "BUS-A", "kind": "bus_eta", "observed_at": "2026-11-02T08:59:30Z", "published_at": "2026-11-02T08:59:31Z", "received_at": "2026-11-02T08:59:32Z", "value": 120, "unit": "seconds"},
+    {"id": "metro-previous-day", "entity_id": "METRO-A", "kind": "metro_alightings", "observed_at": "2026-11-01T10:00:00Z", "window_start": "2026-11-01T09:00:00Z", "window_end": "2026-11-01T10:00:00Z", "published_at": "2026-11-02T06:00:00Z", "received_at": "2026-11-02T06:01:00Z", "value": 1200, "unit": "persons"},
+    {"id": "bus-published-later", "entity_id": "BUS-B", "kind": "bus_eta", "observed_at": "2026-11-02T08:59:00Z", "published_at": "2026-11-02T09:02:00Z", "received_at": "2026-11-02T09:02:01Z", "value": 60, "unit": "seconds"},
+    {"id": "road-congestion", "entity_id": "S-A", "kind": "road_speed", "observed_at": "2026-11-02T08:59:00Z", "published_at": "2026-11-02T08:59:10Z", "received_at": "2026-11-02T08:59:12Z", "value": 10, "unit": "km_per_hour"}
+  ],
+  "routing": {
+    "depot": "S", "capacity": 4, "pickups_at_depot": 3, "drops": {"A": 2, "B": 1}, "handling_seconds_per_bike": 20, "deadline_seconds": 600,
+    "edges": [
+      {"from": "S", "to": "A", "meters": 1000, "seconds": 120},
+      {"from": "A", "to": "B", "meters": 800, "seconds": 80},
+      {"from": "B", "to": "S", "meters": 1000, "seconds": 100},
+      {"from": "S", "to": "B", "meters": 1100, "seconds": 130},
+      {"from": "B", "to": "A", "meters": 900, "seconds": 90},
+      {"from": "A", "to": "S", "meters": 1000, "seconds": 110}
+    ]
+  }
+}

@@ -1,178 +1,77 @@
-# 타슈 관측 기반 예측 연구
+# 타슈 재고 예측과 재배치
 
-**[묶음 재배치 운영 설정 · H21](docs/H-0021-bulk-rebalancing.md)**: 적재20대·목표재고6대·추가주차10대·상하차20초/대의 조절 가능한 가정으로 확장했습니다. dislab72조건 위반0, 실제18:40:36에총6대 이동 계획을 기록했습니다. 10분 예측과 현재 가능한 수량을 유지합니다. 관측 갱신409 자동 복구는 [PR29](https://github.com/sijoon-sung/KT-X-AI-/pull/29)에서 확인합니다. 최신 화면은 `http://127.0.0.1:8770/dispatch?mode=bulk`로 새로 열면 적용됩니다.
+GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대여소의 공급 수량과 방문 순서를 계산한다.
 
-**[자동 재배치 경로 보존 · H20](docs/H-0020-capacity-monotone.md)**: 작은 적재량에서 가능한 경로를 큰 차량에서도 보존합니다. dislab CPU 합성120조건의 위반0,16:00 발행 그림자계획4대/0대3곳/7.1332km/9.1817분을 기록했습니다. 새 관측과 출발 마감에 맞춰 자동 재계산하며 차량·주차·작업시간은 가정입니다. 모델 가중치와 9월 공식 평가는 유지했습니다.
+## 실행
 
-**[전체 대여소 자동 재배치 · H19](docs/H-0019-automatic-rebalancing.md)**: 고정5곳 대신 전체 지원1,296곳에서 후보를 자동 탐색하고 수량·순서·적재·복귀를 dislab에서 계산합니다. 3개 관측 상태의 그림자 계획과 제약 검사를 완료했습니다. 작은 차량의 좋은 경로 보존은 [H20/PR28](https://github.com/sijoon-sung/KT-X-AI-/pull/28)에서 이어 갑니다. 운영 화면은 `http://127.0.0.1:8770/dispatch`이며 실제 자원·현장 효과는 미확인입니다.
+[고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
 
-홈페이지의 간단한 GCN·포아송·Flow Matching·수량/동선 설명은 홈페이지가 있는 성시준 브랜치 대상 [PR27](https://github.com/sijoon-sung/KT-X-AI-/pull/27)입니다. 아직 병합·운영 배포하지 않았습니다.
+계산은 dislab에서 실행한다. 로컬에서는 홈페이지 표시와 HTTP 요청·응답 확인을 한다. 자세한 설치·다운로드·API 명령은 [빠른 실행 안내](docs/quickstart.md)에 정리했다.
 
-**[승인 API 실시간 관측·예측 검증 · H18](docs/H-0018-live-api-verification.md)**를 연결했습니다. 2026-11-01 14:40 관측으로14:50 예측을 먼저 발행하고 다음 API로 채점했습니다.
-10분 주기·최대24시간/143회 시험 수집이며 원래9월 공식 평가·모델 가중치는 유지합니다. 화면은 `http://127.0.0.1:8770/dispatch`에서 관측 시각·예측 대상·최근 검증을 구분합니다.
-
-
-**[동적 재배치 지도 · H17](docs/H-0017-dynamic-dispatch.md)**를 구현했습니다. 화면은 모델명 Flow Matching + GCN만 표시하고 운영 조건·수량·구간 거리·방문 순서에 집중합니다.
-조건·후보 변경 시 dislab에서 실제 재계산합니다. 로컬 화면 `http://127.0.0.1:8770/dispatch`, 기존8769 결과 주소도 이 화면으로 연결됩니다. 실제 배차·현장 효과는 미검증입니다.
-
-
-**[실제 결과 둘러보기 · H16](docs/H-0016-results-walkthrough.md)**에서 1,296개 대여소의 기록된 예측·실측과 실제 좌표 기반 그림자계획을 연결했습니다.
-가상 차량 조건에서 4대 이동·6.093분 복귀를 계산했으며 실제 수행 결과와 구분합니다. 로컬 화면: `http://127.0.0.1:8769/results`.
-
-
-**[예측→재배치 수량→차량 동선 시제품](docs/end-to-end-rebalancing-pipeline.md)을 검증했습니다.**
-공동 시나리오의 CVaR 수량최적화와 적재·시간 제약 경로를 연결했고 dislab CPU 합성 기능13검사·제약위반0을 확인했습니다.
-가상6대적재 차량으로 총10대를 옮기는7분경로를 산출했습니다. 실제 타슈 운영 조건·도로·절감 효과의 검증 결과는 아닙니다.
-공동 예측 모델의 성능은 별도 [H14/PR21](https://github.com/sijoon-sung/KT-X-AI-/pull/21)에서 확인합니다. 계획기는 항상 그림자 출력이며 실제 배차를 실행하지 않습니다.
-
-**[H-0013: 실제 API를 받는 GCN·Flow Matching 10분 예측](docs/H-0013-rolling-api-flow.md)을 구현·평가했습니다.**
-9월1,298개 대여소·2,458,501쌍에서 CFM의 fairCRPS는 현재유지보다15.215% 낮았고 같은GCN Poisson보다0.327% 높았습니다.
-주가설은 `not_supported`입니다. 대수 중앙값 MAE는0.211982대로 현재유지0.212015대와 거의 같습니다.
-실제21:20·21:30 API로21:40 예측을 발행하고1,296쌍의 다음 관측 채점을 완료했습니다. 새 경로는 독립CLI이며 기존8768화면은H9입니다.
-
-**현재 연산은 dislab에서 실행합니다.** 제공된 채팅 AGENTS를 늦게 대조해 H13 과거학습을 로컬에서 완료한 위치 위반을 기록했습니다.
-로컬 부분 평가는 중단했고 고정 모델의 전체API평가·새추론·채점은 dislab에서 수행했습니다. [실행 이력](docs/local-gpu-execution.md)을 보존합니다.
-과거 기록으로만 학습·선택하며 현재·직전 API는 추론입력, 미래 API는 별도 정답입니다. API 가중치 갱신·선택·보정은 하지 않습니다.
-
-**앞선 [H-0010 대여소별 계절 모델](docs/H-0010-seasonal-history.md)을 실제 학습·평가했습니다.**
-넓은 과거 이력·계층 계절 평활·작은 GCN을 비교했고, 공식 9월 주비교의 최소 CRPS 상대 감소는 0.243%로 판정은 `not_supported`입니다.
-과거 기록으로만 학습·선택하고 9월 API는 고정된 모델의 평가에만 사용했습니다. 관리자 기능 계획은 후속으로 유지합니다.
-
-**다음 제품 방향은 [관리자 재배치 시스템](docs/operator-rebalancing-plan.md)입니다.**
-공개 운영 자료를 바탕으로 여러 대여소의 부족 위험·공급 후보·작업 제약을 함께 보는 현황판부터 개발합니다.
-차량 보험 대상 14대를 실제 가동 재배치 차량 수로 확정하지 않으며 관리자 기능과 운영 개선 실험은 아직 미실행입니다.
-
-**[확대·따릉이·Flow Matching 연구 모델](docs/H-0009-scaled-seoul-flow.md)을 실제 학습하고 시제품에 추가했습니다.**
-큰GCN75,394개+CFM50,818개/시드·2시드, 과거30분 거래 학습·2월 선택·9월API평가입니다.
-공식 재고 CRPS 최소 대조군 상대 감소 -0.371%, 사전 판정 `not_supported`. 서비스 연결과 성능 판정을 구분합니다.
-
-**공모전용 예측 시제품 [타슈다음](docs/prediction-system.md)을 구현했습니다.**
-대여소·현재 대수·시각으로30분 뒤 재고·0대 확률·예측 범위를 확인합니다.
-GCN을 시연 기본 경로로 사용하고 달력 참고출력을 함께 제공합니다.
-[H-0008 인수검증](docs/H-0008-prediction-system.md):64/64 고정출력 재현, 서비스8개·프로토콜14개·HTTP5개 검사 통과.
-9월기록재생·수동입력·현재스냅샷과JSON내려받기를지원합니다. 연산은dislab입니다.
-
-**현재 자료 계약: 과거 대여·반납 기록으로 학습·내부 검증하고, 타슈 API는 외부 검증에만 사용합니다.**
-**공식 재고·품절 평가는 2026년 9월 API에 고정합니다.** [평가 대상과 기간](docs/september-evaluation-contract.md)을 따릅니다.
-2·3월에는 실측 재고 정답이 없습니다. 그 기간의 거래 건수 비교를 프로젝트의 재고 성능으로 보고하지 않습니다.
-[자료 사용 계약](docs/training-validation-contract.md)과 [과거 원본 감사](docs/historical-source-audit.md)를 우선합니다.
-아래 H-0001~H-0003은 이전 API 개발·탐색 기록입니다. 과거 이력 학습→API 검증을 수행한 결과로 승계하지 않습니다.
-
-[H-0004 보조 거래 건수 학습](docs/H-0004-results.md)은 dislab에서 완료했습니다.
-대여소 1,192개의 두 평균 예측 모델을 학습·저장하고 재로딩을 확인했습니다.
-3월 내부 보류에서 요일·시간대 평균은 고정 평균보다 Poisson deviance를 11.35% 줄였습니다.
-이 결과는 기록 대여·반납 건수의 보조 평균 기준선입니다.
-
-[H-0005 공식 9월 평가](docs/H-0005-results.md)에서는 고정한 과거 흐름과 현재 API 시작 재고로 30분 뒤 상태를 예측했습니다.
-현재 양수 131,118쌍의 0대 Brier는 0.149934→0.119369로 사전 가설을 지지했습니다.
-전체 재고 수량 MAE는 0.579567→0.632669대로 악화했습니다. API 학습·튜닝·보정은 없었습니다.
-[아키텍처 아이디어별 실험](docs/architecture-ideas-to-experiments.md)에서 GCN·사건 과정·FM의 역할을 분리하고 점진적으로 비교합니다.
-
-[H-0006 원인 진단](docs/H-0006-results.md)에서는 같은분포 중앙값으로 MAE가0.576346대까지 낮아졌습니다.
-현재 유지0.579567대 대비 차이의 두구간은0을 포함합니다. 평균은 RMSE에서 현재 유지보다 낮았습니다.
-[원인별 개선 계획](docs/failure-analysis-and-improvement-plan.md)에 손실/점출력·정보·공간·과정·결합 생성 문제를 나눴습니다.
-
-[H-0007 OD-GCN 비교](docs/H-0007-results.md)는 dislab GPU에서 세관계·각3시드 학습 뒤 공식9월 평가를 완료했습니다.
-현재양수 Brier는 OD0.120347·자기0.120283·치환0.120387·고정달력0.119369였습니다.
-사전 공간 추가가치 가설은 지지하지 않았습니다. 한종류 정적관계·가용입력 조건의 결과이며 GCN전체나FM의 기각이 아닙니다.
-
-현재 연구 방향은 [큰 질문에서 모형군으로 좁혀 가는 연구 설계](docs/research-program.md)에서 정리합니다.
-[선행연구 비교](docs/research-evidence-map.md)와 [결정 기록](docs/research-decisions.md)을 근거로
-문제·관측 과정·의존성·확률 표현을 먼저 정하며, 최종 아키텍처는 열어 둡니다.
-
-새 연구는 [가설별 Draft PR 진행 체계](docs/research-workflow.md)를 따릅니다.
-[연구 기록](research/README.md)에서 계획·실행·판단을 추적합니다. 아래 내용은 기존 연구 기록이며 새 연구의 재현 검증을 대신하지 않습니다.
-
-새 연구의 출발점은 [프로젝트 문제의식과 해결 계획](docs/project-charter.md)입니다.
-첫 가설 [H-0001: 관측 간격과 0대 비율](docs/H-0001-observation-resolution.md)은 완료했습니다.
-관측 0대 비율의 평균 절대차는 1.24%p로, 사전 기준 5%p 초과 가설을 지지하지 않았습니다.
-
-[H-0002 아키텍처 비교](docs/H-0002-architecture-results.md)는 dislab RTX 3080에서 세 시드로 완료했습니다.
-현재 재고 양수인 표본의 미래 관측 0대 Brier는 자기 이력 0.079564, 좌표 그래프 직접 예측 0.078826,
-그래프 CFM 0.082581이었습니다. 이번 소형 재고 적응 CFM의 추가 가치 가설은 지지하지 않았습니다.
-기존 전체 모델·정책 효과의 검증으로 확대하지 않습니다. 후속 연구·학습 연산은 dislab에서 수행합니다.
-
-[H-0003 자료 구조 진단](docs/H-0003-results.md)은 dislab CPU에서 완료했습니다.
-같은 대여소·같은 현재 2~10대에서 30분 뒤 재고의 분산/평균 비율 중앙값은 0.449였습니다.
-이미 API를 탐색한 진단 기록으로 보존하며, 후속 학습의 분포·아키텍처 선택 근거에서는 제외합니다.
-
-## Spatio-Temporal Continuous Flow Matching for Urban Micro-Mobility & Transit Policy Interventions
-
-This repository contains the core methodology implementation of **Multimodal Transit Continuous Flow Matching (Transit-CFM)**, a graph-informed continuous generative framework designed for city-wide bike-sharing demand modeling and counterfactual transit policy simulations.
-
----
-
-### 1. Proposed Methodology (`tashu/multimodal_transit_flow_matching.py`)
-
-The proposed method models joint spatial velocity fields along Optimal Transport (OT) displacement trajectories, conditioned on multimodal transit connectivity and meteorological forcing:
-
-1. **Optimal Transport Continuous Flow Matching (OT-CFM):**
-   - Straight displacement paths: $\mathbf{x}_t = (1 - t)\mathbf{x}_0 + t\mathbf{x}_1$ for $t \in [0, 1]$.
-   - Target velocity field: $\mathbf{u}_t = \mathbf{x}_1 - \mathbf{x}_0$.
-   - Objective: $\mathcal{L}_{\text{CFM}}(\theta) = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{x}_1} \| v_\theta(\mathbf{x}_t, t, \mathbf{C}, \tilde{\mathbf{A}}) - (\mathbf{x}_1 - \mathbf{x}_0) \|^2$.
-
-2. **Multimodal Transit & External Conditioning ($\mathbf{C} \in \mathbb{R}^{B \times N \times 36}$):**
-   - **Metro Line 1 Coupling (22 Stations):** Geodesic distance decay $e^{-d / 500\text{m}}$ and commuter rush waves (08h inflow / 18h outflow).
-   - **Bus Transit Coupling (159 Hubs):** Last-mile feeder index $e^{-d / 300\text{m}}$ and transfer wave intensity.
-   - **6-Class Urban Functional Typologies:** One-hot embeddings for Subway Hub, Bus Transit, Residential Origin, Campus/Research, Civic/Commercial, and Park/Leisure.
-   - **Hourly Dynamic Weather:** Real-time temperature, precipitation, wind speed, relative humidity, and rain-transit suppression interactions.
-
-3. **High-Capacity Residual GCN Backbone:**
-   - 6 Residual GCN Blocks with LayerNorm and 2x FFN Expansion (dim 512).
-   - Continuous sinusoidal time embedding with per-block AdaLN/FiLM modulation.
-   - Dense Jumping Knowledge (JK) multi-scale skip connections.
-
-4. **Numerical ODE Inference & What-If Policy Engine:**
-   - Supports Euler, Midpoint (Runge-Kutta 2nd order), and Classical RK4 solvers.
-   - Solves forward and counterfactual trajectories: $\hat{\mathbf{x}}_1 = \mathbf{x}_0 + \int_0^1 v_\theta(\mathbf{x}_t, t, \mathbf{C}, \tilde{\mathbf{A}}) dt$.
-
----
-
-### 2. Method Code Structure
-
-```
-├── tashu/
-│   ├── multimodal_transit_flow_matching.py   # [Main Proposed Method] Full Transit-CFM pipeline
-│   ├── flow_matching_st.py                   # [Foundation Method] Scaled ST-CFM architecture
-│   └── data/
-│       ├── multimodal_transit_benchmark_results.json # Benchmark metrics & policy simulation results
-│       └── flow_matching_benchmark_results.json      # Pure ST-CFM benchmark results
-├── .gitignore                                # Strict exclusion of *.pt checkpoints & raw datasets
-└── README.md                                 # Methodology documentation
+```powershell
+# 모델 ZIP을 푼 계산 서버의 tashu-h13-runtime-v1 폴더에서
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe run.py verify
+.\.venv\Scripts\python.exe run.py demo --device cpu --out outputs/demo.json
 ```
 
----
+`demo`는 가상 재고를 입력한 설치 확인이다. API 키 없이 실행하며 실제 타슈 관측·정확도 결과가 아니다.
 
-### 3. How to Run the Methodology Code
+| 실행 명령 | 용도 |
+|---|---|
+| `run.py verify` | 원 잠금 해시·모든 파일 검증 |
+| `run.py inspect --device cpu` | 파라미터 수·시드·대여소 수 확인 |
+| `run.py demo --device cpu` | 가상 5개 대여소 예측 |
+| `run.py capture ...` | 공식 재고 API 한 번 수신 |
+| `run.py predict ...` | 현재·직전 관측으로 10분 예측 |
+| `run.py serve ...` | `/health`, `/api/model`, `/api/predict` 서버 |
 
-#### Requirements
-- Python >= 3.10
-- PyTorch >= 2.0 (CUDA enabled)
-- NumPy, SciPy, LightGBM, XGBoost
+실시간 명령은 현재 확인한 시계 보정·불확실성이 필요하다. API 키는 환경변수 `TASHU_API_KEY` 또는 기존 암호화 키 파일을 사용한다. 키와 원본 API 응답은 저장소에 올리지 않는다. 명령별 필수 인자와 요청 예시는 [API 사용법](docs/quickstart.md)에 있다.
 
-#### Execution Command
-```bash
-cd tashu
+## 모델 크기
 
-# Run full 10-epoch training and 2026 held-out evaluation
-python multimodal_transit_flow_matching.py --epochs 10 --batch-size 16 --solver midpoint --run-policy-sim
+| 구성 | 파라미터 |
+|---|---:|
+| GCN 1개, encoder 포함 | 317,122 |
+| FM head 1개 | 67,202 |
+| 두 시드의 GCN + FM 예측 경로 | 768,648 |
+| 비교 기준선까지 로딩한 전체 | 1,402,892 |
 
-# Fast smoke-test mode (3 epochs, quick verification)
-python multimodal_transit_flow_matching.py --fast --run-policy-sim
+시드 11·29, 표본 128개, Heun 16단계다. 가중치 외에 약 200MB의 대여소별 과거 특성 파일이 필요하다. 학습 대여소는 1,318개이며 실제 입력·평가에 대응되는 대여소 수는 관측마다 다르다. 모델 구조와 원 파일 해시는 [모델 카드](docs/model-card-h13.md)와 릴리즈의 `model-info.json`에 있다.
+
+## API와 재배치
+
+모델 API는 재고 분포를 반환한다. 관리자 UI·H21 계산기를 시작하는 방법과 요청 형식은 [재배치 실행 안내](docs/dispatch-runbook.md)에 정리했다.
+
+```powershell
+# 저장소 폴더, 계산 서버에서. 이미 발행된 관측 스트림 필요.
+python runtime/dispatch_server.py --stream-dir PRIVATE_EXISTING_STREAM --port 8770
 ```
 
----
+이 명령은 API 수집을 재시작하지 않는다. H18의 기존 24시간·143회 시험 수집과 새 운영 수집을 구분한다. 수량·차량 적재·주차·상하차·복귀를 검사하며 실제 차량과 작업시간은 아직 가정값이다.
 
-### 4. Empirical Evaluation Summary (Held-Out 2026 Data)
+홈페이지는 [maintenance/homepage-methods 브랜치](https://github.com/sijoon-sung/KT-X-AI-/tree/maintenance/homepage-methods)의 정적 파일이다. 홈페이지 폴더에서 `python -m http.server 8771 --bind 127.0.0.1`로 표시한다.
 
-| Period | Model | MAE | WAPE | Zero-Demand Pred | Peak MAE ($y \ge 3$) | Rainy Hours MAE |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Feb 2026** (Winter) | Historical Smoothed Mean | 0.5281 | 1.1622 | 0.3731 | 2.0950 | 0.5120 |
-| | **Multimodal Transit-CFM (Proposed)** | **0.3395** | **0.7471** | **0.0787** | **2.1458** | **0.1171** |
-| **Mar 2026** (Spring) | Historical Smoothed Mean | 0.5264 | 0.9311 | 0.2778 | 2.5899 | 0.5230 |
-| | **Multimodal Transit-CFM (Proposed)** | **0.3809** | **0.6738** | **0.0811** | **2.1855** | **0.0568** |
+## 교통 연계 예시
 
-- **Inference Latency:** 12.7 ms per city-wide hour (1,283 stations simultaneously on RTX 3080).
-- **Counterfactual Policy Simulation:**
-  - *Subway Hub 50% Bike Supply Expansion:* +3.60% station catchment inflow.
-  - *Commuter Transit Disruption Shock:* +10.74% subway catchment surge, +11.18% city-wide last-mile absorption.
+[가상 입력과 실행 코드](examples/transport/README.md)로 버스 ETA·과거 도시철도 하차량을 대여소 특성에 대응하고, 도로 혼잡에 따라 같은 공급량의 방문 순서를 바꾸는 과정을 보여준다.
+
+```powershell
+python examples/transport/example.py --out private/transport-example.json
+```
+
+현재 H13에 새로운 교통 특성을 넣어 재예측한 결과는 아니다. 새 예측 입력을 쓰는 모델은 과거 자료로 별도 학습·선택해야 한다.
+
+## 평가와 자료
+
+2026-09-17~30의 1,298개 대여소·2,458,501쌍에서 현재 유지 대비 fairCRPS가 포아송 15.49%, FM 15.22% 감소했다. 재고 MAE는 현재 유지 0.212015대, 포아송 0.212039대, FM 0.211982대였다. FM fairCRPS는 포아송보다 0.327% 높았다.
+
+- [H13 평가·실행 이력](docs/H-0013-rolling-api-flow.md)
+- [H21 재배치 계획·운영 가정](docs/H-0021-bulk-rebalancing.md)
+- [학습과 API 사용 계약](docs/training-validation-contract.md)
+- [9월 평가 기간·정답](docs/september-evaluation-contract.md)
+- [배포·검증 기록](docs/runtime-release.md)
+- [기존 연구 기록](https://github.com/sijoon-sung/KT-X-AI-/blob/f218c83b015fffbac6fe1db686cdbe22f36a992e/README.md)
+
+다운로드한 과거 거래로 학습·내부 선택하고, API는 고정 모델의 당시 입력과 미래 평가 정답으로 분리한다. API 학습·튜닝·보정·모델 선택은 하지 않는다. 9월 자료는 반복 사용한 평가 자료다. 2·3월 거래 기록에는 실측 재고 정답이 없다. H13 로컬 학습 위치 위반과 dislab 평가 전환은 원 기록에 보존했다.
