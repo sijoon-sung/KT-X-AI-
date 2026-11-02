@@ -17,7 +17,7 @@ python -m http.server 8771 --bind 127.0.0.1
 - GCN 대 XGBoost 동일 조건 직접 비교 미실행. 선택 이유와 설계상 기대를 성능 우위로 바꾸지 않는다.
 - 버스·도시철도·도로 연계는 [설계](design/transport-integration.md)·[이벤트 스키마](design/transport-event.schema.json) 단계다. 새 모델 학습·실 API 연결은 미실행이다.
 
-[5분 발표 가이드·질의응답](design/presentation-guide.md). 자세한 연구 근거는 페이지의 원 기록 링크를 사용한다. 9월은 반복 노출된 공식 평가이며 미열람 독립 시험이 아니다. API 학습·튜닝·선택·보정 금지와 dislab 연산 원칙을 유지한다. H13의 과거 로컬 학습 위치 위반은 원 기록에 보존했다.
+[5분 발표 가이드·질의응답](design/presentation-guide.md) · [검증 범위](design/verification.md). 자세한 연구 근거는 페이지의 원 기록 링크를 사용한다. 9월은 반복 노출된 공식 평가이며 미열람 독립 시험이 아니다. API 학습·튜닝·선택·보정 금지와 dislab 연산 원칙을 유지한다. H13의 과거 로컬 학습 위치 위반은 원 기록에 보존했다.
 
 ## 과거 기록
 
