@@ -1,0 +1,16 @@
+{
+  "scope": "synthetic engineering forward/backward and16-scenario generation; no fitted model or empirical comparison",
+  "gpu": "NVIDIA GeForce RTX 3080",
+  "python": "3.12.10",
+  "torch": "2.7.1+cu118",
+  "numpy": "1.26.4",
+  "batch": 16,
+  "nodes": 1318,
+  "feature_dim": 366,
+  "backward_seconds": 0.09251109976321459,
+  "sixteen_scenario_seconds": 0.12351560033857822,
+  "peak_allocated_bytes": 220707840,
+  "finite": true,
+  "gaussian_parameters": 28168,
+  "flow_parameters": 78017
+}

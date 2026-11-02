@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "H-0014",
+  "stage": "frozen execution plan",
+  "device": "dislab RTX3080",
+  "seeds": [
+    11,
+    29
+  ],
+  "feature_dim": 366,
+  "feature_definition": "concatenate own/neighbor64 from each of both frozen parent encoders (256 total), own/neighbor historical logs12, calendar35+phase3+lagged weather54, recent proxy4, log1p ensemble average rentals/returns2",
+  "gaussian_ranks": [
+    8,
+    32
+  ],
+  "gaussian_epochs": 16,
+  "flow_epochs": 20,
+  "flow_checkpoint_epochs": [
+    0,
+    2,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "issue_samples_per_epoch": 1024,
+  "training_city_batch": 16,
+  "optimizer": {
+    "name": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0
+  },
+  "sampling": "PCG64(seed+epoch) uniform valid historical issue times with replacement, same draws per seed across configurations",
+  "gaussian_definition": "366->64SiLU->64SiLU->rank; L=tanh(raw)*.95/sqrt(rank), diag sd=sqrt(1-sum L^2); zero mean unit marginal covariance; masked Woodbury Gaussian NLL on independent randomized-PIT targets",
+  "flow_definition": "condition366->64SiLU->64; latent scalar+flowtime[t,sin(pi*t),cos(pi*t),t²] stem5->64;4 residual own/normalized masked historical graph/global pooled linear64 and LayerNorm blocks; zero initialized scalar output; masked whole-cohort CFM",
+  "flow_coupling": "source conditional Gaussian from frozen selected rank; per-issue independent Gaussian/observed historical target coupling; per-node independent Uniform for randomized signed Skellam-mixture PIT; epsilon1e-5; masks exclude unsupported nodes from targets/message passing",
+  "marginal_definition": "H13 predeclared recent GCN Poisson seeds11/29 equal mixture, never selected by API rank; sample signed returns-rentals once per node/particle for all dependence methods",
+  "generation": {
+    "particles": 128,
+    "heun_steps": 16,
+    "particle_chunk": 16,
+    "random_seed": 20261104,
+    "seed_mixture": "one seed model per entire global scenario; common Gaussian noise for Gaussian/FM, distinct fixed tie/shuffle streams",
+    "rank_reorder": "lexsort(template,independent tie noise); enforce exact sorted signed marginal sets and same monotone stock mapping"
+  },
+  "layout": {
+    "algorithm": "historical symmetrized row-normalizedOD weights; choose highest weighted degree unassigned seed, then max total affinity to region; ties degree then lex stationID; size16, last6 kept; no API-driven regrouping",
+    "regions": 83,
+    "pairs": "2048 uniformly sampled historical edges +2048 nonedges, deterministicPCG64seed20261104; equal half total weights",
+    "scale": "train-only max(1,sqrt(mean net² over source-supported node exposures))"
+  },
+  "checkpoint": {
+    "gaussian": "each seed every epoch0..16 lowest fixed February post-ECC regional completed-outflow CRPS; ties earliest; choose rank by2-seed ensemble same score, ties rank8",
+    "flow": "each seed epochs0,2,4,8,12,16,20 lowest same post-ECC February metric, ties earliest; selected Gaussian fixed",
+    "selection_issues": "2 source-valid times per interior February day,52 fixed timestamps PCG6420261104; common fixed marginal and template streams",
+    "auxiliary_issues": "1 source-valid time per March day,29 fixed timestamps; report once after lock, no reselection"
+  },
+  "historical_gate": {
+    "metric": "U_g=mean_i max(-completed_net_i,0); ordinary regional ensemble CRPS after coupling",
+    "controls": [
+      "independent",
+      "gaussian"
+    ],
+    "minimum_worst_relative_gain": 0.01,
+    "on_failure": "withdrawn: historical gate failed; September primary unexecuted, never substitute count score for inventory score"
+  },
+  "api": {
+    "source_sha256": "6d20460e5cbc7e38bf413c23eb15173f3c05941c398bdf5375d375476eac6904",
+    "period": "2026-09-01<=origin,target<2026-10-01 KST; actualSep17-30; repeated exposed evaluation",
+    "inputs": "previous/current only, finite nonnegative integer stock, delay0..120, past elapsed480..720; missing proxy mask, never future validity for generation",
+    "truth": "future finite stock with delay0..120 and elapsed480..720; complete fixed region and max-min timestamp<=30sec at both endpoints for regional score; no changing group membership",
+    "controls": [
+      "independent",
+      "gaussian",
+      "persistence"
+    ],
+    "primary": "minimum relative reduction in pooled equal-region zero-fraction CRPS vs3controls; ordinary empiricalM²",
+    "secondary": [
+      "FM station-shuffle",
+      "fixed-pair joint-zero Brier",
+      "individual stock CRPS/MAE/Brier exact marginal identity",
+      "region90/95% quantile pinball/coverage",
+      "historical VS.5/Energy"
+    ],
+    "bootstrap": {
+      "block_days": [
+        3,
+        7
+      ],
+      "repetitions": 2000,
+      "seed": 20261104,
+      "calendar_axis": "Sep17..30 including emptydays, city-synchronized allmethods",
+      "success": "point and both95%lower >.01",
+      "failure": "both95%upper<=.01 if sufficient, else inconclusive",
+      "sufficiency": {
+        "regions": 16,
+        "region_issues": 10000,
+        "active_days": 10,
+        "valid_replicates": 1900
+      }
+    }
+  },
+  "resources": {
+    "max_wall_hours": 4,
+    "max_gpu_fraction": 0.3,
+    "max_peak_allocated_bytes": 3221225472,
+    "minimum_free_gpu_bytes": 2147483648,
+    "target_p95_generation_seconds": 60,
+    "threads": 4,
+    "deterministic": true,
+    "tf32": false
+  },
+  "execution_contract": "publish frozen plan/code before learning/comparison; raw/API/keys/hosts/large weights remain private; model lock before external API; no API fitting/tuning/calibration; internal gate fail stops API; preserve all configurations/failures; clock uses collector launch plus remote monotonic elapsed with native remote time retained"
+}
