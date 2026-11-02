@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "H22-historical-scale-v1",
+  "parent_manifest": "tashu-rolling-api-H0013-v1",
+  "parent_manifest_sha256": "330513d242622205a11f075b79d61b2a04ae6980a83918a1f039ce689f0329b3",
+  "historical_artifacts": {
+    "context.npz": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65",
+    "time-features.npz": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+  },
+  "counts": "H13 audited completed-rental/return counts.npy; verify against original H13 data-audit before training",
+  "api_role": "September external evaluation only; never fit, checkpoint, architecture or adoption selection"
+}
