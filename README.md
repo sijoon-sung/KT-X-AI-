@@ -33,9 +33,9 @@ python -m venv .venv
 
 ## 97MB 확대 모델
 
-[GCN·Flow Matching 확대 모델](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h22-100mb-v1.0.1)은 실제 가중치97.00MB, 매개변수24,245,640개다. 두 시드의체크포인트를 함께 사용한다. 설치와API 실행은 [100MB 모델 안내](docs/quickstart-h22.md)를 따른다.
+[GCN·Flow Matching 확대 모델](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h22-100mb-v1.0.1)은 실제 가중치97.00MB, 매개변수24,245,640개다. 두 시드의 체크포인트를 함께 사용한다. 설치와API 실행은 [100MB 모델 안내](docs/quickstart-h22.md)를 따른다.
 
-3월 거래 분포 점수는기존FM보다0.58%악화했다. 9월2,458,501쌍의fairCRPS는0.180022로기존FM보다0.15%높았다. 확대 모델은별도 선택지로제공하고기본예측·재배치는H13을유지한다. [전체비교](docs/H-0022-100mb-model.md)에서조건과지표를확인할수있다.
+3월 거래 분포 점수는 기존 FM보다 0.58% 나빠졌다. 9월 2,458,501쌍의 fairCRPS는 0.180022로 기존 FM보다 0.15% 높았다. 확대 모델은 별도로 제공하며 기본 예측·재배치는 H13을 유지한다. [전체 비교](docs/H-0022-100mb-model.md)에서 조건과 지표를 확인할 수 있다.
 
 ## 기존 모델 크기
 

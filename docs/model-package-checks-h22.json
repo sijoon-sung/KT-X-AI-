@@ -1,0 +1,27 @@
+{
+  "hypothesis_id": "H-0022",
+  "package_version": "1.0.1",
+  "source_commit": "e42faf4ab74fbb5d338f9a3d516e2a2aebbec2fc",
+  "model_lock_sha256": "4d273f67aa47c56e4241b9fcf5f797040765914dc2ba28493787b5dee2881980",
+  "scope": "dislab packaging/inference functionality, synthetic input; not accuracy",
+  "actual_weights_bytes": 97004358,
+  "actual_parameters": 24245640,
+  "checks": {
+    "published_weights_unchanged_from_v1": true,
+    "archive_extracted": true,
+    "extracted_cpu_five_station_demo": true,
+    "extracted_cuda_five_station_demo": true,
+    "hashes_verified_before_between_after_execution": true,
+    "repository_document_links_committed_and_resolved_at_build": true,
+    "generated_bytecode_excluded": true,
+    "HTTP_checks_passed": 14,
+    "semantic_checks_passed": 4
+  },
+  "evidence": {
+    "api_checks_sha256": "c487b1d96e77899169c44a0b3ae710f843e50679da28758b69fe4a2c799e3009",
+    "semantic_checks_sha256": "82c3e27ecb4a2a343308808e2f9712713af3ec0d1d53c3b806365d86b87d24cd"
+  },
+  "api_requests_to_tashu": 0,
+  "weights_updated": false,
+  "fresh_venv_install_tested": false
+}

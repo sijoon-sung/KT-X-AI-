@@ -1,0 +1,43 @@
+{
+  "hypothesis_id": "H-0022",
+  "package_version": "1.0.1",
+  "model_lock_sha256": "4d273f67aa47c56e4241b9fcf5f797040765914dc2ba28493787b5dee2881980",
+  "source_commit": "e42faf4ab74fbb5d338f9a3d516e2a2aebbec2fc",
+  "all_loaded_parameters": 24245640,
+  "checkpoint_tensor_bytes": 96982560,
+  "checkpoint_file_bytes": 97004358,
+  "runtime_models": [
+    {
+      "name": "large-11.pt",
+      "gcn_parameters": 6988994,
+      "flow_parameters": 5133826,
+      "file_bytes": 48502179,
+      "tensor_bytes": 48491280,
+      "sha256": "089d2a8a8b2af069890ae840f3054d53d7cee9df69ae4d55fa02b11ae710f2fb"
+    },
+    {
+      "name": "large-29.pt",
+      "gcn_parameters": 6988994,
+      "flow_parameters": 5133826,
+      "file_bytes": 48502179,
+      "tensor_bytes": 48491280,
+      "sha256": "ab2ad6e396ce140711404c380ae0877acfe22389af519758ec5121e6586fb9d9"
+    }
+  ],
+  "context_file_bytes": 200047986,
+  "environment": {
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "2.3.3"
+  },
+  "api_training": false,
+  "raw_api_included": false,
+  "raw_trip_events_included": false,
+  "credentials_included": false,
+  "archive": {
+    "name": "tashu-h22-100mb-v1.0.1.zip",
+    "bytes": 284862912,
+    "sha256": "0f39a531db27df0da419c5c652a881bcd4f934e71ab9740d0b47d3adcf0e9785"
+  }
+}
