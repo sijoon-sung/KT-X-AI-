@@ -2,7 +2,7 @@
 
 기준: 2026-11-09, 구현 커밋 `5db8c21c9e9740cd6e8c90b50dd087716c45c861`.
 입력 특징 확장을 멈추고 현재 구현의 encoder·decoder 경계와 입출력을 고정한다.
-[구조도](../architecture.html), [SVG](../assets/model-architecture-v1.svg), [차원 계약 JSON](model-architecture-contract.json).
+[논문용 전체·층별 그림과 캡션](architecture-figures.md), [구조도 페이지](../architecture.html), [차원 계약 JSON](model-architecture-contract.json).
 
 ## 가설과 이번 범위
 
@@ -95,9 +95,9 @@
 
 H22는 과거 3월 energy score가 H13보다0.58% 나빠 사전 개선 기준을 통과하지 못했다. 이 결과를 기록하고 H13을 기준 모델로 유지한다. 크기만 늘리는 작업도 중단한다.
 
-2026-11-09 10:36 KST의 SSH 확인은 인증 이전 연결 거부로 실패했다. 키 파일은 존재하며 서버 측 정확한 원인은 확인하지 못했다. [접속 확인 기록](dislab-status-20261109.json). 오늘 원격 모델·GPU 재검사는 미실행이다.
+2026-11-09 10:36 KST에는 SSH가 인증 이전 연결 거부로 실패했다. 같은 날 11:53 KST 재확인에서는 키 인증·원격 명령 실행에 성공했다. SSH 서비스 Running/Automatic, 원격 작업 폴더·H13/H22 잠금 파일 존재, RTX 3080·CUDA 환경을 확인했다. 가중치 해시 재대조·모델 추론은 아직 실행하지 않았다. [접속 확인 기록](dislab-status-20261109.json).
 
-접속 복구 후의 순서는 다음과 같다.
+접속 복구 후 남은 순서는 다음과 같다.
 
 1. H13/H22 모델 잠금·체크포인트 해시와 원래 환경 확인.
 2. 동일한 합성 입력에서 위 encoder·decoder 차원과 결정적 재실행 확인.

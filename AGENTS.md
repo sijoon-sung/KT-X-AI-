@@ -69,4 +69,4 @@
 ## 2026-11-09 입력·모델 범위 고정
 - 현재 입력·층·손실·출력은 `docs/model-architecture-v1.md`와 `docs/model-architecture-contract.json`을 따른다. 버스·철도·추가 기상·추가 도시·LLM을 예측 특징으로 추가하지 않는다. 다음 가설은 고정 입력 안에서 encoder/decoder 한 부분씩 비교한다.
 - H13은 기준 모델, H22는 별도 비교 모델이다. 기존 동결 계획·가중치·실패 기록을 소급 변경하지 않는다. 아키텍처 페이지는 `architecture.html`이다.
-- 2026-11-09 SSH 확인은 연결 거부로 실패했다. `docs/dislab-status-20261109.json`을 참고하며 서버에서 실행하지 못한 모델·GPU 점검을 완료로 표시하지 않는다. 접속 상태는 고정 기록이며 다음 작업 때 실제 재확인한다.
+- 2026-11-09 초기 SSH 연결 거부 후 11:53 KST 재연결·키 인증·원격 명령·RTX 3080/CUDA·모델 잠금 파일 존재를 확인했다. `docs/dislab-status-20261109.json`은 시점별 기록이다. 가중치 해시 재대조와 모델 추론은 별도이며 실행 완료로 표시하지 않는다. 논문용 그림은 `docs/architecture-figures.md`에서 받는다.

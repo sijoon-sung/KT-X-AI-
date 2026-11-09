@@ -6,13 +6,13 @@ GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대
 
 ## 모델 구조와 고정 범위
 
-[Encoder·decoder 구조도](architecture.html) · [층·입출력·손실 명세](docs/model-architecture-v1.md) · [SVG](assets/model-architecture-v1.svg)
+[Encoder·decoder 구조도](architecture.html) · [층·입출력·손실 명세](docs/model-architecture-v1.md) · [논문용 그림·캡션](docs/architecture-figures.md) · [전체 구조 PDF](assets/model-architecture-v1.pdf) · [층별 상세 PDF](assets/model-architecture-layers-v1.pdf)
 
 현재 H13을 기준으로 입력 특징을 고정한다. 주간 encoder420→256→64와 OD 집계, 자기164·이웃72→256의 조건 결합, 대여·반납 평균 head와 조건부FM decoder로 구성한다. 버스·철도·추가 기상·추가 도시·LLM 입력 추가는 보류한다. H22는 같은 입력을 쓰는97MB 비교 모델이다.
 
 `architecture.html`은 저장소 폴더에서 `python -m http.server 8772 --bind 127.0.0.1`로 열 수 있다.
 
-[dislab 확인 기록](docs/dislab-status-20261109.json):2026-11-09 10:36 KST 연결 거부. 키 파일은 존재하지만 인증 단계에 도달하지 못했다. 오늘 원격 모델·GPU 재검사는 미실행이다.
+[dislab 확인 기록](docs/dislab-status-20261109.json):2026-11-09 11:53 KST 키 인증·원격 명령 실행에 성공했다. SSH 서비스는 Running/Automatic이며 RTX 3080·CUDA·H13/H22 잠금 파일 존재를 확인했다. 새 모델 추론·학습은 실행하지 않았다.
 
 ## 실행
 
