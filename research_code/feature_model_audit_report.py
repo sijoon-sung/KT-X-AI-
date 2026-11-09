@@ -10,7 +10,9 @@ NAMES={'full':'Full GCN','no_graph':'No graph (MLP)','shuffled_neighbors':'Shuff
 KO={'no_graph':'이웃 전체 / GCN','shuffled_neighbors':'올바른 이웃 대응','no_weather':'기상 입력','no_calendar':'명시적 달력·10분 위치','no_recent':'최근 순흐름','no_embedding':'주간 임베딩','no_pretrain':'서울 사전학습'}
 
 def save(fig,out,name):
- for ext in ['png','svg']:fig.savefig(out/(name+'.'+ext),dpi=200,bbox_inches='tight',facecolor='white')
+ for ext in ['png','svg']:
+  target=out/(name+'.'+ext);fig.savefig(target,dpi=200,bbox_inches='tight',facecolor='white')
+  if ext=='svg':target.write_text('\n'.join(s.rstrip() for s in target.read_text(encoding='utf-8').splitlines())+'\n',encoding='utf-8')
  plt.close(fig)
 
 def main(a):
@@ -31,7 +33,8 @@ def main(a):
   e=r['feature_effects'][k];g=e['relative_reduction']*100
   for b,dy,col in [('3',-.13,'#16796c'),('7',.13,'#7287a0')]:
    lo,hi=[v*100 for v in e[b]['feature_simultaneous_ci']];ax.plot([lo,hi],[i+dy,i+dy],color=col,lw=2);ax.scatter([g],[i+dy],color=col,s=27,zorder=3)
- ax.set_yticks(range(len(keys)),[NAMES[k] for k in keys]);ax.invert_yaxis();ax.grid(axis='x',alpha=.18);ax.set_xlabel('Deviance reduction from retaining the removed component (%)');ax.set_title('Feature contribution after retraining',fontsize=17,pad=20)
+ component_names={'no_graph':'Graph neighborhood','shuffled_neighbors':'Correct neighbor mapping','no_weather':'Weather inputs','no_calendar':'Explicit calendar / phase','no_recent':'Recent net flow','no_embedding':'Weekly profile embedding','no_pretrain':'Seoul pretraining'}
+ ax.set_yticks(range(len(keys)),[component_names[k] for k in keys]);ax.invert_yaxis();ax.grid(axis='x',alpha=.18);ax.set_xlabel('Deviance reduction from retaining the component (%)');ax.set_title('Feature contribution after retraining',fontsize=17,pad=20)
  fig.text(.04,.015,'Green: 3-day blocks. Blue: 7-day blocks. Simultaneous intervals across 7 contrasts × 2 block lengths. Positive favors Full.',fontsize=9,color='#5d6875');fig.tight_layout(rect=(0,.045,1,1));save(fig,out,'feature-effects')
 
  keys=list(r['distributions']);fig,ax=plt.subplots(figsize=(11,5.7));vals=[r['distributions'][k]['energy'] for k in keys]
