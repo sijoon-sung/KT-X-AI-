@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "id": "H-0023",
+  "title": "고정 특징 제거와 GCN·XGBoost·포아송/FM 비교",
+  "status": "preregistered",
+  "plan": {
+    "question": "고정 특징과 GCN/FМ의 추가 이득이 있는가? 같은 과거 기록과 예산에서 비그래프 MLP·XGBoost보다 현재 모형이 나은가?",
+    "hypothesis": "동일 예산 full GCN의 3월 거래 건수 Poisson deviance가 2월에서 선택한 최선 비그래프 대조군보다1% 이상 낮고,3일·7일 paired block bootstrap95% 개선 구간 하한이 모두0보다 크다. 특징별 제거와 FM은 사전 명시한 보조 검증으로 분리한다.",
+    "prior_art": [
+      {
+        "title": "GCN, Kipf and Welling",
+        "url": "https://arxiv.org/pdf/1609.02907",
+        "verified_scope": "원문 그래프 특징 전파 식과 Figure1. 이 프로젝트는 고정 OD집계와 자기/이웃 투영이다.",
+        "difference_to_test": "neighbor 제거와 station-shuffled neighbor로 올바른 관계의 추가 가치를 비교"
+      },
+      {
+        "title": "Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "조건부 속도장 회귀와 ODE생성. 독립 Gaussian residual FM을 구현해 비교.",
+        "difference_to_test": "동일 full rate network의 Poisson과 FM count energy를 비교"
+      },
+      {
+        "title": "XGBoost parameters",
+        "url": "https://xgboost.readthedocs.io/en/stable/parameter.html",
+        "verified_scope": "count:poisson,base_margin,hist/device 및 boosting parameter 정의. 실제 패키지는3.1.1로 고정.",
+        "difference_to_test": "같은 기존 입력 원천을 쓰는 tree count predictor와 neural GCN 비교"
+      }
+    ],
+    "data": {
+      "dataset_id": "H23-historical-feature-audit-v1",
+      "input_manifest_sha256": "918486a0fa7d2f28758a55fd0d181d1cfc4452f95b77b82a7457f7c47dc44710",
+      "observed_truth": "Completed rental and return counts in next10min, not measured stock, unmet demand or dispatch outcomes.",
+      "not_observed": [
+        "2·3월 실측 재고",
+        "잠재 수요·실제 재배치 효과",
+        "미열람 독립 시험 기간"
+      ],
+      "api_access": "No API path or loader, no new September evaluation in this experiment."
+    },
+    "architecture": {
+      "reference": "H13 own164/neighbor72,hidden256,2hidden layers; no new input source or capacity increase",
+      "variants": [
+        "full",
+        "no_graph",
+        "shuffled_neighbors",
+        "no_weather",
+        "no_calendar",
+        "no_recent",
+        "no_embedding",
+        "no_pretrain"
+      ],
+      "masks": {
+        "no_graph": "All neighbor72 inputs zero; own inputs unchanged (standalone station MLP).",
+        "shuffled_neighbors": "Use neighbor log/embedding/recent inputs of permuted station index; one permutationPCG64(20261110) shared across seeds; preserves feature shapes and marginal neighbor feature distribution.",
+        "no_weather": "Own weather54 zero including masks.",
+        "no_calendar": "Only explicit calendar35 and phase3 zero; calendar information in fixed historical priors remains.",
+        "no_recent": "Own2 and neighbor2 recent inputs zero.",
+        "no_embedding": "Own z64 and neighbor Az64 zero; neighbor log/recent remain.",
+        "no_pretrain": "Random weekly encoder initialization, other heads and sample budgets unchanged; all target parameters trained."
+      },
+      "tree": "XGBoost two separate count:poisson outputs. Existing own164+neighbor72 features with frozen source-only Seoul encoder(seed11) and fixed OD. base_margin=log(prior10). Thus an engineered historical embedding baseline, not raw-only XGBoost. Fixed source encoder is not target/full-GCN-trained."
+    },
+    "training": {
+      "seeds": [
+        11,
+        29
+      ],
+      "mean_epochs": 16,
+      "examples_per_epoch": 524288,
+      "batch_size": 8192,
+      "optimizer": "AdamW lr.001 weight_decay.0001 clip1",
+      "early_selection": "minimum February deviance on fixed131072 validation exposures PCG64(20261110), epoch0 included, earliest tie",
+      "source": "H12 source-only Seoul encoder; all target encoder layers fine-tuned except no_embedding unused path",
+      "flow_epochs": 20,
+      "flow_examples_per_epoch": 524288,
+      "flow_selection": "full only, frozen rate network, February131072 exposures, identical seeded noise every validation, minimum flow MSE, earliest tie",
+      "flow": "H13 CountFlow256/128,log residual dequantization,Gaussian source,Heun16,128IID particles",
+      "xgboost": {
+        "version": "3.1.1",
+        "tree_method": "hist",
+        "device": "cuda",
+        "max_depth": 6,
+        "max_bin": 128,
+        "eta": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "min_child_weight": 20,
+        "lambda": 1,
+        "rounds": 500,
+        "early_stopping_rounds": 40,
+        "train_examples": 524288,
+        "validation_examples": 131072,
+        "nthread": 4,
+        "seeds": [
+          11,
+          29
+        ],
+        "cpu_fallback": "If CUDA fails for the installed wheel before a valid fit, log the failure and retry this exact tree configuration on dislab CPU; no parameter selection."
+      },
+      "environment": "dislab RTX3080 10GB,Python3.12.10,torch2.7.1+cu118,numpy1.26.4;torch4threads,deterministic,TF32off,memory_fraction.55;isolated XGBoost dependency directory",
+      "budget": "One batch experiment; up to60min total. Never kill unrelated jobs. OOM/failure retained; no adaptive hyperparameter expansion."
+    },
+    "evaluation": {
+      "design": "H13 historical preprocessing/IDs/OD/profile/normalization/masks fixed by hashes. Train before2026-02; Februarycheckpoint selection only; March262144 fixed station-time draws for count mean deviance and mean MAE. A fixed32768 subset of the same test draws is used for128-particle energy comparisons. March is previously exposed, not an untouched test. Choose best non-graph control by February validation among prior,no_graph,XGBoost before opening March predictions. Mean scores use ensemble mean rate, distribution scores use IID per-particle seed mixture. No API is opened or used in training/choice/calibration. Do not change deployed default automatically.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "historical_month_weekday_time_prior",
+        "same_budget_no_graph_MLP",
+        "fixed_config_XGBoost",
+        "locked_H13",
+        "locked_H22"
+      ],
+      "primary_metric": {
+        "name": "March completed-count Poisson deviance of ensemble mean",
+        "direction": "lower",
+        "unit": "deviance per station-time-channel"
+      },
+      "success_rule": "Full vs February-selected non-graph baseline:>=1% relative deviance reduction and both3/7day block95%CI lower>0. Tested-set rank reported separately; no global best claim.",
+      "failure_rule": "Not_supported if point gain<1% or point gain<=0; if point>=1% but either interval includes0, inconclusive. A feature is supported only with>=1% gain and both simultaneous intervals lower>0; harmed if<=-1% and both upper<0; otherwise no demonstrated practically meaningful gain, not equality.",
+      "exclusion_rule": "Reuse only original valid historical intervals, first training station timestamps and existing missing/duplicate/outage rules. Uniform time then station sampling rejection; no condition on future outcomes. Never drop a zero-count sample. No inventory reconstruction truth.",
+      "uncertainty_plan": "Paired moving day blocks3 and7,20000 replicates PCG64(20261110); ratio of resampled sums/exposures. Seven feature contrasts full-vs-ablated use Bonferroni alpha=.05/14 across seven contrasts and two block lengths. FM full vs same full Poisson energy secondary uses95%CI at both block lengths and>=1% gain. Energy=mean||X-y||-.5mean||X_first64-X_last64||, independent paired particles. Report MAE,per-seed scores and day support. Reference H13/H22 and group summaries descriptive only.",
+      "seed_plan": "Training11/29, sample/negative-control/bootstrap20261110, flow evaluation streams20261110+batch_start; seed mixture IID for every particle.",
+      "secondary": "Feature activity/missing-mask audit on historical training support; direct sparsity and night/day group scores; wall time/parameter/file size. Historical weather values are lagged; revised receipt timestamps remain unobserved. Runtime currently uses missing-weather encoding, so a retrospective weather gain does not prove live gain. Recent API stock delta is a deployment proxy for historical completed net flow; this test does not validate that distribution shift."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "5c8bc7aa55c7d204ed9cf31f4351190b39bccf911fd66bdf6ee407cbbda4e7c3",
+    "frozen_at_utc": "2026-11-09T16:46:58.226342+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
