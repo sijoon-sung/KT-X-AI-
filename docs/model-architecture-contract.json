@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "version": "architecture-v1-20261109",
+  "status": "documented existing implementation; no new fit or changed inference",
+  "source_commit": "5db8c21c9e9740cd6e8c90b50dd087716c45c861",
+  "feature_policy": {
+    "frozen": true,
+    "new_sources": false,
+    "suspended": [
+      "additional weather variables",
+      "bus/rail/traffic prediction inputs",
+      "additional city data",
+      "LLM prediction features"
+    ],
+    "station_profile_width": 420,
+    "calendar_width": 35,
+    "phase_width": 3,
+    "weather_width": 54,
+    "historical_own_width": 6,
+    "historical_neighbor_width": 6,
+    "recent_own_width": 2,
+    "recent_neighbor_width": 2,
+    "station_embedding_width": 64,
+    "own_concat_width": 164,
+    "neighbor_concat_width": 72,
+    "horizon_seconds": 600,
+    "particles": 128,
+    "heun_steps": 16
+  },
+  "models": {
+    "H13": {
+      "role": "default forecast and dispatch input",
+      "station_encoder": [
+        420,
+        256,
+        64
+      ],
+      "station_encoder_activation": [
+        "SiLU",
+        "LayerNorm64"
+      ],
+      "graph": "one fixed historical OD aggregation A @ z, once per station profile",
+      "own_projection": [
+        164,
+        256
+      ],
+      "neighbor_projection": [
+        72,
+        256
+      ],
+      "neighbor_bias": false,
+      "context_hidden_layers": 2,
+      "context_width": 256,
+      "rate_decoder": [
+        256,
+        2
+      ],
+      "flow_condition_cache": null,
+      "velocity_decoder": [
+        264,
+        128,
+        128,
+        128,
+        2
+      ],
+      "gcn_parameters_per_seed": 317122,
+      "flow_parameters_per_seed": 67202,
+      "active_two_seed_parameters": 768648,
+      "loader_parameters_with_controls": 1402892,
+      "all_checkpoint_file_bytes": 5639320,
+      "active_two_seed_fp32_tensor_bytes": 3074592,
+      "seeds": [
+        11,
+        29
+      ],
+      "source_class": "rolling_inventory_model.Forecaster + scaled_flow_core.CountFlow"
+    },
+    "H22": {
+      "role": "optional 97MB experiment; not default",
+      "station_encoder": [
+        420,
+        256,
+        64
+      ],
+      "graph": "same fixed OD operator",
+      "own_projection": [
+        164,
+        1280
+      ],
+      "neighbor_projection": [
+        72,
+        1280
+      ],
+      "neighbor_bias": false,
+      "context_hidden_layers": 4,
+      "context_width": 1280,
+      "rate_decoder": [
+        1280,
+        2
+      ],
+      "flow_condition_cache": [
+        1280,
+        1280,
+        1280,
+        1280,
+        128
+      ],
+      "velocity_decoder": [
+        136,
+        128,
+        128,
+        128,
+        2
+      ],
+      "gcn_parameters_per_seed": 6988994,
+      "flow_parameters_per_seed": 5133826,
+      "active_two_seed_parameters": 24245640,
+      "all_checkpoint_file_bytes": 97004358,
+      "active_two_seed_fp32_tensor_bytes": 96982560,
+      "seeds": [
+        11,
+        29
+      ],
+      "source_class": "large_inventory_model.LargeForecaster + CachedFlow"
+    }
+  },
+  "boundaries": {
+    "station_encoder_output": "[N,64] z and [N,64] A@z",
+    "context_encoder_output": "[B,H] h; H=256 or1280",
+    "rate_decoder_output": "[B,2] lambda in rental,return order",
+    "flow_decoder_output": "[B,128,2] nonnegative integer completed-count samples",
+    "stock_projection_output": "[B,128] stock samples; max(0,current+return-rental)",
+    "dispatcher": "fixed stock samples into unchanged H21 quantities and routes; separate from neural decoder"
+  },
+  "equations": {
+    "rate": "lambda = historical_prior * exp(2*tanh(a/2)); a = Linear(h)",
+    "poisson_loss": "mean(lambda - y*log(lambda)); constant log(y!) omitted",
+    "cfm_target": "r1=log1p(y+u)-log1p(lambda), u~Uniform(0,1)^2",
+    "cfm_path": "rs=(1-s)*r0+s*r1, r0~Normal(0,I2), s~Uniform(0,1)",
+    "cfm_loss": "mean((v(rs,s,h,log1p(lambda))-(r1-r0))^2)",
+    "count_decode": "max(0,floor(expm1(r_ode+log1p(lambda))))",
+    "inventory": "max(0,b_now+returns-rentals)"
+  },
+  "training_stages": [
+    "Initialize weekly encoder from historical Seoul future-count pretraining.",
+    "Fit weekly encoder and GCN rate head jointly on historical Tashu counts, select on February.",
+    "Freeze rate encoder/head; fit conditional flow with historical counts, select on February.",
+    "Lock all artifacts before September external replay."
+  ],
+  "assessment": {
+    "H22_march_energy_relative_gain": -0.005828620898331138,
+    "H13_september_cfm_fair_crps": 0.17975593078087343,
+    "H22_september_cfm_fair_crps": 0.18002183969356297,
+    "new_score_computed": false,
+    "today_remote_execution_verified": false,
+    "source": "Existing H13/H22 completed run summaries only; API not used for new selection."
+  },
+  "code": [
+    {
+      "path": "research_code/forecast_transfer.py",
+      "sha256_lf": "283d0ec2bb9be0d33aa25a357d1829710bf587fe83fe77c9b52476a2cb6692ce"
+    },
+    {
+      "path": "research_code/rolling_inventory_model.py",
+      "sha256_lf": "39fe803ed2b5595fddd3f852c7ea020445f4e77c87ac93f1f4ec938c025f941c"
+    },
+    {
+      "path": "research_code/rolling_inventory_data.py",
+      "sha256_lf": "1afa158514c268ebe105360e85ea6f8947de6c574cbb53f07dfc653131f0c24d"
+    },
+    {
+      "path": "research_code/rolling_inventory_fit.py",
+      "sha256_lf": "4d35f4bc5cebc50b2b5da48ed5662725440c0277bd63ca3a0218776a63a6fca8"
+    },
+    {
+      "path": "research_code/scaled_flow_core.py",
+      "sha256_lf": "d51f3552137646da04154fcc5c7e8f77760dea5f9ab008786b972ac73d76d9e1"
+    },
+    {
+      "path": "research_code/large_inventory_model.py",
+      "sha256_lf": "8622ffd5f0dbb0c78067e8213bf4fdf3bf6a14571672deb5c1091257ac49c75d"
+    }
+  ]
+}

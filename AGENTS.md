@@ -65,3 +65,8 @@
 - `runtime/run.py`: H13 고정 모델. `runtime/large_run.py`: H22 별도 모델 묶음의 진입점. 연구 코드 원본과 잠금은 버전별로 보존한다.
 - 홈페이지는 루트 `index.html`, 교통 연계 예시는 `transport-example.html`, 관리자 화면은 `runtime/dispatch_server.py`로 실행한다.
 - `[integration]` PR은 기존 PR을 기본 브랜치에 모을 때만 사용한다. `docs/github-integration.json`의 원 커밋과 가져온 파일의 Git blob이 같아야 한다. 새 실험·숫자 변경을 통합 PR에 숨기지 않는다.
+
+## 2026-11-09 입력·모델 범위 고정
+- 현재 입력·층·손실·출력은 `docs/model-architecture-v1.md`와 `docs/model-architecture-contract.json`을 따른다. 버스·철도·추가 기상·추가 도시·LLM을 예측 특징으로 추가하지 않는다. 다음 가설은 고정 입력 안에서 encoder/decoder 한 부분씩 비교한다.
+- H13은 기준 모델, H22는 별도 비교 모델이다. 기존 동결 계획·가중치·실패 기록을 소급 변경하지 않는다. 아키텍처 페이지는 `architecture.html`이다.
+- 2026-11-09 SSH 확인은 연결 거부로 실패했다. `docs/dislab-status-20261109.json`을 참고하며 서버에서 실행하지 못한 모델·GPU 점검을 완료로 표시하지 않는다. 접속 상태는 고정 기록이며 다음 작업 때 실제 재확인한다.

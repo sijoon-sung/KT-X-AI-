@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-09T01:36:39.121071+00:00",
+  "checked_at_kst": "2026-11-09T10:36:39+09:00",
+  "result": "connection_refused_before_authentication",
+  "ssh_exit_code": 255,
+  "tcp_error_number": 10061,
+  "identity_file_present": true,
+  "remote_marker_received": false,
+  "authentication_reached": false,
+  "remote_model_or_gpu_check_completed": false,
+  "remote_training_started": false,
+  "local_research_compute_started": false,
+  "diagnosis": "Configured endpoint refused the connection. Host power, SSH daemon/listener or connection mapping require checking; no exact server-side cause established.",
+  "private_connection_details_included": false
+}
