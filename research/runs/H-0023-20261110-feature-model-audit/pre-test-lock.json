@@ -1,0 +1,203 @@
+{
+  "locked_at_utc": "2026-11-09T16:55:33.634400+00:00",
+  "plan_sha256": "5c8bc7aa55c7d204ed9cf31f4351190b39bccf911fd66bdf6ee407cbbda4e7c3",
+  "input_manifest_sha256": "918486a0fa7d2f28758a55fd0d181d1cfc4452f95b77b82a7457f7c47dc44710",
+  "code_commit": "c299323f477bdeb9ea1e428477ad90024f231f0e",
+  "validation": {
+    "prior": {
+      "deviance": 0.35978363881037473,
+      "mae": 0.14323604106903076
+    },
+    "full": {
+      "deviance": 0.35076134939170583,
+      "mae": 0.1274767965078354
+    },
+    "no_graph": {
+      "deviance": 0.3514746620850356,
+      "mae": 0.12950079143047333
+    },
+    "shuffled_neighbors": {
+      "deviance": 0.3503383871779083,
+      "mae": 0.1321883648633957
+    },
+    "no_weather": {
+      "deviance": 0.3554265175515683,
+      "mae": 0.12912726402282715
+    },
+    "no_calendar": {
+      "deviance": 0.35117246179729616,
+      "mae": 0.12967635691165924
+    },
+    "no_recent": {
+      "deviance": 0.3526619975503476,
+      "mae": 0.12971115112304688
+    },
+    "no_embedding": {
+      "deviance": 0.35185797752736897,
+      "mae": 0.12925735116004944
+    },
+    "no_pretrain": {
+      "deviance": 0.3506917240540415,
+      "mae": 0.1277734637260437
+    },
+    "xgboost": {
+      "deviance": 0.35305837537355783,
+      "mae": 0.1314868927001953
+    }
+  },
+  "selected_non_graph_control": "no_graph",
+  "artifacts": [
+    {
+      "id": "flow-11.pt",
+      "sha256": "21a6dd1595bc72db9a549bb024e309e38a0561b905f44cc2f42b863d813fe62f"
+    },
+    {
+      "id": "flow-29.pt",
+      "sha256": "e74b14ce842fb4a7f0bf76081847bf67aa51219229f03509e69864587f8fe041"
+    },
+    {
+      "id": "full-11.pt",
+      "sha256": "43a206a3782f2f3feb1c3861a3a564dd6d70fde241362bbf745b1e9f73e76f48"
+    },
+    {
+      "id": "full-29.pt",
+      "sha256": "2a8bf2065363bdc6e408b52a279434327ad7ed8556b35ae570c034eb060f9e52"
+    },
+    {
+      "id": "no_calendar-11.pt",
+      "sha256": "2628f8ad46e88f3276ec6ecf82f6a36f50837c13bf840d2e9d6b7c1fee3f4413"
+    },
+    {
+      "id": "no_calendar-29.pt",
+      "sha256": "707c6e95d035acbbbe9b0c72673f14b355a876ae8c91d6ec5d38384546a49849"
+    },
+    {
+      "id": "no_embedding-11.pt",
+      "sha256": "e3671c2f49e5c5c5b101c01ea1a223cb8491e2ad60e6b4b3829ca0317dcc9623"
+    },
+    {
+      "id": "no_embedding-29.pt",
+      "sha256": "518e837c942d52f720fdf8a3fcf82a9067af1e766bf959115cce9bbacffbe623"
+    },
+    {
+      "id": "no_graph-11.pt",
+      "sha256": "3a139ae819e5e9595df4d70f44b312400e1f131d060ccc8bb3908764364f3326"
+    },
+    {
+      "id": "no_graph-29.pt",
+      "sha256": "c0f64ae3f866368db6d0f0eb7665b49cd1d51bb269c3471392475b29f1832dbc"
+    },
+    {
+      "id": "no_pretrain-11.pt",
+      "sha256": "ec9fd6a9c55750b5d6b2dddbf4f050f964626ab3ce3f817c92cc69e8f69f9ebc"
+    },
+    {
+      "id": "no_pretrain-29.pt",
+      "sha256": "1af071e7066cb5d21f5280cf55a6195872b62ff21752ef91c755ff6dac2ffd1f"
+    },
+    {
+      "id": "no_recent-11.pt",
+      "sha256": "436e3410513d3e6c9a2bfaf26fd093216158a996541c9ad3291b3e42908d8621"
+    },
+    {
+      "id": "no_recent-29.pt",
+      "sha256": "150e910a64b73c4c4ac9280979eb467f97073f84d95609b132e2b6301bfdb4cf"
+    },
+    {
+      "id": "no_weather-11.pt",
+      "sha256": "881bc8aef4af3ea3132807af5191f96da582db9e6adf3a1ada61d40a19b6c013"
+    },
+    {
+      "id": "no_weather-29.pt",
+      "sha256": "40670566e18a8040b1ef688cff06047a9fdd68a851a60c9bfe8c18ddf06ee630"
+    },
+    {
+      "id": "shuffled_neighbors-11.pt",
+      "sha256": "0586e7cd303397b3c3d66061c607701b32b944525b91bbfe2fb5c2a79056d5e3"
+    },
+    {
+      "id": "shuffled_neighbors-29.pt",
+      "sha256": "b9011e8e6e4ef415daa6f1436b56052e129a2f62fdf3b27b0033dbb7924649f4"
+    },
+    {
+      "id": "xgb-11-0.ubj",
+      "sha256": "40fd16924f3fcc251852a37ba4f5b6c3482a9cc41f012188b40260e7d4e85a62"
+    },
+    {
+      "id": "xgb-11-1.ubj",
+      "sha256": "18d66aedde299676151fbe98192e4178b619f38533167a1cbad2ca3903e876f1"
+    },
+    {
+      "id": "xgb-29-0.ubj",
+      "sha256": "d309b444f736fe3905240babed13ae214bcc295b347857f18b200571a1103c63"
+    },
+    {
+      "id": "xgb-29-1.ubj",
+      "sha256": "7b7cfea9991e0073c1d9b3d12b371ba68ecb47f6aa2b72d791d64ed256685f9a"
+    }
+  ],
+  "parent_checks": {
+    "locked_h13": {
+      "hypothesis_id": "H-0013",
+      "lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+      "artifacts": [
+        {
+          "id": "context.npz",
+          "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+        },
+        {
+          "id": "flow-11.pt",
+          "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e"
+        },
+        {
+          "id": "flow-29.pt",
+          "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e"
+        },
+        {
+          "id": "no_recent-11.pt",
+          "sha256": "7c9c81a5c7201dfb43c7307d300510a8583dddf58085609cf6958326e77cbb0f"
+        },
+        {
+          "id": "no_recent-29.pt",
+          "sha256": "3c4f8de7b60f3a16dfec0ae5f3f4f077b4c5b23687db5c7b04ab3f2ad584799c"
+        },
+        {
+          "id": "recent-11.pt",
+          "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+        },
+        {
+          "id": "recent-29.pt",
+          "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+        },
+        {
+          "id": "time-features.npz",
+          "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+        }
+      ]
+    },
+    "locked_h22": {
+      "hypothesis_id": "H-0022",
+      "lock_sha256": "4d273f67aa47c56e4241b9fcf5f797040765914dc2ba28493787b5dee2881980",
+      "artifacts": [
+        {
+          "id": "context.npz",
+          "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+        },
+        {
+          "id": "large-11.pt",
+          "sha256": "089d2a8a8b2af069890ae840f3054d53d7cee9df69ae4d55fa02b11ae710f2fb"
+        },
+        {
+          "id": "large-29.pt",
+          "sha256": "ab2ad6e396ce140711404c380ae0877acfe22389af519758ec5121e6586fb9d9"
+        },
+        {
+          "id": "time-features.npz",
+          "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+        }
+      ]
+    }
+  },
+  "api_opened": false,
+  "March_predictions_opened": false
+}

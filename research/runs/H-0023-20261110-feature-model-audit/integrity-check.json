@@ -1,0 +1,29 @@
+{
+  "check": "reference reproduction and phase order",
+  "models": [
+    {
+      "seed": 11,
+      "new_epoch": 7,
+      "old_epoch": 7,
+      "max_abs_tensor_difference": 9.55779105424881e-05,
+      "independent_output_paths": true
+    },
+    {
+      "seed": 29,
+      "new_epoch": 3,
+      "old_epoch": 3,
+      "max_abs_tensor_difference": 4.9211084842681885e-06,
+      "independent_output_paths": true
+    }
+  ],
+  "locked_before_finished": true,
+  "api_opened": false,
+  "tree_actual_devices": [
+    "cuda",
+    "cuda",
+    "cuda",
+    "cuda"
+  ],
+  "tree_cuda_failures": 0,
+  "code_commit": "c299323f477bdeb9ea1e428477ad90024f231f0e"
+}

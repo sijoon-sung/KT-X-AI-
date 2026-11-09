@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0023-20261110-feature-model-audit",
+  "hypothesis_id": "H-0023",
+  "plan_sha256": "5c8bc7aa55c7d204ed9cf31f4351190b39bccf911fd66bdf6ee407cbbda4e7c3",
+  "code_commit": "c299323f477bdeb9ea1e428477ad90024f231f0e",
+  "report_code_commit": "7b977429ea1ad65f382970ebd1b8c1c87f586508",
+  "input_manifest_sha256": "918486a0fa7d2f28758a55fd0d181d1cfc4452f95b77b82a7457f7c47dc44710",
+  "started_at_utc": "2026-11-09T16:50:22.978292+00:00",
+  "finished_at_utc": "2026-11-09T16:56:16.673759+00:00",
+  "command": [
+    "python",
+    "research_code/feature_model_audit.py",
+    "--data",
+    "PRIVATE_HISTORICAL_H13_DATA",
+    "--source",
+    "PRIVATE_H12_SOURCE_ONLY",
+    "--h13",
+    "PRIVATE_FROZEN_H13",
+    "--h22",
+    "PRIVATE_FROZEN_H22",
+    "--out",
+    "PRIVATE_H23_AUDIT"
+  ],
+  "environment": {
+    "execution": "dislab",
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "xgboost": "3.1.1",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpu_free_bytes": 9511632896,
+    "gpu_total_bytes": 10736893952,
+    "threads": 4,
+    "tf32": false,
+    "deterministic": true
+  },
+  "seed": [
+    11,
+    29
+  ],
+  "evaluation_scope": "Previously exposed March completed-count audit, not stock accuracy;262144 common station-times,32768 distribution station-times,128IID particles;February-only checkpoint selection;no API access",
+  "metrics": {
+    "March completed-count Poisson deviance of ensemble mean": 0.39245382135115925,
+    "selected_non_graph_control_deviance": 0.39187403289670764,
+    "full_mean_count_mae": 0.14302024245262146,
+    "full_poisson_count_energy": 0.15299776695094883,
+    "full_fm_count_energy": 0.15675893637780416,
+    "primary_relative_deviance_reduction": -0.001479527618009513,
+    "weather_relative_deviance_reduction": 0.028202626848310097,
+    "fm_relative_energy_reduction": -0.024583165505031257,
+    "seconds": 353.7080961000029
+  },
+  "artifacts": [
+    {
+      "id": "compact-result.json",
+      "sha256": "8635ec3deec042189dd259eb4fc27fd4d557e1368ca8985156863685c796f035",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/compact-result.json"
+    },
+    {
+      "id": "distribution-comparison.png",
+      "sha256": "a611db022cee7d3b46cd777f91ba35f60eeaf92fa9ec1b137086adbf3f1b55a7",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/distribution-comparison.png"
+    },
+    {
+      "id": "distribution-comparison.svg",
+      "sha256": "b1fde4fbb6da69d6527d6713e67138b8c2d5fcbec3e6d0057397360224456fcf",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/distribution-comparison.svg"
+    },
+    {
+      "id": "feature-effects.png",
+      "sha256": "850a93147a9d365acc416f5295cb9eee8e6fa600e4ed105d257a91c6a9adc3fb",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/feature-effects.png"
+    },
+    {
+      "id": "feature-effects.svg",
+      "sha256": "097beb39559f7229e03be05b2bedd8ac3bc68e6b6fd8bcc21de4a5fdd80d8b27",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/feature-effects.svg"
+    },
+    {
+      "id": "integrity-check.json",
+      "sha256": "59901613f6c45c05602122bf6873762483ff455390f0f3638ccb54196add8abf",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/integrity-check.json"
+    },
+    {
+      "id": "model-comparison.png",
+      "sha256": "7242f6a77d5df0ecd7777734d0675afac8ba7c1251e663dcfa972796a4cd9daa",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/model-comparison.png"
+    },
+    {
+      "id": "model-comparison.svg",
+      "sha256": "b60f8dc788e6410392c8e17262b0d32d0bb04727bd3cd446254ec1f83d496a5f",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/model-comparison.svg"
+    },
+    {
+      "id": "pre-test-lock.json",
+      "sha256": "5d1e4baad7de1a6aae74a150165a6994a4989bb28eba15f104f5d3dc94f78556",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/pre-test-lock.json"
+    },
+    {
+      "id": "results.md",
+      "sha256": "4ddc45c58af6292c20eb14e6c7c9e8543d9cbf5ab01baf5405613ea98e8eb430",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/results.md"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "f9802e2c1c087bcb884aacd3255ba28e7243877a1847a2d94cae9304366022bb",
+      "availability": "research/runs/H-0023-20261110-feature-model-audit/summary.json"
+    }
+  ],
+  "limitations": [
+    "March previously exposed; no untouched generalization claim",
+    "Only historical completed counts, no observed stock or unmet demand truth",
+    "Neural ablations have equal optimization budgets; tree uses a different fixed family-specific budget and smaller unique training sample coverage",
+    "XGBoost uses frozen source-only embeddings; not a raw-only standalone baseline",
+    "Explicit-calendar removal leaves calendar information in priors",
+    "No-weather removal is absence of all54 values/masks, not a real-time observed weather availability experiment",
+    "Runtime weather and recent-stock proxy differ from historical training signals",
+    "Only one temporal split, two seeds, fixed hyperparameters; no global-best proof",
+    "No automatic production promotion; no API opened"
+  ],
+  "api_opened": false,
+  "local_research_compute_performed": false,
+  "execution_location": "dislab GPU training/inference;dislab CPU statistical analysis and plotting",
+  "private_checkpoints": "All16 mean checkpoints,2 FM checkpoints,4 XGBoost boosters remain private and are identified by pre-test-lock.json hashes. Existing production model files were not overwritten."
+}
