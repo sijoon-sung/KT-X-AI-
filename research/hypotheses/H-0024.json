@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0024",
   "title": "기상 유지 소형 encoder와 건수 정합 Flow Matching",
-  "status": "preregistered",
+  "status": "running",
   "plan": {
     "question": "기상을 유지한 작은 encoder와 정수 친화적 FM이 기존 Gaussian FM의 악화를 줄이고 포아송보다 나은 건수 분포를 만드는가?",
     "hypothesis": "과거 검증으로 고정한 작은 encoder의 선택된 학습 FM이 같은 encoder의 포아송보다3월 count energy를1% 이상 줄이고3일·7일 paired block95% 개선 구간 하한이 양수다. Encoder parameter50% 축소와 검증 mean MAE/deviance1% 이내 조건도 충족한다. Identity/무보정 선택은 FM 추가 이득으로 세지 않는다.",
