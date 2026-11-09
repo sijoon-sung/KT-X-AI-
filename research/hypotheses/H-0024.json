@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "id": "H-0024",
+  "title": "기상 유지 소형 encoder와 건수 정합 Flow Matching",
+  "status": "preregistered",
+  "plan": {
+    "question": "기상을 유지한 작은 encoder와 정수 친화적 FM이 기존 Gaussian FM의 악화를 줄이고 포아송보다 나은 건수 분포를 만드는가?",
+    "hypothesis": "과거 검증으로 고정한 작은 encoder의 선택된 학습 FM이 같은 encoder의 포아송보다3월 count energy를1% 이상 줄이고3일·7일 paired block95% 개선 구간 하한이 양수다. Encoder parameter50% 축소와 검증 mean MAE/deviance1% 이내 조건도 충족한다. Identity/무보정 선택은 FM 추가 이득으로 세지 않는다.",
+    "prior_art": [
+      {
+        "title": "Flow Matching for Generative Modeling",
+        "url": "https://arxiv.org/html/2210.02747v2",
+        "verified_scope": "조건부 경로와 속도 회귀,연속공간 생성. 기존H13 Gaussian residual 경로를 대조군으로 유지한다.",
+        "difference_to_test": "같은Gaussian 학습 궤적을 flowMSE 또는 정수 countenergy로 선택해 목적·채점 불일치를 분리"
+      },
+      {
+        "title": "Flow Matching for Count Data, Wei and Pearson, v3",
+        "url": "https://arxiv.org/html/2605.07746v3",
+        "verified_scope": "원문2.1의signed-binomial bridge/국소rateKL과2.2의birth/death/stay sampler를 확인. 생물학 실험 결과를 자전거 성능으로 승계하지 않음.",
+        "difference_to_test": "대여/반납2차원에 조건부Poisson 출발분포를 적용한 정수birth-death FM과 기존연속FM 비교. OT/CFG는 미구현"
+      },
+      {
+        "title": "H23 fixed feature audit",
+        "url": "https://github.com/sijoon-sung/KT-X-AI-/pull/35",
+        "verified_scope": "기상효과와GCN/사전학습추가이득미지원,FM energy악화. 이미 사용한3월 결과로 후속설계를 만들었음을 공개.",
+        "difference_to_test": "새로운 특징·대용량화 없이 작은 encoder와분포경로·선택기준을 변경"
+      }
+    ],
+    "data": {
+      "dataset_id": "H24-compact-count-flow-v1",
+      "input_manifest_sha256": "789fd3b1a73bf6d204e41410591efd8ec0759531410c1c8f7c864d46a74d0eda",
+      "observed_truth": "Completed rental and return counts; no measured stock truth in these months",
+      "not_observed": [
+        "2·3월실측재고",
+        "잠재수요·배차효과",
+        "미열람독립시험"
+      ],
+      "api_access": "No API loader/path/request, no September evaluation in this experiment."
+    },
+    "architecture": {
+      "inputs": "기존prior6/calendar35/phase3/weather54/recent2 유지. 이웃은기존ODlog6+recent2. compact_profile만기존420profile을학습64로변환. 새입력없음.",
+      "encoders": {
+        "full_retrain": "H13 original317122params, own164+neighbor72,width256×2,source-only Seoul init",
+        "compact_local": "own100->128SiLU,2×128LinearSiLU,128->2 head; no learnedprofile/neighbor/Seoul",
+        "compact_graph": "compact_local + neighbor8->128 withoutbias summed beforeSiLU; original fixed OD, small GCN",
+        "compact_profile": "own164->128,2hidden128; weekly420->128SiLU->64LayerNorm; random init,no neighbor"
+      },
+      "rates": "Alllambda=historicalprior*exp(2*tanh(raw/2)),samecountlikelihood/no future features.",
+      "continuous": "CountFlow context selectedhidden128 or256,width128,3hiddenlayers. Input residual2,time4,h,log1p(lambda)2. Gaussian route unchanged. Poisson continuous route r0=log1p(Pois(lambda)+U0)-center,r1=log1p(y+U1)-center, independent U0/U1; linear interpolation andvelocityMSE. Lastlayerzero,epoch0Poisson-source is exactly no correction.",
+      "integer": "Poisson source x0, targetx1=y, t~Uniform[0,.999], xt=x0+sign(y-x0)*Binomial(abs(y-x0),t). Targets birth=(y-xt)+/(1-t),death=(xt-y)+/(1-t). Predict nonnegativebirthb anddeath=xt*beta withsoftplus: b=softplus(net_birth+invsoftplus(lambda)); beta=softplus(net_death+invsoftplus(1)). Network input log1p(xt)2,time4,h,center2;3hidden128,output4,lastzero. Localrate loss mean[b-targetb*log(b+1e-8)+death-targetd*log(death+1e-8)]. No dequant/floor/cap for this route. No categorical count maximum,OT,CFG orRL.",
+      "sampling": "128IIDper-particle seed mixture. ContinuousHeun16,floor(expm1(residual+center))lower0,nonfinite/>65535 fail. Countjump64 uniformsteps to.999,per-coordinate pStay=exp(-(b+d)*dt),pBirth=(1-pStay)b/(b+d),pDeath=(1-pStay)d/(b+d);one unit percoord eachstep. At0death0. No negative correction/clipping. Identity epoch0candidate is explicitly directPoisson bypass,not an implemented identity jumpflow claim."
+    },
+    "training": {
+      "execution": "dislab RTX308010GB,Python3.12.10,torch2.7.1+cu118,numpy1.26.4;4threads,deterministic,TF32off,memoryfraction.55",
+      "seeds": [
+        11,
+        29
+      ],
+      "mean_epochs": 16,
+      "mean_examples_per_epoch": 524288,
+      "mean_batch": 8192,
+      "optimizer": "AdamW lr.001 wd.0001 clip1",
+      "checkpoint_selection": "Mean model minimumdeviance on131072 fixedFeb1-14 exposures;earliesttie,epoch0included. Alltargetparametersfine-tuned. No scratch compact sourceweights.",
+      "encoder_choice": "Choose smallestparameter compact with>=50%rate-parameter reduction versus full_retrain and validation ensemblemean MAE ANDdeviance <=1.01×full_retrain onFeb1-14. Tie byvalidationdeviance thenname. If noneeligible,usefull_retrain forFM and report simplificationfailed;no test-basedchoice.",
+      "flow_epochs": 20,
+      "flow_examples_per_epoch": 524288,
+      "flow_batch": 8192,
+      "flow_trajectories": [
+        "gaussian",
+        "poisson_continuous",
+        "count_jump"
+      ],
+      "flow_selection": "Train3trajectories×2seeds. GaussianMSEcheckpoint minimumloss on131072 fixedFeb15-28 samples withidentical seedednoise. Proper selectors evaluateepochs0,5,10,15,20 on8192 fixedFeb15-28 exposures×128particles perseed. Gaussian_score andgaussian_MSE shareone trainingtrajectory. Poisson_continuous/count_jump include explicitly labelledidentitybypass at0. Selectminimumenergy earliesttie; no adaptivehyperparametergrid.",
+      "final_fm_choice": "Compare two proper-selected seed-mixture ensembles poisson_continuous andcount_jump on fixedFeb15-28 energy. Lowest choosescandidate; tiePoissoncontinuous. Gaussian selectors arecontrols,not finalsource candidates. All choices andartifacts locked before March.",
+      "budget": "One preregisteredbatch up to60min. No newfeature sources,modelsizeincrease or killunrelatedjobs. Preservefailedattempts; no adaptive expansion."
+    },
+    "evaluation": {
+      "design": "FixedH13 historicaltensors/hashes. TrainbeforeFeb; splitFebruary forencoder anddecoder selection. Marchpreviouslyexposed usedforreport afterchoiceslock,not independent. Test262144fixed station-times formeanrates and32768prefix for128particle energy/medianMAE/fairperchannelCRPS/zero-countBrier/meanbias/negativecontinuousrawmass. Poisson andidentity sources arecontrols. FrozenH13 countedonlyasreference. No stockprojection evaluation orAPI selection.",
+      "periods": [
+        {
+          "role": "train",
+          "start": "2024-08-01T00:00:00+09:00",
+          "end": "2026-02-01T00:00:00+09:00"
+        },
+        {
+          "role": "validation_encoder",
+          "start": "2026-02-01T00:00:00+09:00",
+          "end": "2026-02-15T00:00:00+09:00"
+        },
+        {
+          "role": "validation_decoder",
+          "start": "2026-02-15T00:00:00+09:00",
+          "end": "2026-03-01T00:00:00+09:00"
+        },
+        {
+          "role": "test",
+          "start": "2026-03-01T00:00:00+09:00",
+          "end": "2026-04-01T00:00:00+09:00"
+        }
+      ],
+      "baselines": [
+        "sameencoderPoisson",
+        "sameencoderGaussian_MSE",
+        "sameencoderGaussian_score",
+        "full_retrain",
+        "frozenH13Poisson",
+        "frozenH13Gaussian"
+      ],
+      "primary_metric": {
+        "name": "selected count-aligned FM March count energy",
+        "direction": "lower",
+        "unit": "energy per station-time"
+      },
+      "success_rule": "Primarysupported onlyif compactencoder selectioneligible,selectedFM at leastone positivecheckpoint with nonzero correction,energyreductionvs sameencoderPoisson >=1%,both3/7daypaired95%lower>0, and samplemedianMAE <=1.01×Poisson. ImprovementonlyversusGaussian butnotPoisson is not FMaddedvalue. No automaticdeployment.",
+      "failure_rule": "Not_supported if pointgain<1%or compact/activation/MAEguardfails. If point>=1%but eitherCIincludes0,inconclusive. Report compactmodel andGaussian-score-only improvements separately without changingprimary.",
+      "exclusion_rule": "H13 validtimes/firsthistoricalstation/sourceoutages andcompletedtransactionrules unchanged. No droppingzero/highcount examples. Test sampledtime/station uniformly withoriginalreject-beforefirst rule. No syntheticinventorytruth.",
+      "uncertainty_plan": "Pairedmovingdayblocks3/7,20000replicates,ratioofsums/exposures. Energy unbiasedpairedparticle estimator meanL2(X-y)-.5meanL2(first64-last64). Perchannel fairCRPS usesabsolute normsamepairs. Primary2block95%bothpositive; secondarymechanismcomparisons descriptive95%. Report29dayoractualsupport,perseed,weightsizes andsamplertime. Extra frozen64-Heun/256-jump diagnostic on8192testprefix tocheckdiscretization; do not select primarysolver fromMarch.",
+      "seed_plan": "Training11/29;fixedsamples/bootstrap20261124;flowtrainnoise seed+epoch;MCfixed20261124+batchstart,independent perparticle seedchoice.",
+      "integrity_checks": "On dislab afterpreregistration:Poissondequant roundtrip givesoriginalinteger;zero-deathboundary;Binomialbridge endpoints exactly;nonnegativeintegergeneratedcounts;source/hash/plan/gitcommit checks. No local researchmath.",
+      "interpretation": "All results completedcounts,not realstockaccuracy. Flowpathtime differsfrom10minutephysicaltime. Count-FMproject adaptationisnot fullpaperreproduction ornewmethod. Runtimeweatherstillseparate integrationconcern. RepeatedMarchuse disclosed; futurescopefixedinputs."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "4df49d3ea43a0924ac1c1f92d1a43c548b71982113ecfb054272162efd5c5c2b",
+    "frozen_at_utc": "2026-11-09T17:19:06.346244+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
