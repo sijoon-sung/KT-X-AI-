@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0023",
   "title": "고정 특징 제거와 GCN·XGBoost·포아송/FM 비교",
-  "status": "preregistered",
+  "status": "running",
   "plan": {
     "question": "고정 특징과 GCN/FМ의 추가 이득이 있는가? 같은 과거 기록과 예산에서 비그래프 MLP·XGBoost보다 현재 모형이 나은가?",
     "hypothesis": "동일 예산 full GCN의 3월 거래 건수 Poisson deviance가 2월에서 선택한 최선 비그래프 대조군보다1% 이상 낮고,3일·7일 paired block bootstrap95% 개선 구간 하한이 모두0보다 크다. 특징별 제거와 FM은 사전 명시한 보조 검증으로 분리한다.",
