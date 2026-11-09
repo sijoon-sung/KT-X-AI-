@@ -1,0 +1,34 @@
+{
+  "id": "H23-historical-feature-audit-v1",
+  "api_opened": false,
+  "parent_dataset": "tashu-rolling-api-H0013-v1",
+  "sources": [
+    {
+      "id": "H13-historical-counts.npy",
+      "bytes": 461574272,
+      "sha256": "3f2a7f79546fc2dbb39f27a943c5dfcddc5500c23416c8033c1fd75bd4c1662d"
+    },
+    {
+      "id": "H13-historical-context.npz",
+      "bytes": 200047986,
+      "sha256": "fae212edae1a3ec3493457bf101a0e4a80c1ea4a15aa0aa666ae91a05704ad65"
+    },
+    {
+      "id": "H13-historical-time-features.npz",
+      "bytes": 1443221,
+      "sha256": "6297bd753a477609aaff51814429df78a29461f356630c1bdc4f00397cedce45"
+    },
+    {
+      "id": "H12-Seoul-source_forecast-11.pt",
+      "bytes": 1257693,
+      "sha256": "ec0d5412d1878228c0edc125a7955040f4496fca43fde41270f0f45a7b87b235"
+    },
+    {
+      "id": "H12-Seoul-source_forecast-29.pt",
+      "bytes": 1257693,
+      "sha256": "504306c06f428664c45b767c02e92b76a54d2421bef27d2d3ea9beb3c8cf0d39"
+    }
+  ],
+  "reference_models": "Existing H13 and H22 checkpoint artifacts are individually verified against their original historical-only model locks. They are descriptive references, not equal-budget retrain controls.",
+  "truth": "Completed rental and return counts in next10min, not measured stock, unmet demand or dispatch outcomes."
+}

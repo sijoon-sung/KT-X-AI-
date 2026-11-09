@@ -1,5 +1,7 @@
 # 연구 방향 결정 기록
 
+2026-11-10 [H-0023 고정 특징·모델 감사](H-0023-feature-model-audit.md): 동일 예산16개 신경망과XGBoost·고정H13/H22를dislab에서실행했다. Full의MLP 대비주지표개선가설은지지하지않았고기상효과만1%보조기준을통과했다. FM energy는포아송보다2.458%악화했다. H22의거래deviance와H13의거래MAE순위가달라전역최고를선언하지않으며API를열지않았다. 입력확장·크기확대·자동배포교체는하지않는다. 아래는이전결정기록이다.
+
 기준일: 2026-10-31. [연구 프로그램](research-program.md)의 큰 선택을 추적한다.
 최신 자료 사용은 [과거 이력 학습·API 검증 전용 계약](training-validation-contract.md)을 우선한다.
 공식 재고 평가는 [9월 API](september-evaluation-contract.md)다. 2·3월에는 실측 재고·품절 정답이 없다.

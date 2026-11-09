@@ -1,0 +1,383 @@
+{
+  "hypothesis_id": "H-0023",
+  "scope": "Previously exposed March completed-count audit, not stock accuracy",
+  "started_at_utc": "2026-11-09T16:50:22.978292+00:00",
+  "finished_at_utc": "2026-11-09T16:56:16.673759+00:00",
+  "code_commit": "c299323f477bdeb9ea1e428477ad90024f231f0e",
+  "primary": {
+    "control": "no_graph",
+    "decision": "not_supported",
+    "3": {
+      "ci95": [
+        -0.00347479416797995,
+        0.00028101772478508096
+      ],
+      "feature_simultaneous_ci": [
+        -0.004085002511658042,
+        0.0013254161964588638
+      ]
+    },
+    "7": {
+      "ci95": [
+        -0.0032809556163515942,
+        -0.0012084729587662493
+      ],
+      "feature_simultaneous_ci": [
+        -0.0035462247711195937,
+        -0.0005581771652076355
+      ]
+    },
+    "relative_reduction": -0.001479527618009513
+  },
+  "test": {
+    "prior": {
+      "deviance": 0.4127191224597364,
+      "mean_count_mae": 0.15536606311798096,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.0
+    },
+    "full": {
+      "deviance": 0.39245382135115925,
+      "mean_count_mae": 0.14302024245262146,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.0491019194550506
+    },
+    "no_graph": {
+      "deviance": 0.39187403289670764,
+      "mean_count_mae": 0.14472045004367828,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.050506720984468956
+    },
+    "shuffled_neighbors": {
+      "deviance": 0.3893884780529393,
+      "mean_count_mae": 0.14650912582874298,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.05652910935589894
+    },
+    "no_weather": {
+      "deviance": 0.4038432621796151,
+      "mean_count_mae": 0.14725174009799957,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.021505813026599485
+    },
+    "no_calendar": {
+      "deviance": 0.39599506458096706,
+      "mean_count_mae": 0.1444314420223236,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.04052164527559754
+    },
+    "no_recent": {
+      "deviance": 0.3933242034612753,
+      "mean_count_mae": 0.1441597044467926,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.046993022477055835
+    },
+    "no_embedding": {
+      "deviance": 0.3937645764411374,
+      "mean_count_mae": 0.14368070662021637,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.045926018415703984
+    },
+    "no_pretrain": {
+      "deviance": 0.39032854398103994,
+      "mean_count_mae": 0.1436966359615326,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.054251371599291054
+    },
+    "locked_h13": {
+      "deviance": 0.3924537712625446,
+      "mean_count_mae": 0.14302030205726624,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.04910204081752678
+    },
+    "locked_h22": {
+      "deviance": 0.3872912877020823,
+      "mean_count_mae": 0.14635077118873596,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.061610507906947665
+    },
+    "xgboost": {
+      "deviance": 0.40380819406835394,
+      "mean_count_mae": 0.1485091596841812,
+      "station_time_exposures": 262144,
+      "gain_vs_prior": 0.02159078149390037
+    }
+  },
+  "test_rank_by_deviance": [
+    "locked_h22",
+    "shuffled_neighbors",
+    "no_pretrain",
+    "no_graph",
+    "locked_h13",
+    "full",
+    "no_recent",
+    "no_embedding",
+    "no_calendar",
+    "xgboost",
+    "no_weather",
+    "prior"
+  ],
+  "feature_effects": {
+    "no_graph": {
+      "3": {
+        "ci95": [
+          -0.00347479416797995,
+          0.00028101772478508096
+        ],
+        "feature_simultaneous_ci": [
+          -0.004085002511658042,
+          0.0013254161964588638
+        ]
+      },
+      "7": {
+        "ci95": [
+          -0.0032809556163515942,
+          -0.0012084729587662493
+        ],
+        "feature_simultaneous_ci": [
+          -0.0035462247711195937,
+          -0.0005581771652076355
+        ]
+      },
+      "relative_reduction": -0.001479527618009513,
+      "decision": "no_demonstrated_1pct_gain"
+    },
+    "shuffled_neighbors": {
+      "3": {
+        "ci95": [
+          -0.011225683647300987,
+          -0.0056318855843316366
+        ],
+        "feature_simultaneous_ci": [
+          -0.01267944457721686,
+          -0.004811981435050213
+        ]
+      },
+      "7": {
+        "ci95": [
+          -0.009959374330089227,
+          -0.005769721586123918
+        ],
+        "feature_simultaneous_ci": [
+          -0.011228329340772104,
+          -0.005173470635427696
+        ]
+      },
+      "relative_reduction": -0.007872198256988705,
+      "decision": "no_demonstrated_1pct_gain"
+    },
+    "no_weather": {
+      "3": {
+        "ci95": [
+          0.00969983066873845,
+          0.03876586976572937
+        ],
+        "feature_simultaneous_ci": [
+          0.0045594179907095635,
+          0.04780166202225081
+        ]
+      },
+      "7": {
+        "ci95": [
+          0.005755635875720167,
+          0.03587931664325638
+        ],
+        "feature_simultaneous_ci": [
+          1.5568303375905984e-05,
+          0.04280863499197749
+        ]
+      },
+      "relative_reduction": 0.028202626848310097,
+      "decision": "supported"
+    },
+    "no_calendar": {
+      "3": {
+        "ci95": [
+          0.003945012309148174,
+          0.01305219736230718
+        ],
+        "feature_simultaneous_ci": [
+          0.001382945178724128,
+          0.014848519889854805
+        ]
+      },
+      "7": {
+        "ci95": [
+          0.007260361118471814,
+          0.012509734865027893
+        ],
+        "feature_simultaneous_ci": [
+          0.0059319928292512775,
+          0.01333388830256362
+        ]
+      },
+      "relative_reduction": 0.008942644862392934,
+      "decision": "no_demonstrated_1pct_gain"
+    },
+    "no_recent": {
+      "3": {
+        "ci95": [
+          0.00035171983746681016,
+          0.003685185297040906
+        ],
+        "feature_simultaneous_ci": [
+          -0.0004076833293342741,
+          0.004464605746598282
+        ]
+      },
+      "7": {
+        "ci95": [
+          0.0007544754202786109,
+          0.0031228729856914456
+        ],
+        "feature_simultaneous_ci": [
+          0.00019829915233220564,
+          0.003641350098697809
+        ]
+      },
+      "relative_reduction": 0.0022128872376951936,
+      "decision": "no_demonstrated_1pct_gain"
+    },
+    "no_embedding": {
+      "3": {
+        "ci95": [
+          -0.0007504497999071435,
+          0.00690013096822751
+        ],
+        "feature_simultaneous_ci": [
+          -0.002908608684147387,
+          0.008328324337332275
+        ]
+      },
+      "7": {
+        "ci95": [
+          0.0019210524396802377,
+          0.006677558986243178
+        ],
+        "feature_simultaneous_ci": [
+          0.001026978106964825,
+          0.007438937978617107
+        ]
+      },
+      "relative_reduction": 0.003328778585989123,
+      "decision": "no_demonstrated_1pct_gain"
+    },
+    "no_pretrain": {
+      "3": {
+        "ci95": [
+          -0.0076883486613372855,
+          -0.0031285688869126045
+        ],
+        "feature_simultaneous_ci": [
+          -0.008613112090746406,
+          -0.0018491441159123438
+        ]
+      },
+      "7": {
+        "ci95": [
+          -0.007812063610779024,
+          -0.003571653497644086
+        ],
+        "feature_simultaneous_ci": [
+          -0.008503209120792592,
+          -0.002120574430933535
+        ]
+      },
+      "relative_reduction": -0.005444842307567477,
+      "decision": "no_demonstrated_1pct_gain"
+    }
+  },
+  "distributions": {
+    "full_poisson": {
+      "energy": 0.15299776695094883,
+      "median_count_mae": 0.1034393310546875,
+      "seconds": 1.2150710999994772,
+      "station_time_exposures": 32768
+    },
+    "full_fm": {
+      "energy": 0.15675893637780416,
+      "median_count_mae": 0.10391998291015625,
+      "seconds": 9.163654400006635,
+      "station_time_exposures": 32768
+    },
+    "no_graph_poisson": {
+      "energy": 0.15293321725516779,
+      "median_count_mae": 0.10372161865234375,
+      "seconds": 1.1133233000000473,
+      "station_time_exposures": 32768
+    },
+    "locked_h13_poisson": {
+      "energy": 0.15299776695094883,
+      "median_count_mae": 0.1034393310546875,
+      "seconds": 1.064446099990164,
+      "station_time_exposures": 32768
+    },
+    "locked_h13_fm": {
+      "energy": 0.15675893637780416,
+      "median_count_mae": 0.10391998291015625,
+      "seconds": 9.136800499996752,
+      "station_time_exposures": 32768
+    },
+    "locked_h22_poisson": {
+      "energy": 0.15218195861713366,
+      "median_count_mae": 0.1032562255859375,
+      "seconds": 1.059249900004943,
+      "station_time_exposures": 32768
+    },
+    "locked_h22_fm": {
+      "energy": 0.15737949528011397,
+      "median_count_mae": 0.1036376953125,
+      "seconds": 8.916208599999663,
+      "station_time_exposures": 32768
+    }
+  },
+  "fm_effect": {
+    "3": {
+      "ci95": [
+        -0.030032571731756785,
+        -0.015149132237259265
+      ],
+      "feature_simultaneous_ci": [
+        -0.033759154866598584,
+        -0.01187876877489383
+      ]
+    },
+    "7": {
+      "ci95": [
+        -0.031227578107197295,
+        -0.01530554808180029
+      ],
+      "feature_simultaneous_ci": [
+        -0.03461161966612342,
+        -0.01212304339750295
+      ]
+    },
+    "relative_reduction": -0.024583165505031257,
+    "decision": "no_demonstrated_1pct_gain"
+  },
+  "feature_audit": {
+    "stations": 1318,
+    "train_time_rows": 65610,
+    "validation_time_rows": 2970,
+    "test_time_rows": 4164,
+    "profile_dim": 420,
+    "weather_dim": 54,
+    "weather_nonzero_fraction": 0.4616587162017822,
+    "weather_variable_columns": 49
+  },
+  "test_dates": 29,
+  "distribution_test_dates": 29,
+  "test_target_zero_fraction": 0.9176921844482422,
+  "seconds": 353.7080961000029,
+  "limitations": [
+    "March previously exposed; no untouched generalization claim",
+    "Only historical completed counts, no observed stock or unmet demand truth",
+    "Neural ablations have equal optimization budgets; tree uses a different fixed family-specific budget and smaller unique training sample coverage",
+    "XGBoost uses frozen source-only embeddings; not a raw-only standalone baseline",
+    "Explicit-calendar removal leaves calendar information in priors",
+    "No-weather removal is absence of all54 values/masks, not a real-time observed weather availability experiment",
+    "Runtime weather and recent-stock proxy differ from historical training signals",
+    "Only one temporal split, two seeds, fixed hyperparameters; no global-best proof",
+    "No automatic production promotion; no API opened"
+  ]
+}
