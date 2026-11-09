@@ -19,7 +19,7 @@ def main(a):
  order=r['test_rank_by_deviance'];y=np.arange(len(order));colors=['#16796c' if k=='full' else '#c58627' if k=='xgboost' else '#65798c' for k in order]
  fig,axes=plt.subplots(1,2,figsize=(13,6.7),sharey=True)
  for ax,key,title in zip(axes,['deviance','mean_count_mae'],['Completed-count Poisson deviance','Mean count MAE']):
-  vals=[r['test'][k][key] for k in order];ax.barh(y,vals,color=colors,height=.63);ax.set_yticks(y,[NAMES[k] for k in order]);ax.invert_yaxis();ax.set_title(title,pad=16);ax.grid(axis='x',alpha=.18);ax.set_axisbelow(True)
+  vals=[r['test'][k][key] for k in order];ax.barh(y,vals,color=colors,height=.63);ax.set_yticks(y,[NAMES[k] for k in order]);ax.set_ylim(len(order)-.5,-.5);ax.set_title(title,pad=16);ax.grid(axis='x',alpha=.18);ax.set_axisbelow(True)
   for j,v in enumerate(vals):ax.text(v+max(vals)*.012,j,f'{v:.5f}',va='center',fontsize=9)
   ax.set_xlim(0,max(vals)*1.18)
  fig.suptitle('H23 | Same historical split, fixed features',fontsize=17,y=1.025)
