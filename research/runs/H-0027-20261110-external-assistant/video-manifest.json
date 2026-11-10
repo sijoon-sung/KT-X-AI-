@@ -9,13 +9,13 @@
     {
       "start": 0,
       "end": 12,
-      "title": "자전거가\n부족해지기 전에",
+      "title": "부족 위험에서\n재배치 계획까지",
       "source": "02-map-plan.jpg"
     },
     {
       "start": 12,
       "end": 30,
-      "title": "10분 뒤\n부족할 곳 예측",
+      "title": "관측과 이용 흐름으로\n부족 위험 확인",
       "source": "02-map-plan.jpg"
     },
     {
@@ -52,8 +52,8 @@
   "voice": [
     {
       "scene": 0,
-      "raw_seconds": 9.848253968253967,
-      "atempo": 1.0
+      "raw_seconds": 13.334965986394558,
+      "atempo": 1.1906219630709427
     },
     {
       "scene": 1,
@@ -72,7 +72,7 @@
     },
     {
       "scene": 4,
-      "raw_seconds": 22.176689342403627,
+      "raw_seconds": 22.436371882086167,
       "atempo": 1.0
     },
     {
@@ -86,8 +86,8 @@
       "atempo": 1.0
     }
   ],
-  "sha256": "8771194b284cc3fa5733c93978ae262dfefa42d7a18469e80a6fb7ee99e9dc22",
-  "bytes": 3533003,
+  "sha256": "966356d7abce10afa77df2189ab830d9bbd348d89b3ec5452af08b3643e5cec3",
+  "bytes": 4087448,
   "render_location": "dislab",
   "api_training": false,
   "field_dispatch": false

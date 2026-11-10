@@ -1,0 +1,94 @@
+{
+  "duration_seconds": 120,
+  "resolution": "1920x1080",
+  "fps": 25,
+  "media": "Narrated walkthrough using actual browser captures; response waits edited",
+  "basis": "2026-11-10 20:50 API 관측 기록 재생",
+  "tts": "Microsoft Heami Desktop, rate1",
+  "timeline": [
+    {
+      "start": 0,
+      "end": 12,
+      "title": "자전거가\n부족해지기 전에",
+      "source": "02-map-plan.jpg"
+    },
+    {
+      "start": 12,
+      "end": 30,
+      "title": "10분 뒤\n부족할 곳 예측",
+      "source": "02-map-plan.jpg"
+    },
+    {
+      "start": 30,
+      "end": 50,
+      "title": "수량과 동선을\n함께 계산",
+      "source": "02-map-plan.jpg"
+    },
+    {
+      "start": 50,
+      "end": 68,
+      "title": "차량 조건에 맞춰\n계획 변경",
+      "source": "03-capacity1-plan.jpg"
+    },
+    {
+      "start": 68,
+      "end": 94,
+      "title": "계획에 대해\n말로 질문",
+      "source": "04-external-route-answer.jpg"
+    },
+    {
+      "start": 94,
+      "end": 112,
+      "title": "예측, 계획, 설명을 하나로",
+      "source": "service-diagram.png"
+    },
+    {
+      "start": 112,
+      "end": 120,
+      "title": "담당자가 확인하고\n현장에서 이동",
+      "source": "02-map-plan.jpg"
+    }
+  ],
+  "voice": [
+    {
+      "scene": 0,
+      "raw_seconds": 9.848253968253967,
+      "atempo": 1.0
+    },
+    {
+      "scene": 1,
+      "raw_seconds": 16.595419501133787,
+      "atempo": 1.0
+    },
+    {
+      "scene": 2,
+      "raw_seconds": 17.890204081632653,
+      "atempo": 1.0
+    },
+    {
+      "scene": 3,
+      "raw_seconds": 17.311609977324263,
+      "atempo": 1.0064889521700153
+    },
+    {
+      "scene": 4,
+      "raw_seconds": 22.176689342403627,
+      "atempo": 1.0
+    },
+    {
+      "scene": 5,
+      "raw_seconds": 15.458820861678005,
+      "atempo": 1.0
+    },
+    {
+      "scene": 6,
+      "raw_seconds": 6.807074829931973,
+      "atempo": 1.0
+    }
+  ],
+  "sha256": "8771194b284cc3fa5733c93978ae262dfefa42d7a18469e80a6fb7ee99e9dc22",
+  "bytes": 3533003,
+  "render_location": "dislab",
+  "api_training": false,
+  "field_dispatch": false
+}
