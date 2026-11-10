@@ -79,10 +79,13 @@ def render(a):
            'dislab에서 고정 모델 7종을 공식 9월 API로 재생했다. KST 정각마다 현재·직전 관측으로 10분 뒤 표시 재고를 예측했다. 누락을 0대로 채우지 않았고 미래 유효성은 발행 뒤 채점에만 사용했다. API로 학습·모형 선택·보정하지 않았다.','',
            f"유효 {result['coverage']['valid_pairs']:,}쌍, 현재 양수 {result['coverage']['positive_pairs']:,}쌍, {result['coverage']['scored_ids']:,}개 대여소, {result['coverage']['scored_days']}일. 수치 실험 {result['seconds']:.1f}초. 전체 H13 평가와 다른 정각 원점 표본이며 9월은 이미 노출된 자료다.",'',
            '부족량은 `Z=max(0,목표-미래표시재고)`다. 목표 1·3·6대와 부족/과잉 비용 1·2·5·10:1은 운영 미확인 가정이다. 비용 비율에 맞춘 부족량 분위수를 Q로 예측하고 `cu*max(0,Z-Q)+max(0,Q-Z)`를 채점했다. 실제 배차량이나 배차 후 효과가 아니다.','',
-           '## 결과','',f"주가설 판정: **{result['primary']['decision']}**. H24 FM의 같은 encoder 포아송 대비 비용 상대 감소는 **{100*result['primary']['relative_reduction']:.3f}%**다."]
+           '## 결과','',
+           '주가설 판정: **'+{'supported':'지지됐다','not_supported':'지지되지 않았다','inconclusive':'불확실하다'}[result['primary']['decision']]+'**. '+
+           f"H24 FM의 비용은 같은 encoder의 포아송보다 **{abs(100*result['primary']['relative_reduction']):.3f}% "+('감소했다' if result['primary']['relative_reduction']>=0 else '증가했다')+'**.','']
     for v in result['primary']['intervals']:
-        lo,hi=v['relative_reduction_95'];lines.append(f"- {v['block_days']}일 블록 95% 구간: [{lo*100:.3f}%, {hi*100:.3f}%]")
-    lines+=['',f"부족량 과소예측량 guard: {result['primary']['underprediction_guard']}. 자료 충분 조건: {result['primary']['sufficient_data']}.",'',
+        lo,hi=v['relative_reduction_95'];lines.append(f"- 상대 감소율의 {v['block_days']}일 블록 95% 구간: [{lo*100:.3f}%, {hi*100:.3f}%]")
+    lines+=['','부족량을 적게 예측한 대수는 포아송'+(' 이하로 유지됐다.' if result['primary']['underprediction_guard'] else '보다 많았다.')+
+            (' 평가 표본 수·기간 조건은 충족했다.' if result['primary']['sufficient_data'] else ' 평가 표본 수·기간 조건은 미달했다.'),'',
             '### 주조건: 현재 양수·목표 3대·부족 비용 5배','',
             '| 모델 | 가정 비용 ↓ | 부족량 과소예측, 대 ↓ | 부족량 과대예측, 대 ↓ | 부족량 분포 fairCRPS ↓ |',
             '|---|---:|---:|---:|---:|']
