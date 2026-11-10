@@ -84,7 +84,7 @@ def evidence(raw,question=''):
         else:parts.append('자료 시점의 자전거 수는 없음')
         if 'predicted' in s:parts.append(f"10분 뒤 예상 자전거 {s['predicted']:g}대")
         if 'p_zero' in s:parts.append(f"10분 뒤 자전거가 없을 가능성 {s['p_zero']*100:.0f}%")
-        add('station.'+s['id'],', '.join(parts)+'.',station_name=s['name'],station_id=s['id'])
+        add('station.'+s['id'],', '.join(parts)+'.',station_name=s['name'],station_id=s['id'],current=s.get('current'),predicted=s.get('predicted'))
     plan=raw.get('plan');summary={}
     if plan:
         moved=number(plan.get('moved_bikes',0));km=number(plan.get('distance_km',0));minutes=number(plan.get('minutes',0))
@@ -142,6 +142,9 @@ def focus(pack,question):
         if not matched and any(w in question for w in ('내려','채우')):routes=[x for x in routes if '내려놓기' in x['text']]
         chosen=matched if matched else routes
     elif station:chosen=station
+    elif any(w in question for w in ('없는 곳','0대인','비어 있는')):
+        key='predicted' if any(w in question for w in ('10분','예상','미래')) else 'current'
+        chosen=[x for x in facts if x['id'].startswith('station.') and x.get(key)==0]
     elif any(w in question for w in ('몇 대','몇대','거리','시간','총')):
         chosen=[x for x in facts if x['id']=='plan.total']
     else:chosen=[x for x in facts if x['id'].startswith(('station.','plan.','data.'))][:6]
