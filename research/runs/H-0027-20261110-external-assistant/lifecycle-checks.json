@@ -1,0 +1,31 @@
+{
+  "checks": [
+    {
+      "id": "recorded_label_not_live",
+      "passed": true
+    },
+    {
+      "id": "same_forecast_version",
+      "passed": true
+    },
+    {
+      "id": "real_station_count",
+      "passed": true
+    },
+    {
+      "id": "wrong_version_rejected",
+      "passed": true
+    },
+    {
+      "id": "stopped_stream_cannot_dispatch",
+      "passed": true
+    },
+    {
+      "id": "stopped_stream_not_live_context",
+      "passed": true
+    }
+  ],
+  "api_requested": false,
+  "weights_updated": false,
+  "plan_cache_preserved": true
+}

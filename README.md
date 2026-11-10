@@ -4,7 +4,7 @@ GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대
 
 홈페이지·실행 도구·연구 기록을 이 브랜치에 모았다. 새로 시작할 때는 아래 실행 안내를 따르면 된다.
 
-[공모전 발표·도입 계획](docs/competition-guide.md)은 대전의 빈 대여소 문제, 실제 시연 순서와 4주 시범 운영안을 설명한다. [질문 도우미 실행](docs/quickstart-llm.md)을 따르면 계산된 이동 대수와 방문 순서를 작은 Qwen 모델에 물어볼 수 있다. 답변은 dislab에서 생성한다.
+[공모전 발표·도입 계획](docs/competition-guide.md)은 대전의 빈 대여소 문제, 실제 시연 순서와 4주 시범 운영안을 설명한다. [외부 LLM 실행](docs/quickstart-external-llm.md)을 따르면 지도에서 계산한 이동 대수와 방문 순서를 Antigravity 외부 모델에 물어볼 수 있다. 자료 준비·답변 검사는 dislab에서 실행한다. 이전 [소형 Qwen 실행](docs/quickstart-llm.md)과 시험 기록도 보존했다.
 
 ## 실행
 

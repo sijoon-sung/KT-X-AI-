@@ -1,0 +1,30 @@
+{
+  "status": 200,
+  "elapsed_seconds": 17.261075899999923,
+  "response": {
+    "answer": "총 5대를 옮기는 계획입니다.",
+    "evidence_ids": [
+      "plan.total"
+    ],
+    "engine": "external",
+    "model": "gemini-3.8-flash-low",
+    "provider": "antigravity",
+    "context_id": "5a22ee9b82bd524fe4f2e227166c29501216b62ddcaf95c40e152a20fbc602b1",
+    "source_label": "기록된 자료 · 2026년 11월 10일 20:50",
+    "fallback_reason": null,
+    "evidence": [
+      "총 5대를 옮기는 계획입니다. 이동 거리 5.26km, 예상 시간 9.1분입니다. 실제 이동 완료 기록이 아닙니다."
+    ],
+    "transport": {
+      "seconds": 16.104725699999108,
+      "usage": {
+        "input_tokens": 7342,
+        "output_tokens": 32,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 0,
+        "total_tokens": 7374
+      },
+      "provider": "antigravity-official-cli"
+    }
+  }
+}

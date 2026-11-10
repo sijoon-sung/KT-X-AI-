@@ -1,0 +1,47 @@
+{
+  "kind": "development_probe",
+  "question": "자전거를 총 몇 대 옮기는 계획이야?",
+  "candidate": {
+    "answer": "총 6대를 옮기는 계획입니다.",
+    "evidence_ids": [
+      "plan.total"
+    ]
+  },
+  "response": {
+    "answer": "총 6대를 옮기는 계획입니다.",
+    "evidence_ids": [
+      "plan.total"
+    ],
+    "engine": "external",
+    "model": "gemini-3.8-flash-low",
+    "provider": "antigravity",
+    "context_id": "e4d03e9a9e12787a3ae782b9766d7258afae8b836f72f901245d8a0fc843edfa",
+    "source_label": "기록된 자료 · 2026년 11월 01일 18:40",
+    "fallback_reason": null,
+    "evidence": [
+      "총 6대를 옮기는 계획입니다. 이동 거리 4.29km, 예상 시간 8.7분입니다. 실제 이동 완료 기록이 아닙니다."
+    ],
+    "transport": {
+      "seconds": 11.381698500001221,
+      "usage": {
+        "input_tokens": 7347,
+        "output_tokens": 32,
+        "thinking_tokens": 0,
+        "cache_read_tokens": 0,
+        "total_tokens": 7379
+      },
+      "provider": "antigravity-official-cli"
+    }
+  },
+  "metadata": {
+    "provider": "antigravity-official-cli",
+    "seconds": 11.381698500001221,
+    "usage": {
+      "input_tokens": 7347,
+      "output_tokens": 32,
+      "thinking_tokens": 0,
+      "cache_read_tokens": 0,
+      "total_tokens": 7379
+    }
+  }
+}

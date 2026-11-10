@@ -1,0 +1,5 @@
+{
+  "regressions": 5,
+  "passed": 5,
+  "scope": "observed implementation failures; not a new model-performance test"
+}
