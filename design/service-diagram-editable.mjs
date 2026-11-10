@@ -12,14 +12,14 @@ export default async function({presentation,input}) {
  const text=(name,value,x,y,w,h,size=24,color=C.navy,bold=false,align='left')=>{const a=shape(name,x,y,w,h,'none','none','textbox');a.text=value;a.text.style={fontSize:size,color,bold,alignment:align,verticalAlignment:'middle',insets:0,wrap:true};return a;};
  const box=(name,value,x,y,w,h,fill,size=24,color=C.navy,bold=false)=>{const a=shape(name,x,y,w,h,fill);a.text=value;a.text.style={fontSize:size,color,bold,alignment:'center',verticalAlignment:'middle',insets:7,wrap:true};return a;};
  const connect=(a,b,from='right',to='left',color=C.teal,kind='straight',arrow=true,width=2.1)=>{const c=s.shapes.connect(a,b,{kind,fromSide:from,toSide:to,line:{fill:color,width},...(arrow?{tail:{type:'triangle',width:'sm',length:'sm'}}:{})});c.bringToFront();ids.push(c.id);return c;};
- text('heading','10분 뒤 부족을 예측하고, 이동 대수와 동선을 계산합니다',43,83,1190,48,31,C.navy,true);
+ text('heading','부족 위험을 예측하고, 수거·배치 수량과 동선을 정합니다',43,83,1190,48,31,C.navy,true);
  text('data heading','대여소와 주변 정보',42,169,229,35,24,C.navy,true);
  const source=[];
  for(const [name,value,y] of [['history','대여·반납\n이력',224],['inventory','실시간\n재고 API',328],['weather','날씨·요일\n시간',432]]) {
   const a=box(name,value,40,y,215,80,C.white,23);a.text.insets={left:86,right:6,top:5,bottom:5};a.text.alignment='left';source.push(a);
  }
  const forecast=shape('prediction platform',292,187,495,326,C.blue,'#B2CCD9');
- box('prediction heading','AI 예측 모델',304,198,471,43,C.navy,26,C.white,true);
+ box('prediction heading','이용 흐름·부족 위험 예측',304,198,471,43,C.navy,26,C.white,true);
  text('GCN heading','GCN',320,252,166,32,26,C.navy,true,'center');
  shape('feature plane back',330,290,146,123,'none','#C4D4DF','rect');shape('feature plane middle',324,296,146,123,'none','#ADC5D2','rect');shape('feature plane front',318,302,146,123,C.white,'#8CA9BA','rect');
  const nodes=[];
@@ -38,7 +38,7 @@ export default async function({presentation,input}) {
  for(let i=0;i<3;i++)connect(start[i],end[i+2],'right','left',['#567AA1','#298C87','#A88352'][i],'curved',true,1.7);
  for(const n of [...start,...end])n.bringToFront();
  text('noise label','잡음',532,401,52,24,18,C.muted,false,'center');text('distribution label','예측 분포',671,402,90,22,18,C.muted,false,'center');
- const stock=box('forecast output','10분 뒤 자전거가 부족할 대여소',304,461,471,42,C.white,24,C.navy,true);connect(flow,stock,'bottom','top',C.navy,'straight',true,1.7);
+ const stock=box('forecast output','자전거가 부족해질 대여소',304,461,471,42,C.white,24,C.navy,true);connect(flow,stock,'bottom','top',C.navy,'straight',true,1.7);
  for(const a of source)connect(a,forecast);
  const planner=shape('dispatch planning',826,187,400,167,C.orange,'#E0C99F');
  text('planning heading','재배치 계획',847,199,358,38,27,C.navy,true);
