@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "H-0027",
+  "title": "외부 LLM 답변과 재배치 시연 배포",
+  "status": "preregistered",
+  "plan": {
+    "question": "외부 LLM이 기존 10개 운영 질문을 수량·방문지 오류 없이 더 잘 설명하고,실행 화면과 2분 시연에 연결되는가?",
+    "hypothesis": "고정 Antigravity gemini-3.8-flash-low가 알려진 정상10질문 중9개 이상에서 수량·자료시각·방문지를 보존한 실제 외부 답변을 제공하고,필수6검사를 통과한다. 배포 기능 검증이며 일반 언어능력·예측 정확도 향상 가설은 아니다.",
+    "prior_art": [
+      {
+        "title": "Google Antigravity official headless mode",
+        "url": "https://antigravity.google/docs/cli/headless/",
+        "verified_scope": "로그인한 공식 CLI의 print JSON/schema 출력,model 고정,시간 제한,개별 세션 설정 지원을 문서와1.4.10도움말·모델목록에서 확인했다.",
+        "difference_to_test": "H26 1.7B 대신 인증된 외부 모델로 같은 사실 설명; 원격 자료 준비·검사와 로컬 네트워크 중계를 분리한다."
+      },
+      {
+        "title": "OpenAI Structured Outputs official guide",
+        "url": "https://developers.openai.com/api/docs/guides/structured-outputs",
+        "verified_scope": "JSON schema의 형식을 제한하며 의미 정확도는 별도 검사해야 한다.",
+        "difference_to_test": "배포용 외부 HTTP adapter를 제공하며 실제 API 키 미설정인 제공자 연결을 완료로 표시하지 않는다."
+      }
+    ],
+    "data": {
+      "dataset_id": "H27-external-assistant-v1",
+      "observed_truth": "합성 fixture의 명시 수량·시각·방문 순서,기존 공개 H21 계획,직접 HTTP 기능 응답",
+      "not_observed": [
+        "실제 배차 효과",
+        "비전공자 이해도 개선",
+        "새 재고 예측 정확도",
+        "외부 모델의 일반 한국어 성능"
+      ],
+      "input_manifest_sha256": "3ed8e274a74848bac79fbe68964b75c69435b40d067d8dc96e1ff064853ff77f"
+    },
+    "evaluation": {
+      "design": "H26과 같은 정상10질문·6기능검사를 유지해 실제 외부생성과 fallback을 분리한다. 알려진 자료의 기능 비교다. 외부 API prompt 개발 최대3회 보존 후 고정20질문 이내 시험1회,실패·재시도 모두 보존한다. 실제 H21 긴6방문·API오류·누락자료도 추가 기능검사한다. H13 재학습·특징추가·9월 자료 열람은 하지 않는다.",
+      "periods": [
+        {
+          "role": "engineering_and_video",
+          "start": "2026-11-10",
+          "end": "2026-11-12"
+        }
+      ],
+      "baselines": [
+        "H26 첫 고정 시험 실제LLM7/10·답안패턴9/10·기능4/6,현재재고를수량으로잘못답한실패 포함",
+        "원 자료 문장 fallback; 실제 외부 모델 성공으로 세지 않는다."
+      ],
+      "primary_metric": {
+        "name": "correct actual external answers out of ten known normal questions",
+        "direction": "higher",
+        "unit": "questions"
+      },
+      "success_rule": ">=9/10 실제 외부 답변이 사전 답안 패턴과 수치·근거 검사를 통과,필수6검사 통과,CLI/HTTP/UI 연결 성공이면 supported. 누락 없는 긴 기록 동선·오류처리를 별도 보고한다.",
+      "failure_rule": "기준미달 또는 잘못된 수량을 제공하면 not_supported;로그인·한도·통신 문제로 실제 외부 시험을 마치지 못하면 inconclusive. 다른 모델로 조용히 대체하지 않는다.",
+      "exclusion_rule": "질문·실패·fallback·예전 결과를 삭제하지 않는다. 원시API/자전거별거래/개인경로/인증을 외부 문맥으로 보내지 않는다. 새 API 현재값을 쓰더라도 학습·보정·선택에는 쓰지 않는다.",
+      "uncertainty_plan": "작은 알려진 기능 시험이며 신뢰구간·일반 언어능력·사용자 만족도 추정은 하지 않는다. 실제 생성·검사·자료문장·서비스오류를 분리한다. 늦거나 누락된 관측은 현재로 가장하지 않는다.",
+      "seed_plan": "공식 모델 slug gemini-3.8-flash-low 고정. 서비스가 seed/가중치해시를 제공하지 않아 완전결정성은 주장하지 않는다. 최대30외부요청/본 작업,요청당90초,동시1개,명령·파일·웹·MCP 도구 금지. API 키가 있는 OpenAI-compatible HTTP adapter는 별도 설정 경로이며 이 모델 비교의 대체가 아니다.",
+      "execution": "예측·수량·통계·근거 준비/검사·그림/영상 생성은 dislab. dislab Antigravity 미로그인,로컬1.4.10로그인·모델목록 확인. 로컬은 공식 CLI로 외부 모델 요청만 중계하며 로컬GPU/모델 학습·추론을 하지 않는다. 기존 인증은 정상 CLI를 통해서만 사용하고 token 추출·복사는 하지 않는다.",
+      "deployment": "별도8783원격서비스와 로컬UI중계,배포용 외부API설정/시작/중지/health 문서. 기존H26경로 보존 후 검증한 버전으로 표시. 공용 인터넷 노출·PR병합은 하지 않는다. 모델간 설명기를 바꾸어도 H13가중치불변.",
+      "media": "2분MP4,한국어음성·자막,실제화면을 캡처해 시연. 기록 재생과 실시간 상태를 구분,응답대기 편집은 표시한다. GCN·포아송평균·Gaussian잔차FM의쉬운그림을현재명세에서만든다. 신경망 생성경로를차량동선이나포아송출발로잘못그리지않는다.",
+      "live_engineering": "사용자 요청의 새관측→다시예측→계획갱신은기존H18/H21고정코드의상한있는재실행으로확인한다. 최대7관측/70분,기존정각10분규칙·시계확인·오류중지·가중치불변. 새정확도/모형선택실험으로쓰지않는다. 현재화면이기록이면그대로표시한다."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "56e35317102e92d11a5d001b0f86ce9f93e8cd4c355b026abe70255f4d7d5bbb",
+    "frozen_at_utc": "2026-11-10T10:31:12.012899+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
