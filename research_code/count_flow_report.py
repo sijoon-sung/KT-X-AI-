@@ -48,7 +48,7 @@ def architecture(r,out):
     box(889,162,207,88,'Poisson source',r'$x_0\sim\mathrm{Pois}(\lambda_i)$','gold');arrow([(853,205),(887,205)],'#a77823')
     if active:
         title='Integer count-FM' if mode=='count_jump_score' else 'Continuous residual FM'
-        sub='Birth / death rates: output4\n64 integer steps; zero death at0' if mode=='count_jump_score' else 'Poisson dequantized source\n16 Heun steps / integer decode'
+        sub=f'Birth / death rates: {width+8} → 128 → 128 → 128 → 4\n64 integer steps; zero death at0' if mode=='count_jump_score' else f'Poisson dequantized source\nv: {width+8} → 128 → 128 → 128 → 2\n16 Heun steps / integer decode'
         box(622,358,474,133,title,sub,'purple')
         arrow([(993,252),(993,356)],'#a77823');arrow([(487,555),(572,555),(572,425),(620,425)],'#326b9b',True)
         arrow([(825,230),(825,318),(900,318),(900,356)],'#a77823',True)
