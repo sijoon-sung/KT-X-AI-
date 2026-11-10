@@ -1,0 +1,2 @@
+# Use a separate environment with the existing dislab CUDA Torch installation.
+transformers==4.57.1
