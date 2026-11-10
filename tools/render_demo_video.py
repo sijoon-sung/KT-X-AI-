@@ -62,7 +62,7 @@ for i,scene in enumerate(spec['scenes']):
     filters=f"scale=1920:1080,tpad=stop_mode=clone:stop_duration={duration},subtitles=scene-{i}.srt:fontsdir='C\\:/Windows/Fonts':force_style='FontName=Malgun Gothic,FontSize=22,PrimaryColour=&H00FFFFFF,OutlineColour=&H00173E50,BorderStyle=3,Outline=4,Shadow=0,MarginV=34'"
     clip=out/f'clip-{i}.mp4'
     visual=['-framerate','10','-i',str((out/f'scene-{i}-frame-%03d.png').resolve())] if motion else ['-loop','1','-framerate','25','-i',str(base.resolve())]
-    command=[a.ffmpeg,'-hide_banner','-loglevel','error','-y',*visual,'-i',str(wav.resolve()),'-vf',filters,'-af',f'atempo={tempo:.6f},apad','-t',str(duration),'-r','25','-c:v','libx264','-preset','fast','-crf','19','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-ar','48000','-movflags','+faststart',str(clip.resolve())]
+    command=[a.ffmpeg,'-hide_banner','-loglevel','error','-y',*visual,'-i',str(wav.resolve()),'-vf',filters,'-af',f'atempo={tempo:.6f},apad','-t',str(duration),'-r','25','-c:v','libx264','-threads','4','-preset','fast','-crf','19','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-ar','48000','-movflags','+faststart',str(clip.resolve())]
     subprocess.run(command,cwd=out,check=True);segments.append(clip)
     timeline.append(dict(start=offset,end=offset+duration,title=scene['title'],source=scene['shot']));offset+=duration
 concat=out/'concat.txt';concat.write_text('\n'.join("file '"+p.name+"'" for p in segments),encoding='utf-8')
