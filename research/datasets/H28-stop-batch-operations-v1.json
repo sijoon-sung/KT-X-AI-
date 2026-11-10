@@ -1,0 +1,60 @@
+{
+  "id": "H28-stop-batch-operations-v1",
+  "kind": "fixed synthetic planning grid plus one separately labelled recorded-input engineering demonstration",
+  "synthetic": {
+    "layouts": [
+      "compact",
+      "spread",
+      "long_return",
+      "split_supply"
+    ],
+    "setup_seconds": [
+      60,
+      120
+    ],
+    "capacity": [
+      6,
+      20
+    ],
+    "job_deadline_minutes": [
+      10,
+      30
+    ],
+    "minimum_transfer": [
+      1,
+      3,
+      5
+    ],
+    "seeds": [
+      17,
+      29
+    ],
+    "cases": 192,
+    "forecast_action_window_minutes": 10,
+    "handling_seconds": 20,
+    "target_stock": 6,
+    "transfer_budget": 12,
+    "samples": 128,
+    "max_visits": 6,
+    "roads": "deterministic synthetic directed matrices, no road/API calls in synthetic suite"
+  },
+  "default_operating_assumptions": {
+    "minimum_transfer": 3,
+    "setup_seconds": 60,
+    "job_deadline_minutes": 30,
+    "capacity": 20,
+    "target": 6,
+    "budget": 20,
+    "handling_seconds": 20
+  },
+  "recorded_engineering_input": {
+    "sha256": "64a4ba791422308ba58ff494cd026170a249b59d1c0fb294a96fb41140f7b2e9",
+    "source_version": "H18-1794311400",
+    "recorded_at_utc": "2026-11-10T11:50:00+00:00",
+    "role": "already exposed locked forecast as demonstration input only; not truth, training, tuning or success metric"
+  },
+  "forecast_model": "locked H13 unchanged",
+  "new_inventory_api_requests": 0,
+  "api_accuracy_evaluation": false,
+  "parameter_selection": "defaults fixed from user concern before tests; no winner selection from recorded API outcomes"
+}
