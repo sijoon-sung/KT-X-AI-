@@ -1,0 +1,41 @@
+{
+  "checked_at_utc": "2026-11-09T02:53:13.444181+00:00",
+  "checked_at_kst": "2026-11-09T11:53:13.444181+09:00",
+  "result": "connected_authenticated",
+  "ssh_exit_code": 0,
+  "identity_file_present": true,
+  "remote_marker_received": true,
+  "authentication_reached": true,
+  "remote_workspace_present": true,
+  "h13_model_lock_present": true,
+  "h22_model_lock_present": true,
+  "remote_gpu_environment_check_completed": true,
+  "remote_weight_hashes_rechecked": false,
+  "remote_model_inference_performed": false,
+  "remote_training_started": false,
+  "ssh_service_status": "Running",
+  "ssh_service_start_type": "Automatic",
+  "gpu_name": "NVIDIA GeForce RTX 3080",
+  "gpu_total_memory_mib": 10240,
+  "python": "3.12.10",
+  "torch": "2.7.1+cu118",
+  "numpy": "1.26.4",
+  "cuda_available": true,
+  "history": [
+    {
+      "checked_at_kst": "2026-11-09T10:36:39+09:00",
+      "result": "connection_refused_before_authentication"
+    },
+    {
+      "checked_at_kst": "2026-11-09T11:42:40+09:00",
+      "result": "tailnet_peer_online_rdp_reachable_ssh_refused"
+    },
+    {
+      "checked_at_kst": "2026-11-09T11:53:13.444181+09:00",
+      "result": "connected_authenticated_and_remote_health_checked"
+    }
+  ],
+  "local_research_compute_started": false,
+  "private_connection_details_included": false,
+  "note": "Timestamped check, not continuous monitoring. No new training, inference or accuracy experiment."
+}

@@ -20,6 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Check record tooling
         run: python -m unittest discover -s tools/tests -v
+      - name: Check architecture documentation against source
+        run: python tools/check_architecture_contract.py
       - name: Validate all records
         run: python tools/research.py check
       - name: Validate PR scope and frozen plans

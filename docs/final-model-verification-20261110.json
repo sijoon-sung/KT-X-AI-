@@ -1,0 +1,63 @@
+{
+  "checked_at_utc": "2026-11-10T07:36:55.986264+00:00",
+  "model_id": "tashu-gcn-fm-v1",
+  "retained_backbone": "H13 recent-GCN + Gaussian residual conditional FM",
+  "selection_basis": "Existing historically locked default, requested GCN/FM scope and implementation continuity; no API ranking used to select/retrain weights",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "active_weight_files": [
+    {
+      "id": "recent-11.pt",
+      "bytes": 1273888,
+      "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+    },
+    {
+      "id": "flow-11.pt",
+      "bytes": 271821,
+      "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e"
+    },
+    {
+      "id": "recent-29.pt",
+      "bytes": 1273888,
+      "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+    },
+    {
+      "id": "flow-29.pt",
+      "bytes": 271821,
+      "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e"
+    }
+  ],
+  "active_parameters": 768648,
+  "active_fp32_tensor_bytes": 3074592,
+  "active_checkpoint_file_bytes": 3091418,
+  "historical_context_excluded_from_weight_size": true,
+  "hidden_shape": [
+    5,
+    256
+  ],
+  "rate_shape": [
+    5,
+    2
+  ],
+  "velocity_shape": [
+    5,
+    2
+  ],
+  "inventory_sample_shape": [
+    5,
+    128
+  ],
+  "repeat_samples_exact": true,
+  "nonnegative_integer_samples": true,
+  "synthetic_input_only": true,
+  "api_requests": 0,
+  "new_accuracy_measured": false,
+  "weights_updated": false,
+  "source_prior": "Gaussian N(0,I2), not Poisson particles",
+  "environment": {
+    "execution": "dislab",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4"
+  }
+}

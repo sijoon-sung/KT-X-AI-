@@ -1,5 +1,7 @@
 # 연구 방향 결정 기록
 
+2026-11-09 현재 범위: 입력 특징과 외부 자료 추가를 멈추고 [아키텍처 v1](model-architecture-v1.md)의 encoder·decoder·출력 계약을 먼저 고정한다. 기본 H13, 별도 비교 H22를 유지한다. 아래 확장 방향은 이전 연구 이력이며 현재 추가 구현 대상이 아니다. 새 신경망 변경은 고정 입력 안에서 과거 이력으로 비교하고, 연구 연산은 dislab에서 실행한다.
+
 기준일: 2026-10-31. [연구 프로그램](research-program.md)의 큰 선택을 추적한다.
 최신 자료 사용은 [과거 이력 학습·API 검증 전용 계약](training-validation-contract.md)을 우선한다.
 공식 재고 평가는 [9월 API](september-evaluation-contract.md)다. 2·3월에는 실측 재고·품절 정답이 없다.

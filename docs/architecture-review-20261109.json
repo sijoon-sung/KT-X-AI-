@@ -1,0 +1,50 @@
+{
+  "scope": "Existing architecture documentation and browser display; not a new forecasting experiment",
+  "contract_version": "architecture-v1-20261109",
+  "numerical_source_commit": "5db8c21c9e9740cd6e8c90b50dd087716c45c861",
+  "static_source_document_checks": {
+    "passed": 23,
+    "failed": 0
+  },
+  "javascript_syntax_check": "passed",
+  "browser_checks": [
+    "Default H13 weekly encoder displays420->256->64 and64-dimension OD aggregation",
+    "H13 condition encoder displays parallel164/72 projections and256-dimension output",
+    "H13 decoder displays264->128->128->128->2",
+    "H22 model switch displays1280-dimension context,136-dimension velocity input and cached128 condition",
+    "Stock output displays Bx128 and separate dispatch calculator boundary",
+    "Returned to H13 after comparison; no default model switch",
+    "Actual narrow browser viewport rendered without split final metric label after layout correction",
+    "SSH status shows connection refused with last-check timestamp; no live healthy claim"
+  ],
+  "browser_evidence": "Full-page screenshot retained in the private workspace",
+  "issues_corrected": [
+    "Condition display now shows two parallel projections followed by sum, not a164->72 sequential layer",
+    "Narrow layout uses two metric columns to keep128/16steps readable"
+  ],
+  "ssh_health_result": "connection_refused_before_authentication",
+  "remote_model_or_gpu_execution_verified_this_session": false,
+  "new_training_started": false,
+  "new_accuracy_computed": false,
+  "api_requests_made": 0,
+  "weights_or_numerical_inference_changed": false,
+  "followup_paper_figures": {
+    "overview_and_layer_figures": [
+      "assets/model-architecture-v1",
+      "assets/model-architecture-layers-v1"
+    ],
+    "formats": [
+      "svg",
+      "pdf",
+      "png"
+    ],
+    "png_dpi": 220,
+    "vector_pdf_pages_each": 1,
+    "pdf_render_visual_review": "passed after arrow/label corrections",
+    "model_inference_used_to_draw_figures": false,
+    "latest_browser_check": "not rerun: native UI stopped by automatic policy review because browser URL could not be determined; vector/PDF/PNG review performed programmatically"
+  },
+  "followup_ssh_result": "connected_authenticated",
+  "followup_remote_gpu_environment_verified": true,
+  "followup_model_weights_or_inference_verified": false
+}

@@ -4,6 +4,16 @@ GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대
 
 홈페이지·실행 도구·연구 기록을 이 브랜치에 모았다. 새로 시작할 때는 아래 실행 안내를 따르면 된다.
 
+## 모델 구조와 고정 범위
+
+[Encoder·decoder 구조도](architecture.html) · [층·입출력·손실 명세](docs/model-architecture-v1.md) · [논문용 그림·캡션](docs/architecture-figures.md) · [전체 구조 PDF](assets/model-architecture-v1.pdf) · [층별 상세 PDF](assets/model-architecture-layers-v1.pdf)
+
+현재 H13을 기준으로 입력 특징을 고정한다. 주간 encoder420→256→64와 OD 집계, 자기164·이웃72→256의 조건 결합, 대여·반납 평균 head와 조건부FM decoder로 구성한다. 버스·철도·추가 기상·추가 도시·LLM 입력 추가는 보류한다. H22는 같은 입력을 쓰는97MB 비교 모델이다.
+
+`architecture.html`은 저장소 폴더에서 `python -m http.server 8772 --bind 127.0.0.1`로 열 수 있다.
+
+[dislab 확인 기록](docs/dislab-status-20261109.json):2026-11-09 11:53 KST 키 인증·원격 명령 실행에 성공했다. SSH 서비스는 Running/Automatic이며 RTX 3080·CUDA·H13/H22 잠금 파일 존재를 확인했다. 새 모델 추론·학습은 실행하지 않았다.
+
 ## 실행
 
 [고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.
