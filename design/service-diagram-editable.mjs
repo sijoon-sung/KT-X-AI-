@@ -1,5 +1,5 @@
 export default async function({presentation,input}) {
- const s=presentation.slides.getItem(7);
+ const s=presentation.slides.getItem(input.slideIndex ?? 7);
  const C={navy:'#173E50',teal:'#1A8585',line:'#BACDD5',blue:'#F0F6FB',green:'#EFF7F4',orange:'#FFF4E5',muted:'#526A75',white:'#FFFFFF'};
  const root=input.assetDirectory;
  if(input.phase==='icons-data'||input.phase==='icons-people'||input.phase==='icon-gpt') {

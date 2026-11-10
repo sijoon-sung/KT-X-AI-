@@ -6,6 +6,8 @@ GCN·포아송·Flow Matching으로 10분 후 재고를 예측하고, 부족 대
 
 [공모전 발표·도입 계획](docs/competition-guide.md)은 대전의 빈 대여소 문제, 실제 시연 순서와 4주 시범 운영안을 설명한다. [외부 LLM 실행](docs/quickstart-external-llm.md)을 따르면 지도에서 계산한 이동 대수와 방문 순서를 Antigravity 외부 모델에 물어볼 수 있다. 자료 준비·답변 검사는 dislab에서 실행한다. 이전 [소형 Qwen 실행](docs/quickstart-llm.md)과 시험 기록도 보존했다.
 
+[설문을 반영한 IR 발표자료](docs/competition-ir-deck.md)와 [2분 시연 영상](assets/demo/tashu-demo-2min.mp4)을 제공한다. 서비스 구성도와 설문 그래프는 발표자료에서 수정할 수 있다.
+
 ## 실행
 
 [고정 모델 실행 묶음](https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1)을 내려받으면 재학습 없이 원본 가중치를 실행할 수 있다. 묶음에는 가중치, 과거 특성, 추론 코드, 해시 목록이 포함된다.

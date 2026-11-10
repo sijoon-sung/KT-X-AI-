@@ -1,0 +1,93 @@
+{
+  "title": "타슈 이용 불편 탐색 설문",
+  "responses": 10,
+  "zip_sha256": "1c000dbb3f462c930dac2a5c8d9d84eb960d5d67d6a8e4d486edef67afcf879b",
+  "csv_sha256": "b7e0a28f2338ff49995de1cd0f3f710ff452f8087e9602a2ff53f24e3cb31b24",
+  "closed_questions": {
+    "1": [
+      {
+        "choice": "주 1,2회",
+        "count": 4,
+        "percent_of_all": 40.0
+      },
+      {
+        "choice": "거의 매일",
+        "count": 1,
+        "percent_of_all": 10.0
+      },
+      {
+        "choice": "주 3,4회",
+        "count": 4,
+        "percent_of_all": 40.0
+      },
+      {
+        "choice": "월 5회 미만",
+        "count": 1,
+        "percent_of_all": 10.0
+      }
+    ],
+    "2": [
+      {
+        "choice": "대중교통(버스/지하철)이나 도보로 전환한다",
+        "count": 4,
+        "percent_of_all": 40.0
+      },
+      {
+        "choice": "인접 대여소로 걸어간다",
+        "count": 2,
+        "percent_of_all": 20.0
+      },
+      {
+        "choice": "공유 킥보드나 공유 자전거등을 탄다(지쿠터, 카카오 자전거 등)",
+        "count": 3,
+        "percent_of_all": 30.0
+      },
+      {
+        "choice": "이동 자체를 포기/연기한다",
+        "count": 1,
+        "percent_of_all": 10.0
+      }
+    ],
+    "3": [
+      {
+        "choice": "예",
+        "count": 5,
+        "percent_of_all": 50.0
+      },
+      {
+        "choice": "아니오",
+        "count": 5,
+        "percent_of_all": 50.0
+      }
+    ]
+  },
+  "question_texts": {
+    "1": "1번: 타슈를 타려고 대여소에 갔는데 자전거가 0대여서 헛걸음한 경험이 얼마나 자주 있나요?",
+    "2": "2번: 자전거가 없을 때 주로 어떻게 대처하시나요?",
+    "3": "3번 :목적지 대여소에 자전거가 너무 꽉 차 있어서 반납할 자리를 찾지 못해 곤란했던 적이 있나요?\n그럴 때 보통 어떻게 반납하시나요? "
+  },
+  "open_question_nonblank": {
+    "parking_followup": 5,
+    "time_place": 8
+  },
+  "privacy": {
+    "contact_column_excluded": true,
+    "timestamps_excluded": true,
+    "individual_free_text_not_exported": true
+  },
+  "limitations": [
+    "제공된 응답 10건의 탐색 집계; 모집 방식·대표성 미확인",
+    "신원 중복 제거를 수행하지 않아 10명의 독립 응답이라고 확정하지 않음",
+    "미응답을 없음 또는 경험 없음으로 채우지 않음",
+    "선호 기능·지불 의사·운영기관 도입 의향을 묻지 않은 설문",
+    "개별 자유 응답은 집계 결과로 내보내지 않음"
+  ],
+  "execution": "dislab",
+  "analysis_kind": "descriptive presentation support,not a model selection or new confirmatory hypothesis",
+  "headline": {
+    "weekly_or_daily_count": 9,
+    "weekly_or_daily_denominator": 10,
+    "parking_difficulty_count": 5,
+    "parking_denominator": 10
+  }
+}
