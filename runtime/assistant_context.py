@@ -60,7 +60,7 @@ def evidence(raw,question=''):
     if mode not in ('demo','recorded_replay','forecast'):raise ValueError('자료 종류를 확인하세요.')
     stamp=when(raw.get('recorded_at'));label=('시연용 예시' if mode=='demo' else '기록된 자료')+' · '+stamp
     facts=[]
-    def add(key,text):facts.append({'id':key,'text':text})
+    def add(key,text,**metadata):facts.append({'id':key,'text':text,**metadata})
     add('source',label+'입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다.')
     add('method','예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 보고 10분 뒤 자전거 수를 예상합니다.')
     add('limits','실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.')
@@ -79,12 +79,12 @@ def evidence(raw,question=''):
         if s['id'] not in [x['id'] for x in chosen]:chosen.append(s)
         if len(chosen)>=5:break
     for s in chosen:
-        parts=[s['name']+' ('+s['id']+')']
+        parts=[s['name']]
         if 'current' in s:parts.append(f"자료 시점의 자전거 {s['current']:g}대")
         else:parts.append('자료 시점의 자전거 수는 없음')
         if 'predicted' in s:parts.append(f"10분 뒤 예상 자전거 {s['predicted']:g}대")
         if 'p_zero' in s:parts.append(f"10분 뒤 자전거가 없을 가능성 {s['p_zero']*100:.0f}%")
-        add('station.'+s['id'],', '.join(parts)+'.')
+        add('station.'+s['id'],', '.join(parts)+'.',station_name=s['name'],station_id=s['id'])
     plan=raw.get('plan');summary={}
     if plan:
         moved=number(plan.get('moved_bikes',0));km=number(plan.get('distance_km',0));minutes=number(plan.get('minutes',0))
@@ -113,6 +113,7 @@ def validate_answer(raw,pack):
     if any(x in text for x in ('<think>','<script','```')):raise ValueError('답변 형식 오류')
     number_re=r'\d+(?:\.\d+)?'
     source=' '.join(x['text'] for x in pack['facts'] if x['id'] in ids)
+    if re.search(r'[\u4e00-\u9fff]',text) and not re.search(r'[\u4e00-\u9fff]',source):raise ValueError('자료에 없는 한자 표기')
     # Compare numeric values, accepting harmless trailing zeros, not novel arithmetic.
     numbers={float(x) for x in re.findall(number_re,source)}
     if any(float(x) not in numbers for x in re.findall(number_re,text)):raise ValueError('근거에 없는 숫자')
@@ -120,7 +121,7 @@ def validate_answer(raw,pack):
 
 def focus(pack,question):
     """Select the supplied facts for this question; no new recommendations."""
-    facts=pack['facts'];station=[x for x in facts if x['id'].startswith('station.') and any(w in question for w in x['text'].split(' (')[0].split() if len(w)>1)]
+    facts=pack['facts'];station=[x for x in facts if x['id'].startswith('station.') and (x.get('station_name','\0') in question or x.get('station_id','\0') in question)]
     if any(w in question for w in ('포기','미충족','못 빌','돌아간','실제 이동','완료')):
         chosen=[x for x in facts if x['id']=='limits']
     elif any(w in question for w in ('언제','실시간','시점이고','시각')):
