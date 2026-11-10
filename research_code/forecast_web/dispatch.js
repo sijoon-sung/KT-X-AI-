@@ -155,8 +155,8 @@ async function refreshFeed(options={}){
  if(!pending){pending=(async()=>{const r=await fetch('/api/dispatch/info'+(options.fresh?'?fresh=1':''),{cache:'no-store'});if(!r.ok)throw Error('최신 관측 연결을 확인하고 있습니다.');return r.json();})();infoRequests.set(key,pending);}
  try{
   const next=await pending;const changed=applyInfo(next,options.replan!==false);
-  if(options.replan!==false&&plan?.latest_departure_at_utc&&plan.moved_bikes>0&&Date.now()>Date.parse(plan.latest_departure_at_utc)){plan=null;banner('출발 가능 시각이 지나 현재 조건으로 다시 계산합니다.');invalidate();}
-  if(plan?.valid_until_utc&&Date.now()>Date.parse(plan.valid_until_utc)){clearFailedPlan('예측 유효시간이 끝나 다음 관측을 기다립니다.');retryLater('다음 관측을 기다립니다.');}
+  if(info.mode==='live_observation_shadow'&&options.replan!==false&&plan?.latest_departure_at_utc&&plan.moved_bikes>0&&Date.now()>Date.parse(plan.latest_departure_at_utc)){plan=null;banner('출발 가능 시각이 지나 현재 조건으로 다시 계산합니다.');invalidate();}
+  if(info.mode==='live_observation_shadow'&&plan?.valid_until_utc&&Date.now()>Date.parse(plan.valid_until_utc)){clearFailedPlan('예측 유효시간이 끝나 다음 관측을 기다립니다.');retryLater('다음 관측을 기다립니다.');}
   return changed;
  }finally{if(infoRequests.get(key)===pending)infoRequests.delete(key);}
 }
