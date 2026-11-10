@@ -6,13 +6,8 @@ from urllib.parse import urlsplit
 from antigravity_transport import generate
 
 def remote(config,value):
-    q=lambda s:"'"+str(s).replace("'","''")+"'"
-    data=base64.b64encode(json.dumps(value,ensure_ascii=False).encode()).decode()
-    script="$ErrorActionPreference='Stop';[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false);$OutputEncoding=[Text.UTF8Encoding]::new($false);$env:PYTHONUTF8='1';"
-    script+="$body=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('"+data+"'));Set-Location "+q(config['remote_repo'])+";"
-    script+="$body | & "+q(config['remote_python'])+" -X utf8 runtime/external_assistant.py --config "+q(config['remote_config'])+";exit $LASTEXITCODE"
-    encoded=base64.b64encode(script.encode('utf-16le')).decode()
-    r=subprocess.run(['ssh','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','-o','ConnectTimeout=10',config.get('ssh_host','dislab'),'powershell.exe','-NoProfile','-NonInteractive','-EncodedCommand',encoded],capture_output=True,timeout=90,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+    command=subprocess.list2cmdline([config['remote_python'],'-X','utf8',config['remote_repo']+'/runtime/external_assistant.py','--config',config['remote_config']])
+    r=subprocess.run(['ssh','-T','-o','BatchMode=yes','-o','StrictHostKeyChecking=yes','-o','ConnectTimeout=10',config.get('ssh_host','dislab'),command],input=json.dumps(value,ensure_ascii=True).encode('ascii'),capture_output=True,timeout=90,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     try:value=json.loads(r.stdout.decode('utf-8-sig'))
     except (ValueError,UnicodeError):raise RuntimeError('계산 서버 연결을 확인해 주세요.')
     if r.returncode or not value.get('ok'):raise RuntimeError(value.get('error','자료 연결을 확인해 주세요.'))
