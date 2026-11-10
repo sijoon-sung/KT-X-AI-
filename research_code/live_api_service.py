@@ -134,7 +134,8 @@ def run(a):
     from rolling_inventory_metrics import LABELS
     folder=Path(a.out).resolve();folder.mkdir(parents=True,exist_ok=True)
     if (folder/'status.json').exists():raise ValueError('Preserve an existing live run; do not reset its request budget.')
-    clock=Clock(a.clock_offset,a.clock_uncertainty);start=clock.now();expires=start+86400
+    if not 0<a.max_hours<=24 or not 1<=a.max_requests<=143:raise ValueError('Live collection budget exceeds the approved cap.')
+    clock=Clock(a.clock_offset,a.clock_uncertainty);start=clock.now();expires=start+a.max_hours*3600
     status=dict(hypothesis_id='H-0018',phase='initializing',started_at_utc=iso(start),expires_at_utc=iso(expires),clock=clock.metadata(),
                 requests=0,roundtrips=0,acceptance_failures=0,weights_updated=False,official_september_replaced=False)
     def publish():status['heartbeat_at_utc']=iso(clock.now());atomic(folder/'status.json',status)
@@ -152,7 +153,7 @@ def run(a):
         first=math.floor(clock.now()/600)*600;due=first if clock.now()-first<=90 else first+600
         previous=None;pending={};errors=0;status['phase']='waiting_for_observation'
         status['environment']=dict(device='dislab CUDA',gpu=torch.cuda.get_device_name(),torch=torch.__version__,numpy=np.__version__)
-        while clock.now()<expires and status['requests']<143:
+        while clock.now()<expires and status['requests']<a.max_requests:
             status['next_observation_at_utc']=iso(due);publish()
             while clock.now()<due:
                 time.sleep(min(15,due-clock.now()));publish()
@@ -213,7 +214,7 @@ def run(a):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();sp=p.add_subparsers(dest='command',required=True)
-    q=sp.add_parser('run');q.add_argument('--fit',required=True);q.add_argument('--weather',required=True);q.add_argument('--defaults',required=True);q.add_argument('--credential',required=True);q.add_argument('--out',required=True);q.add_argument('--clock-offset',required=True,type=float);q.add_argument('--clock-uncertainty',required=True,type=float)
+    q=sp.add_parser('run');q.add_argument('--fit',required=True);q.add_argument('--weather',required=True);q.add_argument('--defaults',required=True);q.add_argument('--credential',required=True);q.add_argument('--out',required=True);q.add_argument('--clock-offset',required=True,type=float);q.add_argument('--clock-uncertainty',required=True,type=float);q.add_argument('--max-hours',type=float,default=24);q.add_argument('--max-requests',type=int,default=143)
     q=sp.add_parser('rpc');q.add_argument('--folder',required=True)
     a=p.parse_args()
     if a.command=='run':run(a)
