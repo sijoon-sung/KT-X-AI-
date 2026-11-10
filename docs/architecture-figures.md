@@ -1,3 +1,15 @@
+# 최종 모델 구조 그림
+
+현재 최종본은 [Tashu GCN–Flow Matching v1](final-model-v1.md)이다. 전체 구조와 층별 상세를 논문 형식으로 다시 그렸고, 가중치·입력·encoder·decoder를 H13에 고정했다.
+
+![최종 전체 구조](../assets/tashu-final-framework.png)
+
+[전체 PDF](../assets/tashu-final-framework.pdf) · [층별 PDF](../assets/tashu-final-layers.pdf) · [전체 SVG](../assets/tashu-final-framework.svg) · [층별 SVG](../assets/tashu-final-layers.svg)
+
+아래는 2026-11-09의 이전 그림·설명이다. 과거 기록을 보존한다.
+
+---
+
 # 타슈 아키텍처 그림
 
 현재 H13 구현의 구조를 논문용 그림으로 그렸다. 입력 종류·네트워크·가중치는 변경하지 않았다.

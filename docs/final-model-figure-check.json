@@ -1,0 +1,15 @@
+{
+  "renderer": "matplotlib vector",
+  "execution_required": "dislab",
+  "source": "H13 retained implementation",
+  "formats": [
+    "pdf",
+    "svg",
+    "png"
+  ],
+  "png_dpi": 600,
+  "physical_width_inches": 7.4,
+  "page_boundary_checks": "passed",
+  "synthetic_glyphs_only": true,
+  "new_data_or_model_inference_in_renderer": false
+}

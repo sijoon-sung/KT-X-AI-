@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "id": "tashu-gcn-fm-v1",
+  "decision": "retained existing H13 default as the final project backbone",
+  "fixed_on": "2026-11-10",
+  "decision_basis": [
+    "User requested a concrete final architecture with GCN and FM",
+    "Preserve the historically locked default and existing execution path",
+    "No API ranking-based model choice or new weight selection"
+  ],
+  "backbone": "H13 recent-GCN + Gaussian residual conditional Flow Matching",
+  "numerical_source_commit": "5db8c21c9e9740cd6e8c90b50dd087716c45c861",
+  "weights": {
+    "lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+    "seeds": [
+      11,
+      29
+    ],
+    "active_files": [
+      {
+        "id": "recent-11.pt",
+        "bytes": 1273888,
+        "sha256": "54607a30324d5e52db37f5daf82727b33e6caaa4181c41b8b7d35968938ff8a1"
+      },
+      {
+        "id": "flow-11.pt",
+        "bytes": 271821,
+        "sha256": "1dc9eaf0c6c7e55b233b4de9609be293a0835faf2e6ada5db70bf020e803137e"
+      },
+      {
+        "id": "recent-29.pt",
+        "bytes": 1273888,
+        "sha256": "22a8ab695e1cadff66ef4eeab3f8cedfcf12129ae9689deeb4ffdd0cf356de7e"
+      },
+      {
+        "id": "flow-29.pt",
+        "bytes": 271821,
+        "sha256": "4e236ec5f7f98c39271dd7287e0098e09a735d390986664f34157a0f6495f41e"
+      }
+    ],
+    "active_parameters": 768648,
+    "active_fp32_tensor_bytes": 3074592,
+    "active_checkpoint_file_bytes": 3091418,
+    "context_is_separate": true,
+    "controls_in_release_are_not_additional_active_seeds": true,
+    "release_url": "https://github.com/sijoon-sung/KT-X-AI-/releases/tag/h13-runtime-v1.0.1"
+  },
+  "architecture": {
+    "features": "existing frozen feature contract, no additional sources",
+    "profile_mlp": [
+      420,
+      256,
+      64
+    ],
+    "graph": "one fixed historical OD aggregation, no learned/adaptive adjacency",
+    "own_width": 164,
+    "neighbor_width": 72,
+    "hidden_width": 256,
+    "hidden_linear_layers_after_fusion": 2,
+    "rate_head": [
+      256,
+      2
+    ],
+    "rate_training": "Poisson negative log-likelihood",
+    "flow_velocity_mlp": [
+      264,
+      128,
+      128,
+      128,
+      2
+    ],
+    "velocity_concat_order": [
+      "residual2",
+      "generative_time4",
+      "station_condition256",
+      "log_rate2"
+    ],
+    "flow_initial_distribution": "Gaussian N(0,I2), not Poisson samples",
+    "flow_training": "Conditional velocity MSE, rate encoder frozen",
+    "inference": "16-step Heun; floor/expm1/nonnegative integer count transform",
+    "particles": 128,
+    "seed_mixture": "independent per particle",
+    "horizon_seconds": 600,
+    "stock_projection": "max(0,current_stock+generated_returns-generated_rentals)",
+    "outputs": [
+      "rental/return count samples",
+      "inventory samples",
+      "zero-inventory probability",
+      "inventory quantiles"
+    ]
+  },
+  "shortfall_readout": {
+    "neural_layer": false,
+    "formula": "Z=max(0,target_stock-inventory_sample); q_tau(Z),tau=under_cost/(under_cost+over_cost)",
+    "parameters": "target stock and cost ratio supplied by operator; no inferred true values",
+    "example_only": {
+      "target_stock": 3,
+      "under_to_over_cost": "5:1"
+    },
+    "evidence": "H25 fixed-model evaluation, PR37; readout shown as evaluated postprocessing, not a new trained head",
+    "production_dispatch_changed": false,
+    "latent_unmet_demand_observed": false
+  },
+  "scope": {
+    "new_training": false,
+    "weights_changed": false,
+    "api_selected": false,
+    "default_backbone_changed": false,
+    "new_accuracy_evaluation": false,
+    "model_verification_execution": "dislab",
+    "figure_generation_execution": "dislab"
+  },
+  "not_selected_for_final_backbone": {
+    "H22": "Optional enlargement experiment; not mixed into H13",
+    "H24": "Independent compact/count-flow experiment; not mixed into H13"
+  },
+  "verification": "docs/final-model-verification-20261110.json"
+}

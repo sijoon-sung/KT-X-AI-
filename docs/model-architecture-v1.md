@@ -1,5 +1,7 @@
 # 타슈 모델 아키텍처 v1
 
+2026-11-10 최종 고정본과 가중치·추론 재확인은 [최종 모델 v1](final-model-v1.md)을 따른다. 아래 11월 9일 당시의 미확인 항목은 그 시점의 이력이다.
+
 기준: 2026-11-09, 구현 커밋 `5db8c21c9e9740cd6e8c90b50dd087716c45c861`.
 입력 특징 확장을 멈추고 현재 구현의 encoder·decoder 경계와 입출력을 고정한다.
 [논문용 전체·층별 그림과 캡션](architecture-figures.md), [구조도 페이지](../architecture.html), [차원 계약 JSON](model-architecture-contract.json).
