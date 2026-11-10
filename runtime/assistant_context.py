@@ -118,6 +118,30 @@ def validate_answer(raw,pack):
     if any(float(x) not in numbers for x in re.findall(number_re,text)):raise ValueError('근거에 없는 숫자')
     return {'answer':text,'evidence_ids':ids}
 
+def focus(pack,question):
+    """Select the supplied facts for this question; no new recommendations."""
+    facts=pack['facts'];station=[x for x in facts if x['id'].startswith('station.') and any(w in question for w in x['text'].split(' (')[0].split() if len(w)>1)]
+    if any(w in question for w in ('포기','미충족','못 빌','돌아간','실제 이동','완료')):
+        chosen=[x for x in facts if x['id']=='limits']
+    elif any(w in question for w in ('언제','실시간','시점이고','시각')):
+        chosen=[x for x in facts if x['id']=='source']
+    elif any(w in question for w in ('어떻게 하는','어떻게 예측','모델','예측 방법')):
+        chosen=[x for x in facts if x['id']=='method']
+    elif any(w in question for w in ('순서','동선','경로')):
+        chosen=[x for x in facts if x['id'].startswith('route.')]
+    elif any(w in question for w in ('싣','실어','내려','채우면','채워야')):
+        routes=[x for x in facts if x['id'].startswith('route.')]
+        matched=[x for x in routes if x['text'].split(': ',1)[-1].split(',')[0] in question]
+        chosen=matched+station if matched else station+routes
+    elif station:chosen=station
+    elif any(w in question for w in ('몇 대','몇대','거리','시간','총')):
+        chosen=[x for x in facts if x['id']=='plan.total']
+    else:chosen=[x for x in facts if x['id'].startswith(('station.','plan.','data.'))][:6]
+    if not chosen:chosen=[x for x in facts if x['id'] in ('data.none','plan.none','limits')][:1]
+    ids={x['id'] for x in chosen}
+    if 'source' not in ids:chosen+=[x for x in facts if x['id']=='source']
+    return dict(pack,facts=chosen)
+
 def fallback(pack,question):
     f=pack['facts'];matches=[x for x in f if x['id'].startswith('station.') and any(word in question for word in re.findall(r'[^ (),.]+',x['text']) if len(word)>2)]
     if any(w in question for w in ('포기','미충족','실제 이동','완료')):chosen=[x for x in f if x['id']=='limits']
