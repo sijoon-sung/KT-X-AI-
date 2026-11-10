@@ -50,6 +50,7 @@ class Assistant:
                     repetition_penalty=1.1,pad_token_id=self.tokenizer.eos_token_id)
             generated=int(output.shape[1]-inputs['input_ids'].shape[1])
             text=self.tokenizer.decode(output[0,inputs['input_ids'].shape[1]:],skip_special_tokens=True).strip()
+            text=text.replace('대가 옮기는 계획','대를 옮기는 계획')
             try:
                 value={'answer':text,'evidence_ids':[x['id'] for x in pack['facts']]};result=validate_answer(value,pack);engine='llm'
             except (ValueError,KeyError,TypeError):
@@ -86,7 +87,9 @@ def serve(a,assistant):
             try:
                 length=int(self.headers.get('Content-Length','0'))
                 if not 0<length<=8192:raise ValueError('입력을 확인하세요.')
-                value=json.loads(self.rfile.read(length));reply=assistant.answer(value.get('question'),raw())
+                value=json.loads(self.rfile.read(length))
+                if not isinstance(value,dict):raise ValueError('질문 형식 오류')
+                reply=assistant.answer(value.get('question'),raw())
                 return self.send(200,reply)
             except TimeoutError as e:return self.send(429,{'error':str(e)})
             except (ValueError,TypeError,KeyError):return self.send(422,{'error':'질문과 예측 자료를 확인해 주세요.'})

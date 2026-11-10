@@ -4,10 +4,10 @@
 <body>
 <header class="top"><a class="brand" href="/">타슈<span>운영 도우미</span></a><span class="connection" id="connection">연결 확인 중</span></header>
 <main>
-  <section class="intro"><p class="eyebrow">예측에서 다음 행동까지</p><h1>어디부터 채우면 좋을까요?</h1><p>예측 결과와 이동 계획을 쉬운 말로 설명해 드립니다.</p></section>
+  <section class="intro"><p class="eyebrow">타슈 재배치</p><h1>어디부터 채우면 좋을까요?</h1><p>어디서 몇 대를 가져와 채울지, 어떤 순서로 갈지 물어보세요.</p></section>
   <div class="workspace">
     <aside class="context" aria-label="답변에 사용하는 자료">
-      <div class="section-title"><h2>살펴보고 있는 계획</h2><span class="dot"></span></div>
+      <div class="section-title"><h2>이동 계획</h2><span class="dot"></span></div>
       <p class="source" id="source">자료를 불러오고 있습니다.</p>
       <div class="stats">
         <div><span>옮길 자전거</span><strong id="bikes">—</strong></div>
@@ -22,8 +22,8 @@
     <section class="chat" aria-label="계획에 대해 질문하기">
       <div class="chat-head"><div><h2>계획에 대해 물어보세요</h2><p>궁금한 점을 편하게 적어 주세요.</p></div><button class="reset" id="reset" type="button">대화 비우기</button></div>
       <div class="messages" id="messages" aria-live="polite" aria-relevant="additions"><article class="message assistant"><span class="avatar">타</span><div class="bubble">자전거가 부족한 곳, 옮길 수량, 이동 순서를 함께 살펴볼 수 있어요.</div></article></div>
-      <form id="form"><label class="sr-only" for="question">질문</label><textarea id="question" maxlength="400" rows="2" placeholder="예: 중앙역에는 왜 먼저 채워야 해?" required></textarea><button type="submit" id="send" aria-label="질문 보내기">보내기 <span>↑</span></button></form>
-      <p class="form-note">새 수량을 계산하는 대신, 이미 계산된 예측과 계획을 설명합니다.</p>
+      <form id="form"><label class="sr-only" for="question">질문</label><textarea id="question" maxlength="400" rows="2" placeholder="예: 어디에서 몇 대를 실으면 돼?" required></textarea><button type="submit" id="send" aria-label="질문 보내기">보내기 <span>↑</span></button></form>
+      <p class="form-note">계획에 적힌 수량과 순서를 알려드립니다.</p>
     </section>
   </div>
 </main>

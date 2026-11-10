@@ -93,7 +93,8 @@ def evidence(raw,question=''):
         for i,s in enumerate(plan.get('stops',[])[:12],1):
             if s.get('action') not in ('pickup','deliver'):raise ValueError('작업 종류가 올바르지 않습니다.')
             action='싣기' if s['action']=='pickup' else '내려놓기'
-            add('route.'+str(i),f"방문 순서 {i}: {clean(s.get('name',s.get('id','대여소')))}, {number(s['bikes']):g}대 {action}.",bikes=number(s['bikes']))
+            name=clean(s.get('name',s.get('id','대여소')))
+            add('route.'+str(i),f"방문 순서 {i}: {name}, {number(s['bikes']):g}대 {action}.",bikes=number(s['bikes']),station_name=name)
     elif stations:add('plan.none','계산된 이동 계획은 아직 없습니다. 배치 대수를 확정해서 말할 수 없습니다.')
     else:add('data.none','예측 자료와 이동 계획이 아직 없습니다. 대여소 상태나 이동 수량을 알 수 없습니다.')
     if len(json.dumps(facts,ensure_ascii=False))>6000:raise ValueError('요약 자료가 너무 깁니다.')
@@ -123,6 +124,12 @@ def validate_answer(raw,pack):
     if len(routes)==1:
         if any(float(x)!=routes[0]['bikes'] for x in re.findall(r'(\d+(?:\.\d+)?)\s*대',text)):
             raise ValueError('이동 수량이 계획과 다릅니다.')
+    if len(routes)>1:
+        cursor=0
+        for item in routes:
+            found=text.find(item['station_name'],cursor)
+            if found<0:raise ValueError('계획의 방문지 또는 순서가 빠졌습니다.')
+            cursor=found+len(item['station_name'])
     return {'answer':text,'evidence_ids':ids}
 
 def focus(pack,question):
