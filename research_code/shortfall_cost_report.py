@@ -38,6 +38,17 @@ def render(a):
            'reason':'Initial evaluator recorded shortfall mean/median MAE but omitted uncapped inventory median MAE. It cannot be recovered from the capped gap aggregates. This omission is preserved, not silently replaced with the old full-cohort MAE.',
            'primary_metrics_affected':False,'frozen_plan_changed':False,'new_model_selection':False}
     (out/'execution-notes.json').write_text(json.dumps(notes,indent=2)+'\n',encoding='utf-8')
+    secondary={}
+    for target in TARGETS:
+        for cu in COSTS:
+            for family in ('h13','h22','h24'):
+                p=row(family+'_poisson',target,cu);f=row(family+'_fm',target,cu)
+                secondary[f'target{target}/cost{cu}/{family}']={
+                    'relative_cost_reduction':1-f['cost']/p['cost'],
+                    'relative_under_bikes_reduction':1-f['under_bikes']/p['under_bikes'],
+                    'poisson_under_per1000':p['under_bikes']*1000,'fm_under_per1000':f['under_bikes']*1000,
+                    'poisson_over_per1000':p['over_bikes']*1000,'fm_over_per1000':f['over_bikes']*1000}
+    (out/'secondary-comparisons.json').write_text(json.dumps({'scope':'All prespecified target/cost conditions, current-positive group. Descriptive point comparisons only; not new confirmatory tests or API winner selection.','comparisons':secondary},indent=2)+'\n',encoding='utf-8')
     def save(fig,name):
         fig.savefig(out/f'{name}.png',dpi=170,bbox_inches='tight',facecolor='white')
         fig.savefig(out/f'{name}.svg',bbox_inches='tight',facecolor='white');plt.close(fig)
@@ -79,6 +90,12 @@ def render(a):
         r=row(k);lines.append(f"| {NAMES[k]} | {r['cost']:.6f} | {r['under_bikes']:.6f} | {r['over_bikes']:.6f} | {r['gap_fair_crps']:.6f} |")
     lines+=['','![부족량 주조건](shortfall-main.png)','','### 비용 기준에 따른 차이','','| 모델 | 1:1 | 2:1 | 5:1 | 10:1 |','|---|---:|---:|---:|---:|']
     for k in MODELS:lines.append('| '+NAMES[k]+' | '+' | '.join(f"{row(k,3,c)['cost']:.6f}" for c in COSTS)+' |')
+    lines+=['','### 같은 encoder에서 FM 추가 전후: 기술적 점추정','',
+            '아래는 사전 비교군의 기술적 비교다. H13/H22를 새 확인적 주가설로 바꾸거나 API로 승자를 선택하지 않는다. 양수는 FM 비용 감소, 음수는 증가다.','',
+            '| 구조 | 비용 1:1에서 FM 비용 감소율 | 비용 5:1에서 FM 비용 감소율 |',
+            '|---|---:|---:|']
+    for family in ('h13','h22','h24'):
+        lines.append(f"| {family.upper()} | {100*secondary[f'target3/cost1/{family}']['relative_cost_reduction']:.3f}% | {100*secondary[f'target3/cost5/{family}']['relative_cost_reduction']:.3f}% |")
     lines+=['','![목표·비용별 결과](shortfall-sensitivity.png)','','### 현재 재고별 결과','',
             '| 현재 상태 | 표본 수 | 유지 비용 | H13 Poisson | H13 FM | H22 Poisson | H22 FM | H24 Poisson | H24 FM |',
             '|---|---:|---:|---:|---:|---:|---:|---:|---:|']
