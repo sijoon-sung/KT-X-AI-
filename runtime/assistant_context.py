@@ -133,6 +133,7 @@ def focus(pack,question):
     elif any(w in question for w in ('싣','실어','내려','채우면','채워야')):
         routes=[x for x in facts if x['id'].startswith('route.')]
         matched=[x for x in routes if x['text'].split(': ',1)[-1].split(',')[0] in question]
+        if not matched and any(w in question for w in ('내려','채우')):routes=[x for x in routes if '내려놓기' in x['text']]
         chosen=matched+station if matched else station+routes
     elif station:chosen=station
     elif any(w in question for w in ('몇 대','몇대','거리','시간','총')):
@@ -148,7 +149,10 @@ def fallback(pack,question):
     if any(w in question for w in ('포기','미충족','실제 이동','완료')):chosen=[x for x in f if x['id']=='limits']
     elif any(w in question for w in ('언제','실시간','시각','지금 자료')):chosen=[x for x in f if x['id']=='source']
     elif any(w in question for w in ('모델','예측 방법','어떻게 예측')):chosen=[x for x in f if x['id']=='method']
-    elif any(w in question for w in ('순서','동선','경로')):chosen=[x for x in f if x['id'].startswith('route.')]
+    elif any(w in question for w in ('순서','동선','경로','싣','실어','내려','채우')):
+        routes=[x for x in f if x['id'].startswith('route.')]
+        matched=[x for x in routes if x['text'].split(': ',1)[-1].split(',')[0] in question]
+        chosen=matched or routes
     elif any(w in question for w in ('몇 대','몇대','거리','시간')):chosen=[x for x in f if x['id']=='plan.total'] or matches
     else:chosen=matches or [x for x in f if x['id'].startswith(('station.','plan.','data.'))][:3]
     if not chosen:chosen=[x for x in f if x['id'] in ('data.none','plan.none','limits')][:1]
