@@ -27,7 +27,7 @@ def frame(i,scene,shot):
     d.text((59,150),f'{i+1:02d}  /  07',font=f(28,True),fill='#188584')
     if scene['kind'] in ('diagram',):
         pic=ImageOps.contain(Image.open(shot).convert('RGB'),(1750,796),Image.Resampling.LANCZOS)
-        im.paste(pic,((1920-pic.width)//2,112));return im
+        im.paste(pic,((1920-pic.width)//2,112));ImageDraw.Draw(im).rectangle((0,934,1920,1080),fill='#173E50');return im
     y=text(d,scene['title'],(57,220),f(57,True),'#173E50',570,20)
     if scene['kind']=='cover':
         text(d,'10분 뒤 예측\n이동 수량과 동선\n계획에 대한 질문',(60,y+60),f(34),'#526A75',535,24)
@@ -38,9 +38,12 @@ def frame(i,scene,shot):
     elif scene['kind']=='assistant':text(d,'“어떤 순서로 가나요?”\n\n계산된 수량·방문지로 답변\n참고한 자료 확인',(61,y+55),f(31),'#526A75',535,19)
     elif scene['kind']=='close':text(d,'예측  →  계획  →  설명\n\n시범 운영으로 현장 효과 확인',(61,y+60),f(33),'#526A75',545,24)
     else:text(d,'대여소 1,294곳\n10분 뒤 재고 예측\n부족 예상과 현재 재고 확인',(61,y+55),f(32),'#526A75',545,24)
-    raw=Image.open(shot).convert('RGB');pic=ImageOps.contain(raw,(1168,798),Image.Resampling.LANCZOS)
+    raw=Image.open(shot).convert('RGB')
+    if scene['kind']=='assistant':raw=raw.crop((370,253,830,850))
+    pic=ImageOps.contain(raw,(1168,798),Image.Resampling.LANCZOS)
     xx=690+(1168-pic.width)//2;yy=118+(798-pic.height)//2
     d.rounded_rectangle((xx-5,yy-5,xx+pic.width+5,yy+pic.height+5),radius=10,fill='#DCE6EB');im.paste(pic,(xx,yy))
+    ImageDraw.Draw(im).rectangle((0,934,1920,1080),fill='#173E50')
     return im
 
 timeline=[];offset=0;segments=[];voice_metadata=[]
@@ -51,15 +54,16 @@ for i,scene in enumerate(spec['scenes']):
     wav=audio/f'voice-{i}.wav'
     with wave.open(str(wav)) as w:spoken=w.getnframes()/w.getframerate()
     tempo=max(1.0,spoken/(duration-0.8));voice_metadata.append(dict(scene=i,raw_seconds=spoken,atempo=tempo))
-    subtitle=out/f'scene-{i}.srt';parts=[];start=0.4;total=sum(len(x) for x in scene['lines']);available=min(spoken/tempo,duration-0.8)
+    subtitle=out/f'scene-{i}.ass';parts=[];start=0.4;total=sum(len(x) for x in scene['lines']);available=min(spoken/tempo,duration-0.8)
     def stamp(t):
-        ms=round(t*1000);return f'{ms//3600000:02d}:{ms//60000%60:02d}:{ms//1000%60:02d},{ms%1000:03d}'
+        cs=round(t*100);return f'{cs//360000}:{cs//6000%60:02d}:{cs//100%60:02d}.{cs%100:02d}'
     for n,line in enumerate(scene['lines'],1):
         end=start+available*len(line)/total;lines=wrap(line,ImageDraw.Draw(Image.new('RGB',(1,1))),f(39),1720)
-        parts.append(f'{n}\n{stamp(start)} --> {stamp(end)}\n'+ '\n'.join(lines)+'\n');start=end
-    subtitle.write_text('\n'.join(parts),encoding='utf-8')
+        parts.append(f'Dialogue: 0,{stamp(start)},{stamp(end)},Default,,0,0,0,,'+'\\N'.join(lines));start=end
+    header='[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\nWrapStyle: 2\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,Malgun Gothic,40,&H00FFFFFF,&H00FFFFFF,&H00503E17,&H00503E17,0,0,0,0,100,100,0,0,1,0,0,2,90,90,36,1\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n'
+    subtitle.write_text(header+'\n'.join(parts)+'\n',encoding='utf-8')
     # Subtitle path is relative to the controlled output folder; avoid Windows colon escaping.
-    filters=f"scale=1920:1080,tpad=stop_mode=clone:stop_duration={duration},subtitles=scene-{i}.srt:fontsdir='C\\:/Windows/Fonts':force_style='FontName=Malgun Gothic,FontSize=22,PrimaryColour=&H00FFFFFF,OutlineColour=&H00173E50,BorderStyle=3,Outline=4,Shadow=0,MarginV=34'"
+    filters=f"scale=1920:1080,tpad=stop_mode=clone:stop_duration={duration},ass=scene-{i}.ass:fontsdir='C\\:/Windows/Fonts'"
     clip=out/f'clip-{i}.mp4'
     visual=['-framerate','10','-i',str((out/f'scene-{i}-frame-%03d.png').resolve())] if motion else ['-loop','1','-framerate','25','-i',str(base.resolve())]
     command=[a.ffmpeg,'-hide_banner','-loglevel','error','-y',*visual,'-i',str(wav.resolve()),'-vf',filters,'-af',f'atempo={tempo:.6f},apad','-t',str(duration),'-r','25','-c:v','libx264','-threads','4','-preset','fast','-crf','19','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-ar','48000','-movflags','+faststart',str(clip.resolve())]
