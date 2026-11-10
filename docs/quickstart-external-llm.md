@@ -1,5 +1,7 @@
 # 외부 LLM과 재배치 화면 실행
 
+화면의 ‘전체 재배치 계획 알려줘’ 버튼 하나로 총대수·거리·예상 시간과 모든 방문지의 수거·배치 대수를 함께 확인한다.
+
 현재 답변 모델은 Antigravity의 `gemini-3.8-flash-low`다. 정상 로그인한 공식 CLI가 외부 모델에 요청을 보내고, dislab은 예측·계획 자료를 준비하고 답변의 숫자·방문지를 검사한다. 로컬 GPU로 LLM을 실행하지 않는다. H13 예측 모델도 그대로 유지한다.
 
 ## 현재 실행 화면
@@ -20,7 +22,7 @@ Get-ScheduledTask -TaskName TashuExternalAssistantH27
 
 # HTTP 확인
 Invoke-RestMethod http://127.0.0.1:8772/api/health
-$body = @{ question = '자전거를 총 몇 대 옮기는 계획이야?' } | ConvertTo-Json
+$body = @{ question = '전체 재배치 계획을 한 번에 정리해줘.' } | ConvertTo-Json
 Invoke-RestMethod http://127.0.0.1:8772/api/ask -Method Post -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($body))
 ```
 

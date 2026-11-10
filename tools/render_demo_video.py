@@ -30,12 +30,12 @@ def frame(i,scene,shot):
         im.paste(pic,((1920-pic.width)//2,112));ImageDraw.Draw(im).rectangle((0,934,1920,1080),fill='#173E50');return im
     y=text(d,scene['title'],(57,220),f(57,True),'#173E50',570,20)
     if scene['kind']=='cover':
-        text(d,'10분 뒤 예측\n이동 수량과 동선\n계획에 대한 질문',(60,y+60),f(34),'#526A75',535,24)
+        text(d,'이용 흐름·부족 위험\n수거·배치 수량과 동선\n운영자가 묻고 확인',(60,y+60),f(34),'#526A75',535,24)
     elif scene['kind']=='route':
         for n,v in enumerate([('옮길 자전거','5대'),('총 이동 거리','5.26km'),('예상 소요 시간','9.1분')]):
             yy=y+45+n*115;d.text((61,yy),v[0],font=f(27),fill='#526A75');d.text((61,yy+34),v[1],font=f(45,True),fill='#188584')
     elif i==3:text(d,'적재량 20대 → 1대\n총 이동 5대 → 3대\n같은 관측으로 다시 계산',(61,y+55),f(31),'#526A75',545,22)
-    elif scene['kind']=='assistant':text(d,'“어떤 순서로 가나요?”\n\n계산된 수량·방문지로 답변\n참고한 자료 확인',(61,y+55),f(31),'#526A75',535,19)
+    elif scene['kind']=='assistant':text(d,'“전체 계획을 정리해줘”\n\n총대수·거리·시간과 방문 순서\n참고한 자료 확인',(61,y+55),f(31),'#526A75',535,19)
     elif scene['kind']=='close':text(d,'예측  →  계획  →  설명\n\n시범 운영으로 현장 효과 확인',(61,y+60),f(33),'#526A75',545,24)
     else:text(d,'대여소 1,294곳\n10분 뒤 재고 예측\n부족 예상과 현재 재고 확인',(61,y+55),f(32),'#526A75',545,24)
     raw=Image.open(shot).convert('RGB')
