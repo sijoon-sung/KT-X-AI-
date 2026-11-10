@@ -24,7 +24,11 @@ class Gateway:
         self.key=path.read_bytes()
         if len(self.key)!=32:raise ValueError('Invalid private ticket key')
     def raw(self):
-        s=self.config['source'];return load_context(s.get('context'),s.get('forecast'),s.get('plan'))
+        s=self.config['source']
+        if s.get('stream'):
+            from operator_pipeline import context
+            return context(s)
+        return load_context(s.get('context'),s.get('forecast'),s.get('plan'))
     def context(self):return evidence(self.raw())
     def prepare(self,question):
         if not isinstance(question,str) or not 1<=len(question.strip())<=400:raise ValueError('질문은 400자 이내로 적어 주세요.')
@@ -68,6 +72,9 @@ def dispatch(gateway,value):
     if not isinstance(value,dict):raise ValueError('잘못된 요청입니다.')
     action=value.get('action')
     if action=='context':return gateway.context()
+    if action in ('dispatch_info','dispatch_optimize'):
+        from operator_pipeline import info,optimize
+        return info(gateway.config['source']) if action=='dispatch_info' else optimize(gateway.config['source'],value.get('body'))
     if action=='health':return {'ready':True,'provider':gateway.config.get('provider','antigravity'),'model':gateway.config.get('model',MODEL),'compute':'remote preparation and validation; hosted language model'}
     if action=='prepare':return gateway.prepare(value.get('question'))
     if action=='complete':return gateway.complete(value['ticket'],value.get('candidate'),value.get('metadata'))

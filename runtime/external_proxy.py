@@ -20,27 +20,34 @@ def ask(config,question):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--config',required=True);p.add_argument('--port',type=int,default=8773);a=p.parse_args()
-    config=json.loads(Path(a.config).read_text(encoding='utf-8-sig'));static=Path(__file__).parent/'assistant_web';lock=threading.Lock()
+    config=json.loads(Path(a.config).read_text(encoding='utf-8-sig'));static=Path(__file__).parent/'assistant_web';dispatch_static=Path(__file__).resolve().parents[1]/'research_code/forecast_web';lock=threading.Lock()
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args):pass
         def send(self,status,value,kind='application/json'):
             data=value if isinstance(value,bytes) else json.dumps(value,ensure_ascii=False).encode()
-            self.send_response(status);self.send_header('Content-Type',kind+'; charset=utf-8');self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'self'; frame-ancestors 'none'; base-uri 'none'");self.end_headers();self.wfile.write(data)
+            self.send_response(status);self.send_header('Content-Type',kind+'; charset=utf-8');self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://*.tile.openstreetmap.org; frame-ancestors 'none'; base-uri 'none'");self.end_headers();self.wfile.write(data)
         def do_GET(self):
             path=urlsplit(self.path).path
             try:
                 if path in ('/api/health','/api/context'):return self.send(200,remote(config,{'action':path.rsplit('/',1)[-1]}))
+                if path=='/api/dispatch/info':return self.send(200,remote(config,{'action':'dispatch_info'}))
+                planning={'/dispatch':('dispatch.html','text/html'),'/dispatch/app.js':('dispatch.js','text/javascript'),'/dispatch/style.css':('dispatch.css','text/css')}
+                if path in planning:
+                    name,kind=planning[path];return self.send(200,(dispatch_static/name).read_bytes(),kind)
                 files={'/':('index.html','text/html'),'/assistant':('index.html','text/html'),'/app.js':('app.js','text/javascript'),'/style.css':('style.css','text/css')}
                 if path not in files:return self.send(404,{'error':'찾을 수 없습니다.'})
                 name,kind=files[path];return self.send(200,(static/name).read_bytes(),kind)
             except Exception:self.send(503,{'error':'자료 연결을 확인해 주세요.'})
         def do_POST(self):
-            if self.path!='/api/ask':return self.send(404,{'error':'찾을 수 없습니다.'})
+            if self.path not in ('/api/ask','/api/dispatch/optimize'):return self.send(404,{'error':'찾을 수 없습니다.'})
             if not lock.acquire(blocking=False):return self.send(429,{'error':'앞선 답변을 마무리하고 있어요. 잠시 후 다시 보내 주세요.'})
             try:
                 n=int(self.headers.get('Content-Length','0'))
-                if not 0<n<=8192:raise ValueError('질문을 확인해 주세요.')
-                value=json.loads(self.rfile.read(n));question=value.get('question') if isinstance(value,dict) else None
+                if not 0<n<=32000:raise ValueError('입력을 확인해 주세요.')
+                value=json.loads(self.rfile.read(n))
+                if self.path=='/api/dispatch/optimize':
+                    result=remote(config,{'action':'dispatch_optimize','body':value});return self.send(result['status'],result['body'])
+                question=value.get('question') if isinstance(value,dict) else None
                 if not isinstance(question,str) or not 1<=len(question.strip())<=400:raise ValueError('질문은 400자 이내로 적어 주세요.')
                 self.send(200,ask(config,question))
             except ValueError:self.send(422,{'error':'질문을 확인해 주세요.'})

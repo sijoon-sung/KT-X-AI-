@@ -38,7 +38,7 @@ export default async function({presentation,input}) {
  for(let i=0;i<3;i++)connect(start[i],end[i+2],'right','left',['#567AA1','#298C87','#A88352'][i],'curved',true,1.7);
  for(const n of [...start,...end])n.bringToFront();
  text('noise label','잡음',532,401,52,24,18,C.muted,false,'center');text('distribution label','예측 분포',671,402,90,22,18,C.muted,false,'center');
- const stock=box('forecast output','10분 뒤 재고 · 0대 가능성',304,461,471,42,C.white,24,C.navy,true);connect(flow,stock,'bottom','top',C.navy,'straight',true,1.7);
+ const stock=box('forecast output','10분 뒤 자전거가 부족할 대여소',304,461,471,42,C.white,24,C.navy,true);connect(flow,stock,'bottom','top',C.navy,'straight',true,1.7);
  for(const a of source)connect(a,forecast);
  const planner=shape('dispatch planning',826,187,400,167,C.orange,'#E0C99F');
  text('planning heading','재배치 계획',847,199,358,38,27,C.navy,true);

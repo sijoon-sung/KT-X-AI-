@@ -58,10 +58,10 @@ def evidence(raw,question=''):
     if not isinstance(raw,dict):raise ValueError('예측 자료 형식을 확인하세요.')
     mode=raw.get('mode','recorded_replay')
     if mode not in ('demo','recorded_replay','forecast'):raise ValueError('자료 종류를 확인하세요.')
-    stamp=when(raw.get('recorded_at'));label=('시연용 예시' if mode=='demo' else '기록된 자료')+' · '+stamp
+    stamp=when(raw.get('recorded_at'));label=('시연용 예시' if mode=='demo' else '실시간 관측' if mode=='forecast' else '기록된 자료')+' · '+stamp
     facts=[]
     def add(key,text,**metadata):facts.append({'id':key,'text':text,**metadata})
-    add('source',label+'입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다.')
+    add('source',label+('입니다. 관측 시각을 기준으로 한 예측이며 실제 이동 완료 기록이 아닙니다.' if mode=='forecast' else '입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다.'))
     add('method','예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 보고 10분 뒤 자전거 수를 예상합니다.')
     add('limits','실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.')
     stations=[]
