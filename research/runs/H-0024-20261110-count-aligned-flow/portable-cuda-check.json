@@ -1,0 +1,15 @@
+{
+  "device": "cuda",
+  "synthetic_inputs": true,
+  "accuracy_evaluation": false,
+  "checkpoint_hashes_verified": true,
+  "exact_mean_rate_match": true,
+  "exact_integer_particle_match": true,
+  "output_shape": [
+    8,
+    128,
+    2
+  ],
+  "invalid_inputs_rejected": 2,
+  "api_used": false
+}

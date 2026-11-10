@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0024",
   "title": "기상 유지 소형 encoder와 건수 정합 Flow Matching",
-  "status": "running",
+  "status": "completed",
   "plan": {
     "question": "기상을 유지한 작은 encoder와 정수 친화적 FM이 기존 Gaussian FM의 악화를 줄이고 포아송보다 나은 건수 분포를 만드는가?",
     "hypothesis": "과거 검증으로 고정한 작은 encoder의 선택된 학습 FM이 같은 encoder의 포아송보다3월 count energy를1% 이상 줄이고3일·7일 paired block95% 개선 구간 하한이 양수다. Encoder parameter50% 축소와 검증 mean MAE/deviance1% 이내 조건도 충족한다. Identity/무보정 선택은 FM 추가 이득으로 세지 않는다.",
@@ -124,6 +124,26 @@
     "plan_sha256": "4df49d3ea43a0924ac1c1f92d1a43c548b71982113ecfb054272162efd5c5c2b",
     "frozen_at_utc": "2026-11-09T17:19:06.346244+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "기상을 유지한 LocalMLP128을선택해rate파라미터317122→46210(85.43%감소),2seedencoder+FM가중치791884바이트로만들었다. 같은작은encoder에서Poisson출발FM은Gaussian-MSEFM보다3월countenergy2.618%감소했지만포아송단독대비0.039%감소와두구간0포함으로주가설을지지하지않았다. 선택FM은두시드모두활성epoch20/15이며무보정으로위장하지않았다. 경량GCN은meanMAE0.140990으로낮았지만deviance0.398480으로높아최종선택으로바꾸지않았다. 첫인자누락오류를보존하고동결조건그대로수정재실행했으며합성CPU/CUDA내보내기일치검사를통과했다. API는열지않았고기본모델을유지했다.",
+    "limitations": [
+      "Repeatedly exposed March,not untouched independent test",
+      "Completed counts only; no observed inventory/unmet demand/dispatch truth",
+      "Single historical split,two seeds;February halves share season",
+      "Count-FM adaptation,not full paper reproduction;no OT/CFG",
+      "Poisson epoch0 is no correction;not learned FM improvement",
+      "Nonlinear smaller models have different effective capacity;no causal mechanism claim",
+      "Observed lagged weather versus runtime missing-weather and net-flow/stock-delta mismatch remains",
+      "No automatic production change or API-based selection"
+    ],
+    "run_manifests": [
+      "research/runs/H-0024-20261110-count-aligned-flow/manifest.json"
+    ],
+    "default_promoted": false,
+    "exported_candidate": "research/runs/H-0024-20261110-count-aligned-flow/model-card.json",
+    "next_action": "작은encoder와분포보정후보를보존한다. FM추가이득주장은보류하고기존기상가용성·계절별검증과실제재고검증을별도사전계획으로진행한다. 3월순위나API로사후선택하지않는다."
+  },
   "withdrawal_reason": null
 }

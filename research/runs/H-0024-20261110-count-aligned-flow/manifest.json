@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0024-20261110-count-aligned-flow",
+  "hypothesis_id": "H-0024",
+  "plan_sha256": "4df49d3ea43a0924ac1c1f92d1a43c548b71982113ecfb054272162efd5c5c2b",
+  "code_commit": "1066b3ed06269765f827f256141db6d572d758f4",
+  "report_code_commit": "6306a8ba87ac4c173307285dbef54ec3b8a896a3",
+  "portable_adapter_verified_commit": "8836a4f53f27b167a161bce33df5cb3a263a5b4e",
+  "input_manifest_sha256": "789fd3b1a73bf6d204e41410591efd8ec0759531410c1c8f7c864d46a74d0eda",
+  "started_at_utc": "2026-11-10T03:58:10.198146+00:00",
+  "finished_at_utc": "2026-11-10T04:04:02.255711+00:00",
+  "command": [
+    "python",
+    "research_code/count_flow_study.py",
+    "--data",
+    "PRIVATE_HISTORICAL_H13",
+    "--source",
+    "PRIVATE_SEOUL_SOURCE_ONLY",
+    "--h13",
+    "PRIVATE_FROZEN_H13",
+    "--out",
+    "PRIVATE_H24_ATTEMPT02"
+  ],
+  "environment": {
+    "execution": "dislab",
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpu_free_bytes": 9511632896,
+    "gpu_total_bytes": 10736893952,
+    "threads": 4,
+    "deterministic": true,
+    "tf32": false
+  },
+  "seed": [
+    11,
+    29
+  ],
+  "evaluation_scope": "Previously exposed March completed counts, not stock accuracy;262144 common mean-count station-times;32768distribution samples×128IIDparticles;encoder selectionearlyFeb,decoderselectionlateFeb",
+  "metrics": {
+    "selected count-aligned FM March count energy": 0.15511073705899092,
+    "same_encoder_poisson_energy": 0.15517196793270369,
+    "same_encoder_gaussian_mse_energy": 0.1592808604142879,
+    "primary_relative_energy_reduction": 0.000394600097740061,
+    "encoder_parameter_reduction": 0.8542832096164883,
+    "selected_rate_mean_mae": 0.14464299380779266,
+    "selected_checkpoint_bytes": 791884,
+    "selected_parameters": 194056,
+    "seconds": 352.06576779999887
+  },
+  "artifacts": [
+    {
+      "id": "attempt-01.json",
+      "sha256": "d735880e2726b5c9a2d964a7e3c6b1852161124cbb53b8131785e49539b9fb18",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/attempt-01.json"
+    },
+    {
+      "id": "compact-result.json",
+      "sha256": "434dc905720aa35562966fb73922db7ba684c1ddbaf28f72a9d743f57a8d04ce",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/compact-result.json"
+    },
+    {
+      "id": "completion-audit.json",
+      "sha256": "f5048ae15e8181563cd12a9fdd2af325ab886b599313eb455ee55399f565ac39",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/completion-audit.json"
+    },
+    {
+      "id": "distribution-comparison.png",
+      "sha256": "65422725c655c056c34e7dc3b022979770948fd1dc62b3fdb5b2bc561bb968fc",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/distribution-comparison.png"
+    },
+    {
+      "id": "distribution-comparison.svg",
+      "sha256": "c84794de5ccdd61b06d243303b65fd74f39ff5538a7bec50e07c7e64bf607b2d",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/distribution-comparison.svg",
+      "raw_disLab_source_sha256": "e8f0b519206d2037b02a9791ccb63a21ec258e0ef8f7a0b8bf87f3e78095209f",
+      "serialization": "Git-normalized LF text; source differs only in line endings"
+    },
+    {
+      "id": "encoder-comparison.png",
+      "sha256": "2bb6c8f68ba2b2c086055525b95a1bee76bbd5275fb8d0a53356133fc0eb7dc5",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/encoder-comparison.png"
+    },
+    {
+      "id": "encoder-comparison.svg",
+      "sha256": "017ff355f809f60a9bd12881d63f3f143e24fd02957d57550e6174c6fae25a69",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/encoder-comparison.svg",
+      "raw_disLab_source_sha256": "969200501cac47693cdbb1ed9646b4eb1733c439776bb51c75b783b3fc472ecc",
+      "serialization": "Git-normalized LF text; source differs only in line endings"
+    },
+    {
+      "id": "interpretation.json",
+      "sha256": "1be059353d6b6f4d5b0f9e860ac900a09f8b9d6439d7f57643f1a417867db742",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/interpretation.json"
+    },
+    {
+      "id": "kernel-checks.json",
+      "sha256": "5ade16b7d5d7ada6aa318d0c54f8abfcae6bc10d50fb223079871939b5a502ac",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/kernel-checks.json"
+    },
+    {
+      "id": "model-bundle.json",
+      "sha256": "ad709b541631846fc9389cf669933949b8c77b7ec5c57cbbe372c8d05d8e3291",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/model-bundle.json"
+    },
+    {
+      "id": "model-card.json",
+      "sha256": "9cd15463191a2e607d448da169472d0a50c1a06ee2b694368cf1a22484d217e9",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/model-card.json"
+    },
+    {
+      "id": "portable-cli-check.json",
+      "sha256": "7117a608f308f5fd36cbd74faffa30e6fd1a5343f83ef53cfea1cce9b55bdd9e",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/portable-cli-check.json"
+    },
+    {
+      "id": "portable-cpu-check.json",
+      "sha256": "a9ca1ae8e18e17dec537c07d280685db27e79d03a2f4791f53cee830f95b26a7",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/portable-cpu-check.json"
+    },
+    {
+      "id": "portable-cuda-check.json",
+      "sha256": "311ecb5062bae88781aeab6ef40dacbad4614b6f4afdd15326122565e4bcdb67",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/portable-cuda-check.json"
+    },
+    {
+      "id": "pre-test-lock.json",
+      "sha256": "a916dbb9e70357b9d32856e77a0e70980e80e9e9b8b7b9ced2f338124d12d563",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/pre-test-lock.json"
+    },
+    {
+      "id": "results.md",
+      "sha256": "fb5529e97d7ce1bebc849ad60ae422ff0acb6551bf1f9bbaca66be1ca5ff3981",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/results.md",
+      "raw_disLab_source_sha256": "04d4dc142dabb70e26f20c9c5e961606c1e35aa9a36b5f66fa51c3f08f4656c8",
+      "serialization": "Git-normalized LF text; source differs only in line endings"
+    },
+    {
+      "id": "selected-architecture.png",
+      "sha256": "240ba173cbc9e9dcfa9ce252af769fc99da5e8aa3883f1ac947ff3bc3d537c7e",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/selected-architecture.png"
+    },
+    {
+      "id": "selected-architecture.svg",
+      "sha256": "2984695fc9f4a281c55b6a320c1771c1bde50525b3cbf888a91ad852c7d089e9",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/selected-architecture.svg",
+      "raw_disLab_source_sha256": "00b6ef9cd9d3be4f057c0729e43297d0e97beaf5e7323faf2b1a4dfef61f749b",
+      "serialization": "Git-normalized LF text; source differs only in line endings"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "ed180463a13119e47f678ed306a7c597f800d218f978a0e6d0eb377ed6caafbf",
+      "availability": "research/runs/H-0024-20261110-count-aligned-flow/summary.json"
+    }
+  ],
+  "limitations": [
+    "Repeatedly exposed March,not untouched independent test",
+    "Completed counts only; no observed inventory/unmet demand/dispatch truth",
+    "Single historical split,two seeds;February halves share season",
+    "Count-FM adaptation,not full paper reproduction;no OT/CFG",
+    "Poisson epoch0 is no correction;not learned FM improvement",
+    "Nonlinear smaller models have different effective capacity;no causal mechanism claim",
+    "Observed lagged weather versus runtime missing-weather and net-flow/stock-delta mismatch remains",
+    "No automatic production change or API-based selection"
+  ],
+  "api_opened": false,
+  "local_scientific_compute_performed": false,
+  "completion_evidence": "research/runs/H-0024-20261110-count-aligned-flow/completion-audit.json",
+  "failed_attempt_preserved": "research/runs/H-0024-20261110-count-aligned-flow/attempt-01.json",
+  "model_bundle_metadata": "research/runs/H-0024-20261110-count-aligned-flow/model-bundle.json",
+  "default_model_changed": false
+}
