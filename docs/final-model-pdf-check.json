@@ -1,0 +1,75 @@
+{
+  "execution": "dislab",
+  "pdfs": [
+    {
+      "id": "tashu-final-framework",
+      "pages": 1,
+      "fonts": [
+        {
+          "name": "/CUBRCL+DejaVuSans-Bold",
+          "embedded": true
+        },
+        {
+          "name": "/DGIZNE+DejaVuSans",
+          "embedded": true
+        },
+        {
+          "name": "/CPUQYB+DejaVuSans",
+          "embedded": true
+        },
+        {
+          "name": "/HIHIMV+STIXGeneral-Regular",
+          "embedded": true
+        },
+        {
+          "name": "/GYMMPC+STIXGeneral-Italic",
+          "embedded": true
+        },
+        {
+          "name": "/EZASDT+STIXNonUnicode-Italic",
+          "embedded": true
+        },
+        {
+          "name": "/GZOOPJ+STIXSizeTwoSym-Regular",
+          "embedded": true
+        }
+      ]
+    },
+    {
+      "id": "tashu-final-layers",
+      "pages": 1,
+      "fonts": [
+        {
+          "name": "/GCZTHF+DejaVuSans-Bold",
+          "embedded": true
+        },
+        {
+          "name": "/ECSWBS+DejaVuSans-Bold",
+          "embedded": true
+        },
+        {
+          "name": "/BTONWG+DejaVuSans",
+          "embedded": true
+        },
+        {
+          "name": "/CPUQYB+DejaVuSans",
+          "embedded": true
+        },
+        {
+          "name": "/EDTGQR+STIXGeneral-Regular",
+          "embedded": true
+        },
+        {
+          "name": "/FLYQPX+STIXGeneral-Italic",
+          "embedded": true
+        },
+        {
+          "name": "/GVRMVC+STIXNonUnicode-Italic",
+          "embedded": true
+        }
+      ]
+    }
+  ],
+  "poppler_pdf_review_rendered": true,
+  "all_fonts_embedded": true
+}
