@@ -1,0 +1,55 @@
+[
+  {
+    "path": "/api/health",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/api/context",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/api/dispatch/info",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/dispatch",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/app.js",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/style.css",
+    "status": 200,
+    "passed": true
+  },
+  {
+    "path": "/missing",
+    "status": 404,
+    "passed": true
+  },
+  {
+    "path": "/api/ask",
+    "invalid": true,
+    "status": 422,
+    "passed": true
+  },
+  {
+    "path": "/api/ask",
+    "invalid": true,
+    "status": 422,
+    "passed": true
+  },
+  {
+    "path": "/api/ask",
+    "invalid": true,
+    "status": 422,
+    "passed": true
+  }
+]

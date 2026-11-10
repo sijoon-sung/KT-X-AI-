@@ -1,0 +1,25 @@
+{
+  "scope": "Post-completion engineering update; first fixed 10-question acceptance unchanged",
+  "external_request_attempts_total": 21,
+  "combined_question_ui_verified": true,
+  "combined_summary": {
+    "bikes": 5,
+    "distance_km": 5.26,
+    "minutes": 9.1,
+    "visits": 8
+  },
+  "regression_checks": {
+    "passed": 7,
+    "total": 7
+  },
+  "road_tile_host_fix": "Exact tile.openstreetmap.org host added to narrow CSP allowlist; actual streets verified",
+  "framing": "Full observation, usage-flow forecast, shortage risk, relocation quantities/routes and operator explanation; ten minutes is the verified stock forecast interval",
+  "video_versions": {
+    "v1_sha256": "a4c82cbd0185102a783b68dfb3616e4e1f5b80ba3113748ddd97af324213f929",
+    "v2_sha256": "8771194b284cc3fa5733c93978ae262dfefa42d7a18469e80a6fb7ee99e9dc22",
+    "v3_sha256": "4c97012329462a1809db29e00046cac13dc9bcf93e765f5b21c10ad17996304d",
+    "final_v4_sha256": "966356d7abce10afa77df2189ab830d9bbd348d89b3ec5452af08b3643e5cec3"
+  },
+  "later_user_operating_concern": "One bicycle at many stops may be operationally inefficient; current video is a function demonstration,not evidence of field efficiency; stop overhead and batching require a separate planning study",
+  "survey": "Separate descriptive IR support after first H27 test; frozen inputs not changed"
+}

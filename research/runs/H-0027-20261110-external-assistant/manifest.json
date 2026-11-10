@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0027-20261110-external-assistant",
+  "hypothesis_id": "H-0027",
+  "plan_sha256": "56e35317102e92d11a5d001b0f86ce9f93e8cd4c355b026abe70255f4d7d5bbb",
+  "input_manifest_sha256": "3ed8e274a74848bac79fbe68964b75c69435b40d067d8dc96e1ff064853ff77f",
+  "code_commit": "01cbb78174d2670be2d295b1898066802dcf9daf",
+  "implementation_commit": "1e9b747a5dfff6d82c4608cdf2469f060c673333",
+  "started_at_utc": "2026-11-10T11:21:42.456336+00:00",
+  "finished_at_utc": "2026-11-10T15:16:12+00:00",
+  "command": [
+    "python",
+    "tools/test_external_gateway.py",
+    "--config",
+    "PRIVATE_CONFIG",
+    "--out",
+    "PRIVATE_FIRST_ACCEPTANCE_DIR"
+  ],
+  "environment": {
+    "execution": "dislab fact preparation, validation, scoring and video rendering",
+    "external_model": "gemini-3.8-flash-low",
+    "external_relay": "official Antigravity CLI 1.4.10, local network only",
+    "torch": "2.7.1+cu118",
+    "seed": "service does not expose seed or weights hash; no determinism claim"
+  },
+  "evaluation_scope": "First known-fixture functional suite after three development attempts. Later actual HTTP/UI, recorded November observation replay and lifecycle checks are separate engineering checks. No independent language benchmark or new stock accuracy claim.",
+  "metrics": {
+    "correct actual external answers out of ten known normal questions": 10,
+    "normal_questions": 10,
+    "mandatory_checks_passed": 6,
+    "mandatory_checks_total": 6,
+    "http_checks_passed": 10,
+    "http_checks_total": 10,
+    "lifecycle_checks_passed": 6,
+    "lifecycle_checks_total": 6,
+    "guard_regressions_passed": 5,
+    "external_request_attempts": 20,
+    "bounded_inventory_api_requests": 7,
+    "bounded_inventory_roundtrips": 6,
+    "video_content_seconds": 120
+  },
+  "artifacts": [
+    {
+      "id": "acceptance.json",
+      "sha256": "ec4b4d2bce1b78ed10f06c61d2bd1e6e7e9648230bf5e2f5b013ff63470c1008",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "combined-question-ui.json",
+      "sha256": "287eed533f3d90324efb24ba33317f6d39734e8b0e29d3abf0f4c7547d10d576",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "development-01.json",
+      "sha256": "8bbb3b73f3e8d23406bf75e340fc0dd6275e746e83388249274223da2fac32a4",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "development-02.json",
+      "sha256": "7c69e7627538f5665f065b07c90ba5f53546618e1bd7559874672e2364c2fa3d",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "development-03-failed.json",
+      "sha256": "314e702f4b96eeb6b45fe6a872121e5cb0d5d4cc4cd0acfe55215f2a8468fc6f",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "engineering-notes.json",
+      "sha256": "422983f49cc54f6ff34cb3c67e08a3e531c946321bc3a13fb2ea748dc5ee9c6b",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "guard-checks.json",
+      "sha256": "6196a30a85c3ebeee7758411ab36b6c668bc2d21b838d73e420d349ff6b7c193",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "http-checks.json",
+      "sha256": "e0623c9dcd52dc83af0fb6d4b301ed3aa38eeb81a3ebbac849f82d3f702ad35c",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "lifecycle-checks.json",
+      "sha256": "9df18e309c4a953bbd8daa2d1c0d80024b7f403617ee1231ef872efa340f6068",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "post-completion-update.json",
+      "sha256": "a72c30d21c1367c93d52c0c53cf54cf324a5963ad825d52274a719a55652ce9a",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "service-answer.json",
+      "sha256": "87d249af060d7178823181664c7054a337a5d72ddf2a396cc9bd71a551edb971",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "video-manifest-v2.json",
+      "sha256": "d92f6c2aa58ac791ec2affddd997bbc5b626250401d0efaca4e50c416bd0485b",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "video-manifest.json",
+      "sha256": "e84881f30ff05693099f0ed8d4055da10d65334d844472f57731ce564758463f",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "video-qa-v2.json",
+      "sha256": "199deac1437e176de8ace4e3dbd1fb633a5125f7a48ee7c13130d3c5963632f4",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "video-qa.json",
+      "sha256": "199deac1437e176de8ace4e3dbd1fb633a5125f7a48ee7c13130d3c5963632f4",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "../../../assets/demo/tashu-demo-2min.mp4",
+      "sha256": "966356d7abce10afa77df2189ab830d9bbd348d89b3ec5452af08b3643e5cec3",
+      "availability": "public functional evidence or recorded UI demonstration"
+    },
+    {
+      "id": "../../../assets/demo/external-assistant.jpg",
+      "sha256": "a58e905007541ddeacc757dbaec17c61bbed28dd8c68c8440109c85050f5a190",
+      "availability": "public functional evidence or recorded UI demonstration"
+    }
+  ],
+  "limitations": [
+    "Known questions and fixtures, not an independent language or user comprehension benchmark.",
+    "H26 and H27 differ in model, prompt, grounding and transport; not a pure model-size causal comparison.",
+    "General external HTTP adapter is configurable but a provider API key was not available; actual hosted generation used Antigravity.",
+    "Current service replays 2026-11-10 20:50 observations; the bounded collector stopped after seven requests.",
+    "Vehicle and handling conditions are assumptions; no real dispatch or savings measured.",
+    "All three development failures and later engineering failures remain recorded.",
+    "Forecast H13 remains locked; no API training, calibration or selection."
+  ],
+  "engineering_finished_at_utc": "2026-11-10T15:56:45+00:00"
+}

@@ -58,11 +58,12 @@ def evidence(raw,question=''):
     if not isinstance(raw,dict):raise ValueError('예측 자료 형식을 확인하세요.')
     mode=raw.get('mode','recorded_replay')
     if mode not in ('demo','recorded_replay','forecast'):raise ValueError('자료 종류를 확인하세요.')
-    stamp=when(raw.get('recorded_at'));label=('시연용 예시' if mode=='demo' else '기록된 자료')+' · '+stamp
+    stamp=when(raw.get('recorded_at'));label=('시연용 예시' if mode=='demo' else '실시간 관측' if mode=='forecast' else '기록된 자료')+' · '+stamp
     facts=[]
     def add(key,text,**metadata):facts.append({'id':key,'text':text,**metadata})
-    add('source',label+'입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다.')
-    add('method','예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 보고 10분 뒤 자전거 수를 예상합니다.')
+    add('source',label+('입니다. 관측 시각을 기준으로 한 예측이며 실제 이동 완료 기록이 아닙니다.' if mode=='forecast' else '입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다.'))
+    add('method','과거 대여·반납 기록과 주변 대여소의 흐름을 예측해 현재 재고와 연결합니다. 부족 위험을 읽고 차량 조건과 도로 거리를 고려해 수거·배치 수량과 방문 순서를 계산합니다. 외부 LLM은 계산된 계획을 설명합니다. 현재 재고 예측을 확인한 시간 구간은 10분입니다.')
+    add('model','GCN은 과거 대여소 관계를 반영하고, 포아송 평균은 대여·반납 건수의 평균을 학습합니다. 조건부 Flow Matching은 Gaussian 잡음에서 잔차를 생성해 여러 미래를 표현합니다. API 관측으로 모델 가중치를 학습하거나 보정하지 않습니다.')
     add('limits','실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.')
     stations=[]
     for s in raw.get('stations',[])[:3000]:
@@ -106,6 +107,10 @@ def load_context(context=None,forecast=None,plan=None):
     if context and (forecast or plan):raise ValueError('문맥 파일 또는 예측/계획 파일 중 하나만 지정하세요.')
     return read(context) if context else from_results(read(forecast),read(plan))
 
+def overview(question):
+    return any(w in question for w in ('전체 재배치','전체 계획','한 번에','한번에')) or (any(w in question for w in ('순서','동선','경로')) and any(w in question for w in ('몇 대','몇대','총대수','총 대수','수량')))
+
+
 def validate_answer(raw,pack):
     if not isinstance(raw,dict) or not isinstance(raw.get('answer'),str):raise ValueError('답변 형식 오류')
     text=raw['answer'].strip();ids=raw.get('evidence_ids',[])
@@ -127,11 +132,16 @@ def validate_answer(raw,pack):
         if any(float(x)!=routes[0]['bikes'] for x in re.findall(r'(\d+(?:\.\d+)?)\s*대',text)):
             raise ValueError('이동 수량이 계획과 다릅니다.')
     if len(routes)>1:
-        cursor=0
+        cursor=0;positions=[]
         for item in routes:
             found=text.find(item['station_name'],cursor)
             if found<0:raise ValueError('계획의 방문지 또는 순서가 빠졌습니다.')
+            positions.append((found,item))
             cursor=found+len(item['station_name'])
+        for i,(pos,item) in enumerate(positions):
+            end=positions[i+1][0] if i+1<len(positions) else len(text)
+            counts=re.findall(r'(\d+(?:\.\d+)?)\s*대',text[pos+len(item['station_name']):end])
+            if not counts or float(counts[0])!=item['bikes']:raise ValueError('방문지의 이동 수량이 계획과 다릅니다.')
     return {'answer':text,'evidence_ids':ids}
 
 def focus(pack,question):
@@ -141,8 +151,12 @@ def focus(pack,question):
         chosen=[x for x in facts if x['id']=='limits']
     elif any(w in question for w in ('언제','실시간','시점이고','시각')):
         chosen=[x for x in facts if x['id']=='source']
+    elif any(w.lower() in question.lower() for w in ('GCN','포아송','푸아송','Flow Matching','아키텍처','아키택쳐')):
+        chosen=[x for x in facts if x['id'] in ('model','method')]
     elif any(w in question for w in ('어떻게 하는','어떻게 예측','모델','예측 방법')):
         chosen=[x for x in facts if x['id']=='method']
+    elif overview(question):
+        chosen=[x for x in facts if x['id']=='plan.total' or x['id'].startswith('route.')]
     elif any(w in question for w in ('순서','동선','경로')):
         chosen=[x for x in facts if x['id'].startswith('route.')]
     elif any(w in question for w in ('싣','실어','내려','채우면','채워야')):
@@ -167,7 +181,9 @@ def fallback(pack,question):
     f=pack['facts'];matches=[x for x in f if x['id'].startswith('station.') and any(word in question for word in re.findall(r'[^ (),.]+',x['text']) if len(word)>2)]
     if any(w in question for w in ('포기','미충족','실제 이동','완료')):chosen=[x for x in f if x['id']=='limits']
     elif any(w in question for w in ('언제','실시간','시각','지금 자료')):chosen=[x for x in f if x['id']=='source']
+    elif any(w.lower() in question.lower() for w in ('GCN','포아송','푸아송','Flow Matching','아키텍처','아키택쳐')):chosen=[x for x in f if x['id'] in ('model','method')]
     elif any(w in question for w in ('모델','예측 방법','어떻게 예측')):chosen=[x for x in f if x['id']=='method']
+    elif overview(question):chosen=[x for x in f if x['id']=='plan.total' or x['id'].startswith('route.')]
     elif any(w in question for w in ('순서','동선','경로','싣','실어','내려','채우')):
         routes=[x for x in f if x['id'].startswith('route.')]
         matched=[x for x in routes if x['text'].split(': ',1)[-1].split(',')[0] in question]
@@ -175,4 +191,5 @@ def fallback(pack,question):
     elif any(w in question for w in ('몇 대','몇대','거리','시간')):chosen=[x for x in f if x['id']=='plan.total'] or matches
     else:chosen=matches or [x for x in f if x['id'].startswith(('station.','plan.','data.'))][:3]
     if not chosen:chosen=[x for x in f if x['id'] in ('data.none','plan.none','limits')][:1]
-    return {'answer':' '.join(x['text'] for x in chosen[:6]),'evidence_ids':[x['id'] for x in chosen[:6]]}
+    selected=chosen if overview(question) else chosen[:6]
+    return {'answer':'\n'.join(x['text'] for x in selected),'evidence_ids':[x['id'] for x in selected]}

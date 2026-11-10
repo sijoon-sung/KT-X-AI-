@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1296pt" height="720pt" viewBox="0 0 1296 720" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-10T19:37:34.422568</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 720 
+L 1296 720 
+L 1296 0 
+L 0 0 
+z
+" style="fill: #fafcfc"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 54.72 352.8 
+L 247.68 352.8 
+Q 259.2 352.8 259.2 341.28 
+L 259.2 166.32 
+Q 259.2 154.8 247.68 154.8 
+L 54.72 154.8 
+Q 43.2 154.8 43.2 166.32 
+L 43.2 341.28 
+Q 43.2 352.8 54.72 352.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #ffffff; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 313.92 352.8 
+L 557.28 352.8 
+Q 568.8 352.8 568.8 341.28 
+L 568.8 166.32 
+Q 568.8 154.8 557.28 154.8 
+L 313.92 154.8 
+Q 302.4 154.8 302.4 166.32 
+L 302.4 341.28 
+Q 302.4 352.8 313.92 352.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #eaf4fd; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 623.52 352.8 
+L 866.88 352.8 
+Q 878.4 352.8 878.4 341.28 
+L 878.4 166.32 
+Q 878.4 154.8 866.88 154.8 
+L 623.52 154.8 
+Q 612 154.8 612 166.32 
+L 612 341.28 
+Q 612 352.8 623.52 352.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #fff3e4; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 933.12 352.8 
+L 1241.28 352.8 
+Q 1252.8 352.8 1252.8 341.28 
+L 1252.8 166.32 
+Q 1252.8 154.8 1241.28 154.8 
+L 933.12 154.8 
+Q 921.6 154.8 921.6 166.32 
+L 921.6 341.28 
+Q 921.6 352.8 933.12 352.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #e7f4ef; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 261.20127 254.16 
+Q 280.801093 254.16 298.164848 254.16 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 290.564848 250.36 
+L 298.164848 254.16 
+L 290.564848 257.96 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 570.80127 254.16 
+Q 590.401093 254.16 607.764848 254.16 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 600.164848 250.36 
+L 607.764848 254.16 
+L 600.164848 257.96 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 880.40127 254.16 
+Q 900.001093 254.16 917.364848 254.16 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 909.764848 250.36 
+L 917.364848 254.16 
+L 909.764848 257.96 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 1087.2 140.959336 
+Q 1087.2 146.881153 1087.2 150.566903 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 1091 142.966903 
+L 1087.2 150.566903 
+L 1083.4 142.966903 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 54.72 550.8 
+L 247.68 550.8 
+Q 259.2 550.8 259.2 539.28 
+L 259.2 429.12 
+Q 259.2 417.6 247.68 417.6 
+L 54.72 417.6 
+Q 43.2 417.6 43.2 429.12 
+L 43.2 539.28 
+Q 43.2 550.8 54.72 550.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #ffffff; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 623.52 550.8 
+L 1241.28 550.8 
+Q 1252.8 550.8 1252.8 539.28 
+L 1252.8 429.12 
+Q 1252.8 417.6 1241.28 417.6 
+L 623.52 417.6 
+Q 612 417.6 612 429.12 
+L 612 539.28 
+Q 612 550.8 623.52 550.8 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #ffffff; stroke: #bcd0d3; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 261.199896 485.28 
+Q 435.600316 485.28 607.764667 485.28 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 600.164667 481.48 
+L 607.764667 485.28 
+L 600.164667 489.08 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 1087.2 354.797314 
+Q 1087.2 385.200116 1087.2 413.36685 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 1091 405.76685 
+L 1087.2 413.36685 
+L 1083.4 405.76685 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 254.002588 640.8 
+Q 277.201384 640.8 298.164112 640.8 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 290.564112 637 
+L 298.164112 640.8 
+L 290.564112 644.6 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 689.602588 640.8 
+Q 712.801384 640.8 733.764112 640.8 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+    <path d="M 726.164112 637 
+L 733.764112 640.8 
+L 726.164112 644.6 
+z
+" clip-path="url(#p004fbfbd30)" style="fill: #087f83; stroke: #087f83; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 435.6 154.8 
+L 435.6 124.56 
+L 1087.2 124.56 
+L 1087.2 154.8 
+" clip-path="url(#p004fbfbd30)" style="fill: none; stroke: #087f83; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 34px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="44.64" y="53.633125" transform="rotate(-0 44.64 53.633125)">타슈는 10분 뒤를 어떻게 예상할까?</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 21px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="46.08" y="86.053125" transform="rotate(-0 46.08 86.053125)">주변 흐름을 읽고, 빌리고 돌려줄 대수를 예상해 여러 미래를 만듭니다.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="59.04" y="186.465703" transform="rotate(-0 59.04 186.465703)">입력 자료</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(59.04 202.520078)">이용 기록과</text>
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(59.04 237.205156)">주변 상황</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(59.04 304.801797)">지난 대여·반납 기록</text>
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(59.04 330.301797)">날씨·요일·시간</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="318.24" y="185.960625" transform="rotate(-0 318.24 185.960625)">1  GCN · 상황 정리(encoder)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="318.24" y="219.921016" transform="rotate(-0 318.24 219.921016)">주변 대여소도 함께 보기</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(318.24 304.801797)">연결된 대여소의 흐름을</text>
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(318.24 330.368203)">한 대여소의 상황과 함께 정리</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="627.84" y="186.465703" transform="rotate(-0 627.84 186.465703)">2  포아송 평균</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="627.84" y="219.770078" transform="rotate(-0 627.84 219.770078)">대여·반납 대수 예상</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(627.84 304.801797)">대여·반납이 각각</text>
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(627.84 330.301797)">평균적으로 얼마나 생길까?</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="937.44" y="185.312578" transform="rotate(-0 937.44 185.312578)">3  Flow Matching · 미래 생성(decoder)</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(937.44 202.671016)">가능한 미래를</text>
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(937.44 237.020078)">여러 개 만들기</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(937.44 304.868203)">주변 상황과 예상 평균을 보고</text>
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; fill: #18353c" transform="translate(937.44 330.301797)">대여·반납의 여러 가능성을 생성</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 16px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #577078" x="761.76" y="114.19125" transform="rotate(-0 761.76 114.19125)">GCN이 정리한 주변 상황도 FM에 전달</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 14px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="1108.8" y="386.962656" transform="rotate(-0 1108.8 386.962656)">시작: Gaussian 잡음</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="59.04" y="449.265703" transform="rotate(-0 59.04 449.265703)">현재 상태 · 재고 API</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="59.04" y="482.570078" transform="rotate(-0 59.04 482.570078)">지금 남은 자전거</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="59.04" y="515.551797" transform="rotate(-0 59.04 515.551797)">가장 최근에 받은 재고</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 15px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="627.84" y="449.324297" transform="rotate(-0 627.84 449.324297)">예측 결과</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="627.84" y="482.104688" transform="rotate(-0 627.84 482.104688)">10분 뒤 남을 자전거와, 자전거가 없을 가능성</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="627.84" y="515.551797" transform="rotate(-0 627.84 515.551797)">지금 대수 + 예상 반납 - 예상 대여  →  여러 재고 표본</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 16px; font-family: 'Malgun Gothic'; text-anchor: middle; fill: #577078" x="432" y="471.24875" transform="rotate(-0 432 471.24875)">현재 재고는 마지막 계산에 반영</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 22px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="43.2" y="606.736719" transform="rotate(-0 43.2 606.736719)">이 결과를 서비스에서 어떻게 쓸까?</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 22px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="46.8" y="649.424688" transform="rotate(-0 46.8 649.424688)">부족할 곳 찾기</text>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 22px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="324" y="649.227031" transform="rotate(-0 324 649.227031)">이동 대수·방문 순서 계산</text>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 22px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #18353c" x="756" y="649.227031" transform="rotate(-0 756 649.227031)">외부 LLM이 쉬운 말로 설명</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 17px; font-family: 'Malgun Gothic'; text-anchor: start; fill: #577078" x="46.8" y="694.223359" transform="rotate(-0 46.8 694.223359)">예측 모델은 고정합니다. 새 재고가 오면 다시 예측합니다. LLM은 예측값을 바꾸지 않습니다.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p004fbfbd30">
+   <rect x="0" y="0" width="1296" height="720"/>
+  </clipPath>
+ </defs>
+</svg>

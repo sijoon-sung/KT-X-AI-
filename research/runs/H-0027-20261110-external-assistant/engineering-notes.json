@@ -1,0 +1,25 @@
+{
+  "external_request_attempts": 20,
+  "development_attempts": 3,
+  "fixed_acceptance_requests": 14,
+  "service_demo_requests": 3,
+  "failures_preserved": [
+    "Development01 Korean question corrupted in PowerShell transport; facts fallback",
+    "Development03 long encoded remote command exceeded capacity; candidate lost before preservation; no fourth development probe",
+    "Initial service deployment summary used inline Python quoting and failed; direct stdin JSON fixed it",
+    "An attempted old H26 benchmark command lacked required arguments and exited before inference; it was not rerun as H27 evidence",
+    "Narration file invocation failed under the remote execution policy; authorized source ran in the current PowerShell session without changing machine policy",
+    "Video v1 review found title wrapping and subtitles over the interface; v2 preserves content, enlarges actual answer crop, and places captions in a separate band"
+  ],
+  "first_acceptance_preserved": true,
+  "api_requests": 7,
+  "api_roundtrips": 6,
+  "api_weights_updated": false,
+  "api_collection_phase": "stopped",
+  "live_display_claimed": false,
+  "ui_verified": true,
+  "service_task": "TashuExternalAssistantH27",
+  "public_network_exposure": false,
+  "video_render_location": "dislab",
+  "survey_not_yet_read": true
+}

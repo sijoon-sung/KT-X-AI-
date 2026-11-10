@@ -1,0 +1,20 @@
+{
+  "id": "H27-external-assistant-v1",
+  "model": "gemini-3.8-flash-low",
+  "provider": "official Antigravity CLI 1.4.10 authenticated local network relay",
+  "inputs": [
+    {
+      "path": "examples/assistant-demo.json",
+      "sha256": "7a4e120fe04761fb5d9196b4afabcb9211828046e5ce42be434512efb402d765",
+      "role": "known synthetic fixture or public recorded plan; not live forecast accuracy truth"
+    },
+    {
+      "path": "research/runs/H-0021-20261101-bulk/reference-replay.json",
+      "sha256": "48786de304caee92b398e29feac2f78f6213441884d2bbd1951005530a898ab5",
+      "role": "known synthetic fixture or public recorded plan; not live forecast accuracy truth"
+    }
+  ],
+  "forecast_model": "locked H13 unchanged",
+  "api_training": false,
+  "external_transmission": "only allowlisted fact sentences,question and output schema; no API keys,private files,raw station payloads or transaction records"
+}

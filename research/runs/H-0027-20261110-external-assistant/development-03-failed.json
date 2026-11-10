@@ -1,0 +1,10 @@
+{
+  "stage": "complete transport",
+  "kind": "development_probe_03_failed",
+  "question": "어떤 순서로 이동하면 돼?",
+  "error": "encoded remote command exceeded transport capacity; subsequent PowerShell stdin attempt timed out",
+  "candidate_preserved": false,
+  "model_generation_was_attempted": true,
+  "decision": "not an accepted answer; no fourth development probe",
+  "repair": "direct SSH Python stdin transport; long Unicode health engineering check succeeded"
+}
