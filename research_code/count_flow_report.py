@@ -19,7 +19,7 @@ def save(fig,out,name):
 def architecture(r,out):
     kind=r['selected_encoder'];mode=r['selected_fm'];choice=r['flow_choices'][mode];active=sum(choice['active']);small=kind!='full_retrain';width=128 if small else 256
     own=164 if kind in ('full_retrain','compact_profile') else 100;graph=kind in ('full_retrain','compact_graph');profile=kind in ('full_retrain','compact_profile')
-    fig,ax=plt.subplots(figsize=(15.6,7.2));ax.set_xlim(0,1560);ax.set_ylim(720,0);ax.axis('off')
+    fig=plt.figure(figsize=(15.6,7.2));ax=fig.add_axes((0,0,1,1));ax.set_xlim(0,1560);ax.set_ylim(720,0);ax.axis('off')
     colors={'blue':('#eaf2fa','#326b9b'),'gold':('#fcf2dd','#a77823'),'green':('#e4f3ed','#247f68'),'purple':('#f1eaf8','#8053a5'),'gray':('#f3f4f6','#73818d')}
     def txt(x,y,s,size=12,**kw):ax.text(x,y,s,fontsize=size,ha='center',va='center',**kw)
     def box(x,y,w,h,title,sub='',color='blue'):
@@ -54,6 +54,9 @@ def architecture(r,out):
         arrow([(825,230),(825,318),(900,318),(900,356)],'#a77823',True)
         txt(845,548,'Generative time s ∈ [0, 0.999]' if mode=='count_jump_score' else 'Generative time s ∈ [0,1]',11,color='#8053a5')
         arrow([(1098,425),(1188,425)],'#8053a5')
+        if active<2:
+            arrow([(1098,205),(1138,205),(1138,425),(1188,425)],'#73818d',True)
+            txt(1158,278,'Identity-seed bypass',9,rotation=90,color='#73818d')
     else:
         box(622,358,474,133,'Direct Poisson selected','FM checkpoints were trained,\nbut no learned correction was selected','gray')
         arrow([(993,252),(993,356)],'#a77823');arrow([(1098,425),(1188,425)],'#73818d')
@@ -80,9 +83,15 @@ def main(a):
     fig.suptitle('H24 | Distribution and selection-path comparison',fontsize=17,y=1.03);fig.tight_layout();save(fig,out,'distribution-comparison')
     architecture(r,out)
     p=r['primary'];choice=r['flow_choices'][r['selected_fm']]
+    flow_kind,selector=r['selected_fm'].rsplit('_',1)
+    ids=[f'encoder-{r["selected_encoder"]}-{s}.pt' for s in (11,29)]+[f'flow-{flow_kind}-{selector}-{s}.pt' for s in (11,29)]
+    weight_bytes=sum(r['checkpoint_bytes'][k] for k in ids)
+    flow_parameters=[t['selected'][selector]['parameters'] for t in r['flow_training'] if t['kind']==flow_kind]
+    model_card={'hypothesis_id':'H-0024','encoder_kind':r['selected_encoder'],'flow_kind':flow_kind,'selection':selector,'seeds':[11,29],'flow_epochs':choice['epochs'],'flow_active':choice['active'],'weight_files':ids,'selected_checkpoint_bytes':weight_bytes,'total_selected_parameters':2*r['mean_scores'][r['selected_encoder']]['parameters_per_seed']+sum(flow_parameters),'encoder_parameter_reduction':r['encoder_parameter_reduction'],'weather_dimensions':54,'station_context_width':128 if r['selected_encoder']!='full_retrain' else 256,'particles':128,'source':'conditional Poisson','solver':'Heun16' if flow_kind=='poisson_continuous' else 'integer local jump64 to.999','epoch0_semantics':'direct Poisson bypass,not learned FM','weights_publication':'private checkpoints identified by pre-test-lock.json,not rawGit','static_historical_context_included_in_weight_size':False,'serving_integration':'Research candidate; existing runtime not replaced and API inference not executed','numerical_training_commit':r['code_commit']}
+    (out/'model-card.json').write_text(json.dumps(model_card,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     lines=['# H-0024 결과','','## 가설','','기상은 유지하고 encoder를 줄인 뒤, 건수 정합 FM이 포아송보다 분포 오차를1% 이상 줄이는지 검증했다. 무보정 선택은 FM 이득으로 세지 않았다.','','## 실험','',f"dislab {r['environment']['gpu']}에서 encoder4종×2시드, FM3학습 경로×2시드를 비교했다. Encoder는2월전반, decoder는2월후반에서 선택하고 잠근 뒤 이미 노출된3월을 평가했다. API를 열지 않았다. 총{r['seconds']:.1f}초다.",'','최초 시도는 호출 인자 누락으로 첫 학습 checkpoint 전에 실패했다. 조건·예산·계획을 바꾸지 않고 인자만 수정했으며 원 시도 파일과기록을 보존했다.','','## 결과','',f"선택 encoder: **{ENC[r['selected_encoder']]}**. Rate parameter가 **{r['encoder_parameter_reduction']*100:.2f}%** 줄었다. 선택 decoder: **{DEC[r['selected_fm']]}**, epoch **{choice['epochs']}**, 활성 FM **{sum(choice['active'])}/2**시드. 주가설 판정 **{p['decision']}**.",'','| Encoder | seed당 rate parameters | March count deviance ↓ | mean count MAE ↓ |','|---|---:|---:|---:|']
     for k,s in r['mean_scores'].items():lines.append(f"| {ENC[k]} | {s['parameters_per_seed']:,} | {s['deviance']:.6f} | {s['mean_count_mae']:.6f} |")
-    lines+=['','![encoder 비교](encoder-comparison.png)','','| Decoder | count energy ↓ | median count MAE ↓ | count fairCRPS ↓ | zero-count Brier ↓ | negative raw mass |','|---|---:|---:|---:|---:|---:|']
+    lines+=['',f"선택한 두 시드 encoder+FM 가중치는 **{weight_bytes:,}바이트**, 총 **{model_card['total_selected_parameters']:,}개 파라미터**다. 과거 특성 cache는 이 크기에 포함하지 않았다. [모델 카드](model-card.json).",'','![encoder 비교](encoder-comparison.png)','','| Decoder | count energy ↓ | median count MAE ↓ | count fairCRPS ↓ | zero-count Brier ↓ | negative raw mass |','|---|---:|---:|---:|---:|---:|']
     for k,s in r['distributions'].items():lines.append(f"| {DEC[k]} | {s['energy']:.6f} | {s['median_count_mae']:.6f} | {s['fair_channel_crps']:.6f} | {s['zero_count_brier']:.6f} | {s['negative_continuous_raw_fraction']*100:.3f}% |")
     lines+=['',f"선택 FM의 같은 encoder 포아송 대비 energy 감소: **{p['relative_reduction']*100:.3f}%**."]
     for block in ('3','7'):lines.append(f"{block}일 블록95% 구간: [{p[block][0]*100:.3f}%,{p[block][1]*100:.3f}%].")
@@ -92,7 +101,7 @@ def main(a):
     for name,s in r['solver_diagnostics'].items():lines.append(f"| {name} / {s['extra_steps']}steps | {s['primary_steps_same_prefix']['energy']:.6f} | {s['extra']['energy']:.6f} |")
     lines+=['','추가 단계 점수는 진단이며 3월 점수로 실제 sampler를 선택하지 않았다. Zero-count는 대여/반납0건이며 대여소0대와 다르다.','','### 선택한 구조','','![선택 구조](selected-architecture.png)','','### 다음 행동','','- 특징·모델 크기 확대는 하지 않는다. 배포H13과 관리자 경로는 유지한다.','- 작은 encoder는 검증 허용 오차와 parameter 기준으로 선택했으며 동일 성능을 증명한 것은 아니다.','- 무보정이 선택됐다면 활성FM 개선으로 발표하지 않는다. Gaussian 대비 개선과 Poisson 대비 개선을 구분한다.','- 모든 선택과 학습은 과거 기록만으로 마쳤다. 실제 재고 후보는 별도 동결 계획으로9월 외부 평가한다. API로 재학습·선택·보정하지 않는다.','- Count-FM은[원문](https://arxiv.org/html/2605.07746v3)의 정수 bridge와 rate matching을 조건부Poisson에 적용한 것이다. OT·CFG·원문 전체 재현을 주장하지 않는다.','',f"실행 코드 `{r['code_commit']}`. 시드·trace·실패·잠금·진단·전체 지표는 summary와manifest에 보존했다."]
     (out/'results.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
-    compact={k:r[k] for k in ('hypothesis_id','code_commit','primary','selected_encoder','encoder_parameter_reduction','selected_fm','flow_choices','mean_scores','distributions','comparisons','solver_diagnostics','seconds','kernel_checks','limitations')}
+    compact={k:r[k] for k in ('hypothesis_id','code_commit','primary','selected_encoder','encoder_parameter_reduction','selected_fm','flow_choices','mean_scores','distributions','comparisons','solver_diagnostics','seconds','kernel_checks','limitations')};compact['model_card']=model_card
     (out/'compact-result.json').write_text(json.dumps(compact,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(compact,ensure_ascii=False))
 
