@@ -1,0 +1,7 @@
+{
+  "gap_transform": true,
+  "integer_quantile_ties": true,
+  "asymmetric_hand_costs": true,
+  "deterministic_perfect_forecast": true,
+  "zero_gap_fair_crps": true
+}

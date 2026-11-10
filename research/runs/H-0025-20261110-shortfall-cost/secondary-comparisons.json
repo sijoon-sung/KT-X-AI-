@@ -1,0 +1,293 @@
+{
+  "scope": "All prespecified target/cost conditions, current-positive group. Descriptive point comparisons only; not new confirmatory tests or API winner selection.",
+  "comparisons": {
+    "target1/cost1/h13": {
+      "relative_cost_reduction": -0.0001501726986032903,
+      "relative_under_bikes_reduction": 0.0010543756589848075,
+      "poisson_under_per1000": 59.61558320275495,
+      "fm_under_per1000": 59.55272598292977,
+      "poisson_over_per1000": 0.17959205664333466,
+      "fm_over_per1000": 0.2514288793006685
+    },
+    "target1/cost1/h22": {
+      "relative_cost_reduction": 0.00037540355882581533,
+      "relative_under_bikes_reduction": 0.0019556224144414713,
+      "poisson_under_per1000": 59.69190982682836,
+      "fm_under_per1000": 59.5751749900102,
+      "poisson_over_per1000": 0.1077552339860008,
+      "fm_over_per1000": 0.2020410637237515
+    },
+    "target1/cost1/h24": {
+      "relative_cost_reduction": 0.0003001650907998865,
+      "relative_under_bikes_reduction": 0.00015073861923431409,
+      "poisson_under_per1000": 59.57068518859411,
+      "fm_under_per1000": 59.56170558576194,
+      "poisson_over_per1000": 0.2604084821328353,
+      "fm_over_per1000": 0.2514288793006685
+    },
+    "target1/cost2/h13": {
+      "relative_cost_reduction": 0.0011747764135212613,
+      "relative_under_bikes_reduction": 0.003802582587340564,
+      "poisson_under_per1000": 56.674763275220336,
+      "fm_under_per1000": 56.45925280724833,
+      "poisson_over_per1000": 5.1273532171672045,
+      "fm_over_per1000": 5.419190309212623
+    },
+    "target1/cost2/h22": {
+      "relative_cost_reduction": 0.0027183146449201168,
+      "relative_under_bikes_reduction": 0.0202645216180678,
+      "poisson_under_per1000": 58.048642508541846,
+      "fm_under_per1000": 56.872314537528005,
+      "poisson_over_per1000": 2.8240850907164377,
+      "fm_over_per1000": 4.853475330786119
+    },
+    "target1/cost2/h24": {
+      "relative_cost_reduction": -0.0005665294406467236,
+      "relative_under_bikes_reduction": -0.004666983072298736,
+      "poisson_under_per1000": 56.76006950212592,
+      "fm_under_per1000": 57.02496778567484,
+      "poisson_over_per1000": 5.356333089387456,
+      "fm_over_per1000": 4.89388354353087
+    },
+    "target1/cost5/h13": {
+      "relative_cost_reduction": 0.010257754477938086,
+      "relative_under_bikes_reduction": 0.055208983156581404,
+      "poisson_under_per1000": 43.18291001988982,
+      "fm_under_per1000": 40.79882546794955,
+      "poisson_over_per1000": 41.01433593592156,
+      "fm_over_per1000": 50.29924526438195
+    },
+    "target1/cost5/h22": {
+      "relative_cost_reduction": 0.02711922516499532,
+      "relative_under_bikes_reduction": 0.10071659958770973,
+      "poisson_under_per1000": 45.73760702564125,
+      "fm_under_per1000": 41.131070772739726,
+      "poisson_over_per1000": 33.22453047901691,
+      "fm_over_per1000": 49.15434590328069
+    },
+    "target1/cost5/h24": {
+      "relative_cost_reduction": -0.0060969272872137825,
+      "relative_under_bikes_reduction": -0.009521838128751847,
+      "poisson_under_per1000": 43.38046128219749,
+      "fm_under_per1000": 43.79352301247716,
+      "poisson_over_per1000": 42.311888545169644,
+      "fm_over_per1000": 41.82698999223265
+    },
+    "target1/cost10/h13": {
+      "relative_cost_reduction": 0.04664898883565316,
+      "relative_under_bikes_reduction": 0.31210776060003065,
+      "poisson_under_per1000": 29.331872651272636,
+      "fm_under_per1000": 20.177167563878648,
+      "poisson_over_per1000": 101.195634117103,
+      "fm_over_per1000": 174.3389889865171
+    },
+    "target1/cost10/h22": {
+      "relative_cost_reduction": 0.0644438280166435,
+      "relative_under_bikes_reduction": 0.3732303732303731,
+      "poisson_under_per1000": 31.397181302670983,
+      "fm_under_per1000": 19.678799606693396,
+      "poisson_over_per1000": 90.67153959780359,
+      "fm_over_per1000": 181.77858993296726
+    },
+    "target1/cost10/h24": {
+      "relative_cost_reduction": 0.009479102886817636,
+      "relative_under_bikes_reduction": 0.01708743842364535,
+      "poisson_under_per1000": 29.16574999887755,
+      "fm_under_per1000": 28.667382041692296,
+      "poisson_over_per1000": 104.31604610128093,
+      "fm_over_per1000": 105.54625168928779
+    },
+    "target3/cost1/h13": {
+      "relative_cost_reduction": -0.0013627130846167734,
+      "relative_under_bikes_reduction": -0.0014388489208632116,
+      "poisson_under_per1000": 124.8164793671176,
+      "fm_under_per1000": 124.99607142376092,
+      "poisson_over_per1000": 49.80536710861279,
+      "fm_over_per1000": 49.86373452702187
+    },
+    "target3/cost1/h22": {
+      "relative_cost_reduction": 0.0003339841742884264,
+      "relative_under_bikes_reduction": 0.004811633460455544,
+      "poisson_under_per1000": 125.97035833105103,
+      "fm_under_per1000": 125.36423513987977,
+      "poisson_over_per1000": 48.79067198857794,
+      "fm_over_per1000": 49.338427761340114
+    },
+    "target3/cost1/h24": {
+      "relative_cost_reduction": -0.0002826600883956143,
+      "relative_under_bikes_reduction": 0.0006432476860952496,
+      "poisson_under_per1000": 125.63811302626085,
+      "fm_under_per1000": 125.55729660077134,
+      "poisson_over_per1000": 49.086998882039445,
+      "fm_over_per1000": 49.21720312310587
+    },
+    "target3/cost2/h13": {
+      "relative_cost_reduction": 0.0011876665397790864,
+      "relative_under_bikes_reduction": 0.003366742773112441,
+      "poisson_under_per1000": 116.02095839301028,
+      "fm_under_per1000": 115.63034566981102,
+      "poisson_over_per1000": 62.825791215254554,
+      "fm_over_per1000": 63.25681215119855
+    },
+    "target3/cost2/h22": {
+      "relative_cost_reduction": 0.004947499016552337,
+      "relative_under_bikes_reduction": 0.025711936617086484,
+      "poisson_under_per1000": 120.13810629155873,
+      "fm_under_per1000": 117.04912291729337,
+      "poisson_over_per1000": 56.47272221149659,
+      "fm_over_per1000": 61.182523896968036
+    },
+    "target3/cost2/h24": {
+      "relative_cost_reduction": -0.0021880840588959227,
+      "relative_under_bikes_reduction": -0.006597874870535758,
+      "poisson_under_per1000": 117.04463311587729,
+      "fm_under_per1000": 117.81687895944363,
+      "poisson_over_per1000": 61.389054762107875,
+      "fm_over_per1000": 60.4910944788912
+    },
+    "target3/cost5/h13": {
+      "relative_cost_reduction": 0.012543636940653746,
+      "relative_under_bikes_reduction": 0.05696400625978082,
+      "poisson_under_per1000": 86.06949314631814,
+      "fm_under_per1000": 81.1666299999551,
+      "poisson_over_per1000": 135.54710475155684,
+      "fm_over_per1000": 152.96304444454424
+    },
+    "target3/cost5/h22": {
+      "relative_cost_reduction": 0.02826602402145606,
+      "relative_under_bikes_reduction": 0.10132784555833219,
+      "poisson_under_per1000": 91.63235710084543,
+      "fm_under_per1000": 82.34744777238502,
+      "poisson_over_per1000": 119.38381965365672,
+      "fm_over_per1000": 149.48344834707962
+    },
+    "target3/cost5/h24": {
+      "relative_cost_reduction": -0.003534323260116601,
+      "relative_under_bikes_reduction": -0.0077579922940747,
+      "poisson_under_per1000": 86.23112599729714,
+      "fm_under_per1000": 86.90010640829355,
+      "poisson_over_per1000": 136.687514311242,
+      "fm_over_per1000": 135.3495534892492
+    },
+    "target3/cost10/h13": {
+      "relative_cost_reduction": 0.04995418048525058,
+      "relative_under_bikes_reduction": 0.2948557089084065,
+      "poisson_under_per1000": 57.25394765789509,
+      "fm_under_per1000": 40.372294333421635,
+      "poisson_over_per1000": 250.5668374287805,
+      "fm_over_per1000": 378.26576930502364
+    },
+    "target3/cost10/h22": {
+      "relative_cost_reduction": 0.07060172284763466,
+      "relative_under_bikes_reduction": 0.35614840731831765,
+      "poisson_under_per1000": 61.59558562724771,
+      "fm_under_per1000": 39.658415908264374,
+      "poisson_over_per1000": 229.96313873037397,
+      "fm_over_per1000": 389.6114974834663
+    },
+    "target3/cost10/h24": {
+      "relative_cost_reduction": 0.002554640931024643,
+      "relative_under_bikes_reduction": 0.007759303246239191,
+      "poisson_under_per1000": 56.706191885132924,
+      "fm_under_per1000": 56.26619134635675,
+      "poisson_over_per1000": 255.45174136947924,
+      "fm_over_per1000": 257.7505196945139
+    },
+    "target6/cost1/h13": {
+      "relative_cost_reduction": -0.0005985634477254642,
+      "relative_under_bikes_reduction": -0.0018808430602423876,
+      "poisson_under_per1000": 162.324280397078,
+      "fm_under_per1000": 162.6295868933717,
+      "poisson_over_per1000": 85.20745127443014,
+      "fm_over_per1000": 85.05030822486721
+    },
+    "target6/cost1/h22": {
+      "relative_cost_reduction": -0.00012703943667080608,
+      "relative_under_bikes_reduction": 0.006174525982186707,
+      "poisson_under_per1000": 164.33571143148336,
+      "fm_under_per1000": 163.32101631144855,
+      "poisson_over_per1000": 83.0568363961262,
+      "fm_over_per1000": 84.10296012607363
+    },
+    "target6/cost1/h24": {
+      "relative_cost_reduction": 0.00010886921178687725,
+      "relative_under_bikes_reduction": 0.001369600350617839,
+      "poisson_under_per1000": 163.90918029695547,
+      "fm_under_per1000": 163.68469022615128,
+      "poisson_over_per1000": 83.53275534623103,
+      "fm_over_per1000": 83.73030660853871
+    },
+    "target6/cost2/h13": {
+      "relative_cost_reduction": 0.0014467914617045663,
+      "relative_under_bikes_reduction": 0.002881671369394323,
+      "poisson_under_per1000": 149.5732443754013,
+      "fm_under_per1000": 149.14222343945727,
+      "poisson_over_per1000": 104.28012768995228,
+      "fm_over_per1000": 104.55849537774944
+    },
+    "target6/cost2/h22": {
+      "relative_cost_reduction": 0.00406706783248556,
+      "relative_under_bikes_reduction": 0.026203904555314517,
+      "poisson_under_per1000": 155.2348839610824,
+      "fm_under_per1000": 151.16712387811089,
+      "poisson_over_per1000": 94.67644246094996,
+      "fm_over_per1000": 101.16420550719042
+    },
+    "target6/cost2/h24": {
+      "relative_cost_reduction": -0.0013019674174308271,
+      "relative_under_bikes_reduction": -0.006004934748357504,
+      "poisson_under_per1000": 151.03242983562836,
+      "fm_under_per1000": 151.9393697216772,
+      "poisson_over_per1000": 101.40665478365891,
+      "fm_over_per1000": 100.11808177724299
+    },
+    "target6/cost5/h13": {
+      "relative_cost_reduction": 0.0115421513370908,
+      "relative_under_bikes_reduction": 0.05574441941429453,
+      "poisson_under_per1000": 109.61850157367539,
+      "fm_under_per1000": 103.50788184638593,
+      "poisson_over_per1000": 200.7165723060069,
+      "fm_over_per1000": 222.62680321649373
+    },
+    "target6/cost5/h22": {
+      "relative_cost_reduction": 0.026097292589781218,
+      "relative_under_bikes_reduction": 0.10003847633705276,
+      "poisson_under_per1000": 116.6899388040067,
+      "fm_under_per1000": 105.01645512218995,
+      "poisson_over_per1000": 179.5516484305899,
+      "fm_over_per1000": 218.00679755934397
+    },
+    "target6/cost5/h24": {
+      "relative_cost_reduction": -0.004603433394073209,
+      "relative_under_bikes_reduction": -0.010799490822485991,
+      "poisson_under_per1000": 109.34013388587823,
+      "fm_under_per1000": 110.52095165830815,
+      "poisson_over_per1000": 202.34188041862907,
+      "fm_over_per1000": 199.88595904403147
+    },
+    "target6/cost10/h13": {
+      "relative_cost_reduction": 0.04367296081350036,
+      "relative_under_bikes_reduction": 0.2800544756716603,
+      "poisson_under_per1000": 72.5282520754107,
+      "fm_under_per1000": 52.21639046904955,
+      "poisson_over_per1000": 348.51634512205527,
+      "fm_over_per1000": 504.738985394676
+    },
+    "target6/cost10/h22": {
+      "relative_cost_reduction": 0.06696130889456309,
+      "relative_under_bikes_reduction": 0.3449107296630116,
+      "poisson_under_per1000": 78.20785086675616,
+      "fm_under_per1000": 51.233123958927294,
+      "poisson_over_per1000": 322.1791700153102,
+      "fm_over_per1000": 517.9838995721219
+    },
+    "target6/cost10/h24": {
+      "relative_cost_reduction": 0.001639124908008105,
+      "relative_under_bikes_reduction": 0.005497251374313006,
+      "poisson_under_per1000": 71.87274106866253,
+      "fm_under_per1000": 71.4776385440472,
+      "poisson_over_per1000": 355.017577572544,
+      "fm_over_per1000": 357.2086006635927
+    }
+  }
+}

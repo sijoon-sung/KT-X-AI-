@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0025",
   "title": "고정 모델의 재고 부족량·비대칭 비용 평가",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "동결 모델을 재고 부족량과 부족을 적게 예측한 비용으로 평가하면 어떤 차이가 있는가?",
     "hypothesis": "H24 포아송 출발 FM이 같은 encoder 포아송보다 현재 양수 대여소의 목표3대 부족량에 대한5:1 비대칭 비용을1% 이상 줄이고3일·7일95% paired block 구간 하한이 양수다. 실제 미충족 수요 인원이나 행동 효과를 주장하지 않는다.",
@@ -87,6 +87,25 @@
     "plan_sha256": "68b49b9595e70b3617a55ea788e53b59e1944e8c8543a1e455bea4346d3ed0a2",
     "frozen_at_utc": "2026-11-10T07:03:56.462330+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": false,
+    "summary": "주가설 판정: **지지되지 않았다**. H24 FM의 비용은 같은 encoder의 포아송보다 **0.353% 증가했다**. 실제 대여 포기 인원은 관측하지 않았다. 부족량은 목표 재고 대비의 가정 기반 파생량이다. API로 모델·목표·비용을 재선택하지 않았고 기본 H13·관리자를 유지했다.",
+    "limitations": [
+      "Fixed target floors and cost ratios are assumptions, not operator-confirmed quantities",
+      "Inventory gap is not unobserved denied rental demand",
+      "No causal action simulation or relocation saving is measured",
+      "Only hourly September origins, not the full H13 cohort",
+      "Reused exposed September; no winner/threshold selection or calibration",
+      "Historical completed-flow input differs from API stock-change proxy; weather is lagged archive, not live feed",
+      "Nonnegative endpoint projection does not model event order, capacity or operator moves",
+      "Prespecified secondary inventory median MAE was not recorded for the hourly cohort; shortfall MAEs and primary costs were recorded. See execution-notes.json."
+    ],
+    "run_manifests": [
+      "research/runs/H-0025-20261110-shortfall-cost/manifest.json"
+    ],
+    "default_promoted": false,
+    "next_action": "기본 모델을 유지하고 목표 재고·비용의 운영 근거와 미충족 수요의 관측 가능성을 확인한다. 새 학습/선택이 필요하면 과거 이력 내부의 별도 가설로 분리한다. API 학습·선택·보정은 금지한다."
+  },
   "withdrawal_reason": null
 }

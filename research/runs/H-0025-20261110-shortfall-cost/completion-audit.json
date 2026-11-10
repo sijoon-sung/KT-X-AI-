@@ -1,0 +1,16 @@
+{
+  "child_returncode": 0,
+  "complete_log_marker": true,
+  "valid_result_json": true,
+  "empty_stderr": true,
+  "chronological_issue_score_joins": 321,
+  "issued_origins": 321,
+  "matched_scored_pairs": 409967,
+  "pending_unscored_final_origin": false,
+  "future_validity_used_only_in_scoring": true,
+  "forecast_hash_verified_before_scoring": true,
+  "weights_updated": false,
+  "api_selected": false,
+  "ledger_sha256": "8cc973c31caa5d0bbb1efdc85d0766f790903ffe0147c7424cb2f6a0557102f4",
+  "note": "Ledger retained privately. Hashes/joins establish chronological replay, not actual online service or causal dispatch effect."
+}

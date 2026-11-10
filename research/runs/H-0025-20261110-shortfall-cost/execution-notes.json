@@ -1,0 +1,9 @@
+{
+  "unrecorded_secondary_metrics": [
+    "Inventory median MAE for this hourly-origin cohort"
+  ],
+  "reason": "Initial evaluator recorded shortfall mean/median MAE but omitted uncapped inventory median MAE. It cannot be recovered from the capped gap aggregates. This omission is preserved, not silently replaced with the old full-cohort MAE.",
+  "primary_metrics_affected": false,
+  "frozen_plan_changed": false,
+  "new_model_selection": false
+}

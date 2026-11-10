@@ -1,0 +1,145 @@
+{
+  "hypothesis_id": "H-0025",
+  "code_commit": "2286b3ec1d51cacb0cfb137ff49dcaf09622b4d5",
+  "plan_sha256": "68b49b9595e70b3617a55ea788e53b59e1944e8c8543a1e455bea4346d3ed0a2",
+  "input_manifest_sha256": "387c2c77a982dfae5aa38ca1e2da4329f3dcd7e23fef10ba847aeb2d74bc819b",
+  "coverage": {
+    "valid_pairs": 409967,
+    "positive_pairs": 222727,
+    "scored_ids": 1298,
+    "scored_days": 14,
+    "issued_origins": 321,
+    "scored_origins": 316,
+    "issued_cells": 416457,
+    "previous_proxy_present": 408669
+  },
+  "primary": {
+    "decision": "not_supported",
+    "sufficient_data": true,
+    "underprediction_guard": false,
+    "relative_reduction": -0.003534323260116601,
+    "intervals": [
+      {
+        "block_days": 3,
+        "replicates": 20000,
+        "relative_reduction_95": [
+          -0.006523238320556096,
+          0.0004393064460537925
+        ]
+      },
+      {
+        "block_days": 7,
+        "replicates": 20000,
+        "relative_reduction_95": [
+          -0.005017730924179231,
+          -1.4670285336970679e-05
+        ]
+      }
+    ]
+  },
+  "seconds": 566.1962605000008,
+  "weights_updated": false,
+  "api_selected": false,
+  "limitations": [
+    "Fixed target floors and cost ratios are assumptions, not operator-confirmed quantities",
+    "Inventory gap is not unobserved denied rental demand",
+    "No causal action simulation or relocation saving is measured",
+    "Only hourly September origins, not the full H13 cohort",
+    "Reused exposed September; no winner/threshold selection or calibration",
+    "Historical completed-flow input differs from API stock-change proxy; weather is lagged archive, not live feed",
+    "Nonnegative endpoint projection does not model event order, capacity or operator moves"
+  ],
+  "main_condition": {
+    "persistence": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9383909449685041,
+      "gap_mean_abs": 0.17460837707148213,
+      "gap_median_abs": 0.17460837707148213,
+      "gap_fair_crps": 0.17460837707148213,
+      "gap_mean_bias": -0.07777234012939607,
+      "cost": 0.6793698114732385,
+      "under_bikes": 0.1261903586004391,
+      "over_bikes": 0.048418018471043024,
+      "gap_quantile": 0.9383909449685041
+    },
+    "h13_poisson": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9606923498273672,
+      "gap_mean_abs": 0.1981144517727981,
+      "gap_median_abs": 0.17462184647573037,
+      "gap_fair_crps": 0.1473611471684784,
+      "gap_mean_bias": -0.055470935270532984,
+      "cost": 0.5658945704831475,
+      "under_bikes": 0.08606949314631814,
+      "over_bikes": 0.13554710475155685,
+      "gap_quantile": 1.0656408967031388
+    },
+    "h13_fm": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9615648795947506,
+      "gap_mean_abs": 0.20341483772735233,
+      "gap_median_abs": 0.1748598059507828,
+      "gap_fair_crps": 0.14705199605876748,
+      "gap_mean_bias": -0.054598405503149594,
+      "cost": 0.5587961944443197,
+      "under_bikes": 0.08116662999995511,
+      "over_bikes": 0.15296304444454423,
+      "gap_quantile": 1.0879596995424892
+    },
+    "h22_poisson": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9525374673928172,
+      "gap_mean_abs": 0.1961168409083766,
+      "gap_median_abs": 0.17476103031962897,
+      "gap_fair_crps": 0.14847866746865604,
+      "gap_mean_bias": -0.06362581770508291,
+      "cost": 0.5775456051578839,
+      "under_bikes": 0.09163235710084543,
+      "over_bikes": 0.11938381965365671,
+      "gap_quantile": 1.0439147476507113
+    },
+    "h22_fm": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9610428349504101,
+      "gap_mean_abs": 0.20353665866733714,
+      "gap_median_abs": 0.17470266290121989,
+      "gap_fair_crps": 0.14723611768868988,
+      "gap_mean_bias": -0.05512045014748998,
+      "cost": 0.5612206872090048,
+      "under_bikes": 0.08234744777238502,
+      "over_bikes": 0.1494834483470796,
+      "gap_quantile": 1.0832992856725947
+    },
+    "h24_poisson": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9602110290849336,
+      "gap_mean_abs": 0.19778290799947917,
+      "gap_median_abs": 0.17472511190830028,
+      "gap_fair_crps": 0.14769757956661678,
+      "gap_mean_bias": -0.05595225601296654,
+      "cost": 0.5678431442977278,
+      "under_bikes": 0.08623112599729714,
+      "over_bikes": 0.13668751431124201,
+      "gap_quantile": 1.066619673411845
+    },
+    "h24_fm": {
+      "n": 222727,
+      "actual_gap": 1.0161632850979,
+      "predicted_mean_gap": 0.9656182582825612,
+      "gap_mean_abs": 0.1988123703569841,
+      "gap_median_abs": 0.1747744997238772,
+      "gap_fair_crps": 0.14754857428212054,
+      "gap_mean_bias": -0.050545026815338956,
+      "cost": 0.5698500855307169,
+      "under_bikes": 0.08690010640829356,
+      "over_bikes": 0.13534955348924918,
+      "gap_quantile": 1.0646127321788557
+    }
+  }
+}
