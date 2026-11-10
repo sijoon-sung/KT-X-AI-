@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0025-20261110-shortfall-cost",
+  "hypothesis_id": "H-0025",
+  "plan_sha256": "68b49b9595e70b3617a55ea788e53b59e1944e8c8543a1e455bea4346d3ed0a2",
+  "code_commit": "2286b3ec1d51cacb0cfb137ff49dcaf09622b4d5",
+  "report_code_commit": "d61880d6788c0ee9afd9f3d7a6fa6a7137fe9bef",
+  "input_manifest_sha256": "387c2c77a982dfae5aa38ca1e2da4329f3dcd7e23fef10ba847aeb2d74bc819b",
+  "started_at_utc": "2026-11-10T07:06:18.614411+00:00",
+  "finished_at_utc": "2026-11-10T07:15:44.807806+00:00",
+  "command": [
+    "python",
+    "research_code/shortfall_cost_evaluate.py",
+    "--h13",
+    "PRIVATE_FROZEN_H13",
+    "--h22",
+    "PRIVATE_FROZEN_H22",
+    "--h24",
+    "PRIVATE_FROZEN_H24",
+    "--panel",
+    "PRIVATE_OFFICIAL_API",
+    "--weather",
+    "PRIVATE_FIXED_WEATHER",
+    "--out",
+    "PRIVATE_H25_EVALUATION"
+  ],
+  "environment": {
+    "execution": "dislab",
+    "python": "3.12.10",
+    "torch": "2.7.1+cu118",
+    "numpy": "1.26.4",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "free_gpu_bytes": 9511632896,
+    "total_gpu_bytes": 10736893952,
+    "threads": 4,
+    "deterministic": true,
+    "tf32": false
+  },
+  "seed": [
+    11,
+    29,
+    20261125
+  ],
+  "evaluation_scope": "Reused September hourly-origin +10minute observed inventory gaps; not latent denied rentals or dispatch effect",
+  "metrics": {
+    "현재 양수 그룹 목표3대 부족량의 cu:co=5:1 비용, H24 FM 대 H24 Poisson": 0.5698500855307169,
+    "same_encoder_poisson_cost": 0.5678431442977278,
+    "primary_relative_reduction": -0.003534323260116601,
+    "valid_pairs": 409967,
+    "seconds": 566.1962605000008
+  },
+  "artifacts": [
+    {
+      "id": "all-conditions.csv",
+      "sha256": "6a1c5c85f4ba5ed16c37b6d39f19b27efe8f63424b6de2856f43cec87d8a2596",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/all-conditions.csv",
+      "raw_disLab_source_sha256": "aaeac872e2c589b4e5d953ab976a10fa8e4c3f1242ff5956d079ec6ca6656a8c",
+      "serialization": "Git-normalized LF; scientific content unchanged"
+    },
+    {
+      "id": "compact-result.json",
+      "sha256": "d4eb26094e71e31e65bc008a0eb0c52ef1ff712b8cc9926961a6da86a6256de0",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/compact-result.json"
+    },
+    {
+      "id": "completion-audit.json",
+      "sha256": "47bd8269d9d8c577de65677fca3f24d72b73951978174f31cd7e83ef9a754283",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/completion-audit.json"
+    },
+    {
+      "id": "derived-zero-brier.json",
+      "sha256": "1d50f20b38703a04f430119303ffddc2c01434b86940654eab6b79f73945eb66",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/derived-zero-brier.json"
+    },
+    {
+      "id": "execution-notes.json",
+      "sha256": "579ab14c61c1ef322a84b2af939bbc380605d2896d7b064fc5657df8f951c401",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/execution-notes.json"
+    },
+    {
+      "id": "exit-receipt.json",
+      "sha256": "fe74314c92608a724290b5cad746d343c51c237a4705484d3a24821aa44e156b",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/exit-receipt.json"
+    },
+    {
+      "id": "kernel-checks.json",
+      "sha256": "24f130cce4084d834fed9fe511ee906b20ee065659cf093a6844158a62f541c7",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/kernel-checks.json"
+    },
+    {
+      "id": "models-locked.json",
+      "sha256": "21e66dbde453275f198dda344b4db81820da9403f6c5453e28b4b544f713ae1d",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/models-locked.json"
+    },
+    {
+      "id": "results.json",
+      "sha256": "ab9b2c65943e819eab20d0aa259969a6a737a1b879a4867eb3aa0f8390be4074",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/results.json"
+    },
+    {
+      "id": "results.md",
+      "sha256": "363a7dd20b6d6806c2a3fd04a563e994f70df1b8e052bba79e44e8dc4be3123e",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/results.md",
+      "raw_disLab_source_sha256": "040a50a88237544591a0cd53e3e2b57916bdfca58ae356e21026855213a91383",
+      "serialization": "Git-normalized LF; scientific content unchanged"
+    },
+    {
+      "id": "secondary-comparisons.json",
+      "sha256": "717c48ce24702210af43cf7503363a4626f8f3e6b2567264484636271a9303aa",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/secondary-comparisons.json"
+    },
+    {
+      "id": "shortfall-main.png",
+      "sha256": "055c5c193b7ec28acee31de8df7bf3bd37bb5f81afbeb70957fc81d301dd6275",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/shortfall-main.png"
+    },
+    {
+      "id": "shortfall-main.svg",
+      "sha256": "488e44925b03d6ac1069d34d8fdbda5a38d7fc3159e6d46d5ad1b83cf3002bd6",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/shortfall-main.svg",
+      "raw_disLab_source_sha256": "5f050c499160fe5ea0e2e7a3b803bac465d086cacf8369bc0b5127f40da87274",
+      "serialization": "Line endings normalized to LF and trailing whitespace removed; token sequence and SVG geometry unchanged"
+    },
+    {
+      "id": "shortfall-sensitivity.png",
+      "sha256": "72589ef3ed848649f59d429ed239e1ca35a1da932320889793d2c4a6eac20c02",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/shortfall-sensitivity.png"
+    },
+    {
+      "id": "shortfall-sensitivity.svg",
+      "sha256": "3971756b55e6d58e8cbb4a33218c6b5e3975d631dc537f904d32944732206fca",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/shortfall-sensitivity.svg",
+      "raw_disLab_source_sha256": "8b557b311a23e54ccb300f43803059729b5fd1f60d833854837bf2ed2365c318",
+      "serialization": "Line endings normalized to LF and trailing whitespace removed; token sequence and SVG geometry unchanged"
+    },
+    {
+      "id": "start.json",
+      "sha256": "8cfb166fc3f0e2e81208a407553a14e89b93fbe20c6ab0af5a004d7c3ac0c9ab",
+      "availability": "research/runs/H-0025-20261110-shortfall-cost/start.json"
+    }
+  ],
+  "limitations": [
+    "Fixed target floors and cost ratios are assumptions, not operator-confirmed quantities",
+    "Inventory gap is not unobserved denied rental demand",
+    "No causal action simulation or relocation saving is measured",
+    "Only hourly September origins, not the full H13 cohort",
+    "Reused exposed September; no winner/threshold selection or calibration",
+    "Historical completed-flow input differs from API stock-change proxy; weather is lagged archive, not live feed",
+    "Nonnegative endpoint projection does not model event order, capacity or operator moves",
+    "Prespecified secondary inventory median MAE was not recorded for the hourly cohort; shortfall MAEs and primary costs were recorded. See execution-notes.json."
+  ],
+  "api_opened_for_external_scoring": true,
+  "api_selected": false,
+  "weights_updated": false,
+  "local_scientific_compute_performed": false,
+  "default_model_changed": false,
+  "completion_evidence": "research/runs/H-0025-20261110-shortfall-cost/completion-audit.json"
+}

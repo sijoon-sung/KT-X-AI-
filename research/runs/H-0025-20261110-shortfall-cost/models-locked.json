@@ -1,0 +1,21 @@
+{
+  "locked_at_utc": "2026-11-10T07:06:22.622734+00:00",
+  "model_lock_hashes": {
+    "h13": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+    "h22": "4d273f67aa47c56e4241b9fcf5f797040765914dc2ba28493787b5dee2881980",
+    "h24": "a916dbb9e70357b9d32856e77a0e70980e80e9e9b8b7b9ced2f338124d12d563"
+  },
+  "api_opened": false,
+  "costs": [
+    1,
+    2,
+    5,
+    10
+  ],
+  "targets": [
+    1,
+    3,
+    6
+  ],
+  "primary": "target3/cost5/current_positive/h24_fm vs h24_poisson"
+}
