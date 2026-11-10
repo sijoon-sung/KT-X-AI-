@@ -43,7 +43,7 @@ def fit_rate(c,kind,seed,source,out,vr,vn,vy):
         if ep:
             m.train();rr,ns=c.sample(seed,ep,524288)
             for b in range(0,len(rr),8192):
-                r,n=ix(c,rr[b:b+8192],ns[b:b+8192]);p=m.rate(c,r,n);y=truth(c,r,n);loss=(p-y*torch.log(p)).mean()
+                r,n=ix(c,rr[b:b+8192],ns[b:b+8192]);p=m.rate(c,r,n,'recent');y=truth(c,r,n);loss=(p-y*torch.log(p)).mean()
                 if not torch.isfinite(loss):raise ValueError('Nonfinite encoder loss')
                 opt.zero_grad();loss.backward();nn.utils.clip_grad_norm_(m.parameters(),1);opt.step()
         score=float(dev(vy,rates(c,m,vr,vn)).mean());trace.append({'epoch':ep,'validation_deviance':score})

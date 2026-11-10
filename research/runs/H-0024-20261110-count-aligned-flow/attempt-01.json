@@ -1,0 +1,16 @@
+{
+  "hypothesis_id": "H-0024",
+  "attempt": 1,
+  "code_commit": "537b045123f221bf23aa6c20156c0399ef5cf37c",
+  "started_at_utc": "2026-11-09T17:24:59.272893+00:00",
+  "finished_at_utc": null,
+  "status": "failed_before_first_fitted_checkpoint",
+  "completed_kernel_checks": 5,
+  "fitted_checkpoints_written": 0,
+  "api_opened": false,
+  "diagnosis": "The full-retrain training call omitted the required kind argument to MemoryForecaster.rate. A dislab CPU interface probe reproduced TypeError: missing1required positional argument kind.",
+  "exception_capture_limit": "PowerShell Stop preference intercepted the first Python stderr line. The original complete traceback was not captured; a separate interface probe established the missing-argument error.",
+  "correction": "Pass the predeclared recent kind explicitly. Capture stdout and stderr in separate files for the next attempt. Preserve the first output directory unchanged.",
+  "plan_changed": false,
+  "hyperparameters_or_selection_changed": false
+}
