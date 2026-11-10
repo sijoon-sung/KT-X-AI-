@@ -93,7 +93,7 @@ def evidence(raw,question=''):
         for i,s in enumerate(plan.get('stops',[])[:12],1):
             if s.get('action') not in ('pickup','deliver'):raise ValueError('작업 종류가 올바르지 않습니다.')
             action='싣기' if s['action']=='pickup' else '내려놓기'
-            add('route.'+str(i),f"방문 순서 {i}: {clean(s.get('name',s.get('id','대여소')))}, {number(s['bikes']):g}대 {action}.")
+            add('route.'+str(i),f"방문 순서 {i}: {clean(s.get('name',s.get('id','대여소')))}, {number(s['bikes']):g}대 {action}.",bikes=number(s['bikes']))
     elif stations:add('plan.none','계산된 이동 계획은 아직 없습니다. 배치 대수를 확정해서 말할 수 없습니다.')
     else:add('data.none','예측 자료와 이동 계획이 아직 없습니다. 대여소 상태나 이동 수량을 알 수 없습니다.')
     if len(json.dumps(facts,ensure_ascii=False))>6000:raise ValueError('요약 자료가 너무 깁니다.')
@@ -115,8 +115,14 @@ def validate_answer(raw,pack):
     source=' '.join(x['text'] for x in pack['facts'] if x['id'] in ids)
     if re.search(r'[\u4e00-\u9fff]',text) and not re.search(r'[\u4e00-\u9fff]',source):raise ValueError('자료에 없는 한자 표기')
     # Compare numeric values, accepting harmless trailing zeros, not novel arithmetic.
-    numbers={float(x) for x in re.findall(number_re,source)}
+    numerical_facts=[x for x in pack['facts'] if x['id'] in ids and x['id']!='source']
+    numeric_source=' '.join(x['text'] for x in numerical_facts) if numerical_facts else source
+    numbers={float(x) for x in re.findall(number_re,numeric_source)}
     if any(float(x) not in numbers for x in re.findall(number_re,text)):raise ValueError('근거에 없는 숫자')
+    routes=[x for x in numerical_facts if x['id'].startswith('route.')]
+    if len(routes)==1:
+        if any(float(x)!=routes[0]['bikes'] for x in re.findall(r'(\d+(?:\.\d+)?)\s*대',text)):
+            raise ValueError('이동 수량이 계획과 다릅니다.')
     return {'answer':text,'evidence_ids':ids}
 
 def focus(pack,question):
@@ -134,7 +140,7 @@ def focus(pack,question):
         routes=[x for x in facts if x['id'].startswith('route.')]
         matched=[x for x in routes if x['text'].split(': ',1)[-1].split(',')[0] in question]
         if not matched and any(w in question for w in ('내려','채우')):routes=[x for x in routes if '내려놓기' in x['text']]
-        chosen=matched+station if matched else station+routes
+        chosen=matched if matched else routes
     elif station:chosen=station
     elif any(w in question for w in ('몇 대','몇대','거리','시간','총')):
         chosen=[x for x in facts if x['id']=='plan.total']
