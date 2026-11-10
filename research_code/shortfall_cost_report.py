@@ -67,10 +67,11 @@ def render(a):
     for ax,target in zip(axes,TARGETS):
         for k,color in zip(MODELS,COLORS):
             ax.plot(COSTS,[row(k,target,c)['cost'] for c in COSTS],marker='o',lw=1.5,color=color,label=NAMES[k])
-        ax.set_title(f'Assumed target = {target} bikes',loc='left',fontweight='bold');ax.set_xticks(COSTS);ax.set_xlabel('Underprediction cost (overprediction = 1)');ax.grid(alpha=.15)
+        ax.set_title(f'Assumed target = {target} '+('bike' if target==1 else 'bikes'),loc='left',fontweight='bold');ax.set_xticks(COSTS);ax.set_xlabel('Underprediction cost (overprediction = 1)');ax.grid(alpha=.15)
     axes[0].set_ylabel('Assumed forecast cost / valid origin')
     handles,labels=axes[0].get_legend_handles_labels();fig.legend(handles,labels,loc='lower center',ncol=3,frameon=False,bbox_to_anchor=(.5,.01))
     fig.suptitle('Sensitivity to target inventory and asymmetric cost',x=.02,ha='left',fontsize=14,fontweight='bold')
+    fig.text(.02,.91,'Current stock > 0 | hourly September origins, +10 min | target and cost values are assumptions',fontsize=9,color='#536273')
     fig.subplots_adjust(bottom=.31,top=.83,wspace=.28);save(fig,'shortfall-sensitivity')
 
     lines=['# H-0025: 재고 부족량과 비대칭 비용','','## 가설','',
