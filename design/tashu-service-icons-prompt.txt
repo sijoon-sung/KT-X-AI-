@@ -1,0 +1,20 @@
+Use case: infographic-diagram.
+Create a NEW polished Korean service composition infographic for a public bike redistribution service named 타슈. The user wants recognizable ICONS and pictures, not another neural network architecture, not four boxes filled with prose. This is a main visual for a nontechnical competition presentation and IR deck.
+
+Wide landscape 16:9, clean white background, large legible Korean typography, ample empty space, navy and teal with modest orange accents. Consistent professional editorial vector-style / soft isometric pictograms, crisp edges, no photorealism. Big bicycle-rack, weather, database, server, city-map, operator-at-monitor, small redistribution-truck, and chat-assistant icons. Pictograms carry most of the meaning; very short labels only. No long disclaimer, no formulas, no dense technical diagram, no invented performance numbers, no logos from unrelated services.
+
+Top title EXACT: "타슈 운영 도우미"
+Subtitle EXACT: "부족할 곳을 미리 보고, 필요한 곳에 자전거를 옮깁니다"
+
+Main upper flow must read clearly left to right in four spacious visual zones, with prominent teal arrows and small numbered circles 1–4:
+1 "자료 확인": a large bicycle parking-rack icon (some bicycles), a simple history/database icon and a sun-cloud-clock icon. Short subordinate labels only: "대여소 재고", "이용 기록", "날씨·시간".
+2 "10분 뒤 예측": a server/AI icon visually paired with a clock and an empty bicycle rack; communicates anticipating shortage. One small technology line only: "GCN · 포아송 · Flow Matching". DO NOT draw a Poisson-to-FM training source or neural layer details.
+3 "재배치 계획": a large illustrated city map with clearly distinct pickup and delivery pins, a connected street route and a small bicycle-carrying truck. Short labels: "어디에", "몇 대", "어떤 순서로". Under the map in small text: "차량 적재량·출발 위치·작업 시간".
+4 "담당자 확인·이동": a recognizable human operator looking at a dispatch monitor, then a redistribution truck and a bicycle rack being replenished. Clearly show the human confirms the plan and the truck performs relocation. Don't imply autonomous actual dispatch.
+
+Lower central support zone: a large friendly but professional chat bubble/assistant pictogram, labelled EXACT "질문에 답하는 AI". Under it a small label "외부 LLM". Speech bubble EXACT "어디부터 채울까?" and a second short answer bubble EXACT "이동 대수와 순서를 알려드려요".
+Use thin clear arrows from BOTH the forecast zone and relocation-plan zone down to this assistant, and one arrow from the assistant toward the operator. This assistant explains computed results; it does not generate bicycle forecasts or execute relocation. Avoid crossing lines or covering any text.
+
+One unobtrusive curved feedback arrow around the bottom from the replenished station back to the data zone. Its short label EXACT "새 재고로 다시 계산". This represents updating observations and rerunning a FIXED forecast, not retraining model weights.
+Footer, if space permits, one short sentence only: "예측 → 이동 계획 → 담당자 확인". Keep all text large and free of typos.
+All visual hierarchy should be understandable at a glance on a projected slide. No heavy outer frame, no dashboard card grid, no long paragraphs.

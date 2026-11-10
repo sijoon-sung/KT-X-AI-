@@ -8,7 +8,7 @@ from antigravity_transport import generate
 def remote(config,value):
     q=lambda s:"'"+str(s).replace("'","''")+"'"
     data=base64.b64encode(json.dumps(value,ensure_ascii=False).encode()).decode()
-    script="$ErrorActionPreference='Stop';[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false);$env:PYTHONUTF8='1';"
+    script="$ErrorActionPreference='Stop';[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false);$OutputEncoding=[Text.UTF8Encoding]::new($false);$env:PYTHONUTF8='1';"
     script+="$body=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('"+data+"'));Set-Location "+q(config['remote_repo'])+";"
     script+="$body | & "+q(config['remote_python'])+" -X utf8 runtime/external_assistant.py --config "+q(config['remote_config'])+";exit $LASTEXITCODE"
     encoded=base64.b64encode(script.encode('utf-16le')).decode()
