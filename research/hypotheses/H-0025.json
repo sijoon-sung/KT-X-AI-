@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "H-0025",
+  "title": "고정 모델의 재고 부족량·비대칭 비용 평가",
+  "status": "preregistered",
+  "plan": {
+    "question": "동결 모델을 재고 부족량과 부족을 적게 예측한 비용으로 평가하면 어떤 차이가 있는가?",
+    "hypothesis": "H24 포아송 출발 FM이 같은 encoder 포아송보다 현재 양수 대여소의 목표3대 부족량에 대한5:1 비대칭 비용을1% 이상 줄이고3일·7일95% paired block 구간 하한이 양수다. 실제 미충족 수요 인원이나 행동 효과를 주장하지 않는다.",
+    "prior_art": [
+      {
+        "title": "Predictive and Prescriptive Performance of Bike-Sharing Demand Forecasts for Inventory Management",
+        "url": "https://arxiv.org/abs/2108.00858",
+        "verified_scope": "저자 초록: 예측 정확도와 재고 의사결정 성능이 일치하지 않을 수 있음을 명시. 본 연구는 원문 UDF 재현이 아님.",
+        "difference_to_test": "고정 예측 분포의 재고 목표 부족량과 비대칭 손실을 비교한다."
+      },
+      {
+        "title": "Estimating Latent Demand of Shared Mobility through Censored Gaussian Processes",
+        "url": "https://arxiv.org/abs/2001.07402",
+        "verified_scope": "저자 초록의 공급 제약에 의한 관측 수요 검열. 실제 잠재 수요를 완료 거래로 대체할 수 없음.",
+        "difference_to_test": "잠재 미충족 수요를 정답으로 만들지 않고 관측 재고의 목표 대비 부족량만 채점한다."
+      },
+      {
+        "title": "scikit-learn mean_pinball_loss",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_pinball_loss.html",
+        "verified_scope": "분위수 손실 alpha에 따른 비대칭 벌점과 목표 분위수 설명.",
+        "difference_to_test": "비용 cu:co에서 alpha=cu/(cu+co),정수 경험분포 일반화 역CDF로 부족량 점출력을 정한다."
+      }
+    ],
+    "data": {
+      "dataset_id": "H25-frozen-shortfall-v1",
+      "observed_truth": "2026-09-17~30 유효 시점 API 표시재고. 부족량 Z_b=max(0,b-미래표시재고)는 고정 운영 목표에 상대적인 파생 정답이다.",
+      "not_observed": [
+        "대여 시도·포기·실제 미충족 수요 인원",
+        "실제 적정 재고 목표 및 부족/과잉 단가",
+        "재배치 행동에 따른 반사실 재고·거리·효과",
+        "3월 실제 재고",
+        "API 표시와 실제 이용 가능 자전거의 차이"
+      ],
+      "input_manifest_sha256": "387c2c77a982dfae5aa38ca1e2da4329f3dcd7e23fef10ba847aeb2d74bc819b"
+    },
+    "evaluation": {
+      "design": "새 학습 없음. H13/H22/H24의 잠긴 가중치·입력을 유지한 시간순 외부 재생. 원점은 KST 정각만, 목표는+10분. 직전10분/현재만 입력하고 미래 유효성은 발행 뒤 채점에서만 적용. API는 선택·튜닝·보정에 사용하지 않음. 기존 반복 노출을 밝히며 독립 시험으로 부르지 않음.",
+      "periods": [
+        {
+          "role": "historical_weight_training",
+          "start": "2024-08-01",
+          "end": "2026-02-01"
+        },
+        {
+          "role": "historical_selection_already_locked",
+          "start": "2026-02-01",
+          "end": "2026-03-01"
+        },
+        {
+          "role": "reused_official_API_external_evaluation",
+          "start": "2026-09-01",
+          "end": "2026-10-01"
+        }
+      ],
+      "baselines": [
+        "현재 유지",
+        "H13 recent-GCN Poisson",
+        "H13 recent-GCN Gaussian FM",
+        "H22 GCN Poisson",
+        "H22 GCN Gaussian FM",
+        "H24 LocalMLP Poisson",
+        "H24 LocalMLP Poisson-start FM"
+      ],
+      "primary_metric": {
+        "name": "현재 양수 그룹 목표3대 부족량의 cu:co=5:1 비용, H24 FM 대 H24 Poisson",
+        "direction": "lower",
+        "unit": "assumed cost units per valid station-origin"
+      },
+      "success_rule": "주비교 상대감소>=1%,3/7일 paired block95%하한 모두>0, FM의 평균 부족량 과소예측량이 포아송 이하, 유효쌍>=10000·양수쌍>=5000·대여소>=500·유효일>=10일일 때 supported. 모델 채택/기본 교체는 하지 않음.",
+      "failure_rule": "자료 충분 조건 미달이면 inconclusive. 충분하나 점개선<1% 또는 과소예측량 guard 실패면 not_supported. 점개선>=1%이나 구간이0을 포함하면 inconclusive. API 순위로 모델·분포·비용·목표를 재선택하지 않음.",
+      "exclusion_rule": "H13 현재/미래 유효성:유한 비음수 정수 재고, 수집지연0~120초, 실제 경과480~720초, 같은 고정ID. 누락은0대가 아님. H13/H22/H24 IDs와 역사 맥락 해시 일치 필수. 현재0대도 제외하지 않고 별도 보고. 발행일/목표일 모두9월. 원점 KST정각, 미래 정답으로 원점/모델 선택하지 않음.",
+      "uncertainty_plan": "9/17~30의14개 도시 동기화 calendar day, 빈날 포함. paired moving blocks3/7일,20000회,ratio of summed costs. 시드20261125. 한 주비교만 확인적; 다른 모델/그룹/목표/비용 표는 기술적 결과이고 승자 선택에 쓰지 않음.",
+      "seed_plan": "원 가중치 시드11/29 고정. H13/H22 원 IID128/Heun16 구현·시드 유지. H24 IID128(seed20261125+scheduled//600),학습 epoch20/15 모두 활성,Heun16. 불확실성은 고정된 학습·MC 규칙에 조건부.",
+      "shortfall_definition": "목표 b in[1,3,6]은 운영 미확인 가정. Z_b=max(0,b-stock). 분포는 모든 재고 입자에 같은 변환. cu in[1,2,5,10],co=1. Q는128개 정렬 입자의 ceil(128*cu/(cu+co))-1번째 값. 비용 cu*max(0,Z-Q)+max(0,Q-Z). 이 점출력은 부족량의 분위수이며 실제 배치량/행동 효과가 아니다.",
+      "secondary_metrics": "목표별 mean actual/predicted gap,mean/median gap MAE,fairCRPS,mean bias;비용별 비용/부족량 과소예측량/과대예측량. all/current_zero/current_positive/current1_2/current3plus 및 미래 부족량0/1/2/3plus 그룹(후자는 사후 진단). 보조0대Brier/재고MAE. 모든 조건을 보고하고 유리한 조건만 선택하지 않음.",
+      "runtime_contract": "H24는 H13과 같은 고정 역사 prior와 달력/시차기상/직전API순재고변화 대리입력을 사용해 건수입자를 생성. 재고=max(0,current+return-rental),H13/H22와 같은 경계. 대리입력은 완료거래 입력과 동일하지 않으며 상태전이/운영이동 미관측 한계. 재고 초기상태/직전API는 검증 입력으로만 사용하고 미래API는 정답 전용.",
+      "execution": "dislab RTX3080 10GB,확인된 free8311MiB.4threads,FP32,TF32off,deterministic,.55GPUmemory,45min wall budget.학습 없음.모든 추론/통계/합성검사/그림은dislab.로컬은 편집/전송/해시/프로토콜검사/그림열람만.",
+      "integrity_checks": "계획/입력manifest/원모델lock/모든가중치/동일context/33개기상/APIpanel 해시 확인. 부족량 변환·비대칭손실·경험분위수의 작은 수작업 정답 검사. 발행해시를 채점 전 기록하고 미래 값을 예측에 전달하지 않음. 실패/중단을 보존하고 재실행 폴더를 덮어쓰지 않음."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "68b49b9595e70b3617a55ea788e53b59e1944e8c8543a1e455bea4346d3ed0a2",
+    "frozen_at_utc": "2026-11-10T07:03:56.462330+00:00"
+  },
+  "result": null,
+  "withdrawal_reason": null
+}
