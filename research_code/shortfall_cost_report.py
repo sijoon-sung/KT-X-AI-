@@ -19,6 +19,25 @@ def render(a):
     result=json.loads((src/'results.json').read_text(encoding='utf-8'));m=result['metrics']
     def row(k,target=3,cu=5,group='current_positive'):
         return m[f'target{target}/cost{cu}/{group}/{k}']
+    # For integer inventory, target1 gap is exactly the zero-inventory indicator.
+    # Standard Brier = (M-1)/M * fairBrier + mean|p-z|/M, M=128.
+    # This recovers the prespecified secondary score from aggregate sufficient statistics.
+    toy=np.array([[0,0,1,1],[1,1,1,1]],float);ty=np.array([1,0.])
+    from rolling_inventory_metrics import scores
+    ts=scores(toy,ty)
+    assert np.allclose(.75*ts['fair_crps']+np.abs(toy.mean(1)-ty)/4,ts['brier'],atol=1e-12)
+    zero={}
+    for group in ('all','current_zero','current_positive','current1_2','current3plus'):
+        zero[group]={}
+        for k in MODELS:
+            r=row(k,1,1,group)
+            zero[group][k]={'n':r['n'],'brier':127/128*r['gap_fair_crps']+r['gap_mean_abs']/128,
+                            'fair_brier':r['gap_fair_crps']}
+    (out/'derived-zero-brier.json').write_text(json.dumps({'identity_hand_check':True,'method':'target1 gap equals zero-inventory indicator; standard Brier recovered from fairCRPS and mean absolute probability error','groups':zero},indent=2)+'\n',encoding='utf-8')
+    notes={'unrecorded_secondary_metrics':['Inventory median MAE for this hourly-origin cohort'],
+           'reason':'Initial evaluator recorded shortfall mean/median MAE but omitted uncapped inventory median MAE. It cannot be recovered from the capped gap aggregates. This omission is preserved, not silently replaced with the old full-cohort MAE.',
+           'primary_metrics_affected':False,'frozen_plan_changed':False,'new_model_selection':False}
+    (out/'execution-notes.json').write_text(json.dumps(notes,indent=2)+'\n',encoding='utf-8')
     def save(fig,name):
         fig.savefig(out/f'{name}.png',dpi=170,bbox_inches='tight',facecolor='white')
         fig.savefig(out/f'{name}.svg',bbox_inches='tight',facecolor='white');plt.close(fig)
@@ -66,6 +85,7 @@ def render(a):
     for group in ('all','current_zero','current_positive','current1_2','current3plus'):
         lines.append('| '+group+f" | {row('persistence',group=group)['n']:,} | "+' | '.join(f"{row(k,group=group)['cost']:.6f}" for k in MODELS)+' |')
     lines+=['','### 해석 범위와 다음 행동','',
+            '보조 0대 Brier는 목표 1대 부족량이 재고 0대 지시값과 같다는 관계로 집계값에서 정확히 복원했다. 수작업 예제 검사를 통과했다. 같은 정각 표본의 재고 중앙값 MAE는 초기 집계에서 누락되어 미집계로 남겼다. 기존 전체 표본 MAE를 대신 붙이지 않았다. 부족량 MAE와 주지표는 집계했다.','',
             '목표 대비 몇 대가 부족한지를 채점했다. 실제 대여 시도·포기 기록이 없으므로 미충족 수요 인원, 품절 때문에 사라진 거래량, 운영자가 옮긴 뒤의 개선을 측정한 결과로 읽지 않는다. 부족량 분위수는 비용 가정에 맞춘 예측 출력이며 실제 배차 권고량이 아니다.','',
             'API 점수로 승자·분포·목표·비용 비율을 다시 고르지 않았다. 순위는 이번 고정 조건의 기술적 비교이며 기본 H13·관리자는 유지한다. 실제 운영 의사결정에는 목표 재고의 근거와 운영 단가, 동일 기간의 거래·재고·개입 로그가 필요하다.','',
             '다음 행동은 모델 용량이나 특징을 늘리기보다 재고 목표·부족 비용의 운영 근거와 미충족 수요 관측 가능성을 확인하는 것이다. 새 학습이 필요하면 과거 이력 안에서 별도 가설로 손실을 고정하고, API는 외부 검증으로 유지한다.']
