@@ -1,0 +1,37 @@
+{
+  "hypothesis_id": "H-0024",
+  "encoder_kind": "compact_local",
+  "flow_kind": "poisson_continuous",
+  "selection": "score",
+  "seeds": [
+    11,
+    29
+  ],
+  "flow_epochs": [
+    20,
+    15
+  ],
+  "flow_active": [
+    true,
+    true
+  ],
+  "weight_files": [
+    "encoder-compact_local-11.pt",
+    "encoder-compact_local-29.pt",
+    "flow-poisson_continuous-score-11.pt",
+    "flow-poisson_continuous-score-29.pt"
+  ],
+  "selected_checkpoint_bytes": 791884,
+  "total_selected_parameters": 194056,
+  "encoder_parameter_reduction": 0.8542832096164883,
+  "weather_dimensions": 54,
+  "station_context_width": 128,
+  "particles": 128,
+  "source": "conditional Poisson",
+  "solver": "Heun16",
+  "epoch0_semantics": "direct Poisson bypass,not learned FM",
+  "weights_publication": "private checkpoints identified by pre-test-lock.json,not rawGit",
+  "static_historical_context_included_in_weight_size": false,
+  "serving_integration": "Research candidate; existing runtime not replaced and API inference not executed",
+  "numerical_training_commit": "1066b3ed06269765f827f256141db6d572d758f4"
+}

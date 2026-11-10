@@ -1,0 +1,28 @@
+{
+  "selected_vs_same_encoder_gaussian_mse": {
+    "3": [
+      0.016735502929868015,
+      0.03186344193468834
+    ],
+    "7": [
+      0.01654163235287147,
+      0.03204583793114163
+    ],
+    "relative_reduction": 0.026180944430175157
+  },
+  "selected_vs_frozen_h13_gaussian": {
+    "3": [
+      0.011751231378841376,
+      0.027317661992278815
+    ],
+    "7": [
+      0.011425788784120155,
+      0.027519412374149965
+    ],
+    "relative_reduction": 0.020926620490213876
+  },
+  "compact_vs_full_retrain_mae_relative_increase": 0.007266310206818671,
+  "compact_vs_full_retrain_deviance_relative_increase": 0.00029957669042657287,
+  "light_graph_vs_frozen_h13_mae_relative_reduction": 0.01575595537227381,
+  "scope": "Derived paired comparisons of preregistered outputs; no new selection or model fit."
+}

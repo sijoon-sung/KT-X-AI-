@@ -1,0 +1,7 @@
+{
+  "poisson_dequant_integer_roundtrip": true,
+  "bridge_both_endpoints": true,
+  "zero_death_at_zero": true,
+  "initial_birth_equals_poisson_rate": true,
+  "generated_counts_nonnegative_integers": true
+}

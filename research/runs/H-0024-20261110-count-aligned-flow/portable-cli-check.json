@@ -1,0 +1,15 @@
+{
+  "synthetic_demo": true,
+  "cli_exit_code": 0,
+  "mean_rate_shape": [
+    8,
+    2
+  ],
+  "count_sample_shape": [
+    8,
+    128,
+    2
+  ],
+  "api_used": false,
+  "real_accuracy_evaluated": false
+}

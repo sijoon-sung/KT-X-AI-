@@ -1,5 +1,7 @@
 # 연구 방향 결정 기록
 
+2026-11-10 [H-0024 소형 encoder·건수 정합 FM](H-0024-count-aligned-flow.md): 기상 유지 LocalMLP128을 선택해 rate 파라미터85.43%를 줄였다. 포아송 출발 연속FM은 같은 작은encoder의 Gaussian-MSE 경로보다 energy2.618% 감소했지만 포아송 대비0.039%와 구간0포함으로 주가설을 지지하지 않았다. 활성 FM 두 시드와 실행 묶음을 보존했고 CPU/CUDA 일치·CLI 검사를 통과했다. 경량GCN의 MAE 이득은 별도 결과이며 3월을 본 뒤 후보를 바꾸지 않았다. API와 배포H13은 유지한다. 아래는 이전 결정 기록이다.
+
 기준일: 2026-10-31. [연구 프로그램](research-program.md)의 큰 선택을 추적한다.
 최신 자료 사용은 [과거 이력 학습·API 검증 전용 계약](training-validation-contract.md)을 우선한다.
 공식 재고 평가는 [9월 API](september-evaluation-contract.md)다. 2·3월에는 실측 재고·품절 정답이 없다.

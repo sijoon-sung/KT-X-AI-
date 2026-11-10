@@ -1,0 +1,428 @@
+{
+  "hypothesis_id": "H-0024",
+  "code_commit": "1066b3ed06269765f827f256141db6d572d758f4",
+  "primary": {
+    "decision": "not_supported",
+    "encoder_compact_eligible": true,
+    "selected_flow_active": true,
+    "median_mae_guard": true,
+    "3": [
+      -0.002912037131910217,
+      0.0028404494704478847
+    ],
+    "7": [
+      -0.002339801634186023,
+      0.002651979025346919
+    ],
+    "relative_reduction": 0.000394600097740061
+  },
+  "selected_encoder": "compact_local",
+  "encoder_parameter_reduction": 0.8542832096164883,
+  "selected_fm": "poisson_continuous_score",
+  "flow_choices": {
+    "gaussian_score": {
+      "epochs": [
+        15,
+        5
+      ],
+      "active": [
+        true,
+        true
+      ],
+      "kind": "gaussian"
+    },
+    "gaussian_mse": {
+      "epochs": [
+        17,
+        20
+      ],
+      "active": [
+        true,
+        true
+      ],
+      "kind": "gaussian"
+    },
+    "poisson_continuous_score": {
+      "epochs": [
+        20,
+        15
+      ],
+      "active": [
+        true,
+        true
+      ],
+      "kind": "poisson_continuous"
+    },
+    "count_jump_score": {
+      "epochs": [
+        0,
+        5
+      ],
+      "active": [
+        false,
+        true
+      ],
+      "kind": "count_jump"
+    }
+  },
+  "mean_scores": {
+    "full_retrain": {
+      "deviance": 0.39281614073752374,
+      "mean_count_mae": 0.14359955489635468,
+      "parameters_per_seed": 317122
+    },
+    "compact_local": {
+      "deviance": 0.39293381929691207,
+      "mean_count_mae": 0.14464299380779266,
+      "parameters_per_seed": 46210
+    },
+    "compact_graph": {
+      "deviance": 0.3984803126620631,
+      "mean_count_mae": 0.1409897655248642,
+      "parameters_per_seed": 47234
+    },
+    "compact_profile": {
+      "deviance": 0.39648109545797094,
+      "mean_count_mae": 0.14401021599769592,
+      "parameters_per_seed": 116674
+    },
+    "frozen_h13": {
+      "deviance": 0.39246077483609515,
+      "mean_count_mae": 0.14324675500392914,
+      "parameters_per_seed": 317122
+    }
+  },
+  "distributions": {
+    "poisson": {
+      "energy": 0.15517196793270369,
+      "fair_channel_crps": 0.08675169944763184,
+      "median_count_mae": 0.10506439208984375,
+      "zero_count_brier": 0.06538295932114124,
+      "predicted_zero_fraction": 0.9309439659118652,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        -0.024414539337158203,
+        -0.025973796844482422
+      ],
+      "negative_continuous_raw_fraction": 0.0,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 1.659436399990227
+    },
+    "gaussian_score": {
+      "energy": 0.15893762153720253,
+      "fair_channel_crps": 0.0883171558380127,
+      "median_count_mae": 0.10547637939453125,
+      "zero_count_brier": 0.06704430840909481,
+      "predicted_zero_fraction": 0.8894879817962646,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        0.013416767120361328,
+        0.013217687606811523
+      ],
+      "negative_continuous_raw_fraction": 0.027327299118041992,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 8.926426099991659
+    },
+    "gaussian_mse": {
+      "energy": 0.1592808604142879,
+      "fair_channel_crps": 0.08837223052978516,
+      "median_count_mae": 0.1054840087890625,
+      "zero_count_brier": 0.06752100773155689,
+      "predicted_zero_fraction": 0.8786070346832275,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        0.027456283569335938,
+        0.030750274658203125
+      ],
+      "negative_continuous_raw_fraction": 0.027516484260559082,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 9.08314590001828
+    },
+    "poisson_continuous_score": {
+      "energy": 0.15511073705899092,
+      "fair_channel_crps": 0.08669090270996094,
+      "median_count_mae": 0.104827880859375,
+      "zero_count_brier": 0.06545569468289614,
+      "predicted_zero_fraction": 0.9300483465194702,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        -0.01812887191772461,
+        -0.028734445571899414
+      ],
+      "negative_continuous_raw_fraction": 0.008933544158935547,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 9.245380500011379
+    },
+    "count_jump_score": {
+      "energy": 0.1550551523069878,
+      "fair_channel_crps": 0.08667659759521484,
+      "median_count_mae": 0.10516357421875,
+      "zero_count_brier": 0.0653736088424921,
+      "predicted_zero_fraction": 0.9319131374359131,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        -0.023372411727905273,
+        -0.02497696876525879
+      ],
+      "negative_continuous_raw_fraction": 0.0,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 19.436687899986282
+    },
+    "frozen_h13_poisson": {
+      "energy": 0.1550425705834565,
+      "fair_channel_crps": 0.0867304801940918,
+      "median_count_mae": 0.1051177978515625,
+      "zero_count_brier": 0.0652621891349554,
+      "predicted_zero_fraction": 0.9325547218322754,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        -0.026957273483276367,
+        -0.028377532958984375
+      ],
+      "negative_continuous_raw_fraction": 0.0,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 1.4540109999943525
+    },
+    "frozen_h13_gaussian": {
+      "energy": 0.1584260590729712,
+      "fair_channel_crps": 0.08791613578796387,
+      "median_count_mae": 0.1048736572265625,
+      "zero_count_brier": 0.06718508526682854,
+      "predicted_zero_fraction": 0.8780765533447266,
+      "observed_zero_fraction": 0.917144775390625,
+      "mean_count_bias": [
+        0.030050039291381836,
+        0.0307157039642334
+      ],
+      "negative_continuous_raw_fraction": 0.02770555019378662,
+      "nonnegative_integer_outputs": true,
+      "examples": 32768,
+      "particles": 128,
+      "seconds": 9.376558299991302
+    }
+  },
+  "comparisons": {
+    "gaussian_score": {
+      "3": [
+        -0.02832960353674007,
+        -0.018636605516187316
+      ],
+      "7": [
+        -0.028064644426739893,
+        -0.018405371641277292
+      ],
+      "relative_reduction": -0.02426761517990128
+    },
+    "gaussian_mse": {
+      "3": [
+        -0.030878599808111203,
+        -0.019145088422809865
+      ],
+      "7": [
+        -0.03063581336789118,
+        -0.01901112016615479
+      ],
+      "relative_reduction": -0.02647960541021277
+    },
+    "poisson_continuous_score": {
+      "3": [
+        -0.002912037131910217,
+        0.0028404494704478847
+      ],
+      "7": [
+        -0.002339801634186023,
+        0.002651979025346919
+      ],
+      "relative_reduction": 0.000394600097740061
+    },
+    "count_jump_score": {
+      "3": [
+        -0.00040418697632191303,
+        0.0016246262914522936
+      ],
+      "7": [
+        -0.00031153341910690745,
+        0.0010158281168649442
+      ],
+      "relative_reduction": 0.0007528139732467798
+    },
+    "frozen_h13_poisson": {
+      "3": [
+        -0.0020612489192930574,
+        0.002214967279886738
+      ],
+      "7": [
+        -0.00098052540436398,
+        0.0019271549138677258
+      ],
+      "relative_reduction": 0.000833896424535685
+    },
+    "frozen_h13_gaussian": {
+      "3": [
+        -0.02604591467832505,
+        -0.01394873073859914
+      ],
+      "7": [
+        -0.025931517545078518,
+        -0.013812458731622295
+      ],
+      "relative_reduction": -0.02097086982668661
+    },
+    "gaussian_score_vs_mse": {
+      "3": [
+        -0.0005472673682100249,
+        0.0032984247094001214
+      ],
+      "7": [
+        7.519894066011227e-05,
+        0.003280096019392672
+      ],
+      "relative_reduction": 0.0021549285720369182
+    }
+  },
+  "solver_diagnostics": {
+    "gaussian_mse": {
+      "extra_steps": 64,
+      "extra": {
+        "energy": 0.15449084105194583,
+        "fair_channel_crps": 0.08541011810302734,
+        "median_count_mae": 0.101470947265625,
+        "zero_count_brier": 0.0652865432202816,
+        "predicted_zero_fraction": 0.8793644905090332,
+        "observed_zero_fraction": 0.91937255859375,
+        "mean_count_bias": [
+          0.031238555908203125,
+          0.03155040740966797
+        ],
+        "negative_continuous_raw_fraction": 0.02702045440673828,
+        "nonnegative_integer_outputs": true,
+        "examples": 8192,
+        "particles": 128,
+        "seconds": 7.74397070001578
+      },
+      "primary_steps_same_prefix": {
+        "energy": 0.15462807397498826,
+        "fair_channel_crps": 0.08546924591064453,
+        "median_count_mae": 0.101470947265625,
+        "zero_count_brier": 0.06534956395626068,
+        "predicted_zero_fraction": 0.8786411285400391,
+        "observed_zero_fraction": 0.91937255859375,
+        "mean_count_bias": [
+          0.03203105926513672,
+          0.03233909606933594
+        ],
+        "negative_continuous_raw_fraction": 0.027667522430419922,
+        "nonnegative_integer_outputs": true,
+        "examples": 8192,
+        "particles": 128,
+        "seconds": 2.2415119000070263
+      },
+      "selected_from_test": false
+    },
+    "count_jump_score": {
+      "extra_steps": 256,
+      "extra": {
+        "energy": 0.14930364934149853,
+        "fair_channel_crps": 0.08328533172607422,
+        "median_count_mae": 0.1011962890625,
+        "zero_count_brier": 0.06260981783270836,
+        "predicted_zero_fraction": 0.9320616722106934,
+        "observed_zero_fraction": 0.91937255859375,
+        "mean_count_bias": [
+          -0.01925945281982422,
+          -0.022701263427734375
+        ],
+        "negative_continuous_raw_fraction": 0.0,
+        "nonnegative_integer_outputs": true,
+        "examples": 8192,
+        "particles": 128,
+        "seconds": 18.620450799993705
+      },
+      "primary_steps_same_prefix": {
+        "energy": 0.14914860556796217,
+        "fair_channel_crps": 0.08316421508789062,
+        "median_count_mae": 0.101104736328125,
+        "zero_count_brier": 0.06251626461744308,
+        "predicted_zero_fraction": 0.9320888519287109,
+        "observed_zero_fraction": 0.91937255859375,
+        "mean_count_bias": [
+          -0.01946735382080078,
+          -0.022787094116210938
+        ],
+        "negative_continuous_raw_fraction": 0.0,
+        "nonnegative_integer_outputs": true,
+        "examples": 8192,
+        "particles": 128,
+        "seconds": 4.683235500007868
+      },
+      "selected_from_test": false
+    }
+  },
+  "seconds": 352.06576779999887,
+  "kernel_checks": {
+    "poisson_dequant_integer_roundtrip": true,
+    "bridge_both_endpoints": true,
+    "zero_death_at_zero": true,
+    "initial_birth_equals_poisson_rate": true,
+    "generated_counts_nonnegative_integers": true
+  },
+  "limitations": [
+    "Repeatedly exposed March,not untouched independent test",
+    "Completed counts only; no observed inventory/unmet demand/dispatch truth",
+    "Single historical split,two seeds;February halves share season",
+    "Count-FM adaptation,not full paper reproduction;no OT/CFG",
+    "Poisson epoch0 is no correction;not learned FM improvement",
+    "Nonlinear smaller models have different effective capacity;no causal mechanism claim",
+    "Observed lagged weather versus runtime missing-weather and net-flow/stock-delta mismatch remains",
+    "No automatic production change or API-based selection"
+  ],
+  "model_card": {
+    "hypothesis_id": "H-0024",
+    "encoder_kind": "compact_local",
+    "flow_kind": "poisson_continuous",
+    "selection": "score",
+    "seeds": [
+      11,
+      29
+    ],
+    "flow_epochs": [
+      20,
+      15
+    ],
+    "flow_active": [
+      true,
+      true
+    ],
+    "weight_files": [
+      "encoder-compact_local-11.pt",
+      "encoder-compact_local-29.pt",
+      "flow-poisson_continuous-score-11.pt",
+      "flow-poisson_continuous-score-29.pt"
+    ],
+    "selected_checkpoint_bytes": 791884,
+    "total_selected_parameters": 194056,
+    "encoder_parameter_reduction": 0.8542832096164883,
+    "weather_dimensions": 54,
+    "station_context_width": 128,
+    "particles": 128,
+    "source": "conditional Poisson",
+    "solver": "Heun16",
+    "epoch0_semantics": "direct Poisson bypass,not learned FM",
+    "weights_publication": "private checkpoints identified by pre-test-lock.json,not rawGit",
+    "static_historical_context_included_in_weight_size": false,
+    "serving_integration": "Research candidate; existing runtime not replaced and API inference not executed",
+    "numerical_training_commit": "1066b3ed06269765f827f256141db6d572d758f4"
+  }
+}

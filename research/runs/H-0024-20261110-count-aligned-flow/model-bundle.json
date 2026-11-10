@@ -1,0 +1,9 @@
+{
+  "id": "h24-count-candidate.zip",
+  "bytes": 731244,
+  "sha256": "d4698f920ff730643564f0ff20f21a732911b0c0d4a7646fa349c4267b56cc6d",
+  "availability": "private/local downloadable artifact,not rawGit",
+  "selected_weight_bytes": 791884,
+  "selected_parameters": 194056,
+  "inference_adapter_commit": "8836a4f53f27b167a161bce33df5cb3a263a5b4e"
+}

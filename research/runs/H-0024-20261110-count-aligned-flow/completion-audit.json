@@ -1,0 +1,10 @@
+{
+  "complete_marker_present": true,
+  "result_json_valid": true,
+  "pretest_locked_before_finished": true,
+  "checkpoint_files_verified": 16,
+  "stderr_bytes": 0,
+  "native_python_exit_code_recorded": false,
+  "completion_note": "PowerShell Process.ExitCode was null after WaitForExit; use result/complete marker/hash checks as completion evidence, not a claimed captured Python exit0.",
+  "api_opened": false
+}
