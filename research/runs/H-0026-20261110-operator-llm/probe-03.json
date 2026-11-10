@@ -1,0 +1,79 @@
+{
+  "kind": "development_probe_not_acceptance",
+  "finished_at_utc": "2026-11-10T08:35:23.302694+00:00",
+  "parameters": 1720574976,
+  "seconds": 19.743952799995895,
+  "results": [
+    {
+      "question": "자전거를 총 몇 대 옮기는 계획이야?",
+      "response": {
+        "answer": "총 6대가 옮기는 계획입니다.",
+        "evidence_ids": [
+          "plan.total",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.4772341000207234,
+        "generated_tokens": 13,
+        "peak_gpu_bytes": 3524286976,
+        "fallback_reason": null,
+        "evidence": [
+          "총 6대를 옮기는 계획입니다. 이동 거리 3.2km, 예상 시간 12분입니다. 실제 이동 완료 기록이 아닙니다.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "raw": "총 6대가 옮기는 계획입니다."
+    },
+    {
+      "question": "어떤 순서로 이동하면 돼?",
+      "response": {
+        "answer": "서쪽공원 → 중앙역 → 시청앞",
+        "evidence_ids": [
+          "route.1",
+          "route.2",
+          "route.3",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.0849678000085987,
+        "generated_tokens": 13,
+        "peak_gpu_bytes": 3525504512,
+        "fallback_reason": null,
+        "evidence": [
+          "방문 순서 1: 서쪽공원, 6대 싣기.",
+          "방문 순서 2: 중앙역, 2대 내려놓기.",
+          "방문 순서 3: 시청앞, 4대 내려놓기.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "raw": "서쪽공원 → 중앙역 → 시청앞"
+    },
+    {
+      "question": "중앙역은 왜 자전거를 채워야 해?",
+      "response": {
+        "answer": "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%.",
+        "evidence_ids": [
+          "station.DEMO-B"
+        ],
+        "engine": "facts",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 5.147442800021963,
+        "generated_tokens": 64,
+        "peak_gpu_bytes": 3529921536,
+        "fallback_reason": "답변의 수치와 근거를 확인하지 못해 자료의 문장으로 표시했습니다.",
+        "evidence": [
+          "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%."
+        ]
+      },
+      "raw": "중央역은 자전거가 없을 가능성이 90%인 상황에서 자전거를 채워야 하며, 이는 예상되는 자전거 수량이 0대인 경우를 대비하여 안전하게 이용할 수 있도록 설계되었습니다."
+    }
+  ]
+}

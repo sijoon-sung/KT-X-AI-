@@ -1,0 +1,179 @@
+{
+  "scope": "post-result API engineering checks; not a repeated primary hypothesis test",
+  "code_commit": "1845894d3043294f131fddeb38e100b541ac9877",
+  "checks": 7,
+  "passed": 7,
+  "seconds": 7.767942190170288,
+  "results": [
+    {
+      "id": "health",
+      "status": 200,
+      "response": {
+        "ready": true,
+        "model": "Qwen/Qwen3-1.7B",
+        "device": "dislab CUDA"
+      }
+    },
+    {
+      "id": "context",
+      "status": 200,
+      "response": {
+        "context_id": "e4d03e9a9e12787a3ae782b9766d7258afae8b836f72f901245d8a0fc843edfa",
+        "label": "기록된 자료 · 2026년 11월 01일 18:40",
+        "mode": "recorded_replay",
+        "facts": [
+          {
+            "id": "source",
+            "text": "기록된 자료 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+          },
+          {
+            "id": "method",
+            "text": "예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 보고 10분 뒤 자전거 수를 예상합니다."
+          },
+          {
+            "id": "limits",
+            "text": "실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다."
+          },
+          {
+            "id": "plan.total",
+            "text": "총 6대를 옮기는 계획입니다. 이동 거리 4.29km, 예상 시간 8.7분입니다. 실제 이동 완료 기록이 아닙니다."
+          },
+          {
+            "id": "route.1",
+            "text": "방문 순서 1: 태평동 버드내초등학교, 4대 싣기.",
+            "bikes": 4.0,
+            "station_name": "태평동 버드내초등학교"
+          },
+          {
+            "id": "route.2",
+            "text": "방문 순서 2: 유천동 서대전농협 본점 주차장, 1대 싣기.",
+            "bikes": 1.0,
+            "station_name": "유천동 서대전농협 본점 주차장"
+          },
+          {
+            "id": "route.3",
+            "text": "방문 순서 3: 문화동 BMK컨벤션, 1대 내려놓기.",
+            "bikes": 1.0,
+            "station_name": "문화동 BMK컨벤션"
+          },
+          {
+            "id": "route.4",
+            "text": "방문 순서 4: 오류동 서대전역, 1대 싣기.",
+            "bikes": 1.0,
+            "station_name": "오류동 서대전역"
+          },
+          {
+            "id": "route.5",
+            "text": "방문 순서 5: 문화동 홈플러스, 1대 내려놓기.",
+            "bikes": 1.0,
+            "station_name": "문화동 홈플러스"
+          },
+          {
+            "id": "route.6",
+            "text": "방문 순서 6: 문화동 세이백화점, 4대 내려놓기.",
+            "bikes": 4.0,
+            "station_name": "문화동 세이백화점"
+          }
+        ],
+        "summary": {
+          "moved_bikes": 6.0,
+          "distance_km": 4.29,
+          "minutes": 8.7
+        },
+        "station_count": 0
+      }
+    },
+    {
+      "id": "total",
+      "status": 200,
+      "response": {
+        "answer": "총 6대를 옮기는 계획입니다.",
+        "evidence_ids": [
+          "plan.total",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "e4d03e9a9e12787a3ae782b9766d7258afae8b836f72f901245d8a0fc843edfa",
+        "source_label": "기록된 자료 · 2026년 11월 01일 18:40",
+        "seconds": 1.0645508999878075,
+        "generated_tokens": 13,
+        "peak_gpu_bytes": 3524773376,
+        "fallback_reason": null,
+        "evidence": [
+          "총 6대를 옮기는 계획입니다. 이동 거리 4.29km, 예상 시간 8.7분입니다. 실제 이동 완료 기록이 아닙니다.",
+          "기록된 자료 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      }
+    },
+    {
+      "id": "route",
+      "status": 200,
+      "response": {
+        "answer": "방문 순서 1: 태평동 버드내초등학교, 4대 싣기. 방문 순서 2: 유천동 서대전농협 본점 주차장, 1대 싣기. 방문 순서 3: 문화동 BMK컨벤션, 1대 내려놓기. 방문 순서 4: 오류동 서대전역, 1대 싣기. 방문 순서 5: 문화동 홈플러스, 1대 내려놓기. 방문 순서 6: 문화동 세이백화점, 4대 내려놓기.",
+        "evidence_ids": [
+          "route.1",
+          "route.2",
+          "route.3",
+          "route.4",
+          "route.5",
+          "route.6"
+        ],
+        "engine": "facts",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "e4d03e9a9e12787a3ae782b9766d7258afae8b836f72f901245d8a0fc843edfa",
+        "source_label": "기록된 자료 · 2026년 11월 01일 18:40",
+        "seconds": 3.821599899994908,
+        "generated_tokens": 48,
+        "peak_gpu_bytes": 3549705728,
+        "fallback_reason": "답변의 수치와 근거를 확인하지 못해 자료의 문장으로 표시했습니다.",
+        "evidence": [
+          "방문 순서 1: 태평동 버드내초등학교, 4대 싣기.",
+          "방문 순서 2: 유천동 서대전농협 본점 주차장, 1대 싣기.",
+          "방문 순서 3: 문화동 BMK컨벤션, 1대 내려놓기.",
+          "방문 순서 4: 오류동 서대전역, 1대 싣기.",
+          "방문 순서 5: 문화동 홈플러스, 1대 내려놓기.",
+          "방문 순서 6: 문화동 세이백화점, 4대 내려놓기."
+        ]
+      }
+    },
+    {
+      "id": "unmet",
+      "status": 200,
+      "response": {
+        "answer": "자료에 따르면 실제로 자전거를 못 빌리고 돌아간 사람이 정확히 누가 되었는지는 알 수 없습니다.",
+        "evidence_ids": [
+          "limits",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "e4d03e9a9e12787a3ae782b9766d7258afae8b836f72f901245d8a0fc843edfa",
+        "source_label": "기록된 자료 · 2026년 11월 01일 18:40",
+        "seconds": 2.7621472000028007,
+        "generated_tokens": 34,
+        "peak_gpu_bytes": 3520654336,
+        "fallback_reason": null,
+        "evidence": [
+          "실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.",
+          "기록된 자료 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      }
+    },
+    {
+      "id": "invalid_array",
+      "status": 422,
+      "response": {
+        "error": "질문과 예측 자료를 확인해 주세요."
+      }
+    },
+    {
+      "id": "too_long",
+      "status": 422,
+      "response": {
+        "error": "질문과 예측 자료를 확인해 주세요."
+      }
+    }
+  ],
+  "api_collection": false
+}
