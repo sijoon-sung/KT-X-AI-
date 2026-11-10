@@ -14,4 +14,5 @@ assert rejected('어떤 순서로 이동하면 돼?','서쪽공원 → 시청앞
 assert rejected('자전거를 총 몇 대 옮기는 계획이야?','총 2026대를 옮깁니다.')
 zero=focus(evidence(fixture,'자전거가 없는 곳을 알려줘'),'자전거가 없는 곳을 알려줘')
 assert [x['station_name'] for x in zero['facts'] if x['id'].startswith('station.')]==['중앙역']
-print(json.dumps({'regressions':4,'passed':4,'scope':'observed implementation failures; not a new model-performance test'}))
+assert rejected('자전거가 없는 곳을 알려줘','자전거가 없는 대여소는 없습니다.')
+print(json.dumps({'regressions':5,'passed':5,'scope':'observed implementation failures; not a new model-performance test'}))

@@ -120,6 +120,8 @@ def validate_answer(raw,pack):
     numeric_source=' '.join(x['text'] for x in numerical_facts) if numerical_facts else source
     numbers={float(x) for x in re.findall(number_re,numeric_source)}
     if any(float(x) not in numbers for x in re.findall(number_re,text)):raise ValueError('근거에 없는 숫자')
+    if any(name not in text for name in pack.get('required_station_names',[])):
+        raise ValueError('질문에 해당하는 대여소 이름이 빠졌습니다.')
     routes=[x for x in numerical_facts if x['id'].startswith('route.')]
     if len(routes)==1:
         if any(float(x)!=routes[0]['bikes'] for x in re.findall(r'(\d+(?:\.\d+)?)\s*대',text)):
@@ -158,7 +160,8 @@ def focus(pack,question):
     if not chosen:chosen=[x for x in facts if x['id'] in ('data.none','plan.none','limits')][:1]
     ids={x['id'] for x in chosen}
     if 'source' not in ids:chosen+=[x for x in facts if x['id']=='source']
-    return dict(pack,facts=chosen)
+    required=[x['station_name'] for x in chosen if x['id'].startswith('station.')] if any(w in question for w in ('없는 곳','0대인','비어 있는')) else []
+    return dict(pack,facts=chosen,required_station_names=required)
 
 def fallback(pack,question):
     f=pack['facts'];matches=[x for x in f if x['id'].startswith('station.') and any(word in question for word in re.findall(r'[^ (),.]+',x['text']) if len(word)>2)]
