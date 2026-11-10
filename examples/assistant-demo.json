@@ -1,0 +1,17 @@
+{
+  "mode": "demo",
+  "recorded_at": "2026-11-01T09:40:00+00:00",
+  "stations": [
+    {"id":"DEMO-A","name":"서쪽공원","current":12,"predicted":10,"p_zero":0.05},
+    {"id":"DEMO-B","name":"중앙역","current":0,"predicted":0,"p_zero":0.9},
+    {"id":"DEMO-C","name":"시청앞","current":2,"predicted":1,"p_zero":0.6}
+  ],
+  "plan": {
+    "moved_bikes":6,"distance_km":3.2,"minutes":12,
+    "stops":[
+      {"id":"DEMO-A","name":"서쪽공원","action":"pickup","bikes":6},
+      {"id":"DEMO-B","name":"중앙역","action":"deliver","bikes":2},
+      {"id":"DEMO-C","name":"시청앞","action":"deliver","bikes":4}
+    ]
+  }
+}

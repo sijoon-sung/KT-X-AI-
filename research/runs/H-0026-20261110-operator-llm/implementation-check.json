@@ -1,0 +1,349 @@
+{
+  "hypothesis_id": "H-0026",
+  "started_at_utc": "2026-11-10T08:46:24.926397+00:00",
+  "finished_at_utc": "2026-11-10T08:47:01.722342+00:00",
+  "code_commit": "146fd227a269c2b33207e1337b9c9ca1a47ca42a",
+  "plan_sha256": "35e82ef4ef69e30b3ad34af52f06118aa0e018b25d4ccb452fb51208914fec6f",
+  "input_manifest_sha256": "3172a94cf7ee27f9bf40d0c23c2e9a3e83ce1c0b6a04d33d9a55a4e1980b33e2",
+  "model": "Qwen/Qwen3-1.7B",
+  "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "parameters": 1720574976,
+  "actual_llm_answers": 7,
+  "normal_questions": 10,
+  "semantic_pattern_passes": 10,
+  "checks": [
+    {
+      "id": "negative_input_rejected",
+      "passed": true
+    },
+    {
+      "id": "missing_not_zero",
+      "passed": true
+    },
+    {
+      "id": "unlisted_field_not_in_context",
+      "passed": true
+    },
+    {
+      "id": "empty",
+      "passed": true,
+      "response": {
+        "answer": "예측 자료가 없으므로 대여소에서 몇 대를 옮겨야 하는지 확인할 수 없습니다.",
+        "evidence_ids": [
+          "limits",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "87e23ff28fe1b43e70864c9c11689ca64f82247e177a63a1e5d0c327ab411a36",
+        "source_label": "시연용 예시 · 자료 시각 미확인",
+        "seconds": 2.0546163999824785,
+        "generated_tokens": 28,
+        "peak_gpu_bytes": 3516328960,
+        "fallback_reason": null,
+        "evidence": [
+          "실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.",
+          "시연용 예시 · 자료 시각 미확인입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      }
+    },
+    {
+      "id": "recorded",
+      "passed": false,
+      "response": {
+        "answer": "아니요. 현재 실시간으로 받은 자료가 없습니다.",
+        "evidence_ids": [
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "9b8c47fb49c3e6ac20c9cf813cacbbeb9c5d43f2923f0c34709ee544b44f2df5",
+        "source_label": "기록된 자료 · 2026년 11월 01일 18:40",
+        "seconds": 1.1684654999990016,
+        "generated_tokens": 16,
+        "peak_gpu_bytes": 3510462464,
+        "fallback_reason": null,
+        "evidence": [
+          "기록된 자료 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      }
+    },
+    {
+      "id": "unmet",
+      "passed": false,
+      "response": {
+        "answer": "자전거를 못 빌리고 돌아간 사람이 실제 존재하는 경우는 자료에 명시되지 않았습니다.",
+        "evidence_ids": [
+          "limits",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 2.0909659000171814,
+        "generated_tokens": 28,
+        "peak_gpu_bytes": 3520654336,
+        "fallback_reason": null,
+        "evidence": [
+          "실제로 대여를 포기한 사람 수와 실제 이동 완료 여부는 이 자료로 알 수 없습니다.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      }
+    }
+  ],
+  "responses": [
+    {
+      "id": "total",
+      "question": "자전거를 총 몇 대 옮기는 계획이야?",
+      "response": {
+        "answer": "총 6대가 옮기는 계획입니다.",
+        "evidence_ids": [
+          "plan.total",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.602939200005494,
+        "generated_tokens": 13,
+        "peak_gpu_bytes": 3524286976,
+        "fallback_reason": null,
+        "evidence": [
+          "총 6대를 옮기는 계획입니다. 이동 거리 3.2km, 예상 시간 12분입니다. 실제 이동 완료 기록이 아닙니다.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "order",
+      "question": "어떤 순서로 이동하면 돼?",
+      "response": {
+        "answer": "서쪽공원 → 중앙역 → 시청앞",
+        "evidence_ids": [
+          "route.1",
+          "route.2",
+          "route.3",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.1907503999827895,
+        "generated_tokens": 13,
+        "peak_gpu_bytes": 3525504512,
+        "fallback_reason": null,
+        "evidence": [
+          "방문 순서 1: 서쪽공원, 6대 싣기.",
+          "방문 순서 2: 중앙역, 2대 내려놓기.",
+          "방문 순서 3: 시청앞, 4대 내려놓기.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "drop",
+      "question": "중앙역에는 몇 대를 내려놓으면 돼?",
+      "response": {
+        "answer": "방문 순서 2: 중앙역, 2대 내려놓기.",
+        "evidence_ids": [
+          "route.2"
+        ],
+        "engine": "facts",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.4545739000022877,
+        "generated_tokens": 17,
+        "peak_gpu_bytes": 3516567040,
+        "fallback_reason": "답변의 수치와 근거를 확인하지 못해 자료의 문장으로 표시했습니다.",
+        "evidence": [
+          "방문 순서 2: 중앙역, 2대 내려놓기."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "pickup",
+      "question": "서쪽공원에서 몇 대를 싣는 계획이야?",
+      "response": {
+        "answer": "서쪽공원에서 6대를 싣는 계획이야.",
+        "evidence_ids": [
+          "route.1",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.5828411999973468,
+        "generated_tokens": 18,
+        "peak_gpu_bytes": 3517042176,
+        "fallback_reason": null,
+        "evidence": [
+          "방문 순서 1: 서쪽공원, 6대 싣기.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "current",
+      "question": "중앙역은 자료 시점에 자전거가 몇 대 있었어?",
+      "response": {
+        "answer": "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%.",
+        "evidence_ids": [
+          "station.DEMO-B"
+        ],
+        "engine": "facts",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.7591994000249542,
+        "generated_tokens": 19,
+        "peak_gpu_bytes": 3525992960,
+        "fallback_reason": "답변의 수치와 근거를 확인하지 못해 자료의 문장으로 표시했습니다.",
+        "evidence": [
+          "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "future",
+      "question": "시청앞은 10분 뒤 자전거가 몇 대 남을 것으로 예상해?",
+      "response": {
+        "answer": "시청앞은 10분 뒤 자전거 1대 남을 것으로 예상됩니다.",
+        "evidence_ids": [
+          "station.DEMO-C",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 2.3704246999986935,
+        "generated_tokens": 25,
+        "peak_gpu_bytes": 3527855616,
+        "fallback_reason": null,
+        "evidence": [
+          "시청앞, 자료 시점의 자전거 2대, 10분 뒤 예상 자전거 1대, 10분 뒤 자전거가 없을 가능성 60%.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "priority",
+      "question": "중앙역은 어떤 상태로 예상하고 있어?",
+      "response": {
+        "answer": "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%.",
+        "evidence_ids": [
+          "station.DEMO-B"
+        ],
+        "engine": "facts",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 4.240550300019095,
+        "generated_tokens": 49,
+        "peak_gpu_bytes": 3524286976,
+        "fallback_reason": "답변의 수치와 근거를 확인하지 못해 자료의 문장으로 표시했습니다.",
+        "evidence": [
+          "중앙역, 자료 시점의 자전거 0대, 10분 뒤 예상 자전거 0대, 10분 뒤 자전거가 없을 가능성 90%."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "distance",
+      "question": "이 계획의 이동 거리는 얼마야?",
+      "response": {
+        "answer": "3.2km",
+        "evidence_ids": [
+          "plan.total",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 0.44535789999645203,
+        "generated_tokens": 5,
+        "peak_gpu_bytes": 3521854464,
+        "fallback_reason": null,
+        "evidence": [
+          "총 6대를 옮기는 계획입니다. 이동 거리 3.2km, 예상 시간 12분입니다. 실제 이동 완료 기록이 아닙니다.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "time",
+      "question": "이 자료는 언제 시점이고 예시인지 알려줘.",
+      "response": {
+        "answer": "2026년 11월 01일 18:40입니다.",
+        "evidence_ids": [
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 1.8366359999927226,
+        "generated_tokens": 22,
+        "peak_gpu_bytes": 3511107584,
+        "fallback_reason": null,
+        "evidence": [
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    },
+    {
+      "id": "simple",
+      "question": "예측을 어떻게 하는지 아주 쉬운 말로 설명해줘.",
+      "response": {
+        "answer": "예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 바탕으로 10분 후에 자전거 수를 예측합니다.",
+        "evidence_ids": [
+          "method",
+          "source"
+        ],
+        "engine": "llm",
+        "model": "Qwen/Qwen3-1.7B",
+        "context_id": "421578a922f638d988309f40bcddda4185bd3799291971edd1b8f532d7e65d23",
+        "source_label": "시연용 예시 · 2026년 11월 01일 18:40",
+        "seconds": 3.1475370000116527,
+        "generated_tokens": 42,
+        "peak_gpu_bytes": 3522254848,
+        "fallback_reason": null,
+        "evidence": [
+          "예측 모델은 과거 이용 기록과 주변 대여소의 흐름을 보고 10분 뒤 자전거 수를 예상합니다.",
+          "시연용 예시 · 2026년 11월 01일 18:40입니다. 현재 실시간 관측이라고 확인된 자료는 아닙니다."
+        ]
+      },
+      "semantic_pattern_pass": true
+    }
+  ],
+  "decision": "not_supported",
+  "seconds": 36.79397549998248,
+  "environment": {
+    "execution": "dislab",
+    "torch": "2.7.1+cu118",
+    "gpu": "NVIDIA GeForce RTX 3080"
+  },
+  "weights_updated": false,
+  "forecasting_model_changed": false,
+  "api_panel_opened": false,
+  "limitations": [
+    "Known synthetic functional suite,not independent language benchmark",
+    "No real nontechnical user comprehension study",
+    "Numeric whitelist and evidence IDs do not prove all semantic associations correct",
+    "Fallback is displayed separately and excluded from actual LLM count"
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0026-20261110-operator-llm",
+  "hypothesis_id": "H-0026",
+  "plan_sha256": "35e82ef4ef69e30b3ad34af52f06118aa0e018b25d4ccb452fb51208914fec6f",
+  "input_manifest_sha256": "3172a94cf7ee27f9bf40d0c23c2e9a3e83ce1c0b6a04d33d9a55a4e1980b33e2",
+  "code_commit": "19628472d5430ecc19565119d4491ffd94a0e82d",
+  "implementation_commit": "1845894d3043294f131fddeb38e100b541ac9877",
+  "started_at_utc": "2026-11-10T08:37:37.944706+00:00",
+  "finished_at_utc": "2026-11-10T08:38:13.822693+00:00",
+  "command": [
+    "python",
+    "tools/test_operator_assistant.py",
+    "--model-dir",
+    "PRIVATE_PINNED_QWEN_DIR",
+    "--out",
+    "PRIVATE_ACCEPTANCE_DIR"
+  ],
+  "environment": {
+    "execution": "dislab",
+    "torch": "2.7.1+cu118",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "transformers": "4.57.1",
+    "precision": "FP16",
+    "language_model_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+  },
+  "evaluation_scope": "First frozen synthetic functional suite, with all three development probes and later implementation failure/repair records separately preserved. No forecasting score or operational effect.",
+  "metrics": {
+    "grounded normal questions answered by actual small LLM": 7,
+    "normal_question_answer_patterns_passed": 9,
+    "functional_checks_passed": 4,
+    "functional_checks_total": 6,
+    "language_model_parameters": 1720574976,
+    "first_suite_seconds": 35.87415069999406
+  },
+  "artifacts": [
+    {
+      "id": "acceptance-first.json",
+      "sha256": "27bb4ebe99d170182655b4a7ccf31eaf1227140e50b0e252e681375bd589e631",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "forecast-answer-first.json",
+      "sha256": "c9098db3261b992fc1e35a046f77ba941b0773985453fab892f2a4c7bb06e86d",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "forecast-answer-fixed.json",
+      "sha256": "202d9325d9618818459386e9c635ee1f1253f79ff6cdc599225f4b047104beab",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "forecast-answer-guarded.json",
+      "sha256": "7f30597d1282a1e6cd8e1f85a8113b866326a06379ec4e87ee1cbba963980339",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "guards-first.json",
+      "sha256": "eef3df7d599b7a23cac275a1e45dd2557cf9ec047abaefb68cc739f32bcc58e7",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "guards.json",
+      "sha256": "19aae0b936959a4e4650219e9633ace41156e76a7c9fc961dae4b6fca57f79a4",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "http-check.json",
+      "sha256": "51934f68995d2fc86ee8486bf219636f5bce6112ef1dbfa2196fc770b4398dda",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "implementation-check.json",
+      "sha256": "7bd47c43e62e930677ed3f155f27d07e1f87d1b21ab818b1289b8e4c4e8710dd",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "probe-01.json",
+      "sha256": "fc1a7549ffe9400f5c53f0a5a476b831145060cf00011853eed232d41b20bd8c",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "probe-02.json",
+      "sha256": "835a3ffac3ee1010a97dfec3ffcefac648eea967b9485fa1fb151dcac11f2709",
+      "availability": "public synthetic or recorded-plan functional output"
+    },
+    {
+      "id": "probe-03.json",
+      "sha256": "3bb46b714ea7b22ea0700ccfe7488dcf1942ffaa4fccc9ffd85e410328408ac3",
+      "availability": "public synthetic or recorded-plan functional output"
+    }
+  ],
+  "limitations": [
+    "Known synthetic questions, not an independent language benchmark or user comprehension study.",
+    "First raw LLM answer count includes one wrong loading quantity; fallback answers are excluded from the actual LLM count.",
+    "Two fixed functional regex checks failed and remain failed, including wording-related false negatives.",
+    "Post-result implementation fixes and repeated engineering checks do not change the first not_supported decision.",
+    "Numeric, station-list and route checks do not prove all Korean semantic claims. Human confirmation remains required.",
+    "H13 synthetic prediction and H21 recorded relocation are separate scenarios, not a newly observed joint live episode.",
+    "No API collection, forecast training, weights update, automatic dispatch or real operational impact measured."
+  ],
+  "api_opened": false,
+  "weights_updated": false,
+  "default_forecaster_changed": false
+}

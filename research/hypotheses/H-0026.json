@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "H-0026",
+  "title": "예측 결과를 설명하는 비전공자용 소형 LLM",
+  "status": "completed",
+  "plan": {
+    "question": "기존 예측·계획 결과 뒤에 소형 LLM을 붙여 비전공자도 이해하는 한국어 질의응답을 제공할 수 있는가?",
+    "hypothesis": "고정 Qwen3-1.7B의 non-thinking 추론이 검증된 결과 요약을 읽고 정상10질문 중8개 이상에서 실제 LLM 답변을 제공한다. 모든 제공 답변은 숫자·근거ID 검사를 통과하고,잘못된 입력·자료없음·과거기록/실시간 구분 기능검사를 통과한다. 예측 가중치와 재배치 계산은 바뀌지 않는다.",
+    "prior_art": [
+      {
+        "title": "Qwen3-1.7B official model card",
+        "url": "https://huggingface.co/Qwen/Qwen3-1.7B",
+        "verified_scope": "Apache2.0,Transformers>=4.51,non-thinking enable_thinking=False,공식 비사고 표집 권장값 확인. 한국어 품질은 우리 질문으로 직접 확인한다.",
+        "difference_to_test": "타슈 예측 뒤의 단순 설명 UI,확률/수량 계산이나 행동 도구 없이 결과를 설명한다."
+      }
+    ],
+    "data": {
+      "dataset_id": "H26-operator-llm-v1",
+      "observed_truth": "합성 fixture에 명시한 대여소·대수·계획·거리·시각 및 기존 잠긴 H13 합성 출력. 사용자 이해도는 실제 사용자 실험을 하지 않는다.",
+      "not_observed": [
+        "실제 비전공자의 이해도/만족도",
+        "실제 배차 효과",
+        "새 예측 정확도",
+        "일반 한국어 업무능력의 독립 benchmark"
+      ],
+      "input_manifest_sha256": "3172a94cf7ee27f9bf40d0c23c2e9a3e83ce1c0b6a04d33d9a55a4e1980b33e2"
+    },
+    "evaluation": {
+      "design": "새 예측 모델 학습 없음. 별도 소형LM의 결과 설명만 구현. 공식 model revision 고정,합성 QA10개와오류/제약6개를 dislab GPU에서 검증. 실제 H13합성예측→adapter→질문응답과HTTP/UI연결 확인. 공개 H21기록시연은 prompt설계 후 별도로 실행하고 실시간이라고 부르지 않음.",
+      "periods": [
+        {
+          "role": "functional_tests_and_demo",
+          "start": "2026-11-10",
+          "end": "2026-11-11"
+        }
+      ],
+      "baselines": [
+        "원래 H13/재배치 계산 결과,수치 변경 없음",
+        "자료 기반 기본 문장 fallback: 실제 LLM 생성과 분리해 표시"
+      ],
+      "primary_metric": {
+        "name": "grounded normal questions answered by actual small LLM",
+        "direction": "higher",
+        "unit": "questions out of ten"
+      },
+      "success_rule": "정상10개 중>=8개 실제LLM답변,제공문장의 숫자/근거ID검사 모두통과,오류/자료없음/기록시각/미충족수요미관측6검사통과,원예측불변·CLI/HTTP end-to-end성공이면 supported. 자동운영 배포/예측정확도 개선 판정이 아니다.",
+      "failure_rule": "가중치 미설치·실제생성 실패·정상LLM답변8미만·필수검사실패면 not_supported;외부 다운로드/환경장애로 실행불가면 inconclusive. 실패/기본문장 fallback을 LLM성공으로 세지 않음.",
+      "exclusion_rule": "합성질문과검사결과를 삭제하지않는다. 원시API·인증키·주소를LLM문맥에넣지않고허용필드만요약한다. 문맥없이날조하지않고자료없음으로답한다. 과거기록을현재라고표현하지않는다. UI는쉬운말·짧은한국어·행동근거 중심.",
+      "uncertainty_plan": "기능검사이며모집단성능/사용자이해도의신뢰구간을만들지않음. 전체질문·답·실제LLM/fallback·지연·GPU메모리·모델파일해시를기록. 알려진개발질문으로최대3회형식/프롬프트수정가능,모든probe보존;최종16질문은고정한코드로1회실행,반복시이력보존. API성능으로prompt선택하지않음.",
+      "seed_plan": "모델revision70d244cc86ccca08cf5af4e1e306ecf908b1ad5e. enable_thinking=False,temperature.7,top_p.8,top_k20,repetition_penalty1.1,max_new_tokens256,max_input_tokens3072. 질문hash+20261126 seed,동시추론1개. 가중치수정없음.",
+      "execution": "dislab RTX3080 10GB,확인free8309MiB. 별도system-site-packages venv로기존Torch2.7.1+cu118공유,transformers4.57.1고정. FP16CUDA,전체가중치메모리확인후로드,최대GPU메모리.65. 모델다운로드/추론/기능검사모두dislab. 로컬은source편집·HTTP표시/SSHforward·브라우저QA만.",
+      "architecture": "고정 H13예측→기존계획→허용필드숫자문맥→Qwen3답변→숫자/근거검사→한국어답변. LLM에계산/재배치실행/파일탐색/웹도구를주지않음. 독립UI와API/CLI,기존요약JSON·계획JSON adapter로연결. 새관측수집이나LLM을예측feature로넣지않음.",
+      "presentation": "비전공자용 화면: 어디가부족한지·몇대옮기는지·어떤순서인지. 기술명은질문할때만설명. 기록시각/예시여부는짧게명시. 실제LLM실패시기본문장/재시도상태를명시해생성을가장하지않음."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "35e82ef4ef69e30b3ad34af52f06118aa0e018b25d4ccb452fb51208914fec6f",
+    "frozen_at_utc": "2026-11-10T08:15:00.040508+00:00"
+  },
+  "result": {
+    "decision": "not_supported",
+    "adopt_code": true,
+    "summary": "실제 Qwen3-1.7B를 연결했다. 첫 고정 시험 실제 LLM 답변7/10, 답안 패턴9/10, 기능검사4/6으로 사전 기준 미달. 수량 혼동·방문지 누락·0대 대여소 누락을 고치고 자료 문장 fallback과 구분해 시연 기능을 제공한다. H13 예측 가중치는 유지한다.",
+    "limitations": [
+      "Known synthetic questions, not an independent language benchmark or user comprehension study.",
+      "First raw LLM answer count includes one wrong loading quantity; fallback answers are excluded from the actual LLM count.",
+      "Two fixed functional regex checks failed and remain failed, including wording-related false negatives.",
+      "Post-result implementation fixes and repeated engineering checks do not change the first not_supported decision.",
+      "Numeric, station-list and route checks do not prove all Korean semantic claims. Human confirmation remains required.",
+      "H13 synthetic prediction and H21 recorded relocation are separate scenarios, not a newly observed joint live episode.",
+      "No API collection, forecast training, weights update, automatic dispatch or real operational impact measured."
+    ],
+    "run_manifests": [
+      "research/runs/H-0026-20261110-operator-llm/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}
