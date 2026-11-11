@@ -1,0 +1,51 @@
+{
+  "duration_seconds": 120,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timeline": [
+    {
+      "kind": "intro",
+      "start": 0,
+      "end": 13,
+      "title": "타슈 재배치 운영 도우미"
+    },
+    {
+      "kind": "history",
+      "start": 13,
+      "end": 33,
+      "title": "대여소 사이의 이용 흐름"
+    },
+    {
+      "kind": "flow",
+      "start": 33,
+      "end": 60,
+      "title": "Flow Matching으로 대여·반납 시나리오 계산"
+    },
+    {
+      "kind": "risk",
+      "start": 60,
+      "end": 76,
+      "title": "부족 위험과 작업 가능 시간"
+    },
+    {
+      "kind": "route",
+      "start": 76,
+      "end": 100,
+      "title": "재배치 결과 · 6대 이동"
+    },
+    {
+      "kind": "result",
+      "start": 100,
+      "end": 120,
+      "title": "수거·배치·복귀 시간표"
+    }
+  ],
+  "sha256": "101be7862db65ef11412b7c00ed27353b4ecaa8f32eb00166fbf5f6e6bf83e0b",
+  "bytes": 5040108,
+  "decoded": true,
+  "render_host": "dislab",
+  "audio_streams": 0,
+  "result_only_after_seconds": 76
+}

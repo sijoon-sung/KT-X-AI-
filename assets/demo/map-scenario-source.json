@@ -1,0 +1,68 @@
+{
+  "source_version": "H18-1794311400",
+  "state_sha256": "64a4ba791422308ba58ff494cd026170a249b59d1c0fb294a96fb41140f7b2e9",
+  "model_lock_sha256": "767061e696f2b72fd48a14dbd4ea1851921bd3481405f6887e48d28ee8acbe09",
+  "archived_forecast_sha256": "1ffada637cf296e76649d91f8ce1a03e2f54630bd0cf7376977092fa920131b7",
+  "exact_inventory_sample_replay": true,
+  "compared_inventory_samples": 165632,
+  "displayed_stations": 22,
+  "historical_graph_edges_displayed": 24,
+  "scenario_indices": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "timeline_kst": {
+    "observation": "2026-11-10T20:50:00.000+09:00",
+    "forecast_issued": "2026-11-10T20:50:06.382+09:00",
+    "departure": "2026-11-10T20:50:15.000+09:00",
+    "cutoff": "2026-11-10T20:59:30.000+09:00",
+    "target": "2026-11-10T21:00:00.000+09:00",
+    "work_finished": "2026-11-10T20:58:33.600+09:00",
+    "returned": "2026-11-10T21:00:52.200+09:00",
+    "return_deadline": "2026-11-10T21:05:15.000+09:00"
+  },
+  "displayed_batch": {
+    "bikes": 6,
+    "distance_km": 4.331,
+    "visits": [
+      {
+        "name": "태평동 버드내초등학교",
+        "action": "pickup",
+        "bikes": 6,
+        "eta_minutes": 0.0,
+        "completion_minutes": 3.0
+      },
+      {
+        "name": "문화동 센트럴파크(105동)",
+        "action": "deliver",
+        "bikes": 6,
+        "eta_minutes": 5.3100000000000005,
+        "completion_minutes": 8.31
+      }
+    ],
+    "elapsed_minutes": 10.620000000000001,
+    "expected_setup_seconds_per_stop": 60,
+    "expected_handling_seconds_per_bike": 20,
+    "minimum_bikes_per_stop": 3,
+    "return_window_minutes": 15,
+    "certificate": {
+      "violations": 0,
+      "minimum_batch": true,
+      "setup_accounted": true,
+      "handling_accounted": true,
+      "bike_conservation": true,
+      "intermediate_capacity": true,
+      "donor_bounds": true,
+      "all_station_work_before_forecast": true,
+      "return_before_job_deadline": true
+    }
+  },
+  "base_map": {
+    "source": "https://api.openstreetmap.org/api/0.6/map.json?bbox=127.3865,36.3085,127.415,36.324",
+    "sha256": "0fc66a4aa41e0d4483269f4a9f5022347e63b56fe53e45a6f3661a62a345b0da",
+    "attribution": "© OpenStreetMap contributors"
+  },
+  "inventory_api_requests": 0
+}
