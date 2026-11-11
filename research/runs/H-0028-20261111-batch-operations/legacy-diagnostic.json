@@ -1,0 +1,74 @@
+[
+  {
+    "layout": "compact",
+    "seed": 17,
+    "moved_bikes": 6,
+    "stops": 2,
+    "reported_minutes": 5.733333333333333,
+    "minutes_with_assumed_60sec_setup": 7.733333333333333,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "compact",
+    "seed": 29,
+    "moved_bikes": 6,
+    "stops": 2,
+    "reported_minutes": 5.6000000000000005,
+    "minutes_with_assumed_60sec_setup": 7.6000000000000005,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "spread",
+    "seed": 17,
+    "moved_bikes": 4,
+    "stops": 2,
+    "reported_minutes": 9.566666666666666,
+    "minutes_with_assumed_60sec_setup": 11.566666666666666,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "spread",
+    "seed": 29,
+    "moved_bikes": 4,
+    "stops": 2,
+    "reported_minutes": 9.433333333333334,
+    "minutes_with_assumed_60sec_setup": 11.433333333333334,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "long_return",
+    "seed": 17,
+    "moved_bikes": 0,
+    "stops": 0,
+    "reported_minutes": 0.0,
+    "minutes_with_assumed_60sec_setup": 0.0,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "long_return",
+    "seed": 29,
+    "moved_bikes": 0,
+    "stops": 0,
+    "reported_minutes": 0.0,
+    "minutes_with_assumed_60sec_setup": 0.0,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "split_supply",
+    "seed": 17,
+    "moved_bikes": 4,
+    "stops": 4,
+    "reported_minutes": 5.894444444444445,
+    "minutes_with_assumed_60sec_setup": 9.894444444444446,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  },
+  {
+    "layout": "split_supply",
+    "seed": 29,
+    "moved_bikes": 4,
+    "stops": 4,
+    "reported_minutes": 5.761111111111111,
+    "minutes_with_assumed_60sec_setup": 9.761111111111111,
+    "role": "physical-cost omission diagnostic, not matched baseline"
+  }
+]

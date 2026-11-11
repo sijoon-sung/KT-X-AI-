@@ -1,0 +1,17 @@
+{
+  "duration": "00:02:00.02",
+  "video": "1920x1080 / H264 / 25fps",
+  "audio": "AAC / 48kHz",
+  "decoded_successfully": true,
+  "sampled_frames": [
+    4,
+    17,
+    26,
+    36,
+    44,
+    61,
+    80,
+    100,
+    116
+  ]
+}

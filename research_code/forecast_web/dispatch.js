@@ -166,11 +166,21 @@ async function refreshFeed(options={}){
 async function init(){
  try{
   const r=await fetch('/api/dispatch/info');if(!r.ok)throw Error('관측 기록을 불러오지 못했습니다.');info=await r.json();stationById=Object.fromEntries(info.stations.map(s=>[s.id,s]));ids=info.default_ids.slice();depot=info.default_depot_id;if(!info.source_version){$('automatic').checked=false;$('automatic').disabled=true;}
+  const cached=info.mode==='recorded_replay'?info.initial_plan:null;
   if(info.planner==='setup-aware-batch'){
    ['batchField','setupField','batchHint'].forEach(id=>$(id).hidden=false);
-   $('deadline').value=String(info.operating_defaults.deadline_minutes);
-   $('minimumTransfer').value=String(info.operating_defaults.minimum_transfer);
-   $('stopSetup').value=String(info.operating_defaults.stop_setup_seconds);
+   const settings=cached?.parameters||info.operating_defaults;
+   const fields={deadline:['deadline_minutes','분'],minimumTransfer:['minimum_transfer','대'],stopSetup:['stop_setup_seconds','초 / 곳'],capacity:['capacity','대'],target:['target','대'],budget:['budget','대'],dropLimit:['drop_limit','대'],handling:['handling_seconds','초']};
+   for(const [id,[key,unit]] of Object.entries(fields)){
+    const field=$(id),value=String(settings[key]);
+    if(![...field.options].some(option=>option.value===value))field.add(new Option(value+unit,value));
+    field.value=value;
+   }
+   if(cached){
+    depot=settings.depot_id;ids=cached.candidate_ids.slice();objective=settings.objective;
+    $('automatic').checked=settings.automatic;
+    document.querySelectorAll('[data-objective]').forEach(button=>button.classList.toggle('active',button.dataset.objective===objective));
+   }
   }else{[...$('deadline').options].filter(o=>+o.value>10).forEach(o=>o.remove());}
   $('recordTime').textContent=new Date(info.recorded_at_utc).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+' 기준';
   if(window.L){map=L.map('map',{zoomControl:false}).setView([36.32,127.39],14);L.control.zoom({position:'topright'}).addTo(map);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',keepBuffer:1}).addTo(map);baseLayer=L.layerGroup().addTo(map);routeLayer=L.layerGroup().addTo(map);map.on('resize',fit);}
@@ -182,7 +192,8 @@ async function init(){
   $('fitMap').onclick=fit;$('showAll').onclick=()=>{allVisible=!allVisible;$('showAll').classList.toggle('active',allVisible);drawBase();};
   $('search').oninput=()=>{const q=$('search').value.trim().toLowerCase();$('searchResults').hidden=!q;if(!q)return;const matches=info.stations.filter(s=>s.name.toLowerCase().includes(q)||s.id.toLowerCase().includes(q)).slice(0,8);$('searchResults').innerHTML=matches.map(s=>`<button data-id="${esc(s.id)}">${esc(s.name)}<small>${esc(s.id)} · 현재 ${s.current}대</small></button>`).join('')||'<button disabled>검색 결과가 없습니다.</button>';$('searchResults').querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{const s=stationById[b.dataset.id];$('searchResults').hidden=true;if(map){map.setView([s.lat,s.lon],16);L.popup().setLatLng([s.lat,s.lon]).setContent(popup(s)).openOn(map);}else addCandidate(s.id);});};
   $('previewRoute').onclick=preview;$('export').onclick=exportPlan;$('help').onclick=()=>$('helpDialog').showModal();$('closeHelp').onclick=()=>$('helpDialog').close();$('feedInspect').onclick=()=>$('helpDialog').showModal();
-  document.querySelector('.rail-active').onclick=fit;renderFeed();initialized=true;setInterval(()=>refreshFeed().catch(()=>{$('feedTitle').textContent='관측 상태 확인 지연 · 자동 재연결';}),30000);if(info.initial_plan&&info.mode==='recorded_replay'){plan=info.initial_plan;if(plan.parameters.automatic){ids=plan.candidate_ids.slice();candidates();}renderPlan();}else{await calculate();}
+  document.querySelector('.rail-active').onclick=fit;renderFeed();initialized=true;setInterval(()=>refreshFeed().catch(()=>{$('feedTitle').textContent='관측 상태 확인 지연 · 자동 재연결';}),30000);
+  if(cached){plan=cached;renderPlan();}else{await calculate();}
  }catch(e){clearFailedPlan(e.message);banner(e.message);retryLater('관측 자료 연결을 다시 확인하고 있습니다.');}
 }
 init();

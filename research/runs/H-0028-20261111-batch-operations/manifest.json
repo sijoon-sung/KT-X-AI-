@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "run_id": "H-0028-20261111-batch-operations",
+  "hypothesis_id": "H-0028",
+  "plan_sha256": "84825d449407b034fb9d47f44bbce64a71a8d15d85947909935c8d6921caf3f7",
+  "input_manifest_sha256": "f13ebc88c2a092eba59b8b8f15a6031971acc160795aa84bb32c4ab71573244f",
+  "code_commit": "530924da715a9ec49328d1436d012910eeae70ad",
+  "recorded_demo_code_commit": "902745e7ab330a4c98e193f5a2d2d2c06ee26b1c",
+  "video_code_commit": "bc0144c",
+  "started_at_utc": "2026-11-10T16:14:02.442765+00:00",
+  "finished_at_utc": "2026-11-10T16:16:16.1134337Z",
+  "command": [
+    "python",
+    "tools/evaluate_h28_operations.py",
+    "--out",
+    "PRIVATE_SYNTHETIC_OUTPUT"
+  ],
+  "environment": {
+    "execution": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "OMP_NUM_THREADS": 4
+  },
+  "seeds": [
+    17,
+    29
+  ],
+  "evaluation_scope": "Fixed 192-case synthetic engineering suite. The execution window includes an interrupted launch. One separately fixed recorded forecast was replayed after verification. A synthetic H13 trajectory and the route/assistant browser captures were rendered for the video.",
+  "metrics": {
+    "constraint violations across the fixed synthetic grid": 0,
+    "synthetic_cases": 192,
+    "guards_passed": 8,
+    "guards_total": 8,
+    "no_action_cases": 84,
+    "recorded_demo_bikes": 6,
+    "recorded_demo_stops": 2,
+    "recorded_demo_distance_km": 4.331,
+    "recorded_demo_action_finish_minutes": 8.31,
+    "recorded_demo_return_minutes": 10.62,
+    "video_seconds": 120,
+    "new_inventory_api_requests": 0
+  },
+  "artifacts": [
+    {
+      "id": "all-192.csv",
+      "sha256": "1593c508f6e2fa75469e684eb50b65a110e2e0d4b0903e74074934b635fde973",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "all-192.json",
+      "sha256": "f5e47132bf91425305056393fa0b0257029e04aa7304f30fa08f3055d7ee296c",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "cli.json",
+      "sha256": "e4b509eb956f4f76319e35ea767dd12d602e0482ad328819dc10eafdea727c64",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "flow-trace.json",
+      "sha256": "7bc96a21d8316549c32a0e1f85de88e7dc6944bc94740ec74adf9b676618dcad",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "group-summary.json",
+      "sha256": "ec13310b60b6fc0e06e27a6c4ed430f781d399547c268b5cc3e532f813d06ea7",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "guards.json",
+      "sha256": "3b2c75c7ef662297cb948f69ad8ff443756b86cb65e77ceac51929eaea5f1790",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "legacy-diagnostic.json",
+      "sha256": "33a6260825682d2516d38912ed30eb8bc3ec11d048de5b793302e848c9062551",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "process-result.json",
+      "sha256": "f0b82224b7f8b75cde41ae1e2e2ef0d63b5f7fe282d1c7aca323466b5192b024",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "recorded-demo.json",
+      "sha256": "8ba001d04125bdaeae04ff84df723bd590ff22835a8ff3b0bffc673ea6b3fdc3",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "summary.json",
+      "sha256": "9d20e7a55a6270508fbf864cf98a28c2b87f6b96f48c52662bdbfb5e3e00055c",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "video-first-render-manifest.json",
+      "sha256": "7b66d9f9701016ac10e89dfc12d60bb7a2596a76c86502b0db01fdef0d71f72d",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "video-manifest.json",
+      "sha256": "76d73347bcd06b2fd01f61839518dc8606146350bfaf0168d00eb4797961a5f1",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "video-qa.json",
+      "sha256": "8c2aa4cb74b20e6ec6f6c7ddebfbbf4ed774918844f7de2d8610c7772d8c869c",
+      "availability": "public functional evidence"
+    },
+    {
+      "id": "assets/demo/tashu-demo-flow-batch-2min.mp4",
+      "sha256": "911ccc12b4ec09ecc9c9797a4af951cd0284a32e3636cf468614eca8a156e451",
+      "availability": "public video"
+    }
+  ],
+  "limitations": [
+    "Synthetic scenarios and one already exposed recorded input.",
+    "Setup time, vehicle capacity, parking bounds and minimum quantity are operational assumptions.",
+    "Physical savings require measured work and remaining shortage under comparable service. The recorded plan is a shadow calculation.",
+    "Fixed H13 weights; no September evaluation, retraining or inventory API calls."
+  ]
+}

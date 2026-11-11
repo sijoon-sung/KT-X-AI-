@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "H-0028",
   "title": "정차 준비 시간과 묶음 수거·배치를 반영한 운영 계획",
-  "status": "preregistered",
+  "status": "completed",
   "plan": {
     "question": "정차 준비 시간과 최소 묶음 수량을 명시하고 예측 적용 시각과 복귀 마감을 나누면, 기존의 소량 다방문 계획을 물리적으로 검증 가능한 묶음 작업과 비교할 수 있는가?",
     "hypothesis": "새 계획기는 고정 합성192조건에서 공급지 보호·적재·수량 보존·최소 묶음·정차/대당 작업 시간·예측 적용시각·복귀마감 위반0건을 만족하고, 사전에 정의한 알려진 가능/불가능 및 긴 복귀 사례를 모두 올바르게 판정한다. 묶음 작업의 현장 우월성은 별도 실증 대상이다.",
@@ -58,6 +58,19 @@
     "plan_sha256": "84825d449407b034fb9d47f44bbce64a71a8d15d85947909935c8d6921caf3f7",
     "frozen_at_utc": "2026-11-10T16:08:17.441039+00:00"
   },
-  "result": null,
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "Fixed 192-case synthetic grid had zero violations and all eight functional guards passed. The single recorded-input demonstration planned six bicycles at two working stops.",
+    "limitations": [
+      "Synthetic scenarios and one already exposed recorded input.",
+      "Setup time, vehicle capacity, parking bounds and minimum quantity are operational assumptions.",
+      "Physical savings require measured work and remaining shortage under comparable service. The recorded plan is a shadow calculation.",
+      "Fixed H13 weights; no September evaluation, retraining or inventory API calls."
+    ],
+    "run_manifests": [
+      "research/runs/H-0028-20261111-batch-operations/manifest.json"
+    ]
+  },
   "withdrawal_reason": null
 }

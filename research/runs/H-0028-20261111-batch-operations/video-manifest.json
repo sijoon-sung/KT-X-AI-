@@ -1,0 +1,94 @@
+{
+  "duration_seconds": 120,
+  "resolution": "1920x1080",
+  "fps": 25,
+  "media": "Narrated walkthrough using actual browser captures and traced Flow Matching when specified; response waits edited",
+  "basis": "2026-11-10 20:50 관측 기록 재생과 합성 입력의 고정 Flow Matching 추론",
+  "tts": "Microsoft Heami Desktop, rate1",
+  "timeline": [
+    {
+      "start": 0,
+      "end": 10,
+      "title": "빈 대여소에\n어떻게 채울까요?",
+      "source": "batch-dispatch.png"
+    },
+    {
+      "start": 10,
+      "end": 24,
+      "title": "이용 흐름을 읽어\n부족한 곳 찾기",
+      "source": "batch-dispatch.png"
+    },
+    {
+      "start": 24,
+      "end": 48,
+      "title": "Flow Matching으로 가능한 이용량 만들기",
+      "source": "flow-trace.json"
+    },
+    {
+      "start": 48,
+      "end": 74,
+      "title": "한 곳에서 6대를\n한 번에 옮깁니다",
+      "source": "batch-dispatch.png"
+    },
+    {
+      "start": 74,
+      "end": 88,
+      "title": "배치를 마치고\n차량은 복귀합니다",
+      "source": "batch-dispatch.png"
+    },
+    {
+      "start": 88,
+      "end": 112,
+      "title": "전체 계획을\n한 번에 물어보기",
+      "source": "batch-answer.png"
+    },
+    {
+      "start": 112,
+      "end": 120,
+      "title": "운영자가 확인하고\n이동을 결정합니다",
+      "source": "batch-dispatch.png"
+    }
+  ],
+  "voice": [
+    {
+      "scene": 0,
+      "raw_seconds": 10.577369614512472,
+      "atempo": 1.1497140885339645
+    },
+    {
+      "scene": 1,
+      "raw_seconds": 12.495691609977325,
+      "atempo": 1.0
+    },
+    {
+      "scene": 2,
+      "raw_seconds": 18.464580498866212,
+      "atempo": 1.0
+    },
+    {
+      "scene": 3,
+      "raw_seconds": 19.335056689342405,
+      "atempo": 1.0
+    },
+    {
+      "scene": 4,
+      "raw_seconds": 12.198367346938776,
+      "atempo": 1.0
+    },
+    {
+      "scene": 5,
+      "raw_seconds": 14.39764172335601,
+      "atempo": 1.0
+    },
+    {
+      "scene": 6,
+      "raw_seconds": 8.122267573696146,
+      "atempo": 1.1280927185689091
+    }
+  ],
+  "sha256": "911ccc12b4ec09ecc9c9797a4af951cd0284a32e3636cf468614eca8a156e451",
+  "bytes": 4321041,
+  "render_location": "dislab",
+  "api_training": false,
+  "field_dispatch": false
+}
