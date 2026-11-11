@@ -197,7 +197,7 @@ class Story:
             if a:
                 d=10+(t*.9%1)*23
                 draw.line((x+9,y-6,x+d,y-d*.65),fill=AMBER,width=4)
-                text(draw,(x+22,y-34),f'−{a}',21,AMBER,True)
+                text(draw,(x+22,y-34),f'-{a}',21,AMBER,True)
             if b:
                 d=32-(t*.9%1)*23
                 draw.line((x-d,y+d*.65,x-9,y+6),fill=MINT,width=4)
@@ -236,7 +236,7 @@ class Story:
         seconds=round(self.route['return_minutes']*60)
         text(draw,(x,MY+122),f"왕복 {self.route['distance_meters']/1000:.2f}km  ·  {seconds//60}분 {seconds%60:02d}초",29,MUTED)
         draw.line((x,MY+178,PX+PW-35,MY+178),fill=EDGE,width=2)
-        rows=[(0.,'출발','버드내초등학교')]
+        rows=[(0.,'작업 시작','버드내초등학교')]
         rows += [(s['completion_minutes'],('수거' if s['action']=='pickup' else '배치')+f" {s['bikes']}대",s['name'].replace('태평동 ','').replace('문화동 ','')) for s in self.route['stops']]
         rows.append((self.route['return_minutes'],'차량 복귀','버드내초등학교'))
         for index,(when,action,place) in enumerate(rows):
@@ -293,12 +293,12 @@ class Story:
                 text(draw,(x,MY+233),f'표시한 {len(self.stations)}곳의 표본',29,WHITE,True)
                 text(draw,(x,MY+307),f'대여 {a}건',43,AMBER,True)
                 text(draw,(x,MY+384),f'반납 {b}건',43,MINT,True)
-                text(draw,(x,MY+478),'재고 = 현재 재고 − 대여 + 반납',26,WHITE)
+                text(draw,(x,MY+478),'재고 = 현재 재고 - 대여 + 반납',26,WHITE)
             lines(draw,x,MY+571,['대여소마다 128개 표본을 계산합니다.','지도에는 표본 일부를 표시합니다.'],22)
         elif kind=='risk':
             s=self.receiver;x0,y0=self.positions[s['id']];p=100*s['forecast']['p0']
             bubble(md,x0,y0,None,RED,23);label(md,x0+27,y0-43,f'센트럴파크  ·  0대 확률 {p:.0f}%',RED)
-            label(md,19,19,'21:00 재고가 0대일 확률',RED)
+            label(md,19,19,'21:00 재고가 0대일 확률 · 50% 이상 강조',RED)
             text(draw,(x,MY+31),'센트럴파크(105동)',34,WHITE,True)
             text(draw,(x,MY+95),f'{p:.0f}%',72,RED,True)
             text(draw,(x,MY+188),'21:00에 자전거가 없을 확률',25,MUTED)
@@ -317,6 +317,20 @@ class Story:
         text(md,(15,MH-30),'© OpenStreetMap contributors',18,MUTED)
         text(md,(MW-14,MH-30),'대전 태평동 · 문화동',18,MUTED,False,'ra')
         image.paste(map_image,(MX,MY))
+        if kind in ('route','result'):
+            ops=self.plan['operations']
+            travel=round((self.route['return_minutes']-ops['setup_minutes']-ops['handling_minutes'])*60)
+            text(draw,(MX,960),f"정차 준비 {ops['setup_minutes']:g}분   +   상하차 {ops['handling_minutes']:g}분   +   도로 주행 {travel//60}분 {travel%60:02d}초",29,WHITE)
+            text(draw,(1864,963),'수거·배치 경로   /   복귀 경로',23,MUTED,False,'ra')
+            draw.line((1442,1007,1582,1007),fill=MINT,width=4)
+            draw.line((1690,1007,1862,1007),fill=BLUE,width=4)
+        else:
+            stages=['과거 이용 연결','대여·반납 시나리오','부족 위험','차량 작업 계획']
+            active={'intro':-1,'history':0,'flow':1,'risk':2}[kind]
+            for index,stage in enumerate(stages):
+                start=MX+index*385
+                text(draw,(start,957),stage,25,MINT if index==active else MUTED,index==active)
+                if index<3:text(draw,(start+288,957),'→',26,MUTED)
         return image
 
 
