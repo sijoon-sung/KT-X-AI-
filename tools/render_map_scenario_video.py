@@ -222,6 +222,7 @@ class Story:
             color=MINT if stop['action']=='pickup' else AMBER
             bubble(draw,x,y,i,color,20)
             label(draw,x+27,y-47,('수거' if stop['action']=='pickup' else '배치')+f" {stop['bikes']}대",color)
+        if elapsed>=self.route['return_minutes']-1e-6:return
         for leg,start,arrival,complete in self.legs:
             if elapsed<=complete+1e-6:
                 fraction=1 if arrival<=start else (elapsed-start)/(arrival-start)
@@ -250,7 +251,8 @@ class Story:
             text(draw,(x,MY+622),'계획 시각',23,MUTED)
             text(draw,(x+155,MY+611),clock(self.departure+timedelta(minutes=elapsed)),34,WHITE,True)
         else:
-            text(draw,(x,MY+621),'복귀 마감  '+clock(self.time['return_deadline']),25,MUTED)
+            per_bike=round(self.plan['operations']['work_minutes_per_delivered_bike']*60)
+            text(draw,(x,MY+621),f'이동 1대당 {per_bike//60}분 {per_bike%60:02d}초 · 왕복 포함',24,MUTED)
 
     def render(self,scene,t):
         image,draw=self.background(scene);map_image=self.map.base.copy();md=ImageDraw.Draw(map_image)
@@ -274,7 +276,7 @@ class Story:
             text(draw,(x,MY+110),f"대여소 {len(self.stations)}곳",49,WHITE,True)
             text(draw,(x,MY+185),f"과거 연결 {len(self.paths)}개",34,MINT,True)
             lines(draw,x,MY+285,['주변 대여소의 이용 정보를','각 대여소의 예측에 반영합니다.'],27)
-            lines(draw,x,MY+503,['선의 위치는 과거 이용 연결입니다.','움직이는 점으로 연결을 표시합니다.'],23)
+            lines(draw,x,MY+503,['이 지도에 표시한 구간의 연결입니다.','점은 연결을 따라 움직이도록 표시했습니다.'],23)
         elif kind=='flow':
             text(draw,(x,MY+33),'Flow Matching',36,MINT,True)
             lines(draw,x,MY+100,['GCN의 대여소 정보','포아송 대여·반납 평균'],26)
@@ -321,9 +323,10 @@ class Story:
             ops=self.plan['operations']
             travel=round((self.route['return_minutes']-ops['setup_minutes']-ops['handling_minutes'])*60)
             text(draw,(MX,960),f"정차 준비 {ops['setup_minutes']:g}분   +   상하차 {ops['handling_minutes']:g}분   +   도로 주행 {travel//60}분 {travel%60:02d}초",29,WHITE)
-            text(draw,(1864,963),'수거·배치 경로   /   복귀 경로',23,MUTED,False,'ra')
-            draw.line((1442,1007,1582,1007),fill=MINT,width=4)
-            draw.line((1690,1007,1862,1007),fill=BLUE,width=4)
+            draw.line((1395,980,1436,980),fill=MINT,width=5)
+            text(draw,(1449,963),'수거·배치 경로',23,MUTED)
+            draw.line((1649,980,1690,980),fill=BLUE,width=5)
+            text(draw,(1703,963),'복귀 경로',23,MUTED)
         else:
             stages=['과거 이용 연결','대여·반납 시나리오','부족 위험','차량 작업 계획']
             active={'intro':-1,'history':0,'flow':1,'risk':2}[kind]
