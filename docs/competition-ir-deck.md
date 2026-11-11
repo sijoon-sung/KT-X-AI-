@@ -1,6 +1,6 @@
 # 타슈 공모전 IR 발표자료
 
-[편집 가능한 12장 발표자료](https://chatgpt.com/space/page_bf09fd9c24888191bfa64c56cea45780) · [2분 시연 영상](../assets/demo/tashu-demo-flow-batch-2min.mp4) · [기존 워크시트](https://chatgpt.com/space/page_368cb7d489f08191b37bf51fbca914bf)
+[편집 가능한 12장 발표자료](https://chatgpt.com/space/page_bf09fd9c24888191bfa64c56cea45780) · [2분 무음 시연 영상](../assets/demo/tashu-map-scenario-2min.mp4) · [기존 워크시트](https://chatgpt.com/space/page_368cb7d489f08191b37bf51fbca914bf)
 
 발표자료는 뷰어에서 PPTX로 내려받을 수 있다. 글자·도형·설문 그래프와 서비스 구성도를 편집할 수 있다. 실제 화면 캡처는 개별 이미지다. 기존 워크시트의 다른 내용은 유지하고 8번 구성도의 표현을 ‘10분 뒤 자전거가 부족할 대여소’로 고쳤다.
 
