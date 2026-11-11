@@ -107,7 +107,7 @@
       "availability": "public functional evidence"
     },
     {
-      "id": "assets/demo/tashu-demo-flow-batch-2min.mp4",
+      "id": "../../../assets/demo/tashu-demo-flow-batch-2min.mp4",
       "sha256": "911ccc12b4ec09ecc9c9797a4af951cd0284a32e3636cf468614eca8a156e451",
       "availability": "public video"
     }
