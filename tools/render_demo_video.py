@@ -10,11 +10,16 @@ font='C:/Windows/Fonts/malgun.ttf';bold='C:/Windows/Fonts/malgunbd.ttf'
 def f(n,b=False):return ImageFont.truetype(bold if b else font,n)
 def wrap(text,draw,font,width):
     result=[];line=''
-    for c in text:
-        if c=='\n':result.append(line);line='';continue
-        if draw.textlength(line+c,font=font)>width:result.append(line.rstrip());line=c.lstrip()
-        else:line+=c
-    if line:result.append(line)
+    for paragraph in text.split('\n'):
+        line=''
+        for word in paragraph.split():
+            proposed=' '.join(filter(None,(line,word)))
+            if line and draw.textlength(proposed,font=font)>width:
+                result.append(line)
+                line=word
+            else:
+                line=proposed
+        result.append(line)
     return result
 def text(draw,value,xy,font,color,width,spacing=15):
     x,y=xy
@@ -65,7 +70,13 @@ for i,scene in enumerate(spec['scenes']):
     def stamp(t):
         cs=round(t*100);return f'{cs//360000}:{cs//6000%60:02d}:{cs//100%60:02d}.{cs%100:02d}'
     for n,line in enumerate(scene['lines'],1):
-        end=start+available*len(line)/total;lines=wrap(line,ImageDraw.Draw(Image.new('RGB',(1,1))),f(39),1720)
+        end=start+available*len(line)/total
+        caption_draw=ImageDraw.Draw(Image.new('RGB',(1,1)))
+        lines=wrap(line,caption_draw,f(39),1720)
+        if len(lines)==2 and caption_draw.textlength(lines[1],font=f(39))<400:
+            words=line.split()
+            breaks=[(' '.join(words[:j]),' '.join(words[j:])) for j in range(1,len(words))]
+            lines=min(breaks,key=lambda pair:max(caption_draw.textlength(part,font=f(39)) for part in pair))
         parts.append(f'Dialogue: 0,{stamp(start)},{stamp(end)},Default,,0,0,0,,'+'\\N'.join(lines));start=end
     header='[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\nWrapStyle: 2\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\nStyle: Default,Malgun Gothic,40,&H00FFFFFF,&H00FFFFFF,&H00503E17,&H00503E17,0,0,0,0,100,100,0,0,1,0,0,2,90,90,36,1\n[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n'
     subtitle.write_text(header+'\n'.join(parts)+'\n',encoding='utf-8')
