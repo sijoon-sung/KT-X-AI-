@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "id": "H-0028",
+  "title": "정차 준비 시간과 묶음 수거·배치를 반영한 운영 계획",
+  "status": "completed",
+  "plan": {
+    "question": "정차 준비 시간과 최소 묶음 수량을 명시하고 예측 적용 시각과 복귀 마감을 나누면, 기존의 소량 다방문 계획을 물리적으로 검증 가능한 묶음 작업과 비교할 수 있는가?",
+    "hypothesis": "새 계획기는 고정 합성192조건에서 공급지 보호·적재·수량 보존·최소 묶음·정차/대당 작업 시간·예측 적용시각·복귀마감 위반0건을 만족하고, 사전에 정의한 알려진 가능/불가능 및 긴 복귀 사례를 모두 올바르게 판정한다. 묶음 작업의 현장 우월성은 별도 실증 대상이다.",
+    "prior_art": [
+      {
+        "title": "Schuijbroek,Hampshire,van Hoeve: Inventory rebalancing and vehicle routing in bike sharing systems (EJOR 2017)",
+        "url": "https://www.contrib.andrew.cmu.edu/~vanhoeve/papers/bike_sharing_final_draft_EJOR.pdf",
+        "verified_scope": "저자 최종 초고의 초록과 도입 1–2쪽,문헌검토 5쪽을 확인했다. 서비스 재고와 경로 비용의 결합 및 이용자 서비스/재배치 비용의 상충을 설명한다. 논문의 운영값을 타슈 실제 정차시간이나 최소수량으로 옮기지 않는다.",
+        "difference_to_test": "잠긴 H13 예측은 그대로 두고, 정차별 준비시간과 묶음 수량을 운영 가정으로 노출한다. 원 논문의 모형 전체 재현이나 새 경로 알고리즘 우월성 주장이 아니다."
+      }
+    ],
+    "data": {
+      "dataset_id": "H28-stop-batch-operations-v1",
+      "observed_truth": "합성 입력의 명시한 도로 행렬·수량·시간 제약과 사전 수작업 계산 사례; 기록 API는 별도 시연 입력일 뿐",
+      "not_observed": [
+        "현장 정차·준비 시간",
+        "실제 미충족 수요",
+        "실제 운행·절감액",
+        "10분 이후 재고 정답",
+        "운영자가 승인한 최소 묶음량"
+      ],
+      "input_manifest_sha256": "f13ebc88c2a092eba59b8b8f15a6031971acc160795aa84bb32c4ab71573244f"
+    },
+    "evaluation": {
+      "design": "4배치×2정차시간×2적재량×2복귀마감×3최소수량×2시드=192조건. 최소1대와3/5대를 같은 정차시간·예측 적용시각·복귀마감에서 비교한다. 기존H21은 정차시간 누락의 기술 진단만 하고 새 모형의 유리한 비교 기준으로 쓰지 않는다. 모든 결과·무이동·실패를 보존한다.",
+      "periods": [
+        {
+          "role": "synthetic engineering and recorded-input illustration",
+          "start": "2026-11-11",
+          "end": "2026-11-12"
+        }
+      ],
+      "baselines": [
+        "H21 locked historical code; per-bicycle handling only, return constrained to forecast horizon",
+        "same setup-aware planner with minimum transfer1; matched operating constraints"
+      ],
+      "primary_metric": {
+        "name": "constraint violations across the fixed synthetic grid",
+        "direction": "lower",
+        "unit": "violations"
+      },
+      "success_rule": "합성192조건 제약 위반0, 알려진 최소수량 불가능·정차시간 초과·긴복귀 가능·예측 적용시각 초과 차단 검사 모두 통과, CLI연결 통과이면 supported. 비용 개선은 전조건의 이동대수·부족잔여·거리·정차·작업분/대와 동량 양수 쌍 비교를 함께 보고하는 기술 결과이며 일반 효율 주가설로 바꾸지 않는다.",
+      "failure_rule": "안전·시간·묶음 제약 위반 또는 알려진 사례 오판이면 not_supported. 환경·도로 연결 문제로 검증을 마치지 못하면 inconclusive. 더 유리한 합성배치·가정으로 조용히 대체하지 않는다.",
+      "exclusion_rule": "무이동도 결과에 포함한다. 이동0일 때 분/대는 미정으로 두고 0효율 또는 개선으로 계산하지 않는다. 최소수량 때문에 제외된 소량/긴급 후보 수를 공개한다. 정차 및 묶음량은 운영 가정이며 API로 튜닝·선택하지 않는다.",
+      "uncertainty_plan": "합성 기능 검증이며 현장효과 신뢰구간을 만들지 않는다. 비용 비교는 전체 수량·잔여 부족과 함께 보고하고 동일 이동량 양수쌍만의 비교는 분모와 제외수를 공개한다. 단일 최고 묶음량이나 실제 절감을 선언하지 않는다.",
+      "seed_plan": "합성17,29를 고정한다. 잠긴 H13 모델은 재학습·교체·새 특징 추가를 하지 않는다. 원래 H27의 모델·외부LLM 시험 결과도 재측정하지 않는다.",
+      "execution": "합성 시나리오 생성·계획·검사·집계·그림은 dislab CPU, OMP4, 최대600초. 로컬은 소스·문서·전송·표시만 수행한다. 새 재고 API 수신0회·9월 자료 열람0회·모델 학습0회. 기록 시연은 입력해시 고정 후 기본 최소3/준비60초/복귀30분으로1회 발행하며 결과에 맞춰 변경하지 않는다.",
+      "temporal_contract": "10분은 현재 잠긴 예측의 적용시각이다. 모든 수거·배치 완료는 그 시각의30초 전까지로 제한한다. 최종 복귀는 별도 작업 마감 안에서 허용하되 복귀 이후 재고를 예측했다고 주장하지 않는다. 10분 이후의 수거·배치 작업을 계획에 넣지 않으며 새 다중기간 예측·실제 차량 상태 추적을 구현한 것으로 부르지 않는다.",
+      "deployment": "새 운영 조건은 별도 후보 브랜치·PR로 보존한다. 기본 H13·main·기존관리자는 자동 교체하지 않는다. 사용자 화면에는 정차시간·최소묶음·복귀마감의 가정과 무이동 이유를 표시한다. 현재기록 시연과 합성 검증을 구분하며 실제 배차를 실행하지 않는다."
+    }
+  },
+  "preregistration": {
+    "plan_sha256": "84825d449407b034fb9d47f44bbce64a71a8d15d85947909935c8d6921caf3f7",
+    "frozen_at_utc": "2026-11-10T16:08:17.441039+00:00"
+  },
+  "result": {
+    "decision": "supported",
+    "adopt_code": false,
+    "summary": "Fixed 192-case synthetic grid had zero violations and all eight functional guards passed. The single recorded-input demonstration planned six bicycles at two working stops.",
+    "limitations": [
+      "Synthetic scenarios and one already exposed recorded input.",
+      "Setup time, vehicle capacity, parking bounds and minimum quantity are operational assumptions.",
+      "Physical savings require measured work and remaining shortage under comparable service. The recorded plan is a shadow calculation.",
+      "Fixed H13 weights; no September evaluation, retraining or inventory API calls."
+    ],
+    "run_manifests": [
+      "research/runs/H-0028-20261111-batch-operations/manifest.json"
+    ]
+  },
+  "withdrawal_reason": null
+}

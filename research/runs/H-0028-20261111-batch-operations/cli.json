@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stdout": "{\"status\": \"plan\", \"moved_bikes\": 6, \"operations\": {\"stops\": 2, \"setup_minutes\": 2.0, \"handling_minutes\": 4.0, \"work_minutes_per_delivered_bike\": 2.5, \"handled_bikes_per_stop\": 6.0, \"expected_target_shortage_before\": 6.0, \"expected_target_shortage_after\": 0.0, \"below_minimum_receiver_count\": 0, \"below_minimum_donor_count\": 0, \"excluded_small_receiver_ids\": [], \"excluded_small_donor_ids\": [], \"note\": \"Model-based target shortage, not measured lost customers. Setup and minimum batch are operating assumptions.\"}, \"certificate\": {\"violations\": 0, \"minimum_batch\": true, \"setup_accounted\": true, \"handling_accounted\": true, \"bike_conservation\": true, \"intermediate_capacity\": true, \"donor_bounds\": true, \"all_station_work_before_forecast\": true, \"return_before_job_deadline\": true}}\n",
+  "stderr": ""
+}

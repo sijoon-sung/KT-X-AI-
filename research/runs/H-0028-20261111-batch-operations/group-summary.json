@@ -1,0 +1,45 @@
+{
+  "groups": [
+    {
+      "minimum_transfer": 1,
+      "cases": 64,
+      "no_action": 12,
+      "moved": 228,
+      "stops": 132,
+      "remaining_target_shortage_sum": 616.0625,
+      "total_work_minutes": 576.6666666666666,
+      "distance_km": 71.6
+    },
+    {
+      "minimum_transfer": 3,
+      "cases": 64,
+      "no_action": 36,
+      "moved": 164,
+      "stops": 62,
+      "remaining_target_shortage_sum": 680.0625,
+      "total_work_minutes": 334.6222222222222,
+      "distance_km": 41.78666666666667
+    },
+    {
+      "minimum_transfer": 5,
+      "cases": 64,
+      "no_action": 36,
+      "moved": 164,
+      "stops": 56,
+      "remaining_target_shortage_sum": 681.75,
+      "total_work_minutes": 325.3333333333333,
+      "distance_km": 40.8
+    }
+  ],
+  "environment": {
+    "execution": "dislab CPU",
+    "python": "3.12.10",
+    "numpy": "1.26.4",
+    "OMP_NUM_THREADS": 4
+  },
+  "failed_launch": {
+    "output": "empty stdout and stderr; no result written",
+    "diagnosis": "detached child was no longer present after SSH disconnected",
+    "subsequent": "same pinned source and grid in attached SSH process"
+  }
+}

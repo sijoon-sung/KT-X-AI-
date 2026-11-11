@@ -1,0 +1,36 @@
+{
+  "cases": 192,
+  "violations": 0,
+  "guards_passed": 8,
+  "guards_total": 8,
+  "no_action": 84,
+  "errors": [],
+  "matched_comparisons": [
+    {
+      "minimum_transfer": 3,
+      "all_pairs": 64,
+      "equal_positive_count_pairs": 28,
+      "excluded_pairs": 36,
+      "less_minutes_per_bike": 0,
+      "more_minutes_per_bike": 0,
+      "ties": 28,
+      "mean_delta_minutes_per_bike": -4.7580986769649563e-17
+    },
+    {
+      "minimum_transfer": 5,
+      "all_pairs": 64,
+      "equal_positive_count_pairs": 28,
+      "excluded_pairs": 36,
+      "less_minutes_per_bike": 6,
+      "more_minutes_per_bike": 0,
+      "ties": 22,
+      "mean_delta_minutes_per_bike": -0.055291005291005293
+    }
+  ],
+  "seconds": 0.6218018000072334,
+  "code_commit": "530924da715a9ec49328d1436d012910eeae70ad",
+  "execution_host": "dislab",
+  "new_inventory_api_requests": 0,
+  "model_training": 0,
+  "field_effect": null
+}

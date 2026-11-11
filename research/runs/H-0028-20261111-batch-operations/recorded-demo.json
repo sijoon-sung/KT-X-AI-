@@ -1,0 +1,435 @@
+{
+  "status": "plan",
+  "source_version": "H18-1794311400",
+  "recorded_at_utc": "2026-11-10T11:50:00+00:00",
+  "parameters": {
+    "automatic": true,
+    "station_ids": [
+      "ST0322",
+      "ST0321",
+      "ST1510",
+      "ST1366",
+      "ST0869"
+    ],
+    "depot_id": "ST0322",
+    "objective": "balanced",
+    "capacity": 20,
+    "target": 6,
+    "budget": 20,
+    "deadline_minutes": 30,
+    "drop_limit": 10,
+    "handling_seconds": 20,
+    "max_visits": 8,
+    "minimum_transfer": 3,
+    "stop_setup_seconds": 60,
+    "effective_deadline": 30.0,
+    "action_deadline_minutes": 9.25
+  },
+  "route": {
+    "stops": [
+      {
+        "station_id": "ST0322",
+        "action": "pickup",
+        "bikes": 6,
+        "leg_meters": 0.0,
+        "leg_drive_minutes": 0.0,
+        "eta_minutes": 0.0,
+        "completion_minutes": 3.0,
+        "vehicle_load_after": 6,
+        "name": "태평동 버드내초등학교"
+      },
+      {
+        "station_id": "ST0506",
+        "action": "deliver",
+        "bikes": 6,
+        "leg_meters": 2180.2,
+        "leg_drive_minutes": 2.31,
+        "eta_minutes": 5.3100000000000005,
+        "completion_minutes": 8.31,
+        "vehicle_load_after": 0,
+        "name": "문화동 센트럴파크(105동)"
+      }
+    ],
+    "return_minutes": 10.620000000000001,
+    "return_leg_minutes": 2.31,
+    "return_leg_meters": 2150.8,
+    "distance_meters": 4331.0,
+    "peak_load": 6
+  },
+  "moved_bikes": 6,
+  "coverage": {
+    "scanned": 1294,
+    "current_zero": 593,
+    "receivers": 1184,
+    "donors": 89,
+    "shortlisted": 25,
+    "selection": "Automatic regional shortlist from all supported stations; no citywide optimum",
+    "delivery_sites": 1,
+    "zero_sites_supplied": 1,
+    "unserved_receivers": 1183,
+    "unserved_zero": 592,
+    "reason": "정차 준비와 묶음 수량을 반영합니다. 수거·배치는 예측 적용시각 안에 마치고 차량 복귀는 별도 마감으로 계산합니다."
+  },
+  "certificate": {
+    "violations": 0,
+    "minimum_batch": true,
+    "setup_accounted": true,
+    "handling_accounted": true,
+    "bike_conservation": true,
+    "intermediate_capacity": true,
+    "donor_bounds": true,
+    "all_station_work_before_forecast": true,
+    "return_before_job_deadline": true
+  },
+  "geometry": {
+    "coordinates": [
+      [
+        127.392486,
+        36.319693
+      ],
+      [
+        127.392486,
+        36.319693
+      ],
+      [
+        127.392438,
+        36.319566
+      ],
+      [
+        127.392307,
+        36.31922
+      ],
+      [
+        127.39229,
+        36.319173
+      ],
+      [
+        127.39226,
+        36.319095
+      ],
+      [
+        127.392213,
+        36.318969
+      ],
+      [
+        127.391935,
+        36.318235
+      ],
+      [
+        127.391904,
+        36.318152
+      ],
+      [
+        127.391855,
+        36.318022
+      ],
+      [
+        127.39162,
+        36.317402
+      ],
+      [
+        127.391512,
+        36.317114
+      ],
+      [
+        127.391444,
+        36.316934
+      ],
+      [
+        127.391384,
+        36.316776
+      ],
+      [
+        127.391799,
+        36.31689
+      ],
+      [
+        127.392385,
+        36.317038
+      ],
+      [
+        127.393936,
+        36.317432
+      ],
+      [
+        127.394083,
+        36.31754
+      ],
+      [
+        127.394252,
+        36.31758
+      ],
+      [
+        127.395813,
+        36.318004
+      ],
+      [
+        127.395914,
+        36.318031
+      ],
+      [
+        127.397171,
+        36.318363
+      ],
+      [
+        127.397441,
+        36.318442
+      ],
+      [
+        127.398224,
+        36.318658
+      ],
+      [
+        127.399528,
+        36.318945
+      ],
+      [
+        127.399727,
+        36.318992
+      ],
+      [
+        127.40095,
+        36.319273
+      ],
+      [
+        127.401036,
+        36.319294
+      ],
+      [
+        127.402469,
+        36.319658
+      ],
+      [
+        127.404562,
+        36.320193
+      ],
+      [
+        127.405632,
+        36.320487
+      ],
+      [
+        127.405667,
+        36.320394
+      ],
+      [
+        127.406238,
+        36.319094
+      ],
+      [
+        127.406597,
+        36.318276
+      ],
+      [
+        127.406852,
+        36.317696
+      ],
+      [
+        127.407029,
+        36.317293
+      ],
+      [
+        127.40727,
+        36.316744
+      ],
+      [
+        127.407484,
+        36.316277
+      ],
+      [
+        127.407796,
+        36.315597
+      ],
+      [
+        127.406376,
+        36.315056
+      ],
+      [
+        127.405696,
+        36.314837
+      ],
+      [
+        127.404729,
+        36.314525
+      ],
+      [
+        127.404572,
+        36.314475
+      ],
+      [
+        127.404159,
+        36.314341
+      ],
+      [
+        127.402512,
+        36.313811
+      ],
+      [
+        127.400819,
+        36.313266
+      ],
+      [
+        127.400446,
+        36.313145
+      ],
+      [
+        127.400236,
+        36.313078
+      ],
+      [
+        127.400129,
+        36.313043
+      ],
+      [
+        127.399664,
+        36.312893
+      ],
+      [
+        127.399632,
+        36.312842
+      ],
+      [
+        127.399465,
+        36.312788
+      ],
+      [
+        127.39794,
+        36.312434
+      ],
+      [
+        127.397348,
+        36.312284
+      ],
+      [
+        127.39606,
+        36.311921
+      ],
+      [
+        127.394356,
+        36.311477
+      ],
+      [
+        127.394294,
+        36.31146
+      ],
+      [
+        127.393597,
+        36.311284
+      ],
+      [
+        127.39266,
+        36.311047
+      ],
+      [
+        127.392388,
+        36.311791
+      ],
+      [
+        127.392313,
+        36.311997
+      ],
+      [
+        127.392131,
+        36.312496
+      ],
+      [
+        127.391977,
+        36.312935
+      ],
+      [
+        127.391776,
+        36.313476
+      ],
+      [
+        127.391614,
+        36.31391
+      ],
+      [
+        127.391398,
+        36.314503
+      ],
+      [
+        127.391115,
+        36.315275
+      ],
+      [
+        127.390904,
+        36.315854
+      ],
+      [
+        127.390634,
+        36.316594
+      ],
+      [
+        127.391384,
+        36.316776
+      ],
+      [
+        127.391444,
+        36.316934
+      ],
+      [
+        127.391512,
+        36.317114
+      ],
+      [
+        127.39162,
+        36.317402
+      ],
+      [
+        127.391855,
+        36.318022
+      ],
+      [
+        127.391904,
+        36.318152
+      ],
+      [
+        127.391935,
+        36.318235
+      ],
+      [
+        127.392213,
+        36.318969
+      ],
+      [
+        127.39226,
+        36.319095
+      ],
+      [
+        127.39229,
+        36.319173
+      ],
+      [
+        127.392307,
+        36.31922
+      ],
+      [
+        127.392438,
+        36.319566
+      ],
+      [
+        127.392486,
+        36.319693
+      ]
+    ],
+    "type": "LineString"
+  },
+  "geometry_status": "ok",
+  "operations": {
+    "stops": 2,
+    "setup_minutes": 2.0,
+    "handling_minutes": 4.0,
+    "work_minutes_per_delivered_bike": 1.7700000000000002,
+    "handled_bikes_per_stop": 6.0,
+    "expected_target_shortage_before": 5765.0234375,
+    "expected_target_shortage_after": 5759.1015625,
+    "below_minimum_receiver_count": 69,
+    "below_minimum_donor_count": 30,
+    "note": "Model-based target shortage, not measured lost customers. Setup and minimum batch are operating assumptions."
+  },
+  "input_sha256": "64a4ba791422308ba58ff494cd026170a249b59d1c0fb294a96fb41140f7b2e9",
+  "code_commit": "902745e7ab330a4c98e193f5a2d2d2c06ee26b1c",
+  "role": "fixed-default recorded-input illustration, not measured field effectiveness or API accuracy",
+  "new_inventory_api_requests": 0,
+  "model_weights_updated": false
+}

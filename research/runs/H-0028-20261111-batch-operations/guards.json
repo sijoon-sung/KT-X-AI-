@@ -1,0 +1,34 @@
+[
+  {
+    "name": "known feasible batch",
+    "passed": true
+  },
+  {
+    "name": "minimum3 cannot collect supply2",
+    "passed": true
+  },
+  {
+    "name": "setup600 blocks all work",
+    "passed": true
+  },
+  {
+    "name": "return after forecast allowed before job30",
+    "passed": true
+  },
+  {
+    "name": "same long return blocked by job10",
+    "passed": true
+  },
+  {
+    "name": "service after forecast cutoff blocked",
+    "passed": true
+  },
+  {
+    "name": "independent certificate rejects removed setup",
+    "passed": true
+  },
+  {
+    "name": "CLI fixture",
+    "passed": true
+  }
+]

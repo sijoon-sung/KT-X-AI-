@@ -2,5 +2,6 @@
 /research/datasets/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 /docs/sources/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
 /research/runs/**/*.json -text whitespace=trailing-space,space-before-tab,cr-at-eol
+/research/runs/H-0028-20261111-batch-operations/all-192.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
 /research_code/*.py text eol=lf
 /research_code/tests/*.py text eol=lf

@@ -2,10 +2,11 @@ param(
   [ValidateSet('install','start','stop','status')][string]$Action='status',
   [string]$Config,
   [string]$Pythonw,
-  [int]$Port=8772
+  [int]$Port=8772,
+  [ValidatePattern('^Tashu[A-Za-z0-9]+$')][string]$TaskName='TashuExternalAssistantH27'
 )
 $ErrorActionPreference='Stop'
-$task='TashuExternalAssistantH27'
+$task=$TaskName
 if($Action -eq 'install') {
   if(!(Test-Path -LiteralPath $Config) -or !(Test-Path -LiteralPath $Pythonw)){throw 'Private config and pythonw.exe are required.'}
   if($Port -lt 1024 -or $Port -gt 65535){throw 'Invalid loopback port.'}

@@ -42,6 +42,15 @@ def info(source):
                  feed={k: status.get(k) for k in ('phase', 'latest_observation', 'latest_forecast', 'requests', 'roundtrips', 'stop_reason')})
     value['operating_defaults'] = dict(capacity=20, budget=20, target=6, drop_limit=10, handling_seconds=20, max_visits=8)
     bulk_dispatch.display_limits(value)
+    if source.get('planner') == 'batch':
+        value['planner'] = 'setup-aware-batch'
+        value['operating_defaults'].update(minimum_transfer=3,stop_setup_seconds=60,deadline_minutes=30)
+        value['limits'].update(deadline_minutes=120,minimum_transfer=10,stop_setup_seconds=600)
+        cache=Path(source['plan_cache'])
+        if source.get('mode')=='recorded_replay' and cache.is_file():
+            previous=read(cache)
+            if previous.get('source_version')==state['source_version']:
+                value['initial_plan']=previous
     return value
 
 
@@ -59,20 +68,35 @@ def optimize(source, body):
         if not 0 <= offset <= 60:
             raise ValueError('기록 재생 출발 시각을 확인하세요.')
         departure = datetime.fromisoformat(state['recorded_at_utc']).timestamp() + offset
-        result = bulk_dispatch.base.optimize(state, body, Roads(folder / 'h27-replay-roads'), departure)
+        if source.get('planner') == 'batch':
+            from batch_operations import optimize as batch_optimize
+            result = batch_optimize(state, body, Roads(folder / 'h27-replay-roads'), departure)
+        else:
+            result = bulk_dispatch.base.optimize(state, body, Roads(folder / 'h27-replay-roads'), departure)
         result.update(mode='recorded_replay', issued_at_utc=datetime.now(timezone.utc).isoformat(), planner='bulk-capacity-incumbent-union',
                       planning_basis='Recorded forecast replay at observation + explicit offset; assumed resources; never live dispatch')
     else:
-        response = bulk_dispatch.rpc(folder, dict(body=dict(body, source_version=version)))
+        if source.get('planner') == 'batch':
+            from batch_operations import optimize as batch_optimize
+            departure=reference_now(status)
+            result=batch_optimize(state,body,Roads(folder / 'h27-replay-roads'),departure)
+            finish=max([0.]+[s['completion_minutes'] for s in result['route']['stops']])
+            if reference_now(status)+finish*60+30>datetime.fromisoformat(state['target_at_utc']).timestamp():
+                return dict(status=409,body=dict(code='forecast_expired',error='계산 중 작업 가능 시간이 부족해 다음 관측을 기다립니다.'))
+            response=dict(status=200,body=result)
+        else:
+            response = bulk_dispatch.rpc(folder, dict(body=dict(body, source_version=version)))
         if response['status'] != 200:
             return response
         result = response['body']
         result['mode'] = 'live_observation_shadow'
+    if source.get('planner') == 'batch':
+        result['planner']='setup-aware-batch'
     lookup = {s['id']: s for s in state['stations']}
     for stop in result['route']['stops']:
         stop['name'] = lookup[stop['station_id']]['name']
     result['source_version'] = state['source_version']
-    result['assumptions'] = '차량·거점·적재량·상하차 시간은 화면의 가정입니다. 실제 배차 기록이 아닙니다.'
+    result['assumptions'] = '차량·거점·적재량·정차·상하차 시간과 최소 묶음 수량은 화면의 가정입니다. 실제 배차 기록이 아닙니다.'
     atomic(source['plan_cache'], result)
     return dict(status=200, body=result)
 
