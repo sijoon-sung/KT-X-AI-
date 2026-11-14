@@ -1,0 +1,11 @@
+{
+  "cases": [
+    {"id":"taepyeong-1950","name":"태평·문화 19:50", "stamp":1794307800},
+    {"id":"taepyeong-2020","name":"태평·문화 20:20", "stamp":1794309600},
+    {"id":"taepyeong-2050","name":"태평·문화 20:50", "stamp":1794311400},
+    {"id":"dunsan-2050","name":"둔산 20:50", "stamp":1794311400,"center":[36.3504,127.3848,1.8]},
+    {"id":"station-2050","name":"대전역 20:50", "stamp":1794311400,"center":[36.3326,127.4346,1.8]},
+    {"id":"return-8-2050","name":"태평·문화 20:50 · 복귀 8분", "stamp":1794311400,"parameters":{"deadline_minutes":8}},
+    {"id":"split-2050","name":"태평·문화 20:50 · 대여소당 빈자리 3대", "stamp":1794311400,"parameters":{"drop_limit":3}}
+  ]
+}

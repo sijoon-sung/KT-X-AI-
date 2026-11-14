@@ -342,7 +342,7 @@ def encode(story,spec,output,ffmpeg):
     for i,scene in enumerate(spec['scenes']):
         duration=scene['seconds']
         clip=output/f'clip-{i}.mp4';clips.append(clip)
-        static=scene['kind'] in ('intro','risk','result')
+        static=scene.get('static', scene['kind'] in ('intro','risk','result'))
         rate=1 if static else FPS
         cmd=[ffmpeg,'-hide_banner','-loglevel','error','-y','-f','image2pipe','-framerate',str(rate),'-vcodec','mjpeg','-i','pipe:0',
              '-vf','fps=25,tpad=stop_mode=clone:stop_duration=1','-t',str(duration),'-an','-c:v','libx264','-threads','4',
@@ -366,7 +366,8 @@ def encode(story,spec,output,ffmpeg):
     subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-f','concat','-safe','0','-i',str(concat),'-c','copy','-movflags','+faststart',str(movie)],check=True)
     subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-i',str(movie),'-f','null','-'],check=True)
     manifest=dict(duration_seconds=offset,resolution=[WIDTH,HEIGHT],timeline=timeline,sha256=hashlib.sha256(movie.read_bytes()).hexdigest(),
-                  bytes=movie.stat().st_size,decoded=True,render_host='dislab',audio_streams=0,result_only_after_seconds=76)
+                  bytes=movie.stat().st_size,decoded=True,render_host='dislab',audio_streams=0,
+                  final_result_start_seconds=next(row['start'] for row in reversed(timeline) if row['kind']=='result'))
     (output/'video-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(manifest,ensure_ascii=False),flush=True)
 

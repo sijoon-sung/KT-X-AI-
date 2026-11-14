@@ -1,0 +1,75 @@
+{
+  "duration_seconds": 130,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timeline": [
+    {
+      "kind": "intro",
+      "start": 0,
+      "end": 8,
+      "title": "타슈 재배치 운영 도우미"
+    },
+    {
+      "kind": "city",
+      "start": 8,
+      "end": 21,
+      "title": "대전 전체 대여소의 이용 연결"
+    },
+    {
+      "kind": "zoom",
+      "start": 21,
+      "end": 30,
+      "title": "도시 전체에서 작업 권역으로"
+    },
+    {
+      "kind": "history",
+      "start": 30,
+      "end": 40,
+      "title": "태평·문화권의 대여소 연결"
+    },
+    {
+      "kind": "flow",
+      "start": 40,
+      "end": 67,
+      "title": "Flow Matching으로 대여·반납 시나리오 계산"
+    },
+    {
+      "kind": "risk",
+      "start": 67,
+      "end": 76,
+      "title": "부족 위험을 작업 계획에 반영"
+    },
+    {
+      "kind": "fleet",
+      "start": 76,
+      "end": 92,
+      "title": "같은 관측에서 세 권역의 경로 계산"
+    },
+    {
+      "kind": "alternatives",
+      "start": 92,
+      "end": 106,
+      "title": "권역과 작업 조건에 따라 바뀌는 계획"
+    },
+    {
+      "kind": "review",
+      "start": 106,
+      "end": 117,
+      "title": "경로 검증과 출발 전 확인 사항"
+    },
+    {
+      "kind": "result",
+      "start": 117,
+      "end": 130,
+      "title": "태평·문화권 재배치 결과"
+    }
+  ],
+  "sha256": "6fe9130b986a507b5a0c14342766075c0ae44b588ccad877308d1f28550ebb30",
+  "bytes": 8117267,
+  "decoded": true,
+  "render_host": "dislab",
+  "audio_streams": 0,
+  "final_result_start_seconds": 117
+}
