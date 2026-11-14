@@ -5,9 +5,10 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 parser=argparse.ArgumentParser();parser.add_argument('--plans',type=Path,required=True);parser.add_argument('--out',type=Path,required=True)
+parser.add_argument('--case',action='append',help='Route IDs to cover in the map')
 args=parser.parse_args()
 cases=json.loads(args.plans.read_bytes())['cases']
-keys={'taepyeong-2050','return-8-2050','split-2050'}
+keys=set(args.case or ('taepyeong-2050','return-8-2050','split-2050'))
 points=[xy for case in cases if case['id'] in keys for xy in case['geometry']['coordinates']]
 lon,lat=zip(*points)
 bounds=[round(min(lon)-.003,5),round(min(lat)-.003,5),round(max(lon)+.003,5),round(max(lat)+.003,5)]

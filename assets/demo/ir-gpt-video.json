@@ -1,0 +1,87 @@
+{
+  "duration_seconds": 90,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timeline": [
+    {
+      "kind": "pitch",
+      "start": 0,
+      "end": 8,
+      "title": "자전거가 떨어지기 전에"
+    },
+    {
+      "kind": "zoom",
+      "start": 8,
+      "end": 16,
+      "title": "대전 전체에서 작업 권역까지"
+    },
+    {
+      "kind": "flow",
+      "start": 16,
+      "end": 27,
+      "title": "대여와 반납을 미리 그립니다"
+    },
+    {
+      "kind": "risk",
+      "start": 27,
+      "end": 33,
+      "title": "먼저 채울 대여소를 찾습니다"
+    },
+    {
+      "kind": "before",
+      "start": 33,
+      "end": 38,
+      "title": "차량 경로를 계산합니다"
+    },
+    {
+      "kind": "calculating",
+      "start": 38,
+      "end": 39,
+      "title": "차량 경로를 계산합니다"
+    },
+    {
+      "kind": "fleet",
+      "start": 39,
+      "end": 48,
+      "title": "세 권역에 차량 작업을 나눕니다"
+    },
+    {
+      "kind": "district",
+      "start": 48,
+      "end": 58,
+      "title": "수거부터 복귀까지"
+    },
+    {
+      "kind": "question",
+      "start": 58,
+      "end": 64,
+      "title": "GPT에게 작업 순서를 묻습니다"
+    },
+    {
+      "kind": "pending",
+      "start": 64,
+      "end": 67,
+      "title": "GPT에게 작업 순서를 묻습니다"
+    },
+    {
+      "kind": "answer",
+      "start": 67,
+      "end": 78,
+      "title": "GPT가 작업표를 읽어 답합니다"
+    },
+    {
+      "kind": "result",
+      "start": 78,
+      "end": 90,
+      "title": "저녁 배차 작업표"
+    }
+  ],
+  "sha256": "984a63bbda46be7079c148b4980a53158653ac1b7e7aef62fc24f8ead602ab33",
+  "bytes": 7605943,
+  "decoded": true,
+  "render_host": "dislab",
+  "audio_streams": 0,
+  "final_result_start_seconds": 78
+}

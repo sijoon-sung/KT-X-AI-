@@ -9,6 +9,10 @@ HTML='''<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewpor
 *{box-sizing:border-box}body{margin:0;background:#0d1827;color:#f1f6fd;font:16px/1.55 "Malgun Gothic",system-ui,sans-serif}main{max-width:1450px;margin:auto;padding:32px}h1{margin:0;font-size:clamp(1.6rem,4vw,2.65rem)}p{margin:.5em 0}.muted{color:#abc0d3}.top{display:flex;justify-content:space-between;gap:20px;align-items:end;flex-wrap:wrap}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}button,a.download{font:inherit;color:#ebf6ff;background:#1b3047;border:1px solid #365165;border-radius:8px;padding:8px 13px;cursor:pointer;text-decoration:none}button[aria-pressed=true]{background:#1f534e;border-color:#61e6ce}button:focus-visible,a:focus-visible{outline:3px solid #fff}.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:14px}.panel{background:#14243a;border:1px solid #263d54;border-radius:14px;padding:17px;min-width:0}.map{width:100%;display:block;border-radius:8px;background:#101c2b;min-height:290px}.metric{color:#61e6ce;font-size:2.1rem;font-weight:750}.case{padding:12px 0;border-bottom:1px solid #365165}.case:last-child{border:0}.case h3{margin:0 0 6px}.case ol{margin:0;padding-left:22px}.top h2,h2{margin:0 0 8px;font-size:1.26rem}.check{margin-top:14px}.check li{margin:.4em 0}.route{fill:none;stroke-linecap:round;stroke-linejoin:round}.legend{font-size:.875rem;margin-top:10px}.tag{font-size:.85rem;color:#ffc479}.status{color:#ffc479}.tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}@media(max-width:850px){main{padding:15px}.grid{grid-template-columns:1fr}}
 .present main{padding:18px 24px}.present h1{font-size:clamp(1.55rem,3.2vw,2.4rem)}.present .controls{margin:14px 0}.present .grid{grid-template-columns:1.42fr 1fr}.present .panel{padding:13px}.present .map{min-height:0;max-height:62vh}.present .case{padding:7px 0}.present .case li{margin:2px 0}.present .case h3{font-size:1rem}.present .tools{display:none}.present .check{margin-top:8px}.present .notice{padding:10px;border:1px solid #796244;border-radius:8px;background:#302a25;color:#ffe1b4}.present .deadline{color:#ffc479}.present .showing{color:#61e6ce}.present .legend{margin:4px 0 0}.present .more{padding:5px 0}.present #review-panel{display:none}@media(max-width:700px){.present .grid{grid-template-columns:1fr}}
 .live .ask{border-top:1px solid #365165;margin-top:12px;padding-top:12px}.live .ask h2{font-size:1rem}.live .ask-form{display:flex;gap:7px}.live input{min-width:0;flex:1;background:#0d1827;border:1px solid #486078;border-radius:8px;padding:8px;color:inherit;font:inherit}.live .reply{white-space:pre-wrap;background:#1b3846;border-radius:8px;padding:9px 12px}.live .reply-meta{color:#61e6ce;font-size:.82rem}.live #calculate{background:#1f534e;border-color:#61e6ce}[hidden]{display:none!important}
+[data-provider="openai-codex"] .ask{margin-top:14px;padding:14px;background:#0d1c2d;border:1px solid #30475b;border-radius:10px}
+[data-provider="openai-codex"] .ask h2{color:#a0f2db;margin-bottom:10px}
+[data-provider="openai-codex"] #asked{margin:10px 0 5px;color:#e0ecf5;font-weight:700}
+[data-provider="openai-codex"] .reply{font-size:1.02rem;margin:5px 0;background:#173d3b}
 </style><body><main><div class="top"><div><h1>타슈 재배치 운영 도우미</h1><p id="basis" class="muted">2026년 11월 10일 관측 기록으로 계산한 작업 계획 · 한국 시각</p></div></div>
 <div id="controls" class="controls" aria-label="시나리오 선택"></div><div class="grid"><section class="panel"><svg id="map" viewBox="0 0 850 530" class="map" role="img" aria-label="대전 대여소 및 계산된 도로 경로"></svg><p id="mapFoot" class="legend muted"></p><div class="tools"><a id="download" class="download" download="route.geojson">선택한 경로 GeoJSON</a></div></section><section class="panel"><div id="metrics" aria-live="polite"></div><div id="orders"></div><section id="ask" class="ask" hidden><h2>계획에 질문하기</h2><form id="ask-form" class="ask-form"><input id="question" aria-label="작업표에 질문" placeholder="작업표에 질문" maxlength="160" required><button id="send-question" type="submit">보내기</button></form><p id="asked" class="muted" hidden></p><div id="reply" aria-live="polite"></div></section></section></div>
 <section id="review-panel" class="panel check"><h2 id="reviewTitle"></h2><ol id="checks"></ol><p class="muted">차량 적재량, 상하차 수량, 작업·복귀 마감은 코드로 검사했습니다.</p></section></main>
@@ -73,6 +77,8 @@ async function post(path,body){
 }
 if(live){
  document.body.classList.add('live');show(null);
+ const gpt=document.body.dataset.provider==='openai-codex';
+ if(gpt)els('ask').querySelector('h2').textContent='GPT에게 작업 순서 묻기';
  const calculate=d('button','경로 계산');calculate.id='calculate';calculate.type='button';els('controls').append(calculate);
  calculate.onclick=async()=>{
    calculate.disabled=true;els('metrics').replaceChildren(d('h2','경로 계산 중…'));
@@ -82,9 +88,10 @@ if(live){
  els('ask-form').onsubmit=async event=>{
    event.preventDefault();const question=els('question').value.trim();if(!question)return;
    const caseId=active;els('send-question').disabled=true;els('question').value='';
-   els('asked').hidden=false;els('asked').textContent=question;els('reply').replaceChildren(d('p','답변 중…','reply'));
+   els('asked').hidden=false;els('asked').textContent=question;els('reply').replaceChildren(d('p',gpt?'GPT 답변 중…':'답변 중…','reply'));
    try{const result=await post('/api/product-ask',{case:caseId,question});
-     if(active===caseId)els('reply').replaceChildren(d('p',result.answer,'reply'),d('span','LLM 답변 · 작업표 확인','reply-meta'));
+     const label=result.provider==='openai-codex'?'GPT 답변 · 작업표 확인':'LLM 답변 · 작업표 확인';
+     if(active===caseId)els('reply').replaceChildren(d('p',result.answer,'reply'),d('span',label,'reply-meta'));
    }catch(error){if(active===caseId)els('reply').replaceChildren(d('p',error.message,'notice'));}
    finally{els('send-question').disabled=false;}
  };

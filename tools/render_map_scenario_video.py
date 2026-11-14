@@ -342,7 +342,7 @@ def encode(story,spec,output,ffmpeg):
     for i,scene in enumerate(spec['scenes']):
         duration=scene['seconds']
         clip=output/f'clip-{i}.mp4';clips.append(clip)
-        static=scene['kind'] in ('intro','risk','result')
+        static=scene.get('static', scene['kind'] in ('intro','risk','result'))
         rate=1 if static else FPS
         cmd=[ffmpeg,'-hide_banner','-loglevel','error','-y','-f','image2pipe','-framerate',str(rate),'-vcodec','mjpeg','-i','pipe:0',
              '-vf','fps=25,tpad=stop_mode=clone:stop_duration=1','-t',str(duration),'-an','-c:v','libx264','-threads','4',

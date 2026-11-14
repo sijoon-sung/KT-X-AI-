@@ -11,6 +11,7 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'runtime'))
 from antigravity_transport import generate
+from gpt_demo_transport import generate as generate_gpt
 
 
 def main():
@@ -20,10 +21,14 @@ def main():
     parser.add_argument('--port',type=int,default=8778)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding='utf-8-sig'))
+    provider = config.get('provider', 'antigravity')
+    if provider not in ('antigravity', 'openai-codex'):
+        parser.error('Unknown answer provider')
     viewer = args.viewer.read_text(encoding='utf-8')
     saved = json.loads(re.search(r'<script id="payload" type="application/json">(.*?)</script>',viewer,re.S)[1])
     empty = {'plans':{'cases':[]},'review':{'selected':[],'fleet':[]},'network':saved['network']}
-    page = viewer.replace('<body data-presentation="1">','<body data-presentation="1" data-live="1">')
+    page = viewer.replace('<body data-presentation="1">',
+                          f'<body data-presentation="1" data-live="1" data-provider="{provider}">')
     page = re.sub(r'(<script id="payload" type="application/json">).*?(</script>)',lambda m:m[1]+json.dumps(empty,separators=(',',':'))+m[2],page,flags=re.S)
     lock = threading.Lock()
     state = None
@@ -75,8 +80,14 @@ def main():
                     case = next((c for c in state['cases'] if c['id']==data.get('case')),None)
                     if case is None:raise ValueError('권역의 작업표를 열어 주세요.')
                     request = remote({'action':'prepare','case':case,'question':question})
-                    response, metadata = generate(request,config['relay_workspace'],config['agy'])
+                    if provider == 'openai-codex':
+                        response, metadata = generate_gpt(request, config['relay_workspace'])
+                    else:
+                        response, metadata = generate(request, config['relay_workspace'], config['agy'])
                     result = remote({'action':'complete','case':case,'candidate':response})
+                    result['provider'] = provider
+                    if provider == 'openai-codex':
+                        result['model'] = metadata['model']
                     record=dict(event='answer',case=case['id'],question=question,transport=metadata,**result)
                 else:return self.send(404,{'error':'요청을 찾지 못했습니다.'})
                 record['elapsed_seconds']=round(time.monotonic()-started,3)

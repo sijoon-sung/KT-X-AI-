@@ -78,7 +78,7 @@ class ScenarioStory(v.Story):
             if zoom>=.75:image=Image.blend(image,self.map.base,(zoom-.75)/.25)
         return image,pt
 
-    def fleet_map(self,t):
+    def fleet_map(self,t,base=None,show_quantities=True):
         colors=(v.MINT,v.BLUE,v.AMBER)
         # Zoom to the recorded fleet footprints while retaining their real orientation.
         pts=[p for c in self.fleet for p in c['geometry']['coordinates']]
@@ -86,19 +86,28 @@ class ScenarioStory(v.Story):
         scale=min(v.MW*.74/(r-l)/self.map.cos,v.MH*.65/(a-b))
         cx,cy=(l+r)/2,(a+b)/2
         pt=lambda lon,lat:(v.MW/2+(lon-cx)*self.map.cos*scale,v.MH/2-(lat-cy)*scale)
-        image=Image.new('RGB',(v.MW,v.MH),'#142236');draw=ImageDraw.Draw(image)
-        for way in self.network['boundary']:draw.line([pt(*p) for p in way],fill='#3C556D',width=2)
-        for position in self.network['stations']:
-            x,y=pt(*position)
-            if 0<x<v.MW and 0<y<v.MH:draw.ellipse((x-2,y-2,x+2,y+2),fill='#436079')
+        if base is None:
+            image=Image.new('RGB',(v.MW,v.MH),'#142236');draw=ImageDraw.Draw(image)
+            for way in self.network['boundary']:draw.line([pt(*p) for p in way],fill='#3C556D',width=2)
+            for position in self.network['stations']:
+                x,y=pt(*position)
+                if 0<x<v.MW and 0<y<v.MH:draw.ellipse((x-2,y-2,x+2,y+2),fill='#436079')
+        else:
+            image=base.base.copy()
+            draw=ImageDraw.Draw(image)
+            pt=base.point
         for i,case in enumerate(self.fleet):
             points=[pt(*p) for p in case['geometry']['coordinates']]
             draw.line(points,fill=colors[i],width=6,joint='curve')
-            line=v.Polyline(points);x,y=line.at(min(1,max(0,(t-i*.8)/9)))
-            v.bubble(draw,x,y,None,v.WHITE,9)
+            if t is not None:
+                line=v.Polyline(points);x,y=line.at(min(1,max(0,(t-i*.8)/9)))
+                v.bubble(draw,x,y,None,v.WHITE,9)
             for j,stop in enumerate(case['stops'],1):
                 x,y=pt(stop['lon'],stop['lat']);v.bubble(draw,x,y,j,colors[i],12)
-            stop=case['stops'][-1];x,y=pt(stop['lon'],stop['lat']);v.label(draw,x+18,y-51,f"{case['name'].split()[0]} · {case['moved_bikes']}대",colors[i])
+            stop=case['stops'][-1];x,y=pt(stop['lon'],stop['lat'])
+            name=case['name'].split()[0]
+            if show_quantities:name+=f" · {case['moved_bikes']}대"
+            v.label(draw,x+18,y-51,name,colors[i])
         return image
 
     def footer(self,image,map_image,scope):

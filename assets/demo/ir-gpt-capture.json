@@ -1,0 +1,36 @@
+[
+  {
+    "event": "plan",
+    "mode": "recorded_replay",
+    "cases": [
+      {
+        "id": "taepyeong-2050",
+        "moved_bikes": 6
+      },
+      {
+        "id": "dunsan-2050",
+        "moved_bikes": 6
+      },
+      {
+        "id": "station-2050",
+        "moved_bikes": 4
+      }
+    ],
+    "elapsed_seconds": 0.823
+  },
+  {
+    "event": "answer",
+    "case": "taepyeong-2050",
+    "question": "태평·문화 차량 기사에게 어디서 몇 대를 싣고 어디에 내려야 하는지 알려줘.",
+    "transport": {
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol"
+    },
+    "answer": "태평동 버드내초등학교 수거 6대\n문화동 센트럴파크(105동) 배치 6대",
+    "engine": "external",
+    "plan_digest": "c9f89a37d904b9397aad4faf7590f4689e0f90735170fb7c571f631b75a3b48b",
+    "provider": "openai-codex",
+    "model": "gpt-6.1-sol",
+    "elapsed_seconds": 6.485
+  }
+]
