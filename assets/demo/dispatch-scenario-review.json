@@ -1,0 +1,154 @@
+{
+  "mode": "llm_priority",
+  "selected": [
+    {
+      "id": "station-2050-cutoff",
+      "category": "timing",
+      "text": "대전역 20:50은 배치 마감까지 13초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    },
+    {
+      "id": "dunsan-2050-cutoff",
+      "category": "timing",
+      "text": "둔산 20:50은 배치 마감까지 34초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    },
+    {
+      "id": "return-8-2050-return",
+      "category": "timing",
+      "text": "태평·문화 20:50 · 복귀 8분은 복귀 마감까지 37초가 남습니다. 지연이 예상되면 조건을 다시 확인하세요."
+    },
+    {
+      "id": "taepyeong-2050-cutoff",
+      "category": "timing",
+      "text": "태평·문화 20:50은 배치 마감까지 56초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    }
+  ],
+  "checks": {
+    "taepyeong-1950": {
+      "id": "taepyeong-1950",
+      "work_slack_seconds": 104,
+      "return_slack_seconds": 362,
+      "work_minutes_per_bike": 1.49,
+      "verified": true
+    },
+    "taepyeong-2020": {
+      "id": "taepyeong-2020",
+      "work_slack_seconds": 104,
+      "return_slack_seconds": 362,
+      "work_minutes_per_bike": 1.49,
+      "verified": true
+    },
+    "taepyeong-2050": {
+      "id": "taepyeong-2050",
+      "work_slack_seconds": 56,
+      "return_slack_seconds": 263,
+      "work_minutes_per_bike": 1.77,
+      "verified": true
+    },
+    "dunsan-2050": {
+      "id": "dunsan-2050",
+      "work_slack_seconds": 34,
+      "return_slack_seconds": 293,
+      "work_minutes_per_bike": 1.69,
+      "verified": true
+    },
+    "station-2050": {
+      "id": "station-2050",
+      "work_slack_seconds": 13,
+      "return_slack_seconds": 195,
+      "work_minutes_per_bike": 2.94,
+      "verified": true
+    },
+    "return-8-2050": {
+      "id": "return-8-2050",
+      "work_slack_seconds": 178,
+      "return_slack_seconds": 37,
+      "work_minutes_per_bike": 1.84,
+      "verified": true
+    },
+    "split-2050": {
+      "id": "split-2050",
+      "work_slack_seconds": 176,
+      "return_slack_seconds": 383,
+      "work_minutes_per_bike": 2.87,
+      "verified": true
+    }
+  },
+  "simultaneous": true,
+  "fleet": [
+    "taepyeong-2050",
+    "dunsan-2050",
+    "station-2050"
+  ],
+  "facts": [
+    {
+      "id": "taepyeong-1950-result",
+      "category": "summary",
+      "text": "태평·문화 19:50는 2곳에서 6대를 작업하는 2.58km 경로입니다."
+    },
+    {
+      "id": "taepyeong-2020-result",
+      "category": "summary",
+      "text": "태평·문화 20:20는 2곳에서 6대를 작업하는 2.58km 경로입니다."
+    },
+    {
+      "id": "taepyeong-2050-result",
+      "category": "summary",
+      "text": "태평·문화 20:50는 2곳에서 6대를 작업하는 4.33km 경로입니다."
+    },
+    {
+      "id": "taepyeong-2050-cutoff",
+      "category": "timing",
+      "text": "태평·문화 20:50은 배치 마감까지 56초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    },
+    {
+      "id": "dunsan-2050-result",
+      "category": "summary",
+      "text": "둔산 20:50는 2곳에서 6대를 작업하는 2.46km 경로입니다."
+    },
+    {
+      "id": "dunsan-2050-cutoff",
+      "category": "timing",
+      "text": "둔산 20:50은 배치 마감까지 34초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    },
+    {
+      "id": "station-2050-result",
+      "category": "summary",
+      "text": "대전역 20:50는 2곳에서 4대를 작업하는 5.61km 경로입니다."
+    },
+    {
+      "id": "station-2050-cutoff",
+      "category": "timing",
+      "text": "대전역 20:50은 배치 마감까지 13초가 남습니다. 출발 전에 도로 지연과 작업 시간을 확인하세요."
+    },
+    {
+      "id": "return-8-2050-result",
+      "category": "summary",
+      "text": "태평·문화 20:50 · 복귀 8분는 2곳에서 4대를 작업하는 1.83km 경로입니다."
+    },
+    {
+      "id": "return-8-2050-return",
+      "category": "timing",
+      "text": "태평·문화 20:50 · 복귀 8분은 복귀 마감까지 37초가 남습니다. 지연이 예상되면 조건을 다시 확인하세요."
+    },
+    {
+      "id": "split-2050-result",
+      "category": "summary",
+      "text": "태평·문화 20:50 · 대여소당 빈자리 3대는 2곳에서 3대를 작업하는 4.33km 경로입니다."
+    },
+    {
+      "id": "fleet-disjoint",
+      "category": "summary",
+      "text": "세 차량이 각 권역에서 독립적으로 움직이는 가정에서 6곳의 작업 대상이 겹치지 않으며 합계 16대를 옮기는 계획입니다."
+    },
+    {
+      "id": "parking-assumption",
+      "category": "field",
+      "text": "배치 가능 공간을 대여소당 3대로 가정한 결과는 3대입니다. 출발 전에 실제 빈자리를 확인하세요."
+    },
+    {
+      "id": "work-assumptions",
+      "category": "field",
+      "text": "정차 준비 1분과 대당 상하차 20초를 가정했습니다. 운영 담당자가 현장의 작업 시간을 확인하세요."
+    }
+  ]
+}
