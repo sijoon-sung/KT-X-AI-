@@ -4,13 +4,13 @@
 
 [무음 영상](../assets/demo/tashu-ir-gpt-demo.mp4) · [발표자 메모](tashu-ir-gpt-cues.md) · [계산과 GPT 답변 기록](../assets/demo/ir-gpt-capture.json)
 
-대전 전체의 대여소 이용 연결에서 동네 지도로 들어가 Flow Matching의 대여·반납 시나리오를 보여준다. 관측 기록을 불러와 `경로 계산`을 누르면, dislab이 태평·문화·둔산·대전역의 권역별 경로를 계산한다. 태평·문화 작업표에서 GPT에게 수거·배치 장소와 수량을 묻고, 마지막에 세 차량의 작업표를 보여준다.
+대전 전체의 대여소 이용 연결에서 동네 지도로 들어간다. 센트럴파크 대여소의 10분 뒤 예측을 점으로 표시한다. 점 하나는 저장된 Flow Matching 재고 표본 하나다. 관측 기록을 불러와 `경로 계산`을 누르면, dislab이 태평·문화·둔산·대전역의 권역별 경로를 계산한다. 태평·문화 작업표에서 GPT에게 수거·배치 장소와 수량을 묻고, 마지막에 세 차량의 작업표를 보여준다.
 
 촬영에서는 로그인된 OpenAI Codex CLI의 `gpt-6.1-sol`을 사용했다. GPT에 전달하는 내용은 선택한 작업표와 질문이다. 계산 서버가 답변의 대여소 이름·순서·수량·작업을 대조한 뒤 화면에 표시한다. GPT 응답 대기 구간을 편집했다. 각 권역에 차량이 한 대씩 출발한다는 조건으로 2026년 11월 10일 저녁 관측을 재생했다. [Codex CLI 실행 방법](https://developers.openai.com/codex/noninteractive)
 
 아래 실행 방법에서 로컬 설정의 `provider`를 `openai-codex`로 지정하고, 비어 있는 로컬 폴더를 `relay_workspace`로 사용한다. 경로에 공식 `codex` CLI가 있어야 하며 `codex login status`로 로그인 상태를 확인할 수 있다. 기본 설정은 Antigravity다.
 
-영상 편집에는 촬영 PNG, 저장된 예측 시각화, 세 권역 경로와 OSM 도로 지도를 사용한다. `export_comparison_map.py --case taepyeong-2050 --case dunsan-2050 --case station-2050`으로 `ir-fleet-map.json`을 시나리오 폴더에 저장한 뒤, dislab에서 `tools/render_ir_product_demo.py`에 `--local`, `--scenarios`, `--shots`, `--out`, `--ffmpeg` 경로를 전달한다.
+영상 편집에는 촬영 PNG, 저장된 예측, 세 권역 경로와 OSM 도로 지도를 사용한다. `export_comparison_map.py --case taepyeong-2050 --case dunsan-2050 --case station-2050`으로 `ir-fleet-map.json`을 시나리오 폴더에 저장한다. dislab에서 `tools/render_ir_product_demo.py`에 `--local`, `--scenarios`, `--shots`, `--out`, `--ffmpeg`와 저장된 예측 NPZ의 `--forecast` 경로를 전달한다.
 
 ## 이전 시연
 

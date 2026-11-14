@@ -21,7 +21,7 @@
       "kind": "flow",
       "start": 16,
       "end": 27,
-      "title": "대여와 반납을 미리 그립니다"
+      "title": "이 대여소는 계속 비어 있을까?"
     },
     {
       "kind": "risk",
@@ -78,8 +78,8 @@
       "title": "저녁 배차 작업표"
     }
   ],
-  "sha256": "984a63bbda46be7079c148b4980a53158653ac1b7e7aef62fc24f8ead602ab33",
-  "bytes": 7605943,
+  "sha256": "4fac181e1f4712d4a93155b3dba3b5998c1837956fd5b5936f09871507c16748",
+  "bytes": 7378525,
   "decoded": true,
   "render_host": "dislab",
   "audio_streams": 0,

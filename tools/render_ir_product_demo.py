@@ -1,8 +1,10 @@
 """Produce the 90-second IR cut from the route calculation and GPT captures."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
 import render_map_scenario_video as v
@@ -49,9 +51,18 @@ def place(frame, image, x, y, w, h):
 
 
 class IR(ScenarioStory):
-    def __init__(self, local, geodata, network, cases, review, comparison, roads, shots):
+    def __init__(self, local, geodata, network, cases, review, comparison, roads, shots, forecast):
         super().__init__(local, geodata, network, cases, review, comparison)
         self.fleet_roads = v.LocalMap(roads['bounds'], roads['map']) if roads else None
+        if hashlib.sha256(forecast.read_bytes()).hexdigest() != self.summary['archived_forecast_sha256']:
+            raise ValueError('The stock forecast must match the recorded map story')
+        with np.load(forecast, allow_pickle=False) as archive:
+            matches = archive['station_ids'] == self.receiver['id']
+            if np.count_nonzero(matches) != 1:
+                raise ValueError('Expected one forecast for the station shown on the map')
+            samples = archive['recent_cfm'][matches][0]
+            values, counts = np.unique(samples, return_counts=True)
+            self.stock_groups = [(int(value), int(count)) for value, count in zip(values, counts)]
         self.shots = {}
         for name in ('before', 'calculating', 'fleet', 'question', 'pending', 'answer'):
             with Image.open(shots / f'{name}.png') as image:
@@ -63,7 +74,7 @@ class IR(ScenarioStory):
         rows = [
             ('pitch', '자전거가 떨어지기 전에', 8, False),
             ('zoom', '대전 전체에서 작업 권역까지', 8, False),
-            ('flow', '대여와 반납을 미리 그립니다', 11, False),
+            ('flow', '이 대여소는 계속 비어 있을까?', 11, False),
             ('risk', '먼저 채울 대여소를 찾습니다', 6, True),
             ('before', '차량 경로를 계산합니다', 5, True),
             ('calculating', '차량 경로를 계산합니다', 1, True),
@@ -94,6 +105,8 @@ class IR(ScenarioStory):
     def forecast(self, scene, t):
         kind = scene['kind']
         frame, draw = section(scene['title'], '부족 예측')
+        if kind == 'flow':
+            return self.stock_forecast(frame, draw, t)
         if kind == 'zoom':
             city, _ = self.city_map(t, ease((t-1)/6))
             small, detail = '대전 전체 이용 연결', '태평·문화권'
@@ -102,53 +115,57 @@ class IR(ScenarioStory):
             md = ImageDraw.Draw(city)
             for station in self.stations.values():
                 self.node(md, station)
-            if kind == 'risk':
-                x, y = self.positions[self.receiver['id']]
-                md.ellipse((x-31, y-31, x+31, y+31), outline=v.RED, width=2)
-                v.bubble(md, x, y, None, v.RED, 15)
-                v.label(md, x+19, y-57, '센트럴파크', v.RED)
-                small, detail = '부족 위험', '문화동 센트럴파크'
-            else:
-                self.draw_flows(md, t)
-                small, detail = 'GCN + Flow Matching', '대여·반납 시나리오'
+            x, y = self.positions[self.receiver['id']]
+            md.ellipse((x-31, y-31, x+31, y+31), outline=v.RED, width=2)
+            v.bubble(md, x, y, None, v.RED, 15)
+            v.label(md, x+19, y-57, '센트럴파크', v.RED)
+            small, detail = '부족 위험', '문화동 센트럴파크'
         place(frame, city, 64, 216, 1275, 736)
         panel(draw, (1365, 216, 1854, 952))
         pill(draw, 1402, 259, small, v.RED if kind == 'risk' else v.MINT)
         v.text(draw, (1400, 342), detail, 38, v.WHITE, True)
-        if kind == 'flow':
-            if t < 4:
-                v.lines(draw, 1402, 444, ['대여와 반납의 여러', '가능성을 계산합니다.'], 29)
-            else:
-                pill(draw, 1402, 446, '대여', v.AMBER)
-                pill(draw, 1520, 446, '반납')
-                v.lines(draw, 1402, 530, ['재고가 부족해질 곳을', '이 흐름에서 찾습니다.'], 29)
-        elif kind == 'risk':
+        if kind == 'risk':
             v.lines(draw, 1402, 444, ['저녁 배차에서', '먼저 채울 곳입니다.'], 29)
         else:
             v.lines(draw, 1402, 444, ['대여소 사이의', '이용 연결을 봅니다.'], 29)
         v.text(draw, (66, 974), '© OpenStreetMap contributors', 20, v.MUTED)
         return frame
 
-    def draw_flows(self, draw, t):
-        if t < 4:
-            self.latent(draw, 16*ease(t/4))
-            return
-        sample = 0
-        for station in self.stations.values():
-            rent, ret = station['counts'][sample]
-            x, y = self.positions[station['id']]
-            for count, sign, color in ((rent, 1, v.AMBER), (ret, -1, v.MINT)):
-                if not count:
-                    continue
-                length = 24 + min(count, 5)*5
-                ax, ay = x+sign*9, y-sign*8
-                bx, by = x+sign*length, y-sign*length*.68
-                if sign < 0:
-                    ax, ay, bx, by = bx, by, ax, ay
-                draw.line((ax, ay, bx, by), fill=color, width=3)
-                p = ((t-4)*1.2+station['lon']*55) % 1
-                a, b = v.lerp(ax,bx,p), v.lerp(ay,by,p)
-                draw.ellipse((a-5,b-5,a+5,b+5), fill=color)
+    def stock_forecast(self, frame, draw, t):
+        city = self.map.base.copy()
+        md = ImageDraw.Draw(city)
+        x, y = self.positions[self.receiver['id']]
+        v.bubble(md, x, y, None, v.RED, 23)
+        v.label(md, x-79, y-76, '센트럴파크', v.WHITE)
+        place(frame, city, 64, 216, 1038, 736)
+        panel(draw, (91, 243, 494, 356))
+        v.text(draw, (115, 260), '문화동 센트럴파크', 31, v.WHITE, True)
+        v.text(draw, (115, 309), f"관측 재고 {self.receiver['current']}대", 26, v.RED, True)
+
+        panel(draw, (1132, 216, 1854, 952))
+        pill(draw, 1170, 249, 'GCN + Flow Matching')
+        v.text(draw, (1168, 315), '10분 뒤 얼마나 남을까?', 40, v.WHITE, True)
+        v.text(draw, (1170, 382), '점 하나가 가능한 결과 하나입니다.', 25, v.MUTED)
+        for index, (value, count) in enumerate(self.stock_groups):
+            y = 445+index*113
+            color = v.RED if value == 0 else v.MINT
+            fill = '#30222D' if value == 0 else '#142637'
+            draw.rounded_rectangle((1169, y, 1817, y+94), radius=15, fill=fill)
+            v.text(draw, (1194, y+47), f'{value}대', 35, color, True, 'lm')
+            v_space, h_space, columns = 11, 23, 19
+            center_y = y+47-v_space*((count-1)//columns)/2
+            progress = ease((t-.65)/3.4)
+            for j in range(count):
+                dot_x = 1320+(j % columns)*h_space
+                dot_y = center_y+(j // columns)*v_space
+                reveal = ((j*73) % count)/count < progress
+                draw.ellipse((dot_x-4.7,dot_y-4.7,dot_x+4.7,dot_y+4.7),
+                             fill=color if reveal else '#364359')
+        if t >= 5:
+            draw.line((1170, 797, 1817, 797), fill=RULE, width=2)
+            v.text(draw, (1170, 829), '대부분의 예측에서 0대', 39, v.RED, True)
+        v.text(draw, (66, 974), '© OpenStreetMap contributors', 20, v.MUTED)
+        return frame
 
     def screen(self, scene):
         frame, draw = section(scene['title'], '경로 계산')
@@ -248,7 +265,7 @@ class IR(ScenarioStory):
 
 def main():
     parser = argparse.ArgumentParser()
-    for name in ('local','scenarios','shots','out'):
+    for name in ('local','scenarios','shots','out','forecast'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--ffmpeg',required=True)
     args = parser.parse_args()
@@ -261,7 +278,7 @@ def main():
     story = IR(read(args.local/'story.private.json'),read(args.local/'map.osm.json'),
                read(args.scenarios/'city-network.json'),read(args.scenarios/'plans.json')['cases'],
                read(args.scenarios/'review.json'),read(args.scenarios/'comparison-map.json'),
-               read(map_path) if map_path.exists() else None,args.shots)
+               read(map_path) if map_path.exists() else None,args.shots,args.forecast)
     if len(story.fleet) != 3:
         raise ValueError('The demo requires three checked routes')
     v.encode(story,story.spec(),args.out.resolve(),args.ffmpeg)
