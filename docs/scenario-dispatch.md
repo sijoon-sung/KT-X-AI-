@@ -1,6 +1,18 @@
 # 타슈 권역별 재배치 시나리오
 
-[발표용 제품 화면](../assets/demo/dispatch-product-demo.html) · [창업 발표용 영상](../assets/demo/tashu-startup-product-demo.mp4) · [시나리오 뷰어](../assets/demo/dispatch-scenarios.html)
+[경로 계산·LLM 답변 시연](../assets/demo/tashu-live-product-demo.mp4) · [발표용 제품 화면](../assets/demo/dispatch-product-demo.html) · [시나리오 뷰어](../assets/demo/dispatch-scenarios.html)
+
+## 경로 계산과 답변 시연
+
+무음 영상은 38초다. 대전 전체에서 태평·문화권으로 확대해 Flow Matching이 만든 흐름을 잠깐 보여준다. `경로 계산`을 누르면 보관된 관측을 입력으로 dislab에서 세 권역의 실제 도로 경로를 계산한다. 태평·문화 작업표에서 “어디서 몇 대를 싣고, 어디에 내려놓나요?”를 보낸 뒤 모델의 답변을 표시한다. 마지막 화면에는 세 권역의 경로와 작업표가 나온다. 촬영에서 답변까지 걸린 시간은 약 13초이며 영상에서는 대기 구간을 줄였다. [계산과 답변 기록](../assets/demo/live-product-capture.json)
+
+다시 실행하려면 dislab에 `tools/product_live_worker.py`와 기존 계산 코드가 필요하다. 원격 설정에는 기록 폴더 `stream`, 시나리오 파일 `spec`, 도로 캐시 `roads`를 넣는다. 로컬 설정에는 `ssh_host`, `remote_python`, `remote_worker`, `worker_config`, `agy`, `relay_workspace`를 넣는다. `agy`는 사용자가 로그인한 공식 Antigravity CLI다.
+
+```powershell
+python tools/serve_product_live.py --config LOCAL_CONFIG --viewer assets/demo/dispatch-product-demo.html --capture-log CAPTURE_LOG --port 8778
+```
+
+실행 중 `http://127.0.0.1:8778/`에서 `경로 계산`을 누르고 권역을 선택한 뒤 작업표에 질문한다. 단독 HTML 파일은 조회용이다. 경로 계산과 질의는 실행 서버가 연결된 주소에서 사용할 수 있다.
 
 발표 영상에는 지도, 작업 장소와 순서, 묶음 수량을 표시한다. 거리와 예상 시간, 예측 확률 등 발표자가 설명하는 세부 수치는 아래 기록과 시나리오 뷰어에서 확인할 수 있다.
 

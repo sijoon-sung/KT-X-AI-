@@ -1,0 +1,63 @@
+{
+  "duration_seconds": 38,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timeline": [
+    {
+      "kind": "opening",
+      "start": 0,
+      "end": 8,
+      "title": "대전 이용 흐름과 대여·반납 시나리오"
+    },
+    {
+      "kind": "before",
+      "start": 8,
+      "end": 11,
+      "title": "경로 계산 버튼"
+    },
+    {
+      "kind": "calculating",
+      "start": 11,
+      "end": 12,
+      "title": "경로 계산 중"
+    },
+    {
+      "kind": "fleet",
+      "start": 12,
+      "end": 18,
+      "title": "권역별 경로 계산 결과"
+    },
+    {
+      "kind": "question",
+      "start": 18,
+      "end": 22,
+      "title": "태평·문화 작업표에 질문"
+    },
+    {
+      "kind": "pending",
+      "start": 22,
+      "end": 24,
+      "title": "외부 모델 답변 대기"
+    },
+    {
+      "kind": "answer",
+      "start": 24,
+      "end": 32,
+      "title": "계산된 작업표에 대한 LLM 답변"
+    },
+    {
+      "kind": "result",
+      "start": 32,
+      "end": 38,
+      "title": "권역별 수거·배치 작업표"
+    }
+  ],
+  "sha256": "5a6a45450980a9f8aabc86f13559d44a2af7ca8b0a43f23ebd8cacd6da98b110",
+  "bytes": 3240300,
+  "decoded": true,
+  "render_host": "dislab",
+  "audio_streams": 0,
+  "final_result_start_seconds": 32
+}

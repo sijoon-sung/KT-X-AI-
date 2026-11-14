@@ -6,7 +6,7 @@
 
 [공모전 발표·도입 계획](docs/competition-guide.md)은 대전의 빈 대여소 문제, 실제 시연 순서와 4주 시범 운영안을 설명한다. [외부 LLM 실행](docs/quickstart-external-llm.md)을 따르면 지도에서 계산한 이동 대수와 방문 순서를 Antigravity 외부 모델에 물어볼 수 있다. 자료 준비·답변 검사는 dislab에서 실행한다. 이전 [소형 Qwen 실행](docs/quickstart-llm.md)과 시험 기록도 보존했다.
 
-[설문을 반영한 IR 발표자료](docs/competition-ir-deck.md)와 [창업 발표용 무음 영상](assets/demo/tashu-startup-product-demo.mp4)을 제공한다. 대전 전체 이용 연결에서 권역별 제품 화면으로 전환하고, 수거·배치 작업표와 출발 전 확인을 보여준다. [발표용 제품 화면](assets/demo/dispatch-product-demo.html) · [발표 대본과 작업 계획](docs/scenario-dispatch.md)
+[설문을 반영한 IR 발표자료](docs/competition-ir-deck.md)와 [경로 계산·LLM 답변 시연](assets/demo/tashu-live-product-demo.mp4)을 제공한다. 대전의 대여·반납 흐름에서 시작해 실제 경로 계산과 작업표 질문을 보여준다. [발표용 제품 화면](assets/demo/dispatch-product-demo.html) · [발표 대본과 작업 계획](docs/scenario-dispatch.md)
 
 ## 실행
 

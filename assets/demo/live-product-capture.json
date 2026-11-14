@@ -1,0 +1,33 @@
+{
+  "events": [
+    {
+      "event": "plan",
+      "cases": [
+        {
+          "id": "taepyeong-2050",
+          "moved_bikes": 6
+        },
+        {
+          "id": "dunsan-2050",
+          "moved_bikes": 6
+        },
+        {
+          "id": "station-2050",
+          "moved_bikes": 4
+        }
+      ],
+      "elapsed_seconds": 0.853
+    },
+    {
+      "elapsed_seconds": 12.956,
+      "plan_digest": "c9f89a37d904b9397aad4faf7590f4689e0f90735170fb7c571f631b75a3b48b",
+      "answer": "태평동 버드내초등학교 수거 6대\n문화동 센트럴파크(105동) 배치 6대",
+      "case": "taepyeong-2050",
+      "event": "answer",
+      "question": "어디서 몇 대를 싣고, 어디에 내려놓나요?",
+      "provider": "antigravity-official-cli",
+      "engine": "external"
+    }
+  ],
+  "mode": "recorded_replay"
+}

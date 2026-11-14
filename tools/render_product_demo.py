@@ -10,10 +10,13 @@ from render_dispatch_scenario_video import ScenarioStory
 
 
 class ProductDemo(ScenarioStory):
+    capture_names = ('fleet', 'taepyeong', 'review', 'final')
+    opening_target = 'fleet'
+
     def __init__(self, local, geodata, network, cases, review, comparison, shots):
         super().__init__(local, geodata, network, cases, review, comparison)
         self.screens = {}
-        for name in ('fleet', 'taepyeong', 'review', 'final'):
+        for name in self.capture_names:
             with Image.open(shots / f'{name}.png') as shot:
                 frame = Image.new('RGB', (v.WIDTH, v.HEIGHT), v.BG)
                 screen = ImageOps.contain(shot.convert('RGB'), frame.size, Image.Resampling.LANCZOS)
@@ -31,7 +34,7 @@ class ProductDemo(ScenarioStory):
 
     def opening(self, scene, t):
         if t >= 6.8:
-            return Image.blend(self.opening(scene, 6.79), self.screens['fleet'], min(1, (t-6.8)/1.2))
+            return Image.blend(self.opening(scene, 6.79), self.screens[self.opening_target], min(1, (t-6.8)/1.2))
         u = min(1, max(0, (t-2.6)/2.8))
         zoom = u*u*(3-2*u)
         frame, draw = self.background(scene)
@@ -62,18 +65,37 @@ class ProductDemo(ScenarioStory):
         return self.screens[kind]
 
 
+class LiveProductDemo(ProductDemo):
+    capture_names = ('before','calculating','fleet','question','pending','answer','final')
+    opening_target = 'before'
+
+    def spec(self):
+        return {'scenes': [
+            dict(kind='opening', title='대전 이용 흐름과 대여·반납 시나리오', seconds=8),
+            dict(kind='before', title='경로 계산 버튼', seconds=3),
+            dict(kind='calculating', title='경로 계산 중', seconds=1),
+            dict(kind='fleet', title='권역별 경로 계산 결과', seconds=6),
+            dict(kind='question', title='태평·문화 작업표에 질문', seconds=4),
+            dict(kind='pending', title='외부 모델 답변 대기', seconds=2),
+            dict(kind='answer', title='계산된 작업표에 대한 LLM 답변', seconds=8),
+            dict(kind='result', title='권역별 수거·배치 작업표', seconds=6),
+        ]}
+
+
 def main():
     parser = argparse.ArgumentParser()
     for name in ('local','scenarios','shots','out'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--ffmpeg',required=True)
+    parser.add_argument('--live-capture',action='store_true')
     args = parser.parse_args()
     args.out.mkdir(parents=True,exist_ok=True)
 
     def read(path):
         return json.loads(path.read_bytes())
 
-    story = ProductDemo(read(args.local/'story.private.json'),read(args.local/'map.osm.json'),
+    story_type = LiveProductDemo if args.live_capture else ProductDemo
+    story = story_type(read(args.local/'story.private.json'),read(args.local/'map.osm.json'),
                         read(args.scenarios/'city-network.json'),read(args.scenarios/'plans.json')['cases'],
                         read(args.scenarios/'review.json'),read(args.scenarios/'comparison-map.json'),args.shots)
     if len(story.fleet) != 3:
