@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'runtime'))
@@ -62,6 +63,9 @@ def complete(case, candidate):
         first = text.index(stop['name']) + len(stop['name'])
         last = text.index(case['stops'][i+1]['name'], first) if i+1 < len(case['stops']) else len(text)
         segment = text[first:last]
+        counts = re.findall(r'(\d+(?:\.\d+)?)\s*대', segment)
+        if not counts or any(float(count) != stop['bikes'] for count in counts):
+            raise ValueError('답변의 이동 수량을 작업표와 맞추지 못했습니다.')
         words = ('수거','싣','실어') if stop['action']=='pickup' else ('배치','내려','놓')
         if not any(word in segment for word in words):
             raise ValueError('답변의 수거·배치를 작업표와 맞추지 못했습니다.')

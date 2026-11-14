@@ -4,13 +4,24 @@
 
 [무음 영상](../assets/demo/tashu-ir-gpt-demo.mp4) · [발표자 메모](tashu-ir-gpt-cues.md) · [계산과 GPT 답변 기록](../assets/demo/ir-gpt-capture.json)
 
-대전 전체의 대여소 이용 연결에서 동네 지도로 들어간다. 센트럴파크 대여소의 10분 뒤 예측을 점으로 표시한다. 점 하나는 저장된 Flow Matching 재고 표본 하나다. 관측 기록을 불러와 `경로 계산`을 누르면, dislab이 태평·문화·둔산·대전역의 권역별 경로를 계산한다. 태평·문화 작업표에서 GPT에게 수거·배치 장소와 수량을 묻고, 마지막에 세 차량의 작업표를 보여준다.
+대전 전체의 대여소 이용 연결에서 동네 지도로 들어간다. 태평동 쌍용예가의 같은 관측에서 생성한 대여·반납 표본 세 가지를 보여준다. 화면의 화살표는 대여소에 들어오고 나가는 수량을 나타낸다. 각 행은 저장된 짝에서 중복을 제외한 예시이며 행 순서는 시간 순서와 무관하다. 이어서 문화동 센트럴파크를 저녁 배차의 부족 후보로 확인한다. `경로 계산`을 누르면 dislab이 태평·문화, 둔산, 대전역의 경로를 계산한다. GPT에게 수거·배치 장소와 수량을 묻고, 세 차량의 작업표를 보여준다.
 
 촬영에서는 로그인된 OpenAI Codex CLI의 `gpt-6.1-sol`을 사용했다. GPT에 전달하는 내용은 선택한 작업표와 질문이다. 계산 서버가 답변의 대여소 이름·순서·수량·작업을 대조한 뒤 화면에 표시한다. GPT 응답 대기 구간을 편집했다. 각 권역에 차량이 한 대씩 출발한다는 조건으로 2026년 11월 10일 저녁 관측을 재생했다. [Codex CLI 실행 방법](https://developers.openai.com/codex/noninteractive)
 
-아래 실행 방법에서 로컬 설정의 `provider`를 `openai-codex`로 지정하고, 비어 있는 로컬 폴더를 `relay_workspace`로 사용한다. 경로에 공식 `codex` CLI가 있어야 하며 `codex login status`로 로그인 상태를 확인할 수 있다. 기본 설정은 Antigravity다.
+영상 편집에는 촬영 PNG, 저장된 예측, 세 권역 경로와 OSM 도로 지도를 사용한다. `export_comparison_map.py --case taepyeong-2050 --case dunsan-2050 --case station-2050`으로 `ir-fleet-map.json`을 시나리오 폴더에 저장한다. dislab에서 `tools/render_ir_product_demo.py`에 `--local`, `--scenarios`, `--shots`, `--out`, `--ffmpeg` 경로를 전달한다.
 
-영상 편집에는 촬영 PNG, 저장된 예측, 세 권역 경로와 OSM 도로 지도를 사용한다. `export_comparison_map.py --case taepyeong-2050 --case dunsan-2050 --case station-2050`으로 `ir-fleet-map.json`을 시나리오 폴더에 저장한다. dislab에서 `tools/render_ir_product_demo.py`에 `--local`, `--scenarios`, `--shots`, `--out`, `--ffmpeg`와 저장된 예측 NPZ의 `--forecast` 경로를 전달한다.
+## 시연 실행
+
+1. dislab에 이 브랜치와 Python 실행 환경을 준비한다. 원격 설정 JSON에 기존 관측 폴더 `stream`, `design/dispatch-scenarios.json`의 경로 `spec`, OSRM 도로 캐시 `roads`를 지정한다.
+2. 로컬 설정 JSON에 SSH 별칭 `ssh_host`, dislab Python 경로 `remote_python`, dislab의 `tools/product_live_worker.py` 경로 `remote_worker`, 원격 설정 경로 `worker_config`, 로컬 시연 임시 폴더 `relay_workspace`를 넣는다. GPT 시연은 `"provider": "openai-codex"`를 넣고 공식 CLI의 `codex login status`로 로그인 상태를 확인한다. Antigravity 시연은 `provider`를 생략하거나 `antigravity`를 넣고 로그인된 CLI 경로 `agy`를 지정한다.
+3. 아래 명령으로 로컬 서버를 열고 브라우저에서 `경로 계산 → 태평·문화 → 작업 순서 질문`을 실행한다. `/health`에서는 서버와 선택한 답변 연결 설정을 확인한다. 원격 경로 계산과 모델 응답은 브라우저에서 확인한다.
+
+```powershell
+python tools/serve_product_live.py --config LOCAL_CONFIG --capture-log CAPTURE_LOG --port 8778
+Invoke-RestMethod http://127.0.0.1:8778/health
+```
+
+브라우저 주소는 `http://127.0.0.1:8778/`이다. 즉시 영상에 쓸 때는 [조회용 제품 화면](../assets/demo/dispatch-product-demo.html)을 다운로드해 열면 기존 작업표와 경로를 볼 수 있다.
 
 ## 이전 시연
 
@@ -19,14 +30,6 @@
 ## 경로 계산과 답변 시연
 
 무음 영상은 38초다. 대전 전체에서 태평·문화권으로 확대해 Flow Matching이 만든 흐름을 잠깐 보여준다. `경로 계산`을 누르면 보관된 관측을 입력으로 dislab에서 세 권역의 실제 도로 경로를 계산한다. 태평·문화 작업표에서 “어디서 몇 대를 싣고, 어디에 내려놓나요?”를 보낸 뒤 모델의 답변을 표시한다. 마지막 화면에는 세 권역의 경로와 작업표가 나온다. 촬영에서 답변까지 걸린 시간은 약 13초이며 영상에서는 대기 구간을 줄였다. [계산과 답변 기록](../assets/demo/live-product-capture.json)
-
-다시 실행하려면 dislab에 `tools/product_live_worker.py`와 기존 계산 코드가 필요하다. 원격 설정에는 기록 폴더 `stream`, 시나리오 파일 `spec`, 도로 캐시 `roads`를 넣는다. 로컬 설정에는 `ssh_host`, `remote_python`, `remote_worker`, `worker_config`, `agy`, `relay_workspace`를 넣는다. `agy`는 사용자가 로그인한 공식 Antigravity CLI다.
-
-```powershell
-python tools/serve_product_live.py --config LOCAL_CONFIG --viewer assets/demo/dispatch-product-demo.html --capture-log CAPTURE_LOG --port 8778
-```
-
-실행 중 `http://127.0.0.1:8778/`에서 `경로 계산`을 누르고 권역을 선택한 뒤 작업표에 질문한다. 단독 HTML 파일은 조회용이다. 경로 계산과 질의는 실행 서버가 연결된 주소에서 사용할 수 있다.
 
 발표 영상에는 지도, 작업 장소와 순서, 묶음 수량을 표시한다. 거리와 예상 시간, 예측 확률 등 발표자가 설명하는 세부 수치는 아래 기록과 시나리오 뷰어에서 확인할 수 있다.
 

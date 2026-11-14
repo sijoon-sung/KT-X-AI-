@@ -1,10 +1,8 @@
 """Produce the 90-second IR cut from the route calculation and GPT captures."""
 import argparse
-import hashlib
 import json
 from pathlib import Path
 
-import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
 import render_map_scenario_video as v
@@ -15,6 +13,7 @@ BG = '#0A1522'
 CARD = '#111F2F'
 RULE = '#30465B'
 COLORS = (v.MINT, v.BLUE, v.AMBER)
+FLOW_STATION = 'ST1155'
 
 
 def ease(t):
@@ -51,18 +50,20 @@ def place(frame, image, x, y, w, h):
 
 
 class IR(ScenarioStory):
-    def __init__(self, local, geodata, network, cases, review, comparison, roads, shots, forecast):
+    def __init__(self, local, geodata, network, cases, review, comparison, roads, shots):
         super().__init__(local, geodata, network, cases, review, comparison)
         self.fleet_roads = v.LocalMap(roads['bounds'], roads['map']) if roads else None
-        if hashlib.sha256(forecast.read_bytes()).hexdigest() != self.summary['archived_forecast_sha256']:
-            raise ValueError('The stock forecast must match the recorded map story')
-        with np.load(forecast, allow_pickle=False) as archive:
-            matches = archive['station_ids'] == self.receiver['id']
-            if np.count_nonzero(matches) != 1:
-                raise ValueError('Expected one forecast for the station shown on the map')
-            samples = archive['recent_cfm'][matches][0]
-            values, counts = np.unique(samples, return_counts=True)
-            self.stock_groups = [(int(value), int(count)) for value, count in zip(values, counts)]
+        self.flow_station = self.stations[FLOW_STATION]
+        scenario = self.flow_station
+        self.flow_samples = list(dict.fromkeys(
+            (rent, returned, stock) for (rent, returned), stock in
+            zip(scenario['counts'], scenario['stock_samples'], strict=True)
+        ))
+        if len(self.flow_samples) != 3 or any(
+            max(0, scenario['current'] - rent + returned) != stock
+            for rent, returned, stock in self.flow_samples
+        ):
+            raise ValueError('Unexpected archived flow examples for the selected station')
         self.shots = {}
         for name in ('before', 'calculating', 'fleet', 'question', 'pending', 'answer'):
             with Image.open(shots / f'{name}.png') as image:
@@ -74,7 +75,7 @@ class IR(ScenarioStory):
         rows = [
             ('pitch', '자전거가 떨어지기 전에', 8, False),
             ('zoom', '대전 전체에서 작업 권역까지', 8, False),
-            ('flow', '이 대여소는 계속 비어 있을까?', 11, False),
+            ('flow', '반납으로 들어오고, 대여로 나갑니다', 11, False),
             ('risk', '먼저 채울 대여소를 찾습니다', 6, True),
             ('before', '차량 경로를 계산합니다', 5, True),
             ('calculating', '차량 경로를 계산합니다', 1, True),
@@ -106,7 +107,7 @@ class IR(ScenarioStory):
         kind = scene['kind']
         frame, draw = section(scene['title'], '부족 예측')
         if kind == 'flow':
-            return self.stock_forecast(frame, draw, t)
+            return self.station_flows(frame, draw, t)
         if kind == 'zoom':
             city, _ = self.city_map(t, ease((t-1)/6))
             small, detail = '대전 전체 이용 연결', '태평·문화권'
@@ -131,39 +132,50 @@ class IR(ScenarioStory):
         v.text(draw, (66, 974), '© OpenStreetMap contributors', 20, v.MUTED)
         return frame
 
-    def stock_forecast(self, frame, draw, t):
+    def station_flows(self, frame, draw, t):
         city = self.map.base.copy()
         md = ImageDraw.Draw(city)
-        x, y = self.positions[self.receiver['id']]
-        v.bubble(md, x, y, None, v.RED, 23)
-        v.label(md, x-79, y-76, '센트럴파크', v.WHITE)
-        place(frame, city, 64, 216, 1038, 736)
-        panel(draw, (91, 243, 494, 356))
-        v.text(draw, (115, 260), '문화동 센트럴파크', 31, v.WHITE, True)
-        v.text(draw, (115, 309), f"관측 재고 {self.receiver['current']}대", 26, v.RED, True)
+        station = self.flow_station
+        x, y = self.positions[station['id']]
+        v.bubble(md, x, y, None, v.MINT, 21)
+        place(frame, city, 64, 216, 789, 736)
+        pill(draw, 91, 244, '태평동 쌍용예가')
 
-        panel(draw, (1132, 216, 1854, 952))
-        pill(draw, 1170, 249, 'GCN + Flow Matching')
-        v.text(draw, (1168, 315), '10분 뒤 얼마나 남을까?', 40, v.WHITE, True)
-        v.text(draw, (1170, 382), '점 하나가 가능한 결과 하나입니다.', 25, v.MUTED)
-        for index, (value, count) in enumerate(self.stock_groups):
-            y = 445+index*113
-            color = v.RED if value == 0 else v.MINT
-            fill = '#30222D' if value == 0 else '#142637'
-            draw.rounded_rectangle((1169, y, 1817, y+94), radius=15, fill=fill)
-            v.text(draw, (1194, y+47), f'{value}대', 35, color, True, 'lm')
-            v_space, h_space, columns = 11, 23, 19
-            center_y = y+47-v_space*((count-1)//columns)/2
-            progress = ease((t-.65)/3.4)
-            for j in range(count):
-                dot_x = 1320+(j % columns)*h_space
-                dot_y = center_y+(j // columns)*v_space
-                reveal = ((j*73) % count)/count < progress
-                draw.ellipse((dot_x-4.7,dot_y-4.7,dot_x+4.7,dot_y+4.7),
-                             fill=color if reveal else '#364359')
-        if t >= 5:
-            draw.line((1170, 797, 1817, 797), fill=RULE, width=2)
-            v.text(draw, (1170, 829), '대부분의 예측에서 0대', 39, v.RED, True)
+        panel(draw, (880, 216, 1854, 952))
+        pill(draw, 918, 247, 'GCN + Flow Matching')
+        v.text(draw, (1815, 255), '같은 관측에서 나온 예측 예시', 22, v.MUTED, anchor='ra')
+        # Hold each joint sample before changing the highlighted row.
+        selected = min(int(t/2.45), len(self.flow_samples)-1)
+        rent, returned, _ = self.flow_samples[selected]
+        phase = (t*.7) % 1
+        v.text(draw, (1047, 337), '반납 · 들어오는 양', 28, v.MINT, True, 'ma')
+        v.text(draw, (1674, 337), '대여 · 나가는 양', 28, v.AMBER, True, 'ma')
+        panel(draw, (1250, 339, 1482, 506), fill='#162D40')
+        v.text(draw, (1366, 375), f"{station['current']}대", 49, v.WHITE, True, 'ma')
+        v.text(draw, (1366, 447), '관측 재고', 23, v.MUTED, anchor='ma')
+        for left, right, count, color in ((942,1224,returned,v.MINT), (1519,1801,rent,v.AMBER)):
+            y = 431
+            line = color if count else RULE
+            draw.line((left, y, right, y), fill=line, width=4+count*4)
+            draw.polygon(((right,y), (right-22,y-15), (right-22,y+15)), fill=line)
+            for index in range(count):
+                cx = v.lerp(left+12, right-26, ((index/count)+phase) % 1)
+                v.bubble(draw, cx, y, None, color, 10)
+            v.text(draw, ((left+right)//2, 461), f'{count}대', 29, color, True, 'ma')
+        cols = (958, 1162, 1373, 1730)
+        for x, title in zip(cols, ('예시','반납','대여','10분 뒤 재고'), strict=True):
+            v.text(draw, (x, 555), title, 24, v.MUTED, True, 'ma')
+        for index, (outgoing, incoming, stock) in enumerate(self.flow_samples):
+            y = 601+index*99
+            focused = index == selected
+            draw.rounded_rectangle((915, y, 1819, y+81), radius=14,
+                                   fill='#193448' if focused else '#142437',
+                                   outline=v.BLUE if focused else RULE, width=2)
+            for x, label, color in zip(
+                cols, (str(index+1), f'{incoming}대', f'{outgoing}대', f'{stock}대'),
+                (v.MUTED, v.MINT, v.AMBER, v.WHITE), strict=True,
+            ):
+                v.text(draw, (x, y+20), label, 33, color, True, 'ma')
         v.text(draw, (66, 974), '© OpenStreetMap contributors', 20, v.MUTED)
         return frame
 
@@ -265,7 +277,7 @@ class IR(ScenarioStory):
 
 def main():
     parser = argparse.ArgumentParser()
-    for name in ('local','scenarios','shots','out','forecast'):
+    for name in ('local','scenarios','shots','out'):
         parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--ffmpeg',required=True)
     args = parser.parse_args()
@@ -278,7 +290,7 @@ def main():
     story = IR(read(args.local/'story.private.json'),read(args.local/'map.osm.json'),
                read(args.scenarios/'city-network.json'),read(args.scenarios/'plans.json')['cases'],
                read(args.scenarios/'review.json'),read(args.scenarios/'comparison-map.json'),
-               read(map_path) if map_path.exists() else None,args.shots,args.forecast)
+               read(map_path) if map_path.exists() else None,args.shots)
     if len(story.fleet) != 3:
         raise ValueError('The demo requires three checked routes')
     v.encode(story,story.spec(),args.out.resolve(),args.ffmpeg)

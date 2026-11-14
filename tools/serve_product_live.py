@@ -16,14 +16,23 @@ from gpt_demo_transport import generate as generate_gpt
 
 def main():
     parser = argparse.ArgumentParser()
-    for key in ('config','viewer','capture-log'):
-        parser.add_argument('--'+key,type=Path,required=True)
+    parser.add_argument('--config',type=Path,required=True)
+    parser.add_argument('--viewer',type=Path,default=Path(__file__).resolve().parents[1] / 'assets/demo/dispatch-product-demo.html')
+    parser.add_argument('--capture-log',type=Path,required=True)
     parser.add_argument('--port',type=int,default=8778)
     args = parser.parse_args()
     config = json.loads(args.config.read_text(encoding='utf-8-sig'))
     provider = config.get('provider', 'antigravity')
     if provider not in ('antigravity', 'openai-codex'):
         parser.error('Unknown answer provider')
+    required = ('ssh_host', 'remote_python', 'remote_worker', 'worker_config', 'relay_workspace')
+    if provider == 'antigravity':
+        required += ('agy',)
+    missing = [key for key in required if not isinstance(config.get(key), str) or not config[key].strip()]
+    if missing:
+        parser.error('Missing configuration: '+', '.join(missing))
+    Path(config['relay_workspace']).mkdir(parents=True, exist_ok=True)
+    args.capture_log.parent.mkdir(parents=True, exist_ok=True)
     viewer = args.viewer.read_text(encoding='utf-8')
     saved = json.loads(re.search(r'<script id="payload" type="application/json">(.*?)</script>',viewer,re.S)[1])
     empty = {'plans':{'cases':[]},'review':{'selected':[],'fleet':[]},'network':saved['network']}
@@ -55,6 +64,8 @@ def main():
 
         def do_GET(self):
             if self.path == '/':return self.send(200,page,'text/html')
+            if self.path == '/health':
+                return self.send(200,{'status':'ok','mode':'recorded_replay','provider':provider})
             return self.send(404,{'error':'페이지를 찾지 못했습니다.'})
 
         def do_POST(self):
@@ -67,6 +78,7 @@ def main():
                 size = int(self.headers.get('Content-Length','0'))
                 if not 0<size<=4096:raise ValueError('요청 내용을 확인해 주세요.')
                 data = json.loads(self.rfile.read(size))
+                if not isinstance(data,dict):raise ValueError('요청 내용을 확인해 주세요.')
                 started = time.monotonic()
                 if self.path == '/api/product-plan':
                     state = None
@@ -93,6 +105,7 @@ def main():
                 record['elapsed_seconds']=round(time.monotonic()-started,3)
                 with args.capture_log.open('a',encoding='utf-8') as log:log.write(json.dumps(record,ensure_ascii=False)+'\n')
                 self.send(200,result)
+            except json.JSONDecodeError:self.send(422,{'error':'요청 내용을 확인해 주세요.'})
             except ValueError as exc:self.send(422,{'error':str(exc)})
             except Exception as exc:
                 print(type(exc).__name__,str(exc),flush=True)
