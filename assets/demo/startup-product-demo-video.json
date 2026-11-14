@@ -1,0 +1,45 @@
+{
+  "duration_seconds": 70,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "timeline": [
+    {
+      "kind": "opening",
+      "start": 0,
+      "end": 8,
+      "title": "오늘 저녁, 어느 권역부터 채울까요?"
+    },
+    {
+      "kind": "fleet",
+      "start": 8,
+      "end": 27,
+      "title": "권역별 재배치 작업 계획"
+    },
+    {
+      "kind": "taepyeong",
+      "start": 27,
+      "end": 45,
+      "title": "태평·문화 작업표"
+    },
+    {
+      "kind": "review",
+      "start": 45,
+      "end": 57,
+      "title": "대전역 출발 전 확인"
+    },
+    {
+      "kind": "result",
+      "start": 57,
+      "end": 70,
+      "title": "권역별 수거·배치 작업표"
+    }
+  ],
+  "sha256": "480ac0e9fa4553039cab581c5fe46b69b0125e183343b1c8b0fd9184b13b66f1",
+  "bytes": 3912083,
+  "decoded": true,
+  "render_host": "dislab",
+  "audio_streams": 0,
+  "final_result_start_seconds": 57
+}
