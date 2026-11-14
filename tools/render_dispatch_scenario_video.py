@@ -31,8 +31,18 @@ class ScenarioStory(v.Story):
             dict(kind='fleet',title='같은 관측에서 세 권역의 경로 계산',seconds=16),
             dict(kind='alternatives',title='권역과 작업 조건에 따라 바뀌는 계획',seconds=14),
             dict(kind='review',title='경로 검증과 출발 전 확인 사항',seconds=11),
-            dict(kind='result',title='태평·문화권 · 수거·배치·복귀 시간표',seconds=13),
+            dict(kind='result',title='태평·문화권 재배치 결과',seconds=13),
         ]}
+
+    def background(self,scene):
+        image=Image.new('RGB',(v.WIDTH,v.HEIGHT),v.BG);draw=ImageDraw.Draw(image)
+        draw.line((56,89,1864,89),fill=v.EDGE,width=2)
+        v.text(draw,(57,26),'타슈',33,v.WHITE,True)
+        v.text(draw,(147,34),'재배치 운영 도우미',25,v.MUTED)
+        v.text(draw,(1863,36),'관측 기록 재생',23,v.MUTED,anchor='ra')
+        v.text(draw,(57,116),scene['title'],52,v.WHITE,True)
+        draw.rounded_rectangle((v.PX,v.MY,v.PX+v.PW,v.MY+v.MH),radius=19,fill=v.PANEL,outline=v.EDGE,width=2)
+        return image,draw
 
     def city_points(self,ratio=0):
         target=self.map.center
@@ -106,16 +116,14 @@ class ScenarioStory(v.Story):
         map_image,pt=self.city_map(t,ratio)
         if scene['kind']=='intro':
             v.text(draw,(x,v.MY+34),'운영 기능',34,v.WHITE,True)
-            rows=[('부족 위험 예측','대여·반납 시나리오에서 예상 재고 계산'),('묶음 수거·배치','한 곳에서 최소 3대씩 작업'),
+            rows=[('부족 위험 예측','대여·반납 시나리오에서 예상 재고 계산'),('묶음 수거·배치','수거지와 배치지별 작업량 계산'),
                   ('권역별 경로와 작업표','여러 시나리오의 실제 도로 경로 계산'),('출발 전 검토','시간·적재량·작업 장소 확인')]
             for i,(title,body) in enumerate(rows):
                 y=v.MY+105+132*i;v.text(draw,(x,y),title,29,(v.MINT,v.AMBER,v.BLUE,v.WHITE)[i],True);v.text(draw,(x,y+46),body,22,v.MUTED)
         else:
-            v.text(draw,(x,v.MY+40),'과거 이용 기록',34,v.BLUE,True)
-            v.text(draw,(x,v.MY+130),f"{len(self.network['stations']):,}곳",64,v.WHITE,True)
-            v.text(draw,(x,v.MY+220),'모델이 지원하는 대전 대여소',26,v.MUTED)
-            v.text(draw,(x,v.MY+335),'태평·문화권으로 확대' if ratio else '과거 연결 일부 표시',29,v.MINT,True)
-            v.lines(draw,x,v.MY+456,['GCN이 대여소 사이의','과거 이용 관계를 읽습니다.'],26)
+            v.text(draw,(x,v.MY+55),'과거 이용 기록',31,v.BLUE,True)
+            v.text(draw,(x,v.MY+137),'태평·문화권으로 확대' if ratio else '대전 대여소 연결',39,v.WHITE,True)
+            v.lines(draw,x,v.MY+236,['GCN이 대여소 사이의','과거 이용 관계를 읽습니다.'],26)
         self.footer(image,map_image,'대전광역시 · 과거 대여소 연결')
         return image
 
@@ -123,16 +131,17 @@ class ScenarioStory(v.Story):
         image,draw=self.background(scene);x=v.PX+34;kind=scene['kind']
         if kind=='fleet':
             map_image=self.fleet_map(t)
-            v.text(draw,(x,v.MY+28),f"총 {sum(c['moved_bikes'] for c in self.fleet)}대",61,v.MINT,True)
-            v.text(draw,(x,v.MY+112),'차량 3대 · 작업 대상 6곳',26,v.MUTED)
+            v.text(draw,(x,v.MY+40),'권역별 수거 → 배치',34,v.WHITE,True)
             for i,c in enumerate(self.fleet):
-                y=v.MY+184+135*i;color=(v.MINT,v.BLUE,v.AMBER)[i]
+                y=v.MY+136+153*i;color=(v.MINT,v.BLUE,v.AMBER)[i]
                 v.text(draw,(x,y),c['name'].split()[0],30,color,True)
-                v.text(draw,(x,y+48),f"{c['moved_bikes']}대 · {c['distance_km']:.2f}km · {c['work_minutes']:.1f}분",27,v.WHITE)
-            v.text(draw,(x,v.MY+627),'세 권역에서 따로 출발하는 가정',21,v.MUTED)
+                for j,stop in enumerate(c['stops']):
+                    name=stop['name'].replace('태평동 ','').replace('문화동 ','').replace('탄방동 ','').replace('소제동 ','')
+                    v.text(draw,(x,y+43+j*33),name,22,v.MUTED)
+            v.text(draw,(x,v.MY+627),'권역별로 차량이 출발하는 조건',21,v.MUTED)
         elif kind=='alternatives':
             map_image=self.comparison_map.base.copy();md=ImageDraw.Draw(map_image)
-            keys=['taepyeong-2050','return-8-2050','split-2050'];titles=['복귀 15분','복귀 8분','빈자리 3대 가정']
+            keys=['taepyeong-2050','return-8-2050','split-2050'];titles=['기본 작업','복귀 마감 단축','배치 공간 제한']
             selected=min(2,int(t/(scene['seconds']/3)))
             c=self.cases[keys[selected]]
             md.line([self.comparison_map.point(*point) for point in c['geometry']['coordinates']],fill=v.MINT,width=7,joint='curve')
@@ -143,34 +152,91 @@ class ScenarioStory(v.Story):
                 row=self.cases[key];y=v.MY+42+198*i;highlight=i==selected
                 if highlight:draw.rounded_rectangle((x-13,y-11,v.PX+v.PW-21,y+146),radius=12,fill='#20374B')
                 v.text(draw,(x,y),title,30,v.MINT if highlight else v.MUTED,True)
-                v.text(draw,(x,y+48),f"{row['moved_bikes']}대 · {row['distance_km']:.2f}km · {row['work_minutes']:.1f}분",27,v.WHITE)
                 place=row['stops'][-1]['name']
-                v.text(draw,(x,y+93),place,24,v.MUTED)
+                v.text(draw,(x,y+53),place,24,v.MUTED)
         else:
             map_image=self.fleet_map(14)
-            total=sum(check is not None for check in self.review['checks'].values())
-            v.text(draw,(x,v.MY+36),f'작업표 {total}건 검증 통과',33,v.MINT,True)
+            v.text(draw,(x,v.MY+36),'작업표 검증 완료',33,v.MINT,True)
             v.text(draw,(x,v.MY+96),'수량 보존 · 적재량 · 작업·복귀 마감',23,v.MUTED)
             title='LLM이 먼저 확인할 항목' if self.review['mode']=='llm_priority' else '출발 전에 확인할 항목'
             v.text(draw,(x,v.MY+184),title,30,v.WHITE,True)
             for i,fact in enumerate(self.review['selected'][:3]):
                 key=fact['id'];base=key.rsplit('-',1)[0];case=self.cases.get(base)
                 if not case or not key.endswith(('-cutoff','-return')):
-                    v.lines(draw,x,v.MY+260+i*120,[fact['text'][j:j+29] for j in range(0,len(fact['text']),29)],21,gap=5)
+                    v.text(draw,(x,v.MY+260+i*120),'현장 작업 조건 확인',25,v.AMBER,True)
                     continue
-                check=self.review['checks'][base];kind_label='복귀' if key.endswith('-return') else '배치'
-                seconds=check['return_slack_seconds' if kind_label=='복귀' else 'work_slack_seconds']
+                kind_label='복귀' if key.endswith('-return') else '배치'
                 y=v.MY+260+i*120
-                v.text(draw,(x,y),case['name'].split()[0]+(' · 복귀 8분' if base.startswith('return-8') else ''),25,v.WHITE,True)
-                v.text(draw,(x,y+44),f'{kind_label} 마감까지 {seconds}초',27,v.AMBER,True)
+                v.text(draw,(x,y),case['name'].split()[0],25,v.WHITE,True)
+                v.text(draw,(x,y+44),f'{kind_label} 마감 여유 확인',27,v.AMBER,True)
         self.footer(image,map_image,'기록 재생 · 경로 계산 결과')
+        return image
+
+    def analysis_view(self,scene,t):
+        image,draw=self.background(scene);map_image=self.map.base.copy();md=ImageDraw.Draw(map_image);x=v.PX+34
+        kind=scene['kind']
+        if kind in ('history','flow'):self.history(md,t,kind=='flow')
+        for station in self.stations.values():
+            high=kind=='risk' and station['forecast']['p0']>=.5
+            self.node(md,station,v.RED if high else v.BLUE,10 if high else 6)
+        if kind=='history':
+            v.label(md,19,19,'과거 이용 기록의 대여소 연결',v.MINT)
+            v.text(draw,(x,v.MY+55),'GCN',39,v.BLUE,True)
+            v.lines(draw,x,v.MY+149,['주변 대여소의 이용 흐름을','각 대여소 예측에 반영합니다.'],28)
+        elif kind=='flow':
+            v.text(draw,(x,v.MY+52),'Flow Matching',40,v.MINT,True)
+            if t<14:
+                phase=16*min(1,max(0,(t-.7)/12.5));self.latent(md,phase)
+                v.label(md,19,19,'대여·반납 표본 생성',v.MINT)
+                v.lines(draw,x,v.MY+153,['대여소의 이용 정보와','포아송 평균으로 표본을 만듭니다.'],26)
+                draw.rounded_rectangle((x,v.MY+288,x+465,v.MY+299),radius=5,fill=v.EDGE)
+                if phase>0:draw.rounded_rectangle((x,v.MY+288,x+465*phase/16,v.MY+299),radius=5,fill=v.MINT)
+            else:
+                sample=min(3,int((t-14)/3.25))
+                v.label(md,19,19,'대여·반납 시나리오',v.MINT)
+                for station in self.stations.values():
+                    a,b=station['counts'][sample];cx,cy=self.positions[station['id']]
+                    for count,direction,color,offset in ((a,1,v.AMBER,-1),(b,-1,v.MINT,1)):
+                        if not count:continue
+                        length=15+min(count,5)*5
+                        end=(cx+direction*length,cy+offset*12)
+                        md.line((cx,cy,*end),fill=color,width=3)
+                        drift=t%1 if direction>0 else 1-t%1
+                        px,py=v.lerp(cx,end[0],drift),v.lerp(cy,end[1],drift)
+                        md.ellipse((px-5,py-5,px+5,py+5),fill=color)
+                v.text(draw,(x,v.MY+154),'대여',31,v.AMBER,True)
+                v.text(draw,(x,v.MY+221),'반납',31,v.MINT,True)
+                v.lines(draw,x,v.MY+328,['현재 재고에 대여와 반납을','반영해 예상 재고를 계산합니다.'],26)
+        else:
+            s=self.receiver;px,py=self.positions[s['id']]
+            v.bubble(md,px,py,None,v.RED,23);v.label(md,px+27,py-43,'센트럴파크',v.RED)
+            v.label(md,19,19,'부족 위험이 높은 대여소',v.RED)
+            v.text(draw,(x,v.MY+55),'부족 위험',40,v.RED,True)
+            v.lines(draw,x,v.MY+146,['부족이 예상되는 곳을 찾고','수거·배치 후보를 정합니다.'],27)
+            v.text(draw,(x,v.MY+297),'차량의 작업 조건',30,v.WHITE,True)
+            v.lines(draw,x,v.MY+361,['적재량 · 배치 공간', '정차·상하차 시간 · 복귀 마감'],25)
+        self.footer(image,map_image,'대전 태평동 · 문화동')
+        return image
+
+    def final_view(self,scene):
+        image,draw=self.background(scene);map_image=self.map.base.copy();md=ImageDraw.Draw(map_image);x=v.PX+34
+        self.result_map(md,self.route['return_minutes'])
+        rows=[('수거',s['name'],v.MINT) if s['action']=='pickup' else ('배치',s['name'],v.AMBER) for s in self.route['stops']]
+        rows.append(('복귀',self.plan['depot']['name'],v.BLUE))
+        for i,(action,place,color) in enumerate(rows):
+            y=v.MY+59+i*184
+            v.text(draw,(x,y),action,32,color,True)
+            v.text(draw,(x,y+57),place,29,v.WHITE,True)
+            if i<len(rows)-1:draw.line((x,y+131,v.PX+v.PW-35,y+131),fill=v.EDGE,width=2)
+        self.footer(image,map_image,'계산된 차량 왕복 경로')
         return image
 
     def render(self,scene,t):
         kind=scene['kind']
         if kind in ('intro','city','zoom'):return self.overview(scene,t)
         if kind in ('fleet','alternatives','review'):return self.result_view(scene,t)
-        return super().render(scene,t)
+        if kind=='result':return self.final_view(scene)
+        return self.analysis_view(scene,t)
 
 
 def main():

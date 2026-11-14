@@ -1,6 +1,8 @@
 # 타슈 권역별 재배치 시나리오
 
-[시나리오 뷰어](../assets/demo/dispatch-scenarios.html) · [2분 10초 무음 영상](../assets/demo/tashu-dispatch-scenarios.mp4)
+[시나리오 뷰어](../assets/demo/dispatch-scenarios.html) · [무음 발표 영상](../assets/demo/tashu-dispatch-presentation.mp4)
+
+발표 영상에는 지도, 작업 장소와 순서, 묶음 수량을 표시한다. 거리와 예상 시간, 예측 확률 등 발표자가 설명하는 세부 수치는 아래 기록과 시나리오 뷰어에서 확인할 수 있다.
 
 기존 영상의 단일 왕복을 일괄 경로 계산과 권역별 비교로 확장했다. 차량 출발 위치, 복귀 마감, 배치할 빈자리가 달라질 때 수량과 경로가 어떻게 바뀌는지 볼 수 있다. 대전 전체 화면에는 모델이 지원하는 대여소 1,294곳과 과거 대여소 연결 일부를 표시하고 태평·문화권으로 확대한다. 가까운 지도에서는 고정 Flow Matching의 실제 보정값과 대여·반납 표본을 보여 준다. [지도 출처](https://www.openstreetmap.org/relation/2349984)
 
@@ -53,4 +55,4 @@ python tools/review_dispatch_scenarios.py --plans OUTPUT/plans.json --candidate 
 | 0:30–1:16 | 권역 연결, Flow Matching 표본, 재고 부족 위험 |
 | 1:16–1:46 | 3개 권역 합계 16대와 마감·빈자리 조건별 경로 |
 | 1:46–1:57 | 작업표 검사 및 출발 전 검토 |
-| 1:57–2:10 | 수거·배치·복귀 결과 시간표 |
+| 1:57–2:10 | 수거·배치·복귀 경로와 작업 위치 |
